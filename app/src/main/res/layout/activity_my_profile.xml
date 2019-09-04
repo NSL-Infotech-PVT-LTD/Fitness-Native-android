@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorLightGray"
+        tools:context=".activities.MyProfile">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/innerLeftGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/innerRightGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/myProfileText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/my_porfile"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_24sdp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/header" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/editProfileBtn"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/colorWhite"
+            android:gravity="center"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toBottomOf="@id/myProfileText"
+            app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
+            app:layout_constraintTop_toTopOf="@id/myProfileText"
+            app:strokeColor="@color/colorBlack"
+            app:strokeWidth="@dimen/_1sdp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_profile_setting"
+            app:layout_constraintBottom_toBottomOf="@id/editProfileBtn"
+            app:layout_constraintHorizontal_bias="0.73"
+            app:layout_constraintLeft_toRightOf="@+id/myProfileText"
+            app:layout_constraintRight_toLeftOf="@+id/editProfileBtn"
+            app:layout_constraintTop_toTopOf="@+id/editProfileBtn" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileImageView"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/myProfileText">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sophie" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profileNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:text="sophia"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/athleteBtn"
+            app:layout_constraintLeft_toRightOf="@+id/profileImageView"
+            app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/athleteBtn"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:background="@drawable/round_background_colord"
+            android:backgroundTint="@color/colorGreen"
+            android:gravity="center"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/athlete"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+            app:layout_constraintLeft_toRightOf="@+id/profileImageView"
+            app:layout_constraintTop_toBottomOf="@+id/profileNameTv"
+            app:strokeColor="@color/colorBlack"
+            app:strokeWidth="@dimen/_1sdp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_6sdp"
+            android:background="@drawable/ic_profile_type"
+            app:layout_constraintBottom_toBottomOf="@id/athleteBtn"
+            app:layout_constraintLeft_toRightOf="@+id/athleteBtn"
+            app:layout_constraintTop_toTopOf="@+id/athleteBtn" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/cards_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emailText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:drawableLeft="@drawable/ic_profile_type"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_vertical"
+            android:text="@string/email"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profileEmailTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_vertical"
+            android:text="sophie123@gmail.com"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/emailText" />
+
+        <View
+            android:id="@+id/emailView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/profileEmailTv"></View>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/phoneText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:drawableLeft="@drawable/ic_profile_type"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_vertical"
+            android:text="@string/phone"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/emailView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profilePhoneTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_vertical"
+            android:text="278633225487"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/phoneText" />
+
+        <View
+            android:id="@+id/phoneView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/profilePhoneTv"></View>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cardText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:drawableLeft="@drawable/ic_profile_type"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_vertical"
+            android:text="@string/cards"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/phoneView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/cardText"></androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"></View>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

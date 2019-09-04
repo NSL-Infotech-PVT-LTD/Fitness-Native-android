@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Utrain</string>
+    <string name="my_porfile">My Profile</string>
+    <string name="edit">Edit</string>
+    <string name="athlete">Athlete</string>
+    <string name="add_cards">Add Cards</string>
+    <string name="fill_your_card_details">Fill your card details</string>
+    <string name="name_on_card">Nam on card</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="stard">Stard</string>
+    <string name="chat">Chat</string>
+    <string name="card_number">Card Number</string>
+    <string name="add_card_details">Add Card Details</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="cards">Cards</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="explore_the_best_coaches">Exploer the best  Coaches/Organisation with just a tap!</string>
+    <string name="search_keyword">Search Keyword</string>
+</resources>

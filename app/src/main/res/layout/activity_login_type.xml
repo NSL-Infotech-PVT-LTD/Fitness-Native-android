@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_header_secondScreen"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:text="What are you looking for?"
+        android:textColor="#fff"
+        android:textSize="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+
+        />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="290dp"
+        android:layout_height="320dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:background="@color/colorWhite"
+        app:layout_constraintTop_toBottomOf="@id/tv_header_secondScreen"
+        app:layout_constraintBottom_toTopOf="@id/btn_material_screenTwo">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardviewOne"
+                android:layout_width="200sp"
+                android:layout_height="80dp"
+                app:strokeColor="@color/colorGreen"
+                app:strokeWidth="@dimen/_1sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="25dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Athlete"
+                        android:textSize="15sp"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/img_athlete"
+                        android:id="@+id/tv_athlete"
+                        android:layout_marginLeft="10sp"
+                        />
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_athlete"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:src="@drawable/athlete"
+                        android:scaleType="fitXY"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/tv_athlete"
+                        android:layout_marginLeft="20dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardviewTwo"
+                android:layout_width="200sp"
+                android:layout_height="80dp"
+                app:strokeColor="@color/colorGreen"
+                app:strokeWidth="@dimen/_1sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardviewOne"
+                android:layout_marginTop="15sp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Coach"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/img_coach"
+                        android:id="@+id/tv_coach"
+                        android:layout_marginRight="20sp"/>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_coach"
+                        android:layout_marginLeft="20sp"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:src="@drawable/coach"
+                        android:scaleType="fitXY"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/tv_coach"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardviewThree"
+                android:layout_width="200sp"
+                android:layout_height="80dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardviewTwo"
+                android:layout_marginTop="15sp"
+                android:layout_marginBottom="30dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Organization"
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/img_organization"
+                        android:id="@+id/tv_organization"
+                        android:layout_marginRight="20sp"/>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_organization"
+                        android:layout_marginLeft="20sp"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:src="@drawable/company"
+                        android:scaleType="fitXY"
+                        app:strokeColor="@color/colorGreen"
+                        app:strokeWidth="@dimen/_1sdp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/tv_organization"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_material_screenTwo"
+        android:layout_width="290dp"
+        android:layout_height="60dp"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:text="Find the coaches / Organization"
+        android:gravity="center"
+        android:textColor="#000"
+        android:backgroundTint="#00fa9a"/>
+
+
+    <View
+        android:layout_width="150sp"
+        android:layout_height="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="1dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f5df"
+    app:layout_constraintVertical_weight="10">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_selectPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="50dp"
+        android:text="Select Payment"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40sp"
+        android:text="Please select your preferable payment method"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_selectPayment" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/cards_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview1"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00fa9a">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_mastercard"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="20sp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mastercard"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_soophia_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Sophia"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/img_mastercard"
+                    app:layout_constraintTop_toTopOf="@id/img_mastercard" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text=".... .... .... 4562"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/img_mastercard"
+                    app:layout_constraintLeft_toRightOf="@id/img_mastercard" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview2"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardview1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_mastercard2"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="20sp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/visa"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_soophia_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Sophia"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toRightOf="@id/img_mastercard2"
+                    app:layout_constraintTop_toTopOf="@id/img_mastercard2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text=".... .... .... 4562"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@id/img_mastercard2"
+                    app:layout_constraintLeft_toRightOf="@id/img_mastercard2" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_material_SeventhScreen"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="#00fa9a"
+        android:gravity="center"
+        android:text="Proceed"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

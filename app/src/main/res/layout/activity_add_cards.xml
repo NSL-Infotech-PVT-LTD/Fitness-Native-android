@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
+    tools:context=".activities.AddCards">
+    <include
+        android:id="@+id/header"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent">-->
+    <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/layoutTwo"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/header">-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/addCardsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/add_cards"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_24sdp"
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/cards_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/innerLeftGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/innerRightGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fill_card_detail_Tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/fill_your_card_details"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addCardNameEdt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:focusable="true"
+                android:hint="@string/name_on_card"
+                android:inputType="text"
+                android:padding="@dimen/_7sdp"
+                android:singleLine="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/fill_card_detail_Tv" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addCardNumEdt"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:focusable="true"
+                android:hint="@string/card_number"
+                android:inputType="number"
+                android:padding="@dimen/_7sdp"
+                android:singleLine="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/addCardNameEdt" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/expiryMonthTV"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:padding="@dimen/_9sdp"
+                android:text="2"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/citySpin"
+                style="@style/CustomSpinnerTheme"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/expiryMonthTV"
+                app:layout_constraintRight_toRightOf="@id/expiryMonthTV"
+                app:layout_constraintTop_toTopOf="@id/expiryMonthTV"></androidx.appcompat.widget.AppCompatSpinner>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/expiryYearTV"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:padding="@dimen/_9sdp"
+                android:text="2"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                app:layout_constraintLeft_toRightOf="@+id/expiryMonthTV"
+                app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt"
+                app:layout_constraintRight_toLeftOf="@+id/cvvTv"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/expiryYearSpin"
+                style="@style/CustomSpinnerTheme"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/expiryYearTV"
+                app:layout_constraintRight_toRightOf="@id/expiryYearTV"
+                app:layout_constraintTop_toTopOf="@+id/expiryYearTV"></androidx.appcompat.widget.AppCompatSpinner>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cvvTv"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_marginLeft="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:padding="@dimen/_9sdp"
+                android:text="CVV"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/cvvSpin"
+                style="@style/CustomSpinnerTheme"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/cvvTv"
+                app:layout_constraintRight_toRightOf="@id/cvvTv"
+                app:layout_constraintTop_toTopOf="@+id/cvvTv"></androidx.appcompat.widget.AppCompatSpinner>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:backgroundTint="@color/colorGreen"
+                android:text="@string/add_card_details"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/poppins_semibold"
+                app:cornerRadius="@dimen/_4sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/expiryYearTV" />
+            <View
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_6sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                android:background="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/_4sdp"></View>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+    <!--</ScrollView>-->
