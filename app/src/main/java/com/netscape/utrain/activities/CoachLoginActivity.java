@@ -18,9 +18,6 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
 
 public class CoachLoginActivity extends AppCompatActivity implements View.OnClickListener{
-    MaterialTextView tvSignUp;
-    private LoginButton btnFacaebookLogin;
-    private CallbackManager callbackManager;
     private ActivityCoachLoginBinding binding;
 
     @Override
