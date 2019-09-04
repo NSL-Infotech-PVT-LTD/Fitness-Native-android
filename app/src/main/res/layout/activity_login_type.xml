@@ -1,83 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/innerLeftGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/innerRightGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_30sdp" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_header_secondScreen"
-        android:layout_width="250sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="What are you looking for?"
-        android:textColor="#fff"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:text="@string/what_are_you_looking_for"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="@dimen/_26sdp"
+        app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
+        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
 
         />
 
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="290dp"
-        android:layout_height="320dp"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_300sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         android:background="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@id/tv_header_secondScreen"
-        app:layout_constraintBottom_toTopOf="@id/btn_material_screenTwo">
+        app:layout_constraintTop_toBottomOf="@id/tv_header_secondScreen">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardviewOne"
-                android:layout_width="200sp"
-                android:layout_height="80dp"
+                android:id="@+id/athleteCardView"
+                android:layout_width="@dimen/_194sdp"
+                android:layout_height="@dimen/_70sdp"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="25dp">
-
+                android:layout_marginTop="@dimen/_24sdp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/athleteLayout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Athlete"
-                        android:textSize="15sp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/_16sdp"
                         app:layout_constraintHorizontal_bias="0.1"
                         android:textColor="@color/colorBlack"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/img_athlete"
                         android:id="@+id/tv_athlete"
-                        android:layout_marginLeft="10sp"
+                        android:layout_marginLeft="12sp"
                         />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_athlete"
-                        android:layout_width="40sp"
-                        android:layout_height="40sp"
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="@dimen/_38sdp"
                         android:src="@drawable/athlete"
-                        android:scaleType="fitXY"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/tv_athlete"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginLeft="24dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,27 +106,30 @@
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardviewTwo"
-                android:layout_width="200sp"
-                android:layout_height="80dp"
+                android:id="@+id/coachCardView"
+                android:layout_width="@dimen/_194sdp"
+                android:layout_height="@dimen/_70sdp"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardviewOne"
-                android:layout_marginTop="15sp">
+                app:layout_constraintTop_toBottomOf="@id/athleteCardView"
+                android:layout_marginTop="@dimen/_20sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/coachLayout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Coach"
-                        android:textColor="#000"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="10sp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_16sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/img_coach"
@@ -120,9 +139,9 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_coach"
-                        android:layout_marginLeft="20sp"
-                        android:layout_width="40sp"
-                        android:layout_height="40sp"
+                        android:layout_marginLeft="24sp"
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="@dimen/_38sdp"
                         android:src="@drawable/coach"
                         android:scaleType="fitXY"
                         app:layout_constraintTop_toTopOf="parent"
@@ -137,26 +156,30 @@
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardviewThree"
-                android:layout_width="200sp"
-                android:layout_height="80dp"
+                android:id="@+id/organizationCardView"
+                android:layout_width="@dimen/_194sdp"
+                android:layout_height="@dimen/_70sdp"
+                app:strokeColor="@color/colorGreen"
+                app:strokeWidth="@dimen/_1sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardviewTwo"
-                android:layout_marginTop="15sp"
-                android:layout_marginBottom="30dp">
+                app:layout_constraintTop_toBottomOf="@id/coachCardView"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/organizationLayout">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Organization"
-                        android:textColor="#000"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="10sp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_16sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/img_organization"
@@ -166,9 +189,9 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_organization"
-                        android:layout_marginLeft="20sp"
-                        android:layout_width="40sp"
-                        android:layout_height="40sp"
+                        android:layout_marginLeft="@dimen/_24sdp"
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="@dimen/_38sdp"
                         android:src="@drawable/company"
                         android:scaleType="fitXY"
                         app:strokeColor="@color/colorGreen"
@@ -195,18 +218,19 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_material_screenTwo"
-        android:layout_width="290dp"
+        android:id="@+id/findCoachesBtn"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="100dp"
-        android:text="Find the coaches / Organization"
+        android:text="@string/find_the_coaches_organization"
         android:gravity="center"
-        android:textColor="#000"
-        android:backgroundTint="#00fa9a"/>
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlack"
+        android:backgroundTint="@color/colorGreen"/>
 
 
     <View
@@ -215,8 +239,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/view_design"
         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -14,13 +14,19 @@
         <activity android:name=".activities.ForgetPasswordActivity" />
         <activity android:name=".activities.CoachSignupActivity" />
         <activity android:name=".activities.EnableGpsActivity" />
-        <activity android:name=".activities.CoachLoginActivity" />
-        <activity android:name=".activities.LoginTypeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activities.CoachLoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+        <activity android:name=".activities.LoginTypeActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".activities.BottomNavigation"
