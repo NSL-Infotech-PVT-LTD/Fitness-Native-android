@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_3sdp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/notificationRecycler_RoundImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/coach"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/notificatinRecycler_Tv"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/dummy_text_notification_recycler"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toRightOf="@id/notificationRecycler_RoundImg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/notificationRecycler_Justnow_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Just now"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toRightOf="@id/notificationRecycler_RoundImg"
+        app:layout_constraintTop_toBottomOf="@id/notificatinRecycler_Tv" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:src="@drawable/ic_lock"
+        app:layout_constraintBottom_toBottomOf="@id/notificationRecycler_Justnow_Tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notificatinRecycler_Tv"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <View
+        android:layout_width="@dimen/_225sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintLeft_toLeftOf="@id/notificatinRecycler_Tv"
+        app:layout_constraintTop_toBottomOf="@id/notificationRecycler_Justnow_Tv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

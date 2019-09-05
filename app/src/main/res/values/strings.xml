@@ -43,4 +43,7 @@
     <string name="contact_us">Contact Us</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
     <string name="logout">Loguot</string>
+    <string name="dummy_text_notification_recycler">Rajeev has been scheduled for a training session with you.</string>
+    <string name="notificationActivity">Notifications</string>
+    <string name="no_more_notifications">No more Notifications</string>
 </resources>
