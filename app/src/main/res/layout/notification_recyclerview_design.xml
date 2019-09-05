@@ -36,7 +36,7 @@
         android:layout_marginLeft="@dimen/_13sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Just now"
+        android:text="@string/just_now"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toRightOf="@id/notificationRecycler_RoundImg"
         app:layout_constraintTop_toBottomOf="@id/notificatinRecycler_Tv" />

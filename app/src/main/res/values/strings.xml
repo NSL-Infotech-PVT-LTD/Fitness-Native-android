@@ -46,4 +46,20 @@
     <string name="dummy_text_notification_recycler">Rajeev has been scheduled for a training session with you.</string>
     <string name="notificationActivity">Notifications</string>
     <string name="no_more_notifications">No more Notifications</string>
+    <string name="message">Messages</string>
+    <string name="search_Keyword">Search KeyWord</string>
+    <string name="rihana">Rihana</string>
+    <string name="description">I like the caption @robin.</string>
+    <string name="just_now">Just Now</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="coach">Coach</string>
+    <string name="name">Name</string>
+    <string name="bio">Bio</string>
+    <string name="enter_bio">I\'am profession sports trainer</string>
+    <string name="location">Location</string>
+    <string name="business_hour">Business Hour</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="profession">Profession</string>
+    <string name="type">Type</string>
+    <string name="expertise">Expertise</string>
 </resources>
