@@ -9,24 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.NotificationActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SelectPaymentActivity" />
         <activity android:name=".activities.ForgetPasswordActivity" />
         <activity android:name=".activities.CoachSignupActivity" />
         <activity android:name=".activities.EnableGpsActivity" />
-        <activity android:name=".activities.CoachLoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activities.SettingsActivity" android:theme="@style/AppTheme.SettingSwitch" >
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+
+        </activity>
+        <activity android:name=".activities.CoachLoginActivity">
+
+        </activity>
         <activity android:name=".activities.LoginTypeActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+
         </activity>
         <activity
             android:name=".activities.BottomNavigation"
