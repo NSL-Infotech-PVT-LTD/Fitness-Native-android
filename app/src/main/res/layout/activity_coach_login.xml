@@ -79,10 +79,9 @@
             android:id="@+id/tv_Or"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="OR"
-            android:textColor="#000"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/or"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -98,10 +97,11 @@
         <!--android:padding="@dimen/_20sdp"-->
         <!--android:layout_marginTop="@dimen/_6sdp"/>-->
         <LinearLayout
+            android:elevation="@dimen/_8sdp"
             android:id="@+id/fbLin"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@drawable/fb_button_rond_bg"
             android:gravity="center"
             android:orientation="horizontal"
@@ -182,8 +182,8 @@
 
         <View
             android:id="@+id/viewThirdScreen"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_8sdp"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:background="@drawable/view_design"
             app:layout_constraintBottom_toBottomOf="parent"

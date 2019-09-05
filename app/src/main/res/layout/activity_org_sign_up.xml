@@ -73,8 +73,7 @@
                         android:paddingBottom="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                        android:textSize="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--email edit text-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -97,8 +96,7 @@
                         android:paddingBottom="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                        android:textSize="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--phone number edit text-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -121,8 +119,7 @@
                         android:paddingBottom="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                        android:textSize="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -145,8 +142,8 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:text="@string/optional"
                     android:textAllCaps="false"
-                    android:textColor="@color/separator_color"
-                    android:textSize="@dimen/text_12"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@id/genderTv"
                     app:layout_constraintStart_toEndOf="@id/genderTv"
                     app:layout_constraintTop_toTopOf="@id/genderTv" />
@@ -222,7 +219,7 @@
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--password edit text-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -245,7 +242,7 @@
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--confirm password edit text-->
                 <com.google.android.material.textfield.TextInputLayout
@@ -268,7 +265,7 @@
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_16sdp"
-                        app:editFontName="@string/avenir" />
+                       />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.checkbox.MaterialCheckBox
@@ -288,7 +285,6 @@
                     android:text="@string/read_policy_terms"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_14sdp"
-                    app:fontName="@string/avenir"
                     app:layout_constraintBottom_toBottomOf="@+id/readTermsChkBx"
                     app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
                     app:layout_constraintStart_toEndOf="@id/readTermsChkBx"
@@ -313,8 +309,7 @@
                         android:text="@string/sign_up"
                         android:textAllCaps="true"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_18sdp"
-                        app:fontName="@string/avenir" />
+                        android:textSize="@dimen/_18sdp" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -388,7 +383,7 @@
                         android:text="@string/sign_up_fb"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_18sdp"
-                        app:fontName="@string/avenir" />
+                      />
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.Guideline
@@ -433,11 +428,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:padding="@dimen/dim_3"
+                android:padding="@dimen/_3sdp"
                 android:text="@string/and"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_14sdp"
-                app:fontName="@string/avenir" />
+                />
 
             <TextView
                 android:id="@+id/termsTv"

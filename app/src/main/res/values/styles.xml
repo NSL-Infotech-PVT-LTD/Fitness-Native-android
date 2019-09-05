@@ -17,4 +17,12 @@
         <item name="android:colorForeground">#42221f1f</item>
     </style>
 
+    <style name="AppTheme.SettingSwitch">
+        <item name="colorAccent">#00ff00</item>
+        <item name="colorSwitchThumbNormal">#00ff00</item>
+        <item name="colorPrimary">#00ff00</item>
+
+
+    </style>
+
 </resources>

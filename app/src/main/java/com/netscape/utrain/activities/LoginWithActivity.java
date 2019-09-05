@@ -3,21 +3,14 @@ package com.netscape.utrain.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
 
-public class CoachLoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginWithActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityCoachLoginBinding binding;
 
     @Override
@@ -30,7 +23,7 @@ public class CoachLoginActivity extends AppCompatActivity implements View.OnClic
 //        tvSignUp.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(CoachLoginActivity.this, BottomNavigation.class);
+//                Intent intent = new Intent(LoginWithActivity.this, BottomNavigation.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -67,12 +60,14 @@ public class CoachLoginActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.emailLoginBtn:
+                Intent intent = new Intent(LoginWithActivity.this, LoginActivity.class);
+                startActivity(intent);
                 break;
             case R.id.fbLin:
                 break;
             case R.id.tvSignUp:
-                Intent intent = new Intent(CoachLoginActivity.this, LoginTypeActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(LoginWithActivity.this, SignUpTypeActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

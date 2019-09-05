@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.OrgSignUpActivity"></activity>
+        <activity android:name=".activities.AthleteSignupActivity"></activity>
+        <activity android:name=".activities.OrgSignUpActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
@@ -22,14 +23,14 @@
         <activity android:name=".activities.ForgetPasswordActivity" />
         <activity android:name=".activities.CoachSignupActivity" />
         <activity android:name=".activities.EnableGpsActivity" />
-        <activity android:name=".activities.CoachLoginActivity"></activity>
-        <activity android:name=".activities.LoginTypeActivity"></activity>
+        <activity android:name=".activities.LoginWithActivity" />
+        <activity android:name=".activities.SignUpTypeActivity" />
         <activity
             android:name=".activities.BottomNavigation"
             android:label="@string/title_activity_bottom_navigation" />
         <activity android:name=".activities.AddCards" />
         <activity android:name=".activities.MyProfile" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

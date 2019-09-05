@@ -42,12 +42,11 @@
         android:id="@+id/tv_Signup_FifthScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_40sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/sign_up"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_30sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintTop_toBottomOf="@id/tv_header_FifthScreen" />
 
 
@@ -66,7 +65,7 @@
         android:maxLines="1"
         android:padding="@dimen/_10sdp"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
         app:layout_constraintTop_toBottomOf="@id/tv_Signup_FifthScreen" />
@@ -85,7 +84,7 @@
         android:maxLines="1"
         android:padding="@dimen/_10sdp"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toBottomOf="@id/et_enterName_FifthScreen" />
@@ -105,7 +104,7 @@
         android:maxLines="1"
         android:padding="@dimen/_10sdp"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toBottomOf="@id/et_enterEmail_FifthScreen" />
@@ -124,7 +123,7 @@
         android:maxLines="1"
         android:padding="@dimen/_10sdp"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toBottomOf="@id/et_enterPhone_FifthScreen"
@@ -142,7 +141,7 @@
         android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toBottomOf="@id/et_EnterPassword_Fifthscreen" />
@@ -158,8 +157,8 @@
         android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toTopOf="@id/viewFifthScreen"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+        app:layout_constraintRight_toLeftOf="@+id/tvLogin" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvLogin"
@@ -171,7 +170,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="@id/alreadyAccountText"
-        app:layout_constraintLeft_toRightOf="@+id/havntAccountText"
+        app:layout_constraintLeft_toRightOf="@+id/alreadyAccountText"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toTopOf="@id/alreadyAccountText" />
 
@@ -186,9 +185,9 @@
 
     <View
         android:id="@+id/viewFifthScreen"
-        android:layout_width="150sp"
-        android:layout_height="@dimen/_10sdp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:background="@drawable/view_design"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

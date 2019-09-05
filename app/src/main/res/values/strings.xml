@@ -25,7 +25,7 @@
     <string name="find_your_coach">Find your coach</string>
     <string name="log_in">Log In</string>
     <string name="continue_with_email">Continue with email </string>
-    <string name="forget_password">Forgot Password?</string>
+    <string name="forget_password">Forget Password?</string>
     <string name="dont_have_a_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
@@ -54,4 +54,24 @@
     <string name="address">Address</string>
     <string name="confirm_password">Confirm password</string>
     <string name="read_policy_terms">Read policy terms</string>
+    <string name="optional">Optional fields</string>
+    <string name="and"><![CDATA[&]]></string>
+    <string name="help_and_support"><![CDATA[Help & Support]]></string>
+    <string name="change_password">Change Password</string>
+    <string name="notification">Notification</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="logout">Loguot</string>
+    <string name="dummy_text_notification_recycler">Rajeev has been scheduled for a training session with you.</string>
+    <string name="notificationActivity">Notifications</string>
+    <string name="no_more_notifications">No more Notifications</string>
+    <string name="message">Messages</string>
+    <string name="new_password">New password</string>
+    <string name="submit">Submit</string>
+    <string name="go_back">Go back</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="confirm_password_doesnt_match">Password doesn\'t match</string>
 </resources>
