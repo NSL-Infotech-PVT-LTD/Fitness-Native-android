@@ -42,4 +42,16 @@
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="already_hava_an_account_text">Already have an account?</string>
+    <string name="gender">Gender</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
+    <string name="other">Other</string>
+    <string name="or">OR</string>
+    <string name="privacy_policy">Privay policy</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="name">Name</string>
+    <string name="email_address">Email address</string>
+    <string name="address">Address</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="read_policy_terms">Read policy terms</string>
 </resources>
