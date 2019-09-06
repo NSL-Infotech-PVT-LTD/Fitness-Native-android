@@ -62,4 +62,9 @@
     <string name="profession">Profession</string>
     <string name="type">Type</string>
     <string name="expertise">Expertise</string>
+    <string name="experience_detail">Experience Detail</string>
+    <string name="training_service_detail">Training Service Detail</string>
+    <string name="hourly_rate">Hourly Rate</string>
+    <string name="dollar_sign_value">$</string>
+    <string name="enter_hourly_rate">44</string>
 </resources>

@@ -130,6 +130,7 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 android:background="@drawable/card_input_edt_background"
                 android:padding="@dimen/_9sdp"
+                android:text="2"
                 android:gravity="center"
                 android:fontFamily="@font/poppins_semibold"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
