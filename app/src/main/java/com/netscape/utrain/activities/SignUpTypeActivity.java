@@ -68,7 +68,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
 
                 }
                 if (signUpAs.equals(Constants.Organization)){
-                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, AthleteSignupActivity.class);
+                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, OrganizationSignUpActivity.class);
                     startActivity(organizationSignUp);
                     overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 

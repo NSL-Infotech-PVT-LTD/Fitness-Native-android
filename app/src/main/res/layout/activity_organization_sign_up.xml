@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorLightGray"
@@ -47,25 +44,26 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/organization_Guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.17" />
+            app:layout_constraintGuide_percent="0.13" />
+        <FrameLayout
+            android:id="@+id/cardview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
+            android:background="@drawable/cards_shape"
+            app:layout_constraintTop_toTopOf="@+id/organization_Guideline"
+            >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayouttwo"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:background="@drawable/cards_shape"
-            app:layout_constraintTop_toBottomOf="@id/organization_Guideline">
-
+            android:layout_height="match_parent"
+            >
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/organization_left_Guideline"
@@ -80,6 +78,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/organization_nameTv"
@@ -99,10 +99,11 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/organization_edt_design"
                 android:gravity="center_vertical"
-                android:hint="Gregg"
-                android:textColorHint="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
-                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/enter_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                android:paddingLeft="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
                 app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                 app:layout_constraintTop_toBottomOf="@id/organization_nameTv" />
@@ -127,9 +128,10 @@
                 android:background="@drawable/organization_edt_design"
                 android:gravity="center_vertical"
                 android:hint="@string/enter_bio"
-                android:textColorHint="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
-                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/colorBlack"
+                android:paddingLeft="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                 app:layout_constraintTop_toBottomOf="@id/organization_bioTv" />
@@ -259,7 +261,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/organization_edt_design"
-                android:gravity="center"
+                android:paddingLeft="@dimen/_16sdp"
                 android:text="@string/type"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
@@ -282,8 +284,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/organization_edt_design"
-                android:gravity="center"
-                android:padding="@dimen/_2sdp"
+                android:paddingLeft="@dimen/_16sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/type"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -310,8 +311,9 @@
                 android:gravity="center_vertical"
                 android:hint="It is a long establishmed fact that a."
                 android:textColorHint="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
-                android:fontFamily="@font/poppins_regular"
+                android:paddingLeft="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                 app:layout_constraintTop_toBottomOf="@id/organization_ExperienceDetailTv" />
@@ -336,8 +338,9 @@
                 android:gravity="center_vertical"
                 android:hint="It is a long establishmed fact that a."
                 android:textColorHint="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
-                android:fontFamily="@font/poppins_regular"
+                android:paddingLeft="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                 app:layout_constraintTop_toBottomOf="@id/organization_TrainingServiceDetailTv" />
@@ -395,12 +398,31 @@
                 app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                 app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                 app:cornerRadius="@dimen/_10sdp"
+                android:textAllCaps="false"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
                 android:layout_marginBottom="@dimen/_100sdp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileImageView"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toTopOf="@+id/cardview1"
+            app:layout_constraintBottom_toTopOf="@+id/cardview1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sophie" />
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
