@@ -14,6 +14,14 @@
         android:layout_height="match_parent"
         android:background="@color/colorLightGray"
         tools:context=".activities.OrganizationSignUpActivity">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_96sdp"
+            android:layout_height="@dimen/_96sdp"
+            android:src="@drawable/sophie"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/constraintLayouttwo"
+            app:layout_constraintTop_toTopOf="@id/organization_Guideline"/>
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -58,6 +66,7 @@
             app:layout_constraintGuide_percent="0.17" />
 
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayouttwo"
             android:layout_width="match_parent"
@@ -80,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/_30sdp" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/organization_nameTv"

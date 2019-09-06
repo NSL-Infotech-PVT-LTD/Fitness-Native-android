@@ -95,4 +95,12 @@
     <string name="enter_name">Enter name</string>
     <string name="enter_phone_number">Enter phone number</string>
     <string name="enter_password">Enter password</string>
+    <string name="rating_header_text">How much you satisfied with your coach?</string>
+    <string name="rate_your_coach_text">Rate your coach by giving him/her rating</string>
+    <string name="rating_profileNameTv">Roger David</string>
+    <string name="provice_your_training_of_soccor">provide your training of soccor</string>
+    <string name="booking_slot">Booking slot</string>
+    <string name="private_tv">Private</string>
+    <string name="booking_slot_fill_your_req">Fill your requirements for booking the slot</string>
+
 </resources>
