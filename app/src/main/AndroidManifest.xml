@@ -9,31 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.OrganizationSignUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.MessagesActivity"></activity>
-        <activity android:name=".activities.NotificationActivity" />
+        <activity android:name=".activities.NotificationActivity"></activity>
         <activity android:name=".activities.LoginActivity" />
+
         <activity android:name=".activities.SelectPaymentActivity" />
         <activity android:name=".activities.ForgetPasswordActivity" />
         <activity android:name=".activities.CoachSignupActivity" />
         <activity android:name=".activities.EnableGpsActivity" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:theme="@style/AppTheme.SettingSwitch"></activity>
-        <activity android:name=".activities.CoachLoginActivity" />
-        <activity android:name=".activities.LoginTypeActivity" />
+        <activity android:name=".activities.SettingsActivity" android:theme="@style/AppTheme.SettingSwitch" >
+        </activity>
+        <activity android:name=".activities.SignUpTypeActivity"/>
+        <activity android:name=".activities.LoginWithActivity"/>
+        <activity android:name=".activities.AthleteSignupActivity"/>
+        <activity android:name=".activities.SplashActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.BottomNavigation"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".activities.AddCards">
-
-        </activity>
+        <activity android:name=".activities.AddCards" />
         <activity android:name=".activities.MyProfile" />
         <activity android:name=".MainActivity">
 
