@@ -62,12 +62,15 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
             case R.id.emailLoginBtn:
                 Intent intent = new Intent(LoginWithActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
                 break;
             case R.id.fbLin:
                 break;
             case R.id.tvSignUp:
-                Intent intent2 = new Intent(LoginWithActivity.this, SignUpTypeActivity.class);
-                startActivity(intent2);
+                Intent signUpType = new Intent(LoginWithActivity.this, SignUpTypeActivity.class);
+                startActivity(signUpType);
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
         }
     }

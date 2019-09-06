@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityLoginTypeBinding;
+import com.netscape.utrain.utils.Constants;
 
 public class SignUpTypeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityLoginTypeBinding binding;
@@ -33,7 +34,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.athleteCardView:
-                signUpAs=Constants.Athlete;
+                signUpAs= Constants.Athlete;
                 binding.coachLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.athleteLayout.setBackground(getResources().getDrawable(R.drawable.mask_athlete));
@@ -57,14 +58,20 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 if (signUpAs.equals(Constants.Athlete)){
                     Intent athleteSignUp = new Intent(SignUpTypeActivity.this, AthleteSignupActivity.class);
                     startActivity(athleteSignUp);
+                    overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
                 }
                 if (signUpAs.equals(Constants.Coach)){
-                    Intent coachSignUp = new Intent(SignUpTypeActivity.this, CoachSignupActivity.class);
+                    Intent coachSignUp = new Intent(SignUpTypeActivity.this, AthleteSignupActivity.class);
                     startActivity(coachSignUp);
+                    overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
                 }
                 if (signUpAs.equals(Constants.Organization)){
-                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, OrgSignUpActivity.class);
+                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, AthleteSignupActivity.class);
                     startActivity(organizationSignUp);
+                    overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
                 }
 
                 break;

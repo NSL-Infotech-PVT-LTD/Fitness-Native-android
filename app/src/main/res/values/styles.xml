@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- enable activity transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+<!--        <item name="android:windowEnterTransition">@anim/push_left_in</item>-->
+<!--        <item name="android:windowExitTransition">@anim/push_left_out</item>-->
     </style>
     <style name="CustomSpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_selector</item>

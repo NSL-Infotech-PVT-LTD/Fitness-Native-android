@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,7 +18,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3"
-
         />
 
     <com.google.android.material.textview.MaterialTextView
@@ -38,12 +35,11 @@
     <View
         android:id="@+id/view_splashActivity"
         android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_6sdp"
+        android:layout_height="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         android:background="@drawable/view_design"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.netscape.utrain.retrofit;
 
-import com.netscape.utrain.activities.Constants;
+import com.netscape.utrain.utils.Constants;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

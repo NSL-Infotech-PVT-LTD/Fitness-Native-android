@@ -74,4 +74,20 @@
     <string name="enter_new_password">Enter new password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="confirm_password_doesnt_match">Password doesn\'t match</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="coach">Coach</string>
+    <string name="bio">Bio</string>
+    <string name="enter_bio">I\'am profession sports trainer</string>
+    <string name="location">Location</string>
+    <string name="business_hour">Business Hour</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="profession">Profession</string>
+    <string name="type">Type</string>
+    <string name="expertise">Expertise</string>
+    <string name="rihana">Rihana</string>
+    <string name="description">I like the caption @robin.</string>
+    <string name="just_now">Just Now</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_password">Enter password</string>
 </resources>

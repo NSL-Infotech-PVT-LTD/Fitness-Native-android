@@ -8,7 +8,7 @@
     tools:context=".activities.NotificationActivity">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_LogIn_TenthScreen"
+        android:id="@+id/notification_Tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_30sdp"

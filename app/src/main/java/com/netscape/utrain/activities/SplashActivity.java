@@ -17,7 +17,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_splash);
         new Handler().postDelayed(new Runnable(){
             @Override
@@ -26,9 +25,16 @@ public class SplashActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(SplashActivity.this, LoginWithActivity.class);
                 startActivity(mainIntent);
                 finish();
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(R.anim.push_left_out,R.anim.push_left_in);
 
+    }
 }

@@ -30,12 +30,14 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.forgetSubmitBtn:
-                getNewPassword();
-//                Intent loginActivity=new Intent(ForgetPasswordActivity.this,LoginActivity.class);
-//                startActivity(loginActivity);
+//                getNewPassword();
+                Intent loginActivity=new Intent(ForgetPasswordActivity.this,LoginActivity.class);
+                startActivity(loginActivity);
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
             case R.id.forgetBackBtn:
                 finish();
+                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
         }
     }
