@@ -54,10 +54,8 @@
             android:id="@+id/cardview1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:background="@drawable/cards_shape"
-            app:layout_constraintTop_toTopOf="@+id/organization_Guideline"
-            >
+            app:layout_constraintTop_toTopOf="@+id/organization_Guideline" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayouttwo"
@@ -153,6 +151,7 @@
                 android:layout_height="@dimen/_35sdp"
                 android:textSize="@dimen/_14sdp"
                 android:fontFamily="@font/poppins_regular"
+                android:background="@drawable/spinner_outline_design"
                 app:layout_constraintTop_toTopOf="@id/organization_SelectLocationSpinner"
                 app:layout_constraintBottom_toBottomOf="@id/organization_SelectLocationSpinner"
                 app:layout_constraintLeft_toLeftOf="@id/organization_SelectLocationSpinner"

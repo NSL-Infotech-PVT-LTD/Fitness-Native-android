@@ -102,5 +102,10 @@
     <string name="booking_slot">Booking slot</string>
     <string name="private_tv">Private</string>
     <string name="booking_slot_fill_your_req">Fill your requirements for booking the slot</string>
+    <string name="select_sports_training">Select Sports Training</string>
+    <string name="select_sports_organization">Select Sports organization</string>
+    <string name="select_time">Select time</string>
+    <string name="select_date">Select date</string>
+    <string name="upload">Upload</string>
 
 </resources>
