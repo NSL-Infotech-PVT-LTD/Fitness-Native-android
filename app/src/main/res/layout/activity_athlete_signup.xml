@@ -41,11 +41,14 @@
                     app:layout_constraintGuide_end="@dimen/_30sdp" />
 
 
+
+
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_header_FifthScreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/find_your_coach"
                     android:textColor="@color/colorWhite"
@@ -56,7 +59,7 @@
                     />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_Signup_FifthScreen"
+                    android:id="@+id/athlete_SignUpTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
@@ -71,7 +74,7 @@
                     android:id="@+id/athleteNameEdt"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_80sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_user"
                     android:drawablePadding="@dimen/_12sdp"
@@ -87,14 +90,43 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/tv_Signup_FifthScreen" />
+                    app:layout_constraintTop_toBottomOf="@id/athlete_SignUpTv" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/athleteprofileImageView"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:layout_marginTop="@dimen/_85sdp"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="0dp"
+                    android:backgroundTint="@color/colorGreen"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/ic_profile_type" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upload"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/athleteEmailEdt"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_lock"
                     android:drawablePadding="@dimen/_12sdp"
@@ -115,7 +147,7 @@
                     android:id="@+id/athletePhoneEdt"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_lock"
                     android:drawablePadding="@dimen/_12sdp"
@@ -132,12 +164,35 @@
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt" />
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/athleteAddressEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/address"
+                    android:inputType="text"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/athletePhoneEdt" />
+
+
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/athletePasswordEdt"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_lock"
                     android:drawablePadding="@dimen/_12sdp"
@@ -151,7 +206,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/athletePhoneEdt"
+                    app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt"
 
                     />
 
