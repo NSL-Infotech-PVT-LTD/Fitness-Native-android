@@ -38,7 +38,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
                 android:padding="@dimen/_6sdp"
-                android:text="@string/organization"
+                android:text="@string/coach"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintRight_toRightOf="parent"

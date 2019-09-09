@@ -4,59 +4,249 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
     tools:context=".activities.BookSlotActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bookingSlot_leftguidelineLayoutOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/_30sdp"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/rightguidelineLayoutone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/_30sdp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bookingSlot_BookingSlotTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@null"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/booking_slot"
-        app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftguidelineLayoutOne"
-        app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/poppins_semibold"/>
+        app:fontFamily="@font/poppins_semibold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bookingslot_privateTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:background="@drawable/round_background_colord"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:padding="@dimen/_6sdp"
         android:text="@string/private_tv"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_13sdp"
-        android:gravity="center"
-        android:background="@drawable/round_background_colord"
-        android:fontFamily="@font/poppins_regular"
-        app:layout_constraintRight_toRightOf="@id/rightguidelineLayoutone"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:padding="@dimen/_6sdp"
-        />
+        app:fontFamily="@font/poppins_regular"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bookingslot_fill_your_reqTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:text="@string/booking_slot_fill_your_req"
-        app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftguidelineLayoutOne"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintTop_toBottomOf="@id/bookingSlot_BookingSlotTv"
-        />
+        android:textSize="@dimen/_15sdp"
+        app:fontFamily="@font/poppins_regular"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookingSlot_BookingSlotTv" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bookingSlot_Guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bookingSlot_BottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
 
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/colorGreen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bookingSlot_Guideline" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bookingSlot_constLayoutTwo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/cards_shape"
+        app:layout_constraintBottom_toBottomOf="@id/bookingSlot_BottomGuideline"
+        app:layout_constraintTop_toTopOf="@id/bookingSlot_Guideline">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bookingSlot_leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bookingSlot_rightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingSlot_selectTrainingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/select_sports_training"
+            android:textSize="@dimen/_13sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/bookingSlot_SelectTrainingSpinner"
+            style="@style/CustomSpinnerTheme"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTrainingTv" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/spinner_outline_design"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_SelectTrainingSpinner"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_SelectTrainingSpinner"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_SelectTrainingSpinner"
+            app:layout_constraintTop_toTopOf="@id/bookingSlot_SelectTrainingSpinner" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingSlot_selectOrganizationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/select_sports_organization"
+            android:textSize="@dimen/_13sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectTrainingSpinner" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/bookingSlot_SelectOrganizationSpinner"
+            style="@style/CustomSpinnerTheme"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_selectOrganizationTv" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/spinner_outline_design"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_SelectOrganizationSpinner"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_SelectOrganizationSpinner"
+            app:layout_constraintTop_toTopOf="@id/bookingSlot_SelectOrganizationSpinner" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingSlot_selectTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/select_time"
+            android:textSize="@dimen/_13sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingSlot_selectDateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:text="@string/select_date"
+            android:textSize="@dimen/_13sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bsminuteTv"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/organization_edt_design"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="12"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTimeTv" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bssecondTv"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/organization_edt_design"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="30"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/bsminuteTv"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTimeTv" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/bookingSlot_ampmSpinner"
+            style="@style/CustomSpinnerTheme"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            app:layout_constraintLeft_toRightOf="@id/bssecondTv"
+            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_selectTimeTv" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/ampm_spinner_design"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_ampmSpinner"
+            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_ampmSpinner"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_ampmSpinner"
+            app:layout_constraintTop_toTopOf="@id/bookingSlot_ampmSpinner" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bsselectDateEdt"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/organization_edt_design"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center"
+            android:inputType="date"
+            android:paddingLeft="@dimen/_8sdp"
+            android:text="12"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTimeTv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

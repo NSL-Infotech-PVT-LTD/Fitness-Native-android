@@ -38,7 +38,7 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_marginRight="@dimen/_24sdp"
         android:scaleType="centerCrop"
-        android:src="@drawable/sophie"
+        android:src="@drawable/ic_profile_type"
         android:visibility="visible"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/welcomeText"
