@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id">721512744988306</string>
+    <string name="fb_login_protocol_scheme">fb721512744988306</string>
+
     <string name="app_name">Utrain</string>
     <string name="my_porfile">My Profile</string>
     <string name="edit">Edit</string>
@@ -107,5 +110,7 @@
     <string name="select_time">Select time</string>
     <string name="select_date">Select date</string>
     <string name="upload">Upload</string>
+    <string name="experience">Enter Experience</string>
+    <string name="service_details">Enter service detail</string>
 
 </resources>

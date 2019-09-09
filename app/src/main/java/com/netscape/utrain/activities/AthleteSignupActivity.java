@@ -7,22 +7,68 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
 
 public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityAthleteSignupBinding binding;
-    TextInputEditText etName, etEmail;
+    TextInputEditText etName, etEmail, etPhone, etAddress, etPassword;
+    MaterialButton btnSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_athlete_signup);
 
         etName = findViewById(R.id.athleteNameEdt);
+        etEmail = findViewById(R.id.athleteEmailEdt);
+        etPhone = findViewById(R.id.athletePhoneEdt);
+        etAddress = findViewById(R.id.athleteAddressEdt);
+        etPassword = findViewById(R.id.athletePasswordEdt);
+        btnSignUp = findViewById(R.id.athleteSignUpBtn);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SignupButton Coding....
+
+                String name= etName.getText().toString();
+                String email = etEmail.getText().toString();
+                String phone = etPhone.getText().toString();
+                String address = etAddress.getText().toString();
+                String password = etPassword.getText().toString();
+
+                if (name.equals(""))
+                {
+                    etName.setError("Please enter name");
+                } else if (email.equals(""))
+                {
+                    etEmail.setError("Please enter email");
+                } else if (phone.equals(""))
+                {
+                    etPhone.setError("Please enter phone number");
+                } else if (address.equals(""))
+                {
+                    etAddress.setError("Please enter address");
+                } else if (password.equals(""))
+                {
+                    etPassword.setError("Please enter password");
+                } else
+                {
+                    callingRegistrationApi();
+                }
+            }
+        });
+
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_athlete_signup);
         init();
+    }
+
+    private void callingRegistrationApi() {
+
+
     }
 
     private void init() {

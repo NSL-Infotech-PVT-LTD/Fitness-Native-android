@@ -39,6 +39,10 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @Override
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
 
+
+
+
+
     }
 
     @Override
@@ -62,6 +66,5 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         }
 
     }
-
 
 }
