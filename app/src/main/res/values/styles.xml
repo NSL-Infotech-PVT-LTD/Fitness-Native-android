@@ -10,10 +10,21 @@
         <item name="android:windowActivityTransitions">true</item>
         <!-- enable window content transitions -->
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
 
-<!--        <item name="android:windowEnterTransition">@anim/push_left_in</item>-->
-<!--        <item name="android:windowExitTransition">@anim/push_left_out</item>-->
+<!--        <item name="android:windowEnterTransition">@anim/slide_in_left</item>-->
+<!--        <item name="android:windowExitTransition">@anim/slide_out_left</item>-->
     </style>
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+
+
     <style name="CustomSpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_selector</item>
         <item name="android:src">@drawable/card_input_edt_background</item>

@@ -54,7 +54,7 @@
         app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftguidelineLayoutOne"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintTop_toBottomOf="@id/bookingSlot_BookingSlotTv"
-        app:layout_constraintVertical_bias=""/>
+        />
 
 
 

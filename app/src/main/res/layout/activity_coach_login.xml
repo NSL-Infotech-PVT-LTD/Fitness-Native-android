@@ -37,7 +37,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/find_your_coach"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
             app:layout_constraintTop_toTopOf="parent"
 
@@ -82,7 +82,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/or"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
             app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@+id/emailLoginBtn" />

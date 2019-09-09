@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Switch;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityForgetPasswordBinding;
@@ -33,11 +32,9 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
 //                getNewPassword();
                 Intent loginActivity=new Intent(ForgetPasswordActivity.this,LoginActivity.class);
                 startActivity(loginActivity);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
             case R.id.forgetBackBtn:
                 finish();
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
         }
     }

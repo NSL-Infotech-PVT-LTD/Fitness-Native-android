@@ -26,7 +26,7 @@
         android:layout_marginTop="@dimen/_70sdp"
         android:text="@string/find_the_best_coach_text"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
         android:fontFamily="@font/poppins_regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

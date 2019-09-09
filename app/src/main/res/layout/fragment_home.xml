@@ -62,8 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_14sdp"
-        android:elevation="2dp"
-
+        android:elevation="4dp"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"

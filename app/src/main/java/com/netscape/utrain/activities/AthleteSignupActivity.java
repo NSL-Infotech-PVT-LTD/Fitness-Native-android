@@ -32,13 +32,10 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 getSignUpData();
                 Intent mainActivity=new Intent(AthleteSignupActivity.this,BottomNavigation.class);
                 startActivity(mainActivity);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
             case R.id.athleteSignInTv:
                 Intent signInActivity=new Intent(AthleteSignupActivity.this,LoginActivity.class);
                 startActivity(signInActivity);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
-
                 break;
         }
     }

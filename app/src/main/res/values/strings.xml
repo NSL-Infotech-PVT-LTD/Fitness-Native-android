@@ -102,5 +102,8 @@
     <string name="booking_slot">Booking slot</string>
     <string name="private_tv">Private</string>
     <string name="booking_slot_fill_your_req">Fill your requirements for booking the slot</string>
+    <string name="experience">Experience</string>
+    <string name="service_details">Service details</string>
+    <string name="organization">Org</string>
 
 </resources>

@@ -5,10 +5,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.netscape.utrain.MainActivity;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityLoginBinding;
 
@@ -35,17 +33,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 getLoginData();
                 Intent homeScreen=new Intent(LoginActivity.this, BottomNavigation.class);
                 startActivity(homeScreen);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
             case R.id.loginForgetTv:
                 Intent forgetActivity=new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(forgetActivity);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
             case R.id.loginSignUpTv:
                 Intent signUpActivity=new Intent(LoginActivity.this, SignUpTypeActivity.class);
                 startActivity(signUpActivity);
-                overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
                 break;
         }
     }
