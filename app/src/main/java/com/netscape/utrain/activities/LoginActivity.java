@@ -15,7 +15,7 @@ import com.netscape.utrain.databinding.ActivityLoginBinding;
 import com.netscape.utrain.model.LogInApi.RoleModel;
 import com.netscape.utrain.model.LogInApi.SignUpModel;
 import com.netscape.utrain.retrofit.RetrofitInstance;
-import com.netscape.utrain.retrofit.RetrofitInterface;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ActivityLoginBinding binding;
     String email, password;
 
-    RetrofitInterface api;
+    Retrofitinterface api;
     RoleModel roleModel;
 
 
@@ -80,42 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void hitLoginApi() {
-
-        api = RetrofitInstance.getClient().create(RetrofitInterface.class);
-        Call<SignUpModel> call = api.getLoggedIn("application/x-www-form-urlencoded",
-                                                   email,
-                                                   password,
-                                                  "ios",
-                                                  "1234rfvc");
-
-        call.enqueue(new Callback<SignUpModel>() {
-            @Override
-            public void onResponse(Call<SignUpModel> call, Response<SignUpModel> response) {
-                if (response.isSuccessful())
-                {
-                    if (response.body().getCode() == 201)
-                    {
-                        roleModel = response.body().getData();
-                        Toast.makeText(LoginActivity.this, ""+response.body().getData().getMessage(),Toast.LENGTH_SHORT).show();
-                    } else
-                    {
-                        Toast.makeText(LoginActivity.this, ""+response.body().getCode(),Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "xyz", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<SignUpModel> call, Throwable t) {
-
-                Toast.makeText(LoginActivity.this, "On Failure", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
 
     }
 }

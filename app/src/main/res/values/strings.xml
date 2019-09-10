@@ -115,5 +115,8 @@
     <string name="experience">Enter Experience details</string>
     <string name="service_details">Enter service details</string>
     <string name="organization">Org</string>
+    <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
+    <string name="date_format">Date</string>
+    <string name="time_format">Time</string>
 
 </resources>
