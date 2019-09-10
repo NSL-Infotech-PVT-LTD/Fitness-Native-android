@@ -120,5 +120,8 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="please_click_again_to_exit">Ppress back again to exit</string>
+    <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
+    <string name="date_format">Date</string>
+    <string name="time_format">Time</string>
 
 </resources>

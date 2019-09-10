@@ -2,6 +2,7 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.activities.AthleteSignupActivity;
 import com.netscape.utrain.response.AthleteSignUpResponse;
+import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.utils.Constants;
 
@@ -38,6 +39,10 @@ public interface Retrofitinterface {
                                       @Field("device_type") String device_type,
                                       @Field("device_token") String device_token,
                                       @Header("Content-Type") String contentType);
+    @FormUrlEncoded
+    @POST("reset-password")
+    Call<ForgetPasswordResponse> getForgetpassword(@Header("Content-Type") String Content_Type,
+                                                   @Field("email") String email);
 
 
 }
