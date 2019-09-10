@@ -9,7 +9,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/back"
         tools:context=".activities.AthleteSignupActivity"
-        android:id="@+id/layoutMain">
+        android:id="@+id/layoutMain"
+        >
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -176,7 +177,6 @@
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/address"
                     android:inputType="text"
-                    android:maxLength="10"
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
@@ -184,7 +184,8 @@
                     android:textSize="@dimen/_14sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/athletePhoneEdt" />
+                    app:layout_constraintTop_toBottomOf="@id/athletePhoneEdt"
+                    android:drawableRight="@drawable/ic_my_location"/>
 
 
 

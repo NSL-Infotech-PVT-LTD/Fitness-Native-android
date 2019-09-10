@@ -1,10 +1,10 @@
-package com.netscape.utrain.model.LogInApi;
+package com.netscape.utrain.model;
 
-public class RoleModel {
+public class LoginRoleModel {
 
     private String message;
     private String token;
-    private ChildModel user;
+    private LoginChildModel user;
 
     public String getMessage() {
         return message;
@@ -22,11 +22,11 @@ public class RoleModel {
         this.token = token;
     }
 
-    public ChildModel getUser() {
+    public LoginChildModel getUser() {
         return user;
     }
 
-    public void setUser(ChildModel user) {
+    public void setUser(LoginChildModel user) {
         this.user = user;
     }
 }

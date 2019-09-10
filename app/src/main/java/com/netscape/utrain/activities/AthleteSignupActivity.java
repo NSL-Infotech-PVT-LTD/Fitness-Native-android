@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,21 +13,39 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.LocationListener;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
@@ -42,6 +61,11 @@ import com.netscape.utrain.utils.ImageFilePath;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -50,18 +74,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener {
+public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
     TextInputEditText etName, etEmail;
     private ActivityAthleteSignupBinding binding;
+    private GoogleApiClient googleApiClient;
     private AlertDialog dialogMultiOrder;
     private String currentPhotoFilePath = "", imageUrl = "";
     private File photoFile = null;
     private AskPermission askPermObj;
+    private AthleteSignupActivity activity;
     private LocationManager mLocManager;
     private LocationListener mLocListener;
     private Retrofitinterface retrofitInterface;
     private ProgressDialog progressDialog;
-    private String userName = "", userEmail = "", userPhone = "", userAddress = "", userPassword;
+    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
+    private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
+    private Location mylocation;
+    private String userName = "", userEmail = "", userPhone = "", userAddress = "", userPassword="";
+    private String address = "";
+    private double latitude = 0.0, longitude = 0.0;
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -84,13 +115,37 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         progressDialog.setMessage("Loading..");
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_signup);
         init();
+        binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (binding.athleteAddressEdt.getRight() - binding.athleteAddressEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                        // your action her
+
+                        if (checkPermissions())
+                            binding.athleteAddressEdt.setText(address);
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
+
     private void init() {
+        activity=this;
         binding.athleteSignUpBtn.setOnClickListener(this);
         binding.athleteSignInTv.setOnClickListener(this);
         binding.athleteprofileImageView.setOnClickListener(this);
         askPermObj = new AskPermission(getApplicationContext(), this);
+        setUpGClient();
+
 //         mLocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 //         mLocListener = new MyLocationListener();
 //        mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocListener);
@@ -127,13 +182,21 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
         if (binding.athleteNameEdt.getText().toString().isEmpty()) {
             binding.athleteNameEdt.setError(getString(R.string.enter_name));
+            binding.athleteNameEdt.requestFocus();
         } else if (binding.athleteEmailEdt.getText().toString().isEmpty()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_your_email));
-        } else if (binding.athletePhoneEdt.getText().toString().isEmpty()) {
+            binding.athleteEmailEdt.requestFocus();
+        }else if (! Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()){
+            binding.athleteEmailEdt.setError(getString(R.string.enter_valid_email));
+            binding.athleteEmailEdt.requestFocus();
+        } else if (binding.athletePhoneEdt.getText().toString().length()<10) {
             binding.athletePhoneEdt.setError(getString(R.string.enter_phone_number));
+            binding.athletePhoneEdt.requestFocus();
         } else if (binding.athletePasswordEdt.getText().toString().isEmpty()) {
             binding.athletePasswordEdt.setError(getString(R.string.enter_password));
+            binding.athletePasswordEdt.requestFocus();
         } else {
+
             loginApiMethod();
         }
     }
@@ -208,6 +271,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        int permissionLocation = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+            getMyLocation();
+        }
         if (requestCode == Constants.WRITE_PERMISSION) {
             /*detects whether write permission is given*/
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -309,7 +377,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
 
-        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg, binding.athleteNameEdt.getText().toString(), binding.athleteEmailEdt.getText().toString(), binding.athletePasswordEdt.getText().toString(), binding.athletePhoneEdt.getText().toString(), binding.athleteAddressEdt.getText().toString(), "92.0", "91.3", Constants.DEVICE_TYPE, Constants.DEVICE_TOKEN, Constants.CONTENT_TYPE);
+        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg, binding.athleteNameEdt.getText().toString(), binding.athleteEmailEdt.getText().toString(), binding.athletePasswordEdt.getText().toString(), binding.athletePhoneEdt.getText().toString(), binding.athleteAddressEdt.getText().toString(), latitude+"",longitude+"", Constants.DEVICE_TYPE, Constants.DEVICE_TOKEN, Constants.CONTENT_TYPE);
         signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
@@ -319,33 +387,165 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(AthleteSignupActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            Snackbar.make(binding.layoutMain,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+
+//                            Toast.makeText(AthleteSignupActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
                             Intent service = new Intent(getApplicationContext(), BottomNavigation.class);
 //                            service.putExtra(PrefrenceConstant.USER_MOBILE, phoneNum);
 //                            service.putExtra(PrefrenceConstant.USER_OTP, response.body().getData().getOtp());
                             startActivity(service);
                         }
                     } else {
-                        Toast.makeText(AthleteSignupActivity.this, "" + response.body().getError().getError_message(), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(binding.layoutMain,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                        Toast.makeText(AthleteSignupActivity.this, "" + response.body().getError().getError_message().getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    Snackbar.make(binding.layoutMain,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+//                    } catch (Exception e) {
+//                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+//                    }
                 }
 
             }
 
             @Override
             public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
+                Snackbar.make(binding.layoutMain,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+
 
             }
         });
+    }
+    private synchronized void setUpGClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        mylocation = location;
+        if (mylocation != null) {
+            latitude = mylocation.getLatitude();
+            longitude = mylocation.getLongitude();
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                address = addresses.get(0).getAddressLine(0);
+                // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        checkPermissions();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private boolean checkPermissions() {
+        int permissionLocation = ContextCompat.checkSelfPermission(AthleteSignupActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+            if (!listPermissionsNeeded.isEmpty()) {
+                ActivityCompat.requestPermissions(this,
+                        listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            }
+            return false;
+        } else {
+            getMyLocation();
+            return true;
+        }
+    }
+    private void getMyLocation() {
+        if (googleApiClient != null) {
+            if (googleApiClient.isConnected()) {
+                int permissionLocation = ContextCompat.checkSelfPermission(activity,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                    mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(3000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                            .addLocationRequest(locationRequest);
+                    builder.setAlwaysShow(true);
+                    LocationServices.FusedLocationApi
+                            .requestLocationUpdates(googleApiClient, locationRequest, this);
+                    PendingResult<LocationSettingsResult> result =
+                            LocationServices.SettingsApi
+                                    .checkLocationSettings(googleApiClient, builder.build());
+                    result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+
+                        @Override
+                        public void onResult(LocationSettingsResult result) {
+                            final Status status = result.getStatus();
+                            switch (status.getStatusCode()) {
+                                case LocationSettingsStatusCodes.SUCCESS:
+                                    // All location settings are satisfied.
+                                    // You can initialize location requests here.
+                                    int permissionLocation = ContextCompat
+                                            .checkSelfPermission(activity,
+                                                    Manifest.permission.ACCESS_FINE_LOCATION);
+                                    if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                                        mylocation = LocationServices.FusedLocationApi
+                                                .getLastLocation(googleApiClient);
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    // Location settings are not satisfied.
+                                    // But could be fixed by showing the user a dialog.
+                                    try {
+                                        // Show the dialog by calling startResolutionForResult(),
+                                        // and check the result in onActivityResult().
+                                        // Ask to turn on GPS automatically
+                                        status.startResolutionForResult(activity,
+                                                REQUEST_CHECK_SETTINGS_GPS);
+                                    } catch (IntentSender.SendIntentException e) {
+                                        // Ignore the error.
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    // Location settings are not satisfied.
+                                    // However, we have no way
+                                    // to fix the
+                                    // settings so we won't show the dialog.
+                                    // finish();
+                                    break;
+                            }
+                        }
+                    });
+                }
+            }
+        }
     }
 
 }

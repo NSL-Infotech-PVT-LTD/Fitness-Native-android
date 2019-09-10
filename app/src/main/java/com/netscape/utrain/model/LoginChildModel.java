@@ -1,6 +1,6 @@
-package com.netscape.utrain.model.LogInApi;
+package com.netscape.utrain.model;
 
-public class ChildModel {
+public class LoginChildModel {
 
 
     private int id;
