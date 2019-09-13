@@ -20,6 +20,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -38,8 +39,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
@@ -110,6 +113,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_athlete_signup);
+
+
         retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
@@ -377,7 +382,18 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
 
-        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg, binding.athleteNameEdt.getText().toString(), binding.athleteEmailEdt.getText().toString(), binding.athletePasswordEdt.getText().toString(), binding.athletePhoneEdt.getText().toString(), binding.athleteAddressEdt.getText().toString(), latitude+"",longitude+"", Constants.DEVICE_TYPE, Constants.DEVICE_TOKEN, Constants.CONTENT_TYPE);
+        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg,
+                                                                                    binding.athleteNameEdt.getText().toString(),
+                                                                                    binding.athleteEmailEdt.getText().toString(),
+                                                                                    binding.athletePasswordEdt.getText().toString(),
+                                                                                    binding.athletePhoneEdt.getText().toString(),
+                                                                                    binding.athleteAddressEdt.getText().toString(),
+                                                                                   latitude+"",longitude+"",
+                                                                                    Constants.DEVICE_TYPE,
+                                                                                    Constants.DEVICE_TOKEN,
+                                                                                    Constants.CONTENT_TYPE);
+
+
         signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {

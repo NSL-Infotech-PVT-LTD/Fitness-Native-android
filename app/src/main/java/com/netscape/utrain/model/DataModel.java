@@ -11,6 +11,7 @@ public class DataModel {
     private String token;
     private AthleteUserModel user;
 
+
     public AthleteUserModel getUser() {
         return user;
     }

@@ -107,6 +107,135 @@
                         app:layout_constraintTop_toBottomOf="@id/organization_nameTv" />
 
 
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_emailTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/email"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
+                        app:layout_constraintTop_toTopOf="@id/organization_enterNameEdt" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/organization_enterEmailEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/organization_edt_design"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center_vertical"
+                        android:hint="@string/enter_email"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_emailTv" />
+
+
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_PhoneNoTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/phone"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
+                        app:layout_constraintTop_toTopOf="@id/organization_enterEmailEdt" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/organization_enterPhoneEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/organization_edt_design"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center_vertical"
+                        android:hint="@string/enter_phone_number"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_PhoneNoTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_LocationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/location"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
+                        app:layout_constraintTop_toTopOf="@id/organization_enterPhoneEdt" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/organization_enterLocationEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/organization_edt_design"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center_vertical"
+                        android:hint="@string/enter_location"
+                        android:drawableRight="@drawable/ic_my_location"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_LocationTv" />
+
+
+
+
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_passTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/password"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
+                        app:layout_constraintTop_toTopOf="@id/organization_enterLocationEdt" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/organization_enterPasslEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/organization_edt_design"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center_vertical"
+                        android:hint="@string/enter_password"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_passTv" />
+
+
+
+
+
+
+
+
+
+
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/organization_bioTv"
                         android:layout_width="wrap_content"
@@ -116,7 +245,7 @@
                         android:text="@string/bio"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_enterNameEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_enterPasslEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/organization_enterBioEdt"
@@ -135,29 +264,20 @@
                         app:layout_constraintTop_toBottomOf="@id/organization_bioTv" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/organization_LocationTv"
+                        android:id="@+id/organization_Choose_ServicesTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/location"
+                        android:text="@string/choose_services"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_enterBioEdt" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/organization_LocationSpinnerTv"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textSize="@dimen/_14sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/organization_SelectLocationSpinner"
-                        app:layout_constraintLeft_toLeftOf="@id/organization_SelectLocationSpinner"
-                        app:layout_constraintRight_toRightOf="@id/organization_SelectLocationSpinner"
-                        app:layout_constraintTop_toTopOf="@id/organization_SelectLocationSpinner" />
+
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/expiryYearTV"
+                        android:id="@+id/Select_Service_SpinnerTv"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_14sdp"
@@ -168,93 +288,100 @@
                         android:fontFamily="@font/poppins_semibold"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_LocationTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_Choose_ServicesTv" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/organization_SelectLocationSpinner"
+                        android:id="@+id/organization_SelectServiceSpinner"
                         style="@style/CustomSpinnerTheme"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:gravity="center_vertical"
                         android:padding="@dimen/_15sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/expiryYearTV"
-                        app:layout_constraintRight_toRightOf="@id/expiryYearTV"
-                        app:layout_constraintTop_toTopOf="@+id/expiryYearTV">
+                        app:layout_constraintLeft_toLeftOf="@+id/Select_Service_SpinnerTv"
+                        app:layout_constraintRight_toRightOf="@id/Select_Service_SpinnerTv"
+                        app:layout_constraintTop_toTopOf="@+id/Select_Service_SpinnerTv">
 
                     </androidx.appcompat.widget.AppCompatSpinner>
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/organization_BusinessHourTv"
+                        android:id="@+id/organization_BusinessHourstartTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/business_hour"
+                        android:text="@string/start_business_hour"
+                        android:gravity="left"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_SelectLocationSpinner" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_SelectServiceSpinner" />
+
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/organization_PhoneNoTv"
+                        android:id="@+id/organization_BusinessHourendTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_53sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/phone_no"
-                        app:layout_constraintRight_toLeftOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_SelectLocationSpinner" />
+                        android:text="@string/end_business_hour"
+                        android:gravity="left"
+                        android:layout_marginRight="@dimen/_12sdp"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_SelectServiceSpinner" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/minuteTv"
-                        android:layout_width="@dimen/_35sdp"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_startTimeTv"
+                        android:layout_width="@dimen/_115sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_22sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:text="12"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourTv" />
+                        android:gravity="center_vertical"
+                        android:inputType="date"
+                        android:hint="@string/time_format"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:drawableLeft="@drawable/ic_time"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourstartTv"
+                        />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/secondTv"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:text="30"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourTv" />
-
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/organization_timeSpinner"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/organization_edt_design"
-                        app:layout_constraintLeft_toRightOf="@id/secondTv"
-                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourTv" />
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/organization_endTimeTv"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:padding="@dimen/_2sdp"
-                        android:text="xx1245673546"
-                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left|center"
+                        android:inputType="date"
+                        android:hint="@string/time_format"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:drawableLeft="@drawable/ic_time"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_PhoneNoTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourstartTv"
+                        />
+
+
+
+
+
+
+
+
+
+<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                        android:id="@+id/organization_timeSpinner"-->
+<!--                        android:layout_width="@dimen/_35sdp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:layout_marginLeft="@dimen/_5sdp"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:background="@drawable/organization_edt_design"-->
+<!--                        app:layout_constraintLeft_toRightOf="@id/secondTv"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourTv" />-->
+
+
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/organization_ProfessionTv"
@@ -264,7 +391,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/profession"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/minuteTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_startTimeTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/organization_professionTypeTv"
@@ -287,7 +414,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/expertise"
                         app:layout_constraintRight_toLeftOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/minuteTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_endTimeTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/organization_professionType2Tv"

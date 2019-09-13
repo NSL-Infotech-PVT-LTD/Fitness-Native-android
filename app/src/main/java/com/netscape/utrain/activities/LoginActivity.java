@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
         progressDialog=new ProgressDialog(this);

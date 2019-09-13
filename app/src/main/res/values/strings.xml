@@ -79,7 +79,7 @@
     <string name="bio">Bio</string>
     <string name="enter_bio">I\'am profession sports trainer</string>
     <string name="location">Location</string>
-    <string name="business_hour">Business Hour</string>
+    <string name="business_hour">Start Business Hour</string>
     <string name="phone_no">Phone No.</string>
     <string name="profession">Profession</string>
     <string name="type">Type</string>
@@ -123,5 +123,14 @@
     <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
     <string name="date_format">Date</string>
     <string name="time_format">Time</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="choose_services">Choose Services</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="start_business_hour">Start Business Hour</string>
+    <string name="end_business_hour">End Business hour</string>
+    <string name="service_activity_service">Service price</string>
+    <string name="who_you_are">Who you are</string>
+    <string name="next">Next</string>
+    <string name="athlete_login_header">Log In</string>
 
 </resources>
