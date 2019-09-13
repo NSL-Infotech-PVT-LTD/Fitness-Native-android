@@ -2,9 +2,12 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.activities.AthleteSignupActivity;
 import com.netscape.utrain.response.AthleteSignUpResponse;
+import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.utils.Constants;
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -16,7 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
-public interface Retrofitinterface {
+public interface    Retrofitinterface {
 
     @Multipart
     @POST(Constants.ATHLETE_SIGNUP)
@@ -43,6 +46,30 @@ public interface Retrofitinterface {
     @POST("reset-password")
     Call<ForgetPasswordResponse> getForgetpassword(@Header("Content-Type") String Content_Type,
                                                    @Field("email") String email);
+
+
+
+
+
+    @FormUrlEncoded
+    @POST(Constants.COACH_SIGNUP)
+    Call<CoachSignUpResponse> coachSignUp(@Header("Content-Type") String Content_Type,
+                                          @Field("name") String name,
+                                          @Field("email") String email,
+                                          @Field("password") String password,
+                                          @Field("phone") String phone,
+                                          @Field("location") String location,
+                                          @Field("latitude") String latitude,
+                                          @Field("longitude") String longitude,
+                                          @Field("business_hour_starts") String business_hour_starts,
+                                          @Field("business_hour_ends") String business_hour_ends,
+                                          @Field("bio") String bio,
+                                          @Field("service_ids") String service_ids,
+                                          @Field("expertise_years") String expertise_years,
+                                          @Field("hourly_rate") String hourly_rate,
+                                          @Field("device_type") String device_type,
+                                          @Field("device_token") String device_token);
+    
 
 
 }

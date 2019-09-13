@@ -61,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_user"
+                    android:drawableLeft="@drawable/ic_mail"
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center_vertical"

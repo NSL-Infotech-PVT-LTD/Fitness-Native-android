@@ -56,7 +56,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.findCoachesBtn:
                 if (signUpAs.equals(Constants.Athlete)){
-                    Intent athleteSignUp = new Intent(SignUpTypeActivity.this, AthleteSignupActivity.class);
+                    Intent athleteSignUp = new Intent(SignUpTypeActivity.this, AthleteLoginActivity.class);
                     startActivity(athleteSignUp);
                 }
                 if (signUpAs.equals(Constants.Coach)){

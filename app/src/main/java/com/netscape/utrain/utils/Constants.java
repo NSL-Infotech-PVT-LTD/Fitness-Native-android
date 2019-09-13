@@ -8,6 +8,7 @@ public class Constants {
     public static final String Coach="coach";
     public static final String Athlete="athlete";
     public static final String Organization="organization";
+    public static final String COACH_SIGNUP = "coach/register";
 
 
 

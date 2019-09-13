@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_4sdp"
+    android:background="@color/colorGreen">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/service_serviceNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="ServiceName"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/service_servicePriceEdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="$99"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/card_input_edt_background"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
