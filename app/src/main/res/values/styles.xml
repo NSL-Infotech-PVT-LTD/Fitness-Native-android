@@ -42,4 +42,11 @@
 
     </style>
 
+    <style name="customRatingBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+<!--        parent="android:style/Widget.Material.RatingBar.Small">-->
+
+        ... // Additional customizations
+    </style>
+
 </resources>

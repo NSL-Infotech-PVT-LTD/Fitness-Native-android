@@ -64,10 +64,16 @@ public class ServicePriceActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.service_recyclerView);
         layoutManager = new LinearLayoutManager(ServicePriceActivity.this);
 
-        mList = (List<ServicePriceModel>) getIntent().getSerializableExtra("name");
-        if (model.get(mPosition).getServiceName().length()>0)
+        if (getIntent().hasExtra("name"))
+        {
+            mList = (List<ServicePriceModel>) getIntent().getSerializableExtra("name");
+        }
+
+        if (mList.get(mPosition).getServiceName().length()>0)
+
+            mList.get(mPosition).getServiceName();
 //        if (mList.get(mPosition).getServiceName().length()>0)
-        serviceAdapter = new ServicePriceAdapter(ServicePriceActivity.this,model);
+        serviceAdapter = new ServicePriceAdapter(ServicePriceActivity.this,mList);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(serviceAdapter);
 
@@ -115,12 +121,9 @@ public class ServicePriceActivity extends AppCompatActivity {
                             Intent intent = new Intent(ServicePriceActivity.this,ServicePriceActivity.class);
                             intent.putExtra("name", mList.get(mPosition).getServiceName());
                             startActivity(intent);
-
                         }
-
                     }
                 });
-
             }
 
         });

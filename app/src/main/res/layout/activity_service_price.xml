@@ -21,20 +21,20 @@
         android:textColor="@color/colorBlack"
         android:fontFamily="@font/poppins_semibold"/>
 
-        <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/service_AddServiceTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:background="@drawable/card_input_edt_background"
-        android:gravity="center"
-        app:fontFamily="@font/poppins_regular"
-        android:text="Add Services"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"
-        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"
-        />
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/service_AddServiceTv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/poppins_regular"-->
+<!--        android:background="@drawable/card_input_edt_background"-->
+<!--        android:gravity="center"-->
+<!--        app:fontFamily="@font/poppins_regular"-->
+<!--        android:text="Add Services"-->
+<!--        android:textSize="@dimen/_15sdp"-->
+<!--        android:textColor="@color/colorBlack"-->
+<!--        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"-->
+<!--        />-->
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -71,14 +71,58 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/_30sdp"/>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/services"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_15sdp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/_10sdp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rate"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/_10sdp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/service_recyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
             app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/service_AddServiceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/servicePrice_btnNext"
+            android:backgroundTint="@color/colorGreen"
+            android:src="@drawable/ic_add"
+            android:layout_margin="@dimen/_40sdp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/servicePrice_btnNext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
+            android:backgroundTint="@color/colorGreen"
+            android:textColor="@color/colorBlack"
+            android:textAllCaps="false"
+            android:layout_marginBottom="@dimen/_30sdp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorLightGray"
-    tools:context=".activities.BookSlotPrivateActivity">
+    tools:context=".activities.BookSlotCampusActivity">
 
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bookingSlot_BookingSlotTv"
+        android:id="@+id/bookingCampus_BookingSlotTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_20sdp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bookingslot_privateTv"
+        android:id="@+id/bookingCampus_privateTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_30sdp"
@@ -33,14 +33,14 @@
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:padding="@dimen/_6sdp"
-        android:text="@string/private_tv"
+        android:text="@string/campus_tv"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bookingslot_fill_your_reqTv"
+        android:id="@+id/bookingCampus_fill_your_reqTv"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_20sdp"
@@ -48,10 +48,10 @@
         android:textSize="@dimen/_15sdp"
         app:fontFamily="@font/poppins_regular"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookingSlot_BookingSlotTv" />
+        app:layout_constraintTop_toBottomOf="@id/bookingCampus_BookingSlotTv" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bookingSlot_Guideline"
+        android:id="@+id/bookingCampus_Guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -63,18 +63,18 @@
         android:layout_height="@dimen/_50sdp"
         android:background="@color/colorGreen"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bookingSlot_Guideline" />
+        app:layout_constraintTop_toTopOf="@id/bookingCampus_Guideline" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bookingSlot_constLayoutTwo"
+        android:id="@+id/bookingCampus_constLayoutTwo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/cards_shape"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bookingSlot_Guideline">
+        app:layout_constraintTop_toTopOf="@id/bookingCampus_Guideline">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bookingSlot_leftGuideline"
+            android:id="@+id/bookingCampus_leftGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -82,32 +82,32 @@
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/bookingSlot_rightGuideline"
+            android:id="@+id/bookingCampus_rightGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/_30sdp" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_selectTrainingTv"
+            android:id="@+id/bookingCampus_selectTrainingTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/select_sports_training"
             android:textSize="@dimen/_13sdp"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/bookingSlot_SelectTrainingSpinner"
+            android:id="@+id/bookingCampus_SelectTrainingSpinner"
             style="@style/CustomSpinnerTheme"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTrainingTv" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTrainingTv" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
@@ -115,31 +115,31 @@
             android:textSize="@dimen/_13sdp"
             android:background="@drawable/card_input_edt_background"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_SelectTrainingSpinner"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toTopOf="@id/bookingSlot_SelectTrainingSpinner" />
+            app:layout_constraintBottom_toBottomOf="@id/bookingCampus_SelectTrainingSpinner"
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toTopOf="@id/bookingCampus_SelectTrainingSpinner" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_selectOrganizationTv"
+            android:id="@+id/bookingCampus_selectOrganizationTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/select_sports_organization"
             android:textSize="@dimen/_13sdp"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectTrainingSpinner" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectTrainingSpinner" />
 
         <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/bookingSlot_SelectOrganizationSpinner"
+            android:id="@+id/bookingCampus_SelectOrganizationSpinner"
             style="@style/CustomSpinnerTheme"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_selectOrganizationTv" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/bookingCampus_selectOrganizationTv" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
@@ -147,14 +147,14 @@
             android:textSize="@dimen/_13sdp"
             android:background="@drawable/card_input_edt_background"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toTopOf="@id/bookingSlot_SelectOrganizationSpinner" />
+            app:layout_constraintBottom_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner"
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toTopOf="@id/bookingCampus_SelectOrganizationSpinner" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_selectTimeTv"
+            android:id="@+id/bookingCampus_selectTimeTv"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -162,11 +162,11 @@
             android:textSize="@dimen/_13sdp"
             android:gravity="left"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_selectDateTv"
+            android:id="@+id/bookingCampus_selectDateTv"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -175,12 +175,12 @@
             android:textSize="@dimen/_13sdp"
             android:gravity="left"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_SelectOrganizationSpinner" />
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_TimeTv"
+            android:id="@+id/bookingCampus_TimeTv"
             android:layout_width="@dimen/_110sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -193,34 +193,34 @@
             android:paddingLeft="@dimen/_20sdp"
             android:textSize="@dimen/_13sdp"
             android:drawableLeft="@drawable/ic_time"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTimeTv" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTimeTv" />
 
 
-<!--        <androidx.appcompat.widget.AppCompatSpinner-->
-<!--            android:id="@+id/bookingSlot_ampmSpinner"-->
-<!--            style="@style/CustomSpinnerTheme"-->
-<!--            android:layout_width="@dimen/_40sdp"-->
-<!--            android:layout_height="@dimen/_40sdp"-->
-<!--            android:layout_marginLeft="@dimen/_5sdp"-->
-<!--            android:layout_marginTop="@dimen/_10sdp"-->
-<!--            android:gravity="center"-->
-<!--            app:layout_constraintLeft_toRightOf="@id/bookingSlot_TimeTv"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_selectTimeTv" />-->
+        <!--        <androidx.appcompat.widget.AppCompatSpinner-->
+        <!--            android:id="@+id/bookingSlot_ampmSpinner"-->
+        <!--            style="@style/CustomSpinnerTheme"-->
+        <!--            android:layout_width="@dimen/_40sdp"-->
+        <!--            android:layout_height="@dimen/_40sdp"-->
+        <!--            android:layout_marginLeft="@dimen/_5sdp"-->
+        <!--            android:layout_marginTop="@dimen/_10sdp"-->
+        <!--            android:gravity="center"-->
+        <!--            app:layout_constraintLeft_toRightOf="@id/bookingSlot_TimeTv"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_selectTimeTv" />-->
 
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--            android:id="@+id/bookingSlot_amPmTv"-->
-<!--            android:layout_width="@dimen/_40sdp"-->
-<!--            android:layout_height="@dimen/_40sdp"-->
-<!--            android:fontFamily="@font/poppins_regular"-->
-<!--            android:textSize="@dimen/_13sdp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_ampmSpinner"-->
-<!--            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_ampmSpinner"-->
-<!--            app:layout_constraintRight_toRightOf="@id/bookingSlot_ampmSpinner"-->
-<!--            app:layout_constraintTop_toTopOf="@id/bookingSlot_ampmSpinner" />-->
+        <!--        <com.google.android.material.textview.MaterialTextView-->
+        <!--            android:id="@+id/bookingSlot_amPmTv"-->
+        <!--            android:layout_width="@dimen/_40sdp"-->
+        <!--            android:layout_height="@dimen/_40sdp"-->
+        <!--            android:fontFamily="@font/poppins_regular"-->
+        <!--            android:textSize="@dimen/_13sdp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/bookingSlot_ampmSpinner"-->
+        <!--            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_ampmSpinner"-->
+        <!--            app:layout_constraintRight_toRightOf="@id/bookingSlot_ampmSpinner"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/bookingSlot_ampmSpinner" />-->
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bookingSlot_DateTv"
+            android:id="@+id/bookingCampus_DateTv"
             android:layout_width="@dimen/_110sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -232,8 +232,8 @@
             android:text="@string/date_format"
             android:drawableLeft="@drawable/ic_date"
             android:textSize="@dimen/_13sdp"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/bookingSlot_selectTimeTv" />
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTimeTv" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="0dp"
@@ -245,9 +245,9 @@
             android:textColor="@color/colorBlack"
             app:cornerRadius="@dimen/_5sdp"
             android:textSize="@dimen/_13sdp"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/bookingSlot_DateTv" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/bookingCampus_DateTv" />
 
         <View
             android:layout_width="@dimen/_100sdp"
@@ -255,8 +255,8 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:background="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline" />
+            app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

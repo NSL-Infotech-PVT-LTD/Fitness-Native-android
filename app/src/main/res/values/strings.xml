@@ -147,4 +147,13 @@
     <string name="service_name">Service Name</string>
     <string name="enter_price">Enter price</string>
     <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your work</string>
+    <string name="campus_tv">Campus</string>
+    <string name="coach_name">Roger David</string>
+    <string name="training_session">Training Session</string>
+    <string name="enter_training_session">12:30 pm- 2:30pm</string>
+    <string name="price">Price</string>
+    <string name="enter_price_withDollar">$30.00</string>
+    <string name="register_for_the_session">Register for the session</string>
+    <string name="rate">Rate</string>
+    <string name="services">Services</string>
 </resources>
