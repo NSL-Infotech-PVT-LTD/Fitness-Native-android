@@ -143,5 +143,8 @@
     <string name="enter_your_experites">Enter your expertise</string>
     <string name="enter_profession_type">Enter profession type</string>
     <string name="enter_org_service_details">Enter training service details</string>
-
+    <string name="sevice_summary_of_services">Summary of service</string>
+    <string name="service_name">Service Name</string>
+    <string name="enter_price">Enter price</string>
+    <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your work</string>
 </resources>
