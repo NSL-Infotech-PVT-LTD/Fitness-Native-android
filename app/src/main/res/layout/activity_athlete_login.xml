@@ -50,11 +50,11 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/athlete_enterEmailEdt"
+                android:id="@+id/athleteEmailEdt"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/etmaterial_design"
-                android:drawableLeft="@drawable/ic_mail"
+                android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/enter_email"
@@ -62,7 +62,7 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@id/guideline"
@@ -70,7 +70,7 @@
                 />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/athlete_enterPasswordEdt"
+                android:id="@+id/athletePasswordEdt"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -83,15 +83,15 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@id/athlete_enterEmailEdt"
+                app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt"
 
                 />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/athlete_loginForgetTv"
+                android:id="@+id/athleteForgetTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
@@ -99,11 +99,11 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/athlete_enterPasswordEdt" />
+                app:layout_constraintTop_toBottomOf="@+id/athletePasswordEdt" />
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/athlete_LogInBtn"
+                android:id="@+id/athleteLogInBtn"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_30sdp"
@@ -113,10 +113,10 @@
                 android:text="@string/log_in"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@id/athlete_enterPasswordEdt" />
+                app:layout_constraintTop_toBottomOf="@id/athletePasswordEdt" />
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -130,11 +130,11 @@
                 app:layout_constraintBottom_toTopOf="@+id/athlete_view"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                app:layout_constraintRight_toLeftOf="@id/athleteSignupTv"
-                app:layout_constraintTop_toBottomOf="@+id/athlete_LogInBtn" />
+                app:layout_constraintRight_toLeftOf="@id/athleteSignUpTv"
+                app:layout_constraintTop_toBottomOf="@+id/athleteLogInBtn" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/athleteSignupTv"
+                android:id="@+id/athleteSignUpTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_2sdp"

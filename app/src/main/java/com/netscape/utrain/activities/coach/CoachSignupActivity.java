@@ -1,4 +1,4 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.coach;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +16,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -28,6 +25,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -45,7 +43,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
-import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
+import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.databinding.ActivityCoachSignupBinding;
 import com.netscape.utrain.model.CoachSignUpModel;
 import com.netscape.utrain.response.CoachSignUpResponse;
@@ -88,11 +86,6 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
 
 
-
-
-
-
-
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -106,14 +99,10 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach_signup);
-
-
-
         binding= DataBindingUtil.setContentView(this,R.layout.activity_coach_signup);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(CoachSignupActivity.this);
@@ -218,7 +207,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
                                                                                              binding.coachEnterExperienceDetailEdt.getText().toString(),
                                                                                              binding.coachEnterHourlyRateEdt.getText().toString(),
                                                                                              Constants.DEVICE_TYPE,
-                                                                                             Constants.DEVICE_TOKEN);                                                                                        );
+                                                                                             Constants.DEVICE_TOKEN);
                     call.enqueue(new Callback<CoachSignUpResponse>() {
                         @Override
                         public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
@@ -329,7 +318,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
         builder.setView(content);
         TextView gallery = (TextView) content.findViewById(R.id.gallerySellectionBtn);
         TextView camera = (TextView) content.findViewById(R.id.cameraSelectionBtn);
-        TextView cancel = (TextView) content.findViewById(R.id.cancelSelectionBtn);
+        ImageView cancel = (ImageView) content.findViewById(R.id.closeDialogImg);
         dialogMultiOrder = builder.create();
 //        dialogMultiOrder.setCanceledOnTouchOutside(false);
         gallery.setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.LoginWithActivity;
+import com.netscape.utrain.activities.coach.CoachSignupActivity;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginTypeBinding;
 import com.netscape.utrain.utils.Constants;
 
@@ -56,15 +59,20 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.findCoachesBtn:
                 if (signUpAs.equals(Constants.Athlete)){
-                    Intent athleteSignUp = new Intent(SignUpTypeActivity.this, AthleteLoginActivity.class);
+                    Intent athleteSignUp = new Intent(SignUpTypeActivity.this, LoginWithActivity.class);
+                    athleteSignUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(athleteSignUp);
                 }
                 if (signUpAs.equals(Constants.Coach)){
-                    Intent coachSignUp = new Intent(SignUpTypeActivity.this, CoachSignupActivity.class);
+                    Intent coachSignUp = new Intent(SignUpTypeActivity.this, LoginActivity.class);
+                    coachSignUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    coachSignUp.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
                     startActivity(coachSignUp);
                 }
                 if (signUpAs.equals(Constants.Organization)){
-                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, OrganizationSignUpActivity.class);
+                    Intent organizationSignUp = new Intent(SignUpTypeActivity.this, LoginActivity.class);
+                    organizationSignUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    organizationSignUp.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
                     startActivity(organizationSignUp);
                 }
 

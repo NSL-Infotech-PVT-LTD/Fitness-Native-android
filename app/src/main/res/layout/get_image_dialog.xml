@@ -24,7 +24,15 @@
             android:layout_height="wrap_content"
             android:background="@color/colorGreen"
             >
-
+            <ImageView
+                android:id="@+id/closeDialogImg"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:background="@drawable/ic_close"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"></ImageView>
             <TextView
                 android:layout_marginTop="@dimen/_10sdp"
                 android:id="@+id/confirmText"
@@ -68,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorGreen"
                 android:letterSpacing="0"
+                android:layout_margin="@dimen/_20sdp"
                 android:text="@string/camera"
                 android:padding="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_semibold"
@@ -76,33 +85,12 @@
                 app:cornerRadius="@dimen/_4sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/gallerySellectionBtn"
-                app:layout_constraintRight_toLeftOf="@+id/cancelSelectionBtn"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/confirmText"
                 app:strokeColor="@color/colorWhite"
                 app:strokeWidth="@dimen/_2sdp"
-
                 />
-            <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/cancelSelectionBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
-            android:backgroundTint="@color/colorGreen"
-            android:letterSpacing="0"
-            android:text="@string/cancel"
-            android:padding="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            app:cornerRadius="@dimen/_4sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/cameraSelectionBtn"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirmText"
-            app:strokeColor="@color/colorWhite"
-            app:strokeWidth="@dimen/_2sdp"
 
-            />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

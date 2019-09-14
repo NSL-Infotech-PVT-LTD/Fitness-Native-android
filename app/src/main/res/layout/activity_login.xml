@@ -3,23 +3,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/login_back"
-        android:id="@+id/loginLayout">
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_back">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -67,10 +68,10 @@
                     android:gravity="center_vertical"
                     android:hint="@string/email_address"
                     android:inputType="text"
+                    android:maxLength="40"
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:maxLength="40"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
@@ -90,12 +91,12 @@
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    android:maxLength="20"
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:singleLine="true"
-                    android:maxLength="20"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/loginEmailEdt" />
@@ -138,9 +139,9 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toTopOf="@+id/vieweighthScreen"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintTop_toBottomOf="@+id/loginBtn"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintRight_toLeftOf="@id/loginSignUpTv" />
+                    app:layout_constraintRight_toLeftOf="@id/loginSignUpTv"
+                    app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/loginSignUpTv"
@@ -176,7 +177,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

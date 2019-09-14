@@ -3,17 +3,29 @@ package com.netscape.utrain.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
+import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.databinding.ActivityForgetPasswordBinding;
 import com.netscape.utrain.model.ForgetDataModel;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,18 +33,18 @@ import retrofit2.Response;
 
 public class ForgetPasswordActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityForgetPasswordBinding binding;
-
-    Retrofitinterface api;
-    ForgetDataModel mDataModel;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
+    private ForgetDataModel mDataModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
-
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-
         binding= DataBindingUtil.setContentView(this,R.layout.activity_forget_password);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
         init();
     }
 
@@ -45,9 +57,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.forgetSubmitBtn:
-//                getNewPassword();
-                Intent loginActivity=new Intent(ForgetPasswordActivity.this,LoginActivity.class);
-                startActivity(loginActivity);
+                getNewPassword();
                 break;
             case R.id.forgetBackBtn:
                 finish();
@@ -56,43 +66,50 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void getNewPassword() {
-        if (binding.forgetNewPassEdt.getText().toString().isEmpty()){
-            binding.forgetNewPassEdt.setError(getString(R.string.enter_new_password));
-        }else if (binding.forgetConfirmPassEdt.getText().toString().isEmpty()) {
-            binding.forgetConfirmPassEdt.setError(getString(R.string.confirm_new_password));
-        }else if (! binding.forgetConfirmPassEdt.getText().toString().equals(binding.forgetNewPassEdt.getText().toString())) {
-            binding.forgetConfirmPassEdt.setError(getString(R.string.confirm_password_doesnt_match));
+        if (binding.forgetEmailEdt.getText().toString().isEmpty()){
+            binding.forgetEmailEdt.setError(getResources().getString(R.string.enter_your_email));
+            binding.forgetEmailEdt.requestFocus();
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(binding.forgetEmailEdt.getText().toString()).matches()) {
+            binding.forgetEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
+            binding.forgetEmailEdt.requestFocus();
         }else {
             hitPasswordChangeApi();
         }
     }
 
     private void hitPasswordChangeApi() {
-
-        Call<ForgetPasswordResponse> call = api.getForgetpassword("application/x-www-form-urlencoded",
-                "niti1.prabha@netscapelabs.com");
-
+        progressDialog.show();
+        Call<ForgetPasswordResponse> call = retrofitinterface.getForgetpassword(Constants.CONTENT_TYPE, binding.forgetEmailEdt.getText().toString());
         call.enqueue(new Callback<ForgetPasswordResponse>() {
             @Override
             public void onResponse(Call<ForgetPasswordResponse> call, Response<ForgetPasswordResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Snackbar.make(binding.forgetLayout,response.body().getData().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
-                if (response.isSuccessful())
-                {
-                    if (response.body().getCode() == 201)
-                    {
-                        Toast.makeText(ForgetPasswordActivity.this, ""+response.body().getData().getMessage(),Toast.LENGTH_SHORT).show();
-                    } else
-                    {
-                        Toast.makeText(ForgetPasswordActivity.this, ""+response.body().getError().getError_message(),Toast.LENGTH_SHORT).show();
+                            Intent homeScreen= new Intent(getApplicationContext(), AthleteLoginActivity.class);
+                            startActivity(homeScreen);
+                        }
+                    } else {
+                        Snackbar.make(binding.forgetLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
-                } else
-                    Toast.makeText(ForgetPasswordActivity.this,"Api not hit",Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.forgetLayout,errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.forgetLayout,e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
             }
-
             @Override
             public void onFailure(Call<ForgetPasswordResponse> call, Throwable t) {
-
-
+                progressDialog.dismiss();
+                Snackbar.make(binding.forgetLayout,"Something went wrong", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 

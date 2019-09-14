@@ -1,13 +1,11 @@
 package com.netscape.utrain.retrofit;
 
-import com.netscape.utrain.activities.AthleteSignupActivity;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.utils.Constants;
-
-import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -69,7 +67,24 @@ public interface    Retrofitinterface {
                                           @Field("hourly_rate") String hourly_rate,
                                           @Field("device_type") String device_type,
                                           @Field("device_token") String device_token);
-    
 
-
+        @Multipart
+        @POST(Constants.ORG_SIGNUP)
+        Call<OrgSignUpResponse> orgSignup(@Part MultipartBody.Part file,
+                                          @Query("name") String name,
+                                          @Query("email") String email,
+                                          @Query("password") String password,
+                                          @Query("phone") String phone,
+                                          @Query("location") String location,
+                                          @Query("latitude") String latitude,
+                                          @Query("longitude") String longitude,
+                                          @Query("bio") String bio,
+                                          @Query("service_ids") String serviceIds,
+                                          @Query("expertise_years") String expertiesYears,
+                                          @Query("hourly_rate") String hourlyRate,
+                                          @Query("business_hour_starts") String businessStartTime,
+                                          @Query("business_hour_ends") String businessEndTime,
+                                          @Query("device_type") String device_type,
+                                          @Query("device_token") String device_token,
+                                          @Header("Content-Type") String contentType);
 }

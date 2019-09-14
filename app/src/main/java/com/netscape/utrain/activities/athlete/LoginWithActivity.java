@@ -1,6 +1,5 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -10,18 +9,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.Login;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
-
-import java.util.Arrays;
 
 public class LoginWithActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityCoachLoginBinding binding;
@@ -78,13 +68,15 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.emailLoginBtn:
-                Intent intent = new Intent(LoginWithActivity.this, LoginActivity.class);
+                Intent intent = new Intent(LoginWithActivity.this, AthleteLoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 break;
             case R.id.fbLin:
                 break;
             case R.id.tvSignUp:
-                Intent signUpType = new Intent(LoginWithActivity.this, SignUpTypeActivity.class);
+                Intent signUpType = new Intent(LoginWithActivity.this, AthleteSignupActivity.class);
+                signUpType.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(signUpType);
                 break;
         }

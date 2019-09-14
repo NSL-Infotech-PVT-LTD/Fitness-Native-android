@@ -1,13 +1,11 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
@@ -16,6 +14,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BottomNavigation;
+import com.netscape.utrain.activities.ForgetPasswordActivity;
 import com.netscape.utrain.databinding.ActivityAthleteLoginBinding;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -32,10 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AthleteLoginActivity extends AppCompatActivity {
-
-
-
+public class AthleteLoginActivity extends AppCompatActivity implements View.OnClickListener {
     TextInputEditText edtEmail, edtPassword;
     MaterialTextView tvSignUp, tvForgetPassword;
     MaterialButton btnLogin;
@@ -48,57 +45,18 @@ public class AthleteLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_athlete_login);
-
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_athlete_login);
-        tvSignUp = findViewById(R.id.athleteSignupTv);
-        tvForgetPassword = findViewById(R.id.athlete_loginForgetTv);
-        btnLogin = findViewById(R.id.athlete_LogInBtn);
-        edtEmail = findViewById(R.id.athlete_enterEmailEdt);
-        edtPassword = findViewById(R.id.athlete_enterPasswordEdt);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_login);
         progressDialog = new ProgressDialog(AthleteLoginActivity.this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        init();
+    }
 
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(AthleteLoginActivity.this, AthleteSignupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AthleteLoginActivity.this,ForgetPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // LoginButton Coding....
-
-                email = edtEmail.getText().toString();
-                password = edtPassword.getText().toString();
-
-
-                if (email.equals("")) {
-                    edtEmail.setError("Please enter email");
-                } else if (!isValidEmailId(email)){     // Email Validation
-                    edtEmail.setError("Please enter valid email!");
-                } else if (password.equals("")) {
-                    edtPassword.setError("Please enter password!");
-                } else
-                {
-                    // hit login api here.....
-
-                    hitLoginApi();
-
-                }
-            }
-        });
+    private void init() {
+        binding.athleteForgetTv.setOnClickListener(this);
+        binding.athleteLogInBtn.setOnClickListener(this);
+        binding.athleteSignUpTv.setOnClickListener(this);
     }
 
     private void hitLoginApi() {
@@ -139,7 +97,7 @@ public class AthleteLoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-
+                progressDialog.dismiss();
 
             }
         });
@@ -153,5 +111,45 @@ public class AthleteLoginActivity extends AppCompatActivity {
                 + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                 + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.athleteLogInBtn:
+                validateEdt();
+                break;
+            case R.id.athleteForgetTv:
+                Intent forgetPass = new Intent(AthleteLoginActivity.this, ForgetPasswordActivity.class);
+                forgetPass.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(forgetPass);
+                break;
+            case R.id.athleteSignUpTv:
+                Intent signUp = new Intent(AthleteLoginActivity.this, AthleteSignupActivity.class);
+                signUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(signUp);
+                break;
+        }
+    }
+    private void validateEdt(){
+        email = binding.athleteEmailEdt.getText().toString();
+        password = binding.athletePasswordEdt.getText().toString();
+        if (email.isEmpty()) {
+//            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_email), BaseTransientBottomBar.LENGTH_LONG).show();
+            binding.athleteEmailEdt.setError(getResources().getString(R.string.enter_email));
+            binding.athleteEmailEdt.requestFocus();
+        } else if (!isValidEmailId(email)){     // Email Validation
+//            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_valid_email), BaseTransientBottomBar.LENGTH_LONG).show();
+            binding.athleteEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
+            binding.athleteEmailEdt.requestFocus();
+        } else if (password.equals("")) {
+            binding.athletePasswordEdt.setError(getResources().getString(R.string.enter_password));
+//            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_password), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            binding.athletePasswordEdt.requestFocus();
+        } else
+        {
+            hitLoginApi();
+        }
     }
 }

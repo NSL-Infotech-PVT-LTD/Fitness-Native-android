@@ -17,6 +17,9 @@ import com.bumptech.glide.load.engine.Resource;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
+import com.netscape.utrain.activities.coach.CoachSignupActivity;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginBinding;
 import com.netscape.utrain.model.LoginRoleModel;
 import com.netscape.utrain.response.LoginResponse;
@@ -40,16 +43,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginRoleModel loginRoleModel;
     private ProgressDialog progressDialog;
     private boolean doubleBackToExitPressedOnce=false;
+    private String activeUserType="";
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
+        if( getIntent().getExtras() != null)
+        {
+           activeUserType=getIntent().getStringExtra(Constants.ActiveUserType);
+        }
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
         init();
@@ -71,11 +77,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.loginForgetTv:
                 Intent forgetActivity=new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+                forgetActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(forgetActivity);
                 break;
             case R.id.loginSignUpTv:
-                Intent signUpActivity=new Intent(LoginActivity.this, SignUpTypeActivity.class);
-                startActivity(signUpActivity);
+                if (activeUserType.equals(Constants.TypeCoach)){
+                    Intent signUpActivity=new Intent(LoginActivity.this, CoachSignupActivity.class);
+                    signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(signUpActivity);
+                }
+                if (activeUserType.equals(Constants.TypeOrganization)){
+                    Intent signUpActivity=new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
+                    signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(signUpActivity);
+                }
                 break;
         }
     }
@@ -144,24 +159,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed();
+//            return;
+//        }
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce = false;
+//            }
+//        }, 2000);
+//    }
 
 
 
