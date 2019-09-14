@@ -1,10 +1,13 @@
 package com.netscape.utrain.retrofit;
 
+import androidx.constraintlayout.widget.ConstraintSet;
+
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
+import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.utils.Constants;
 
 import okhttp3.MultipartBody;
@@ -44,6 +47,11 @@ public interface    Retrofitinterface {
     @POST("reset-password")
     Call<ForgetPasswordResponse> getForgetpassword(@Header("Content-Type") String Content_Type,
                                                    @Field("email") String email);
+
+
+    @POST(Constants.SERVICES)
+    Call<ServiceListResponse> getServiceList(@Header("Content-Type") String Content_Type);
+
 
 
 

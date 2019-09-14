@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.ServicePriceModel;
 
 import java.util.List;
@@ -20,40 +22,45 @@ import java.util.List;
 public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecycleView> {
 
     Context context;
-    List<ServicePriceModel> list;
+    List<ServiceListDataModel> list;
     int defaultPosition = -1;
-    AdapterPos adapterPos;
+    private SelectedServicesInterface selectedServices;
 
-    public DialogAdapter(Context context, List<ServicePriceModel> list, AdapterPos adapterPos){
+    public DialogAdapter(Context context, List<ServiceListDataModel> list,SelectedServicesInterface services){
 
         this.context = context;
         this.list = list;
-        this.adapterPos = adapterPos;
+        this.selectedServices=services;
     }
 
     @NonNull
     @Override
     public CustomRecycleView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.service_price_list_design, parent, false);
-
         return new CustomRecycleView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomRecycleView holder, int position) {
+    public void onBindViewHolder(@NonNull CustomRecycleView holder, final int position) {
 
-        final ServicePriceModel data = list.get(position);
-        holder.serviceName.setText(data.getServiceName());
-        holder.cbSelect.setOnCheckedChangeListener(null);
-        holder.cbSelect.setChecked(data.isSelected());
+        final ServiceListDataModel data = list.get(position);
+        if (data.isSelected()){
+            holder.serviceName.setText(data.getName());
+            holder.cbSelect.setChecked(true);
+        }else{
+            holder.serviceName.setText(data.getName());
+            holder.cbSelect.setChecked(false);
+        }
+
+
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                data.setSelected(isChecked);
+                selectedServices.position(position,isChecked);
+                Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
             }
         });
-        adapterPos.position(position);
+//        adapterPos.position(position);
 
 
     }
@@ -76,7 +83,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecy
         }
     }
 
-    public interface AdapterPos {
-        void position(int pos);
+    public interface SelectedServicesInterface {
+        void position(int pos,Boolean ischecked);
     }
 }

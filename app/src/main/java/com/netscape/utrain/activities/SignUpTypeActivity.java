@@ -52,7 +52,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.organizationCardView:
                 signUpAs=Constants.Organization;
-                binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                binding.athleteLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.coachLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.organizationLayout.setBackground(getResources().getDrawable(R.drawable.mask_org));
                 binding.frameOrg.setBackgroundColor(getResources().getColor(R.color.colorGreen));

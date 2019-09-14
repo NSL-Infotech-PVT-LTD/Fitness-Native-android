@@ -166,7 +166,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 getEndTime();
                 break;
             case R.id.orgNextBtn:
-                validateEditTextData();
+                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
+                startActivity(in);
+//                validateEditTextData();
                 break;
             case R.id.orgAddressEdt:
                 break;

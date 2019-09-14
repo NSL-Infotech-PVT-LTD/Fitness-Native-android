@@ -6,6 +6,7 @@ public class Constants {
     public static final String ATHLETE_SIGNUP="athlete/register";
     public static final String LOGIN_METHOD="login";
     public static final String ORG_SIGNUP="organiser/register";
+    public static final String SERVICES="services";
 
 
     public static final String Coach="coach";

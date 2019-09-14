@@ -503,7 +503,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:textSize="@dimen/_12sdp"
-                        android:hint="Edit"
+                        android:text="@string/next"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         app:cornerRadius="@dimen/_5sdp"

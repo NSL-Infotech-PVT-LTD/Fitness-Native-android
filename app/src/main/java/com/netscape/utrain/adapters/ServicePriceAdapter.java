@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.ServicePriceModel;
 
 import java.util.ArrayList;
@@ -19,12 +20,11 @@ import java.util.List;
 
 public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapter.getRecyclerView> {
 
+    List<ServiceListDataModel> list;
     private Context context;
-    List<ServicePriceModel> list;
 
 
-    public ServicePriceAdapter(Context context, List<ServicePriceModel> list)
-    {
+    public ServicePriceAdapter(Context context, List<ServiceListDataModel> list) {
         this.context = context;
         this.list = list;
 
@@ -34,15 +34,20 @@ public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapte
     @Override
     public getRecyclerView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_design_service, parent,false);
-        return new getRecyclerView(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_design_service, parent, false);
+        getRecyclerView recyclerView=new getRecyclerView(view);
+        return recyclerView;
     }
 
     @Override
     public void onBindViewHolder(@NonNull getRecyclerView holder, int position) {
 
-        ServicePriceModel data = list.get(position);
-        holder.serviceName.setText(data.getServiceName());
+        ServiceListDataModel data = list.get(position);
+        if (data.isSelected()) {
+            holder.serviceName.setText(data.getName());
+        }else {
+            return;
+        }
 
     }
 
