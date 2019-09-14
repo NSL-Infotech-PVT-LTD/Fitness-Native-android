@@ -15,8 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AthleteLoginActivity"/>
-        <activity android:name=".activities.ServicePriceActivity"/>
+        <activity android:name=".activities.PortfolioActivity">
+
+        </activity>
+        <activity android:name=".activities.AthleteLoginActivity" />
+        <activity android:name=".activities.ServicePriceActivity" />
         <activity android:name=".activities.BookSlotActivity" />
         <activity android:name=".activities.NotificationActivity" />
         <activity android:name=".activities.LoginActivity" />
@@ -30,13 +33,14 @@
         <activity android:name=".activities.SignUpTypeActivity" />
         <activity android:name=".activities.LoginWithActivity" />
         <activity android:name=".activities.AthleteSignupActivity" />
-        <activity android:name=".activities.OrganizationSignUpActivity"/>
+        <activity android:name=".activities.OrganizationSignUpActivity" />
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.BottomNavigation"

@@ -5,18 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ServicePriceActivity"
-    android:background="@color/colorLightGray">
+    android:background="@color/colorLightGray"
+    android:id="@+id/serviceLayout">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/service_SummaryOfService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/service_activity_service"
+        android:text="@string/sevice_summary_of_services"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:textSize="@dimen/_20sdp"
+        android:textColor="@color/colorBlack"
         android:fontFamily="@font/poppins_semibold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/service_AddServiceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:background="@drawable/card_input_edt_background"
+        android:gravity="center"
+        app:fontFamily="@font/poppins_regular"
+        android:text="Add Services"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"
+        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"
+        />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -60,8 +78,6 @@
             app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
             app:layout_constraintTop_toTopOf="parent"/>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

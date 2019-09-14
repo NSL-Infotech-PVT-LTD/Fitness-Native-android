@@ -132,5 +132,9 @@
     <string name="who_you_are">Who you are</string>
     <string name="next">Next</string>
     <string name="athlete_login_header">Log In</string>
+    <string name="sevice_summary_of_services">Summary of service</string>
+    <string name="service_name">Service Name</string>
+    <string name="enter_price">Enter price</string>
+    <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your work</string>
 
 </resources>

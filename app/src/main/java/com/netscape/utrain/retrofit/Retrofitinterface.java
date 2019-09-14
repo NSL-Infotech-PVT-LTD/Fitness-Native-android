@@ -64,7 +64,7 @@ public interface    Retrofitinterface {
                                           @Field("business_hour_starts") String business_hour_starts,
                                           @Field("business_hour_ends") String business_hour_ends,
                                           @Field("bio") String bio,
-                                          @Field("service_ids") String service_ids,
+                                          @Field("service_ids") String service_ids ,
                                           @Field("expertise_years") String expertise_years,
                                           @Field("hourly_rate") String hourly_rate,
                                           @Field("device_type") String device_type,

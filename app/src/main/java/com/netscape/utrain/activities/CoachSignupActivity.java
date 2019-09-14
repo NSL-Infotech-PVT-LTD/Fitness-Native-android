@@ -156,7 +156,8 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
 
                 try {
                     if (ActivityCompat.checkSelfPermission(CoachSignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(CoachSignupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+                        ActivityCompat.requestPermissions(CoachSignupActivity.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                     } else {
                         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(galleryIntent, REQUEST_CODE);
@@ -173,89 +174,85 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(CoachSignupActivity.this, ServicePriceActivity.class);
+                startActivity(intent);
+
                 // NextButtonCoding.....
 
 
-                if (binding.coachNameEdt.getText().toString().isEmpty())
-                {
-                    binding.coachNameEdt.setError("Please enter name");
-                } else if (binding.coachEmaiEdt.getText().toString().isEmpty())
-                {
-                    binding.coachEmaiEdt.setError("Please enter email");
-                } else if (binding.coachPasswordEdt.getText().toString().isEmpty()) {
-                    binding.coachPasswordEdt.setError("Please enter password");
-                } else if (binding.coachPhoneEdt.getText().toString().isEmpty()){
-                    binding.coachPhoneEdt.setError("Please enter password");
-                } else if (binding.coachLocationEdt.getText().toString().isEmpty()){
-                    binding.coachLocationEdt.setError("Please enter location");
-                } else if (binding.coachBioEdt.getText().toString().isEmpty()) {
-                    binding.coachBioEdt.setError("Please enter bio");
-                } else if (binding.coachEnterExperienceDetailEdt.getText().toString().isEmpty()){
-                    binding.coachEnterExperienceDetailEdt.setError("Please enter experience");
-                } else if (binding.coachEnterHourlyRateEdt.getText().toString().isEmpty()){
-                    binding.coachEnterHourlyRateEdt.setError("Please enter rate");
-                } else{
-                    // hit CoachRegisterApi
-                    progressDialog.setMessage("Loading....");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                    MultipartBody.Part userImg = null;
-                    if (photoFile != null) {
-                        userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-                    }
-                    Call<CoachSignUpResponse> call = retrofitinterface.coachSignUp(Constants.CONTENT_TYPE,
-                                                                                             binding.coachNameEdt.getText().toString(),
-                                                                                             binding.coachEmailTv.getText().toString(),
-                                                                                             binding.coachPasswordEdt.getText().toString(),
-                                                                                             binding.coachPhoneEdt.getText().toString(),
-                                                                                             binding.coachLocationEdt.getText().toString(),
-                                                                                            latitude+"",
-                                                                                            longitude+"",
-                                                                                             binding.coachEnterStartbsnsHour.getText().toString(),
-                                                                                             binding.coachEnterendbsnsHour.getText().toString(),
-                                                                                             binding.coachBioEdt.getText().toString(),
-                                                                                            "[12,15]",
-                                                                                             binding.coachEnterExperienceDetailEdt.getText().toString(),
-                                                                                             binding.coachEnterHourlyRateEdt.getText().toString(),
-                                                                                             Constants.DEVICE_TYPE,
-                                                                                             Constants.DEVICE_TOKEN);                                                                                        );
-                    call.enqueue(new Callback<CoachSignUpResponse>() {
-                        @Override
-                        public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
-                            if (response.isSuccessful()){
-                                progressDialog.dismiss();
-                                if (response.body().isStatus())
-                                {
-                                    mModel = new CoachSignUpModel();
-                                    mModel = response.body().getData();
-                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getData().getName(),Toast.LENGTH_LONG).show();
-                                } else
-
-                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getError().getError_message(),Toast.LENGTH_LONG).show();
-
-                            }
-                            else
-                            {
-                                Toast.makeText(CoachSignupActivity.this,"Api not Successfull",Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
-                            progressDialog.dismiss();
-
-                        }
-                    });
-
-
-
-                }
-
-
+//                if (binding.coachNameEdt.getText().toString().isEmpty())
+//                {
+//                    binding.coachNameEdt.setError("Please enter name");
+//                } else if (binding.coachEmaiEdt.getText().toString().isEmpty())
+//                {
+//                    binding.coachEmaiEdt.setError("Please enter email");
+//                } else if (binding.coachPasswordEdt.getText().toString().isEmpty()) {
+//                    binding.coachPasswordEdt.setError("Please enter password");
+//                } else if (binding.coachPhoneEdt.getText().toString().isEmpty()){
+//                    binding.coachPhoneEdt.setError("Please enter password");
+//                } else if (binding.coachLocationEdt.getText().toString().isEmpty()){
+//                    binding.coachLocationEdt.setError("Please enter location");
+//                } else if (binding.coachBioEdt.getText().toString().isEmpty()) {
+//                    binding.coachBioEdt.setError("Please enter bio");
+//                } else if (binding.coachEnterExperienceDetailEdt.getText().toString().isEmpty()){
+//                    binding.coachEnterExperienceDetailEdt.setError("Please enter experience");
+//                } else if (binding.coachEnterHourlyRateEdt.getText().toString().isEmpty()){
+//                    binding.coachEnterHourlyRateEdt.setError("Please enter rate");
+//                } else{
+//                    // hit CoachRegisterApi
+//                    progressDialog.setMessage("Loading....");
+//                    progressDialog.setCanceledOnTouchOutside(false);
+//                    progressDialog.show();
+//                    MultipartBody.Part userImg = null;
+//                    if (photoFile != null) {
+//                        userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+//                    }
+//                    Call<CoachSignUpResponse> call = retrofitinterface.coachSignUp(Constants.CONTENT_TYPE,
+//                                                                                             binding.coachNameEdt.getText().toString(),
+//                                                                                             binding.coachEmailTv.getText().toString(),
+//                                                                                             binding.coachPasswordEdt.getText().toString(),
+//                                                                                             binding.coachPhoneEdt.getText().toString(),
+//                                                                                             binding.coachLocationEdt.getText().toString(),
+//                                                                                            latitude+"",
+//                                                                                            longitude+"",
+//                                                                                             binding.coachEnterStartbsnsHour.getText().toString(),
+//                                                                                             binding.coachEnterendbsnsHour.getText().toString(),
+//                                                                                             binding.coachBioEdt.getText().toString(),
+//                                                                                             "[12,15]",
+//                                                                                             binding.coachEnterExperienceDetailEdt.getText().toString(),
+//                                                                                             binding.coachEnterHourlyRateEdt.getText().toString(),
+//                                                                                             Constants.DEVICE_TYPE,
+//                                                                                             Constants.DEVICE_TOKEN);
+//                    call.enqueue(new Callback<CoachSignUpResponse>() {
+//                        @Override
+//                        public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
+//                            if (response.isSuccessful()){
+//                                progressDialog.dismiss();
+//                                if (response.body().isStatus())
+//                                {
+//                                    mModel = new CoachSignUpModel();
+//                                    mModel = response.body().getData();
+//                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getData().getName(),Toast.LENGTH_LONG).show();
+//                                } else
+//
+//                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getError().getError_message(),Toast.LENGTH_LONG).show();
+//
+//                            }
+//                            else
+//                            {
+//                                Toast.makeText(CoachSignupActivity.this,"Api not Successfull",Toast.LENGTH_LONG).show();
+//
+//                            }
+//                        }
+//                        @Override
+//                        public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
+//                            progressDialog.dismiss();
+//
+//                        }
+//                    });
+//                }
             }
         });
-
     }
 
     @Override
