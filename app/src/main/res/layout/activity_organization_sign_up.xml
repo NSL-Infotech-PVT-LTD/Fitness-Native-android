@@ -488,6 +488,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:hint="@string/enter_hourly_rate"
+                        android:inputType="number"
                         android:textSize="@dimen/_12sdp"
                         android:singleLine="true"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -533,7 +534,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_profile_type" 
-                    android:id="@+id/orgProfileImg"/>
+                    android:id="@+id/orgProfileImg"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"/>
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

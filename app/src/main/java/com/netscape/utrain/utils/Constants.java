@@ -10,6 +10,8 @@ public class Constants {
 
 
     public static final String Coach="coach";
+    public static final String OrgSignUpIntent="orgIntent";
+    public static final String JsonArrayIntent="arrayIntent";
     public static final String TypeCoach="coachActive";
     public static final String ActiveUserType="activeType";
     public static final String Athlete="athlete";

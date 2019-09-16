@@ -30,11 +30,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
 import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.ServicePriceAdapter;
 import com.netscape.utrain.databinding.ActivityServicePriceBinding;
+import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.ServicePriceModel;
 import com.netscape.utrain.response.ServiceListResponse;
@@ -44,6 +47,8 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
@@ -54,7 +59,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ServicePriceActivity extends AppCompatActivity implements View.OnClickListener, DialogAdapter.SelectedServicesInterface {
+public class ServicePriceActivity extends AppCompatActivity implements View.OnClickListener, DialogAdapter.SelectedServicesInterface, ServicePriceAdapter.ServicePriceInterface {
     MaterialTextView addService;
     RecyclerView.LayoutManager layoutManager;
     ServicePriceAdapter serviceAdapter;
@@ -68,6 +73,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     private ActivityServicePriceBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
+    private OrgUserDataModel orgDataModel;
+    JsonArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,22 +84,39 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         layoutManager = new LinearLayoutManager(this);
         progressDialog = new ProgressDialog(this);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
+        if (getIntent().getExtras()!=null){
+            orgDataModel= (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
+        }
+
         init();
         hitServiceListApi();
 
 
     }
 
-    private void setSelectedServiceList() {
-        serviceAdapter = new ServicePriceAdapter(getApplicationContext(), mList);
-        binding.serviceRecyclerView.setLayoutManager(layoutManager);
-        binding.serviceRecyclerView.setAdapter(serviceAdapter);
-
-    }
-
     private void init() {
         binding.addServiceBtn.setOnClickListener(this);
         binding.servicePriceNextBtn.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.addServiceBtn:
+                displayServiceDialog();
+                break;
+            case R.id.servicePriceNextBtn:
+                if (selectedService !=null && selectedService.size()>0){
+                    jsonArray=(JsonArray) new Gson().toJsonTree(selectedService);
+                    Intent portfolio = new Intent(ServicePriceActivity.this, PortfolioActivity.class);
+                    portfolio.putExtra(Constants.OrgSignUpIntent,orgDataModel);
+                    portfolio.putExtra(Constants.JsonArrayIntent,jsonArray.toString());
+                    startActivity(portfolio);
+                }else {
+                    Snackbar.make(binding.serviceLayout,getResources().getString(R.string.select_services),BaseTransientBottomBar.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
     private void hitServiceListApi() {
@@ -107,6 +131,9 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             mList.addAll(response.body().getData());
+                            binding.serviceTv.setVisibility(View.GONE);
+                            binding.rateTV.setVisibility(View.GONE);
+                            binding.noSelectedService.setVisibility(View.VISIBLE);
 
                         }
                     } else {
@@ -132,19 +159,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.addServiceBtn:
-                displayServiceDialog();
-                break;
-            case R.id.servicePriceNextBtn:
-                Intent portfolio = new Intent(ServicePriceActivity.this, PortfolioActivity.class);
-                startActivity(portfolio);
-                break;
-        }
 
-    }
 
     private void displayServiceDialog() {
 
@@ -166,6 +181,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         btnDialogNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                JSONArray numberArray = new JSONArray();
                 selectedService = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     if (mList.get(i).isSelected()) {
@@ -174,11 +190,33 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                         serviceModel.setName(mList.get(i).getName());
                         serviceModel.setId(mList.get(i).getId());
                         selectedService.add(serviceModel);
+
+                        try {
+                            numberArray.put(i, mList.get(i).getId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        // send the array with payload
+//                        JSONObject json = new JSONObject();
+//                        json.put("env", "DEV");
+//                        json.put("destNumbers", numberArray);
                     }
-                    serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService);
+
+                }
+                if (selectedService != null && selectedService.size()>0) {
+                    binding.serviceRecyclerView.setVisibility(View.VISIBLE);
+                    binding.serviceTv.setVisibility(View.VISIBLE);
+                    binding.rateTV.setVisibility(View.VISIBLE);
+                    binding.noSelectedService.setVisibility(View.GONE);
+                    serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService, ServicePriceActivity.this);
                     binding.serviceRecyclerView.setLayoutManager(layoutManager);
                     binding.serviceRecyclerView.setAdapter(serviceAdapter);
-
+                } else {
+                    binding.serviceTv.setVisibility(View.GONE);
+                    binding.rateTV.setVisibility(View.GONE);
+                    binding.serviceRecyclerView.setVisibility(View.GONE);
+                    binding.noSelectedService.setVisibility(View.VISIBLE);
                 }
                 dialog.dismiss();
 //                    if (mList.get(mPosition).getName().length()>0)
@@ -189,7 +227,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 ////                            startActivity(intent);
 //
 //                    }
-
             }
         });
 
@@ -204,8 +241,10 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onResume() {
         super.onResume();
-        if (mList != null) {
-//            setSelectedServiceList();
-        }
+    }
+
+    @Override
+    public void getServicePrice(int position, String servicePrice) {
+        selectedService.get(position).setPrice(servicePrice);
     }
 }

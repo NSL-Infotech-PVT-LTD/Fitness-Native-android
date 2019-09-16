@@ -1,5 +1,6 @@
 package com.netscape.utrain.response;
 
+import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.OrgDataModel;
 
 public class OrgSignUpResponse {
@@ -11,6 +12,16 @@ public class OrgSignUpResponse {
 
     private boolean status;
     private int code;
+    private OrgDataModel data;
+    private ErrorModel error;
+
+    public ErrorModel getError() {
+        return error;
+    }
+
+    public void setError(ErrorModel error) {
+        this.error = error;
+    }
 
     public OrgDataModel getData() {
         return data;
@@ -19,8 +30,6 @@ public class OrgSignUpResponse {
     public void setData(OrgDataModel data) {
         this.data = data;
     }
-
-    private OrgDataModel data;
 
     public boolean isStatus() {
         return status;

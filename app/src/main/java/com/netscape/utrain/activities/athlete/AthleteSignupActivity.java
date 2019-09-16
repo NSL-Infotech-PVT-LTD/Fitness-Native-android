@@ -385,7 +385,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                                                                                     Constants.DEVICE_TYPE,
                                                                                     Constants.DEVICE_TOKEN,
                                                                                     Constants.CONTENT_TYPE);
-
         signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {

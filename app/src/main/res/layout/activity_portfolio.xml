@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PortfolioActivity">
+    tools:context=".activities.PortfolioActivity"
+    android:id="@+id/portFolioLayout">
 
     <include
         android:id="@+id/addImageBack"
@@ -46,7 +47,9 @@
                 android:id="@+id/addImageOne"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGreen" />
+                android:background="@color/colorGreen"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_plusone"
@@ -78,20 +81,23 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageTwo"
+                android:id="@+id/addImageTwo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGreen" />
+                android:background="@color/colorGreen"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/addImageTwo"
+                android:id="@+id/imgPlusTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -115,17 +121,20 @@
                 android:id="@+id/addImageThree"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGreen" />
+                android:background="@color/colorGreen"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_plusthree"
+                android:id="@+id/imgPlusThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,17 +159,21 @@
                 android:id="@+id/addImageFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGreen" />
+                android:background="@color/colorGreen"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_plusfour"
+                android:id="@+id/imgPlusFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+              />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

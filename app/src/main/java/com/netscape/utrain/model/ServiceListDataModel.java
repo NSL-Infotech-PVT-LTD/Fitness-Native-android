@@ -9,6 +9,16 @@ public class ServiceListDataModel {
 
     private int id;
     private String name;
+    private String price;
+    private boolean isSelected = false;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public boolean isSelected() {
         return isSelected;
@@ -17,8 +27,6 @@ public class ServiceListDataModel {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
-
-    private boolean isSelected=false;
 
     public int getId() {
         return id;

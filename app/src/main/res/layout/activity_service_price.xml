@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ServicePriceActivity"
     android:background="@color/colorLightGray"
-    android:id="@+id/serviceLayout">
+    android:id="@+id/serviceLayout"
+    >
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/service_SummaryOfService"
@@ -73,6 +75,7 @@
             app:layout_constraintGuide_end="@dimen/_30sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/serviceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/services"
@@ -84,6 +87,7 @@
             android:layout_margin="@dimen/_10sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rateTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rate"
@@ -94,28 +98,43 @@
             app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_margin="@dimen/_10sdp"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/noSelectedService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"
+            android:background="@drawable/no_event">
+        </androidx.appcompat.widget.AppCompatImageView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/service_recyclerView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_30sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addServiceBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:backgroundTint="@color/colorGreen"
             android:src="@drawable/ic_add"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_10sdp"/>
+            app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
+            app:layout_constraintRight_toRightOf="parent"
+             />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/servicePriceNextBtn"
             android:layout_width="0dp"

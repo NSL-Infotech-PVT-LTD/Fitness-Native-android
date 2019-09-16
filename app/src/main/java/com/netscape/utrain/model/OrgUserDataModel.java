@@ -1,8 +1,19 @@
 package com.netscape.utrain.model;
 
-import java.io.File;
+import android.os.Parcelable;
 
-public class OrgUserDataModel {
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class OrgUserDataModel implements Serializable {
 
     /**
      * name : organiserr19
@@ -44,12 +55,61 @@ public class OrgUserDataModel {
     private String portfolio_image;
     private String updated_at;
     private String created_at;
-    private String port_folio_image1;
-    private String port_folio_image2;
-    private String port_folio_image3;
-    private String port_folio_image4;
+    private File port_folio_image1;
+    private File port_folio_image2;
+    private File port_folio_image3;
+    private File port_folio_image4;
     private File profile_img;
     private int id;
+    private String selectedServices;
+
+    public String getService_ids() {
+        return service_ids;
+    }
+
+    public void setService_ids(String service_ids) {
+        this.service_ids = service_ids;
+    }
+
+    public String getSelectedServices() {
+        return selectedServices;
+    }
+
+    public void setSelectedServices(String selectedServices) {
+        this.selectedServices = selectedServices;
+    }
+
+    public File getPort_folio_image1() {
+        return port_folio_image1;
+    }
+
+    public void setPort_folio_image1(File port_folio_image1) {
+        this.port_folio_image1 = port_folio_image1;
+    }
+
+    public File getPort_folio_image2() {
+        return port_folio_image2;
+    }
+
+    public void setPort_folio_image2(File port_folio_image2) {
+        this.port_folio_image2 = port_folio_image2;
+    }
+
+    public File getPort_folio_image3() {
+        return port_folio_image3;
+    }
+
+    public void setPort_folio_image3(File port_folio_image3) {
+        this.port_folio_image3 = port_folio_image3;
+    }
+
+    public File getPort_folio_image4() {
+        return port_folio_image4;
+    }
+
+    public void setPort_folio_image4(File port_folio_image4) {
+        this.port_folio_image4 = port_folio_image4;
+    }
 
     public File getProfile_img() {
         return profile_img;
@@ -89,38 +149,6 @@ public class OrgUserDataModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPort_folio_image1() {
-        return port_folio_image1;
-    }
-
-    public void setPort_folio_image1(String port_folio_image1) {
-        this.port_folio_image1 = port_folio_image1;
-    }
-
-    public String getPort_folio_image2() {
-        return port_folio_image2;
-    }
-
-    public void setPort_folio_image2(String port_folio_image2) {
-        this.port_folio_image2 = port_folio_image2;
-    }
-
-    public String getPort_folio_image3() {
-        return port_folio_image3;
-    }
-
-    public void setPort_folio_image3(String port_folio_image3) {
-        this.port_folio_image3 = port_folio_image3;
-    }
-
-    public String getPort_folio_image4() {
-        return port_folio_image4;
-    }
-
-    public void setPort_folio_image4(String port_folio_image4) {
-        this.port_folio_image4 = port_folio_image4;
     }
 
     public String getName() {
@@ -179,13 +207,6 @@ public class OrgUserDataModel {
         this.bio = bio;
     }
 
-    public String getService_ids() {
-        return service_ids;
-    }
-
-    public void setService_ids(String service_ids) {
-        this.service_ids = service_ids;
-    }
 
     public String getExpertise_years() {
         return expertise_years;

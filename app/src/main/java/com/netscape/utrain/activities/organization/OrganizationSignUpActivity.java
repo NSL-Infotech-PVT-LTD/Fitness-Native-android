@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -60,6 +61,7 @@ import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.utils.AppController;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.FileUtil;
+import com.netscape.utrain.utils.ImageFilePath;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +69,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class OrganizationSignUpActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
@@ -166,9 +172,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 getEndTime();
                 break;
             case R.id.orgNextBtn:
-                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
-                startActivity(in);
-//                validateEditTextData();
+//                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
+//                startActivity(in);
+                validateEditTextData();
                 break;
             case R.id.orgAddressEdt:
                 break;
@@ -353,12 +359,15 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
         } else {
             orgDataModel.setProfile_img(photoFile);
+            orgDataModel.setLatitude(String.valueOf(latitude));
+            orgDataModel.setLongitude(String.valueOf(longitude));
             hitOrgSignUpApi();
         }
     }
 
     private void hitOrgSignUpApi() {
         Intent intent=new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
+        intent.putExtra(Constants.OrgSignUpIntent,orgDataModel);
         startActivity(intent);
     }
 
@@ -510,5 +519,35 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+//                AppDelegate.Log("imageCaptured ", "result ok");
+                photoFile = new File(currentPhotoFilePath);
+//                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
+                if (photoFile != null) {
+                    imageUrl = photoFile.getPath();
+//                    plus.setVisibility(View.GONE);
+                    Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+//                    imagesSelected.add(position,photoFile);
+
+                } /*else {
+//                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }*/
+//            } else {
+//                Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+////                AppDelegate.Log("imageCaptured ", "result failed");
+            }
+        } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+            String realPath = ImageFilePath.getPath(this, data.getData());
+            currentPhotoFilePath = realPath;
+            photoFile = new File(realPath);
+            if (photoFile != null)
+//                plus.setVisibility(View.GONE);
+            Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+        }
     }
 }

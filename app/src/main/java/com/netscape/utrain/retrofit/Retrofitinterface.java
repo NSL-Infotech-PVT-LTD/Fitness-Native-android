@@ -2,6 +2,7 @@ package com.netscape.utrain.retrofit;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.google.gson.JsonArray;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
@@ -9,6 +10,8 @@ import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.utils.Constants;
+
+import org.json.JSONArray;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -78,7 +81,11 @@ public interface    Retrofitinterface {
 
         @Multipart
         @POST(Constants.ORG_SIGNUP)
-        Call<OrgSignUpResponse> orgSignup(@Part MultipartBody.Part file,
+        Call<OrgSignUpResponse> orgSignup(@Part MultipartBody.Part profileImgFile,
+                                          @Part MultipartBody.Part imageOneFile,
+                                          @Part MultipartBody.Part imageTwoFile,
+                                          @Part MultipartBody.Part imageThreeFile,
+                                          @Part MultipartBody.Part mageFourFile,
                                           @Query("name") String name,
                                           @Query("email") String email,
                                           @Query("password") String password,
