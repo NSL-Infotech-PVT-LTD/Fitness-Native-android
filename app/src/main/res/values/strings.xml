@@ -151,4 +151,20 @@
     <string name="price">price</string>
     <string name="rate">Rate</string>
     <string name="services">Services</string>
+    <string name="campus_tv">Campus</string>
+    <string name="enter_training_session">Training Session</string>
+    <string name="register_for_the_session">Register for the session</string>
+    <string name="training_session">Training Session</string>
+    <string name="coach_name">Roger David</string>
+    <string name="create_event">Create Event</string>
+    <string name="create_event_dummytxt">Quisque euismod placerat ipsum, sed placerat nibh posuere et.</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="upload_photos">Upload Photos</string>
+    <string name="create">Create</string>
+    <string name="capicity">Capicity</string>
+    <string name="create_training_session">Create Training Session</string>
+    <string name="Gregg">Gregg</string>
+    <string name="offer_space">Offer Space</string>
+    <string name="cost">Cost</string>
 </resources>
