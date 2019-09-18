@@ -34,9 +34,11 @@
         <activity android:name=".activities.BookSlotCampusActivity" />
         <activity
             android:name=".activities.athlete.AthleteLoginActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ServicePriceActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.BookSlotPrivateActivity"
@@ -46,15 +48,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SelectPaymentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ForgetPasswordActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.coach.CoachSignupActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EnableGpsActivity"
@@ -65,15 +70,19 @@
             android:theme="@style/AppTheme.SettingSwitch" />
         <activity
             android:name=".activities.SignUpTypeActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.athlete.LoginWithActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.athlete.AthleteSignupActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.organization.OrganizationSignUpActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashActivity"
@@ -90,6 +99,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PortfolioActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"

@@ -37,7 +37,7 @@
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/organization_coachTv"
+                android:id="@+id/signUpType"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -63,15 +63,14 @@
                 android:id="@+id/cardview1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@drawable/cards_shape"
                 app:layout_constraintTop_toTopOf="@+id/organization_Guideline">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayouttwo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:elevation="@dimen/_10sdp">
+                    app:cardElevation="@dimen/_60sdp"
+                    app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/organization_left_Guideline"
@@ -242,6 +241,7 @@
                         android:textSize="@dimen/_12sdp"
                         android:inputType="textPassword"
                         android:singleLine="true"
+                        android:maxLength="20"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_passTv" />
@@ -314,6 +314,7 @@
                         android:gravity="center_vertical"
                         android:inputType="date"
                         android:hint="@string/time_format"
+                        android:drawablePadding="@dimen/_5sdp"
                         android:paddingLeft="@dimen/_16sdp"
                         android:textSize="@dimen/_13sdp"
                         android:drawableLeft="@drawable/ic_time"
@@ -331,6 +332,7 @@
                         android:gravity="left|center"
                         android:inputType="date"
                         android:hint="@string/time_format"
+                        android:drawablePadding="@dimen/_5sdp"
                         android:paddingLeft="@dimen/_16sdp"
                         android:textSize="@dimen/_13sdp"
                         android:drawableLeft="@drawable/ic_time"
@@ -402,6 +404,7 @@
                         android:hint="@string/type"
                         android:singleLine="true"
                         android:inputType="number"
+                        android:maxLength="2"
                         android:paddingLeft="@dimen/_16sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
@@ -496,8 +499,10 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:hint="@string/enter_hourly_rate"
+                        android:inputType="number"
                         android:textSize="@dimen/_12sdp"
                         android:singleLine="true"
+                        android:maxLength="3"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgServiceDetailEdt" />
 
@@ -506,7 +511,6 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_100sdp"
                         android:backgroundTint="@color/colorWhite"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -518,6 +522,8 @@
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_goneMarginBottom="@dimen/_20sdp"
                         app:strokeColor="@color/colorGreen"
                         app:strokeWidth="@dimen/_1sdp" />
 
@@ -530,7 +536,8 @@
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="0dp"
+                app:cardElevation="@dimen/_6sdp"
+                app:cardUseCompatPadding="true"
                 android:backgroundTint="@color/colorGreen"
                 app:layout_constraintBottom_toTopOf="@+id/cardview1"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -541,7 +548,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_profile_type" 
-                    android:id="@+id/orgProfileImg"/>
+                    android:id="@+id/orgProfileImg"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"/>
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

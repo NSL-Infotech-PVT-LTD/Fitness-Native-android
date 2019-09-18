@@ -46,10 +46,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_login);
-        progressDialog = new ProgressDialog(AthleteLoginActivity.this);
-        progressDialog.setMessage(getResources().getString(R.string.loading));
-        progressDialog.setCancelable(false);
-        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         init();
     }
 
@@ -57,6 +54,10 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
         binding.athleteForgetTv.setOnClickListener(this);
         binding.athleteLogInBtn.setOnClickListener(this);
         binding.athleteSignUpTv.setOnClickListener(this);
+        progressDialog = new ProgressDialog(AthleteLoginActivity.this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
     }
 
     private void hitLoginApi() {

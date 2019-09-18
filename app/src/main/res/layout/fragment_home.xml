@@ -21,16 +21,17 @@
         app:layout_constraintGuide_end="@dimen/_24sdp" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/fragmenthome_LogoutTv"
-        android:layout_width="wrap_content"
+        android:id="@+id/logOutTv"
+        android:layout_width="@dimen/_60sdp"
         android:layout_height="wrap_content"
         android:text="Log Out"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         android:textSize="@dimen/_10sdp"
         android:textColor="@color/colorBlack"
+        android:gravity="center"
         android:fontFamily="@font/poppins_regular"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorGreen"/>
+        android:background="@drawable/round_background_colord"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/welcomeText"

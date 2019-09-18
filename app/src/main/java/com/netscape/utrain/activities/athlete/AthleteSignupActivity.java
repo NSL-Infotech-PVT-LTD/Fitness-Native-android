@@ -8,13 +8,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
+import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -26,6 +29,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -72,8 +76,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -82,7 +88,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
+public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
+    private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
     private ActivityAthleteSignupBinding binding;
     private GoogleApiClient googleApiClient;
     private AlertDialog dialogMultiOrder;
@@ -94,12 +102,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private LocationListener mLocListener;
     private Retrofitinterface retrofitInterface;
     private ProgressDialog progressDialog;
-    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
-    private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
     private Location mylocation;
-    private String userName = "", userEmail = "", userPhone = "", userAddress = "", userPassword="";
+    private String userName = "", userEmail = "", userPhone = "", userAddress = "", userPassword = "";
     private String address = "";
     private double latitude = 0.0, longitude = 0.0;
+    private Uri selected;
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -116,13 +123,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_athlete_signup);
-
-        retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.setCancelable(false);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_signup);
+
+
         init();
         binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -144,11 +147,15 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
 
     private void init() {
-        activity=this;
+        activity = this;
         binding.athleteSignUpBtn.setOnClickListener(this);
         binding.athleteSignInTv.setOnClickListener(this);
         binding.athleteprofileImageView.setOnClickListener(this);
         askPermObj = new AskPermission(getApplicationContext(), this);
+        retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading..");
+        progressDialog.setCancelable(false);
         setUpGClient();
 
 //         mLocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -190,13 +197,13 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (binding.athleteEmailEdt.getText().toString().isEmpty()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_your_email));
             binding.athleteEmailEdt.requestFocus();
-        }else if (! Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_valid_email));
             binding.athleteEmailEdt.requestFocus();
         } else if (binding.athletePhoneEdt.getText().toString().isEmpty()) {
             binding.athletePhoneEdt.setError(getString(R.string.enter_phone_number));
             binding.athletePhoneEdt.requestFocus();
-        } else if (binding.athletePhoneEdt.getText().toString().length()<10) {
+        } else if (binding.athletePhoneEdt.getText().toString().length() < 10) {
             binding.athletePhoneEdt.setError(getString(R.string.ente_ten_diget_phone_number));
             binding.athletePhoneEdt.requestFocus();
         } else if (binding.athleteAddressEdt.getText().toString().isEmpty()) {
@@ -346,6 +353,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
+                selected = data.getData();
 //                AppDelegate.Log("imageCaptured ", "result ok");
                 photoFile = new File(currentPhotoFilePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
@@ -360,6 +368,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 ////                AppDelegate.Log("imageCaptured ", "result failed");
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+            selected = data.getData();
             String realPath = ImageFilePath.getPath(this, data.getData());
             currentPhotoFilePath = realPath;
             photoFile = new File(realPath);
@@ -368,29 +377,109 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    //    private void athleteSignUpApi() {
+////        CommonMethods.hideKeyboard(this);
+//        progressDialog.show();
+//        MultipartBody.Part userImg = null;
+//        if (photoFile != null) {
+//            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+//        }
+//        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg,
+//                                                                                    binding.athleteNameEdt.getText().toString(),
+//                                                                                    binding.athleteEmailEdt.getText().toString(),
+//                                                                                    binding.athletePasswordEdt.getText().toString(),
+//                                                                                    binding.athletePhoneEdt.getText().toString(),
+//                                                                                    binding.athleteAddressEdt.getText().toString(),
+//                                                                                   latitude+"",longitude+"",
+//                                                                                    Constants.DEVICE_TYPE,
+//                                                                                    Constants.DEVICE_TOKEN,
+//                                                                                    Constants.CONTENT_TYPE);
+//
+//        signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
+//            @Override
+//            public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
+//
+//
+//                if (response.isSuccessful()) {
+//                    progressDialog.dismiss();
+//                    if (response.body().isStatus()) {
+//                        if (response.body().getData() != null) {
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", AthleteSignupActivity.this);
+//                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+//                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(homeScreen);
+//                        }
+//                    } else {
+//                        Snackbar.make(binding.layoutMain,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    progressDialog.dismiss();
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.layoutMain,errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        Snackbar.make(binding.layoutMain,e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//                Snackbar.make(binding.layoutMain,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });
+//    }
+    protected Map<String, RequestBody> getDefaultParamsBody(Context context) {
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+//		requestBodyMap.put("platform", RequestBody.create(MediaType.parse("multipart/form-data"), "Android"));
+//		requestBodyMap.put("device_id", RequestBody.create(MediaType.parse("multipart/form-data"), StringHelper.getDeviceId(context)));
+        return requestBodyMap;
+    }
+
+    protected MultipartBody.Part prepareFilePart(String partName, String fileName, File file) {
+        if (file == null || !file.exists())
+            return null;
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        if (TextUtils.isEmpty(fileName))
+            fileName = file.getName();
+
+        return MultipartBody.Part.createFormData(partName, fileName, requestFile);
+    }
+
     private void athleteSignUpApi() {
 //        CommonMethods.hideKeyboard(this);
         progressDialog.show();
         MultipartBody.Part userImg = null;
         if (photoFile != null) {
-            userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
+//            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
-        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.athleteSignUp(userImg,
-                                                                                    binding.athleteNameEdt.getText().toString(),
-                                                                                    binding.athleteEmailEdt.getText().toString(),
-                                                                                    binding.athletePasswordEdt.getText().toString(),
-                                                                                    binding.athletePhoneEdt.getText().toString(),
-                                                                                    binding.athleteAddressEdt.getText().toString(),
-                                                                                   latitude+"",longitude+"",
-                                                                                    Constants.DEVICE_TYPE,
-                                                                                    Constants.DEVICE_TOKEN,
-                                                                                    Constants.CONTENT_TYPE);
+        Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteNameEdt.getText().toString()));
+        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteEmailEdt.getText().toString()));
+        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athletePasswordEdt.getText().toString()));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athletePhoneEdt.getText().toString()));
+        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteAddressEdt.getText().toString()));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(latitude)));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(longitude)));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.registerAthlete(requestBodyMap, userImg);
 
         signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
-
-
                 if (response.isSuccessful()) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
@@ -398,35 +487,37 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", AthleteSignupActivity.this);
-                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteSignupActivity.this);
+                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
-                        Snackbar.make(binding.layoutMain,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.layoutMain, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.layoutMain,errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.layoutMain, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {
-                        Snackbar.make(binding.layoutMain,e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.layoutMain, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 }
 
             }
+
             @Override
             public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.layoutMain,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.layoutMain, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
 
 
             }
         });
     }
+
     private synchronized void setUpGClient() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0, this)
@@ -436,6 +527,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 .build();
         googleApiClient.connect();
     }
+
     @Override
     public void onLocationChanged(Location location) {
         mylocation = location;
@@ -489,6 +581,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             return true;
         }
     }
+
     private void getMyLocation() {
         if (googleApiClient != null) {
             if (googleApiClient.isConnected()) {

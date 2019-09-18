@@ -9,6 +9,25 @@ public class ServiceListDataModel {
 
     private int id;
     private String name;
+    private String price;
+    private String hourlyRate;
+    private boolean isSelected = false;
+
+    public String getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(String hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public boolean isSelected() {
         return isSelected;
@@ -17,8 +36,6 @@ public class ServiceListDataModel {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
-
-    private boolean isSelected=false;
 
     public int getId() {
         return id;

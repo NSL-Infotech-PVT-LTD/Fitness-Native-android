@@ -1,26 +1,26 @@
 package com.netscape.utrain.model;
 
-public class CoachSignUpModel {
+public class CoachUserDataModel {
 
-               /*
-                "user": {
-                "name": "coach098",
-                "email": "coach60666@gmail.com",
-                "phone": "657855878",
-                "location": "chd",
-                "latitude": "30",
-                "longitude": "50",
-                "business_hour_starts": "10:00",
-                "business_hour_ends": "15:00",
-                "bio": "i am a certified coach",
-                "service_ids": "[12,15]",
-                "expertise_years": "3",
-                "hourly_rate": "500",
-                "profile_image": "9Ezj1cAwzg.png",
-                "updated_at": "2019-09-12 11:34:26",
-                "created_at": "2019-09-12 11:34:26",
-                "id": 6
-               */
+
+    /**
+     * name : coach0985
+     * email : coachdfsd6fgf0e5@gmail.com
+     * phone : 6578548664
+     * location : chd
+     * latitude : 30
+     * longitude : 50
+     * business_hour_starts : 10:00
+     * business_hour_ends : 15:00
+     * bio : i am a certified coach
+     * service_ids : [{"id":1,"isSelected":true,"name":"CARDIO FITNESS","price":"23"},{"id":2,"isSelected":true,"name":"PRE NATAL EXERCISE","price":"12"},{"id":3,"isSelected":true,"name":"SENIOR FITNESS TRAINING","price":"45"},{"id":4,"isSelected":true,"name":"STRENGTH TRAINING","price":"50"}]
+     * expertise_years : 3
+     * hourly_rate : 500
+     * profile_image : SuQf9fBy4V.png
+     * updated_at : 2019-09-17 10:04:57
+     * created_at : 2019-09-17 10:04:57
+     * id : 38
+     */
 
     private String name;
     private String email;
