@@ -60,6 +60,8 @@
         android:layout_height="@dimen/_300sdp"
         app:cardCornerRadius="@dimen/_8sdp"
         android:elevation="@dimen/_6sdp"
+        app:cardElevation="@dimen/_4sdp"
+        app:cardUseCompatPadding="true"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -72,16 +74,18 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/athleteCardView"
-                android:layout_width="@dimen/_194sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_84sdp"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
+                app:cardElevation="@dimen/_4sdp"
+                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_24sdp">
+                android:layout_marginTop="@dimen/_14sdp">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -131,15 +135,17 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/coachCardView"
-                android:layout_width="@dimen/_194sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_84sdp"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
                 app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/athleteCardView"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_1sdp">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -186,14 +192,16 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/organizationCardView"
-                android:layout_width="@dimen/_194sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_84sdp"
                 app:strokeColor="@color/colorGreen"
                 app:strokeWidth="@dimen/_1sdp"
+                app:cardElevation="@dimen/_4sdp"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/coachCardView"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 app:cardCornerRadius="@dimen/_8sdp"
                 >
                 <FrameLayout
@@ -253,6 +261,9 @@
         android:gravity="center"
         android:layout_marginTop="@dimen/_20sdp"
         android:textAllCaps="false"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+
         android:textColor="@color/colorBlack"
         android:backgroundTint="@color/colorGreen"/>
 

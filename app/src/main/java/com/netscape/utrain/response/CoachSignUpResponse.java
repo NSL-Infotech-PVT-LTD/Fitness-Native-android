@@ -1,6 +1,6 @@
 package com.netscape.utrain.response;
 
-import com.netscape.utrain.model.CoachSignUpModel;
+import com.netscape.utrain.model.CoachDataModel;
 import com.netscape.utrain.model.ErrorModel;
 
 public class CoachSignUpResponse {
@@ -8,7 +8,16 @@ public class CoachSignUpResponse {
     private boolean status;
     private int code;
     private ErrorModel error;
-    private CoachSignUpModel data;
+
+    public CoachDataModel getData() {
+        return data;
+    }
+
+    public void setData(CoachDataModel data) {
+        this.data = data;
+    }
+
+    private CoachDataModel data;
 
     public boolean isStatus() {
         return status;
@@ -34,11 +43,4 @@ public class CoachSignUpResponse {
         this.error = error;
     }
 
-    public CoachSignUpModel getData() {
-        return data;
-    }
-
-    public void setData(CoachSignUpModel data) {
-        this.data = data;
-    }
 }

@@ -1,24 +1,16 @@
 package com.netscape.utrain.model;
 
-public class OrgDataModel {
+public class CoachDataModel {
     private String Message;
     private String token;
-    private TestModel user;
-
-    public TestModel getUser() {
-        return user;
-    }
-
-    public void setUser(TestModel user) {
-        this.user = user;
-    }
+    private CoachUserDataModel user;
 
     public String getMessage() {
         return Message;
     }
 
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setMessage(String message) {
+        Message = message;
     }
 
     public String getToken() {
@@ -29,4 +21,11 @@ public class OrgDataModel {
         this.token = token;
     }
 
+    public CoachUserDataModel getUser() {
+        return user;
+    }
+
+    public void setUser(CoachUserDataModel user) {
+        this.user = user;
+    }
 }

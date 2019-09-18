@@ -48,8 +48,9 @@ public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapte
     @Override
     public void onBindViewHolder(@NonNull getRecyclerView holder, final int position) {
 
-        ServiceListDataModel data = list.get(position);
+        final ServiceListDataModel data = list.get(position);
         holder.serviceName.setText(data.getName());
+        holder.priceEdt.setText(data.getHourlyRate());
         holder.priceEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -58,7 +59,7 @@ public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapte
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            servicePriceInterface.getServicePrice(position,charSequence.toString());
+            servicePriceInterface.getServicePrice(position,charSequence.toString(),data.getId());
             }
 
             @Override
@@ -91,6 +92,6 @@ public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapte
         }
     }
     public interface ServicePriceInterface{
-        void getServicePrice(int position,String servicePrice);
+        void getServicePrice(int position,String servicePrice,int id);
     }
 }

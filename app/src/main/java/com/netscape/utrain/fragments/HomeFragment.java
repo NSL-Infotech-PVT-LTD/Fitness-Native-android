@@ -1,6 +1,7 @@
 package com.netscape.utrain.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.utils.CommonMethods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +32,10 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TextView logOut;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +83,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_home,container,false);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -85,6 +91,7 @@ public class HomeFragment extends Fragment {
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
+        logOut.setOnClickListener(this);
         return view;
     }
 
@@ -117,6 +124,18 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.logOutTv:
+                CommonMethods.clearPrefData(getContext());
+                Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
+                view.getContext().startActivity(intent);
+                getActivity().finish();
+                break;
+        }
     }
 
     /**

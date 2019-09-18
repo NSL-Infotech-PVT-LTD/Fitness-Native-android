@@ -10,7 +10,16 @@ public class ServiceListDataModel {
     private int id;
     private String name;
     private String price;
+    private String hourlyRate;
     private boolean isSelected = false;
+
+    public String getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(String hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
 
     public String getPrice() {
         return price;

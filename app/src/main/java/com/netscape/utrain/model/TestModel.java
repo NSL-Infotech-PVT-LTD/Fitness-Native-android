@@ -1,46 +1,30 @@
 package com.netscape.utrain.model;
 
-import android.os.Parcelable;
+public class TestModel {
 
-import com.google.gson.JsonArray;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-public class OrgUserDataModel implements Serializable {
 
     /**
-     * name : organiserr19
-     * email : organiserdvgg85@gmail.com
-     * phone : 56774567567
+     * name : organiserr17
+     * email : organiserdsdthg85@gmail.com
+     * phone : 56777876734
      * location : delhi
      * latitude : 30
      * longitude : 25
      * bio : I am cerified .
-     * service_ids : [12,15]
+     * service_ids : [{"id":1,"isSelected":true,"name":"CARDIO FITNESS","price":"23"},{"id":2,"isSelected":true,"name":"PRE NATAL EXERCISE","price":"12"},{"id":3,"isSelected":true,"name":"SENIOR FITNESS TRAINING","price":"45"},{"id":4,"isSelected":true,"name":"STRENGTH TRAINING","price":"50"}]
      * expertise_years : 3
      * hourly_rate : 500
      * business_hour_starts : 10:00
      * business_hour_ends : 15:00
-     * profile_image : TFNe1AuvcS.png
-     * portfolio_image : ["bh5drlQq7l.png","V4rLkgUNlN.png","2S6liYD91q.png","LKwO402Pt6.png"]
-     * updated_at : 2019-09-14 07:27:17
-     * created_at : 2019-09-14 07:27:17
-     * id : 19
+     * profile_image : Y3hljHgpFn.png
+     * portfolio_image : ["IC5pOfcBzk.png","xz6zdbhS78.png","O5BMQXbHEW.png","ztLlkNmzOJ.png"]
+     * updated_at : 2019-09-17 04:55:34
+     * created_at : 2019-09-17 04:55:34
+     * id : 31
      */
 
     private String name;
     private String email;
-    private String professionType;
-    private String experienceDetail;
-    private String trainingDetail;
-    private String password;
     private String phone;
     private String location;
     private String latitude;
@@ -55,103 +39,7 @@ public class OrgUserDataModel implements Serializable {
     private String portfolio_image;
     private String updated_at;
     private String created_at;
-    private File port_folio_image1;
-    private File port_folio_image2;
-    private File port_folio_image3;
-    private File port_folio_image4;
-    private File profile_img;
-
-    public File getProfile_img() {
-        return profile_img;
-    }
-
-    public void setProfile_img(File profile_img) {
-        this.profile_img = profile_img;
-    }
-
     private int id;
-    private String selectedServices;
-
-    public String getService_ids() {
-        return service_ids;
-    }
-
-    public void setService_ids(String service_ids) {
-        this.service_ids = service_ids;
-    }
-
-    public String getSelectedServices() {
-        return selectedServices;
-    }
-
-    public void setSelectedServices(String selectedServices) {
-        this.selectedServices = selectedServices;
-    }
-
-    public File getPort_folio_image1() {
-        return port_folio_image1;
-    }
-
-    public void setPort_folio_image1(File port_folio_image1) {
-        this.port_folio_image1 = port_folio_image1;
-    }
-
-    public File getPort_folio_image2() {
-        return port_folio_image2;
-    }
-
-    public void setPort_folio_image2(File port_folio_image2) {
-        this.port_folio_image2 = port_folio_image2;
-    }
-
-    public File getPort_folio_image3() {
-        return port_folio_image3;
-    }
-
-    public void setPort_folio_image3(File port_folio_image3) {
-        this.port_folio_image3 = port_folio_image3;
-    }
-
-    public File getPort_folio_image4() {
-        return port_folio_image4;
-    }
-
-    public void setPort_folio_image4(File port_folio_image4) {
-        this.port_folio_image4 = port_folio_image4;
-    }
-
-
-    public String getExperienceDetail() {
-        return experienceDetail;
-    }
-
-    public void setExperienceDetail(String experienceDetail) {
-        this.experienceDetail = experienceDetail;
-    }
-
-    public String getTrainingDetail() {
-        return trainingDetail;
-    }
-
-    public void setTrainingDetail(String trainingDetail) {
-        this.trainingDetail = trainingDetail;
-    }
-
-    public String getProfessionType() {
-        return professionType;
-    }
-
-    public void setProfessionType(String professionType) {
-        this.professionType = professionType;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getName() {
         return name;
@@ -209,6 +97,13 @@ public class OrgUserDataModel implements Serializable {
         this.bio = bio;
     }
 
+    public String getService_ids() {
+        return service_ids;
+    }
+
+    public void setService_ids(String service_ids) {
+        this.service_ids = service_ids;
+    }
 
     public String getExpertise_years() {
         return expertise_years;

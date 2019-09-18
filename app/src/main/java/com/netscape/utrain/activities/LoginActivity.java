@@ -82,13 +82,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.loginSignUpTv:
                 if (activeUserType.equals(Constants.TypeCoach)){
-                    Intent signUpActivity=new Intent(LoginActivity.this, CoachSignupActivity.class);
+                    Intent signUpActivity=new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    signUpActivity.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
                     startActivity(signUpActivity);
                 }
                 if (activeUserType.equals(Constants.TypeOrganization)){
                     Intent signUpActivity=new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    signUpActivity.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
                     startActivity(signUpActivity);
                 }
                 break;

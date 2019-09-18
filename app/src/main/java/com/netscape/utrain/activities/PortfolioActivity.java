@@ -34,6 +34,7 @@ import com.netscape.utrain.databinding.ActivityPortfolioBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
+import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.AppController;
@@ -49,7 +50,9 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -60,7 +63,6 @@ import retrofit2.Response;
 
 public class PortfolioActivity extends AppCompatActivity implements View.OnClickListener {
     MultipartBody.Part userImg = null;
-    MultipartBody.Part portfImageOne = null, portfImageTwo = null, portfImageThree = null, portfImageFour = null;
     private ActivityPortfolioBinding binding;
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
@@ -73,8 +75,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<File> imagesSelected = new ArrayList<>();
     private int position;
     private OrgUserDataModel orgDataModel;
-    private List<MultipartBody.Part> imgPortfolio = new ArrayList<>();
+    private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
+    MultipartBody.Part portFolioImage1  =null, portFolioImage2  = null,portFolioImage3  = null,portFolioImage4 = null;
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -100,12 +103,12 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
         if (getIntent().getExtras() != null) {
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
-            String services = String.valueOf(getIntent().getStringExtra(Constants.JsonArrayIntent));
-            try {
-                selectedServices = new JSONArray(services);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            String services = String.valueOf(getIntent().getStringExtra(Constants.JsonArrayIntent));
+//            try {
+//                selectedServices = new JSONArray(services);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         }
 
         binding.addImageOne.setOnClickListener(this);
@@ -116,6 +119,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
         askPermObj = new AskPermission(getApplicationContext(), this);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
     }
@@ -124,36 +128,37 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.addImageOne:
-                position = 0;
+                position = 1;
                 imageView = binding.addImageOne;
                 plus = binding.imgPlusone;
                 checkForPermissions();
-                portfImageOne = userImg;
                 break;
             case R.id.addImageTwo:
                 imageView = binding.addImageTwo;
                 plus = binding.imgPlusTwo;
-                position = 1;
+                position = 2;
                 checkForPermissions();
-                portfImageTwo = userImg;
                 break;
             case R.id.addImageThree:
-                position = 2;
+                position = 3;
                 plus = binding.imgPlusThree;
                 imageView = binding.addImageThree;
                 checkForPermissions();
-                portfImageThree = userImg;
                 break;
             case R.id.addImageFour:
-                position = 3;
+                position = 4;
                 plus = binding.imgPlusFour;
                 imageView = binding.addImageFour;
                 checkForPermissions();
-                portfImageFour = userImg;
                 break;
             case R.id.addImageSubmitBtn:
-                if (imagesSelected != null && imagesSelected.size() == 4) {
-                    orginizationSignUpApi();
+                imgPortfolio = new ArrayList<>();
+                imgPortfolio.add(portFolioImage1);
+                imgPortfolio.add(portFolioImage2);
+                imgPortfolio.add(portFolioImage3);
+                imgPortfolio.add(portFolioImage4);
+                if (imgPortfolio != null && imgPortfolio.size() == 4) {
+                    OrgSignUpApi();
                 } else {
                     Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
@@ -289,9 +294,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     imageUrl = photoFile.getPath();
                     plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(imageView);
-                    imagesSelected.add(position, photoFile);
-                    userImg = MultipartBody.Part.createFormData("port_folio" + position + 1, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-                    imgPortfolio.add(position, userImg);
+                    userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+                    setPortfolioImages();
 
                 } /*else {
 //                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -302,38 +306,101 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            currentPhotoFilePath = realPath;
-            photoFile = new File(realPath);
+            if (realPath !=null){
+                currentPhotoFilePath = realPath;
+                photoFile = new File(realPath);
+            }
+
             if (photoFile != null)
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
-            imagesSelected.add(position, photoFile);
-            userImg = MultipartBody.Part.createFormData("port_folio" + position + 1, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-            imgPortfolio.add(position, userImg);
+            userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            setPortfolioImages();
         }
     }
 
+    private void OrgSignUpApi() {
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+        if (orgDataModel.getProfile_img() != null) {
+            userImg = MultipartBody.Part.createFormData( "profile_image",orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
+        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getEmail() ));
+        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getPassword()));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPhone()));
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLocation()));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getLatitude()));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
+        requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBusiness_hour_starts()));
+        requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBusiness_hour_ends()));
+        requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBio()));
+        requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSelectedServices()));
+        requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getExpertise_years()));
+        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"),Constants.DEVICE_TOKEN));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"),Constants.DEVICE_TOKEN));
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap,userImg,portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
+        signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
+            @Override
+            public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", PortfolioActivity.this);
+                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(homeScreen);
+                        }
+                    } else {
+                        Snackbar.make(binding.portFolioLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.portFolioLayout,errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.portFolioLayout,e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.portFolioLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void orginizationSignUpApi() {
         //        CommonMethods.hideKeyboard(this);
         progressDialog.show();
+//        photoFile = new File(orgDataModel.getProfile_img());
         MultipartBody.Part profileImg = null;
         if (orgDataModel.getProfile_img() != null) {
-            profileImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            profileImg = MultipartBody.Part.createFormData("profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
         Call<OrgSignUpResponse> siguUpOrganization = retrofitinterface.orgSignup(profileImg,
-                imgPortfolio.get(0),
-                imgPortfolio.get(1),
-                imgPortfolio.get(2),
-                imgPortfolio.get(3),
+                portFolioImage1,
+                portFolioImage2,
+                portFolioImage3,
+                portFolioImage4,
                 orgDataModel.getName(),
-                orgDataModel.getBio(),
+                orgDataModel.getEmail(),
                 orgDataModel.getPassword(),
                 orgDataModel.getPhone(),
                 orgDataModel.getLocation(),
                 orgDataModel.getLatitude(),
                 orgDataModel.getLongitude(),
                 orgDataModel.getBio(),
-                selectedServices.toString(),
+                selectedServices,
                 orgDataModel.getExpertise_years(),
                 orgDataModel.getHourly_rate(),
                 orgDataModel.getBusiness_hour_starts(),
@@ -357,7 +424,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             startActivity(homeScreen);
                         }
                     } else {
-                        Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                        Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();
@@ -376,5 +443,20 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
+    }
+    public void setPortfolioImages(){
+        if (position==1){
+            portFolioImage1=userImg;
+        }
+        if (position==2){
+            portFolioImage2=userImg;
+        }
+        if (position==3){
+            portFolioImage3=userImg;
+        }
+        if (position==4){
+            portFolioImage4=userImg;
+        }
+
     }
 }

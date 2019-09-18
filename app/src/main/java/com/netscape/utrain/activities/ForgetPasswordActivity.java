@@ -41,16 +41,17 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_forget_password);
-        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.loading));
-        progressDialog.setCancelable(false);
+
         init();
     }
 
     private void init() {
         binding.forgetBackBtn.setOnClickListener(this);
         binding.forgetSubmitBtn.setOnClickListener(this);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     @Override

@@ -52,8 +52,10 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.ServicePriceActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
+import com.netscape.utrain.activities.coach.CoachSignupActivity;
 import com.netscape.utrain.adapters.SelectServiceSpinnerAdapter;
 import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
 import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
@@ -65,8 +67,12 @@ import com.netscape.utrain.utils.ImageFilePath;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -84,7 +90,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
     private File photoFile = null;
-    private String currentPhotoFilePath = "", imageUrl = "";
+    private String currentPhotoFilePath = "", imageUrl = "",imgRealPath="";
     private String address = "";
     private double latitude = 0.0, longitude = 0.0;
     private LocationManager mLocManager;
@@ -93,6 +99,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private OrganizationSignUpActivity activity;
     private Location mylocation;
     private OrgUserDataModel orgDataModel;
+    private String activeUserType="";
+
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -138,6 +146,18 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding.orgEndTimeTv.setOnClickListener(this);
         binding.orgNextBtn.setOnClickListener(this);
         binding.orgAddressEdt.setOnClickListener(this);
+        if( getIntent().getExtras() != null)
+        {
+            activeUserType=getIntent().getStringExtra(Constants.ActiveUserType);
+                if (activeUserType.equals(Constants.TypeCoach)){
+                   binding.signUpType.setText(getResources().getString(R.string.coach));
+                }
+                if (activeUserType.equals(Constants.TypeOrganization)){
+                   binding.signUpType.setText(getResources().getString(R.string.organization));
+                }
+
+        }
+
         setUpGClient();
     }
 
@@ -366,9 +386,17 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     }
 
     private void hitOrgSignUpApi() {
-        Intent intent=new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
-        intent.putExtra(Constants.OrgSignUpIntent,orgDataModel);
-        startActivity(intent);
+
+            Intent intent=new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+            if (activeUserType.equals(Constants.TypeOrganization)) {
+                intent.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
+            }
+            if (activeUserType.equals(Constants.TypeCoach)){
+                intent.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
+            }
+            startActivity(intent);
     }
 
     public void getStartTime() {
@@ -379,11 +407,18 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        binding.orgStartTimeTv.setText(hourOfDay + ":" + minute);
+                        binding.orgStartTimeTv.setText(convertDate(hourOfDay) + ":" + convertDate(minute));
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.show();
 
+    }
+    public String convertDate(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + String.valueOf(input);
+        }
     }
 
     public void getEndTime() {
@@ -395,7 +430,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        binding.orgEndTimeTv.setText(hourOfDay + ":" + minute);
+                        binding.orgEndTimeTv.setText(convertDate(hourOfDay) + ":" + convertDate(minute));
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.show();
@@ -529,7 +564,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 photoFile = new File(currentPhotoFilePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
-                    imageUrl = photoFile.getPath();
 //                    plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
 //                    imagesSelected.add(position,photoFile);
@@ -543,11 +577,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            currentPhotoFilePath = realPath;
-            photoFile = new File(realPath);
+            if (realPath!=null) {
+                photoFile = new File(realPath);
+            }
             if (photoFile != null)
 //                plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+
         }
     }
 }

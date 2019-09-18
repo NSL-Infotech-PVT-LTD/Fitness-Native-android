@@ -45,8 +45,6 @@ import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.databinding.ActivityCoachSignupBinding;
-import com.netscape.utrain.model.CoachSignUpModel;
-import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.AppController;
@@ -57,19 +55,12 @@ import com.netscape.utrain.utils.ImageFilePath;
 import java.io.File;
 import java.util.Calendar;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class CoachSignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityCoachSignupBinding binding;
     private int mYear, mMonth, mDay, mHour, mMinute;
     Retrofitinterface retrofitinterface;
-    CoachSignUpModel mModel;
+//    CoachSignUpModel mModel;
     ProgressDialog progressDialog;
     public static final int REQUEST_CODE = 1;
     Uri imageUri;
@@ -102,12 +93,11 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coach_signup);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_coach_signup);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(CoachSignupActivity.this);
 
-        binding.coachEnterStartbsnsHour.setOnClickListener(new View.OnClickListener() {
+        binding.coachStartHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
@@ -117,12 +107,12 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
                 TimePickerDialog timePickerDialog = new TimePickerDialog(CoachSignupActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        binding.coachEnterStartbsnsHour.setText(hourOfDay + ":" + minute);
+                        binding.coachStartHour.setText(hourOfDay + ":" + minute);
                     }
                 },mHour,mMinute,true);
                 timePickerDialog.show();            }
         });
-        binding.coachEnterendbsnsHour.setOnClickListener(new View.OnClickListener() {
+        binding.coachEndHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
@@ -133,7 +123,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
 
-                        binding.coachEnterendbsnsHour.setText(hourOfDay + ":" + minute);
+                        binding.coachEndHour.setText(hourOfDay + ":" + minute);
                     }
                 }, mHour, mMinute,true);
                 timePickerDialog.show();
@@ -156,6 +146,23 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
             }
         });
         init();
+        init();
+//        binding.coachLocationEdt.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//
+//                final int DRAWABLE_RIGHT = 2;
+//
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    if (event.getRawX() >= (binding.coachLocationEdt.getRight() - binding.coachLocationEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        if (checkPermissions())
+//                            binding.coachLocationEdt.setText(address);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
 
         binding.coachNextBtn.setOnClickListener(new View.OnClickListener() {
@@ -165,87 +172,84 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
                 // NextButtonCoding.....
 
 
-                if (binding.coachNameEdt.getText().toString().isEmpty())
-                {
-                    binding.coachNameEdt.setError("Please enter name");
-                } else if (binding.coachEmaiEdt.getText().toString().isEmpty())
-                {
-                    binding.coachEmaiEdt.setError("Please enter email");
-                } else if (binding.coachPasswordEdt.getText().toString().isEmpty()) {
-                    binding.coachPasswordEdt.setError("Please enter password");
-                } else if (binding.coachPhoneEdt.getText().toString().isEmpty()){
-                    binding.coachPhoneEdt.setError("Please enter password");
-                } else if (binding.coachLocationEdt.getText().toString().isEmpty()){
-                    binding.coachLocationEdt.setError("Please enter location");
-                } else if (binding.coachBioEdt.getText().toString().isEmpty()) {
-                    binding.coachBioEdt.setError("Please enter bio");
-                } else if (binding.coachEnterExperienceDetailEdt.getText().toString().isEmpty()){
-                    binding.coachEnterExperienceDetailEdt.setError("Please enter experience");
-                } else if (binding.coachEnterHourlyRateEdt.getText().toString().isEmpty()){
-                    binding.coachEnterHourlyRateEdt.setError("Please enter rate");
-                } else{
-                    // hit CoachRegisterApi
-                    progressDialog.setMessage("Loading....");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                    MultipartBody.Part userImg = null;
-                    if (photoFile != null) {
-                        userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-                    }
-                    Call<CoachSignUpResponse> call = retrofitinterface.coachSignUp(Constants.CONTENT_TYPE,
-                                                                                             binding.coachNameEdt.getText().toString(),
-                                                                                             binding.coachEmailTv.getText().toString(),
-                                                                                             binding.coachPasswordEdt.getText().toString(),
-                                                                                             binding.coachPhoneEdt.getText().toString(),
-                                                                                             binding.coachLocationEdt.getText().toString(),
-                                                                                            latitude+"",
-                                                                                            longitude+"",
-                                                                                             binding.coachEnterStartbsnsHour.getText().toString(),
-                                                                                             binding.coachEnterendbsnsHour.getText().toString(),
-                                                                                             binding.coachBioEdt.getText().toString(),
-                                                                                            "[12,15]",
-                                                                                             binding.coachEnterExperienceDetailEdt.getText().toString(),
-                                                                                             binding.coachEnterHourlyRateEdt.getText().toString(),
-                                                                                             Constants.DEVICE_TYPE,
-                                                                                             Constants.DEVICE_TOKEN);
-                    call.enqueue(new Callback<CoachSignUpResponse>() {
-                        @Override
-                        public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
-                            if (response.isSuccessful()){
-                                progressDialog.dismiss();
-                                if (response.body().isStatus())
-                                {
-                                    mModel = new CoachSignUpModel();
-                                    mModel = response.body().getData();
-                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getData().getName(),Toast.LENGTH_LONG).show();
-                                } else
-
-                                    Toast.makeText(CoachSignupActivity.this,""+ response.body().getError().getError_message(),Toast.LENGTH_LONG).show();
-
-                            }
-                            else
-                            {
-                                Toast.makeText(CoachSignupActivity.this,"Api not Successfull",Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
-                            progressDialog.dismiss();
-
-                        }
-                    });
-
-
-
-                }
+                // hit CoachRegisterApi
 
 
             }
+
+
         });
 
     }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.coachImageView:
+                break;
+            case R.id.coachStartHour:
+                break;
+            case R.id.coachEndHour:
+                break;
+            case R.id.coachNextBtn:
+                break;
+        }
+
+    }
+
+
+//    public void hitCoachSignUpApi() {
+//        progressDialog.setMessage("Loading....");
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+//        MultipartBody.Part userImg = null;
+//        if (photoFile != null) {
+//            userImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+//        }
+//        Call<CoachSignUpResponse> call = retrofitinterface.coachSignUp(Constants.CONTENT_TYPE,
+//                binding.coachNameEdt.getText().toString(),
+//                binding.coachEmailTv.getText().toString(),
+//                binding.coachPasswordEdt.getText().toString(),
+//                binding.coachPhoneEdt.getText().toString(),
+//                binding.coachLocationEdt.getText().toString(),
+//                latitude+"",
+//                longitude+"",
+//                binding.coachEnterStartbsnsHour.getText().toString(),
+//                binding.coachEnterendbsnsHour.getText().toString(),
+//                binding.coachBioEdt.getText().toString(),
+//                "[12,15]",
+//                binding.coachEnterExperienceDetailEdt.getText().toString(),
+//                binding.coachEnterHourlyRateEdt.getText().toString(),
+//                Constants.DEVICE_TYPE,
+//                Constants.DEVICE_TOKEN);
+//        call.enqueue(new Callback<CoachSignUpResponse>() {
+//            @Override
+//            public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
+//                if (response.isSuccessful()){
+//                    progressDialog.dismiss();
+//                    if (response.body().isStatus())
+//                    {
+//                        mModel = new CoachSignUpModel();
+//                        mModel = response.body().getData();
+//                        Toast.makeText(CoachSignupActivity.this,""+ response.body().getData().getName(),Toast.LENGTH_LONG).show();
+//                    } else
+//
+//                        Toast.makeText(CoachSignupActivity.this,""+ response.body().getError().getError_message(),Toast.LENGTH_LONG).show();
+//
+//                }
+//                else
+//                {
+//                    Toast.makeText(CoachSignupActivity.this,"Api not Successfull",Toast.LENGTH_LONG).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -482,8 +486,4 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }

@@ -5,11 +5,6 @@ import com.netscape.utrain.model.OrgDataModel;
 
 public class OrgSignUpResponse {
 
-    /**
-     * status : true
-     * code : 201
-     */
-
     private boolean status;
     private int code;
     private OrgDataModel data;
@@ -22,7 +17,6 @@ public class OrgSignUpResponse {
     public void setError(ErrorModel error) {
         this.error = error;
     }
-
     public OrgDataModel getData() {
         return data;
     }
