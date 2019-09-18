@@ -121,8 +121,8 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="please_click_again_to_exit">Press back again to exit</string>
     <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
-    <string name="date_format">Date</string>
-    <string name="time_format">Time</string>
+    <string name="date_format">july 12,2019</string>
+    <string name="time_format">12:30-01:30</string>
     <string name="enter_email">Enter Email</string>
     <string name="choose_services">Choose Services</string>
     <string name="enter_location">Enter Location</string>
@@ -167,4 +167,21 @@
     <string name="Gregg">Gregg</string>
     <string name="offer_space">Offer Space</string>
     <string name="cost">Cost</string>
+    <string name="find_space">Find Space</string>
+    <string name="history">History</string>
+    <string name="sports">Sports</string>
+    <string name="soccor">Soccor</string>
+    <string name="name_desc">Roger David</string>
+    <string name="time">Time</string>
+    <string name="rihana_pay_you">Rihana paid you</string>
+    <string name="payment_fragment_rate">$23.45</string>
+    <string name="date">Date</string>
+    <string name="review_rating">Rihana rated you</string>
+    <string name="session_fragment">Session</string>
+    <string name="payment_fragment">Payment</string>
+    <string name="review_fragment">Review</string>
+    <string name="welcome_coach_name">Welcome Roger David</string>
+    <string name="recent_request">Recent Requests</string>
+    <string name="view_all">View All</string>
+    <string name="ongoing_session">Ongoing Sessions</string>
 </resources>

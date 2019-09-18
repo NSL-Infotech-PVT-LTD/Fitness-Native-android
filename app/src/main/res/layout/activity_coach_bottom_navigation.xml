@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9ffe3"
+    tools:context=".activities.CoachBottomNavigation">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/coachBottomNavHeaderTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/welcome_coach_name"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/coachBottomNavProfileImg"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:src="@drawable/sophie"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/coachBottomNavsearchAtuoCompleteEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@drawable/ic_back"
+        android:drawablePadding="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/search_keyword"
+        android:padding="@dimen/_10sdp"
+        android:singleLine="true"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coachBottomNavHeaderTv" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/Guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/cards_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Guideline">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/coachBottomNavRecentReqImg"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_person"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/coachBottomNavRecentReqTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/recent_request"
+            app:layout_constraintLeft_toRightOf="@id/coachBottomNavRecentReqImg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/coachBottomNavViewAllBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorWhite"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/view_all"
+            android:textAllCaps="false"
+            android:textColor="#949494"
+            android:textSize="@dimen/_8sdp"
+            app:cornerRadius="@dimen/_15sdp"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#949494"
+            app:strokeWidth="@dimen/_1sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/coachBottomNavRecentReqRecycler"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/coachBottomNavRecentReqImg" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/coachBottomNavOnGoingSessionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/ongoing_session"
+            app:layout_constraintLeft_toRightOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/coachBottomNavRecentReqRecycler" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/coachBottomNavViewAllBtnScnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorWhite"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/view_all"
+            android:textAllCaps="false"
+            android:textColor="#949494"
+            android:textSize="@dimen/_8sdp"
+            app:cornerRadius="@dimen/_15sdp"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/coachBottomNavRecentReqRecycler"
+            app:strokeColor="#949494"
+            app:strokeWidth="@dimen/_1sdp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/coachBottomNavOngoingRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/coachBottomNavOnGoingSessionTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

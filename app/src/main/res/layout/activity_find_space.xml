@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f9ffe3"
-    tools:context=".activities.OfferSpaceActivity"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    tools:context=".activities.FindSpaceActivity"
+    android:background="#f9ffe3">
+
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/createTrainingSessionTv"
+        android:id="@+id/findSpaceHeaderTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="@string/offer_space"
+        android:text="@string/find_space"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,7 +40,8 @@
         android:text="@string/create_event_dummytxt"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
+        app:layout_constraintTop_toBottomOf="@id/findSpaceHeaderTv" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/Guideline"
@@ -53,9 +53,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/card_shape_outline"
+        app:layout_constraintTop_toTopOf="@id/Guideline"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/Guideline">
+        android:background="@drawable/card_shape_outline">
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -72,9 +72,26 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/_30sdp" />
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/findSpaceSearchAtuoCompleteEdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/ic_back"
+            android:drawablePadding="@dimen/_10sdp"
+            android:hint="@string/search_keyword"
+            android:padding="@dimen/_10sdp"
+            android:singleLine="true"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/OfficeSpaceLocationTv"
+            android:id="@+id/findSpaceLocationTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -82,11 +99,11 @@
             android:text="@string/location"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/findSpaceSearchAtuoCompleteEdt"
             app:layout_goneMarginTop="@dimen/_20sdp" />
 
         <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/offerSpaceLocationSpinner"
+            android:id="@+id/findSpaceLocationSpinner"
             android:layout_width="0dp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -94,7 +111,8 @@
             android:spinnerMode="dropdown"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/OfficeSpaceLocationTv" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceLocationTv" />
+
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
@@ -104,14 +122,14 @@
             android:paddingLeft="@dimen/_12sdp"
             android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_regular"
-            app:layout_constraintBottom_toBottomOf="@id/offerSpaceLocationSpinner"
+            app:layout_constraintBottom_toBottomOf="@id/findSpaceLocationSpinner"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toTopOf="@id/offerSpaceLocationSpinner" />
+            app:layout_constraintTop_toTopOf="@id/findSpaceLocationSpinner" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceStartbsnshourTv"
+            android:id="@+id/findSpaceStartbsnshourTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -120,10 +138,10 @@
 
             android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceLocationSpinner" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceLocationSpinner" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceEndbsnshourTv"
+            android:id="@+id/findSpaceEndbsnshourTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -133,10 +151,10 @@
             android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceLocationSpinner" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceLocationSpinner" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceSelectStartbsnsHourTv"
+            android:id="@+id/findSpaceSelectStartbsnsHourTv"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -149,11 +167,11 @@
             android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceStartbsnshourTv" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceStartbsnshourTv" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceSelectEndbsnsHourTv"
+            android:id="@+id/findSpaceSelectEndbsnsHourTv"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -166,11 +184,10 @@
             android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceStartbsnshourTv" />
-
+            app:layout_constraintTop_toBottomOf="@id/findSpaceStartbsnshourTv" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceSelectDateTv"
+            android:id="@+id/findSpaceSelectDateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -179,10 +196,10 @@
             android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceSelectStartbsnsHourTv" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceSelectStartbsnsHourTv" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceEnterDateTv"
+            android:id="@+id/findSpaceEnterDateTv"
             android:layout_width="0dp"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -196,75 +213,11 @@
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceSelectDateTv" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceCostTv"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/card_input_edt_background"
-            android:drawableRight="@drawable/ic_dollarsign"
-            android:gravity="center_vertical"
-            android:paddingRight="@dimen/_80sdp"
-            android:text="@string/cost"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
-            app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceEnterDateTv" />
-
-        <View
-            android:id="@+id/offerspaceCostView"
-            android:layout_width="1dp"
-            android:layout_height="@dimen/_26sdp"
-            android:layout_marginLeft="@dimen/_100sdp"
-            android:background="@color/colorBlack"
-            app:layout_constraintBottom_toBottomOf="@id/offerSpaceCostTv"
-            app:layout_constraintLeft_toLeftOf="@id/offerSpaceCostTv"
-            app:layout_constraintRight_toRightOf="@id/offerSpaceCostTv"
-            app:layout_constraintTop_toTopOf="@id/offerSpaceCostTv" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/offerSpaceEnterCostEdt"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:background="@null"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:hint="10"
-            android:inputType="number"
-            android:maxLines="1"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@id/offerSpaceCostTv"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toRightOf="@id/offerspaceCostView"
-            app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toTopOf="@id/offerSpaceCostTv" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/offerSpaceUploadTv"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/card_input_edt_background"
-            android:drawableRight="@drawable/ic_file_upload"
-            android:gravity="center_vertical"
-            android:paddingRight="@dimen/_10sdp"
-            android:text="@string/upload_photos"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
-            app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceEnterCostEdt" />
+            app:layout_constraintTop_toBottomOf="@id/findSpaceSelectDateTv" />
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/offerSpaceBtnPost"
+            android:id="@+id/findSpaceBtnPost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
@@ -275,7 +228,7 @@
             android:textColor="@color/colorBlack"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/offerSpaceUploadTv"/>
+            app:layout_constraintTop_toBottomOf="@id/findSpaceEnterDateTv"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
