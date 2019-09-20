@@ -17,16 +17,17 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.ServicePriceModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecycleView> {
 
     Context context;
-    List<ServiceListDataModel> list;
+    ArrayList<ServiceListDataModel> list;
     int defaultPosition = -1;
     private SelectedServicesInterface selectedServices;
 
-    public DialogAdapter(Context context, List<ServiceListDataModel> list,SelectedServicesInterface services){
+    public DialogAdapter(Context context, ArrayList<ServiceListDataModel> list,SelectedServicesInterface services){
 
         this.context = context;
         this.list = list;

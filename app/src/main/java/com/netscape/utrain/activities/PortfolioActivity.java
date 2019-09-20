@@ -28,6 +28,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonArray;
 import com.netscape.utrain.BuildConfig;
+import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
@@ -66,6 +67,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private ActivityPortfolioBinding binding;
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
+    private String setImages;
     private String currentPhotoFilePath = "", imageUrl = "";
     private File photoFile = null;
     private ImageView imageView;
@@ -103,13 +105,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
         if (getIntent().getExtras() != null) {
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
-//            String services = String.valueOf(getIntent().getStringExtra(Constants.JsonArrayIntent));
-//            try {
-//                selectedServices = new JSONArray(services);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
         }
+        setImagesFromConstant();
 
         binding.addImageOne.setOnClickListener(this);
         binding.addImageTwo.setOnClickListener(this);
@@ -295,6 +292,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(imageView);
                     userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+                    setImages=photoFile.getPath();
                     setPortfolioImages();
 
                 } /*else {
@@ -314,6 +312,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             if (photoFile != null)
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
+            setImages=photoFile.getPath();
             userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
             setPortfolioImages();
         }
@@ -350,6 +349,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            clearFromConstants();
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
@@ -447,16 +447,53 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     public void setPortfolioImages(){
         if (position==1){
             portFolioImage1=userImg;
+            PortfolioImagesConstants.partOne=portFolioImage1;
+            PortfolioImagesConstants.imageOne=setImages;
         }
         if (position==2){
             portFolioImage2=userImg;
+            PortfolioImagesConstants.partTwo=portFolioImage1;
+            PortfolioImagesConstants.imageTwo=setImages;
         }
         if (position==3){
             portFolioImage3=userImg;
+            PortfolioImagesConstants.partThree=portFolioImage1;
+            PortfolioImagesConstants.imageThree=setImages;
         }
         if (position==4){
             portFolioImage4=userImg;
+            PortfolioImagesConstants.partFour=portFolioImage1;
+            PortfolioImagesConstants.imageFour=setImages;
         }
 
+    }
+    public void setImagesFromConstant(){
+//        if (position==1){
+            portFolioImage1=PortfolioImagesConstants.partOne;
+            Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
+//        }
+//        if (position==2){
+            portFolioImage2=PortfolioImagesConstants.partTwo;
+            Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
+//        }
+//        if (position==3){
+            portFolioImage3=PortfolioImagesConstants.partThree;
+            Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
+//        }
+//        if (position==4){
+            portFolioImage4=PortfolioImagesConstants.partFour;
+            Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
+//        }
+
+    }
+    public void clearFromConstants(){
+        PortfolioImagesConstants.imageOne="";
+        PortfolioImagesConstants.imageTwo="";
+        PortfolioImagesConstants.imageThree="";
+        PortfolioImagesConstants.imageFour="";
+        PortfolioImagesConstants.partOne=null;
+        PortfolioImagesConstants.partTwo=null;
+        PortfolioImagesConstants.partThree=null;
+        PortfolioImagesConstants.partFour=null;
     }
 }

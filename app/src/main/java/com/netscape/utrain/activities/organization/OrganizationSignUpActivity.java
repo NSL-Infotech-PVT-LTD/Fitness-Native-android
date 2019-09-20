@@ -349,7 +349,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgPhone.length() < 6) {
             binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_six_diget_phone_number));
             binding.orgPhoneEdt.requestFocus();
-        }else if (orgPhone.length()>10) {
+        } else if (orgPhone.length() > 10) {
             binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_ten_diget_phone_number));
             binding.orgPhoneEdt.requestFocus();
         } else if (orgAddress.isEmpty()) {
@@ -373,7 +373,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgExpertise.isEmpty()) {
             binding.orgExperienceEdt.setError(getResources().getString(R.string.enter_your_experites));
             binding.orgExperienceEdt.requestFocus();
-            String expertise  = binding.orgExperienceEdt.getText().toString();
+            String expertise = binding.orgExperienceEdt.getText().toString();
             Double number = Double.parseDouble(expertise);
         } else if (orgExpDetail.isEmpty()) {
             binding.orgExperienceDetailEdt.setError(getResources().getString(R.string.enter_your_experience_details));
@@ -455,7 +455,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.show();
-
     }
 
     private boolean checkPermissions() {
@@ -611,12 +610,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     @Override
     protected void onDestroy() {
-       clearPrefrences();
+        clearPrefrences();
         super.onDestroy();
     }
-    public void clearPrefrences(){
-        CommonMethods.clearKeyPrefData(Constants.SELECTED_SERVICE,OrganizationSignUpActivity.this);
-        CommonMethods.clearKeyPrefData(Constants.SERVICE_LIST,OrganizationSignUpActivity.this);
+
+    public void clearPrefrences() {
+        CommonMethods.clearKeyPrefData(Constants.SELECTED_SERVICE, OrganizationSignUpActivity.this);
+        CommonMethods.clearKeyPrefData(Constants.SERVICE_LIST, OrganizationSignUpActivity.this);
 
     }
 }
