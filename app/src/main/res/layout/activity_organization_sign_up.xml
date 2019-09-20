@@ -206,6 +206,7 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:singleLine="true"
+                        android:drawablePadding="@dimen/_10sdp"
                         android:paddingRight="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
