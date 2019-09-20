@@ -7,18 +7,18 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coachSignUpLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorLightGray"
-            tools:context=".activities.organization.OrganizationSignUpActivity"
-            android:id="@+id/coachSignUpLayout">
+            tools:context=".activities.organization.OrganizationSignUpActivity">
 
-            <include layout="@layout/toolbar_layout"
+            <include
                 android:id="@+id/coachSignUp_toolbar"
+                layout="@layout/toolbar_layout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -105,19 +105,18 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:maxLength="40"
-                        android:singleLine="true"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_name"
+                        android:inputType="text"
+                        android:maxLength="40"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_nameTv" />
-
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -141,17 +140,16 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_email"
-                        android:maxLines="1"
-                        android:maxLength="40"
                         android:inputType="text"
-                        android:singleLine="true"
+                        android:maxLength="40"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_emailTv" />
-
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -166,26 +164,36 @@
                         app:layout_constraintTop_toBottomOf="@id/coachEmailEdt" />
 
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/coachPasswordEdt"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/coachPasswordEdtLayout"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center_vertical"
-                        android:hint="@string/enter_password"
-                        android:paddingLeft="@dimen/_16sdp"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:maxLength="40"
-                        android:singleLine="true"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coach_passwordTv" />
+                        app:layout_constraintTop_toBottomOf="@id/coach_passwordTv"
+                        app:passwordToggleEnabled="true">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/coachPasswordEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/organization_edt_design"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center_vertical"
+                            android:hint="@string/enter_password"
+                            android:inputType="textPassword"
+                            android:maxLength="40"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/_16sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                            app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                            app:layout_constraintTop_toBottomOf="@id/coach_passwordTv" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -197,7 +205,7 @@
                         android:text="@string/phone"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coachPasswordEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/coachPasswordEdtLayout" />
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -209,11 +217,11 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_phone_number"
-                        android:paddingLeft="@dimen/_16sdp"
                         android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true"
                         android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
@@ -239,20 +247,19 @@
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
+                        android:drawableRight="@drawable/ic_my_location"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
-                        android:drawableRight="@drawable/ic_my_location"
                         android:hint="@string/enter_location"
-                        android:paddingLeft="@dimen/_16sdp"
                         android:inputType="text"
+                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingRight="@dimen/_16sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:paddingRight="@dimen/_16sdp"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_locationTv" />
-
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -264,52 +271,49 @@
                         android:text="@string/start_business_hour"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coachLocationEdt"/>
+                        app:layout_constraintTop_toBottomOf="@id/coachLocationEdt" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/coach_endBusinessHourTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_2sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/end_business_hour"
                         android:textSize="@dimen/_12sdp"
-                        android:layout_marginRight="@dimen/_2sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coachLocationEdt"/>
+                        app:layout_constraintTop_toBottomOf="@id/coachLocationEdt" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/coachStartHour"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:text="Start Time"
-                        android:gravity="left|center"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:paddingLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:drawableLeft="@drawable/ic_time"
                         android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:gravity="left|center"
+                        android:paddingLeft="@dimen/_20sdp"
+                        android:text="Start Time"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/coachEndHour"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:text="End Time"
-                        android:padding="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:gravity="left|center"
                         android:background="@drawable/card_input_edt_background"
                         android:drawableLeft="@drawable/ic_time"
+                        android:gravity="left|center"
+                        android:padding="@dimen/_5sdp"
                         android:paddingLeft="@dimen/_20sdp"
+                        android:text="End Time"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv"
-                        />
-
+                        app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -321,25 +325,23 @@
                         android:text="@string/bio"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coachStartHour"/>
+                        app:layout_constraintTop_toBottomOf="@id/coachStartHour" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/coachBioEdt"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_bio"
-                        android:singleLine="true"
                         android:paddingLeft="@dimen/_16sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_bioTv" />
-
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -360,8 +362,8 @@
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
                         android:hint="@string/type"
-                        android:singleLine="true"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
@@ -385,10 +387,9 @@
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
                         android:hint="@string/type"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:singleLine="true"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
@@ -414,8 +415,8 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/experience"
-                        android:singleLine="true"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -440,9 +441,9 @@
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
-                        android:singleLine="true"
                         android:hint="@string/service_details"
                         android:paddingLeft="@dimen/_16sdp"
+                        android:singleLine="true"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -497,12 +498,13 @@
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_100sdp"
                         android:backgroundTint="@color/colorWhite"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/poppins_semibold"
                         android:gravity="center"
-                        android:textSize="@dimen/_12sdp"
-                        android:hint="@string/next"
+                        android:hint="@string/one_more_step"
                         android:textAllCaps="false"
+
                         android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
                         app:cornerRadius="@dimen/_5sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -524,6 +526,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/cardview1">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -533,8 +536,8 @@
                         android:id="@+id/coach_coachProfileImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_person"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/ic_person"
 
                         />
 
@@ -546,13 +549,11 @@
                         android:textSize="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
+                        app:layout_constraintRight_toRightOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

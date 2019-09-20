@@ -142,12 +142,16 @@
             android:id="@+id/servicePriceNextBtn"
             android:layout_width="0dp"
             android:layout_height="@dimen/_45sdp"
-            android:text="@string/next"
+            android:text="@string/one_more_step"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
-            android:backgroundTint="@color/colorGreen"
+            android:backgroundTint="@color/colorWhite"
             android:textColor="@color/colorBlack"
+            app:strokeColor="@color/colorGreen"
+            app:strokeWidth="@dimen/_1sdp"
             android:textAllCaps="false"
             android:layout_marginBottom="@dimen/_30sdp"/>
 

@@ -76,6 +76,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.text.DecimalFormat;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -91,7 +92,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
     private File photoFile = null;
-    private String currentPhotoFilePath = "", imageUrl = "",imgRealPath="";
+    private String currentPhotoFilePath = "", imageUrl = "", imgRealPath = "";
     private String address = "";
     private double latitude = 0.0, longitude = 0.0;
     private LocationManager mLocManager;
@@ -100,7 +101,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private OrganizationSignUpActivity activity;
     private Location mylocation;
     private OrgUserDataModel orgDataModel;
-    private String activeUserType="";
+    private String activeUserType = "";
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -138,6 +139,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         });
 
+
     }
 
     private void init() {
@@ -149,15 +151,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding.orgEndTimeTv.setOnClickListener(this);
         binding.orgNextBtn.setOnClickListener(this);
         binding.orgAddressEdt.setOnClickListener(this);
-        if( getIntent().getExtras() != null)
-        {
-            activeUserType=getIntent().getStringExtra(Constants.ActiveUserType);
-                if (activeUserType.equals(Constants.TypeCoach)){
-                   binding.signUpType.setText(getResources().getString(R.string.coach));
-                }
-                if (activeUserType.equals(Constants.TypeOrganization)){
-                   binding.signUpType.setText(getResources().getString(R.string.organization));
-                }
+        if (getIntent().getExtras() != null) {
+            activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
+            if (activeUserType.equals(Constants.TypeCoach)) {
+                binding.signUpType.setText(getResources().getString(R.string.coach));
+            }
+            if (activeUserType.equals(Constants.TypeOrganization)) {
+                binding.signUpType.setText(getResources().getString(R.string.organization));
+            }
 
         }
 
@@ -305,7 +306,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     }
 
     private void validateEditTextData() {
-        orgDataModel=new OrgUserDataModel();
+        orgDataModel = new OrgUserDataModel();
         orgName = binding.orgNameEdt.getText().toString();
         orgDataModel.setName(orgName);
         orgEmail = binding.orgEmailEdt.getText().toString();
@@ -345,8 +346,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgPhone.isEmpty()) {
             binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_phone_number));
             binding.orgPhoneEdt.requestFocus();
-        } else if (orgPhone.length() < 10) {
-            binding.orgPhoneEdt.setError(getResources().getString(R.string.ente_ten_diget_phone_number));
+        } else if (orgPhone.length() < 6) {
+            binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_six_diget_phone_number));
+            binding.orgPhoneEdt.requestFocus();
+        }else if (orgPhone.length()>10) {
+            binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_ten_diget_phone_number));
             binding.orgPhoneEdt.requestFocus();
         } else if (orgAddress.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.select_address), Toast.LENGTH_SHORT).show();
@@ -369,6 +373,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgExpertise.isEmpty()) {
             binding.orgExperienceEdt.setError(getResources().getString(R.string.enter_your_experites));
             binding.orgExperienceEdt.requestFocus();
+            String expertise  = binding.orgExperienceEdt.getText().toString();
+            Double number = Double.parseDouble(expertise);
         } else if (orgExpDetail.isEmpty()) {
             binding.orgExperienceDetailEdt.setError(getResources().getString(R.string.enter_your_experience_details));
             binding.orgExperienceDetailEdt.requestFocus();
@@ -378,7 +384,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgHourlyRate.isEmpty()) {
             binding.orgHourlyRateEdt.setError(getResources().getString(R.string.enter_hourly_rate));
             binding.orgHourlyRateEdt.requestFocus();
-        }else if(photoFile==null){
+        } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) <= 39) {
+            binding.orgHourlyRateEdt.setError("Hourly rate should less than 40");
+
+        } else if (photoFile == null) {
             Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
         } else {
             orgDataModel.setProfile_img(photoFile);
@@ -388,18 +397,26 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         }
     }
 
+    // int result = 0;
+    //    result = Integer.parseInt(binding.orgHourlyRateEdt.getText().toString());
+    //
+    //                    if (result <=39)
+    //            binding.orgHourlyRateEdt.setError("Hourly rate should grater than 40");
+    //                    else
+    //                            binding.orgHourlyRateEdt.setError("");
+
     private void hitOrgSignUpApi() {
 
-            Intent intent=new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
-            if (activeUserType.equals(Constants.TypeOrganization)) {
-                intent.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
-            }
-            if (activeUserType.equals(Constants.TypeCoach)){
-                intent.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
-            }
-            startActivity(intent);
+        Intent intent = new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+        if (activeUserType.equals(Constants.TypeOrganization)) {
+            intent.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+        }
+        if (activeUserType.equals(Constants.TypeCoach)) {
+            intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+        }
+        startActivity(intent);
     }
 
     public void getStartTime() {
@@ -416,6 +433,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         timePickerDialog.show();
 
     }
+
     public String convertDate(int input) {
         if (input >= 10) {
             return String.valueOf(input);
@@ -558,6 +576,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -580,12 +599,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            if (realPath!=null) {
+            if (realPath != null) {
                 photoFile = new File(realPath);
             }
             if (photoFile != null)
 //                plus.setVisibility(View.GONE);
-            Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+                Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
 
         }
     }
