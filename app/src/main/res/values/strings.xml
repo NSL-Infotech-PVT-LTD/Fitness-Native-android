@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="facebook_app_id">721512744988306</string>
+    <string name="fb_login_protocol_scheme">fb721512744988306</string>
     <string name="app_name">Utrain</string>
     <string name="my_porfile">My Profile</string>
     <string name="edit">Edit</string>
@@ -88,7 +91,7 @@
     <string name="training_service_detail">Training Service Detail</string>
     <string name="hourly_rate">Hourly Rate</string>
     <string name="dollar_sign_value">$</string>
-    <string name="enter_hourly_rate">44</string>
+    <string name="enter_hourly_rate">Please enter hourly rate</string>
     <string name="rihana">Rihana</string>
     <string name="description">I like the caption @robin.</string>
     <string name="just_now">Just Now</string>
@@ -134,7 +137,8 @@
     <string name="athlete_login_header">Log In</string>
     <string name="select_address">Select Address using location button</string>
     <string name="enter_your_email_to_reset">Enter your email to reset!</string>
-    <string name="ente_ten_diget_phone_number">Enter minimum ten digit</string>
+    <string name="enter_six_diget_phone_number">Enter minimum six digit</string>
+    <string name="enter_ten_diget_phone_number">Enter minimum ten digit</string>
     <string name="add_profile_image">Add profile image</string>
     <string name="enter_your_bio">Enter your bio</string>
     <string name="select_business_start_hour">Select business start hour</string>
@@ -146,7 +150,7 @@
     <string name="sevice_summary_of_services">Summary of service</string>
     <string name="service_name">Service Name</string>
     <string name="enter_price">Enter price</string>
-    <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your work</string>
+    <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your space</string>
     <string name="apply">Apply</string>
     <string name="price">price</string>
     <string name="rate">Rate</string>
@@ -186,4 +190,7 @@
     <string name="ongoing_session">Ongoing Sessions</string>
     <string name="select_services">Select services</string>
     <string name="select_portfolio_images">Pleas select four images ifrst</string>
+    <string name="one_more_step">One more step</string>
+    <string name="two_more_step">Two more step</string>
+    <string name="register">Register</string>
 </resources>

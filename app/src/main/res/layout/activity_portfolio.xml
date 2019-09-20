@@ -24,7 +24,7 @@
         android:gravity="center"
         android:text="@string/add_portforlio_text"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -188,7 +188,7 @@
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:backgroundTint="@color/colorGreen"
-        android:text="@string/submit"
+        android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/colorBlack"
         app:cornerRadius="@dimen/_8sdp"

@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/athleteLoginLayout"
         android:background="@drawable/back">
 
         <androidx.constraintlayout.widget.Guideline
@@ -97,12 +98,12 @@
         <!--android:padding="@dimen/_20sdp"-->
         <!--android:layout_marginTop="@dimen/_6sdp"/>-->
         <LinearLayout
-            android:elevation="@dimen/_8sdp"
             android:id="@+id/fbLin"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:background="@drawable/fb_button_rond_bg"
+            android:elevation="@dimen/_8sdp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/innerRightGuideLine"

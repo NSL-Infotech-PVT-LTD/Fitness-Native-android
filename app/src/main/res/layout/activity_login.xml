@@ -80,26 +80,39 @@
 
                     />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginPasswordEdt"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loginPasswordEdtLayout"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="15sp"
-                    android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/loginEmailEdt" />
+                    app:layout_constraintTop_toBottomOf="@id/loginEmailEdt"
+                    app:passwordToggleEnabled="true"
+                    app:startIconDrawable="@drawable/ic_lock"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loginPasswordEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15sp"
+                        android:background="@drawable/etmaterial_design"
+                        android:drawableLeft="@drawable/ic_lock"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:padding="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                        app:layout_constraintTop_toBottomOf="@id/loginEmailEdt" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/loginForgetTv"
@@ -110,7 +123,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/loginPasswordEdt"></com.google.android.material.textview.MaterialTextView>
+                    app:layout_constraintTop_toBottomOf="@+id/loginPasswordEdtLayout"/>
 
 
                 <com.google.android.material.button.MaterialButton
@@ -127,7 +140,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/loginPasswordEdt" />
+                    app:layout_constraintTop_toBottomOf="@id/loginPasswordEdtLayout" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/havntAccountText"

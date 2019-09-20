@@ -123,6 +123,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_signup);
 
 
@@ -143,6 +144,43 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 return false;
             }
         });
+
+
+        binding.athleteAddressEdtTwo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                final int DRAWABLE_RIGHT = 2;
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if (motionEvent.getRawX() >= (binding.athleteAddressEdtTwo.getRight() - binding.athleteAddressEdtTwo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if (checkPermissions())
+                            binding.athleteAddressEdtTwo.setText(address);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        if (getIntent().hasExtra("name")) {
+            binding.layoutOne.setVisibility(View.GONE);
+            binding.layoutTwo.setVisibility(View.VISIBLE);
+            binding.athleteNameEdt.setText(getIntent().getStringExtra("name"));
+
+        } else {
+            binding.layoutOne.setVisibility(View.VISIBLE);
+            binding.layoutTwo.setVisibility(View.GONE);
+        }
+        if (getIntent().hasExtra("email")) {
+            binding.athleteEmailEdt.setText(getIntent().getStringExtra("email"));
+        }
+
+        if (getIntent().hasExtra("image_url")) {
+            String image_url = getIntent().getStringExtra("image_url");
+        }
+
+        Glide.with(AthleteSignupActivity.this).load(getIntent().getStringExtra("image_url")).into(binding.athleProfileImg);
     }
 
 
@@ -151,6 +189,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         binding.athleteSignUpBtn.setOnClickListener(this);
         binding.athleteSignInTv.setOnClickListener(this);
         binding.athleteprofileImageView.setOnClickListener(this);
+        binding.athleteSignUpBtnTwo.setOnClickListener(this);
         askPermObj = new AskPermission(getApplicationContext(), this);
         retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
@@ -186,6 +225,18 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 signInActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(signInActivity);
                 break;
+            case R.id.athleteSignUpBtnTwo:
+                if (binding.athletePhoneEdtTwo.getText().toString().isEmpty()) {
+                    binding.athletePhoneEdtTwo.setError(getString(R.string.enter_phone_number));
+                    binding.athletePhoneEdtTwo.requestFocus();
+                }
+                if (binding.athleteAddressEdtTwo.getText().toString().isEmpty()) {
+                    binding.athleteAddressEdtTwo.setError(getString(R.string.enter_location));
+                    binding.athleteAddressEdtTwo.requestFocus();
+                } else {
+                    athleteSignUpApi(getIntent().getStringExtra("email"), getIntent().getStringExtra("fb_id"), getIntent().getStringExtra("name"), binding.athletePhoneEdtTwo.getText().toString(), binding.athleteAddressEdtTwo.getText().toString());
+
+                }
         }
     }
 
@@ -204,7 +255,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             binding.athletePhoneEdt.setError(getString(R.string.enter_phone_number));
             binding.athletePhoneEdt.requestFocus();
         } else if (binding.athletePhoneEdt.getText().toString().length() < 10) {
-            binding.athletePhoneEdt.setError(getString(R.string.ente_ten_diget_phone_number));
+            binding.athletePhoneEdt.setError(getString(R.string.enter_ten_diget_phone_number));
             binding.athletePhoneEdt.requestFocus();
         } else if (binding.athleteAddressEdt.getText().toString().isEmpty()) {
             Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.select_address), Toast.LENGTH_SHORT).show();
@@ -215,7 +266,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (photoFile == null) {
             Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
         } else {
-            athleteSignUpApi();
+            athleteSignUpApi(binding.athleteEmailEdt.getText().toString(), binding.athletePasswordEdt.getText().toString(), binding.athleteNameEdt.getText().toString(), binding.athletePhoneEdt.getText().toString(), binding.athleteAddressEdt.getText().toString());
         }
     }
 
@@ -455,7 +506,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         return MultipartBody.Part.createFormData(partName, fileName, requestFile);
     }
 
-    private void athleteSignUpApi() {
+    private void athleteSignUpApi(String email, String password, String name, String phone, String address) {
 //        CommonMethods.hideKeyboard(this);
         progressDialog.show();
         MultipartBody.Part userImg = null;
@@ -464,11 +515,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 //            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
         Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
-        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteNameEdt.getText().toString()));
-        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteEmailEdt.getText().toString()));
-        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athletePasswordEdt.getText().toString()));
-        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athletePhoneEdt.getText().toString()));
-        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), binding.athleteAddressEdt.getText().toString()));
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), name));
+        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
+        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
+        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), address));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(latitude)));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(longitude)));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
