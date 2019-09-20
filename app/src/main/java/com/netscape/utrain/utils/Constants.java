@@ -7,6 +7,7 @@ public class Constants {
     public static final String LOGIN_METHOD="login";
     public static final String ORG_SIGNUP="organiser/register";
     public static final String SERVICES="services";
+    public static final String COACH_SIGNUP = "coach/register";
 
 
     public static final String Coach="coach";
@@ -18,8 +19,8 @@ public class Constants {
     public static final String TypeAthlete="athleteActive";
     public static final String Organization="organization";
     public static final String TypeOrganization="organizationActive";
-    public static final String COACH_SIGNUP = "coach/register";
-
+    public static final String SELECTED_SERVICE="selectedService";
+    public static final String SERVICE_LIST="serviceList";
 
 
 

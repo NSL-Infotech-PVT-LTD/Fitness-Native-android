@@ -61,6 +61,7 @@ import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
 import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.utils.AppController;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.FileUtil;
 import com.netscape.utrain.utils.ImageFilePath;
@@ -120,6 +121,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_organization_sign_up);
         init();
+
         binding.orgAddressEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -141,6 +143,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     }
 
     private void init() {
+        clearPrefrences();
         activity = this;
         askPermObj = new AskPermission(getApplicationContext(), this);
         binding.orgProfileImg.setOnClickListener(this);
@@ -604,5 +607,16 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+       clearPrefrences();
+        super.onDestroy();
+    }
+    public void clearPrefrences(){
+        CommonMethods.clearKeyPrefData(Constants.SELECTED_SERVICE,OrganizationSignUpActivity.this);
+        CommonMethods.clearKeyPrefData(Constants.SERVICE_LIST,OrganizationSignUpActivity.this);
+
     }
 }

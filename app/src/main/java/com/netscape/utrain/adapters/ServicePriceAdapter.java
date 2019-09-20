@@ -50,7 +50,7 @@ public class ServicePriceAdapter extends RecyclerView.Adapter<ServicePriceAdapte
 
         final ServiceListDataModel data = list.get(position);
         holder.serviceName.setText(data.getName());
-        holder.priceEdt.setText(data.getHourlyRate());
+        holder.priceEdt.setText(data.getPrice());
         holder.priceEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

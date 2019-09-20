@@ -208,6 +208,7 @@
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
+                        android:drawablePadding="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_LocationTv" />

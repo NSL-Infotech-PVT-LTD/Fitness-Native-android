@@ -125,7 +125,7 @@
     <string name="please_click_again_to_exit">Press back again to exit</string>
     <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
     <string name="date_format">july 12,2019</string>
-    <string name="time_format">12:30-01:30</string>
+    <string name="time_format">12:30</string>
     <string name="enter_email">Enter Email</string>
     <string name="choose_services">Choose Services</string>
     <string name="enter_location">Enter Location</string>
@@ -189,7 +189,7 @@
     <string name="view_all">View All</string>
     <string name="ongoing_session">Ongoing Sessions</string>
     <string name="select_services">Select services</string>
-    <string name="select_portfolio_images">Pleas select four images ifrst</string>
+    <string name="select_portfolio_images">Pleas select four images frst</string>
     <string name="one_more_step">One more step</string>
     <string name="two_more_step">Two more step</string>
     <string name="register">Register</string>

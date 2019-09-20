@@ -56,7 +56,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecy
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                selectedServices.position(position,isChecked);
+                selectedServices.position(position,isChecked,data);
                 Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
             }
         });
@@ -84,6 +84,6 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecy
     }
 
     public interface SelectedServicesInterface {
-        void position(int pos,Boolean ischecked);
+        void position(int id,boolean ischecked,ServiceListDataModel serviceListDataModel);
     }
 }

@@ -32,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
@@ -73,8 +74,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     MaterialTextView addService;
     RecyclerView.LayoutManager layoutManager;
     ServicePriceAdapter serviceAdapter;
-    List<ServiceListDataModel> selectedService;
-    List<ServiceListDataModel> mList;
+    ArrayList<ServiceListDataModel> selectedService=new ArrayList<>();
+    ArrayList<ServiceListDataModel> mList = new ArrayList<>();
     ServiceListDataModel serviceModel;
     DialogAdapter dialogAdapter;
     AlertDialog alertDialog;
@@ -87,6 +88,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     private OrgUserDataModel orgDataModel;
     private String activeUserType = "";
     private File photoFile = null;
+    private boolean userPrice=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +99,32 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        mList.clear();
+        selectedService.clear();
         init();
-        hitServiceListApi();
+        if (mList!=null && mList.size()>0){
+
+        }else {
+            hitServiceListApi();
+        }
+
 
 
     }
 
     private void init() {
-        binding.addServiceBtn.setOnClickListener(this);
+         selectedService=CommonMethods.getListPrefrence(Constants.SELECTED_SERVICE,ServicePriceActivity.this);
+         mList=CommonMethods.getListPrefrence(Constants.SERVICE_LIST,ServicePriceActivity.this);
+        if (selectedService!=null && selectedService.size()>0){
+            binding.serviceRecyclerView.setVisibility(View.VISIBLE);
+            binding.serviceTv.setVisibility(View.VISIBLE);
+            binding.rateTV.setVisibility(View.VISIBLE);
+            binding.noSelectedService.setVisibility(View.GONE);
+            serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService, ServicePriceActivity.this);
+            binding.serviceRecyclerView.setLayoutManager(layoutManager);
+            binding.serviceRecyclerView.setAdapter(serviceAdapter);
+        }
+         binding.addServiceBtn.setOnClickListener(this);
         binding.servicePriceNextBtn.setOnClickListener(this);
 
         if (getIntent().getExtras() != null) {
@@ -277,7 +297,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onResponse(Call<ServiceListResponse> call, Response<ServiceListResponse> response) {
                 if (response.isSuccessful()) {
-                    mList = new ArrayList<>();
+
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
@@ -325,24 +345,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         btnDialogNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONArray numberArray = new JSONArray();
-                selectedService = new ArrayList<>();
-                for (int i = 0; i < mList.size(); i++) {
-                    if (mList.get(i).isSelected()) {
-                        serviceModel = new ServiceListDataModel();
-                        serviceModel.setSelected(mList.get(i).isSelected());
-                        serviceModel.setName(mList.get(i).getName());
-                        serviceModel.setId(mList.get(i).getId());
-                        serviceModel.setHourlyRate(orgDataModel.getHourly_rate());
-                        serviceModel.setPrice(orgDataModel.getHourly_rate());
-                        selectedService.add(serviceModel);
-                        try {
-                            numberArray.put(i, mList.get(i).getId());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
                 if (selectedService != null && selectedService.size() > 0) {
                     binding.serviceRecyclerView.setVisibility(View.VISIBLE);
                     binding.serviceTv.setVisibility(View.VISIBLE);
@@ -364,7 +366,17 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void position(int pos, Boolean isChecked) {
+    public void position(int pos, boolean isChecked,ServiceListDataModel serviceListDataModel) {
+        if (isChecked){
+            serviceListDataModel.setPrice(orgDataModel.getHourly_rate());
+            selectedService.add(serviceListDataModel);
+        }else {
+            for(int i = 0 ; i < selectedService.size() ; i++){
+                if(serviceListDataModel.getId()==selectedService.get(i).getId()){
+                    selectedService.remove(i);
+                }
+            }
+        }
         mList.get(pos).setSelected(isChecked);
 //        serviceAdapter.notifyDataSetChanged();
     }
@@ -378,5 +390,12 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     public void getServicePrice(int postion, String servicePrice ,int id) {
         selectedService.get(postion).setPrice(servicePrice);
         selectedService.get(postion).setId(id);
+    }
+
+    @Override
+    protected void onDestroy() {
+        CommonMethods.setLisstPrefData(Constants.SELECTED_SERVICE,selectedService,ServicePriceActivity.this);
+        CommonMethods.setLisstPrefData(Constants.SERVICE_LIST,mList,ServicePriceActivity.this);
+        super.onDestroy();
     }
 }
