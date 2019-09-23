@@ -181,16 +181,5 @@
             app:layout_constraintRight_toRightOf="@id/tvSignUp"
             app:layout_constraintTop_toBottomOf="@+id/tvSignUp" />
 
-        <View
-            android:id="@+id/viewThirdScreen"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
-            android:background="@drawable/view_design"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

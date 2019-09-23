@@ -119,7 +119,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             binding.serviceRecyclerView.setVisibility(View.VISIBLE);
             binding.serviceTv.setVisibility(View.VISIBLE);
             binding.rateTV.setVisibility(View.VISIBLE);
-            binding.noSelectedService.setVisibility(View.GONE);
+//            binding.noSelectedService.setVisibility(View.GONE);
             serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService, ServicePriceActivity.this);
             binding.serviceRecyclerView.setLayoutManager(layoutManager);
             binding.serviceRecyclerView.setAdapter(serviceAdapter);
@@ -304,7 +304,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                             mList.addAll(response.body().getData());
                             binding.serviceTv.setVisibility(View.GONE);
                             binding.rateTV.setVisibility(View.GONE);
-                            binding.noSelectedService.setVisibility(View.VISIBLE);
+//                            binding.noSelectedService.setVisibility(View.VISIBLE);
                         }
                     } else {
                         Snackbar.make(binding.serviceLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -349,7 +349,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     binding.serviceRecyclerView.setVisibility(View.VISIBLE);
                     binding.serviceTv.setVisibility(View.VISIBLE);
                     binding.rateTV.setVisibility(View.VISIBLE);
-                    binding.noSelectedService.setVisibility(View.GONE);
+//                    binding.noSelectedService.setVisibility(View.GONE);
                     serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService, ServicePriceActivity.this);
                     binding.serviceRecyclerView.setLayoutManager(layoutManager);
                     binding.serviceRecyclerView.setAdapter(serviceAdapter);
@@ -357,7 +357,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     binding.serviceTv.setVisibility(View.GONE);
                     binding.rateTV.setVisibility(View.GONE);
                     binding.serviceRecyclerView.setVisibility(View.GONE);
-                    binding.noSelectedService.setVisibility(View.VISIBLE);
+//                    binding.noSelectedService.setVisibility(View.VISIBLE);
                 }
                 dialog.dismiss();
             }

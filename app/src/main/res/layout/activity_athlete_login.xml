@@ -71,7 +71,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/athleteLogInEdtLayout"
+                android:id="@+id/athletePasswordEdtLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -79,6 +79,7 @@
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt"
                 app:passwordToggleEnabled="true"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_lock">
 
 
@@ -105,6 +106,14 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@drawable/view_bottom_round_design"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"/>
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/athleteForgetTv"
@@ -115,7 +124,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/athleteLogInEdtLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/athletePasswordEdtLayout" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -132,7 +141,7 @@
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@id/athleteLogInEdtLayout" />
+                app:layout_constraintTop_toBottomOf="@id/athletePasswordEdtLayout" />
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -143,7 +152,6 @@
                 android:text="@string/dont_have_a_account"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toTopOf="@+id/athlete_view"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toLeftOf="@id/athleteSignUpTv"
@@ -171,17 +179,6 @@
                 app:layout_constraintLeft_toLeftOf="@id/athleteSignUpTv"
                 app:layout_constraintRight_toRightOf="@id/athleteSignUpTv"
                 app:layout_constraintTop_toBottomOf="@+id/athleteSignUpTv"/>
-
-
-            <View
-                android:id="@+id/athlete_view"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:background="@drawable/view_design"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

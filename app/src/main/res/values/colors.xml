@@ -11,6 +11,7 @@
     <color name="colorLightGray">#E9DAD6D7</color>
     <color name="facebook">#4267B2</color>
     <color name="tabTextColor">@color/colorBlack</color>
+    <color name="portflioImageBackground">#D1F6E1</color>
 
 
 

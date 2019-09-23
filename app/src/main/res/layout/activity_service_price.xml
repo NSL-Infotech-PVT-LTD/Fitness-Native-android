@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ServicePriceActivity"
-    android:background="@color/colorLightGray"
     android:id="@+id/serviceLayout"
     >
 
@@ -46,16 +45,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2"/>
-    <TextView
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:background="@color/colorGreen"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline"/>
+<!--    <TextView-->
+<!--        android:layout_width="@dimen/_100sdp"-->
+<!--        android:layout_height="@dimen/_50sdp"-->
+<!--        android:background="@color/colorGreen"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline"/>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="@id/service_horizontalGuideline"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/cards_shape">
@@ -100,22 +100,23 @@
             app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_margin="@dimen/_10sdp"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/noSelectedService"
-            android:layout_width="0dp"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"
-            android:background="@drawable/no_event">
-        </androidx.appcompat.widget.AppCompatImageView>
+<!--&lt;!&ndash;        <androidx.appcompat.widget.AppCompatImageView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/noSelectedService"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:visibility="gone"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="@dimen/_40sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintRight_toRightOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginLeft="@dimen/_20sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginRight="@dimen/_20sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/no_event">&ndash;&gt;-->
+<!--        </androidx.appcompat.widget.AppCompatImageView>-->
 
         <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/service_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -127,17 +128,55 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/addServiceBtn"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
+            android:src="@drawable/ic_add_black"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/plus_icon_image_design"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/servicePriceAddYourServicesTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:backgroundTint="@color/colorGreen"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
-            app:layout_constraintRight_toRightOf="parent"
-             />
+            android:text="@string/add_your_services"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@id/addServiceBtn"
+            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you_can_add_service"
+            app:layout_constraintTop_toBottomOf="@id/servicePriceAddYourServicesTv"
+            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_12sdp"/>
+
+
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/addServiceBtn"-->
+<!--            android:layout_width="@dimen/_30sdp"-->
+<!--            android:layout_height="@dimen/_30sdp"-->
+<!--            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--            android:backgroundTint="@color/colorGreen"-->
+<!--            android:src="@drawable/ic_add_white"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"-->
+<!--            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.35"-->
+<!--             />-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/servicePriceNextBtn"
             android:layout_width="0dp"

@@ -187,7 +187,10 @@
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt"
                     app:passwordToggleEnabled="true"
+                    app:hintEnabled="false"
                     app:startIconDrawable="@drawable/ic_lock">
+
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/athletePasswordEdt"
@@ -206,12 +209,19 @@
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                        app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt"
-
-                        />
-
-
+                        app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_2sdp"
+                    android:background="@drawable/view_bottom_round_design"
+
+
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"/>
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/athleteSignUpBtn"
@@ -267,16 +277,6 @@
                     app:layout_constraintLeft_toLeftOf="@id/athleteSignInTv"
                     app:layout_constraintRight_toRightOf="@id/athleteSignInTv"
                     app:layout_constraintTop_toBottomOf="@+id/athleteSignInTv" />
-
-                <View
-                    android:id="@+id/viewFifthScreen"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_4sdp"
-                    android:layout_marginBottom="@dimen/_4sdp"
-                    android:background="@drawable/view_design"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

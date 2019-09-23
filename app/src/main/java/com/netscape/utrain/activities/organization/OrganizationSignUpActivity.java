@@ -358,6 +358,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgPasswod.isEmpty()) {
             binding.orgPasswordEdt.setError(getResources().getString(R.string.enter_password));
             binding.orgPasswordEdt.requestFocus();
+            binding.orgPasswordEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (b)
+                        binding.orgPasswordEdtLayout.setEnabled(false);
+
+                }
+            });
         } else if (orgBio.isEmpty()) {
             binding.orgBioEdt.setError(getResources().getString(R.string.enter_your_bio));
             binding.orgBioEdt.requestFocus();
@@ -384,8 +392,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgHourlyRate.isEmpty()) {
             binding.orgHourlyRateEdt.setError(getResources().getString(R.string.enter_hourly_rate));
             binding.orgHourlyRateEdt.requestFocus();
-        } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) <= 39) {
-            binding.orgHourlyRateEdt.setError("Hourly rate should less than 40");
+        } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) < 4) {
+            binding.orgHourlyRateEdt.setError("Hourly rate should not less than 4");
 
         } else if (photoFile == null) {
             Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
