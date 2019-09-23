@@ -136,17 +136,17 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
        setBtnColour();
 
     }
-    public void setBtnColour(){
-        if (Constants.CHECKBOX_IS_CHECKED>0){
+    public void setBtnColour() {
+        if (Constants.CHECKBOX_IS_CHECKED > 0) {
             binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-            binding.addServiceBtn.setTextColor(getResources().getColor(R.color.lightGrayFont));
-
-        }else {
+            binding.addServiceBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+        }
+        if (Constants.CHECKBOX_IS_CHECKED == 0) {
             binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
             binding.addServiceBtn.setTextColor(getResources().getColor(R.color.lightGrayFont));
+
         }
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){

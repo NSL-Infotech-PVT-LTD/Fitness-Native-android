@@ -102,7 +102,7 @@
                         android:scaleType="centerCrop" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/img_plusone"
+                        android:id="@+id/imagePlusone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorGreen"

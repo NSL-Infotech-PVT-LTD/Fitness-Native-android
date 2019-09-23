@@ -62,11 +62,11 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.CustomRecy
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    Constants.CHECKBOX_IS_CHECKED=+1;
+                    Constants.CHECKBOX_IS_CHECKED=Constants.CHECKBOX_IS_CHECKED+1;
                     holder.serviceName.setTextColor(context.getResources().getColor(R.color.colorBlack));
                 }else {
                     holder.serviceName.setTextColor(context.getResources().getColor(R.color.lightGrayFont));
-                    Constants.CHECKBOX_IS_CHECKED=+1;
+                    Constants.CHECKBOX_IS_CHECKED=Constants.CHECKBOX_IS_CHECKED-1;
                 }
                 selectedServices.position(position,isChecked,data);
 //                Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
