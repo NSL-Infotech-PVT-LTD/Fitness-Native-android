@@ -160,9 +160,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.addImageBack:
-
-                break;
+//            case R.id.addImageBack:
+//
+//                break;
         }
     }
 

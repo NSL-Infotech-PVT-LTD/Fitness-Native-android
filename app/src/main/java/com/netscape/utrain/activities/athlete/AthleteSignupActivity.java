@@ -163,6 +163,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             }
         });
 
+
+
         if (getIntent().hasExtra("name")) {
             binding.layoutOne.setVisibility(View.GONE);
             binding.layoutTwo.setVisibility(View.VISIBLE);

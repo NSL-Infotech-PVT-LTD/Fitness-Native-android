@@ -15,6 +15,7 @@
     <color name="chooseService">#727272</color>
     <color name="recyclerView">#FBFBFB</color>
     <color name="tabTextColor">@color/colorBlack</color>
+    <color name="portflioImageBackground">#D1F6E1</color>
 
 
 

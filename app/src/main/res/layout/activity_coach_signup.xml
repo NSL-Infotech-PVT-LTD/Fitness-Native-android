@@ -10,7 +10,6 @@
             android:id="@+id/coachSignUpLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLightGray"
             tools:context=".activities.organization.OrganizationSignUpActivity">
 
             <include
@@ -70,7 +69,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayouttwo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:elevation="@dimen/_10sdp">
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/organization_left_Guideline"
@@ -169,6 +169,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
+                        app:hintEnabled="false"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_passwordTv"
@@ -184,7 +185,6 @@
                             android:gravity="center_vertical"
                             android:hint="@string/enter_password"
                             android:inputType="textPassword"
-                            android:maxLength="40"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/_16sdp"
                             android:singleLine="true"
@@ -194,6 +194,14 @@
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/coach_passwordTv" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_2sdp"
+                        android:background="@drawable/view_bottom_round_design"
+                        app:layout_constraintBottom_toBottomOf="@id/coachPasswordEdtLayout"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
+                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline" />
 
 
                     <com.google.android.material.textview.MaterialTextView

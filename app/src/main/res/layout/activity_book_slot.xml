@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightGray"
+
     tools:context=".activities.BookSlotPrivateActivity">
 
 
@@ -69,6 +69,7 @@
         android:id="@+id/bookingSlot_constLayoutTwo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="@dimen/_10sdp"
         android:background="@drawable/cards_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/bookingSlot_Guideline">
@@ -248,16 +249,6 @@
             app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline"
             app:layout_constraintTop_toBottomOf="@+id/bookingSlot_DateTv" />
-
-        <View
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
-            android:background="@color/colorBlack"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/bookingSlot_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/bookingSlot_rightGuideline" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

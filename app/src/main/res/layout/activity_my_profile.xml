@@ -207,7 +207,7 @@
             android:background="@color/colorLightGray"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/profilePhoneTv"></View>
+            app:layout_constraintTop_toBottomOf="@+id/profilePhoneTv"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/cardText"
@@ -230,15 +230,6 @@
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/cardText"></androidx.recyclerview.widget.RecyclerView>
-
-        <View
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
-            android:background="@color/colorBlack"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"></View>
+            app:layout_constraintTop_toBottomOf="@+id/cardText"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

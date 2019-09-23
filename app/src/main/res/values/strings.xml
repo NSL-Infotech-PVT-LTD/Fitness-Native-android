@@ -91,7 +91,7 @@
     <string name="training_service_detail">Training Service Detail</string>
     <string name="hourly_rate">Hourly Rate</string>
     <string name="dollar_sign_value">$</string>
-    <string name="enter_hourly_rate">Please enter hourly rate</string>
+    <string name="enter_hourly_rate">4</string>
     <string name="rihana">Rihana</string>
     <string name="description">I like the caption @robin.</string>
     <string name="just_now">Just Now</string>
@@ -150,7 +150,7 @@
     <string name="sevice_summary_of_services">Summary of service</string>
     <string name="service_name">Service Name</string>
     <string name="enter_price">Enter price</string>
-    <string name="add_portforlio_text">Add Four Images to your portfolio so potential clients can see your space</string>
+    <string name="add_portforlio_text">Upload your Portfolio</string>
     <string name="apply">Apply</string>
     <string name="price">price</string>
     <string name="rate">Price($/Hour)</string>
@@ -198,4 +198,7 @@
     <string name="add">Add</string>
     <string name="add_your_services">ADD YOUR SERVICES</string>
     <string name="hey_you_can_addmore_than_one_service">Hey! you can add more than one service</string>
+    <string name="you_can_add_service">Hey, you can add more than one services</string>
+    <string name="note">Note:</string>
+    <string name="note_desc">Upload atleast 4 photos of your work to make profile more outgoing. \n you may add more photos further.</string>
 </resources>

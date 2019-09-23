@@ -84,12 +84,12 @@
                     android:id="@+id/loginPasswordEdtLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:hintEnabled="false"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/loginEmailEdt"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_lock"
-                    >
+                    app:startIconDrawable="@drawable/ic_lock">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginPasswordEdt"
@@ -102,7 +102,6 @@
                         android:fontFamily="@font/poppins_regular"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:maxLength="20"
                         android:maxLines="1"
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
@@ -112,6 +111,14 @@
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/loginEmailEdt" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_2sdp"
+                    android:background="@drawable/view_bottom_round_design"
+                    app:layout_constraintBottom_toBottomOf="@id/loginPasswordEdtLayout"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -123,7 +130,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/loginPasswordEdtLayout"/>
+                    app:layout_constraintTop_toBottomOf="@+id/loginPasswordEdtLayout" />
 
 
                 <com.google.android.material.button.MaterialButton
@@ -150,7 +157,6 @@
                     android:text="@string/dont_have_a_account"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/vieweighthScreen"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toLeftOf="@id/loginSignUpTv"
@@ -180,15 +186,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/loginSignUpTv" />
 
 
-                <View
-                    android:id="@+id/vieweighthScreen"
-                    android:layout_width="150sp"
-                    android:layout_height="@dimen/_6sdp"
-                    android:layout_marginBottom="1dp"
-                    android:background="@drawable/view_design"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
