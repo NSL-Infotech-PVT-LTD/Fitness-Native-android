@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,10 +22,12 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.ServicePriceAdapter;
 import com.netscape.utrain.databinding.ActivitySelectServicesBinding;
+import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONObject;
@@ -34,26 +38,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SelectServices extends AppCompatActivity implements DialogAdapter.SelectedServicesInterface {
+public class SelectServices extends AppCompatActivity implements View.OnClickListener, DialogAdapter.SelectedServicesInterface {
     private ActivitySelectServicesBinding binding;
     private Retrofitinterface retrofitinterface;
     private ProgressDialog progressDialog;
     ArrayList<ServiceListDataModel> mList = new ArrayList<>();
+    ArrayList<ServiceListDataModel> selectedService=new ArrayList<>();
     DialogAdapter dialogAdapter;
     RecyclerView.LayoutManager layoutManager;
+    private OrgUserDataModel orgDataModel;
+    private sendToMain send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_services);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_select_services);
+        mList.clear();
+        init();
+        if (mList != null && mList.size() > 0) {
+        } else {
+            hitServiceListApi();
+        }
+
+    }
+
+    private void init() {
+        if (getIntent().getExtras() != null) {
+            orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
+        }
+        mList = CommonMethods.getListPrefrence(Constants.SERVICE_LIST, SelectServices.this);
+        if (mList !=null && mList.size()>0){
+            binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
+            dialogAdapter = new DialogAdapter(SelectServices.this,mList,SelectServices.this);
+            binding.serviceRecyclerView.setAdapter(dialogAdapter);
+        }
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        hitServiceListApi();
-
+        binding.addServiceBtn.setOnClickListener(this);
+        setBtnColour();
     }
+
     private void hitServiceListApi() {
         progressDialog.show();
         Call<ServiceListResponse> signUpAthlete = retrofitinterface.getServiceList(Constants.CONTENT_TYPE);
@@ -67,7 +94,7 @@ public class SelectServices extends AppCompatActivity implements DialogAdapter.S
                         if (response.body().getData() != null) {
                             mList.addAll(response.body().getData());
                             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
-//                            dialogAdapter = new DialogAdapter();
+                            dialogAdapter = new DialogAdapter(SelectServices.this,mList,SelectServices.this);
                             binding.serviceRecyclerView.setAdapter(dialogAdapter);
                         }
                     } else {
@@ -94,8 +121,54 @@ public class SelectServices extends AppCompatActivity implements DialogAdapter.S
 
 
     @Override
-    public void position(int id, boolean ischecked, ServiceListDataModel serviceListDataModel) {
+    public void position(int pos, boolean ischecked, ServiceListDataModel serviceListDataModel) {
+        if (ischecked){
+            serviceListDataModel.setPrice(orgDataModel.getHourly_rate());
+            SelectedServiceList.getInstance().getList().add(serviceListDataModel);
+        }else {
+            for(int i = 0 ; i < SelectedServiceList.getInstance().getList().size() ; i++){
+                if(serviceListDataModel.getId()==SelectedServiceList.getInstance().getList().get(i).getId()){
+                    SelectedServiceList.getInstance().getList().remove(i);
+                }
+            }
+        }
+        mList.get(pos).setSelected(ischecked);
+       setBtnColour();
 
     }
+    public void setBtnColour(){
+        if (Constants.CHECKBOX_IS_CHECKED>0){
+            binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            binding.addServiceBtn.setTextColor(getResources().getColor(R.color.lightGrayFont));
 
+        }else {
+            binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
+            binding.addServiceBtn.setTextColor(getResources().getColor(R.color.lightGrayFont));
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.addServiceBtn:
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",mList);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, mList, SelectServices.this);
+        super.onDestroy();
+    }
+    public interface sendToMain{
+        void getPosition(int position,boolean ischecked,ServiceListDataModel serviceListDataModel);
+    }
+    public void getAdapterData(sendToMain send){
+        this.send=send;
+
+    }
 }

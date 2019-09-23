@@ -533,22 +533,20 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:backgroundTint="@color/colorWhite"
+                        android:backgroundTint="@color/colorGreen"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center"
                         android:text="@string/two_more_step"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
-
                         app:cornerRadius="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt"
                         app:layout_goneMarginBottom="@dimen/_20sdp"
-                        app:strokeColor="@color/colorGreen"
-                        app:strokeWidth="@dimen/_1sdp" />
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>

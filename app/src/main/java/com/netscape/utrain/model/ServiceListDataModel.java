@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class ServiceListDataModel {
+import java.io.Serializable;
+
+public class ServiceListDataModel implements Serializable {
 
     /**
      * id : 1
@@ -11,7 +13,16 @@ public class ServiceListDataModel {
     private String name;
     private String price;
     private String hourlyRate;
+    private int checkCount;
     private boolean isSelected = false;
+
+    public int getCheckCount() {
+        return checkCount;
+    }
+
+    public void setCheckCount(int checkCount) {
+        this.checkCount = checkCount;
+    }
 
     public String getHourlyRate() {
         return hourlyRate;

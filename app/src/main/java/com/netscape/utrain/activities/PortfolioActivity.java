@@ -64,6 +64,7 @@ import retrofit2.Response;
 
 public class PortfolioActivity extends AppCompatActivity implements View.OnClickListener {
     MultipartBody.Part userImg = null;
+    MultipartBody.Part portFolioImage1 = null, portFolioImage2 = null, portFolioImage3 = null, portFolioImage4 = null;
     private ActivityPortfolioBinding binding;
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
@@ -79,7 +80,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private OrgUserDataModel orgDataModel;
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
-    MultipartBody.Part portFolioImage1  =null, portFolioImage2  = null,portFolioImage3  = null,portFolioImage4 = null;
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -292,7 +292,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(imageView);
                     userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-                    setImages=photoFile.getPath();
+                    setImages = photoFile.getPath();
                     setPortfolioImages();
 
                 } /*else {
@@ -304,7 +304,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            if (realPath !=null){
+            if (realPath != null) {
                 currentPhotoFilePath = realPath;
                 photoFile = new File(realPath);
             }
@@ -312,7 +312,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             if (photoFile != null)
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
-            setImages=photoFile.getPath();
+            setImages = photoFile.getPath();
             userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
             setPortfolioImages();
         }
@@ -322,26 +322,26 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         progressDialog.show();
         MultipartBody.Part userImg = null;
         if (orgDataModel.getProfile_img() != null) {
-            userImg = MultipartBody.Part.createFormData( "profile_image",orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
-        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getEmail() ));
-        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getPassword()));
+        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getEmail()));
+        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPassword()));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPhone()));
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLocation()));
-        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getLatitude()));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
-        requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBusiness_hour_starts()));
-        requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBusiness_hour_ends()));
-        requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getBio()));
+        requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_starts()));
+        requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_ends()));
+        requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
         requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSelectedServices()));
-        requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"),orgDataModel.getExpertise_years()));
+        requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"),Constants.DEVICE_TOKEN));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"),Constants.DEVICE_TOKEN));
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap,userImg,portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, userImg, portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -350,42 +350,46 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             clearFromConstants();
+                            Constants.CHECKBOX_IS_CHECKED=0;
+                            SelectedServiceList.getInstance().getList().clear();
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", PortfolioActivity.this);
-                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
+                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
-                        Snackbar.make(binding.portFolioLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.portFolioLayout,errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.portFolioLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {
-                        Snackbar.make(binding.portFolioLayout,e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.portFolioLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.portFolioLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }
+
     private void orginizationSignUpApi() {
         //        CommonMethods.hideKeyboard(this);
         progressDialog.show();
 //        photoFile = new File(orgDataModel.getProfile_img());
         MultipartBody.Part profileImg = null;
         if (orgDataModel.getProfile_img() != null) {
-            profileImg = MultipartBody.Part.createFormData("profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            profileImg = MultipartBody.Part.createFormData("profile_image", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
         Call<OrgSignUpResponse> siguUpOrganization = retrofitinterface.orgSignup(profileImg,
                 portFolioImage1,
@@ -437,6 +441,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
@@ -444,56 +449,59 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
-    public void setPortfolioImages(){
-        if (position==1){
-            portFolioImage1=userImg;
-            PortfolioImagesConstants.partOne=portFolioImage1;
-            PortfolioImagesConstants.imageOne=setImages;
+
+    public void setPortfolioImages() {
+        if (position == 1) {
+            portFolioImage1 = userImg;
+            PortfolioImagesConstants.partOne = portFolioImage1;
+            PortfolioImagesConstants.imageOne = setImages;
         }
-        if (position==2){
-            portFolioImage2=userImg;
-            PortfolioImagesConstants.partTwo=portFolioImage1;
-            PortfolioImagesConstants.imageTwo=setImages;
+        if (position == 2) {
+            portFolioImage2 = userImg;
+            PortfolioImagesConstants.partTwo = portFolioImage1;
+            PortfolioImagesConstants.imageTwo = setImages;
         }
-        if (position==3){
-            portFolioImage3=userImg;
-            PortfolioImagesConstants.partThree=portFolioImage1;
-            PortfolioImagesConstants.imageThree=setImages;
+        if (position == 3) {
+            portFolioImage3 = userImg;
+            PortfolioImagesConstants.partThree = portFolioImage1;
+            PortfolioImagesConstants.imageThree = setImages;
         }
-        if (position==4){
-            portFolioImage4=userImg;
-            PortfolioImagesConstants.partFour=portFolioImage1;
-            PortfolioImagesConstants.imageFour=setImages;
+        if (position == 4) {
+            portFolioImage4 = userImg;
+            PortfolioImagesConstants.partFour = portFolioImage1;
+            PortfolioImagesConstants.imageFour = setImages;
         }
 
     }
-    public void setImagesFromConstant(){
+
+    public void setImagesFromConstant() {
 //        if (position==1){
-            portFolioImage1=PortfolioImagesConstants.partOne;
-            Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
+        portFolioImage1 = PortfolioImagesConstants.partOne;
+        Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
 //        }
 //        if (position==2){
-            portFolioImage2=PortfolioImagesConstants.partTwo;
-            Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
+        portFolioImage2 = PortfolioImagesConstants.partTwo;
+        Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
 //        }
 //        if (position==3){
-            portFolioImage3=PortfolioImagesConstants.partThree;
-            Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
+        portFolioImage3 = PortfolioImagesConstants.partThree;
+        Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
 //        }
 //        if (position==4){
-            portFolioImage4=PortfolioImagesConstants.partFour;
-            Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
+        portFolioImage4 = PortfolioImagesConstants.partFour;
+        Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
 //        }
 
     }
-    public void clearFromConstants(){
-        PortfolioImagesConstants.imageOne="";
-        PortfolioImagesConstants.imageTwo="";
-        PortfolioImagesConstants.imageThree="";
-        PortfolioImagesConstants.imageFour="";
-        PortfolioImagesConstants.partOne=null;
-        PortfolioImagesConstants.partTwo=null;
-        PortfolioImagesConstants.partThree=null;
-        PortfolioImagesConstants.partFour=null;
+
+    public void clearFromConstants() {
+        PortfolioImagesConstants.imageOne = "";
+        PortfolioImagesConstants.imageTwo = "";
+        PortfolioImagesConstants.imageThree = "";
+        PortfolioImagesConstants.imageFour = "";
+        PortfolioImagesConstants.partOne = null;
+        PortfolioImagesConstants.partTwo = null;
+        PortfolioImagesConstants.partThree = null;
+        PortfolioImagesConstants.partFour = null;
     }
 }

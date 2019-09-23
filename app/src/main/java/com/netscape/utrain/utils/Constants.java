@@ -30,6 +30,7 @@ public class Constants {
     public static final int REQUEST_CODE_GALLERY = 2;
     public static final int MY_PERMISSION_GALLERY = 1;
     public static final String APP_FOLDER_NAME = "UTrain";//3 seconds
+    public static int CHECKBOX_IS_CHECKED = 0;
 
 
     public static final String DEVICE_TYPE= "ANDROID";

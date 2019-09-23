@@ -41,6 +41,10 @@
         <item name="colorPrimary">#00ff00</item>
 
     </style>
+    <style name="CheckBoxTheme" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/colorGreen</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+    </style>
 
     <style name="customRatingBar" parent="Theme.MaterialComponents.Light.NoActionBar">
 
