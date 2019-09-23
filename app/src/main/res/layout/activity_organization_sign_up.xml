@@ -9,17 +9,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLightGray"
             android:focusable="true"
             android:focusableInTouchMode="true"
             tools:context=".activities.organization.OrganizationSignUpActivity">
 
-            <include
-                android:id="@+id/organization_toolbar"
-                layout="@layout/toolbar_layout"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <include-->
+<!--                android:id="@+id/organization_toolbar"-->
+<!--                layout="@layout/toolbar_layout"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -34,7 +33,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/organization_toolbar" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -51,7 +50,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/organization_toolbar" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/organization_Guideline"
@@ -64,14 +63,14 @@
                 android:id="@+id/cardview1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/cards_shape"
                 app:layout_constraintTop_toTopOf="@+id/organization_Guideline">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayouttwo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardElevation="@dimen/_60sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:background="@drawable/cards_shape"
                     app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.Guideline
@@ -229,7 +228,7 @@
                         android:id="@+id/orgPasswordEdtLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundMode="none"
+                        app:boxBackgroundMode="outline"
                         app:hintEnabled="false"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -240,13 +239,15 @@
                             android:id="@+id/orgPasswordEdt"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:background="@drawable/organization_edt_design"
-                            android:fontFamily="@font/poppins_semibold"
+                            android:fontFamily="@font/poppins_regular"
+                            android:drawablePadding="@dimen/_10sdp"
                             android:gravity="center_vertical"
                             android:hint="@string/enter_password"
                             android:inputType="textPassword"
                             android:maxLines="1"
+                            android:padding="@dimen/_10sdp"
                             android:paddingLeft="@dimen/_16sdp"
                             android:singleLine="true"
                             android:textColor="@color/colorBlack"
@@ -526,8 +527,7 @@
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt"
-                        app:layout_goneMarginBottom="@dimen/_20sdp"
-                        />
+                        app:layout_goneMarginBottom="@dimen/_20sdp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
@@ -539,7 +539,6 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:backgroundTint="@color/colorGreen"
                 app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="@dimen/_6sdp"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintBottom_toTopOf="@+id/cardview1"
                 app:layout_constraintLeft_toLeftOf="parent"
