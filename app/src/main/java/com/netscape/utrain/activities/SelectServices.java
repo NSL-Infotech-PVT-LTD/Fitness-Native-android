@@ -78,6 +78,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         binding.addServiceBtn.setOnClickListener(this);
+        binding.selectServiceBackArrowImg.setOnClickListener(this);
         setBtnColour();
     }
 
@@ -157,6 +158,9 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result", mList);
                 setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+                break;
+            case  R.id.selectServiceBackArrowImg:
                 finish();
                 break;
         }

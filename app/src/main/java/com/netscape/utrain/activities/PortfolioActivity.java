@@ -2,6 +2,7 @@ package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -76,6 +77,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
 
+
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -91,6 +93,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_portfolio);
+
 
 
         init();
@@ -112,6 +115,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         binding.imgPlusTwo.setOnClickListener(this);
         binding.imgPlusThree.setOnClickListener(this);
         binding.imgPlusFour.setOnClickListener(this);
+        binding.portfolioBackArrowImg.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
@@ -159,9 +163,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
                 break;
-//            case R.id.addImageBack:
-//
-//                break;
+
+            case R.id.portfolioBackArrowImg:
+                finish();
+                break;
         }
     }
 

@@ -5,8 +5,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/athleteLoginLayout"
-        android:background="@drawable/back">
+        android:id="@+id/athleteLoginLayout">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -164,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_2sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/sign_up"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
@@ -175,7 +179,7 @@
 
         <View
             android:id="@+id/underLineView"
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="@dimen/_38sdp"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/colorBlack"
             app:layout_constraintLeft_toLeftOf="@id/tvSignUp"

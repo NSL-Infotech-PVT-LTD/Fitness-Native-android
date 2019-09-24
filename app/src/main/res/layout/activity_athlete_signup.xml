@@ -121,7 +121,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:hint="@string/email"
                     android:inputType="text"
                     android:maxLength="40"
@@ -142,7 +142,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_phone"
-                    android:drawablePadding="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_15sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/phone_number"
                     android:inputType="number"
@@ -183,13 +183,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    app:hintEnabled="false"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt"
                     app:passwordToggleEnabled="true"
-                    app:hintEnabled="false"
                     app:startIconDrawable="@drawable/ic_lock">
-
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -198,7 +197,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/etmaterial_design"
                         android:drawableLeft="@drawable/ic_lock"
-                        android:drawablePadding="@dimen/_12sdp"
+                        android:drawablePadding="@dimen/_5sdp"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:maxLength="20"
@@ -218,9 +217,9 @@
                     android:background="@drawable/view_bottom_round_design"
 
 
+                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"/>
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />
 
 
                 <com.google.android.material.button.MaterialButton
@@ -271,7 +270,7 @@
 
                 <View
                     android:id="@+id/underLineView"
-                    android:layout_width="@dimen/_42sdp"
+                    android:layout_width="@dimen/_33sdp"
                     android:layout_height="@dimen/_1sdp"
                     android:background="@color/colorBlack"
                     app:layout_constraintLeft_toLeftOf="@id/athleteSignInTv"
@@ -284,11 +283,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutTwo"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/back"
 
-            android:background="@drawable/back">
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuidelineLayoutTwo"
@@ -305,29 +304,28 @@
                 app:layout_constraintGuide_end="@dimen/_30sdp" />
 
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/athletePhoneEdtTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/etmaterial_design"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/phone_number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:padding="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/athletePhoneEdtTwo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:hint="@string/phone_number"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintVertical_bias="0.4"
-
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
-                    app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
+                app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
 
 
             <com.google.android.material.textfield.TextInputEditText

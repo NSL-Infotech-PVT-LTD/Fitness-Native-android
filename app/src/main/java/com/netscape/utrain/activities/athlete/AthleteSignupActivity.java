@@ -16,6 +16,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -23,7 +27,9 @@ import android.location.Geocoder;
 import android.location.Location;
 
 import android.location.LocationManager;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -69,9 +75,15 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -103,7 +115,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private String address = "";
     private double latitude = 0.0, longitude = 0.0;
     private Uri selected;
-
+    private String IMAGE_DIRECTORY = "/Utrain/";
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -165,7 +177,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             binding.layoutOne.setVisibility(View.GONE);
             binding.layoutTwo.setVisibility(View.VISIBLE);
             binding.athleteNameEdt.setText(getIntent().getStringExtra("name"));
-
+            new MyAsync().execute( Constants.SocialProfile);
         } else {
             binding.layoutOne.setVisibility(View.VISIBLE);
             binding.layoutTwo.setVisibility(View.GONE);
@@ -400,15 +412,17 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
-                selected = data.getData();
 //                AppDelegate.Log("imageCaptured ", "result ok");
                 photoFile = new File(currentPhotoFilePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
-                    imageUrl = photoFile.getPath();
+//                    plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(binding.athleProfileImg);
+//                    imagesSelected.add(position,photoFile);
+
                 } /*else {
 //                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }*/
@@ -417,13 +431,16 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 ////                AppDelegate.Log("imageCaptured ", "result failed");
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            selected = data.getData();
             String realPath = ImageFilePath.getPath(this, data.getData());
-            currentPhotoFilePath = realPath;
-            photoFile = new File(realPath);
+            if (realPath != null) {
+                photoFile = new File(realPath);
+            }
             if (photoFile != null)
+//                plus.setVisibility(View.GONE);
                 Glide.with(this).load(photoFile.getPath()).into(binding.athleProfileImg);
+
         }
+
     }
 
     //    private void athleteSignUpApi() {
@@ -692,6 +709,89 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     });
                 }
             }
+        }
+    }
+    public File saveImage1(Bitmap myBitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File imageDirectory = new File(getExternalFilesDir(null) + IMAGE_DIRECTORY);
+        if (!imageDirectory.exists()) {
+            imageDirectory.mkdirs();
+        }
+        try {
+            File f = new File(imageDirectory, Calendar.getInstance().getTimeInMillis() + ".jpg");
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(activity,
+                    new String[]{f.getPath()},
+                    new String[]{"image/jpeg"}, null);
+            fo.close();
+            return f;
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return null;
+    }
+    public class MyAsync extends AsyncTask<String, Void, Void> {
+        Bitmap bm = null;
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            URL url = null;
+
+            try {
+                url = new URL(strings[0]);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+                    bm = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//Create Path to save Image
+            if (bm != null) {
+                photoFile  = saveImage1(bm);
+                imageUrl = photoFile.getPath();
+
+                if (!photoFile.exists()) {
+                    photoFile.mkdirs();
+                }
+
+                File imageFile = new File(photoFile, String.valueOf(System.currentTimeMillis()) + ".png"); // Imagename.png
+                FileOutputStream out = null;
+                try {
+                    out = new FileOutputStream(imageFile);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, out); // Compress Image
+                    out.flush();
+                    out.close();
+// Tell the media scanner about the new file so that it is
+// immediately available to the user.
+                    MediaScannerConnection.scanFile(activity, new String[]{imageFile.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+// Log.i("ExternalStorage", "Scanned " + path + ":");
+// Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+
+                } catch (Exception e) {
+                }
+
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+//            if (bm != null) profileImage.setImageBitmap(bm);
         }
     }
 
