@@ -73,7 +73,7 @@
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/guideline"
@@ -106,7 +106,7 @@
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/loginEmailEdt" />
@@ -128,7 +128,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/forget_password"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/loginPasswordEdtLayout" />
 
@@ -144,7 +144,7 @@
                     android:text="@string/log_in"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/loginPasswordEdtLayout" />
@@ -156,11 +156,12 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/dont_have_a_account"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toLeftOf="@id/loginSignUpTv"
-                    app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/loginBtn"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/loginSignUpTv"
@@ -170,7 +171,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/sign_up"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@id/havntAccountText"
                     app:layout_constraintLeft_toRightOf="@+id/havntAccountText"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"

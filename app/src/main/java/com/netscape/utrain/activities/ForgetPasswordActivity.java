@@ -88,8 +88,8 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Snackbar.make(binding.forgetLayout,response.body().getData().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
-
+                            Toast.makeText(ForgetPasswordActivity.this, response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                            Snackbar.make(binding.forgetLayout,response.body().getData().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                             Intent homeScreen= new Intent(getApplicationContext(), AthleteLoginActivity.class);
                             startActivity(homeScreen);
                         }

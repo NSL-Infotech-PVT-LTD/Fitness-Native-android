@@ -39,20 +39,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SelectServices extends AppCompatActivity implements View.OnClickListener, DialogAdapter.SelectedServicesInterface {
+    ArrayList<ServiceListDataModel> mList = new ArrayList<>();
+    ArrayList<ServiceListDataModel> selectedService = new ArrayList<>();
+    DialogAdapter dialogAdapter;
+    RecyclerView.LayoutManager layoutManager;
     private ActivitySelectServicesBinding binding;
     private Retrofitinterface retrofitinterface;
     private ProgressDialog progressDialog;
-    ArrayList<ServiceListDataModel> mList = new ArrayList<>();
-    ArrayList<ServiceListDataModel> selectedService=new ArrayList<>();
-    DialogAdapter dialogAdapter;
-    RecyclerView.LayoutManager layoutManager;
     private OrgUserDataModel orgDataModel;
     private sendToMain send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_select_services);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_select_services);
         mList.clear();
         init();
         if (mList != null && mList.size() > 0) {
@@ -67,9 +67,9 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
         }
         mList = CommonMethods.getListPrefrence(Constants.SERVICE_LIST, SelectServices.this);
-        if (mList !=null && mList.size()>0){
+        if (mList != null && mList.size() > 0) {
             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
-            dialogAdapter = new DialogAdapter(SelectServices.this,mList,SelectServices.this);
+            dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
             binding.serviceRecyclerView.setAdapter(dialogAdapter);
         }
 
@@ -94,7 +94,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                         if (response.body().getData() != null) {
                             mList.addAll(response.body().getData());
                             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
-                            dialogAdapter = new DialogAdapter(SelectServices.this,mList,SelectServices.this);
+                            dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
                             binding.serviceRecyclerView.setAdapter(dialogAdapter);
                         }
                     } else {
@@ -111,6 +111,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ServiceListResponse> call, Throwable t) {
                 progressDialog.dismiss();
@@ -122,20 +123,21 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void position(int pos, boolean ischecked, ServiceListDataModel serviceListDataModel) {
-        if (ischecked){
+        if (ischecked) {
             serviceListDataModel.setPrice(orgDataModel.getHourly_rate());
             SelectedServiceList.getInstance().getList().add(serviceListDataModel);
-        }else {
-            for(int i = 0 ; i < SelectedServiceList.getInstance().getList().size() ; i++){
-                if(serviceListDataModel.getId()==SelectedServiceList.getInstance().getList().get(i).getId()){
+        } else {
+            for (int i = 0; i < SelectedServiceList.getInstance().getList().size(); i++) {
+                if (serviceListDataModel.getId() == SelectedServiceList.getInstance().getList().get(i).getId()) {
                     SelectedServiceList.getInstance().getList().remove(i);
                 }
             }
         }
         mList.get(pos).setSelected(ischecked);
-       setBtnColour();
+        setBtnColour();
 
     }
+
     public void setBtnColour() {
         if (Constants.CHECKBOX_IS_CHECKED > 0) {
             binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
@@ -147,13 +149,14 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.addServiceBtn:
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",mList);
-                setResult(Activity.RESULT_OK,returnIntent);
+                returnIntent.putExtra("result", mList);
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
                 break;
         }
@@ -164,11 +167,13 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
         CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, mList, SelectServices.this);
         super.onDestroy();
     }
-    public interface sendToMain{
-        void getPosition(int position,boolean ischecked,ServiceListDataModel serviceListDataModel);
-    }
-    public void getAdapterData(sendToMain send){
-        this.send=send;
 
+    public void getAdapterData(sendToMain send) {
+        this.send = send;
+
+    }
+
+    public interface sendToMain {
+        void getPosition(int position, boolean ischecked, ServiceListDataModel serviceListDataModel);
     }
 }

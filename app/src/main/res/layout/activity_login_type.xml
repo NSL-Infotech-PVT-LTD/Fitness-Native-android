@@ -85,7 +85,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_14sdp">
+                android:layout_marginTop="@dimen/_12sdp">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:text="Athlete"
                         android:fontFamily="@font/poppins_regular"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
                         app:layout_constraintHorizontal_bias="0.1"
                         android:textColor="@color/colorBlack"
                         app:layout_constraintTop_toTopOf="parent"
@@ -114,9 +114,10 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iconAthlete"
-                        android:layout_width="@dimen/_38sdp"
-                        android:layout_height="@dimen/_38sdp"
-                        android:background="@drawable/athlete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/athlete_two"
+                        android:scaleType="fitXY"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -163,8 +164,8 @@
                         android:text="Coach"
                         android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_14sdp"
-                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_12sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/iconCoach"
@@ -219,8 +220,8 @@
                         android:layout_height="wrap_content"
                         android:text="Organization"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_14sdp"
-                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_12sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/iconOrganization"
@@ -253,7 +254,7 @@
         android:id="@+id/findCoachesBtn"
         android:layout_width="0dp"
         android:layout_height="@dimen/_50sdp"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         android:text="@string/next"
@@ -263,7 +264,6 @@
         android:textAllCaps="false"
         android:layout_marginLeft="@dimen/_8sdp"
         android:layout_marginRight="@dimen/_8sdp"
-
         android:textColor="@color/colorBlack"
         android:backgroundTint="@color/colorGreen"/>
 

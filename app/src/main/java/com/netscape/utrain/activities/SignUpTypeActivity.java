@@ -39,7 +39,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
         binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         binding.athleteLayout.setBackground(getResources().getDrawable(R.drawable.mask_athlete));
         binding.frameAthlete.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-        binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete_white));
+        binding.iconAthlete.setImageResource(R.drawable.athlete_white);
         binding.iconCoach.setBackground(getResources().getDrawable(R.drawable.coach));
         binding.iconOrganization.setBackground(getResources().getDrawable(R.drawable.company));
         binding.athleteTv.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -57,12 +57,14 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.athleteLayout.setBackground(getResources().getDrawable(R.drawable.mask_athlete));
                 binding.frameAthlete.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete_white));
+//                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete_white));
                 binding.iconCoach.setBackground(getResources().getDrawable(R.drawable.coach));
                 binding.iconOrganization.setBackground(getResources().getDrawable(R.drawable.company));
                 binding.athleteTv.setTextColor(getResources().getColor(R.color.colorWhite));
                 binding.coachTv.setTextColor(getResources().getColor(R.color.colorBlack));
                 binding.orgTv.setTextColor(getResources().getColor(R.color.colorBlack));
+                binding.iconAthlete.setImageResource(R.drawable.athlete_white);
+
 
                 break;
             case R.id.coachCardView:
@@ -72,11 +74,12 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 binding.coachLayout.setBackground(getResources().getDrawable(R.drawable.mask_coach));
                 binding.frameCoach.setBackgroundColor(getResources().getColor(R.color.colorGreen));
                 binding.iconCoach.setBackground(getResources().getDrawable(R.drawable.coach_white));
-                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete));
+//                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete));
                 binding.iconOrganization.setBackground(getResources().getDrawable(R.drawable.company));
                 binding.coachTv.setTextColor(getResources().getColor(R.color.colorWhite));
                 binding.athleteTv.setTextColor(getResources().getColor(R.color.colorBlack));
                 binding.orgTv.setTextColor(getResources().getColor(R.color.colorBlack));
+                binding.iconAthlete.setImageResource(R.drawable.athlete_two);
                 binding.findCoachesBtn.setText(getResources().getString(R.string.log_in_signup_as_coach));
                 break;
             case R.id.organizationCardView:
@@ -86,9 +89,10 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 binding.organizationLayout.setBackground(getResources().getDrawable(R.drawable.mask_org));
                 binding.frameOrg.setBackgroundColor(getResources().getColor(R.color.colorGreen));
                 binding.iconOrganization.setBackground(getResources().getDrawable(R.drawable.company_white));
-                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete));
+//                binding.iconAthlete.setBackground(getResources().getDrawable(R.drawable.athlete));
                 binding.iconCoach.setBackground(getResources().getDrawable(R.drawable.coach));
                 binding.orgTv.setTextColor(getResources().getColor(R.color.colorWhite));
+                binding.iconAthlete.setImageResource(R.drawable.athlete_two);
                 binding.coachTv.setTextColor(getResources().getColor(R.color.colorBlack));
                 binding.athleteTv.setTextColor(getResources().getColor(R.color.colorBlack));
                 binding.findCoachesBtn.setText(getResources().getString(R.string.log_in_signup_as_org));
@@ -111,7 +115,6 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                     organizationSignUp.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
                     startActivity(organizationSignUp);
                 }
-
                 break;
         }
     }

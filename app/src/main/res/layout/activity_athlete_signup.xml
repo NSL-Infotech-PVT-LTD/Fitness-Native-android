@@ -85,7 +85,7 @@
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteprofileImageView" />
@@ -129,7 +129,7 @@
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteNameEdt" />
@@ -151,7 +151,7 @@
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt" />
@@ -172,7 +172,7 @@
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athletePhoneEdt" />
@@ -206,7 +206,7 @@
                         android:padding="@dimen/_10sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />
@@ -234,7 +234,7 @@
                     android:text="@string/sign_up"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athletePasswordEdtLayout" />
@@ -247,8 +247,8 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/already_hava_an_account_text"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/viewFifthScreen"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toLeftOf="@+id/athleteSignInTv"
@@ -263,7 +263,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/sign_in"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="@id/alreadyAccountText"
                     app:layout_constraintLeft_toRightOf="@+id/alreadyAccountText"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
