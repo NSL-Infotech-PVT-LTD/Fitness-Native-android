@@ -29,14 +29,14 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-
-            android:layout_width="@dimen/_14sdp"
-            android:layout_height="@dimen/_14sdp"
+            android:id="@+id/selectServiceBackArrowImg"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:src="@drawable/ic_leftarrowicon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_35sdp"/>
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_40sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/selectServiceTv"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/choose_your_services"
                 android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
                 app:layout_constraintTop_toTopOf="parent"
@@ -118,7 +118,7 @@
                 android:layout_height="@dimen/_45sdp"
                 android:text="@string/add"
                 android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
                 app:layout_constraintRight_toRightOf="@id/service_rightGuideline"

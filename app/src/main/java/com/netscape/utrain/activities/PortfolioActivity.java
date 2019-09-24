@@ -2,6 +2,7 @@ package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -81,6 +82,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
 
+
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -98,6 +100,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         binding = DataBindingUtil.setContentView(this, R.layout.activity_portfolio);
 
 
+
         init();
     }
 
@@ -113,6 +116,11 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         binding.addImageThree.setOnClickListener(this);
         binding.addImageFour.setOnClickListener(this);
         binding.addImageSubmitBtn.setOnClickListener(this);
+        binding.imagePlusone.setOnClickListener(this);
+        binding.imgPlusTwo.setOnClickListener(this);
+        binding.imgPlusThree.setOnClickListener(this);
+        binding.imgPlusFour.setOnClickListener(this);
+        binding.portfolioBackArrowImg.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
@@ -124,29 +132,29 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.imagePlusone:
+                addFirstImage();
+                break;
+            case R.id.imgPlusTwo:
+                addSecondImage();
+                break;
+            case R.id.imgPlusThree:
+                addThirdImage();
+                break;
+            case R.id.imgPlusFour:
+                addFourthImage();
+                break;
             case R.id.addImageOne:
-                position = 1;
-                imageView = binding.addImageOne;
-                plus = binding.imgPlusone;
-                checkForPermissions();
+                addFirstImage();
                 break;
             case R.id.addImageTwo:
-                imageView = binding.addImageTwo;
-                plus = binding.imgPlusTwo;
-                position = 2;
-                checkForPermissions();
+                addSecondImage();
                 break;
             case R.id.addImageThree:
-                position = 3;
-                plus = binding.imgPlusThree;
-                imageView = binding.addImageThree;
-                checkForPermissions();
+                addThirdImage();
                 break;
             case R.id.addImageFour:
-                position = 4;
-                plus = binding.imgPlusFour;
-                imageView = binding.addImageFour;
-                checkForPermissions();
+                addFourthImage();
                 break;
             case R.id.addImageSubmitBtn:
                 imgPortfolio = new ArrayList<>();
@@ -160,11 +168,42 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
                 break;
-//            case R.id.addImageBack:
-//
-//                break;
+
+            case R.id.portfolioBackArrowImg:
+                finish();
+                break;
         }
     }
+
+    public void addFirstImage() {
+        position = 1;
+        imageView = binding.addImageOne;
+        plus = binding.imagePlusone;
+        checkForPermissions();
+    }
+
+    public void addSecondImage() {
+        imageView = binding.addImageTwo;
+        plus = binding.imgPlusTwo;
+        position = 2;
+        checkForPermissions();
+    }
+
+    public void addThirdImage() {
+        position = 3;
+        plus = binding.imgPlusThree;
+        imageView = binding.addImageThree;
+        checkForPermissions();
+
+    }
+
+    public void addFourthImage() {
+        position = 4;
+        plus = binding.imgPlusFour;
+        imageView = binding.addImageFour;
+        checkForPermissions();
+    }
+
 
     private void checkForPermissions() {
         if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -350,7 +389,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             clearFromConstants();
-                            Constants.CHECKBOX_IS_CHECKED=0;
+                            Constants.CHECKBOX_IS_CHECKED = 0;
                             SelectedServiceList.getInstance().getList().clear();
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);

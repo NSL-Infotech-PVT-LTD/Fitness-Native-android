@@ -5,8 +5,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/athleteLoginLayout"
-        android:background="@drawable/back">
+        android:id="@+id/athleteLoginLayout">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -69,7 +73,7 @@
             android:text="@string/log_in_with_email"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_10sdp"
             app:cornerRadius="@dimen/_4sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -126,7 +130,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/sign_up_fb"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_10sdp" />
         </LinearLayout>
 
 
@@ -151,22 +155,23 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/dont_have_a_account"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/viewThirdScreen"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toLeftOf="@id/tvSignUp"
-            app:layout_constraintTop_toBottomOf="@+id/fbLin" />
+            app:layout_constraintTop_toBottomOf="@+id/fbLin"
+            />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_2sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/sign_up"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/havntAccountText"
             app:layout_constraintLeft_toRightOf="@+id/havntAccountText"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -174,7 +179,7 @@
 
         <View
             android:id="@+id/underLineView"
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="@dimen/_38sdp"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/colorBlack"
             app:layout_constraintLeft_toLeftOf="@id/tvSignUp"

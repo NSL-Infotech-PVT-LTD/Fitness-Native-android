@@ -195,6 +195,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 //                    fbintent.putExtra("image_url", image_url);
 //                    fbintent.putExtra("fb_id", id);
 
+                    Constants.SocialProfile=image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("email", email,LoginWithActivity.this);

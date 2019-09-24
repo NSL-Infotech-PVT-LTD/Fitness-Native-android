@@ -124,6 +124,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         binding.addServiceBtn.setOnClickListener(this);
         binding.servicePriceNextBtn.setOnClickListener(this);
         binding.addServiceCenterBtn.setOnClickListener(this);
+        binding.servicePriceBackArrowImg.setOnClickListener(this);
 
         if (getIntent().getExtras() != null) {
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
@@ -162,6 +163,9 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     Snackbar.make(binding.serviceLayout, getResources().getString(R.string.select_services), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.servicePriceBackArrowImg:
+                finish();
                 break;
         }
     }

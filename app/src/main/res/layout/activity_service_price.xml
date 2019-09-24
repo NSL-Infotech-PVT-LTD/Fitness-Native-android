@@ -1,253 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ServicePriceActivity"
-    android:id="@+id/serviceLayout"
-    >
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/ic_common_background"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/_23sdp"
-        android:layout_marginTop="@dimen/_26sdp"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:src="@drawable/ic_common_background"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_60sdp"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_14sdp"
-        android:layout_height="@dimen/_14sdp"
-        android:src="@drawable/ic_leftarrowicon"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_35sdp"/>
-
-
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/service_SummaryOfService"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sevice_summary_of_services"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:textSize="@dimen/_20sdp"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/poppins_semibold"/>
-
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/addServiceCenterBtn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/poppins_regular"-->
-<!--        android:background="@drawable/card_input_edt_background"-->
-<!--        android:gravity="center"-->
-<!--        app:fontFamily="@font/poppins_regular"-->
-<!--        android:text="Add Services"-->
-<!--        android:textSize="@dimen/_15sdp"-->
-<!--        android:textColor="@color/colorBlack"-->
-<!--        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"-->
-<!--        />-->
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/service_horizontalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2"/>
-    <TextView
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:background="@color/colorGreen"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/serviceLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:elevation="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="@id/service_horizontalGuideline"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/cards_shape">
+        android:layout_height="match_parent"
+        tools:context=".activities.ServicePriceActivity">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/service_leftGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_30sdp"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/service_rightGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_30sdp"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/serviceTv"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/services"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="center"
-            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
-            app:layout_constraintTop_toTopOf="parent"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_23sdp"
             android:layout_marginTop="@dimen/_26sdp"
-            android:layout_marginLeft="@dimen/_10sdp"/>
+            android:src="@drawable/ic_common_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:src="@drawable/ic_common_background"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/servicePriceBackArrowImg"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:src="@drawable/ic_leftarrowicon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/rateTV"
+            android:id="@+id/service_SummaryOfService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rate"
-            android:visibility="visible"
-            android:gravity="center"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:textSize="@dimen/_12sdp"
-            android:elevation="@dimen/_45sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="@dimen/_20sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_26sdp"
-           />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/service_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/recyclerView"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rateTV"
-            android:layout_marginBottom="@dimen/_4sdp"
-            app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addServiceCenterBtn"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorGreen"
-            android:src="@drawable/ic_add_black"
-            app:fabCustomSize="@dimen/_70sdp"
-            app:fabSize="auto"
-            app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35000002"
-            app:maxImageSize="@dimen/_40sdp" />
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/addServiceCenterTv"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:text="@string/add_your_services"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/poppins_semibold"
-            app:layout_constraintTop_toBottomOf="@+id/addServiceCenterBtn"
-            app:layout_constraintBottom_toTopOf="@+id/servicePriceNextBtn">
-        </com.google.android.material.textview.MaterialTextView>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/addMoreServiceCenterTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/hey_you_can_addmore_than_one_service"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
-            app:layout_constraintTop_toBottomOf="@+id/addServiceCenterTv">
-        </com.google.android.material.textview.MaterialTextView>
-
-
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addServiceBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorGreen"
-            android:src="@drawable/ic_add_black"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/addServiceTv"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/_10sdp"
-            app:maxImageSize="@dimen/_24sdp" />
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/addServiceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_your_services"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:layout_marginBottom="@dimen/_2sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/addMoreServiceTv">
-        </com.google.android.material.textview.MaterialTextView>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/addMoreServiceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hey_you_can_addmore_than_one_service"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/servicePriceNextBtn"
-            android:layout_marginBottom="@dimen/_10sdp">
-        </com.google.android.material.textview.MaterialTextView>
-
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/servicePriceNextBtn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_45sdp"
-            android:text="@string/one_more_step"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/service_rightGuideline"
-            android:backgroundTint="@color/colorWhite"
+            android:text="@string/sevice_summary_of_services"
             android:textColor="@color/colorBlack"
-            android:textAllCaps="false"
-            android:layout_marginBottom="@dimen/_20sdp"/>
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <com.google.android.material.textview.MaterialTextView-->
+        <!--        android:id="@+id/addServiceCenterBtn"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:fontFamily="@font/poppins_regular"-->
+        <!--        android:background="@drawable/card_input_edt_background"-->
+        <!--        android:gravity="center"-->
+        <!--        app:fontFamily="@font/poppins_regular"-->
+        <!--        android:text="Add Services"-->
+        <!--        android:textSize="@dimen/_15sdp"-->
+        <!--        android:textColor="@color/colorBlack"-->
+        <!--        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"-->
+        <!--        />-->
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/service_horizontalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/cards_shape"
+            android:elevation="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/service_horizontalGuideline">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/service_leftGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/service_rightGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/serviceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_26sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="@string/services"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_26sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:elevation="@dimen/_45sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="@string/rate"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/service_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:background="@color/recyclerView"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceBtn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rateTV" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addServiceCenterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorGreen"
+                android:src="@drawable/ic_add_black"
+                android:visibility="gone"
+                app:fabCustomSize="@dimen/_70sdp"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toTopOf="@id/servicePriceNextBtn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35000002"
+                app:maxImageSize="@dimen/_40sdp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/addServiceCenterTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/add_your_services"
+                android:textSize="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/servicePriceNextBtn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceCenterBtn"></com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/addMoreServiceCenterTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/hey_you_can_addmore_than_one_service"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceCenterTv"></com.google.android.material.textview.MaterialTextView>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addServiceBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:backgroundTint="@color/colorGreen"
+                android:src="@drawable/ic_add_black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/addServiceTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:maxImageSize="@dimen/_24sdp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/addServiceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/add_your_services"
+                android:textSize="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/addMoreServiceTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"></com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/addMoreServiceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/hey_you_can_addmore_than_one_service"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/servicePriceNextBtn"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"></com.google.android.material.textview.MaterialTextView>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/servicePriceNextBtn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:backgroundTint="@color/colorWhite"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/one_more_step"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+                app:layout_constraintRight_toRightOf="@id/service_rightGuideline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

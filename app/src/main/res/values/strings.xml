@@ -201,4 +201,10 @@
     <string name="you_can_add_service">Hey, you can add more than one services</string>
     <string name="note">Note:</string>
     <string name="note_desc">Upload atleast 4 photos of your work to make profile more outgoing. \n you may add more photos further.</string>
+    <string name="log_in_signup_as_athlete">Log in / Sign Up Athlete</string>
+    <string name="log_in_signup_as_coach">Log In / Sign Up As Coach</string>
+    <string name="log_in_signup_as_org">Log In / Sign Up As Org.</string>
+    <string name="select_training_session_type">Select your training session type</string>
+    <string name="campus">Campus</string>
+    <string name="private_session_type">Private</string>
 </resources>

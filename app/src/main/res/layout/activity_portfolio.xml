@@ -21,7 +21,7 @@
             android:layout_width="@dimen/_65sdp"
             android:layout_height="@dimen/_65sdp"
             android:layout_marginTop="@dimen/_75sdp"
-            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:src="@drawable/ic_common_background"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,10 +43,11 @@
             app:layout_constraintGuide_end="@dimen/_30sdp" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:id="@+id/portfolioBackArrowImg"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:src="@drawable/ic_leftarrowicon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +103,7 @@
                         android:scaleType="centerCrop" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/img_plusone"
+                        android:id="@+id/imagePlusone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorGreen"
@@ -250,7 +251,7 @@
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:text="@string/note"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card4" />
 
@@ -276,11 +277,10 @@
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorGreen"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@string/upload"
-
+                android:text="@string/submit"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:cornerRadius="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
