@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -135,9 +136,13 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     }
 
                     @Override
-                    public void onError(FacebookException error) {
-
-                        Toast.makeText(LoginWithActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    public void onError(FacebookException e) {
+                        if (e instanceof FacebookAuthorizationException) {
+                            if (AccessToken.getCurrentAccessToken() != null) {
+                                LoginManager.getInstance().logOut();
+                            }
+                        }
+                        Toast.makeText(LoginWithActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
                 break;

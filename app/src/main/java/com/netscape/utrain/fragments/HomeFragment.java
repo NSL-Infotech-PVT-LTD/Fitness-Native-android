@@ -16,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.utils.CommonMethods;
@@ -44,6 +46,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,6 +78,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
 
@@ -86,6 +91,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
 
+
+
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
@@ -93,6 +100,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tabLayout.setupWithViewPager(viewPager);
         logOut.setOnClickListener(this);
         return view;
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -130,6 +138,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.logOutTv:
+                LoginManager.getInstance().logOut();
                 CommonMethods.clearPrefData(getContext());
                 Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
                 view.getContext().startActivity(intent);
