@@ -1,31 +1,16 @@
 package com.netscape.utrain.activities;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.databinding.BindingMethod;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.Service;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.HorizontalScrollView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -33,19 +18,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
-import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
-import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.ServicePriceAdapter;
 import com.netscape.utrain.databinding.ActivityServicePriceBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ServiceListDataModel;
-import com.netscape.utrain.model.ServicePriceModel;
-import com.netscape.utrain.response.CoachSignUpResponse;
-import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -54,15 +32,11 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -210,7 +184,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
@@ -275,7 +249,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }

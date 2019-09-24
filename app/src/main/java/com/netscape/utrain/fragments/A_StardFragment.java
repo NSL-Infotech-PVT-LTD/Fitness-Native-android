@@ -1,6 +1,5 @@
 package com.netscape.utrain.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,12 +14,12 @@ import com.netscape.utrain.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ChatsFragment.OnFragmentInteractionListener} interface
+ * {@link A_StardFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ChatsFragment#newInstance} factory method to
+ * Use the {@link A_StardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChatsFragment extends Fragment {
+public class A_StardFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +31,7 @@ public class ChatsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ChatsFragment() {
+    public A_StardFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +41,11 @@ public class ChatsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatsFragment.
+     * @return A new instance of fragment A_StardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChatsFragment newInstance(String param1, String param2) {
-        ChatsFragment fragment = new ChatsFragment();
+    public static A_StardFragment newInstance(String param1, String param2) {
+        A_StardFragment fragment = new A_StardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +66,7 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chats, container, false);
+        return inflater.inflate(R.layout.fragment_stard, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

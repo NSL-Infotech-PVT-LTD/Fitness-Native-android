@@ -1,28 +1,20 @@
 package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
-import com.netscape.utrain.activities.coach.CoachSignupActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginBinding;
 import com.netscape.utrain.model.LoginRoleModel;
-import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -72,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.loginBtn:
                 getLoginData();
-//                Intent homeScreen=new Intent(LoginActivity.this, BottomNavigation.class);
+//                Intent homeScreen=new Intent(LoginActivity.this, AthleteHomeScreen.class);
 //                startActivity(homeScreen);
                 break;
             case R.id.loginForgetTv:
@@ -133,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", LoginActivity.this);
-                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen= new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }

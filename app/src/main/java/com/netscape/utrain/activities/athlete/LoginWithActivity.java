@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,18 +18,14 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.BottomNavigation;
-import com.netscape.utrain.activities.LoginActivity;
+import com.netscape.utrain.activities.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -78,7 +73,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 //        tvSignUp.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(LoginWithActivity.this, BottomNavigation.class);
+//                Intent intent = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -234,7 +229,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginWithActivity.this);
-                            Intent fbreg = new Intent(LoginWithActivity.this, BottomNavigation.class);
+                            Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);
                             startActivity(fbreg);
 
 

@@ -14,11 +14,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SelectServices">
-
-        </activity>
-        <activity android:name=".activities.CoachBottomNavigation"></activity>
-        <activity android:name=".activities.HistoryActivity"></activity>
+        <activity android:name=".activities.SelectServices"></activity>
+        <activity android:name=".activities.CoachBottomNavigation" />
+        <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.FindSpaceActivity" />
         <activity android:name=".activities.OfferSpaceActivity" />
         <activity android:name=".activities.CreateTrainingSession" />
@@ -34,9 +32,7 @@
         <activity
             android:name=".activities.ServicePriceActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".activities.BookSlotPrivateActivity"
             android:screenOrientation="portrait" />
@@ -89,10 +85,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".activities.BottomNavigation"
+            android:name=".activities.AthleteHomeScreen"
             android:label="@string/title_activity_bottom_navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />

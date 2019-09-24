@@ -1,6 +1,5 @@
 package com.netscape.utrain.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,12 +14,12 @@ import com.netscape.utrain.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EditorFragment.OnFragmentInteractionListener} interface
+ * {@link A_EditorFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link EditorFragment#newInstance} factory method to
+ * Use the {@link A_EditorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditorFragment extends Fragment {
+public class A_EditorFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +31,7 @@ public class EditorFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public EditorFragment() {
+    public A_EditorFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +41,11 @@ public class EditorFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EditorFragment.
+     * @return A new instance of fragment A_EditorFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EditorFragment newInstance(String param1, String param2) {
-        EditorFragment fragment = new EditorFragment();
+    public static A_EditorFragment newInstance(String param1, String param2) {
+        A_EditorFragment fragment = new A_EditorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

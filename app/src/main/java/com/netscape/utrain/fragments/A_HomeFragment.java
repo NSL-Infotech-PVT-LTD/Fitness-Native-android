@@ -1,6 +1,5 @@
 package com.netscape.utrain.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.utils.CommonMethods;
@@ -29,12 +27,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link A_HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link A_HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
@@ -50,7 +48,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeFragment() {
+    public A_HomeFragment() {
         // Required empty public constructor
     }
 
@@ -60,11 +58,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment A_HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static A_HomeFragment newInstance(String param1, String param2) {
+        A_HomeFragment fragment = new A_HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_home,container,false);
+        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_fragment_home,container,false);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);

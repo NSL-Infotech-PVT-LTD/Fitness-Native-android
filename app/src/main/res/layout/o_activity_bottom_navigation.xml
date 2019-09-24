@@ -6,7 +6,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.BottomNavigation"
+    tools:context=".activities.AthleteHomeScreen"
     >
 
     <FrameLayout
@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/athlete_bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

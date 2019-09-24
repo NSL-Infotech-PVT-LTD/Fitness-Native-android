@@ -26,15 +26,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.JsonArray;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
-import com.netscape.utrain.response.OrgSignUpResponse;
-import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -46,7 +42,6 @@ import com.netscape.utrain.utils.ImageFilePath;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -390,7 +385,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
@@ -457,7 +452,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }

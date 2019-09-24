@@ -204,4 +204,5 @@
     <string name="log_in_signup_as_athlete">Log in / Sign Up Athlete</string>
     <string name="log_in_signup_as_coach">Log In / Sign Up As Coach</string>
     <string name="log_in_signup_as_org">Log In / Sign Up As Org.</string>
+    <string name="title_activity_org_main">OrgMainActivity</string>
 </resources>

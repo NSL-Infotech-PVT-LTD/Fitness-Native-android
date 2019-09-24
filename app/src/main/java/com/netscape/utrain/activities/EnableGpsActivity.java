@@ -43,7 +43,7 @@ public class EnableGpsActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.saveBtn:
-                Intent intent=new Intent(EnableGpsActivity.this,BottomNavigation.class);
+                Intent intent=new Intent(EnableGpsActivity.this, AthleteHomeScreen.class);
                 startActivity(intent);
                 break;
         }

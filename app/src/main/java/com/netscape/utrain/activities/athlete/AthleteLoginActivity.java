@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
@@ -15,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.BottomNavigation;
+import com.netscape.utrain.activities.AthleteHomeScreen;
 import com.netscape.utrain.activities.ForgetPasswordActivity;
 import com.netscape.utrain.databinding.ActivityAthleteLoginBinding;
 import com.netscape.utrain.response.LoginResponse;
@@ -75,7 +74,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteLoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteLoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId()+"", AthleteLoginActivity.this);
-                            Intent homeScreen= new Intent(getApplicationContext(), BottomNavigation.class);
+                            Intent homeScreen= new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }

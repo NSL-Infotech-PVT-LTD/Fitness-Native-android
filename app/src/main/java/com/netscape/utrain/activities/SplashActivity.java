@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                 if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
-                    Intent intent = new Intent(getApplicationContext(), BottomNavigation.class);
+                    Intent intent = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                     startActivity(intent);
                     finish();
                 }else {
