@@ -208,4 +208,12 @@
     <string name="select_training_session_type">Select your training session type</string>
     <string name="campus">Campus</string>
     <string name="private_session_type">Private</string>
+    <string name="welcome_sophia_txt">Welcome Sophia</string>
+    <string name="filter">Filter</string>
+    <string name="req_image">Upload Image</string>
+    <string name="running">Running</string>
+    <string name="session">Session</string>
+    <string name="event">Event</string>
+    <string name="service">Service</string>
+    <string name="find">Find</string>
 </resources>

@@ -216,12 +216,12 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void hitLoginApi(String email, String password) {
-        progressDialog.show();
+//        progressDialog.show();
         Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, Constants.DEVICE_TOKEN, Constants.CONTENT_TYPE);
         signUpAthlete.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
@@ -231,6 +231,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginWithActivity.this);
                             Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);
+                            fbreg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(fbreg);
 
 
@@ -239,7 +240,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                         Snackbar.make(binding.athleteLoginLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 } else {
-                    progressDialog.dismiss();
+//                    progressDialog.dismiss();
 
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());

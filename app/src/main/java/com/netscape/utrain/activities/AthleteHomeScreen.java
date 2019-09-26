@@ -54,17 +54,17 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     fragment=new A_HomeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_stard:
+                case R.id.navigation_chat:
 //                    mTextMessage.setText(R.string.title_dashboard);
                     fragment=new A_StardFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_edit:
+                case R.id.navigation_reqimage:
 //                    mTextMessage.setText(R.string.title_notifications);
                     fragment=new A_EditorFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_chat:
+                case R.id.navigation_running:
 //                    mTextMessage.setText(R.string.title_notifications);
                     fragment=new A_ChatsFragment();
                     loadFragment(fragment);

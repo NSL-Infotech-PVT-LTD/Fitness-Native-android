@@ -20,6 +20,11 @@ import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_EditorFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
+import com.netscape.utrain.fragments.O_ChatsFragment;
+import com.netscape.utrain.fragments.O_EditorFragment;
+import com.netscape.utrain.fragments.O_HomeFragment;
+import com.netscape.utrain.fragments.O_NotificationFragment;
+import com.netscape.utrain.fragments.O_StardFragment;
 
 public class OrgHomeScreen extends AppCompatActivity {
     private TextView mTextMessage;
@@ -34,7 +39,7 @@ public class OrgHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.a_activity_bottom_navigation);
-        binding= DataBindingUtil.setContentView(this,R.layout.a_activity_bottom_navigation);
+        binding= DataBindingUtil.setContentView(this,R.layout.o_activity_bottom_navigation);
         loadFragment(new A_HomeFragment());
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
@@ -50,27 +55,27 @@ public class OrgHomeScreen extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 //                    mTextMessage.setText(R.string.title_home);
-                    fragment=new A_HomeFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_stard:
-//                    mTextMessage.setText(R.string.title_dashboard);
-                    fragment=new A_StardFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_edit:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment=new A_EditorFragment();
+                    fragment=new O_HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:
+//                    mTextMessage.setText(R.string.title_dashboard);
+                    fragment=new O_StardFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_reqimage:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment=new A_ChatsFragment();
+                    fragment=new O_EditorFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_running:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment=new O_ChatsFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment=new A_NotificationFragment();
+                    fragment=new O_NotificationFragment();
                     loadFragment(fragment);
                     return true;
             }
