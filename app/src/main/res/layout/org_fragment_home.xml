@@ -1,137 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.A_HomeFragment">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/innerLeftGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/_24sdp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/innerRightGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/_24sdp" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.O_HomeFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/logOutTv"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@drawable/round_background_colord"
-        android:fontFamily="@font/poppins_regular"
-        android:gravity="center"
-        android:text="@string/logout"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/welcomeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/welcome_sophia_txt"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_18sdp"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/userImg"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_24sdp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_profile_type"
-        android:visibility="visible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/welcomeText"
-        app:riv_oval="true" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/exploreText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/explore_the_best_coaches"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchEdt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:elevation="4dp"
-        app:cardCornerRadius="@dimen/_6sdp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-        app:layout_constraintTop_toBottomOf="@+id/exploreText">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/searchAtuoCompleteEdt"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/innerLeftGuideLine"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:drawableLeft="@drawable/ic_back"
-            android:drawablePadding="@dimen/_10sdp"
-            android:hint="@string/search_keyword"
-            android:padding="@dimen/_10sdp"
-            android:singleLine="true"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_10sdp"
-            android:inputType="text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_24sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/innerRightGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_24sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/orgWelcomeOrgName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/welcome_coach_name"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-        app:layout_constraintTop_toBottomOf="@+id/searchEdt"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@color/colorGreen"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-        app:layout_constraintTop_toBottomOf="@+id/tabs"/>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_50sdp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-        app:layout_constraintTop_toBottomOf="@+id/tabs" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/sophie"
+            android:layout_marginTop="@dimen/_50sdp"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/organizationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorGreen"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/organization"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/orgCreateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawableLeft="@drawable/ic_add_black"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/create"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/organizationBtn" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/organizationCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/orgCreateTv">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradiant_design">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/sessionIconImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_session_icon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/eventIconImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_event_icon"
+                    app:layout_constraintLeft_toRightOf="@id/sessionIconImg"
+                    app:layout_constraintRight_toLeftOf="@id/findSpacesIconImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/findSpacesIconImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_find_spaces_icon"
+                    app:layout_constraintLeft_toRightOf="@id/eventIconImg"
+                    app:layout_constraintRight_toLeftOf="@id/serviceIconImg"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/serviceIconImg"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/ic_service_icon"
+                    app:layout_constraintLeft_toRightOf="@id/findSpacesIconImg"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/AthleteCardsessionTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/session"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/sessionIconImg"
+                    app:layout_constraintTop_toBottomOf="@id/sessionIconImg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/AthleteCardeventTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/event"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/eventIconImg"
+                    app:layout_constraintTop_toBottomOf="@id/eventIconImg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/AthleteCardfindSpaceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/find_space"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/findSpacesIconImg"
+                    app:layout_constraintTop_toBottomOf="@id/findSpacesIconImg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/AthleteCardserviceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/service"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/serviceIconImg"
+                    app:layout_constraintTop_toBottomOf="@id/serviceIconImg" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/logOutTv"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_background_colord"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:padding="@dimen/_2sdp"
+            android:text="@string/logout"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchEdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:elevation="4dp"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/organizationCard"
+            tools:layout_editor_absoluteY="153dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/requestLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/imgIconForTv"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@color/colorGreen"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:layout_width="@dimen/_25sdp"-->
+<!--                    android:layout_height="@dimen/_25sdp"-->
+<!--                    android:src="@drawable/ic_req_white_img"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/imgIconForTv"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@+id/imgIconForTv"-->
+<!--                    app:layout_constraintRight_toRightOf="@+id/imgIconForTv"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/imgIconForTv" />-->
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/searchAtuoCompleteEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:elevation="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/search_keyword"
+
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/_10sdp"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.88"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/horizontalGuideline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/cards_shape"
+            android:elevation="@dimen/_10sdp"
+            >
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

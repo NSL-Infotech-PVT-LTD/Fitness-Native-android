@@ -40,10 +40,10 @@ public class OrgHomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.a_activity_bottom_navigation);
         binding= DataBindingUtil.setContentView(this,R.layout.o_activity_bottom_navigation);
-        loadFragment(new A_HomeFragment());
+        loadFragment(new O_HomeFragment());
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
-        binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        binding.orgNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -85,7 +85,7 @@ public class OrgHomeScreen extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
+        transaction.replace(R.id.orgFramecontainerOrg, fragment);
         transaction.commit();
     }
     @Override

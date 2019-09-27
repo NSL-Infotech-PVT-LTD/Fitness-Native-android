@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecyclerAdapter.ViewHolder> {
     private Context context;
-    private int previusPos=-1;
+    private int previusPos = -1;
     private List<String> supplierData;
 
 
@@ -35,8 +36,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @Override
     public CoachesRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coaches_recycler_view, parent, false);
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -49,19 +49,22 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         return supplierData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder  {
-        public TextView supplierName;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public AppCompatTextView supplierName;
         public ImageView selectionImg;
-        public RatingBar ratingBar;
-        public ImageView selectedImage;
-        public ConstraintLayout container;
+//        public RatingBar ratingBar;
+//        public ImageView selectedImage;
+//        public ConstraintLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             supplierName = itemView.findViewById(R.id.supplierName);
-            container = itemView.findViewById(R.id.container);
             selectionImg = itemView.findViewById(R.id.coachImageView);
-            ratingBar = itemView.findViewById(R.id.supplierRating);
+//
+//            container = itemView.findViewById(R.id.container);
+//            ratingBar = itemView.findViewById(R.id.supplierRating);
         }
 
     }

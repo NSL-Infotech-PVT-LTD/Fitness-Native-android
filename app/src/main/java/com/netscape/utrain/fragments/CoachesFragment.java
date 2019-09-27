@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,10 +29,22 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class CoachesFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private CoachesRecyclerAdapter adapter;
-    private List<String>data=new ArrayList<>();
+    private List<String> data = new ArrayList<>();
+
+    private Context context;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    private RecyclerView.LayoutManager topCoachesLayoutManager;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -75,27 +88,30 @@ public class CoachesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
         View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_coaches,container,false);
+
         recyclerView =view.findViewById(R.id.coachesRecycler);
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        adapter=new CoachesRecyclerAdapter(getContext(),data);
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(context,2);
         recyclerView.setLayoutManager(layoutManager);
+
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+        data.add("chet");
+
+        adapter=new CoachesRecyclerAdapter(context,data);
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.adapters.TopCoachesAdapter;
+import com.netscape.utrain.adapters.TopOrganizationAdapter;
 import com.netscape.utrain.utils.CommonMethods;
 
 import java.util.ArrayList;
@@ -33,9 +37,18 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class A_HomeFragment extends Fragment implements View.OnClickListener {
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
+
+    private RecyclerView topCoachesRecycler, topOrgRecycler;
+    private RecyclerView.LayoutManager topCoachesLayoutManager, topOrgLayoutManager;
+    private TopCoachesAdapter adapter;
+    private TopOrganizationAdapter orgAdapter;
+    private List<String> data = new ArrayList<>();
+    private List<String> orgList = new ArrayList<>();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,11 +97,10 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_fragment_home,container,false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_fragment_home, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
-
 
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -97,14 +109,49 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
         logOut.setOnClickListener(this);
+
+        topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
+        topCoachesLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+
+        topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
+        data.add("Coach1");
+        data.add("Coach2");
+        data.add("Coach3");
+        data.add("Coach4");
+        data.add("Coach5");
+        data.add("Coach6");
+        data.add("Coach7");
+        data.add("Coach8");
+        data.add("Coach9");
+        data.add("Coach10");
+
+        adapter = new TopCoachesAdapter(getContext(), data);
+        topCoachesRecycler.setAdapter(adapter);
+
+        topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
+        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        topOrgRecycler.setLayoutManager(topOrgLayoutManager);
+
+        orgList.add("Athlete1");
+        orgList.add("Athlete1");
+
+
+        orgAdapter = new TopOrganizationAdapter(getContext(),orgList);
+        topOrgRecycler.setAdapter(orgAdapter);
+
+
+
         return view;
 
     }
 
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CoachesFragment(), "Coaches");
-        adapter.addFragment(new OrganisationFragment(), "Organisation");
+        adapter.addFragment(new CoachesFragment(), "Events");
+        adapter.addFragment(new OrganisationFragment(), "Sessions");
+        adapter.addFragment(new PlacesFragment(),"Places");
+
         viewPager.setAdapter(adapter);
     }
 

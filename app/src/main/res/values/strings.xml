@@ -210,10 +210,14 @@
     <string name="private_session_type">Private</string>
     <string name="welcome_sophia_txt">Welcome Sophia</string>
     <string name="filter">Filter</string>
-    <string name="req_image">Upload Image</string>
+    <string name="req_image"></string>
     <string name="running">Running</string>
     <string name="session">Session</string>
     <string name="event">Event</string>
     <string name="service">Service</string>
     <string name="find">Find</string>
+    <string name="top_coaches">Top Coaches</string>
+    <string name="top_organization">Top Organization</string>
+    <string name="sophie">Sophie</string>
+    <string name="nearby_events">Nearby Events</string>
 </resources>
