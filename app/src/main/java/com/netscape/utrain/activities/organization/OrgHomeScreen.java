@@ -43,7 +43,7 @@ public class OrgHomeScreen extends AppCompatActivity {
         loadFragment(new A_HomeFragment());
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
-        binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        binding.orgNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

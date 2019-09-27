@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,9 +27,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private TextView mTextMessage;
     private AActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce=false;
-
-
-
 
 
     @Override
@@ -40,6 +38,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

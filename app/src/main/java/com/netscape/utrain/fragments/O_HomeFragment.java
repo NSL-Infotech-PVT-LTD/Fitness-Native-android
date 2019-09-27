@@ -84,26 +84,26 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(container.getContext()).inflate(R.layout.org_fragment_home,container,false);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+//        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         logOut = (TextView) view.findViewById(R.id.logOutTv);
-        setupViewPager(viewPager);
+//        setupViewPager(viewPager);
 
 
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
-        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
-        tabLayout.setupWithViewPager(viewPager);
-        logOut.setOnClickListener(this);
+//        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+//        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
+//        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+//        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
+//        tabLayout.setupWithViewPager(viewPager);
+//        logOut.setOnClickListener(this);
+
         return view;
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CoachesFragment(), "Coaches");
-        adapter.addFragment(new OrganisationFragment(), "Organisation");
+        adapter.addFragment(new O_HomeFragment(), "Event");
         viewPager.setAdapter(adapter);
     }
 
