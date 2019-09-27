@@ -4,13 +4,12 @@
     android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_4sdp"
-    android:paddingBottom="@dimen/_14sdp">
+    android:padding="@dimen/_4sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coachImageContainer"
         android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_110sdp"
+        android:layout_height="@dimen/_90sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="@dimen/_4sdp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +27,6 @@
         android:id="@+id/supplierName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Roger David"
         android:textColor="@color/colorBlack"
@@ -49,6 +47,5 @@
         android:stepSize="1"
         app:layout_constraintStart_toStartOf="@+id/supplierName"
         app:layout_constraintTop_toBottomOf="@+id/supplierName" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

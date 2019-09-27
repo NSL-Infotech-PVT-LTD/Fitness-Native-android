@@ -4,23 +4,23 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_disable"
-        android:title="@string/title_home" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_chat_disable"
-        android:title="@string/chat" />
+        android:title="" />
 
     <item
         android:id="@+id/navigation_reqimage"
-        android:title="@string/req_image" />
+        android:title="" />
     <item
         android:id="@+id/navigation_running"
         android:icon="@drawable/ic_running_enable"
-        android:title="@string/running" />
+        android:title="" />
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notification"
-        android:title="@string/title_notifications" />
+        android:title="" />
 
 </menu>

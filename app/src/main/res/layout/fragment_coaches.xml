@@ -12,25 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/nearby_events"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:backgroundTint="@color/colorWhite"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/view_all"
         android:textColor="@color/colorBlack"
-        app:cornerRadius="@dimen/_10sdp"
+        app:cornerRadius="@dimen/_20sdp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/colorGreen"
-        app:strokeWidth="@dimen/_1sdp" />
+        app:strokeWidth="@dimen/_1sdp"
+        android:textSize="@dimen/_10sdp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coachesRecycler"

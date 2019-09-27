@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,7 +10,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.A_HomeFragment">
+        android:id="@+id/parentLayout"
+        tools:context=".fragments.A_HomeFragment"
+        >
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/innerLeftGuideLine"
@@ -56,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_4sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@+id/findTv">
@@ -71,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_session_icon"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_event_icon"
                     app:layout_constraintLeft_toRightOf="@id/sessionIconImg"
                     app:layout_constraintRight_toLeftOf="@id/findSpacesIconImg"
@@ -93,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_find_spaces_icon"
                     app:layout_constraintLeft_toRightOf="@id/eventIconImg"
                     app:layout_constraintRight_toLeftOf="@id/serviceIconImg"
@@ -101,10 +105,10 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/serviceIconImg"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_service_icon"
                     app:layout_constraintLeft_toRightOf="@id/findSpacesIconImg"
                     app:layout_constraintRight_toRightOf="parent"
@@ -121,20 +125,24 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/sessionIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/sessionIconImg" />
+                    app:layout_constraintTop_toBottomOf="@id/sessionIconImg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/AthleteCardeventTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/event"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/eventIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/eventIconImg" />
+                    app:layout_constraintTop_toBottomOf="@id/eventIconImg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/AthleteCardfindSpaceTv"
@@ -146,7 +154,9 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/findSpacesIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/findSpacesIconImg" />
+                    app:layout_constraintTop_toBottomOf="@id/findSpacesIconImg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/AthleteCardserviceTv"
@@ -159,7 +169,9 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/serviceIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/serviceIconImg" />
+                    app:layout_constraintTop_toBottomOf="@id/serviceIconImg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -186,7 +198,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:elevation="4dp"
+            android:elevation="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_6sdp"
             app:cardUseCompatPadding="true"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
@@ -201,15 +213,15 @@
                 android:background="@color/colorWhite"
                 android:drawableLeft="@drawable/magnifier"
                 android:drawablePadding="@dimen/_10sdp"
-                android:elevation="@dimen/_1sdp"
+                android:elevation="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/search_keyword"
                 android:inputType="text"
                 android:padding="@dimen/_10sdp"
                 android:singleLine="true"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -221,7 +233,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="@string/top_coaches"
             android:textSize="@dimen/_10sdp"
-            app:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/searchEdt" />
 
@@ -241,7 +253,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="@string/top_organization"
             android:textSize="@dimen/_10sdp"
-            app:fontFamily="@font/poppins_regular"
+            app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesRecycler" />
 
@@ -256,13 +268,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/parentTwo"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@drawable/cards_shape"
             android:elevation="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler">
+            app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler"
+            app:layout_constraintBottom_toBottomOf="@+id/parentLayout"
+            android:layout_marginBottom="@dimen/_45sdp">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -294,18 +309,13 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="@dimen/_400sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewTab"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/_20sdp"
-                 />
-
-
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
