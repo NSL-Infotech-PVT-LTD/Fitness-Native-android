@@ -117,7 +117,7 @@
     <string name="select_media">Select media</string>
     <string name="experience">Enter Experience details</string>
     <string name="service_details">Enter service details</string>
-    <string name="organization">Org</string>
+    <string name="organization">Organization</string>
     <string name="enter_valid_email">Enter valid email</string>
     <string name="loading">Loading...</string>
     <string name="something_went_wrong">Something went wrong</string>
@@ -210,7 +210,7 @@
     <string name="private_session_type">Private</string>
     <string name="welcome_sophia_txt">Welcome Sophia</string>
     <string name="filter">Filter</string>
-    <string name="req_image"></string>
+    <string name="req_image">Request Image</string>
     <string name="running">Running</string>
     <string name="session">Session</string>
     <string name="event">Event</string>
@@ -220,4 +220,12 @@
     <string name="top_organization">Top Organization</string>
     <string name="sophie">Sophie</string>
     <string name="nearby_events">Nearby Events</string>
+    <string name="requests">Requests</string>
+    <string name="notification_no">4</string>
+    <string name="welcome_org_name">Welcome Gold Gym</string>
+    <string name="marathon_run_for_fun">Marathon Day | Run for Fun</string>
+    <string name="vanue">Vanue</string>
+    <string name="vanue_address">Sukhna lake, California</string>
+    <string name="event_date_time"><![CDATA[Date & Time]]></string>
+    <string name="event_date_time_enter">6:30 Am, 27/09/2019</string>
 </resources>

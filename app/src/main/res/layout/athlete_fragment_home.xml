@@ -68,8 +68,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/sessionIconImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_session_icon"
@@ -78,8 +78,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/eventIconImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_event_icon"
@@ -90,8 +90,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/findSpacesIconImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_find_spaces_icon"
@@ -101,8 +101,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/serviceIconImg"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_service_icon"
@@ -116,10 +116,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/session"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/sessionIconImg"
                     app:layout_constraintTop_toBottomOf="@id/sessionIconImg" />
 
@@ -128,11 +130,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/event"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/eventIconImg"
                     app:layout_constraintTop_toBottomOf="@id/eventIconImg" />
 
@@ -141,10 +145,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/find_space"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/findSpacesIconImg"
                     app:layout_constraintTop_toBottomOf="@id/findSpacesIconImg" />
 
@@ -154,10 +160,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/service"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/serviceIconImg"
                     app:layout_constraintTop_toBottomOf="@id/serviceIconImg" />
 
@@ -296,14 +304,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginBottom="@dimen/_20sdp"
 
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTab"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/_20sdp"
-                 />
+                app:layout_constraintTop_toBottomOf="@+id/viewTab" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

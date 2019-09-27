@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/orgContainer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.organization.OrgHomeScreen"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/orgFramecontainerOrg"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/orgContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/orgNavView"
-        android:layout_marginBottom="@dimen/_45sdp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        tools:context=".activities.organization.OrgHomeScreen">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/orgNavView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_nav_round_design"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/athlete_bottom_nav_menu" >
-<!--        ?android:attr/windowBackground-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/orgProfileImg"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:src="@drawable/sophie"
-            android:layout_marginLeft="@dimen/_110sdp"
-            app:civ_border_width="@dimen/_10sdp"
-            app:civ_border_color="#f5f5f5"/>
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_10sdp" />
+
+        <FrameLayout
+            android:id="@+id/orgFramecontainerOrg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/orgNavView"
+            android:layout_marginBottom="@dimen/_43sdp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toTopOf="@id/orgNavView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/orgNavView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/bottom_nav_round_design"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:menu="@menu/athlete_bottom_nav_menu">
+            <!--        ?android:attr/windowBackground-->
+
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

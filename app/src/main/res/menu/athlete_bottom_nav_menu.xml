@@ -13,7 +13,9 @@
 
     <item
         android:id="@+id/navigation_reqimage"
-        android:title="@string/req_image" />
+        android:title="@string/req_image"
+        android:icon="@drawable/ic_req_image_disable"
+        />
     <item
         android:id="@+id/navigation_running"
         android:icon="@drawable/ic_running_enable"
