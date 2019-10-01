@@ -81,7 +81,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.containerTwo, fragment);
+        transaction.replace(R.id.athleteFrameContainer, fragment);
         transaction.commit();
     }
     @Override

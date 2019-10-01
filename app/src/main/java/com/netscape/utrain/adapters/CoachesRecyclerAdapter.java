@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.EventDetail;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,6 +44,14 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @Override
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
 
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EventDetail.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -51,8 +61,10 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public AppCompatTextView supplierName;
-        public ImageView selectionImg;
+        private AppCompatTextView eventName;
+        private ImageView eventProfileImg;
+        private ConstraintLayout constraintLayout;
+
 //        public RatingBar ratingBar;
 //        public ImageView selectedImage;
 //        public ConstraintLayout container;
@@ -60,8 +72,9 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            supplierName = itemView.findViewById(R.id.athleteVanueTv);
-            selectionImg = itemView.findViewById(R.id.athleteEventProfileImg);
+            eventName = itemView.findViewById(R.id.athleteEventHeaderTv);
+            eventProfileImg = itemView.findViewById(R.id.athleteEventProfileImg);
+            constraintLayout = itemView.findViewById(R.id.athleteEventLayout);
 //
 //            container = itemView.findViewById(R.id.container);
 //            ratingBar = itemView.findViewById(R.id.supplierRating);

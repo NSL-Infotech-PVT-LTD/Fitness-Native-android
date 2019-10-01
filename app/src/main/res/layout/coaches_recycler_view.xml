@@ -4,14 +4,13 @@
     android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_4sdp">
+    >
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coachImageContainer"
-        android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_90sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_4sdp"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_150sdp"
+        app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,32 +19,35 @@
             android:id="@+id/coachImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:background="@drawable/sophie" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/supplierName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Roger David"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="@+id/coachImageContainer"
-        app:layout_constraintTop_toBottomOf="@+id/coachImageContainer" />
+<!--    <androidx.appcompat.widget.AppCompatTextView-->
+<!--        android:id="@+id/supplierName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/_4sdp"-->
+<!--        android:fontFamily="@font/poppins_semibold"-->
+<!--        android:text="Roger David"-->
+<!--        android:textColor="@color/colorBlack"-->
+<!--        android:textSize="@dimen/_10sdp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/coachImageContainer"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/coachImageContainer" />-->
 
-    <RatingBar
-        android:id="@+id/supplierRating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:numStars="5"
-        android:progressBackgroundTint="@color/colorLightGray"
-        android:progressTint="@color/colorGreen"
-        android:rating="3"
-        android:stepSize="1"
-        app:layout_constraintStart_toStartOf="@+id/supplierName"
-        app:layout_constraintTop_toBottomOf="@+id/supplierName" />
+<!--    <RatingBar-->
+<!--        android:id="@+id/supplierRating"-->
+<!--        style="?android:attr/ratingBarStyleSmall"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fontFamily="@font/poppins_semibold"-->
+<!--        android:numStars="5"-->
+<!--        android:progressBackgroundTint="@color/colorLightGray"-->
+<!--        android:progressTint="@color/colorGreen"-->
+<!--        android:rating="3"-->
+<!--        android:stepSize="1"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/supplierName"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/supplierName" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

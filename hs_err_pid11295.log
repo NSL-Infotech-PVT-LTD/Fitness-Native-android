@@ -1,0 +1,1186 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 154664960 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2753), pid=11295, tid=0x00007f9e00352700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_202) (build 1.8.0_202-release-1483-b49-5587405)
+# Java VM: OpenJDK 64-Bit Server VM (25.202-b49-5587405 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f9dfc079000):  VMThread [stack: 0x00007f9e00253000,0x00007f9e00353000] [id=11305]
+
+Stack: [0x00007f9e00253000,0x00007f9e00353000],  sp=0x00007f9e00351530,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xa08b78]  VMError::report_and_die()+0x148
+V  [libjvm.so+0x4d412a]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x8a
+V  [libjvm.so+0x870478]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0xd8
+V  [libjvm.so+0x867f9f]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x1f
+V  [libjvm.so+0x8e14eb]  PSVirtualSpace::expand_by(unsigned long)+0x5b
+V  [libjvm.so+0x8d234b]  PSOldGen::expand_by(unsigned long) [clone .part.109]+0x1b
+V  [libjvm.so+0x8d250b]  PSOldGen::expand(unsigned long) [clone .part.111]+0xdb
+V  [libjvm.so+0x8d2de8]  PSOldGen::resize(unsigned long)+0x188
+V  [libjvm.so+0x8d83cc]  PSParallelCompact::invoke_no_policy(bool)+0x94c
+V  [libjvm.so+0x8df48d]  PSScavenge::invoke()+0x17d
+V  [libjvm.so+0x893763]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x63
+V  [libjvm.so+0xa0a644]  VM_ParallelGCFailedAllocation::doit()+0x84
+V  [libjvm.so+0xa0ea17]  VM_Operation::evaluate()+0x47
+V  [libjvm.so+0xa0d498]  VMThread::evaluate_operation(VM_Operation*)+0x218
+V  [libjvm.so+0xa0d8d1]  VMThread::loop()+0x1f1
+V  [libjvm.so+0xa0dd02]  VMThread::run()+0x72
+V  [libjvm.so+0x86d652]  java_start(Thread*)+0xf2
+
+VM_Operation (0x00007f9d6ecf4bc0): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007f9d7c0ed000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f9d7c109800 JavaThread "Cache worker for Java compile cache (/home/netscapelabs/repos/utrain-android/.gradle/5.4.1/javaCompile)" [_thread_blocked, id=12296, stack(0x00007f9d676be000,0x00007f9d677bf000)]
+  0x00007f9d8804a000 JavaThread "stdout" [_thread_in_native, id=12295, stack(0x00007f9d677bf000,0x00007f9d678c0000)]
+  0x00007f9d88048000 JavaThread "stderr" [_thread_in_native, id=12294, stack(0x00007f9d678c0000,0x00007f9d679c1000)]
+  0x00007f9d84041000 JavaThread "stdout" [_thread_in_native, id=12293, stack(0x00007f9d679c1000,0x00007f9d67ac2000)]
+  0x00007f9d8403f800 JavaThread "stderr" [_thread_in_native, id=12292, stack(0x00007f9d67ac2000,0x00007f9d67bc3000)]
+  0x00007f9d8c015000 JavaThread "stdout" [_thread_in_native, id=12291, stack(0x00007f9d67bc3000,0x00007f9d67cc4000)]
+  0x00007f9d8c013000 JavaThread "stderr" [_thread_in_native, id=12290, stack(0x00007f9d67cc4000,0x00007f9d67dc5000)]
+  0x00007f9d800a1000 JavaThread "stdout" [_thread_in_native, id=12289, stack(0x00007f9d67dc5000,0x00007f9d67ec6000)]
+  0x00007f9d8009f800 JavaThread "stderr" [_thread_in_native, id=12288, stack(0x00007f9d67ec6000,0x00007f9d67fc7000)]
+  0x00007f9d80062800 JavaThread "process reaper" daemon [_thread_in_native, id=12287, stack(0x00007f9d67fc7000,0x00007f9d68000000)]
+  0x00007f9d88046800 JavaThread "process reaper" daemon [_thread_in_native, id=12286, stack(0x00007f9d6c038000,0x00007f9d6c071000)]
+  0x00007f9d8c011800 JavaThread "process reaper" daemon [_thread_in_native, id=12285, stack(0x00007f9d6c071000,0x00007f9d6c0aa000)]
+  0x00007f9d8403e000 JavaThread "process reaper" daemon [_thread_in_native, id=12284, stack(0x00007f9d6c0aa000,0x00007f9d6c0e3000)]
+  0x00007f9d80014000 JavaThread "pool-5-thread-1" [_thread_blocked, id=12279, stack(0x00007f9d6c0e3000,0x00007f9d6c1e4000)]
+  0x00007f9d8400e800 JavaThread "MarlinRenderer Disposer" daemon [_thread_blocked, id=12276, stack(0x00007f9d6c5e4000,0x00007f9d6c6e5000)]
+  0x00007f9d8c04e000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=12275, stack(0x00007f9d6c6e5000,0x00007f9d6c7e6000)]
+  0x00007f9d74045800 JavaThread "WorkerExecutor Queue Thread 4" [_thread_blocked, id=12274, stack(0x00007f9d6c810000,0x00007f9d6c911000)]
+  0x00007f9d70008800 JavaThread "WorkerExecutor Queue Thread 3" [_thread_blocked, id=12265, stack(0x00007f9d6cbed000,0x00007f9d6ccee000)]
+  0x00007f9d74026800 JavaThread "WorkerExecutor Queue Thread 2" [_thread_blocked, id=12264, stack(0x00007f9d6ccee000,0x00007f9d6cdef000)]
+  0x00007f9d7c113800 JavaThread "WorkerExecutor Queue" [_thread_blocked, id=12263, stack(0x00007f9d6edfc000,0x00007f9d6eefd000)]
+  0x00007f9d74007800 JavaThread "Cache worker for execution history cache (/home/netscapelabs/repos/utrain-android/.gradle/5.4.1/executionHistory)" [_thread_blocked, id=12257, stack(0x00007f9d6eefd000,0x00007f9d6effe000)]
+  0x00007f9d7c0ed000 JavaThread "Execution worker for ':' Thread 3" [_thread_blocked, id=12256, stack(0x00007f9d6ebfa000,0x00007f9d6ecfb000)]
+  0x00007f9d7c0ec800 JavaThread "Execution worker for ':' Thread 2" [_thread_blocked, id=12255, stack(0x00007f9d6f5fe000,0x00007f9d6f6ff000)]
+  0x00007f9d7c0eb800 JavaThread "Execution worker for ':'" [_thread_blocked, id=12254, stack(0x00007f9dac330000,0x00007f9dac431000)]
+  0x00007f9d7c0e7800 JavaThread "Cache worker for file content cache (/home/netscapelabs/repos/utrain-android/.gradle/5.4.1/fileContent)" [_thread_blocked, id=12251, stack(0x00007f9d6e7f8000,0x00007f9d6e8f9000)]
+  0x00007f9d7c0e7000 JavaThread "Cache worker for Build Output Cleanup Cache (/home/netscapelabs/repos/utrain-android/.gradle/buildOutputCleanup)" [_thread_blocked, id=12250, stack(0x00007f9d6ecfb000,0x00007f9d6edfc000)]
+  0x00007f9d7c0e4000 JavaThread "pool-4-thread-1" [_thread_blocked, id=12249, stack(0x00007f9daced7000,0x00007f9dacfd8000)]
+  0x00007f9d7c0eb000 JavaThread "Build operations Thread 4" [_thread_blocked, id=12248, stack(0x00007f9dad1da000,0x00007f9dad2db000)]
+  0x00007f9d7c09d000 JavaThread "Build operations Thread 3" [_thread_blocked, id=12247, stack(0x00007f9dad8dd000,0x00007f9dad9de000)]
+  0x00007f9d7c09c800 JavaThread "Build operations Thread 2" [_thread_blocked, id=12246, stack(0x00007f9daf4f7000,0x00007f9daf5f8000)]
+  0x00007f9d7c09c000 JavaThread "Build operations" [_thread_blocked, id=12245, stack(0x00007f9dacfd8000,0x00007f9dad0d9000)]
+  0x00007f9d7c09b000 JavaThread "Cache worker for cache directory md-rule (/home/netscapelabs/.gradle/caches/5.4.1/md-rule)" [_thread_blocked, id=12244, stack(0x00007f9daecf3000,0x00007f9daedf4000)]
+  0x00007f9d7c099000 JavaThread "Cache worker for cache directory md-supplier (/home/netscapelabs/.gradle/caches/5.4.1/md-supplier)" [_thread_blocked, id=12243, stack(0x00007f9dad7dc000,0x00007f9dad8dd000)]
+  0x00007f9d7c098800 JavaThread "Cache worker for file hash cache (/home/netscapelabs/repos/utrain-android/.gradle/5.4.1/fileHashes)" [_thread_blocked, id=12240, stack(0x00007f9dad0d9000,0x00007f9dad1da000)]
+  0x00007f9d7c097000 JavaThread "Thread-54" [_thread_blocked, id=12239, stack(0x00007f9daf5f8000,0x00007f9daf6f9000)]
+  0x00007f9d7c096800 JavaThread "Stdin handler" [_thread_blocked, id=12238, stack(0x00007f9daf6f9000,0x00007f9daf7fa000)]
+  0x00007f9d7c1aa000 JavaThread "Asynchronous log dispatcher for DefaultDaemonConnection: socket connection from /127.0.0.1:44491 to /127.0.0.1:36694" [_thread_blocked, id=12237, stack(0x00007f9daf8fb000,0x00007f9daf9fc000)]
+  0x00007f9da4008000 JavaThread "Daemon worker Thread 3" [_thread_blocked, id=12234, stack(0x00007f9dac631000,0x00007f9dac732000)]
+  0x00007f9da4006000 JavaThread "Cancel handler" [_thread_blocked, id=12233, stack(0x00007f9daf7fa000,0x00007f9daf8fb000)]
+  0x00007f9da4004000 JavaThread "Handler for socket connection from /127.0.0.1:44491 to /127.0.0.1:36694" [_thread_in_native, id=12232, stack(0x00007f9daf9fc000,0x00007f9dafafd000)]
+  0x00007f9da801f800 JavaThread "Daemon Thread 3" [_thread_blocked, id=12231, stack(0x00007f9dafafd000,0x00007f9dafbfe000)]
+  0x00007f9d91834800 JavaThread "Cache worker for Java compile cache (/home/netscapelabs/.gradle/caches/5.4.1/javaCompile)" [_thread_blocked, id=11349, stack(0x00007f9d6e8f9000,0x00007f9d6e9fa000)]
+  0x00007f9d9047a800 JavaThread "Cache worker for file content cache (/home/netscapelabs/.gradle/caches/5.4.1/fileContent)" [_thread_blocked, id=11343, stack(0x00007f9d6f6ff000,0x00007f9d6f800000)]
+  0x00007f9d90460000 JavaThread "Memory manager" [_thread_blocked, id=11342, stack(0x00007f9dac02d000,0x00007f9dac12e000)]
+  0x00007f9d9145a800 JavaThread "Cache worker for execution history cache (/home/netscapelabs/.gradle/caches/5.4.1/executionHistory)" [_thread_blocked, id=11334, stack(0x00007f9dad4db000,0x00007f9dad5dc000)]
+  0x00007f9d90114000 JavaThread "Cache worker for journal cache (/home/netscapelabs/.gradle/caches/journal-1)" [_thread_blocked, id=11330, stack(0x00007f9daeff4000,0x00007f9daf0f5000)]
+  0x00007f9d90111000 JavaThread "File lock request listener" [_thread_in_native, id=11329, stack(0x00007f9daf0f5000,0x00007f9daf1f6000)]
+  0x00007f9d90109000 JavaThread "Cache worker for file hash cache (/home/netscapelabs/.gradle/caches/5.4.1/fileHashes)" [_thread_blocked, id=11328, stack(0x00007f9daf1f6000,0x00007f9daf2f7000)]
+  0x00007f9dfd0b7800 JavaThread "Daemon periodic checks" [_thread_blocked, id=11318, stack(0x00007f9dafbfe000,0x00007f9dafcff000)]
+  0x00007f9dfd093800 JavaThread "Incoming local TCP Connector on port 44491" [_thread_in_native, id=11317, stack(0x00007f9dafcff000,0x00007f9dafe00000)]
+  0x00007f9dfd041000 JavaThread "Daemon health stats" [_thread_blocked, id=11316, stack(0x00007f9ddc032000,0x00007f9ddc133000)]
+  0x00007f9dfc0c9800 JavaThread "Service Thread" daemon [_thread_blocked, id=11312, stack(0x00007f9dec12c000,0x00007f9dec22d000)]
+  0x00007f9dfc0be000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=11311, stack(0x00007f9dec22e000,0x00007f9dec32e000)]
+  0x00007f9dfc0bc800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=11310, stack(0x00007f9dec32f000,0x00007f9dec42f000)]
+  0x00007f9dfc0b9800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=11309, stack(0x00007f9dec430000,0x00007f9dec530000)]
+  0x00007f9dfc0b5800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=11308, stack(0x00007f9dec530000,0x00007f9dec631000)]
+  0x00007f9dfc085800 JavaThread "Finalizer" daemon [_thread_blocked, id=11307, stack(0x00007f9e00050000,0x00007f9e00151000)]
+  0x00007f9dfc083000 JavaThread "Reference Handler" daemon [_thread_blocked, id=11306, stack(0x00007f9e00151000,0x00007f9e00252000)]
+  0x00007f9dfc00b800 JavaThread "main" [_thread_blocked, id=11298, stack(0x00007f9e051c4000,0x00007f9e052c4000)]
+
+Other Threads:
+=>0x00007f9dfc079000 VMThread [stack: 0x00007f9e00253000,0x00007f9e00353000] [id=11305]
+  0x00007f9dfc0cc000 WatcherThread [stack: 0x00007f9dec02c000,0x00007f9dec12c000] [id=11313]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f9dfc0078a0] ExpandHeap_lock - owner thread: 0x00007f9dfc079000
+[0x00007f9dfc007f20] Threads_lock - owner thread: 0x00007f9dfc079000
+[0x00007f9dfc008420] Heap_lock - owner thread: 0x00007f9d7c0ed000
+
+heap address: 0x00000000a0000000, size: 1536 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 423936K, used 37755K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 326656K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3f00000)
+  from space 97280K, 38% used [0x00000000f3f00000,0x00000000f63deda0,0x00000000f9e00000)
+  to   space 100352K, 0% used [0x00000000f9e00000,0x00000000f9e00000,0x0000000100000000)
+ ParOldGen       total 193024K, used 192546K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 99% used [0x00000000a0000000,0x00000000abc08ad8,0x00000000abc80000)
+ Metaspace       used 102317K, capacity 105753K, committed 106072K, reserved 1142784K
+  class space    used 12645K, capacity 13400K, committed 13440K, reserved 1048576K
+
+Card table byte_map: [0x00007f9e026db000,0x00007f9e029dc000] byte_map_base: 0x00007f9e021db000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f9e0488f920
+ Begin Bits: [0x00007f9ddd000000, 0x00007f9dde800000)
+ End Bits:   [0x00007f9dde800000, 0x00007f9de0000000)
+
+Polling page: 0x00007f9e052e9000
+
+CodeCache: size=245760Kb used=48646Kb max_used=48646Kb free=197113Kb
+ bounds [0x00007f9ded000000, 0x00007f9deffd0000, 0x00007f9dfc000000]
+ total_blobs=15549 nmethods=14563 adapters=900
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 367.394 Thread 0x00007f9dfc0be000 18364       3       com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter::read (224 bytes)
+Event: 367.395 Thread 0x00007f9dfc0be000 nmethod 18364 0x00007f9deffbec90 code [0x00007f9deffbf0c0, 0x00007f9deffc1598]
+Event: 367.395 Thread 0x00007f9dfc0be000 18367       3       kotlin.text.StringsKt__StringsJVMKt::startsWith (37 bytes)
+Event: 367.395 Thread 0x00007f9dfc0be000 nmethod 18367 0x00007f9deffad1d0 code [0x00007f9deffad3a0, 0x00007f9deffad9b8]
+Event: 367.395 Thread 0x00007f9dfc0be000 18368       3       android.databinding.tool.store.SetterStore$MultiValueAdapterKey::compareTo (9 bytes)
+Event: 367.395 Thread 0x00007f9dfc0be000 nmethod 18368 0x00007f9deffacd50 code [0x00007f9deffacec0, 0x00007f9deffad128]
+Event: 367.395 Thread 0x00007f9dfc0be000 18363       3       com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter::read (6 bytes)
+Event: 367.395 Thread 0x00007f9dfc0be000 nmethod 18363 0x00007f9deffac950 code [0x00007f9deffacac0, 0x00007f9deffaccc8]
+Event: 367.395 Thread 0x00007f9dfc0be000 18359       1       com.google.gson.internal.$Gson$Types$ParameterizedTypeImpl::getRawType (5 bytes)
+Event: 367.395 Thread 0x00007f9dfc0be000 nmethod 18359 0x00007f9deffbd6d0 code [0x00007f9deffbd820, 0x00007f9deffbd930]
+
+GC Heap History (10 events):
+Event: 285.767 GC heap after
+Heap after GC invocations=24 (full 6):
+ PSYoungGen      total 380928K, used 0K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 309248K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f2e00000)
+  from space 71680K, 0% used [0x00000000f2e00000,0x00000000f2e00000,0x00000000f7400000)
+  to   space 98816K, 0% used [0x00000000f9f80000,0x00000000f9f80000,0x0000000100000000)
+ ParOldGen       total 193024K, used 73281K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4790448,0x00000000abc80000)
+ Metaspace       used 88330K, capacity 91329K, committed 91608K, reserved 1128448K
+  class space    used 11253K, capacity 11944K, committed 12032K, reserved 1048576K
+}
+Event: 358.758 GC heap before
+{Heap before GC invocations=25 (full 6):
+ PSYoungGen      total 380928K, used 309248K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 309248K, 100% used [0x00000000e0000000,0x00000000f2e00000,0x00000000f2e00000)
+  from space 71680K, 0% used [0x00000000f2e00000,0x00000000f2e00000,0x00000000f7400000)
+  to   space 98816K, 0% used [0x00000000f9f80000,0x00000000f9f80000,0x0000000100000000)
+ ParOldGen       total 193024K, used 73281K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4790448,0x00000000abc80000)
+ Metaspace       used 90310K, capacity 93443K, committed 93528K, reserved 1130496K
+  class space    used 11425K, capacity 12143K, committed 12160K, reserved 1048576K
+Event: 358.833 GC heap after
+Heap after GC invocations=25 (full 6):
+ PSYoungGen      total 429568K, used 38624K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 330752K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f4300000)
+  from space 98816K, 39% used [0x00000000f9f80000,0x00000000fc538278,0x0000000100000000)
+  to   space 94720K, 0% used [0x00000000f4300000,0x00000000f4300000,0x00000000f9f80000)
+ ParOldGen       total 193024K, used 73289K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4792448,0x00000000abc80000)
+ Metaspace       used 90310K, capacity 93443K, committed 93528K, reserved 1130496K
+  class space    used 11425K, capacity 12143K, committed 12160K, reserved 1048576K
+}
+Event: 360.735 GC heap before
+{Heap before GC invocations=26 (full 6):
+ PSYoungGen      total 429568K, used 368568K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 330752K, 99% used [0x00000000e0000000,0x00000000f4235dc0,0x00000000f4300000)
+  from space 98816K, 39% used [0x00000000f9f80000,0x00000000fc538278,0x0000000100000000)
+  to   space 94720K, 0% used [0x00000000f4300000,0x00000000f4300000,0x00000000f9f80000)
+ ParOldGen       total 193024K, used 73289K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4792448,0x00000000abc80000)
+ Metaspace       used 95470K, capacity 98655K, committed 99032K, reserved 1136640K
+  class space    used 11977K, capacity 12683K, committed 12800K, reserved 1048576K
+Event: 360.782 GC heap after
+Heap after GC invocations=26 (full 6):
+ PSYoungGen      total 396288K, used 65038K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 330752K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f4300000)
+  from space 65536K, 99% used [0x00000000f4300000,0x00000000f8283830,0x00000000f8300000)
+  to   space 100352K, 0% used [0x00000000f9e00000,0x00000000f9e00000,0x0000000100000000)
+ ParOldGen       total 193024K, used 73297K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4794448,0x00000000abc80000)
+ Metaspace       used 95470K, capacity 98655K, committed 99032K, reserved 1136640K
+  class space    used 11977K, capacity 12683K, committed 12800K, reserved 1048576K
+}
+Event: 365.533 GC heap before
+{Heap before GC invocations=27 (full 6):
+ PSYoungGen      total 396288K, used 395790K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 330752K, 100% used [0x00000000e0000000,0x00000000f4300000,0x00000000f4300000)
+  from space 65536K, 99% used [0x00000000f4300000,0x00000000f8283830,0x00000000f8300000)
+  to   space 100352K, 0% used [0x00000000f9e00000,0x00000000f9e00000,0x0000000100000000)
+ ParOldGen       total 193024K, used 73297K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4794448,0x00000000abc80000)
+ Metaspace       used 97277K, capacity 100689K, committed 100952K, reserved 1136640K
+  class space    used 12146K, capacity 12868K, committed 12928K, reserved 1048576K
+Event: 365.616 GC heap after
+Heap after GC invocations=27 (full 6):
+ PSYoungGen      total 427008K, used 45023K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 326656K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3f00000)
+  from space 100352K, 44% used [0x00000000f9e00000,0x00000000fc9f7da8,0x0000000100000000)
+  to   space 97280K, 0% used [0x00000000f3f00000,0x00000000f3f00000,0x00000000f9e00000)
+ ParOldGen       total 193024K, used 73305K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4796448,0x00000000abc80000)
+ Metaspace       used 97277K, capacity 100689K, committed 100952K, reserved 1136640K
+  class space    used 12146K, capacity 12868K, committed 12928K, reserved 1048576K
+}
+Event: 367.425 GC heap before
+{Heap before GC invocations=28 (full 6):
+ PSYoungGen      total 427008K, used 371679K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 326656K, 100% used [0x00000000e0000000,0x00000000f3f00000,0x00000000f3f00000)
+  from space 100352K, 44% used [0x00000000f9e00000,0x00000000fc9f7da8,0x0000000100000000)
+  to   space 97280K, 0% used [0x00000000f3f00000,0x00000000f3f00000,0x00000000f9e00000)
+ ParOldGen       total 193024K, used 73305K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 37% used [0x00000000a0000000,0x00000000a4796448,0x00000000abc80000)
+ Metaspace       used 102320K, capacity 105765K, committed 106072K, reserved 1142784K
+  class space    used 12646K, capacity 13402K, committed 13440K, reserved 1048576K
+Event: 367.534 GC heap after
+Heap after GC invocations=28 (full 6):
+ PSYoungGen      total 423936K, used 97269K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 326656K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3f00000)
+  from space 97280K, 99% used [0x00000000f3f00000,0x00000000f9dfd688,0x00000000f9e00000)
+  to   space 100352K, 0% used [0x00000000f9e00000,0x00000000f9e00000,0x0000000100000000)
+ ParOldGen       total 193024K, used 159673K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 82% used [0x00000000a0000000,0x00000000a9bee5c8,0x00000000abc80000)
+ Metaspace       used 102320K, capacity 105765K, committed 106072K, reserved 1142784K
+  class space    used 12646K, capacity 13402K, committed 13440K, reserved 1048576K
+}
+Event: 367.534 GC heap before
+{Heap before GC invocations=29 (full 7):
+ PSYoungGen      total 423936K, used 97269K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 326656K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3f00000)
+  from space 97280K, 99% used [0x00000000f3f00000,0x00000000f9dfd688,0x00000000f9e00000)
+  to   space 100352K, 0% used [0x00000000f9e00000,0x00000000f9e00000,0x0000000100000000)
+ ParOldGen       total 193024K, used 159673K [0x00000000a0000000, 0x00000000abc80000, 0x00000000e0000000)
+  object space 193024K, 82% used [0x00000000a0000000,0x00000000a9bee5c8,0x00000000abc80000)
+ Metaspace       used 102320K, capacity 105765K, committed 106072K, reserved 1142784K
+  class space    used 12646K, capacity 13402K, committed 13440K, reserved 1048576K
+
+Deoptimization events (10 events):
+Event: 366.843 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f9dedf75ebc method=com.squareup.javapoet.TypeName.equals(Ljava/lang/Object;)Z @ 2
+Event: 367.122 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f9ded26afc0 method=com.sun.tools.javac.code.Type.isInterface()Z @ 13
+Event: 367.124 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=speculate_class_check action=maybe_recompile pc=0x00007f9ded8f5814 method=com.sun.tools.javac.code.Type.hasTag(Lcom/sun/tools/javac/code/TypeTag;)Z @ 2
+Event: 367.142 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f9deea740a4 method=org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement()Z @ 309
+Event: 367.251 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f9ded48fb18 method=android.databinding.tool.reflection.SdkUtil$ApiChecker.buildFullLookup()V @ 49
+Event: 367.293 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f9deff4f69c method=com.sun.tools.javac.tree.TreeScanner.visitSelect(Lcom/sun/tools/javac/tree/JCTree$JCFieldAccess;)V @ 5
+Event: 367.307 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f9deff4f69c method=com.sun.tools.javac.tree.TreeScanner.visitSelect(Lcom/sun/tools/javac/tree/JCTree$JCFieldAccess;)V @ 5
+Event: 367.307 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f9deff4f69c method=com.sun.tools.javac.tree.TreeScanner.visitSelect(Lcom/sun/tools/javac/tree/JCTree$JCFieldAccess;)V @ 5
+Event: 367.307 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f9deff4f69c method=com.sun.tools.javac.tree.TreeScanner.visitSelect(Lcom/sun/tools/javac/tree/JCTree$JCFieldAccess;)V @ 5
+Event: 367.382 Thread 0x00007f9d7c0ed000 Uncommon trap: reason=speculate_class_check action=maybe_recompile pc=0x00007f9ded8f5814 method=com.sun.tools.javac.code.Type.hasTag(Lcom/sun/tools/javac/code/TypeTag;)Z @ 2
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 361.628 Thread 0x00007f9da4008000 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000e4333448) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 1614]
+Event: 361.788 Thread 0x00007f9d74026800 Exception <a 'sun/nio/fs/UnixException'> (0x00000000e48c3900) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 710]
+Event: 362.257 Thread 0x00007f9d7c0ed000 Exception <a 'sun/nio/fs/UnixException'> (0x00000000e8030480) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 710]
+Event: 362.488 Thread 0x00007f9d7c0ed000 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000ea7e9360) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 1614]
+Event: 362.488 Thread 0x00007f9d7c0ed000 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000ea802600) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 1614]
+Event: 362.489 Thread 0x00007f9d7c0ed000 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000ea81aa68) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 1614]
+Event: 362.493 Thread 0x00007f9d7c0ed000 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000ea852450) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 1614]
+Event: 365.152 Thread 0x00007f9d7c0ed000 Implicit null exception at 0x00007f9deecbc0b8 to 0x00007f9deecbc4ad
+Event: 365.983 Thread 0x00007f9d90460000 Exception <a 'java/io/IOException'> (0x00000000e36d4590) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/prims/jni.cpp, line 710]
+Event: 366.418 Thread 0x00007f9d7c0ed000 Exception <a 'java/lang/ClassNotFoundException': com/sun/org/glassfish/hk2/osgiresourcelocator/ServiceLoader> (0x00000000e863e670) thrown at [/usr/local/google/buildbot/src/googleplex-android/openjdk/out/hotspot/src/share/vm/classfile/systemDictionary.cpp
+
+Events (10 events):
+Event: 367.307 Thread 0x00007f9d7c0ed000 Uncommon trap: trap_request=0xffffffde fr.pc=0x00007f9deff4f69c
+Event: 367.307 Thread 0x00007f9d7c0ed000 DEOPT PACKING pc=0x00007f9deff4f69c sp=0x00007f9d6ecf4180
+Event: 367.307 Thread 0x00007f9d7c0ed000 DEOPT UNPACKING pc=0x00007f9ded04547a sp=0x00007f9d6ecf4140 mode 2
+Event: 367.307 Thread 0x00007f9d7c0ed000 Uncommon trap: trap_request=0xffffffde fr.pc=0x00007f9deff4f69c
+Event: 367.307 Thread 0x00007f9d7c0ed000 DEOPT PACKING pc=0x00007f9deff4f69c sp=0x00007f9d6ecf4a40
+Event: 367.307 Thread 0x00007f9d7c0ed000 DEOPT UNPACKING pc=0x00007f9ded04547a sp=0x00007f9d6ecf4a00 mode 2
+Event: 367.382 Thread 0x00007f9d7c0ed000 Uncommon trap: trap_request=0xffffff76 fr.pc=0x00007f9ded8f5814
+Event: 367.382 Thread 0x00007f9d7c0ed000 DEOPT PACKING pc=0x00007f9ded8f5814 sp=0x00007f9d6ecf4e70
+Event: 367.383 Thread 0x00007f9d7c0ed000 DEOPT UNPACKING pc=0x00007f9ded04547a sp=0x00007f9d6ecf4da0 mode 2
+Event: 367.423 Executing VM operation: ParallelGCFailedAllocation
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:02 4195347                            /home/netscapelabs/android-studio/jre/bin/java
+00401000-00402000 rw-p 00000000 08:02 4195347                            /home/netscapelabs/android-studio/jre/bin/java
+01927000-01948000 rw-p 00000000 00:00 0                                  [heap]
+a0000000-abc80000 rw-p 00000000 00:00 0 
+b5000000-e0000000 ---p 00000000 00:00 0 
+e0000000-100000000 rw-p 00000000 00:00 0 
+100000000-100d20000 rw-p 00000000 00:00 0 
+100d20000-140000000 ---p 00000000 00:00 0 
+7f9d670be000-7f9d6713e000 rw-p 00000000 00:00 0 
+7f9d6713e000-7f9d672be000 ---p 00000000 00:00 0 
+7f9d672be000-7f9d674be000 rw-p 00000000 00:00 0 
+7f9d674be000-7f9d676be000 rw-p 00000000 00:00 0 
+7f9d676be000-7f9d676c1000 ---p 00000000 00:00 0 
+7f9d676c1000-7f9d677bf000 rw-p 00000000 00:00 0 
+7f9d677bf000-7f9d677c2000 ---p 00000000 00:00 0 
+7f9d677c2000-7f9d678c0000 rw-p 00000000 00:00 0 
+7f9d678c0000-7f9d678c3000 ---p 00000000 00:00 0 
+7f9d678c3000-7f9d679c1000 rw-p 00000000 00:00 0 
+7f9d679c1000-7f9d679c4000 ---p 00000000 00:00 0 
+7f9d679c4000-7f9d67ac2000 rw-p 00000000 00:00 0 
+7f9d67ac2000-7f9d67ac5000 ---p 00000000 00:00 0 
+7f9d67ac5000-7f9d67bc3000 rw-p 00000000 00:00 0 
+7f9d67bc3000-7f9d67bc6000 ---p 00000000 00:00 0 
+7f9d67bc6000-7f9d67cc4000 rw-p 00000000 00:00 0 
+7f9d67cc4000-7f9d67cc7000 ---p 00000000 00:00 0 
+7f9d67cc7000-7f9d67dc5000 rw-p 00000000 00:00 0 
+7f9d67dc5000-7f9d67dc8000 ---p 00000000 00:00 0 
+7f9d67dc8000-7f9d67ec6000 rw-p 00000000 00:00 0 
+7f9d67ec6000-7f9d67ec9000 ---p 00000000 00:00 0 
+7f9d67ec9000-7f9d67fc7000 rw-p 00000000 00:00 0 
+7f9d67fc7000-7f9d67fca000 ---p 00000000 00:00 0 
+7f9d67fca000-7f9d68000000 rw-p 00000000 00:00 0 
+7f9d68000000-7f9d68038000 rw-p 00000000 00:00 0 
+7f9d68038000-7f9d6c000000 ---p 00000000 00:00 0 
+7f9d6c022000-7f9d6c024000 r--s 00002000 08:02 6563680                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.2.0/88e3c593e9b3586e1c6177f89267da6fc6986f0c/error_prone_annotations-2.2.0.jar
+7f9d6c024000-7f9d6c025000 r--s 00000000 08:02 6560534                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.8.0/c4c9e79eb2bfeb9059fce55020c6b237402285f6/annotations-4.8.0.jar
+7f9d6c025000-7f9d6c031000 r--s 0010e000 08:02 6564003                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler/3.5.0/5b3428c7247801d9312a79f6a67daacb76bdd75/databinding-compiler-3.5.0.jar
+7f9d6c031000-7f9d6c038000 r--s 0003b000 08:02 6823988                    /home/netscapelabs/.gradle/caches/transforms-2/files-2.1/fab1d769bb9aed26edd82e684d491f3f/jetified-compiler-4.8.0.jar
+7f9d6c038000-7f9d6c03b000 ---p 00000000 00:00 0 
+7f9d6c03b000-7f9d6c071000 rw-p 00000000 00:00 0 
+7f9d6c071000-7f9d6c074000 ---p 00000000 00:00 0 
+7f9d6c074000-7f9d6c0aa000 rw-p 00000000 00:00 0 
+7f9d6c0aa000-7f9d6c0ad000 ---p 00000000 00:00 0 
+7f9d6c0ad000-7f9d6c0e3000 rw-p 00000000 00:00 0 
+7f9d6c0e3000-7f9d6c0e6000 ---p 00000000 00:00 0 
+7f9d6c0e6000-7f9d6c3e4000 rw-p 00000000 00:00 0 
+7f9d6c3e4000-7f9d6c5e4000 rw-p 00000000 00:00 0 
+7f9d6c5e4000-7f9d6c5e7000 ---p 00000000 00:00 0 
+7f9d6c5e7000-7f9d6c6e5000 rw-p 00000000 00:00 0 
+7f9d6c6e5000-7f9d6c6e8000 ---p 00000000 00:00 0 
+7f9d6c6e8000-7f9d6c7e6000 rw-p 00000000 00:00 0 
+7f9d6c7e6000-7f9d6c7f0000 r--s 00116000 08:02 4195269                    /home/netscapelabs/android-studio/jre/jre/lib/ext/localedata.jar
+7f9d6c7f0000-7f9d6c80b000 r--s 00394000 08:02 4195262                    /home/netscapelabs/android-studio/jre/jre/lib/ext/cldrdata.jar
+7f9d6c80b000-7f9d6c810000 r--s 002f9000 08:02 4195244                    /home/netscapelabs/android-studio/jre/jre/lib/charsets.jar
+7f9d6c810000-7f9d6c813000 ---p 00000000 00:00 0 
+7f9d6c813000-7f9d6cb11000 rw-p 00000000 00:00 0 
+7f9d6cb11000-7f9d6cb17000 r-xp 00000000 08:02 4195241                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libawt_headless.so
+7f9d6cb17000-7f9d6cb18000 rw-p 00006000 08:02 4195241                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libawt_headless.so
+7f9d6cb18000-7f9d6cbbc000 r-xp 00000000 08:02 4195221                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libawt.so
+7f9d6cbbc000-7f9d6cbc9000 rw-p 000a4000 08:02 4195221                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libawt.so
+7f9d6cbc9000-7f9d6cbed000 rw-p 00000000 00:00 0 
+7f9d6cbed000-7f9d6cbf0000 ---p 00000000 00:00 0 
+7f9d6cbf0000-7f9d6ccee000 rw-p 00000000 00:00 0 
+7f9d6ccee000-7f9d6ccf1000 ---p 00000000 00:00 0 
+7f9d6ccf1000-7f9d6cfef000 rw-p 00000000 00:00 0 
+7f9d6cfef000-7f9d6d1ef000 rw-p 00000000 00:00 0 
+7f9d6d1ef000-7f9d6d3ef000 rw-p 00000000 00:00 0 
+7f9d6d3ef000-7f9d6d5ef000 rw-p 00000000 00:00 0 
+7f9d6d5ef000-7f9d6d7ef000 rw-p 00000000 00:00 0 
+7f9d6d7ef000-7f9d6d7f3000 r--s 0007a000 08:02 4075881                    /home/netscapelabs/.gradle/caches/jars-3/858874f0a8914761348b166943462b87/gradle-tooling-extension-impl.jar
+7f9d6d7f3000-7f9d6d7f5000 r--s 00017000 08:02 3948518                    /home/netscapelabs/.gradle/caches/jars-3/d01a94b2d1edaafcaffa390202ca108c/kotlin-gradle-tooling.jar
+7f9d6d7f5000-7f9d6d7f6000 r--s 00000000 08:02 3948443                    /home/netscapelabs/.gradle/caches/jars-3/497c99dc43ce8fece95d0e589f2459bd/gradle-appengine-builder-model-0.1.0.jar
+7f9d6d7f6000-7f9d6d7f8000 r--s 00004000 08:02 3948441                    /home/netscapelabs/.gradle/caches/jars-3/d2b5e8f668be5a3b52b548ceb1ec3e34/kapt3-idea.jar
+7f9d6d7f8000-7f9d6d9f8000 rw-p 00000000 00:00 0 
+7f9d6d9f8000-7f9d6dbf8000 rw-p 00000000 00:00 0 
+7f9d6dbf8000-7f9d6ddf8000 rw-p 00000000 00:00 0 
+7f9d6ddf8000-7f9d6dff8000 rw-p 00000000 00:00 0 
+7f9d6dff8000-7f9d6e1f8000 rw-p 00000000 00:00 0 
+7f9d6e1f8000-7f9d6e3f8000 rw-p 00000000 00:00 0 
+7f9d6e3f8000-7f9d6e5f8000 rw-p 00000000 00:00 0 
+7f9d6e5f8000-7f9d6e7f8000 rw-p 00000000 00:00 0 
+7f9d6e7f8000-7f9d6e7fb000 ---p 00000000 00:00 0 
+7f9d6e7fb000-7f9d6e8f9000 rw-p 00000000 00:00 0 
+7f9d6e8f9000-7f9d6e8fc000 ---p 00000000 00:00 0 
+7f9d6e8fc000-7f9d6ebfa000 rw-p 00000000 00:00 0 
+7f9d6ebfa000-7f9d6ebfd000 ---p 00000000 00:00 0 
+7f9d6ebfd000-7f9d6ecfb000 rw-p 00000000 00:00 0 
+7f9d6ecfb000-7f9d6ecfe000 ---p 00000000 00:00 0 
+7f9d6ecfe000-7f9d6edfc000 rw-p 00000000 00:00 0 
+7f9d6edfc000-7f9d6edff000 ---p 00000000 00:00 0 
+7f9d6edff000-7f9d6eefd000 rw-p 00000000 00:00 0 
+7f9d6eefd000-7f9d6ef00000 ---p 00000000 00:00 0 
+7f9d6ef00000-7f9d6f1fe000 rw-p 00000000 00:00 0 
+7f9d6f1fe000-7f9d6f3f4000 rw-p 00000000 00:00 0 
+7f9d6f3f4000-7f9d6f3fe000 ---p 00000000 00:00 0 
+7f9d6f3fe000-7f9d6f5fe000 rw-p 00000000 00:00 0 
+7f9d6f5fe000-7f9d6f601000 ---p 00000000 00:00 0 
+7f9d6f601000-7f9d6f6ff000 rw-p 00000000 00:00 0 
+7f9d6f6ff000-7f9d6f702000 ---p 00000000 00:00 0 
+7f9d6f702000-7f9d6fa00000 rw-p 00000000 00:00 0 
+7f9d6fa00000-7f9d6fc00000 rw-p 00000000 00:00 0 
+7f9d6fc00000-7f9d6fe00000 rw-p 00000000 00:00 0 
+7f9d6fe00000-7f9d70000000 rw-p 00000000 00:00 0 
+7f9d70000000-7f9d70045000 rw-p 00000000 00:00 0 
+7f9d70045000-7f9d74000000 ---p 00000000 00:00 0 
+7f9d74000000-7f9d743b0000 rw-p 00000000 00:00 0 
+7f9d743b0000-7f9d78000000 ---p 00000000 00:00 0 
+7f9d78000000-7f9d78110000 rw-p 00000000 00:00 0 
+7f9d78110000-7f9d7c000000 ---p 00000000 00:00 0 
+7f9d7c000000-7f9d7c4d8000 rw-p 00000000 00:00 0 
+7f9d7c4d8000-7f9d80000000 ---p 00000000 00:00 0 
+7f9d80000000-7f9d800b0000 rw-p 00000000 00:00 0 
+7f9d800b0000-7f9d84000000 ---p 00000000 00:00 0 
+7f9d84000000-7f9d84081000 rw-p 00000000 00:00 0 
+7f9d84081000-7f9d88000000 ---p 00000000 00:00 0 
+7f9d88000000-7f9d880ae000 rw-p 00000000 00:00 0 
+7f9d880ae000-7f9d8c000000 ---p 00000000 00:00 0 
+7f9d8c000000-7f9d8c0c3000 rw-p 00000000 00:00 0 
+7f9d8c0c3000-7f9d90000000 ---p 00000000 00:00 0 
+7f9d90000000-7f9d921a0000 rw-p 00000000 00:00 0 
+7f9d921a0000-7f9d94000000 ---p 00000000 00:00 0 
+7f9d94000000-7f9d943f8000 rw-p 00000000 00:00 0 
+7f9d943f8000-7f9d98000000 ---p 00000000 00:00 0 
+7f9d98000000-7f9d98028000 rw-p 00000000 00:00 0 
+7f9d98028000-7f9d9c000000 ---p 00000000 00:00 0 
+7f9d9c000000-7f9d9c508000 rw-p 00000000 00:00 0 
+7f9d9c508000-7f9da0000000 ---p 00000000 00:00 0 
+7f9da0000000-7f9da0021000 rw-p 00000000 00:00 0 
+7f9da0021000-7f9da4000000 ---p 00000000 00:00 0 
+7f9da4000000-7f9da4021000 rw-p 00000000 00:00 0 
+7f9da4021000-7f9da8000000 ---p 00000000 00:00 0 
+7f9da8000000-7f9da8061000 rw-p 00000000 00:00 0 
+7f9da8061000-7f9dac000000 ---p 00000000 00:00 0 
+7f9dac000000-7f9dac001000 r--s 00002000 08:02 3948439                    /home/netscapelabs/.gradle/caches/jars-3/53bc20af5a23d7a7034d5aad4c49c4c9/kotlin-gradle-plugin-model-1.3.0.jar
+7f9dac001000-7f9dac003000 r--s 00010000 08:02 3948437                    /home/netscapelabs/.gradle/caches/jars-3/45e78b2e0d233d36eda86424ed34e6e3/gradle-tooling-extension-api.jar
+7f9dac003000-7f9dac016000 r--s 0010e000 08:02 3948433                    /home/netscapelabs/.gradle/caches/jars-3/c7957d0be38f803bd922ec482762f65f/kotlin-stdlib-1.3.11.jar
+7f9dac016000-7f9dac01a000 r--s 00089000 08:02 3948429                    /home/netscapelabs/.gradle/caches/jars-3/0832f46fba485443554d7cb671b5d68e/android-base-common.jar
+7f9dac01a000-7f9dac02d000 r--s 00345000 08:02 4195184                    /home/netscapelabs/android-studio/jre/jre/lib/resources.jar
+7f9dac02d000-7f9dac030000 ---p 00000000 00:00 0 
+7f9dac030000-7f9dac12e000 rw-p 00000000 00:00 0 
+7f9dac12e000-7f9dac130000 r--s 00016000 08:02 4195259                    /home/netscapelabs/android-studio/jre/jre/lib/jce.jar
+7f9dac130000-7f9dac330000 rw-p 00000000 00:00 0 
+7f9dac330000-7f9dac333000 ---p 00000000 00:00 0 
+7f9dac333000-7f9dac631000 rw-p 00000000 00:00 0 
+7f9dac631000-7f9dac634000 ---p 00000000 00:00 0 
+7f9dac634000-7f9dac932000 rw-p 00000000 00:00 0 
+7f9dac932000-7f9dacb32000 rw-p 00000000 00:00 0 
+7f9dacb32000-7f9dacb33000 r--s 00005000 08:02 6563047                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/2.21/c969d8f15c467f0ef7d7b04889afbe7b5d48e22f/istack-commons-runtime-2.21.jar
+7f9dacb33000-7f9dacb35000 r--s 0000f000 08:02 6563046                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.2.11/2df047d8c187a62f2177bf6013f1f9786cdfc8a2/txw2-2.2.11.jar
+7f9dacb35000-7f9dacb38000 r--s 00016000 08:02 6563045                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.2.12-b140109.1041/7ed0e0d01198614194d56dfb03d9d95aa311824c/jaxb-api-2.2.12-b140109.1041.jar
+7f9dacb38000-7f9dacb3d000 r--s 00044000 08:02 6563044                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.13/98f56b9354e27bd2941cc5d461344e240ae51ae/FastInfoset-1.2.13.jar
+7f9dacb3d000-7f9dacb3f000 r--s 00007000 08:02 6563043                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.7.7/18bed5a0da27a6b43efe01282f2dc911b1cb3a72/stax-ex-1.7.7.jar
+7f9dacb3f000-7f9dacb44000 r--s 00021000 08:02 6563042                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-core/2.2.11/f5745049f5fb9cb9d9b5f513c207727f475983e9/jaxb-core-2.2.11.jar
+7f9dacb44000-7f9dacb55000 r--s 000eb000 08:02 6563041                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.2.11/65510afc78679e347b0d774617a97fedac94f8/jaxb-runtime-2.2.11.jar
+7f9dacb55000-7f9dacb58000 r--s 00011000 08:02 6563040                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.sun.activation/javax.activation/1.2.0/bf744c1e2776ed1de3c55c8dac1057ec331ef744/javax.activation-1.2.0.jar
+7f9dacb58000-7f9dacb5a000 r--s 00003000 08:02 6563038                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar
+7f9dacb5a000-7f9dacb61000 r--s 00021000 08:02 6563039                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.41/2ecf4aa059427d7186312fd1736afedf7972e7f7/kotlin-stdlib-common-1.3.41.jar
+7f9dacb61000-7f9dacb68000 r--s 0003f000 08:02 6563037                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/4b95f4897fa13f2cd904aee711aeafc0c5295cd8/commons-codec-1.10.jar
+7f9dacb68000-7f9dacb6a000 r--s 0000e000 08:02 6563036                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar
+7f9dacb6a000-7f9dacb6b000 r--s 00000000 08:02 6563035                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/f97ce6decaea32b36101e37979f8b647f00681fb/animal-sniffer-annotations-1.17.jar
+7f9dacb6b000-7f9dacb6d000 r--s 00001000 08:02 6563034                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.1/ed28ded51a8b1c6b112568def5f4b455e6809019/j2objc-annotations-1.1.jar
+7f9dacb6d000-7f9dacb77000 r--s 00026000 08:02 6563033                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.5.2/cea74543d5904a30861a61b4643a5f2bb372efc4/checker-qual-2.5.2.jar
+7f9dacb77000-7f9dacb78000 r--s 00000000 08:02 6563032                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+7f9dacb78000-7f9dacb7a000 r--s 00000000 08:02 6563031                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar
+7f9dacb7a000-7f9dacb7c000 r--s 00003000 08:02 6563030                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar
+7f9dacb7c000-7f9dacb7d000 r--s 0000a000 08:02 6563028                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/ccbc77a5fd907ef863c29f3596c6f54ffa4e9442/kxml2-2.3.0.jar
+7f9dacb7d000-7f9dacb88000 r--s 00081000 08:02 6563029                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.trove4j/trove4j/20160824/33c3e174a9c8368d93761d3d12712db18e903959/trove4j-20160824.jar
+7f9dacb88000-7f9dacb91000 r--s 00064000 08:02 6563027                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar
+7f9dacb91000-7f9dacb97000 r--s 00045000 08:02 6563026                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/6f14738ec2e9dd0011e343717fa624a10f8aab64/jdom2-2.0.6.jar
+7f9dacb97000-7f9dacb99000 r--s 00002000 08:02 6563024                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.1/a6a2b2df72fd13ec466216049b303f206bd66c5d/error_prone_annotations-2.3.1.jar
+7f9dacb99000-7f9dacbb8000 r--s 0016b000 08:02 6563025                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value/1.5.2/1b94ab7ec707e2220a0d1a7517488d1843236345/auto-value-1.5.2.jar
+7f9dacbb8000-7f9dacbcd000 r--s 00123000 08:02 6563023                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-base/6.0.3/7135739d2d3834964c543ed21e2936ce34747aca/proguard-base-6.0.3.jar
+7f9dacbcd000-7f9dacbe1000 r--s 00128000 08:02 6563022                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.41/e24bd38de28a326cce8b1f0d61e809e9a92dad6a/kotlin-stdlib-1.3.41.jar
+7f9dacbe1000-7f9dacbe2000 r--s 00000000 08:02 6563021                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.41/a1f331124ba069a09e964ad2640c36f140f2c758/kotlin-stdlib-jdk7-1.3.41.jar
+7f9dacbe2000-7f9dacbe7000 r--s 00036000 08:02 6563020                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.5/f645ed69d595b24d4cf8b3fbb64cc505bede8829/gson-2.8.5.jar
+7f9dacbe7000-7f9dacbe9000 r--s 00015000 08:02 6563019                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.8.0/e858dc62ef484048540d27d36f3ec2177a3fa9b1/javapoet-1.8.0.jar
+7f9dacbe9000-7f9dacbec000 r--s 00033000 08:02 6563018                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/cd49678784c46aa8789c060538e0154013bb421b/juniversalchardet-1.0.3.jar
+7f9dacbec000-7f9dacbf0000 r--s 0002a000 08:02 6563016                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar
+7f9dacbf0000-7f9dacc07000 r--s 00154000 08:02 6563017                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.5.3/f35db7e4b2446e4174ba6a73db7bd6b3e6bb5da1/antlr4-4.5.3.jar
+7f9dacc07000-7f9dacc08000 r--s 00003000 08:02 6563015                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/3.5.0/cdb21d3fa51395614423d43e73a9c2fcafb9b71a/baseLibrary-3.5.0.jar
+7f9dacc08000-7f9dacc09000 r--s 00003000 08:02 6563014                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-common/3.5.0/ad17a14009fa4322bf1f90fd8ca631992e5d667f/databinding-common-3.5.0.jar
+7f9dacc09000-7f9dacc41000 r--s 00273000 08:02 6563013                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.41/8fb58b8954661de666e321478bf4178c18ce8018/kotlin-reflect-1.3.41.jar
+7f9dacc41000-7f9dacc48000 r--s 00049000 08:02 6563012                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.10/acc54d9b28bdffe4bbde89ed2e4a1e86b5285e2b/httpcore-4.4.10.jar
+7f9dacc48000-7f9dacc55000 r--s 000af000 08:02 6563011                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.6/1afe5621985efe90a92d0fbc9be86271efbe796f/httpclient-4.5.6.jar
+7f9dacc55000-7f9dacc57000 r--s 00009000 08:02 6563010                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.6/164343da11db817e81e24e0d9869527e069850c9/httpmime-4.5.6.jar
+7f9dacc57000-7f9dacc89000 r--s 0026d000 08:02 6563009                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/27.0.1-jre/bd41a290787b5301e63929676d792c507bbc00ae/guava-27.0.1-jre.jar
+7f9dacc89000-7f9dacc8d000 r--s 0002f000 08:02 6563008                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.1/8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c/jimfs-1.1.jar
+7f9dacc8d000-7f9dacc8e000 r--s 00002000 08:02 6563007                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/annotations/26.5.0/a8c3f7886b87acd27a499f1566549a8c59af41dd/annotations-26.5.0.jar
+7f9dacc8e000-7f9dacc8f000 r--s 00003000 08:02 6563006                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/5e303a03d04e6788dddfa3655272580ae0fc13bb/json-simple-1.1.jar
+7f9dacc8f000-7f9dacdb4000 r--s 00f5d000 08:02 6563005                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/7.2.0/5ad3a2bb04143f70aa0765fc29fc29571a7d6b34/fastutil-7.2.0.jar
+7f9dacdb4000-7f9dacdb5000 r--s 00000000 08:02 6563003                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar
+7f9dacdb5000-7f9dace00000 r--s 002ff000 08:02 6563002                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.56/a153c6f9744a3e9dd6feab5e210e1c9861362ec7/bcprov-jdk15on-1.56.jar
+7f9dace00000-7f9dace11000 r--s 00097000 08:02 6563004                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.56/4648af70268b6fdb24674fb1fd7c1fcc73db1231/bcpkix-jdk15on-1.56.jar
+7f9dace11000-7f9dace13000 r--s 00002000 08:02 6563000                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/81241ff7078ef14f42ea2a8995fa09c096256e6b/javawriter-2.5.0.jar
+7f9dace13000-7f9dace1a000 r--s 0004f000 08:02 6562999                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/3.5.0/120d94352a89eb11ef1978552679d42dd7c899d7/apksig-3.5.0.jar
+7f9dace1a000-7f9dace1e000 r--s 0002d000 08:02 6562998                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apkzlib/3.5.0/f103306d6764d516e778273c0d685515abca1c57/apkzlib-3.5.0.jar
+7f9dace1e000-7f9dace21000 r--s 00008000 08:02 6562997                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/3.5.0/374b001fd961a4c5212b957d933915274d92f7e8/builder-model-3.5.0.jar
+7f9dace21000-7f9dace30000 r--s 00143000 08:02 6563001                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.4.0/b32aba0cbe737a4ca953f71688725972e3ee927c/protobuf-java-3.4.0.jar
+7f9dace30000-7f9dace37000 r--s 00090000 08:02 6562996                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2-proto/0.4.0/d4db96aa0d2e161d08a038731e08c3ebf612cd12/aapt2-proto-0.4.0.jar
+7f9dace37000-7f9dace5a000 r--s 00323000 08:02 6562995                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/protos/26.5.0/3e175519de5926a47a5a2677e47dacf88d128679/protos-26.5.0.jar
+7f9dace5a000-7f9dace5c000 r--s 0000f000 08:02 6562994                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.4.0/96aba8ab71c16018c6adf66771ce15c6491bc0fe/protobuf-java-util-3.4.0.jar
+7f9dace5c000-7f9dace5e000 r--s 0001d000 08:02 6562993                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-core/1.0.0-beta04/92ae18564fc833685f30f5a20297dd32349a9f6e/jetifier-core-1.0.0-beta04.jar
+7f9dace5e000-7f9daceaf000 r--s 004b1000 08:02 6562992                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/bundletool/0.9.0/6c7492aedf12ff02ed7c634246026ac7f7372dd2/bundletool-0.9.0.jar
+7f9daceaf000-7f9daceb0000 r--s 00003000 08:02 6562991                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-gradle/6.0.3/e5becf2356695a396b788110e386c38bad523bfc/proguard-gradle-6.0.3.jar
+7f9daceb0000-7f9daceb2000 r--s 0000f000 08:02 6562990                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/4.9/ee9e9eaa0a35360dcfeac129ff4923215fd65904/jopt-simple-4.9.jar
+7f9daceb2000-7f9daceb4000 r--s 00016000 08:02 6562989                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/6.0/bc6fa6b19424bb9592fe43bbc20178f92d403105/asm-6.0.jar
+7f9daceb4000-7f9daceb6000 r--s 0000a000 08:02 6562988                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/6.0/a624f1a6e4e428dcd680a01bab2d4c56b35b18f0/asm-tree-6.0.jar
+7f9daceb6000-7f9daceb8000 r--s 00010000 08:02 6562987                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/6.0/430b2fc839b5de1f3643b528853d5cf26096c1de/asm-util-6.0.jar
+7f9daceb8000-7f9daceb9000 r--s 00012000 08:02 6562986                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/6.0/f256fd215d8dd5a4fa2ab3201bf653de266ed4ec/asm-commons-6.0.jar
+7f9daceb9000-7f9dacebd000 r--s 00021000 08:02 6562984                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-processor/1.0.0-beta04/8ed1fee7b1d03709dd8bd0224f21ef243e5c4a4c/jetifier-processor-1.0.0-beta04.jar
+7f9dacebd000-7f9daced7000 r--s 00147000 08:02 6562972                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/26.5.0/5a3668c41e3c09cb396488d825f92c63ea544e09/sdk-common-26.5.0.jar
+7f9daced7000-7f9daceda000 ---p 00000000 00:00 0 
+7f9daceda000-7f9dacfd8000 rw-p 00000000 00:00 0 
+7f9dacfd8000-7f9dacfdb000 ---p 00000000 00:00 0 
+7f9dacfdb000-7f9dad0d9000 rw-p 00000000 00:00 0 
+7f9dad0d9000-7f9dad0dc000 ---p 00000000 00:00 0 
+7f9dad0dc000-7f9dad1da000 rw-p 00000000 00:00 0 
+7f9dad1da000-7f9dad1dd000 ---p 00000000 00:00 0 
+7f9dad1dd000-7f9dad4db000 rw-p 00000000 00:00 0 
+7f9dad4db000-7f9dad4de000 ---p 00000000 00:00 0 
+7f9dad4de000-7f9dad7dc000 rw-p 00000000 00:00 0 
+7f9dad7dc000-7f9dad7df000 ---p 00000000 00:00 0 
+7f9dad7df000-7f9dad8dd000 rw-p 00000000 00:00 0 
+7f9dad8dd000-7f9dad8e0000 ---p 00000000 00:00 0 
+7f9dad8e0000-7f9dadbde000 rw-p 00000000 00:00 0 
+7f9dadbde000-7f9daddde000 rw-p 00000000 00:00 0 
+7f9daddde000-7f9dadfde000 rw-p 00000000 00:00 0 
+7f9dadfde000-7f9dae1de000 rw-p 00000000 00:00 0 
+7f9dae1de000-7f9dae210000 r--s 0026a000 08:02 3948431                    /home/netscapelabs/.gradle/caches/jars-3/1292525a786f20744e75964100cf9267/guava-25.1-jre.jar
+7f9dae210000-7f9dae238000 r--s 0210b000 08:02 3948435                    /home/netscapelabs/.gradle/caches/jars-3/e38dc040d6e4fd07c2aa18e83056c448/sdk-tools.jar
+7f9dae238000-7f9dae400000 r--s 032f3000 08:02 3948427                    /home/netscapelabs/.gradle/caches/jars-3/6270d63c8613739c5e2a72c4b9203a6c/android.jar
+7f9dae400000-7f9dae672000 r--s 01914000 08:02 3948425                    /home/netscapelabs/.gradle/caches/jars-3/0a28c8704832800a117c175dfe23a0f3/gradle-api-impldep-4.10.3.jar
+7f9dae672000-7f9dae7cd000 r--s 00bb0000 08:02 3948422                    /home/netscapelabs/.gradle/caches/jars-3/8c0c682498be444601f9083c4f1918be/gradle-api-4.10.3.jar
+7f9dae7cd000-7f9dae7ce000 r--s 00007000 08:02 6562985                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/6.0/dd1cc1381a970800268160203aae2d3784da779b/asm-analysis-6.0.jar
+7f9dae7ce000-7f9dae7d0000 r--s 00002000 08:02 6562983                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.41/77652607ed82a49202d8a0b89de16994b61bdd75/kotlin-stdlib-jdk8-1.3.41.jar
+7f9dae7d0000-7f9dae7d4000 r--s 00039000 08:02 6562981                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/common/26.5.0/6ac94244acf356790ac8d6fa41c3158636422e67/common-26.5.0.jar
+7f9dae7d4000-7f9dae7d6000 r--s 00014000 08:02 6562980                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/shared/26.5.0/1dfd4a5ff5d916689bdfed412b3834f37175cc3e/shared-26.5.0.jar
+7f9dae7d6000-7f9dae7db000 r--s 00033000 08:02 6562979                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/repository/26.5.0/f7914dd84d2c90aa9b8a45575798a1ac312bc1dc/repository-26.5.0.jar
+7f9dae7db000-7f9dae7df000 r--s 00019000 08:02 6562977                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/26.5.0/5c896fb1fabea050f94aee454c3b3c23d55ece79/layoutlib-api-26.5.0.jar
+7f9dae7df000-7f9dae836000 r--s 00775000 08:02 6562966                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/3.5.0/9f1f38db56a26cb947dd55ff78bbbe4831c0f7e5/builder-3.5.0.jar
+7f9dae836000-7f9dae879000 r--s 003b8000 08:02 6562969                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/3.5.0/a90f53bf35d1cbb223793eb09a4e2d3a00db8747/gradle-3.5.0.jar
+7f9dae879000-7f9daea79000 rw-p 00000000 00:00 0 
+7f9daea79000-7f9daeaf3000 r--s 01102000 08:02 4195305                    /home/netscapelabs/android-studio/jre/lib/tools.jar
+7f9daeaf3000-7f9daecf3000 rw-p 00000000 00:00 0 
+7f9daecf3000-7f9daecf6000 ---p 00000000 00:00 0 
+7f9daecf6000-7f9daeff4000 rw-p 00000000 00:00 0 
+7f9daeff4000-7f9daeff7000 ---p 00000000 00:00 0 
+7f9daeff7000-7f9daf0f5000 rw-p 00000000 00:00 0 
+7f9daf0f5000-7f9daf0f8000 ---p 00000000 00:00 0 
+7f9daf0f8000-7f9daf1f6000 rw-p 00000000 00:00 0 
+7f9daf1f6000-7f9daf1f9000 ---p 00000000 00:00 0 
+7f9daf1f9000-7f9daf4f7000 rw-p 00000000 00:00 0 
+7f9daf4f7000-7f9daf4fa000 ---p 00000000 00:00 0 
+7f9daf4fa000-7f9daf5f8000 rw-p 00000000 00:00 0 
+7f9daf5f8000-7f9daf5fb000 ---p 00000000 00:00 0 
+7f9daf5fb000-7f9daf6f9000 rw-p 00000000 00:00 0 
+7f9daf6f9000-7f9daf6fc000 ---p 00000000 00:00 0 
+7f9daf6fc000-7f9daf7fa000 rw-p 00000000 00:00 0 
+7f9daf7fa000-7f9daf7fd000 ---p 00000000 00:00 0 
+7f9daf7fd000-7f9daf8fb000 rw-p 00000000 00:00 0 
+7f9daf8fb000-7f9daf8fe000 ---p 00000000 00:00 0 
+7f9daf8fe000-7f9daf9fc000 rw-p 00000000 00:00 0 
+7f9daf9fc000-7f9daf9ff000 ---p 00000000 00:00 0 
+7f9daf9ff000-7f9dafafd000 rw-p 00000000 00:00 0 
+7f9dafafd000-7f9dafb00000 ---p 00000000 00:00 0 
+7f9dafb00000-7f9dafbfe000 rw-p 00000000 00:00 0 
+7f9dafbfe000-7f9dafc01000 ---p 00000000 00:00 0 
+7f9dafc01000-7f9dafcff000 rw-p 00000000 00:00 0 
+7f9dafcff000-7f9dafd02000 ---p 00000000 00:00 0 
+7f9dafd02000-7f9db0000000 rw-p 00000000 00:00 0 
+7f9db0000000-7f9db003f000 rw-p 00000000 00:00 0 
+7f9db003f000-7f9db4000000 ---p 00000000 00:00 0 
+7f9db4000000-7f9db4029000 rw-p 00000000 00:00 0 
+7f9db4029000-7f9db8000000 ---p 00000000 00:00 0 
+7f9db8000000-7f9db9367000 rw-p 00000000 00:00 0 
+7f9db9367000-7f9dbc000000 ---p 00000000 00:00 0 
+7f9dbc000000-7f9dbc046000 rw-p 00000000 00:00 0 
+7f9dbc046000-7f9dc0000000 ---p 00000000 00:00 0 
+7f9dc0000000-7f9dc1aa9000 rw-p 00000000 00:00 0 
+7f9dc1aa9000-7f9dc4000000 ---p 00000000 00:00 0 
+7f9dc4000000-7f9dc5c3a000 rw-p 00000000 00:00 0 
+7f9dc5c3a000-7f9dc8000000 ---p 00000000 00:00 0 
+7f9dc8000000-7f9dc80e7000 rw-p 00000000 00:00 0 
+7f9dc80e7000-7f9dcc000000 ---p 00000000 00:00 0 
+7f9dcc000000-7f9dcc021000 rw-p 00000000 00:00 0 
+7f9dcc021000-7f9dd0000000 ---p 00000000 00:00 0 
+7f9dd0000000-7f9dd0365000 rw-p 00000000 00:00 0 
+7f9dd0365000-7f9dd4000000 ---p 00000000 00:00 0 
+7f9dd4000000-7f9dd4086000 rw-p 00000000 00:00 0 
+7f9dd4086000-7f9dd8000000 ---p 00000000 00:00 0 
+7f9dd8000000-7f9dd803b000 rw-p 00000000 00:00 0 
+7f9dd803b000-7f9ddc000000 ---p 00000000 00:00 0 
+7f9ddc000000-7f9ddc001000 r--s 00000000 08:02 6562982                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/transform-api/2.0.0-deprecated-use-gradle-api/47f6c56527c42425742fa9b56ffd3fd80763fe03/transform-api-2.0.0-deprecated-use-gradle-api.jar
+7f9ddc001000-7f9ddc002000 r--s 00008000 08:02 6562978                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/26.5.0/2b689549819ef18db45825a25c0e1fdf856495e4/dvlib-26.5.0.jar
+7f9ddc002000-7f9ddc00c000 r--s 00092000 08:02 6562976                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/26.5.0/b6995ac55e9e3254b9c9b4a15ff76bff3e383d0/sdklib-26.5.0.jar
+7f9ddc00c000-7f9ddc00e000 r--s 00007000 08:02 6562975                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/tracker/26.5.0/3db16388940d3d4cb74c0b1cf80e92b83cf9c638/tracker-26.5.0.jar
+7f9ddc00e000-7f9ddc014000 r--s 00052000 08:02 6562974                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/26.5.0/8e18776b2e71cb34372a21ceb6b3d419cce1f568/ddmlib-26.5.0.jar
+7f9ddc014000-7f9ddc015000 r--s 00003000 08:02 6562973                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/3.5.0/cd03fef0e584554d6cda88c0b7bfd5e692939657/builder-test-api-3.5.0.jar
+7f9ddc015000-7f9ddc019000 r--s 0002d000 08:02 6562971                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/26.5.0/8d11e77ec2925d9161e8c67c6402a1869275c6b/manifest-merger-26.5.0.jar
+7f9ddc019000-7f9ddc021000 r--s 00068000 08:02 6562970                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/3.5.0/9ed34f1d60f2103f5019af83ba5f6ff09549f11c/databinding-compiler-common-3.5.0.jar
+7f9ddc021000-7f9ddc025000 r--s 00013000 08:02 6563048                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-api/3.5.0/5fc4e06e0ce64009367db77521585dbad064fc03/gradle-api-3.5.0.jar
+7f9ddc025000-7f9ddc026000 r--s 00004000 08:02 6562967                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle-api/26.5.0/25c7a7bc205bea2490359c3910d0eb2a09e78181/lint-gradle-api-26.5.0.jar
+7f9ddc026000-7f9ddc027000 r--s 00003000 08:02 6562968                    /home/netscapelabs/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/crash/26.5.0/4151f06d01b1e8b121999d4a2f842bcb857f3f07/crash-26.5.0.jar
+7f9ddc027000-7f9ddc02e000 r--s 00000000 08:02 1968630                    /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+7f9ddc02e000-7f9ddc032000 r--s 000a1000 08:02 4195258                    /home/netscapelabs/android-studio/jre/jre/lib/jsse.jar
+7f9ddc032000-7f9ddc035000 ---p 00000000 00:00 0 
+7f9ddc035000-7f9ddc133000 rw-p 00000000 00:00 0 
+7f9ddc133000-7f9ddc13b000 r-xp 00000000 08:02 4195205                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f9ddc13b000-7f9ddc13c000 rw-p 00007000 08:02 4195205                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f9ddc13c000-7f9ddc13e000 r--s 0000f000 08:02 3309727                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-tooling-api-builders-5.4.1.jar
+7f9ddc13e000-7f9ddc13f000 r--s 00005000 08:02 3309748                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-build-profile-5.4.1.jar
+7f9ddc13f000-7f9ddc141000 r--s 00003000 08:02 3309706                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-tooling-native-5.4.1.jar
+7f9ddc141000-7f9ddc145000 r--s 00017000 08:02 3309708                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-testing-native-5.4.1.jar
+7f9ddc145000-7f9ddc147000 r--s 0000f000 08:02 3309805                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jcommander-1.72.jar
+7f9ddc147000-7f9ddc150000 r--s 00089000 08:02 3309781                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/testng-6.3.1.jar
+7f9ddc150000-7f9ddc155000 r--s 0005a000 08:02 3309785                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/bsh-2.0b6.jar
+7f9ddc155000-7f9ddc159000 r--s 0001c000 08:02 3309728                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-testing-jvm-5.4.1.jar
+7f9ddc159000-7f9ddc15c000 r--s 00011000 08:02 3309823                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/junit-platform-commons-1.3.1.jar
+7f9ddc15c000-7f9ddc15d000 r--s 00001000 08:02 3309825                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/opentest4j-1.1.1.jar
+7f9ddc15d000-7f9ddc161000 r--s 0001d000 08:02 3309822                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/junit-platform-engine-1.3.1.jar
+7f9ddc161000-7f9ddc162000 r--s 00000000 08:02 3309824                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/apiguardian-api-1.0.0.jar
+7f9ddc162000-7f9ddc165000 r--s 00015000 08:02 3309786                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/junit-platform-launcher-1.3.1.jar
+7f9ddc165000-7f9ddc167000 r--s 00009000 08:02 3309803                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/hamcrest-core-1.3.jar
+7f9ddc167000-7f9ddc16f000 r--s 00045000 08:02 3309784                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/junit-4.12.jar
+7f9ddc16f000-7f9ddc170000 r--s 00003000 08:02 3309726                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-testing-junit-platform-5.4.1.jar
+7f9ddc170000-7f9ddc178000 r--s 00034000 08:02 3309736                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-testing-base-5.4.1.jar
+7f9ddc178000-7f9ddc180000 r--s 00048000 08:02 3309775                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/bcpg-jdk15on-1.61.jar
+7f9ddc180000-7f9ddc182000 r--s 0000f000 08:02 3309705                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-signing-5.4.1.jar
+7f9ddc182000-7f9ddc184000 r--s 00009000 08:02 3309715                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-scala-5.4.1.jar
+7f9ddc184000-7f9ddc185000 r--s 00004000 08:02 3309747                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-resources-sftp-5.4.1.jar
+7f9ddc185000-7f9ddc18e000 r--s 0005b000 08:02 3309753                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aws-java-sdk-kms-1.11.407.jar
+7f9ddc18e000-7f9ddc190000 r--s 00005000 08:02 3309792                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jmespath-java-1.11.407.jar
+7f9ddc190000-7f9ddc1a3000 r--s 000ca000 08:02 3309752                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aws-java-sdk-s3-1.11.407.jar
+7f9ddc1a3000-7f9ddc1ad000 r--s 00081000 08:02 3309821                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/ion-java-1.0.2.jar
+7f9ddc1ad000-7f9ddc1c3000 r--s 000ca000 08:02 3309754                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aws-java-sdk-core-1.11.407.jar
+7f9ddc1c3000-7f9ddc1c5000 r--s 00004000 08:02 3309743                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-resources-s3-5.4.1.jar
+7f9ddc1c5000-7f9ddc1d6000 r--s 0008c000 08:02 3309796                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/joda-time-2.10.jar
+7f9ddc1d6000-7f9ddc1e8000 r--s 00137000 08:02 3309793                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jackson-databind-2.9.8.jar
+7f9ddc1e8000-7f9ddc1eb000 r--s 0000e000 08:02 3309795                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jackson-annotations-2.9.8.jar
+7f9ddc1eb000-7f9ddc1ef000 r--s 0004c000 08:02 3309794                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jackson-core-2.9.8.jar
+7f9ddc1ef000-7f9ddc1f0000 r--s 00001000 08:02 3309761                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/google-http-client-jackson2-1.25.0.jar
+7f9ddc1f0000-7f9ddc1fa000 r--s 00056000 08:02 3309762                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/google-http-client-1.25.0.jar
+7f9ddc1fa000-7f9ddc1fd000 r--s 0000d000 08:02 3309760                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/google-oauth-client-1.25.0.jar
+7f9ddc1fd000-7f9ddc202000 r--s 0002d000 08:02 3309759                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/google-api-client-1.25.0.jar
+7f9ddc202000-7f9ddc206000 r--s 0001d000 08:02 3309758                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/google-api-services-storage-v1-rev136-1.25.0.jar
+7f9ddc206000-7f9ddc208000 r--s 00003000 08:02 3309744                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-resources-gcs-5.4.1.jar
+7f9ddc208000-7f9ddc20a000 r--s 00010000 08:02 3309742                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-reporting-5.4.1.jar
+7f9ddc20a000-7f9ddc20c000 r--s 00008000 08:02 3309735                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-publish-5.4.1.jar
+7f9ddc20c000-7f9ddc214000 r--s 00046000 08:02 3309723                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-plugins-5.4.1.jar
+7f9ddc214000-7f9ddc216000 r--s 0000c000 08:02 3309711                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-plugin-development-5.4.1.jar
+7f9ddc216000-7f9ddc21c000 r--s 00030000 08:02 3309718                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-platform-play-5.4.1.jar
+7f9ddc21c000-7f9ddc222000 r--s 0003d000 08:02 3309782                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/snakeyaml-1.17.jar
+7f9ddc222000-7f9ddc234000 r--s 00078000 08:02 3309733                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-platform-native-5.4.1.jar
+7f9ddc234000-7f9ddc238000 r--s 0001b000 08:02 3309732                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-platform-jvm-5.4.1.jar
+7f9ddc238000-7f9ddc23f000 r--s 0002a000 08:02 3309737                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-platform-base-5.4.1.jar
+7f9ddc23f000-7f9ddc26c000 r--s 0025e000 08:02 3309766                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/biz.aQute.bndlib-4.0.0.jar
+7f9ddc26c000-7f9ddc26d000 r--s 00004000 08:02 3309704                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-osgi-5.4.1.jar
+7f9ddc26d000-7f9ddc270000 r--s 0000c000 08:02 3309771                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/pmaven-groovy-0.8-20100325.jar
+7f9ddc270000-7f9ddc271000 r--s 00004000 08:02 3309770                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/pmaven-common-0.8-20100325.jar
+7f9ddc271000-7f9ddc272000 r--s 00008000 08:02 3309757                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/wagon-http-shared-3.0.0.jar
+7f9ddc272000-7f9ddc273000 r--s 00002000 08:02 3309756                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/wagon-http-3.0.0.jar
+7f9ddc273000-7f9ddc274000 r--s 00002000 08:02 3309772                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/wagon-file-3.0.0.jar
+7f9ddc274000-7f9ddc276000 r--s 00006000 08:02 3309774                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aether-connector-wagon-1.13.1.jar
+7f9ddc276000-7f9ddc27d000 r--s 00031000 08:02 3309712                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-maven-5.4.1.jar
+7f9ddc27d000-7f9ddc27f000 r--s 0000c000 08:02 3309725                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-language-scala-5.4.1.jar
+7f9ddc27f000-7f9ddc28a000 r--s 00054000 08:02 3309710                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-language-native-5.4.1.jar
+7f9ddc28a000-7f9ddc28c000 r--s 00005000 08:02 3309731                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-language-jvm-5.4.1.jar
+7f9ddc28c000-7f9ddc295000 r--s 00042000 08:02 3309729                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-language-java-5.4.1.jar
+7f9ddc295000-7f9ddc297000 r--s 0000b000 08:02 3309724                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-language-groovy-5.4.1.jar
+7f9ddc297000-7f9ddc29e000 r--s 00035000 08:02 3309778                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/simple-4.1.21.jar
+7f9ddc29e000-7f9ddc2ab000 r--s 00125000 08:02 3309776                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/rhino-1.7.10.jar
+7f9ddc2ab000-7f9ddc2af000 r--s 00012000 08:02 3309719                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-javascript-5.4.1.jar
+7f9ddc2af000-7f9ddc2b3000 r--s 00011000 08:02 3309721                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-jacoco-5.4.1.jar
+7f9ddc2b3000-7f9ddc2b7000 r--s 00015000 08:02 3309720                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-ivy-5.4.1.jar
+7f9ddc2b7000-7f9ddc2b9000 r--s 00002000 08:02 3309713                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-ide-play-5.4.1.jar
+7f9ddc2b9000-7f9ddc2bb000 r--s 00011000 08:02 3309783                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/dd-plist-1.21.jar
+7f9ddc2bb000-7f9ddc2c2000 r--s 00034000 08:02 3309707                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-ide-native-5.4.1.jar
+7f9ddc2c2000-7f9ddc2cc000 r--s 0005f000 08:02 3309714                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-ide-5.4.1.jar
+7f9ddc2cc000-7f9ddc2ce000 r--s 00008000 08:02 3309717                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-ear-5.4.1.jar
+7f9ddc2ce000-7f9ddc2d0000 r--s 00006000 08:02 3309779                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jatl-0.2.3.jar
+7f9ddc2d0000-7f9ddc2d6000 r--s 0003e000 08:02 3309734                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-diagnostics-5.4.1.jar
+7f9ddc2d6000-7f9ddc2db000 r--s 00028000 08:02 3309703                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-code-quality-5.4.1.jar
+7f9ddc2db000-7f9ddc2dd000 r--s 0000b000 08:02 3309780                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-plugin-api-3.0.4.jar
+7f9ddc2dd000-7f9ddc2df000 r--s 0000c000 08:02 3309818                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/wagon-provider-api-3.0.0.jar
+7f9ddc2df000-7f9ddc2e5000 r--s 0003f000 08:02 3309768                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-compat-3.0.4.jar
+7f9ddc2e5000-7f9ddc2e8000 r--s 0000a000 08:02 3309815                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-classworlds-2.5.1.jar
+7f9ddc2e8000-7f9ddc2ec000 r--s 00021000 08:02 3309820                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/xbean-reflect-3.7.jar
+7f9ddc2ec000-7f9ddc2f3000 r--s 00032000 08:02 3309773                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-container-default-1.7.1.jar
+7f9ddc2f3000-7f9ddc2f9000 r--s 00031000 08:02 3309722                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-build-init-5.4.1.jar
+7f9ddc2f9000-7f9ddc2ff000 r--s 0002e000 08:02 3309716                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-build-comparison-5.4.1.jar
+7f9ddc2ff000-7f9ddc301000 r--s 00002000 08:02 3309745                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-build-cache-http-5.4.1.jar
+7f9ddc301000-7f9ddc303000 r--s 00009000 08:02 3309702                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-antlr-5.4.1.jar
+7f9ddc303000-7f9ddc304000 r--s 00005000 08:02 3309701                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-announce-5.4.1.jar
+7f9ddc304000-7f9ddc307000 r--s 00017000 08:02 3309750                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-kotlin-dsl-tooling-builders-5.4.1.jar
+7f9ddc307000-7f9ddc30d000 r--s 00029000 08:02 3309749                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-kotlin-dsl-provider-plugins-5.4.1.jar
+7f9ddc30d000-7f9ddc30e000 r--s 00000000 08:02 3309617                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-runtime-api-info-5.4.1.jar
+7f9ddc30e000-7f9ddc313000 r--s 00040000 08:02 3309790                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jsch-0.1.54.jar
+7f9ddc313000-7f9ddc315000 r--s 00010000 08:02 3309806                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jzlib-1.1.3.jar
+7f9ddc315000-7f9ddc33a000 r--s 00265000 08:02 3309755                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/org.eclipse.jgit-5.0.3.201809091024-r.jar
+7f9ddc33a000-7f9ddc33d000 r--s 0000c000 08:02 3309739                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-version-control-5.4.1.jar
+7f9ddc33d000-7f9ddc356000 r--s 0013a000 08:02 3309789                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/xercesImpl-2.12.0.jar
+7f9ddc356000-7f9ddc358000 r--s 0001d000 08:02 3309788                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/nekohtml-1.9.22.jar
+7f9ddc358000-7f9ddc35e000 r--s 0005b000 08:02 3309787                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/jcifs-1.3.17.jar
+7f9ddc35e000-7f9ddc365000 r--s 0004b000 08:02 3309764                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/commons-codec-1.11.jar
+7f9ddc365000-7f9ddc36c000 r--s 00049000 08:02 3309804                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/httpcore-4.4.10.jar
+7f9ddc36c000-7f9ddc379000 r--s 000af000 08:02 3309763                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/httpclient-4.5.6.jar
+7f9ddc379000-7f9ddc37c000 r--s 0000e000 08:02 3309746                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-resources-http-5.4.1.jar
+7f9ddc37c000-7f9ddc37f000 r--s 0000c000 08:02 3309738                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-plugin-use-5.4.1.jar
+7f9ddc37f000-7f9ddc382000 r--s 0000d000 08:02 3309741                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-composite-builds-5.4.1.jar
+7f9ddc382000-7f9ddc383000 r--s 00000000 08:02 3309620                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-installation-beacon-5.4.1.jar
+7f9ddc383000-7f9ddc385000 r--s 00006000 08:02 3309810                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-repository-metadata-3.0.4.jar
+7f9ddc385000-7f9ddc387000 r--s 0000c000 08:02 3309798                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-aether-provider-3.0.4.jar
+7f9ddc387000-7f9ddc388000 r--s 00003000 08:02 3309800                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aether-spi-1.13.1.jar
+7f9ddc388000-7f9ddc38b000 r--s 0001d000 08:02 3309799                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aether-impl-1.13.1.jar
+7f9ddc38b000-7f9ddc38f000 r--s 0001c000 08:02 3309801                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aether-util-1.13.1.jar
+7f9ddc38f000-7f9ddc392000 r--s 00013000 08:02 3309802                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/aether-api-1.13.1.jar
+7f9ddc392000-7f9ddc394000 r--s 0000b000 08:02 3309807                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-artifact-3.0.4.jar
+7f9ddc394000-7f9ddc398000 r--s 00021000 08:02 3309808                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-model-builder-3.0.4.jar
+7f9ddc398000-7f9ddc39a000 r--s 00026000 08:02 3309809                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-model-3.0.4.jar
+7f9ddc39a000-7f9ddc39c000 r--s 0000a000 08:02 3309812                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-settings-3.0.4.jar
+7f9ddc39c000-7f9ddc39e000 r--s 00002000 08:02 3309814                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-cipher-1.7.jar
+7f9ddc39e000-7f9ddc39f000 r--s 00006000 08:02 3309813                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-sec-dispatcher-1.3.jar
+7f9ddc39f000-7f9ddc3a1000 r--s 00000000 08:02 3309816                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-component-annotations-1.5.5.jar
+7f9ddc3a1000-7f9ddc3a5000 r--s 0003c000 08:02 3309819                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-utils-3.1.0.jar
+7f9ddc3a5000-7f9ddc3ba000 r--s 00116000 08:02 3309767                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/ivy-2.3.0.jar
+7f9ddc3ba000-7f9ddc419000 r--s 003f7000 08:02 3309797                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/bcprov-jdk15on-1.61.jar
+7f9ddc419000-7f9ddc44c000 r--s 001c3000 08:02 3309740                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-dependency-management-5.4.1.jar
+7f9ddc44c000-7f9ddc463000 r-xp 00000000 08:02 5242953                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f9ddc463000-7f9ddc662000 ---p 00017000 08:02 5242953                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f9ddc662000-7f9ddc663000 r--p 00016000 08:02 5242953                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f9ddc663000-7f9ddc664000 rw-p 00017000 08:02 5242953                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f9ddc664000-7f9ddc7dd000 r-xp 00000000 08:02 1703963                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f9ddc7dd000-7f9ddc9dd000 ---p 00179000 08:02 1703963                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f9ddc9dd000-7f9ddc9e7000 r--p 00179000 08:02 1703963                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f9ddc9e7000-7f9ddc9e9000 rw-p 00183000 08:02 1703963                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f9ddc9e9000-7f9ddc9ed000 rw-p 00000000 00:00 0 
+7f9ddc9ed000-7f9ddc9ef000 r--s 0000d000 08:02 3309817                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/plexus-interpolation-1.14.jar
+7f9ddc9ef000-7f9ddc9f2000 r--s 00008000 08:02 3309811                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-settings-builder-3.0.4.jar
+7f9ddc9f2000-7f9ddc9fe000 r--s 0007d000 08:02 3309769                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/maven-core-3.0.4.jar
+7f9ddc9fe000-7f9ddca03000 r--s 00036000 08:02 3309777                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gson-2.8.5.jar
+7f9ddca03000-7f9ddca04000 r--s 00013000 08:02 3309765                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/asm-util-7.0.jar
+7f9ddca04000-7f9ddca07000 r--s 0000e000 08:02 3309751                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/plugins/gradle-workers-5.4.1.jar
+7f9ddca07000-7f9ddca0d000 r-xp 00000000 08:02 3948393                    /home/netscapelabs/.gradle/native/29/linux-amd64/libnative-platform.so
+7f9ddca0d000-7f9ddcc0c000 ---p 00006000 08:02 3948393                    /home/netscapelabs/.gradle/native/29/linux-amd64/libnative-platform.so
+7f9ddcc0c000-7f9ddcc0d000 rw-p 00005000 08:02 3948393                    /home/netscapelabs/.gradle/native/29/linux-amd64/libnative-platform.so
+7f9ddcc0d000-7f9ddcc1d000 r-xp 00000000 08:02 4195229                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libnio.so
+7f9ddcc1d000-7f9ddcc1e000 rw-p 00010000 08:02 4195229                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libnio.so
+7f9ddcc1e000-7f9ddcc34000 r-xp 00000000 08:02 4195238                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libnet.so
+7f9ddcc34000-7f9ddcc35000 rw-p 00016000 08:02 4195238                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libnet.so
+7f9ddcc35000-7f9ddcc37000 r--s 00006000 08:02 3309619                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-wrapper-5.4.1.jar
+7f9ddcc37000-7f9ddcc46000 r--s 0004c000 08:02 3309618                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-tooling-api-5.4.1.jar
+7f9ddcc46000-7f9ddcc51000 r--s 00081000 08:02 3309682                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/trove4j-1.0.20181211.jar
+7f9ddcc51000-7f9ddcc53000 r--s 00009000 08:02 3309679                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-script-runtime-1.3.21.jar
+7f9ddcc53000-7f9ddcc8a000 r--s 00255000 08:02 3309672                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-reflect-1.3.21.jar
+7f9ddcc8a000-7f9ddce69000 r--s 01b1b000 08:02 3309644                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-compiler-embeddable-1.3.21-patched-for-gradle-5.4.1.jar
+7f9ddce69000-7f9ddce6a000 r--s 00001000 08:02 3309656                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-kotlin-dsl-tooling-models-5.4.1.jar
+7f9ddce6a000-7f9ddce78000 r--s 00236000 08:02 3309659                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlinx-metadata-jvm-0.0.5.jar
+7f9ddce78000-7f9ddce79000 r--s 00002000 08:02 3309658                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-sam-with-receiver-compiler-plugin-1.3.21.jar
+7f9ddce79000-7f9ddce7a000 r--s 00000000 08:02 3309673                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-stdlib-jdk7-1.3.21.jar
+7f9ddce7a000-7f9ddce7c000 r--s 00003000 08:02 3309675                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/annotations-13.0.jar
+7f9ddce7c000-7f9ddce83000 r--s 0001f000 08:02 3309699                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-stdlib-common-1.3.21.jar
+7f9ddce83000-7f9ddce96000 r--s 0010f000 08:02 3309674                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-stdlib-1.3.21.jar
+7f9ddce96000-7f9ddce98000 r--s 00002000 08:02 3309657                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kotlin-stdlib-jdk8-1.3.21.jar
+7f9ddce98000-7f9ddceb3000 r--s 0015d000 08:02 3309621                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-kotlin-dsl-5.4.1.jar
+7f9ddceb3000-7f9ddceb7000 r--s 00013000 08:02 3309626                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-build-cache-5.4.1.jar
+7f9ddceb7000-7f9ddceb9000 r--s 00006000 08:02 3309625                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-build-cache-packaging-5.4.1.jar
+7f9ddceb9000-7f9ddcebe000 r--s 0001f000 08:02 3309624                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-execution-5.4.1.jar
+7f9ddcebe000-7f9ddcec2000 r--s 0001a000 08:02 3309628                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-files-5.4.1.jar
+7f9ddcec2000-7f9ddcec7000 r--s 00026000 08:02 3309627                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-snapshots-5.4.1.jar
+7f9ddcec7000-7f9ddcecc000 r--s 00015000 08:02 3309635                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-resources-5.4.1.jar
+7f9ddcecc000-7f9ddced3000 r--s 00036000 08:02 3309632                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-persistent-cache-5.4.1.jar
+7f9ddced3000-7f9ddced4000 r--s 00003000 08:02 3309641                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-build-option-5.4.1.jar
+7f9ddced4000-7f9ddced6000 r--s 00005000 08:02 3309642                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-cli-5.4.1.jar
+7f9ddced6000-7f9ddced8000 r--s 00004000 08:02 3309654                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/log4j-over-slf4j-1.7.25.jar
+7f9ddced8000-7f9ddceda000 r--s 00000000 08:02 3309653                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/jul-to-slf4j-1.7.25.jar
+7f9ddceda000-7f9ddcedc000 r--s 00003000 08:02 3309652                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/jcl-over-slf4j-1.7.25.jar
+7f9ddcedc000-7f9ddcee4000 r--s 00038000 08:02 3309633                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-logging-5.4.1.jar
+7f9ddcee4000-7f9ddcef9000 r--s 000c1000 08:02 3309630                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-model-core-5.4.1.jar
+7f9ddcef9000-7f9ddcefb000 r--s 00006000 08:02 3309637                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-base-services-groovy-5.4.1.jar
+7f9ddcefb000-7f9ddcefd000 r--s 00007000 08:02 3309629                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-model-groovy-5.4.1.jar
+7f9ddcefd000-7f9ddcefe000 r--s 00007000 08:02 3309643                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-docs-5.4.1.jar
+7f9ddcefe000-7f9ddcf07000 r--s 0002d000 08:02 3309668                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/xml-apis-1.4.01.jar
+7f9ddcf07000-7f9ddcf08000 r--s 00000000 08:02 3309665                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/javax.inject-1.jar
+7f9ddcf08000-7f9ddcf8d000 r--s 007a7000 08:02 3309663                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/groovy-all-1.0-2.5.4.jar
+7f9ddcf8d000-7f9ddcf98000 r--s 00086000 08:02 3309667                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/commons-compress-1.18.jar
+7f9ddcf98000-7f9ddcf9a000 r--s 00007000 08:02 3309646                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/asm-analysis-7.0.jar
+7f9ddcf9a000-7f9ddcf9c000 r--s 0000b000 08:02 3309647                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/asm-tree-7.0.jar
+7f9ddcf9c000-7f9ddcf9e000 r--s 00012000 08:02 3309645                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/asm-commons-7.0.jar
+7f9ddcf9e000-7f9ddcf9f000 r--s 00004000 08:02 3309684                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-freebsd-amd64-libcpp-0.17.jar
+7f9ddcf9f000-7f9ddcfa0000 r--s 00004000 08:02 3309685                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-freebsd-amd64-libstdcpp-0.17.jar
+7f9ddcfa0000-7f9ddcfa1000 r--s 00004000 08:02 3309686                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-freebsd-i386-libcpp-0.17.jar
+7f9ddcfa1000-7f9ddcfa2000 r--s 00004000 08:02 3309687                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-freebsd-i386-libstdcpp-0.17.jar
+7f9ddcfa2000-7f9ddcfa3000 r--s 00002000 08:02 3309688                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-amd64-0.17.jar
+7f9ddcfa3000-7f9ddcfa4000 r--s 00002000 08:02 3309689                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-i386-0.17.jar
+7f9ddcfa4000-7f9ddcfa5000 r--s 00003000 08:02 3309690                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-osx-amd64-0.17.jar
+7f9ddcfa5000-7f9ddcfa6000 r--s 00010000 08:02 3309691                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-windows-amd64-0.17.jar
+7f9ddcfa6000-7f9ddcfa7000 r--s 00010000 08:02 3309692                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-windows-amd64-min-0.17.jar
+7f9ddcfa7000-7f9ddcfa8000 r--s 0000e000 08:02 3309693                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-windows-i386-0.17.jar
+7f9ddcfa8000-7f9ddcfa9000 r--s 0000e000 08:02 3309694                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-windows-i386-min-0.17.jar
+7f9ddcfa9000-7f9ddcfab000 r--s 00001000 08:02 3309695                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-amd64-ncurses5-0.17.jar
+7f9ddcfab000-7f9ddcfac000 r--s 00001000 08:02 3309696                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-amd64-ncurses6-0.17.jar
+7f9ddcfac000-7f9ddcfb1000 r--s 0001a000 08:02 3309666                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-0.17.jar
+7f9ddcfb1000-7f9ddcfb5000 r--s 00042000 08:02 3309669                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/jansi-1.17.1.jar
+7f9ddcfb5000-7f9ddcfb9000 r--s 0000c000 08:02 3309636                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-native-5.4.1.jar
+7f9ddcfb9000-7f9ddcfbb000 r--s 0000c000 08:02 3309671                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/objenesis-2.6.jar
+7f9ddcfbb000-7f9ddcfbd000 r--s 00000000 08:02 3309678                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/minlog-1.2.jar
+7f9ddcfbd000-7f9ddcfc3000 r--s 0004d000 08:02 3309670                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/kryo-2.24.0.jar
+7f9ddcfc3000-7f9ddcfca000 r--s 00030000 08:02 3309638                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-messaging-5.4.1.jar
+7f9ddcfca000-7f9ddcfcc000 r--s 00006000 08:02 3309634                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-process-services-5.4.1.jar
+7f9ddcfcc000-7f9ddcfce000 r--s 00000000 08:02 3309623                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-jvm-services-5.4.1.jar
+7f9ddcfce000-7f9ddcfd0000 r--s 00003000 08:02 3309661                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/jsr305-3.0.2.jar
+7f9ddcfd0000-7f9ddd000000 r--s 0024b000 08:02 3309660                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/guava-26.0-android.jar
+7f9ddd000000-7f9de0000000 rw-p 00000000 00:00 0 
+7f9de0000000-7f9de0021000 rw-p 00000000 00:00 0 
+7f9de0021000-7f9de4000000 ---p 00000000 00:00 0 
+7f9de4000000-7f9de4030000 rw-p 00000000 00:00 0 
+7f9de4030000-7f9de8000000 ---p 00000000 00:00 0 
+7f9de8000000-7f9de80d0000 rw-p 00000000 00:00 0 
+7f9de80d0000-7f9dec000000 ---p 00000000 00:00 0 
+7f9dec000000-7f9dec003000 r--s 0001c000 08:02 3309662                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/fastutil-8.2.1-min.jar
+7f9dec003000-7f9dec008000 r--s 00041000 08:02 3309650                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/commons-lang-2.6.jar
+7f9dec008000-7f9dec00c000 r--s 00031000 08:02 3309649                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/commons-io-2.6.jar
+7f9dec00c000-7f9dec02b000 r--s 001da000 08:02 3309664                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/ant-1.9.13.jar
+7f9dec02b000-7f9dec02c000 ---p 00000000 00:00 0 
+7f9dec02c000-7f9dec12c000 rw-p 00000000 00:00 0 
+7f9dec12c000-7f9dec12f000 ---p 00000000 00:00 0 
+7f9dec12f000-7f9dec22d000 rw-p 00000000 00:00 0 
+7f9dec22d000-7f9dec22e000 ---p 00000000 00:00 0 
+7f9dec22e000-7f9dec231000 ---p 00000000 00:00 0 
+7f9dec231000-7f9dec32e000 rw-p 00000000 00:00 0 
+7f9dec32e000-7f9dec32f000 ---p 00000000 00:00 0 
+7f9dec32f000-7f9dec332000 ---p 00000000 00:00 0 
+7f9dec332000-7f9dec42f000 rw-p 00000000 00:00 0 
+7f9dec42f000-7f9dec430000 ---p 00000000 00:00 0 
+7f9dec430000-7f9dec433000 ---p 00000000 00:00 0 
+7f9dec433000-7f9dec530000 rw-p 00000000 00:00 0 
+7f9dec530000-7f9dec533000 ---p 00000000 00:00 0 
+7f9dec533000-7f9dec631000 rw-p 00000000 00:00 0 
+7f9dec631000-7f9ded000000 r--p 00000000 08:02 1710790                    /usr/lib/locale/locale-archive
+7f9ded000000-7f9deffd0000 rwxp 00000000 00:00 0 
+7f9deffd0000-7f9dfc000000 ---p 00000000 00:00 0 
+7f9dfc000000-7f9dfd0b9000 rw-p 00000000 00:00 0 
+7f9dfd0b9000-7f9e00000000 ---p 00000000 00:00 0 
+7f9e00000000-7f9e00001000 r--s 00001000 08:02 3309697                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-i386-ncurses5-0.17.jar
+7f9e00001000-7f9e00003000 r--s 0001a000 08:02 3309648                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/asm-7.0.jar
+7f9e00003000-7f9e00005000 r--s 00009000 08:02 3309655                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/slf4j-api-1.7.25.jar
+7f9e00005000-7f9e00041000 r--s 00203000 08:02 3309622                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-core-5.4.1.jar
+7f9e00041000-7f9e00050000 r--s 00043000 08:02 3309631                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-core-api-5.4.1.jar
+7f9e00050000-7f9e00053000 ---p 00000000 00:00 0 
+7f9e00053000-7f9e00151000 rw-p 00000000 00:00 0 
+7f9e00151000-7f9e00154000 ---p 00000000 00:00 0 
+7f9e00154000-7f9e00252000 rw-p 00000000 00:00 0 
+7f9e00252000-7f9e00253000 ---p 00000000 00:00 0 
+7f9e00253000-7f9e01334000 rw-p 00000000 00:00 0 
+7f9e01334000-7f9e01506000 r--s 03cad000 08:02 4195201                    /home/netscapelabs/android-studio/jre/jre/lib/rt.jar
+7f9e01506000-7f9e020d7000 rw-p 00000000 00:00 0 
+7f9e020d7000-7f9e020d8000 ---p 00000000 00:00 0 
+7f9e020d8000-7f9e021d8000 rw-p 00000000 00:00 0 
+7f9e021d8000-7f9e021d9000 ---p 00000000 00:00 0 
+7f9e021d9000-7f9e022d9000 rw-p 00000000 00:00 0 
+7f9e022d9000-7f9e022da000 ---p 00000000 00:00 0 
+7f9e022da000-7f9e023da000 rw-p 00000000 00:00 0 
+7f9e023da000-7f9e023db000 ---p 00000000 00:00 0 
+7f9e023db000-7f9e0253a000 rw-p 00000000 00:00 0 
+7f9e0253a000-7f9e026db000 ---p 00000000 00:00 0 
+7f9e026db000-7f9e0273a000 rw-p 00000000 00:00 0 
+7f9e0273a000-7f9e028db000 ---p 00000000 00:00 0 
+7f9e028db000-7f9e029db000 rw-p 00000000 00:00 0 
+7f9e029db000-7f9e02a9c000 rw-p 00000000 00:00 0 
+7f9e02a9c000-7f9e02d9c000 ---p 00000000 00:00 0 
+7f9e02d9c000-7f9e02da7000 r-xp 00000000 08:02 5247848                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f9e02da7000-7f9e02fa6000 ---p 0000b000 08:02 5247848                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f9e02fa6000-7f9e02fa7000 r--p 0000a000 08:02 5247848                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f9e02fa7000-7f9e02fa8000 rw-p 0000b000 08:02 5247848                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f9e02fa8000-7f9e02fae000 rw-p 00000000 00:00 0 
+7f9e02fae000-7f9e02fc5000 r-xp 00000000 08:02 5247842                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f9e02fc5000-7f9e031c4000 ---p 00017000 08:02 5247842                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f9e031c4000-7f9e031c5000 r--p 00016000 08:02 5247842                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f9e031c5000-7f9e031c6000 rw-p 00017000 08:02 5247842                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f9e031c6000-7f9e031c8000 rw-p 00000000 00:00 0 
+7f9e031c8000-7f9e031d3000 r-xp 00000000 08:02 5247859                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f9e031d3000-7f9e033d2000 ---p 0000b000 08:02 5247859                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f9e033d2000-7f9e033d3000 r--p 0000a000 08:02 5247859                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f9e033d3000-7f9e033d4000 rw-p 0000b000 08:02 5247859                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f9e033d4000-7f9e033dc000 r-xp 00000000 08:02 5247844                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f9e033dc000-7f9e035dc000 ---p 00008000 08:02 5247844                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f9e035dc000-7f9e035dd000 r--p 00008000 08:02 5247844                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f9e035dd000-7f9e035de000 rw-p 00009000 08:02 5247844                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f9e035de000-7f9e035e5000 r-xp 00000000 08:02 5247899                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f9e035e5000-7f9e037e4000 ---p 00007000 08:02 5247899                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f9e037e4000-7f9e037e5000 r--p 00006000 08:02 5247899                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f9e037e5000-7f9e037e6000 rw-p 00007000 08:02 5247899                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f9e037e6000-7f9e03983000 r-xp 00000000 08:02 5247821                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f9e03983000-7f9e03b82000 ---p 0019d000 08:02 5247821                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f9e03b82000-7f9e03b83000 r--p 0019c000 08:02 5247821                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f9e03b83000-7f9e03b84000 rw-p 0019d000 08:02 5247821                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f9e03b84000-7f9e047aa000 r-xp 00000000 08:02 4195211                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f9e047aa000-7f9e0487a000 rw-p 00c26000 08:02 4195211                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f9e0487a000-7f9e048be000 rw-p 00000000 00:00 0 
+7f9e048be000-7f9e04aa5000 r-xp 00000000 08:02 5247758                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f9e04aa5000-7f9e04ca5000 ---p 001e7000 08:02 5247758                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f9e04ca5000-7f9e04ca9000 r--p 001e7000 08:02 5247758                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f9e04ca9000-7f9e04cab000 rw-p 001eb000 08:02 5247758                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f9e04cab000-7f9e04caf000 rw-p 00000000 00:00 0 
+7f9e04caf000-7f9e04cb2000 r-xp 00000000 08:02 5247781                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f9e04cb2000-7f9e04eb1000 ---p 00003000 08:02 5247781                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f9e04eb1000-7f9e04eb2000 r--p 00002000 08:02 5247781                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f9e04eb2000-7f9e04eb3000 rw-p 00003000 08:02 5247781                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f9e04eb3000-7f9e04ecd000 r-xp 00000000 08:02 5247891                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f9e04ecd000-7f9e050cc000 ---p 0001a000 08:02 5247891                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f9e050cc000-7f9e050cd000 r--p 00019000 08:02 5247891                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f9e050cd000-7f9e050ce000 rw-p 0001a000 08:02 5247891                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f9e050ce000-7f9e050d2000 rw-p 00000000 00:00 0 
+7f9e050d2000-7f9e050f9000 r-xp 00000000 08:02 5247730                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f9e050f9000-7f9e050fa000 r--s 00001000 08:02 3309698                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/native-platform-linux-i386-ncurses6-0.17.jar
+7f9e050fa000-7f9e05107000 r--s 00067000 08:02 3309639                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-base-services-5.4.1.jar
+7f9e05107000-7f9e05114000 r--s 0006d000 08:02 3309616                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-launcher-5.4.1.jar
+7f9e05114000-7f9e0517b000 rw-p 00000000 00:00 0 
+7f9e0517b000-7f9e05196000 r-xp 00000000 08:02 4195237                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libzip.so
+7f9e05196000-7f9e05197000 rw-p 0001a000 08:02 4195237                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libzip.so
+7f9e05197000-7f9e051c1000 r-xp 00000000 08:02 4195236                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libjava.so
+7f9e051c1000-7f9e051c3000 rw-p 0002a000 08:02 4195236                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libjava.so
+7f9e051c3000-7f9e051c4000 ---p 00000000 00:00 0 
+7f9e051c4000-7f9e051c7000 ---p 00000000 00:00 0 
+7f9e051c7000-7f9e052c6000 rw-p 00000000 00:00 0 
+7f9e052c6000-7f9e052dc000 r-xp 00000000 08:02 4195316                    /home/netscapelabs/android-studio/jre/lib/amd64/jli/libjli.so
+7f9e052dc000-7f9e052dd000 rw-p 00015000 08:02 4195316                    /home/netscapelabs/android-studio/jre/lib/amd64/jli/libjli.so
+7f9e052dd000-7f9e052df000 rw-p 00000000 00:00 0 
+7f9e052df000-7f9e052e0000 r--s 00004000 08:02 3309677                    /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/ant-launcher-1.9.13.jar
+7f9e052e0000-7f9e052e8000 rw-s 00000000 08:02 6554494                    /tmp/hsperfdata_netscapelabs/11295
+7f9e052e8000-7f9e052e9000 rw-p 00000000 00:00 0 
+7f9e052e9000-7f9e052ea000 ---p 00000000 00:00 0 
+7f9e052ea000-7f9e052f7000 r-xp 00000000 08:02 4195218                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libverify.so
+7f9e052f7000-7f9e052f9000 rw-p 0000c000 08:02 4195218                    /home/netscapelabs/android-studio/jre/jre/lib/amd64/libverify.so
+7f9e052f9000-7f9e052fa000 r--p 00027000 08:02 5247730                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f9e052fa000-7f9e052fb000 rw-p 00028000 08:02 5247730                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f9e052fb000-7f9e052fc000 rw-p 00000000 00:00 0 
+7fffd570a000-7fffd572b000 rw-p 00000000 00:00 0                          [stack]
+7fffd5764000-7fffd5767000 r--p 00000000 00:00 0                          [vvar]
+7fffd5767000-7fffd5768000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Xmx1536m -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant 
+java_command: org.gradle.launcher.daemon.bootstrap.GradleDaemon 5.4.1
+java_class_path (initial): /home/netscapelabs/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/lib/gradle-launcher-5.4.1.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-8-oracle
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+USERNAME=netscapelabs
+SHELL=/usr/bin/zsh
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xa09650], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xa09650], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x86bc60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x86bc60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x86bc60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x86bc60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x86bb30], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x86bd20], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x86bd20], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x86bd20], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x86bd20], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.3 LTS"
+
+uname:Linux 5.0.0-29-generic #31~18.04.1-Ubuntu SMP Thu Sep 12 18:29:21 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 15052, NOFILE 4096, AS infinity
+load average:1.79 1.49 1.29
+
+/proc/meminfo:
+MemTotal:        3901308 kB
+MemFree:          111504 kB
+MemAvailable:      40792 kB
+Buffers:            6736 kB
+Cached:           161132 kB
+SwapCached:        19748 kB
+Active:          2903956 kB
+Inactive:         602620 kB
+Active(anon):    2878164 kB
+Inactive(anon):   575008 kB
+Active(file):      25792 kB
+Inactive(file):    27612 kB
+Unevictable:        1424 kB
+Mlocked:              32 kB
+SwapTotal:       2097148 kB
+SwapFree:             16 kB
+Dirty:               192 kB
+Writeback:             0 kB
+AnonPages:       3320872 kB
+Mapped:            49404 kB
+Shmem:            114024 kB
+KReclaimable:      51400 kB
+Slab:             124756 kB
+SReclaimable:      51400 kB
+SUnreclaim:        73356 kB
+KernelStack:       18336 kB
+PageTables:        72080 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     4047800 kB
+Committed_AS:   11877224 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+Percpu:             1504 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      217080 kB
+DirectMap2M:     3842048 kB
+DirectMap1G:           0 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-3
+cpu_memory_nodes: 0
+active_processor_count: 4
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 3592658944
+memory_max_usage_in_bytes: 130748416
+
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 158 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Pentium(R) Gold G5400 CPU @ 3.70GHz
+stepping	: 10
+microcode	: 0xb4
+cpu MHz		: 3699.998
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave rdrand lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust smep erms invpcid mpx rdseed smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 7392.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Pentium(R) Gold G5400 CPU @ 3.70GHz
+stepping	: 10
+microcode	: 0xb4
+cpu MHz		: 3699.995
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave rdrand lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust smep erms invpcid mpx rdseed smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 7392.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Pentium(R) Gold G5400 CPU @ 3.70GHz
+stepping	: 10
+microcode	: 0xb4
+cpu MHz		: 3700.000
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave rdrand lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust smep erms invpcid mpx rdseed smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 7392.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Pentium(R) Gold G5400 CPU @ 3.70GHz
+stepping	: 10
+microcode	: 0xb4
+cpu MHz		: 3700.008
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave rdrand lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust smep erms invpcid mpx rdseed smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 7392.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 3901308k(108228k free), swap 2097148k(16k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.202-b49-5587405) for linux-amd64 JRE (1.8.0_202-release-1483-b49-5587405), built by "android-build" with gcc 4.8
+
+time: Mon Sep 30 13:25:51 2019
+timezone: IST
+elapsed time: 368 seconds (0d 0h 6m 8s)
+
