@@ -135,6 +135,7 @@
 
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/viewPlacesBtn"
                         android:layout_width="@dimen/_180sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"

@@ -124,7 +124,7 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="please_click_again_to_exit">Press back again to exit</string>
     <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
-    <string name="date_format">july 12,2019</string>
+    <string name="date_format">30/12/2019</string>
     <string name="time_format">12:30</string>
     <string name="enter_email">Enter Email</string>
     <string name="choose_services">Choose Services</string>
@@ -176,10 +176,10 @@
     <string name="sports">Sports</string>
     <string name="soccor">Soccor</string>
     <string name="name_desc">Roger David</string>
-    <string name="time">Time</string>
+    <string name="time">Time:</string>
     <string name="rihana_pay_you">Rihana paid you</string>
     <string name="payment_fragment_rate">$23.45</string>
-    <string name="date">Date</string>
+    <string name="date">Date:</string>
     <string name="review_rating">Rihana rated you</string>
     <string name="session_fragment">Session</string>
     <string name="payment_fragment">Payment</string>
@@ -224,7 +224,7 @@
     <string name="notification_no">4</string>
     <string name="welcome_org_name">Welcome Gold Gym</string>
     <string name="marathon_run_for_fun">Marathon Day | Run for Fun</string>
-    <string name="vanue">Vanue</string>
+    <string name="vanue">Vanue:</string>
     <string name="vanue_address">Sukhna lake, California</string>
     <string name="event_date_time"><![CDATA[Date & Time]]></string>
     <string name="event_date_time_enter">6:30 Am, 27/09/2019</string>
@@ -234,7 +234,7 @@
     <string name="number_of_candidate">126</string>
     <string name="candidate">Candidate</string>
     <string name="instruction">Instructions</string>
-    <string name="instruction_detail">lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl,  \n abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl,  \n abjumpid do elusmod tempor incididunt ut labare at \n dolore magna aliqua. </string>
+    <string name="instruction_detail">lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at \n dolore magna aliqua. \n lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at \n dolore magna aliqua. </string>
     <string name="join_now">Join Now</string>
     <string name="find_a_place">Find a Place</string>
     <string name="find_a_place_text">Quisque euismod placerat ipsum, sed \n placerat nibh posuere et.</string>

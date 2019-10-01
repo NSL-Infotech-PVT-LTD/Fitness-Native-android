@@ -1,9 +1,12 @@
 package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
@@ -15,6 +18,8 @@ import java.util.List;
 import me.relex.circleindicator.CircleIndicator;
 
 public class EventDetail extends AppCompatActivity {
+
+    AppCompatImageView imgBackArrowImage;
 
 
     ViewPager viewPager;
@@ -29,11 +34,19 @@ public class EventDetail extends AppCompatActivity {
 
 
         for (int i = 0; i < 5; i++) {
-            imageList.add(R.drawable.sophie);
+            imageList.add(R.drawable.park);
 
         }
 
 
+        imgBackArrowImage = findViewById(R.id.eventBackArrowImage);
+        imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EventDetail.this,AthleteHomeScreen.class);
+                startActivity(intent);
+            }
+        });
         viewPager = findViewById(R.id.viewPagerImage);
         pagerAdapter = new MyCustomPagerAdapter(this, imageList);
         viewPager.setAdapter(pagerAdapter);
