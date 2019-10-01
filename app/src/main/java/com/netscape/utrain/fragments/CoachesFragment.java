@@ -31,7 +31,7 @@ import java.util.List;
 public class CoachesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private GridLayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
     private CoachesRecyclerAdapter adapter;
     private List<String> data = new ArrayList<>();
 
@@ -93,7 +93,7 @@ public class CoachesFragment extends Fragment {
         View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_coaches,container,false);
 
         recyclerView =view.findViewById(R.id.coachesRecycler);
-        layoutManager = new GridLayoutManager(context,2);
+        layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
         data.add("chet");

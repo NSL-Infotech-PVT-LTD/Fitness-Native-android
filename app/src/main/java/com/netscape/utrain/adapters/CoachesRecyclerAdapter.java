@@ -35,7 +35,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @NonNull
     @Override
     public CoachesRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coaches_recycler_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.athlete_event_view, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,8 +60,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            supplierName = itemView.findViewById(R.id.supplierName);
-            selectionImg = itemView.findViewById(R.id.coachImageView);
+            supplierName = itemView.findViewById(R.id.athleteVanueTv);
+            selectionImg = itemView.findViewById(R.id.athleteEventProfileImg);
 //
 //            container = itemView.findViewById(R.id.container);
 //            ratingBar = itemView.findViewById(R.id.supplierRating);
