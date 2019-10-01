@@ -74,7 +74,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
             eventName = itemView.findViewById(R.id.athleteEventHeaderTv);
             eventProfileImg = itemView.findViewById(R.id.athleteEventProfileImg);
-            constraintLayout = itemView.findViewById(R.id.athleteEventLayout);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
 //
 //            container = itemView.findViewById(R.id.container);
 //            ratingBar = itemView.findViewById(R.id.supplierRating);

@@ -16,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/containerTwo"
-                android:layout_marginBottom="@dimen/_50sdp"></FrameLayout>
+                android:layout_marginBottom="@dimen/_20sdp"></FrameLayout>
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView

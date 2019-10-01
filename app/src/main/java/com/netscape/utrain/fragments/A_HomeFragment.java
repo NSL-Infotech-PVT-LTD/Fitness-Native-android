@@ -38,22 +38,19 @@ import java.util.List;
  */
 public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
-
     private RecyclerView topCoachesRecycler, topOrgRecycler;
     private RecyclerView.LayoutManager topCoachesLayoutManager, topOrgLayoutManager;
     private TopCoachesAdapter adapter;
     private TopOrganizationAdapter orgAdapter;
     private List<String> data = new ArrayList<>();
     private List<String> orgList = new ArrayList<>();
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -104,13 +101,14 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
-        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+//        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+        tabLayout.setSelectedTabIndicator(getResources().getDrawable(R.drawable.circle));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
         logOut.setOnClickListener(this);
 
         topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
-        topCoachesLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        topCoachesLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
         data.add("Coach1");
@@ -128,28 +126,22 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         topCoachesRecycler.setAdapter(adapter);
 
         topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
-        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         topOrgRecycler.setLayoutManager(topOrgLayoutManager);
 
         orgList.add("Athlete1");
         orgList.add("Athlete1");
-
-
-        orgAdapter = new TopOrganizationAdapter(getContext(),orgList);
+        orgAdapter = new TopOrganizationAdapter(getContext(), orgList);
         topOrgRecycler.setAdapter(orgAdapter);
 
-
-
         return view;
-
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CoachesFragment(), "Events");
-        adapter.addFragment(new OrganisationFragment(), "Sessions");
-        adapter.addFragment(new PlacesFragment(),"Places");
+        adapter.addFragment(new A_EventsFragment(), "Events");
+        adapter.addFragment(new A_SessionsFragment(), "Sessions");
+        adapter.addFragment(new A_PlacesFragment(), "Places");
 
         viewPager.setAdapter(adapter);
     }
@@ -180,7 +172,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.logOutTv:
                 LoginManager.getInstance().logOut();
                 CommonMethods.clearPrefData(getContext());
@@ -205,6 +197,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

@@ -291,6 +291,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabGravity="fill"
+                app:tabPadding="@dimen/_10sdp"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorBlack"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"

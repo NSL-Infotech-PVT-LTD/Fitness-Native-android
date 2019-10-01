@@ -10,6 +10,9 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
@@ -17,14 +20,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorLightGray">
+            android:id="@+id/constraintLayout"
+            android:background="@color/eventCardBgColor">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/athleteEventCardProfileImg"
-                android:layout_width="@dimen/_100sdp"
+                android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_100sdp"
                 app:cardCornerRadius="@dimen/_20sdp"
-                android:layout_margin="@dimen/_20sdp"
+                android:layout_margin="@dimen/_16sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +54,9 @@
                 android:text="@string/marathon_run_for_fun"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
+                android:maxLength="15"
+
+                android:singleLine="true"
                 app:layout_constraintLeft_toRightOf="@+id/athleteEventCardProfileImg"
                 app:layout_constraintTop_toTopOf="@+id/athleteEventCardProfileImg" />
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,12 +22,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CoachesFragment.OnFragmentInteractionListener} interface
+ * {@link A_EventsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CoachesFragment#newInstance} factory method to
+ * Use the {@link A_EventsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoachesFragment extends Fragment {
+public class A_EventsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -56,7 +55,7 @@ public class CoachesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CoachesFragment() {
+    public A_EventsFragment() {
         // Required empty public constructor
     }
 
@@ -66,11 +65,11 @@ public class CoachesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CoachesFragment.
+     * @return A new instance of fragment A_EventsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CoachesFragment newInstance(String param1, String param2) {
-        CoachesFragment fragment = new CoachesFragment();
+    public static A_EventsFragment newInstance(String param1, String param2) {
+        A_EventsFragment fragment = new A_EventsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,7 +89,7 @@ public class CoachesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_coaches,container,false);
+        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_events_fragment,container,false);
 
         recyclerView =view.findViewById(R.id.coachesRecycler);
         layoutManager = new LinearLayoutManager(context);
