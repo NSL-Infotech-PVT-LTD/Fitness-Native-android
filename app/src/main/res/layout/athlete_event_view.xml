@@ -2,26 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_200sdp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    android:padding="@dimen/_4sdp"
+    android:id="@+id/athleteEventLayout">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_20sdp">
+        app:cardCornerRadius="@dimen/_10sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/_4sdp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/athleteEventCardProfileImg"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_120sdp"
-                app:cardCornerRadius="@dimen/_20sdp"
+                android:layout_width="@dimen/_96sdp"
+                android:layout_height="@dimen/_96sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -39,12 +41,11 @@
                 android:id="@+id/athleteEventHeaderTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/marathon_run_for_fun"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toRightOf="@+id/athleteEventCardProfileImg"
                 app:layout_constraintTop_toTopOf="@+id/athleteEventCardProfileImg" />
 
@@ -52,8 +53,8 @@
                 android:id="@+id/athleteVanueTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/vanue"
                 android:textSize="@dimen/_8sdp"
@@ -64,7 +65,7 @@
                 android:id="@+id/athleteEventAddressTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/vanue_address"
                 android:textSize="@dimen/_10sdp"
@@ -76,8 +77,8 @@
                 android:id="@+id/athleteEventDateTimeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/event_date_time"
                 android:textSize="@dimen/_8sdp"
@@ -87,7 +88,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/event_date_time_enter"
                 android:textSize="@dimen/_10sdp"

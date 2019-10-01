@@ -17,7 +17,9 @@
     <color name="tabTextColor">@color/colorBlack</color>
     <color name="portflioImageBackground">#D1F6E1</color>
     <color name="notificationRedIcon">#D50000</color>
-
+    <color name="gradientDarkColor">#4ED994</color>
+    <color name="gradientLightColor">#50FAA6</color>
+    <color name="colorYellowLayoutOutline">#ffff00</color>
 
 
 </resources>

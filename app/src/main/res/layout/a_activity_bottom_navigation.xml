@@ -12,11 +12,11 @@
         tools:context=".activities.AthleteHomeScreen">
 
         <FrameLayout
-            android:id="@+id/orgFrameContainer"
+            android:id="@+id/athleteFrameContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/nav_view"
-            android:layout_marginBottom="@dimen/_45sdp"
+
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,10 +33,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:src="@drawable/sophie"
-                    android:layout_marginLeft="@dimen/_110sdp"
+                    android:layout_marginLeft="@dimen/_120sdp"
                     app:civ_border_width="@dimen/_10sdp"
                     app:civ_border_color="#f5f5f5"/>
 
