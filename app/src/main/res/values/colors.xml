@@ -21,6 +21,6 @@
     <color name="gradientLightColor">#50FAA6</color>
     <color name="colorYellowLayoutOutline">#ffff00</color>
     <color name="eventCardBgColor">#F6F6F6</color>
-
+    <color name="colorTransparent">#00000000</color>
 
 </resources>

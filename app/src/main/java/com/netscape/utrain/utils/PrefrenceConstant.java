@@ -16,5 +16,6 @@ public class PrefrenceConstant {
     public static final String HOURLY_RATE="hourlyRate";
     public static final String USER_PHONE="userPhone";
     public static final String USER_EMAIL="userEmail";
+    public static final String PROFILE_IMAGE="profileImg";
 
 }

@@ -2,6 +2,7 @@ package com.netscape.utrain.utils;
 
 public class Constants {
     public static final String BASE_URL="https://dev.netscapelabs.com/utrain/public/api/";
+    public static final String IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/athlete/profile_image/";
 
     public static final String ATHLETE_SIGNUP="athlete/register";
     public static final String LOGIN_METHOD="login";
