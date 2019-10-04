@@ -91,7 +91,7 @@ public class A_SessionsFragment extends Fragment {
         data.add("chet");
         data.add("chet");
         data.add("chet");
-        adapter=new CoachesRecyclerAdapter(getContext(),data);
+//        adapter=new CoachesRecyclerAdapter(getContext(),data);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

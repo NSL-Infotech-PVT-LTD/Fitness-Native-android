@@ -110,7 +110,7 @@ public class A_EventsFragment extends Fragment {
         data.add("chet");
         data.add("chet");
 
-        adapter=new CoachesRecyclerAdapter(context,data);
+//        adapter=new CoachesRecyclerAdapter(context,data);
         recyclerView.setAdapter(adapter);
 
         return view;

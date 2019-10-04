@@ -32,8 +32,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
-import com.netscape.utrain.adapters.FindPlaceAdapter;
-import com.netscape.utrain.fragments.CoachesFragment;
 import com.netscape.utrain.model.AthleteEventListModel;
 import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
