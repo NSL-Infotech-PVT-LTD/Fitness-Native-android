@@ -1,7 +1,8 @@
 package com.netscape.utrain.retrofit;
 
-import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
+import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthleteSignUpResponse;
+import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
@@ -18,6 +19,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -140,4 +142,14 @@ public interface    Retrofitinterface {
                                                  @Part MultipartBody.Part imageTwo,
                                                  @Part MultipartBody.Part imageThree,
                                                  @Part MultipartBody.Part imageFour);
+
+    @GET(Constants.COACH_LIST)
+    Call<CoachListResponse> getCoachList(@Header("Authorization") String Authorization);
+
+    @POST(Constants.ATHLETE_EVENT_LIST)
+    Call<AthleteEventListResponse> getAthleteEventList(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String contentType,
+                                                    @Query("order_by") String order_by,
+                                                    @Query("search") String search,
+                                                    @Query("radius") String radius);
 }

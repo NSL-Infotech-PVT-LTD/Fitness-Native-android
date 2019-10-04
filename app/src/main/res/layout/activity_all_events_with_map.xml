@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,6 +22,26 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchAtuoCompleteEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/magnifier"
+            android:drawablePadding="@dimen/_10sdp"
+            android:elevation="@dimen/_1sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/search_keyword"
+            android:inputType="text"
+            android:padding="@dimen/_10sdp"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/Guideline"
@@ -29,9 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/card_shape_outline_yellow_top_round"
-            app:layout_constraintTop_toTopOf="@id/Guideline"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/Guideline">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuideline"
@@ -71,6 +96,17 @@
                 app:layout_constraintLeft_toRightOf="@+id/imageLeftArrow"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/filterIcon"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/filter_ic"
+                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/findAPlaceDummyText"
                 android:layout_width="wrap_content"
@@ -95,3 +131,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/custom_athelete_bottom_sheet" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,10 +1,12 @@
 package com.netscape.utrain.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -16,17 +18,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.common.Common;
 import com.facebook.login.LoginManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
+import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.response.CoachListResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,19 +54,36 @@ import java.util.List;
  */
 public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
+
     private RecyclerView topCoachesRecycler, topOrgRecycler;
     private RecyclerView.LayoutManager topCoachesLayoutManager, topOrgLayoutManager;
     private TopCoachesAdapter adapter;
     private TopOrganizationAdapter orgAdapter;
     private List<String> data = new ArrayList<>();
     private List<String> orgList = new ArrayList<>();
+
+    private MaterialButton btnTopCoaches;
+    private MaterialButton btnTopOrganization;
+    private Retrofitinterface api;
+    private List<CoachListModel> coachList = new ArrayList<>();
+    TopCoachesAdapter coachAdapter;
+    private Context context;
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -87,6 +120,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
+
         }
     }
 
@@ -97,51 +131,109 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
+        btnTopCoaches = view.findViewById(R.id.topCoachesViewAllBtn);
+        btnTopOrganization = view.findViewById(R.id.topOrgViewAllBtn);
 
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
-//        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-        tabLayout.setSelectedTabIndicator(getResources().getDrawable(R.drawable.circle));
+        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
         logOut.setOnClickListener(this);
 
+
         topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
-        topCoachesLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        topCoachesLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        getCoachListApi();
 
-        topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
-        data.add("Coach1");
-        data.add("Coach2");
-        data.add("Coach3");
-        data.add("Coach4");
-        data.add("Coach5");
-        data.add("Coach6");
-        data.add("Coach7");
-        data.add("Coach8");
-        data.add("Coach9");
-        data.add("Coach10");
+        btnTopCoaches.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        adapter = new TopCoachesAdapter(getContext(), data);
-        topCoachesRecycler.setAdapter(adapter);
+            }
+        });
 
-        topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
-        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        topOrgRecycler.setLayoutManager(topOrgLayoutManager);
+//        topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
+//        data.add("Coach1");
+//        data.add("Coach2");
+//        data.add("Coach3");
+//        data.add("Coach4");
+//        data.add("Coach5");
+//        data.add("Coach6");
+//        data.add("Coach7");
+//        data.add("Coach8");
+//        data.add("Coach9");
+//        data.add("Coach10");
+//
+//        adapter = new TopCoachesAdapter(getContext(), data);
+//        topCoachesRecycler.setAdapter(adapter);
+//
+//        topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
+//        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+//        topOrgRecycler.setLayoutManager(topOrgLayoutManager);
+//
+//        orgList.add("Athlete1");
+//        orgList.add("Athlete1");
+//
+//
+//        orgAdapter = new TopOrganizationAdapter(getContext(),orgList);
+//        topOrgRecycler.setAdapter(orgAdapter);
+//
 
-        orgList.add("Athlete1");
-        orgList.add("Athlete1");
-        orgAdapter = new TopOrganizationAdapter(getContext(), orgList);
-        topOrgRecycler.setAdapter(orgAdapter);
 
         return view;
+
     }
+
+    private void getCoachListApi(){
+
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<CoachListResponse> call = api.getCoachList("Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN,context));
+        call.enqueue(new Callback<CoachListResponse>() {
+            @Override
+            public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
+
+
+
+                if(response.body()!=null) {
+                    if (response.body().isStatus()) {
+                        coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData());
+                        topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
+                        topCoachesRecycler.setAdapter(coachAdapter);
+
+                    }
+                }else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<CoachListResponse> call, Throwable t) {
+
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new A_EventsFragment(), "Events");
+        adapter.addFragment(new Ath_EvntsFragment(), "Events");
         adapter.addFragment(new A_SessionsFragment(), "Sessions");
-        adapter.addFragment(new A_PlacesFragment(), "Places");
+        adapter.addFragment(new A_PlacesFragment(),"Places");
 
         viewPager.setAdapter(adapter);
     }
@@ -172,7 +264,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        switch (view.getId()){
             case R.id.logOutTv:
                 LoginManager.getInstance().logOut();
                 CommonMethods.clearPrefData(getContext());
@@ -197,7 +289,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
