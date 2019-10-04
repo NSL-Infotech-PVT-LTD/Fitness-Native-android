@@ -92,10 +92,10 @@ public class OrganisationFragment extends Fragment {
         data.add("chet");
         data.add("chet");
         data.add("chet");
-        adapter=new CoachesRecyclerAdapter(getContext(),data);
-        layoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        adapter=new CoachesRecyclerAdapter(getContext(),data);
+//        layoutManager = new GridLayoutManager(getActivity(), 2);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
         return view;
     }
 

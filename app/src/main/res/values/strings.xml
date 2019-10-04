@@ -224,7 +224,6 @@
     <string name="notification_no">4</string>
     <string name="welcome_org_name">Welcome Gold Gym</string>
     <string name="marathon_run_for_fun">Marathon Day | Run for Fun</string>
-    <string name="vanue">Vanue:</string>
     <string name="vanue_address">Sukhna lake, California</string>
     <string name="event_date_time"><![CDATA[Date & Time]]></string>
     <string name="event_date_time_enter">6:30 Am, 27/09/2019</string>
@@ -243,5 +242,8 @@
     <string name="number_of_candidate_on_place">60 -70 candidates</string>
     <string name="price_display">$44/Hr</string>
     <string name="view_places">View places</string>
+    <string name="venue">Venue</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
 
 </resources>

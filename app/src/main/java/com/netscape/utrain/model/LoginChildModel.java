@@ -23,6 +23,15 @@ public class LoginChildModel {
     private String created_at;
     private String updated_at;
     private String deleted_at;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getId() {
         return id;

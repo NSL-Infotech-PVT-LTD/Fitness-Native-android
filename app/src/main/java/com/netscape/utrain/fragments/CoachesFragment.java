@@ -1,6 +1,7 @@
 package com.netscape.utrain.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,12 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AllEventsWithMap;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
+import com.netscape.utrain.model.AthleteEventListModel;
+import com.netscape.utrain.response.AthleteEventListResponse;
+import com.netscape.utrain.response.CoachListResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,14 +43,18 @@ import java.util.List;
  * Use the {@link CoachesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoachesFragment extends Fragment {
+public class CoachesFragment extends Fragment  {
+
+    MaterialButton btnViewAll;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CoachesRecyclerAdapter adapter;
-    private List<String> data = new ArrayList<>();
+    private List<AthleteEventListModel> data = new ArrayList<>();
 
     private Context context;
+    private Retrofitinterface api;
+    private List<AthleteEventListModel> listModels = new ArrayList<>();
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,33 +107,73 @@ public class CoachesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_coaches,container,false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_coaches, container, false);
 
-        recyclerView =view.findViewById(R.id.coachesRecycler);
+        btnViewAll = view.findViewById(R.id.viewPagerViewAllBtn);
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, AllEventsWithMap.class);
+                context.startActivity(intent);
+            }
+        });
+        recyclerView = view.findViewById(R.id.coachesRecycler);
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
 
-        adapter=new CoachesRecyclerAdapter(context,data);
-        recyclerView.setAdapter(adapter);
+        getAthleteEventApi();
 
         return view;
+    }
+
+    private void getAthleteEventApi() {
+
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","1000000");
+        call.enqueue(new Callback<AthleteEventListResponse>() {
+            @Override
+            public void onResponse(Call<AthleteEventListResponse> call, Response<AthleteEventListResponse> response) {
+
+                if (response.isSuccessful())
+                {
+                    if (response.body().isStatus()){
+                        listModels.clear();
+                        listModels.addAll(response.body().getData());
+
+                        adapter = new CoachesRecyclerAdapter(context, listModels);
+                        recyclerView.setAdapter(adapter);
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteEventListResponse> call, Throwable t) {
+
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -140,6 +199,8 @@ public class CoachesFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

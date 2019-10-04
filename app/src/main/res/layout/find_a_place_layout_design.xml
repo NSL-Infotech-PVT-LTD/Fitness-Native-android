@@ -7,6 +7,7 @@
     android:elevation="@dimen/_10sdp"
     android:paddingBottom="@dimen/_10sdp"
 
+
     >
 
     <com.google.android.material.card.MaterialCardView
@@ -46,6 +47,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -67,9 +69,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/find_a_place"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toLeftOf="@+id/placeNameInfoTv"
                         app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
 
@@ -78,9 +81,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/park"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toRightOf="@id/findPlaceTv"
                         app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
 
@@ -92,7 +96,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/candidate"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toLeftOf="@+id/placeNameInfoTv"
                         app:layout_constraintTop_toBottomOf="@id/findPlaceTv" />
 
@@ -103,7 +107,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/number_of_candidate_on_place"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toRightOf="@id/findPlaceTv"
                         app:layout_constraintTop_toBottomOf="@id/placenameTv" />
 
@@ -112,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/price"
                         android:textSize="@dimen/_10sdp"
@@ -125,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/price_display"
                         android:textColor="@color/notificationRedIcon"
