@@ -17,6 +17,7 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -27,7 +28,7 @@ import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
-public interface    Retrofitinterface {
+public interface Retrofitinterface {
 
     @Multipart
     @POST(Constants.ATHLETE_SIGNUP)
@@ -143,8 +144,16 @@ public interface    Retrofitinterface {
                                                  @Part MultipartBody.Part imageThree,
                                                  @Part MultipartBody.Part imageFour);
 
-    @GET(Constants.COACH_LIST)
-    Call<CoachListResponse> getCoachList(@Header("Authorization") String Authorization);
+    @POST(Constants.TOP_COACH_LIST)
+    Call<CoachListResponse> getCoachList(@Header("Authorization") String Authorization,
+                                         @Query("search") String search,
+                                         @Query("limit") String Limit,
+                                         @Query("page") String page);
+    @POST(Constants.TOP_ORG_LIST)
+    Call<CoachListResponse> getTopOrgList(@Header("Authorization") String Authorization,
+                                          @Query("search") String search,
+                                          @Query("limit") String Limit,
+                                          @Query("page") String page);
 
     @POST(Constants.ATHLETE_EVENT_LIST)
     Call<AthleteEventListResponse> getAthleteEventList(@Header("Authorization") String Authorization,

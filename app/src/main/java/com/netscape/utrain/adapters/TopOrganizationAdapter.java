@@ -9,8 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.utils.Constants;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
 
     private Context context;
     private int previusPos=-1;
-    private List<String> supplierData;
+    private List<CoachListModel> supplierData;
 
     public TopOrganizationAdapter(Context context, List supplierData){
         this.context = context;
@@ -37,6 +40,10 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
 
     @Override
     public void onBindViewHolder(@NonNull TopOrgHolder holder, int position) {
+        CoachListModel data=supplierData.get(position);
+
+        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+data.getProfile_image()).into(holder.imageView);
+        holder.name.setText(data.getName());
 
     }
 
@@ -46,6 +53,7 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
     }
 
     public class TopOrgHolder extends RecyclerView.ViewHolder {
+
 
     AppCompatImageView imageView;
     MaterialTextView name;

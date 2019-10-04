@@ -3,6 +3,8 @@ package com.netscape.utrain.utils;
 public class Constants {
     public static final String BASE_URL="https://dev.netscapelabs.com/utrain/public/api/";
     public static final String IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/athlete/profile_image/";
+    public static final String COACH_IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/coach/profile_image/";
+    public static final String ORG_IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/organiser/profile_image/";
 
 
     public static final String ATHLETE_SIGNUP="athlete/register";
@@ -10,7 +12,8 @@ public class Constants {
     public static final String ORG_SIGNUP="organiser/register";
     public static final String SERVICES="services";
     public static final String COACH_SIGNUP = "coach/register";
-    public static final String COACH_LIST = "coach/list";
+    public static final String TOP_COACH_LIST = "coach/list";
+    public static final String TOP_ORG_LIST = "organisers/list";
     public static final String ATHLETE_EVENT_LIST = "events/athlete/list";
     public static final String AUTH_TOKEN="auth token";
 
@@ -26,6 +29,9 @@ public class Constants {
     public static final String TypeOrganization="organizationActive";
     public static final String SELECTED_SERVICE="selectedService";
     public static final String SERVICE_LIST="serviceList";
+    public static final String TOP_COACHES="topCoaches";
+    public static final String TOP_ORG="topOrg";
+    public static final String TOP_TYPE_INTENT="topTypIntent";
 
 
 

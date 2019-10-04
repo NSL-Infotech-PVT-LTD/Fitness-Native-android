@@ -23,7 +23,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="explore_the_best_coaches">Exploer the best  Coaches/Organisation with just a tap!</string>
+    <string name="explore_the_best_coaches">Exploer the best Coaches with just a tap!</string>
+    <string name="explore_the_best_org">Exploer the best Organisation with just a tap!</string>
     <string name="search_keyword">Search Keyword</string>
     <string name="find_your_coach">Find your coach</string>
     <string name="log_in">Log In</string>
@@ -245,5 +246,10 @@
     <string name="venue">Venue</string>
     <string name="start">Start</string>
     <string name="end">End</string>
+    <string name="discover">Discover</string>
+    <string name="explore_coaches_discover">Explore the best coaches with just a tap!</string>
+    <string name="discoverRecylerName">ChristianLawn</string>
+    <string name="coach_profession">Cardio | Yoga | Dieticion</string>
+    <string name="rating">Rating</string>
 
 </resources>
