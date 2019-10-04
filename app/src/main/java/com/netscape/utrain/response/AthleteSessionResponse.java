@@ -1,24 +1,23 @@
 package com.netscape.utrain.response;
 
-import com.netscape.utrain.model.AthleteEventListModel;
-import com.netscape.utrain.model.AthleteResponseEventData;
+import com.netscape.utrain.model.AthleteSessionDataModel;
+import com.netscape.utrain.model.AthleteSessionModel;
 import com.netscape.utrain.model.ErrorModel;
 
 import java.util.List;
 
-public class AthleteEventListResponse {
-
-
+public class AthleteSessionResponse {
     private boolean status;
     private int code;
     private ErrorModel error;
-    private AthleteResponseEventData data;
 
-    public AthleteResponseEventData getData() {
+    private AthleteSessionDataModel data;
+
+    public AthleteSessionDataModel getData() {
         return data;
     }
 
-    public void setData(AthleteResponseEventData data) {
+    public void setData(AthleteSessionDataModel data) {
         this.data = data;
     }
 

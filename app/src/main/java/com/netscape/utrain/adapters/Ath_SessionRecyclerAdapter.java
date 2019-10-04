@@ -2,14 +2,10 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,27 +18,28 @@ import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventDetail;
 import com.netscape.utrain.model.AthleteEventListModel;
+import com.netscape.utrain.model.AthleteSessionModel;
+import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecyclerAdapter.ViewHolder> {
+public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_SessionRecyclerAdapter.ViewHolder> {
     private Context context;
     private int previusPos = -1;
-    private List<AthleteEventListModel> supplierData;
+    private List<AthleteSessionModel> supplierData;
     AthleteEventData eventData;
     String value = "", valueEnd = "";
 
 
-    public CoachesRecyclerAdapter(Context context, List<AthleteEventListModel> supplierData) {
+    public Ath_SessionRecyclerAdapter(Context context, List<AthleteSessionModel> supplierData) {
         this.context = context;
         this.supplierData = supplierData;
         this.eventData = eventData;
@@ -50,66 +47,49 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     @NonNull
     @Override
-    public CoachesRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Ath_SessionRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_session_layout_design, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull Ath_SessionRecyclerAdapter.ViewHolder holder, final int position) {
 
-        final AthleteEventListModel data = supplierData.get(position);
+        final AthleteSessionModel data = supplierData.get(position);
 
-        String currentString = data.getStart_at();
-        String currentStringEnd = data.getEnd_at();
-        String[] separated = currentString.split(" ");
-        String[] separatedEnd = currentStringEnd.split(" ");
 
         holder.eventName.setText(data.getName());
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
-        holder.trainingSessionVenueDetailTv.setText(data.getLocation());
-//        holder.eventEndDateTimeEnterTv.setText(data.getEnd_at());
+//        holder.athleteEventAddressTv.setText(data.getLocation());
+//        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
+        holder.eventStartDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getDate());
+        holder.findPlaceActualPriceTv.setText("$"+data.getHourly_rate()+"/hr");
+
         try {
-            if (data.getImages()!=null) {
-                JSONArray jsonArray = new JSONArray(data.getImages());
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventProfileImg);
+            JSONArray jsonArray = new JSONArray(data.getImages());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.eventProfileImg);
 
-                }
             }
-
         } catch (JSONException e) {
 
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
         Date dt, dtEnd;
 
 
-        try {
-            dt = sdf.parse(separated[1]);
-            dtEnd = sdf.parse(separatedEnd[1]);
-
-            value = parseDateToddMMyyyy(separated[0]) + "  " + sdfs.format(dt);
-            valueEnd = parseDateToddMMyyyy(separatedEnd[0]) + "  " + sdfs.format(dtEnd);
-            holder.eventStartDateTimeEnterTv.setText(value);
-//            holder.eventEndDateTimeEnterTv.setText(valueEnd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        holder.viewPlacesBtn.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
         holder.viewPlacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
-                intent.putExtra("eventVenue", data.getLocation());
-                intent.putExtra("evenStartDateTime", value);
-                intent.putExtra("eventEndDateTime", valueEnd);
+//                intent.putExtra("eventVenue", data.getLocation());
+                intent.putExtra("evenStartDateTime", data.getDate());
+                intent.putExtra("eventEndDateTime", data.getBusiness_hour());
                 intent.putExtra("eventDescription", data.getDescription());
 
                 context.startActivity(intent);
@@ -148,7 +128,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, trainingSessionVenueDetailTv, findPlaceActualPriceTv, eventStartDateTimeEnterTv;
+        private AppCompatTextView eventName, findPlaceActualPriceTv,eventStartDateTimeEnterTv;
         private ImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
 
@@ -161,7 +141,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
             eventName = itemView.findViewById(R.id.trainingSessionProfessionDesc);
             eventProfileImg = itemView.findViewById(R.id.findPlaceImage);
-            trainingSessionVenueDetailTv = itemView.findViewById(R.id.trainingSessionVenueDetailTv);
             viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
             eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTimeEnterTv);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);

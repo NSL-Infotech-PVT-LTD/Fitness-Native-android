@@ -1,6 +1,8 @@
 package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.response.AthleteEventListResponse;
+import com.netscape.utrain.response.AthletePlaceResponse;
+import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
@@ -151,5 +153,22 @@ public interface    Retrofitinterface {
                                                     @Header("Content-Type") String contentType,
                                                     @Query("order_by") String order_by,
                                                     @Query("search") String search,
+                                                    @Query("limit") String limit,
                                                     @Query("radius") String radius);
+
+    @POST(Constants.ATHLETE_SESSION_LIST)
+    Call<AthleteSessionResponse> getAthleteSessionList(@Header("Authorization") String Authorization,
+                                                       @Header("Content-Type") String contentType,
+                                                       @Query("search") String search,
+                                                       @Query("limit") String limit,
+                                                       @Query("order_by") String order_by
+                                                  );
+
+    @POST(Constants.ATHLETE_PLACE_LIST)
+    Call<AthletePlaceResponse> getAthletePlacesList(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String contentType,
+                                                    @Query("search") String search,
+                                                    @Query("limit") String limit,
+                                                    @Query("order_by") String order_by
+                                                  );
 }

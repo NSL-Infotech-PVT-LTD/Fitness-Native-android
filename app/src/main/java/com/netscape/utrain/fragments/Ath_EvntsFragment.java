@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AllEventsWithMap;
+import com.netscape.utrain.activities.AllEventsMapAct;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
 import com.netscape.utrain.model.AthleteEventListModel;
 import com.netscape.utrain.response.AthleteEventListResponse;
@@ -112,7 +112,8 @@ public class Ath_EvntsFragment extends Fragment {
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AllEventsWithMap.class);
+                Intent intent = new Intent(context, AllEventsMapAct.class);
+                intent.putExtra("from","1");
                 context.startActivity(intent);
             }
         });
@@ -143,7 +144,7 @@ public class Ath_EvntsFragment extends Fragment {
     private void getAthleteEventApi() {
 
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","1000000");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","10","1000000");
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
             public void onResponse(Call<AthleteEventListResponse> call, Response<AthleteEventListResponse> response) {
@@ -152,7 +153,7 @@ public class Ath_EvntsFragment extends Fragment {
                 {
                     if (response.body().isStatus()){
                         listModels.clear();
-                        listModels.addAll(response.body().getData());
+                        listModels.addAll(response.body().getData().getData());
 
                         adapter = new CoachesRecyclerAdapter(context, listModels);
                         recyclerView.setAdapter(adapter);

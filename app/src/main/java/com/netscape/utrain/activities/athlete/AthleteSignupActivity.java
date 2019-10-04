@@ -116,6 +116,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private double latitude = 0.0, longitude = 0.0;
     private Uri selected;
     private String IMAGE_DIRECTORY = "/Utrain/";
+
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -172,12 +173,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         });
 
 
-
         if (getIntent().hasExtra("name")) {
             binding.layoutOne.setVisibility(View.GONE);
             binding.layoutTwo.setVisibility(View.VISIBLE);
             binding.athleteNameEdt.setText(getIntent().getStringExtra("name"));
-            new MyAsync().execute( Constants.SocialProfile);
+            new MyAsync().execute(Constants.SocialProfile);
         } else {
             binding.layoutOne.setVisibility(View.VISIBLE);
             binding.layoutTwo.setVisibility(View.GONE);
@@ -553,6 +553,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteSignupActivity.this);
+                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteSignupActivity.this);
                             Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
@@ -710,6 +711,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             }
         }
     }
+
     public File saveImage1(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -732,6 +734,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         }
         return null;
     }
+
     public class MyAsync extends AsyncTask<String, Void, Void> {
         Bitmap bm = null;
 
@@ -745,14 +748,14 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 e.printStackTrace();
             }
             try {
-                    bm = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                bm = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
 //Create Path to save Image
             if (bm != null) {
-                photoFile  = saveImage1(bm);
+                photoFile = saveImage1(bm);
                 imageUrl = photoFile.getPath();
 
                 if (!photoFile.exists()) {

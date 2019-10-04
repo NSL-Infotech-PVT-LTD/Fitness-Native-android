@@ -4,7 +4,7 @@
     android:id="@+id/bottomsheet_sort"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTransparent"
+    android:background="@color/colorTransparentnew"
     android:clickable="true"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:orientation="vertical"
+        android:elevation="@dimen/_10sdp"
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp">
 

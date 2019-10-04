@@ -42,7 +42,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/card_shape_outline_yellow_bottom_round">
+                    android:background="@drawable/card_shape_outline_skyblue_bottom_round">
 
                     <View
                         android:layout_width="match_parent"
@@ -52,76 +52,98 @@
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/placeNameInfoTv"
+                        android:id="@+id/trainingSessionProfessionDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/place_info"
+                        android:text="@string/training_session_desc"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/findPlaceTv"
+                        android:id="@+id/trainingSessionCoachNameTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/find_a_place"
+                        android:text="@string/coach_nametv"
                         android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/placeNameInfoTv"
-                        app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
-"
+                        app:layout_constraintLeft_toLeftOf="@+id/trainingSessionProfessionDesc"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionProfessionDesc" />
+
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/placenameTv"
+                        android:id="@+id/trainingSessionCoachNameEnterNameTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/park"
+                        android:text="@string/coach_name_enter"
                         android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toRightOf="@id/findPlaceTv"
-                        app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
+                        app:layout_constraintLeft_toRightOf="@id/trainingSessionCoachNameTv"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionProfessionDesc" />
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/findPlaceCandidateTv"
+                        android:id="@+id/trainingSessionVenueTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/candidate"
+                        android:text="@string/venue"
                         android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/placeNameInfoTv"
-                        app:layout_constraintTop_toBottomOf="@id/findPlaceTv" />
+                        app:layout_constraintRight_toRightOf="@+id/trainingSessionCoachNameTv"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionCoachNameTv" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/findPlaceCandidateDetailTv"
+                        android:id="@+id/trainingSessionVenueDetailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/number_of_candidate_on_place"
+                        android:text="@string/venue_detail"
                         android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toRightOf="@id/findPlaceTv"
-                        app:layout_constraintTop_toBottomOf="@id/placenameTv" />
+                        app:layout_constraintLeft_toLeftOf="@id/trainingSessionCoachNameEnterNameTv"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionCoachNameEnterNameTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/trainingSessionDateTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/date_time"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintRight_toRightOf="@id/trainingSessionVenueTv"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionVenueTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/trainingSessionDateTimeEnterTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/date_time_format"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
+                        app:layout_constraintTop_toBottomOf="@id/trainingSessionVenueTv" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/findPlacePriceTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/price"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
+                        app:layout_constraintTop_toTopOf="@id/trainingSessionCoachNameEnterNameTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -144,9 +166,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
-                        android:backgroundTint="@color/colorYellowLayoutOutline"
+                        android:backgroundTint="@color/colorskyBlueBtn"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/view_places"
+                        android:text="@string/view"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"

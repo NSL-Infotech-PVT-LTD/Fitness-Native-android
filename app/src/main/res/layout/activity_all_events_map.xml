@@ -6,21 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.AllEventsWithMap">
+        android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/mapFragment"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <fragment xmlns:map="http://schemas.android.com/apk/res-auto"-->
+        <!--            xmlns:tools="http://schemas.android.com/tools"-->
+        <!--            android:id="@+id/mapFragment"-->
+        <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/searchAtuoCompleteEdt"
@@ -33,9 +34,9 @@
             android:elevation="@dimen/_1sdp"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/search_keyword"
+            android:imeOptions="actionSearch"
             android:inputType="text"
             android:padding="@dimen/_10sdp"
-            android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -90,7 +91,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_13sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="@string/find_a_place"
+                android:text=""
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/imageLeftArrow"
@@ -121,9 +122,11 @@
                 android:id="@+id/findPlaceRecycler"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                android:layout_marginRight="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/findAPlaceDummyText" />
 
 

@@ -22,5 +22,11 @@
     <color name="colorYellowLayoutOutline">#ffff00</color>
     <color name="eventCardBgColor">#F6F6F6</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorTransparentnew">#0A000000</color>
+    <color name="colorskyBlueBtn">#7bd3f7</color>
+
+
+
+
 
 </resources>

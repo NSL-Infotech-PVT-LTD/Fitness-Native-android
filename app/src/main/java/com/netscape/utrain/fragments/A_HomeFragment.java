@@ -231,9 +231,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CoachesFragment(), "Events");
-        adapter.addFragment(new OrganisationFragment(), "Sessions");
-        adapter.addFragment(new PlacesFragment(),"Places");
+        adapter.addFragment(new Ath_EvntsFragment(), "Events");
+        adapter.addFragment(new A_SessionsFragment(), "Sessions");
+        adapter.addFragment(new A_PlacesFragment(),"Places");
 
         viewPager.setAdapter(adapter);
     }

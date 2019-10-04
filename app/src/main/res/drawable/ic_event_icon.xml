@@ -28,14 +28,5 @@
       android:strokeWidth="2"
       android:fillColor="#00000000"
       android:strokeColor="#000"/>
-  <path
-      android:pathData="M36.0225,21.3291h5.579"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000"/>
-  <path
-      android:pathData="M38.8111,18.54L38.8111,24.118"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000"/>
+
 </vector>

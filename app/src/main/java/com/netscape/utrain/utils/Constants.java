@@ -2,7 +2,10 @@ package com.netscape.utrain.utils;
 
 public class Constants {
     public static final String BASE_URL="https://dev.netscapelabs.com/utrain/public/api/";
-    public static final String IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/athlete/profile_image/";
+        public static final String IMAGE_BASE_URL="https://dev.netscapelabs.com/utrain/public/uploads/athlete/profile_image/";
+        public static final String IMAGE_BASE_SESSION="https://dev.netscapelabs.com/utrain/public/uploads/session/";
+        public static final String IMAGE_BASE_PLACE="https://dev.netscapelabs.com/utrain/public/uploads/spaces/";
+        public static final String IMAGE_BASE_EVENT="https://dev.netscapelabs.com/utrain/public/uploads/events/";
 
 
     public static final String ATHLETE_SIGNUP="athlete/register";
@@ -12,6 +15,8 @@ public class Constants {
     public static final String COACH_SIGNUP = "coach/register";
     public static final String COACH_LIST = "coach/list";
     public static final String ATHLETE_EVENT_LIST = "events/athlete/list";
+    public static final String ATHLETE_SESSION_LIST = "session/athlete/list";
+    public static final String ATHLETE_PLACE_LIST = "spaces/athlete/list";
     public static final String AUTH_TOKEN="auth token";
 
 

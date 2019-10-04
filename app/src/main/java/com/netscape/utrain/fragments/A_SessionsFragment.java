@@ -1,5 +1,7 @@
 package com.netscape.utrain.fragments;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,12 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AllEventsMapAct;
+import com.netscape.utrain.adapters.Ath_SessionRecyclerAdapter;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
+import com.netscape.utrain.model.AthleteEventListModel;
+import com.netscape.utrain.model.AthleteSessionModel;
+import com.netscape.utrain.response.AthleteEventListResponse;
+import com.netscape.utrain.response.AthleteSessionResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,18 +46,22 @@ import java.util.List;
 public class A_SessionsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private CoachesRecyclerAdapter adapter;
-    private List<String> data=new ArrayList<>();
+    private Ath_SessionRecyclerAdapter adapter;
+    private List<String> data = new ArrayList<>();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private List<AthleteSessionModel> listModels = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Retrofitinterface api;
+
+    private MaterialButton sessionViewAllBtn;
 
     public A_SessionsFragment() {
         // Required empty public constructor
@@ -76,26 +98,73 @@ public class A_SessionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_session_fragment, container, false);
-        recyclerView =view.findViewById(R.id.organisationRecycler);
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
-        data.add("chet");
+        recyclerView = view.findViewById(R.id.organisationRecycler);
+        sessionViewAllBtn = view.findViewById(R.id.sessionViewAllBtn);
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
+//        data.add("chet");
 //        adapter=new CoachesRecyclerAdapter(getContext(),data);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        recyclerView.setAdapter(adapter);
+        sessionViewAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AllEventsMapAct.class);
+                intent.putExtra("from", "2");
+                getContext().startActivity(intent);
+            }
+        });
+        getAthleteEventApi();
+
         return view;
+    }
+
+    private void getAthleteEventApi() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading....");
+        progressDialog.show();
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"","10", "latest");
+        call.enqueue(new Callback<AthleteSessionResponse>() {
+            @Override
+            public void onResponse(Call<AthleteSessionResponse> call, Response<AthleteSessionResponse> response) {
+
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        listModels.clear();
+                        listModels.addAll(response.body().getData().getData());
+
+                        adapter = new Ath_SessionRecyclerAdapter(getContext(), listModels);
+                        recyclerView.setAdapter(adapter);
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSessionResponse> call, Throwable t) {
+
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

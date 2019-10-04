@@ -34,6 +34,15 @@ public class AthleteEventListModel {
     private int guest_allowed;
     private String equipment_required;
     private double distance;
+    private String images;
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
 
     public int getId() {
         return id;
