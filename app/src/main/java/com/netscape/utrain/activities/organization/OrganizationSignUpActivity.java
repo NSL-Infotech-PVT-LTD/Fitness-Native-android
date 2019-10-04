@@ -53,6 +53,7 @@ import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.activities.LoginActivity;
+import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.ServicePriceActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.coach.CoachSignupActivity;
@@ -121,7 +122,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_organization_sign_up);
         init();
-
+        PortfolioActivity.clearFromConstants();
         binding.orgAddressEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {

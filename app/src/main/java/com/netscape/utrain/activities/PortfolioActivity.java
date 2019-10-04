@@ -105,7 +105,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
         }
         setImagesFromConstant();
-
         binding.addImageOne.setOnClickListener(this);
         binding.addImageTwo.setOnClickListener(this);
         binding.addImageThree.setOnClickListener(this);
@@ -505,7 +504,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             PortfolioImagesConstants.partFour = portFolioImage1;
             PortfolioImagesConstants.imageFour = setImages;
         }
-
     }
 
     public void setImagesFromConstant() {
@@ -528,7 +526,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void clearFromConstants() {
+    public static void clearFromConstants(){
         PortfolioImagesConstants.imageOne = "";
         PortfolioImagesConstants.imageTwo = "";
         PortfolioImagesConstants.imageThree = "";

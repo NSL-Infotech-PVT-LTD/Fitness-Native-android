@@ -1,11 +1,10 @@
 package com.netscape.utrain.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -21,14 +20,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OrganisationFragment.OnFragmentInteractionListener} interface
+ * {@link A_SessionsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OrganisationFragment#newInstance} factory method to
+ * Use the {@link A_SessionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrganisationFragment extends Fragment {
+public class A_SessionsFragment extends Fragment {
     private RecyclerView recyclerView;
-    private GridLayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
     private CoachesRecyclerAdapter adapter;
     private List<String> data=new ArrayList<>();
     // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +41,7 @@ public class OrganisationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public OrganisationFragment() {
+    public A_SessionsFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +51,11 @@ public class OrganisationFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OrganisationFragment.
+     * @return A new instance of fragment A_SessionsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OrganisationFragment newInstance(String param1, String param2) {
-        OrganisationFragment fragment = new OrganisationFragment();
+    public static A_SessionsFragment newInstance(String param1, String param2) {
+        A_SessionsFragment fragment = new A_SessionsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,7 +75,7 @@ public class OrganisationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_organisation, container, false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_session_fragment, container, false);
         recyclerView =view.findViewById(R.id.organisationRecycler);
         data.add("chet");
         data.add("chet");
@@ -92,10 +91,10 @@ public class OrganisationFragment extends Fragment {
         data.add("chet");
         data.add("chet");
         data.add("chet");
-//        adapter=new CoachesRecyclerAdapter(getContext(),data);
-//        layoutManager = new GridLayoutManager(getActivity(), 2);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
+        adapter=new CoachesRecyclerAdapter(getContext(),data);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
