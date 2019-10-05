@@ -36,7 +36,7 @@
             android:id="@+id/athleteProfileImg"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/sophie"
+            android:src="@drawable/ic_place_holder"
             app:civ_border_color="#f5f5f5"
             app:civ_border_width="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheet_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@color/colorLightGray"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textviewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/drawer_right_corner_laydesign"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/naviProfileImage"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_place_holder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/naviNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toRightOf="@id/naviProfileImage"
+            app:layout_constraintTop_toTopOf="@id/naviProfileImage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/naviAddAddressTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/naviNameTv"
+            app:layout_constraintTop_toBottomOf="@id/naviNameTv" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/_20sdp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/_20sdp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icDashboardIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_dashboard"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/textviewBackground" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dashboardTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/dashboards"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/textviewBackground" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icDashboardIcon" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icBookingIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_booking"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/booking"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icBookingIcon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icTransactionIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_transaction"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/transactionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/transaction"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
+
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icTransactionIcon" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icNotificationIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_notifications_black_24dp"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view3" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/notificationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/notification"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view3" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icNotificationIcon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icAboutUsIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_about_us"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view4" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/aboutUsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/about_us"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view4" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icAboutUsIcon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icRateUsIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_rate_us"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view5" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rateUsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/rate_us"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view5" />
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/icRateUsIcon" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icSettingsIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view6" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/settingsTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintTop_toBottomOf="@id/view6" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/logOutTv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_60sdp"
+            android:background="@drawable/bottom_right_round_design"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -26,7 +26,7 @@
                 android:id="@+id/topCoachesRecyclerImg"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_80sdp"
-                android:src="@drawable/sophie"
+                android:src="@drawable/ic_place_holder"
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -142,13 +143,16 @@ public class Ath_EvntsFragment extends Fragment {
     }
 
     private void getAthleteEventApi() {
-
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Loading Events....");
+        progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","10","1000000");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","10","1","1000000");
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
             public void onResponse(Call<AthleteEventListResponse> call, Response<AthleteEventListResponse> response) {
 
+                progressDialog.dismiss();
                 if (response.isSuccessful())
                 {
                     if (response.body().isStatus()){
@@ -164,6 +168,7 @@ public class Ath_EvntsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AthleteEventListResponse> call, Throwable t) {
+                progressDialog.dismiss();
 
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

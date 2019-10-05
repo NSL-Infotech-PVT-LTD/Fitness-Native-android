@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
     @NonNull
     @Override
     public Ath_PlaceRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_a_place_layout_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_place_old_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -58,9 +59,10 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
         holder.eventName.setText(data.getName());
         holder.findPlaceActualPriceTv.setText("$" + data.getPrice_hourly() + "/hr");
-//        holder.athleteEventAddressTv.setText(data.getLocation());
+//        holder.placenameTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.get());
-        holder.placenameTv.setText(data.getDescription());
+        holder.placenameTv.setText(data.getLocation());
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" miles");
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -69,19 +71,24 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
             }
         } catch (JSONException e) {
 
-            Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
 
-        holder.viewPlacesBtn.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
-//                intent.putExtra("eventVenue", data.getLocation());
-//                intent.putExtra("evenStartDateTime", value);
+                intent.putExtra("eventVenue", data.getLocation());
+//                intent.putExtra("evenStartDateTime", data.get);
+                intent.putExtra("eventALLImages", data.getImages());
                 intent.putExtra("eventEndDateTime", data.getAvailability_week());
-                intent.putExtra("eventDescription", data.getDescription());
+                intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+                intent.putExtra("from", "places");
+                Bundle b = new Bundle();
+                b.putString("Array", data.getImages());
+                intent.putExtras(b);
 
                 context.startActivity(intent);
             }
@@ -119,7 +126,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, placenameTv, eventEndDateTimeEnterTv, eventStartDateTimeEnterTv, findPlaceActualPriceTv;
+        private AppCompatTextView eventName, placenameTv,findPlaceDistanceDetailTv, findPlaceActualPriceTv;
         private AppCompatImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
 
@@ -131,12 +138,12 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
             super(itemView);
 
             eventName = itemView.findViewById(R.id.placeNameInfoTv);
+            findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
             eventProfileImg = itemView.findViewById(R.id.findPlaceImage);
             viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
             placenameTv = itemView.findViewById(R.id.placenameTv);
-            eventStartDateTimeEnterTv = itemView.findViewById(R.id.eventStartDateTimeEnterTv);
-            eventEndDateTimeEnterTv = itemView.findViewById(R.id.eventEndDateTimeEnterTv);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
+
 //
 //            container = itemView.findViewById(R.id.container);
 //            ratingBar = itemView.findViewById(R.id.supplierRating);

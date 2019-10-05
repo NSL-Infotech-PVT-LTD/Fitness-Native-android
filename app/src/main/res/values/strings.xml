@@ -65,7 +65,7 @@
     <string name="notification">Notification</string>
     <string name="contact_us">Contact Us</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
-    <string name="logout">Loguot</string>
+    <string name="logout">LogOut</string>
     <string name="dummy_text_notification_recycler">Rajeev has been scheduled for a training session with you.</string>
     <string name="notificationActivity">Notifications</string>
     <string name="no_more_notifications">No more Notifications</string>
@@ -213,8 +213,8 @@
     <string name="filter">Filter</string>
     <string name="req_image">Request Image</string>
     <string name="running">Running</string>
-    <string name="session">Session</string>
-    <string name="event">Event</string>
+    <string name="session">Find Session</string>
+    <string name="event">Find Event</string>
     <string name="service">Service</string>
     <string name="find">Find</string>
     <string name="top_coaches">Top Coaches</string>
@@ -258,4 +258,11 @@
     <string name="discoverRecylerName">ChristianLawn</string>
     <string name="coach_profession">Cardio | Yoga | Dieticion</string>
     <string name="rating">Rating</string>
+    <string name="dashboards">Dashboard</string>
+    <string name="booking">Bookings</string>
+    <string name="transaction">Transaction</string>
+    <string name="about_us">About us</string>
+    <string name="rate_us">Rate us</string>
+    <string name="settings">Setting</string>
+    <string name="distance">Distance</string>
 </resources>

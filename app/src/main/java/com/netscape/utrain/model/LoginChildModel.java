@@ -1,5 +1,7 @@
 package com.netscape.utrain.model;
 
+import java.util.List;
+
 public class LoginChildModel {
 
 
@@ -14,16 +16,26 @@ public class LoginChildModel {
     private String longitude;
     private int business_hour;
     private String bio;
-    private String service_ids;
     private int expertise_years;
     private int hourly_rate;
     private String portfolio_image;
     private String params;
-    private String state ;
+    private String state;
     private String created_at;
     private String updated_at;
     private String deleted_at;
     private String token;
+
+    private List<ServicesModel> service_ids;
+
+
+    public List<ServicesModel> getService_ids() {
+        return service_ids;
+    }
+
+    public void setService_ids(List<ServicesModel> service_ids) {
+        this.service_ids = service_ids;
+    }
 
     public String getToken() {
         return token;
@@ -121,13 +133,6 @@ public class LoginChildModel {
         this.bio = bio;
     }
 
-    public String getService_ids() {
-        return service_ids;
-    }
-
-    public void setService_ids(String service_ids) {
-        this.service_ids = service_ids;
-    }
 
     public int getExpertise_years() {
         return expertise_years;

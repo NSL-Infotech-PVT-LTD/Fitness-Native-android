@@ -7,11 +7,17 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
+import com.netscape.utrain.utils.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +26,8 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class EventDetail extends AppCompatActivity {
 
-    MaterialTextView venueAddress, eventName,eventInstructionsDetailTv, eventTimeDetailTv,eventDateDetailTv;
-    MaterialTextView startDateTime;
+    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv;
+    MaterialTextView title;
     MaterialTextView endDateTime;
 
 
@@ -30,7 +36,7 @@ public class EventDetail extends AppCompatActivity {
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-    List<Integer> imageList = new ArrayList<>();
+    List<String> imageList = new ArrayList<>();
     MyCustomPagerAdapter pagerAdapter;
 
     @Override
@@ -40,6 +46,7 @@ public class EventDetail extends AppCompatActivity {
 
         venueAddress = findViewById(R.id.eventVanueDetailTv);
         eventName = findViewById(R.id.eventMarathonHeaderTv);
+        title = findViewById(R.id.title);
         eventTimeDetailTv = findViewById(R.id.eventTimeDetailTv);
         eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
         eventInstructionsDetailTv = findViewById(R.id.eventInstructionsDetailTv);
@@ -50,10 +57,23 @@ public class EventDetail extends AppCompatActivity {
         eventDateDetailTv.setText(getIntent().getStringExtra("eventEndDateTime"));
         eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
+        if(getIntent().getStringExtra("from").equalsIgnoreCase("places"))
+            title.setText("Places");
+        if(getIntent().getStringExtra("from").equalsIgnoreCase("events"))
+            title.setText("Events");
+        if(getIntent().getStringExtra("from").equalsIgnoreCase("sessions"))
+            title.setText("Session");
 
-        for (int i = 0; i < 5; i++) {
-            imageList.add(R.drawable.park);
 
+        Bundle b = getIntent().getExtras();
+        String Array = b.getString("Array");
+        try {
+            JSONArray jsonArray = new JSONArray(Array);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                imageList.add(String.valueOf(getIntent().getStringExtra("image_url") +jsonArray.get(i)));
+            }
+        } catch (JSONException e) {
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -61,7 +81,7 @@ public class EventDetail extends AppCompatActivity {
         imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EventDetail.this,AthleteHomeScreen.class);
+                Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
                 startActivity(intent);
             }
         });

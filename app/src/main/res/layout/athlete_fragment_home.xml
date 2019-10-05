@@ -28,12 +28,12 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:id="@+id/drawer"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:src="@drawable/ic_black"
-
+            android:src="@drawable/ic_dashboard"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,15 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:drawableLeft="@drawable/magnifier"
             android:drawablePadding="@dimen/_5sdp"
-
             android:fontFamily="@font/poppins_regular"
+
             android:hint="@string/find"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +64,7 @@
             app:cardCornerRadius="@dimen/_4sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/findTv">
+            app:layout_constraintTop_toBottomOf="@+id/drawer">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -76,10 +77,11 @@
                     android:id="@+id/sessionIconImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_12sdp"
+
                     android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_session_icon"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/eventIconImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -98,11 +100,11 @@
                     android:id="@+id/findSpacesIconImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_12sdp"
+
                     android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_find_spaces_icon"
                     app:layout_constraintLeft_toRightOf="@id/eventIconImg"
-                    app:layout_constraintRight_toLeftOf="@id/serviceIconImg"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -121,13 +123,13 @@
                     android:id="@+id/AthleteCardsessionTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/session"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/sessionIconImg"
                     app:layout_constraintTop_toBottomOf="@id/sessionIconImg" />
@@ -136,7 +138,6 @@
                     android:id="@+id/AthleteCardeventTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"

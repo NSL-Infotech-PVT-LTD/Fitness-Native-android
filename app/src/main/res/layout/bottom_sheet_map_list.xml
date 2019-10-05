@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheet_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparentnew"
+    android:clickable="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="@dimen/_150sdp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/card_shape_outline_yellow_top_round"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageLeftArrow"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_leftarrowicon"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/allEventFindAPalceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text=""
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintLeft_toRightOf="@+id/imageLeftArrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/filterIcon"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/filter_ic"
+                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/findAPlaceDummyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/find_a_place_text"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"
+                app:layout_constraintTop_toBottomOf="@id/allEventFindAPalceTv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/findPlaceRecycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_70sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:paddingBottom="@dimen/_60sdp"
+                app:layout_constraintTop_toBottomOf="@+id/findAPlaceDummyText" />
+
+            <ProgressBar
+                android:id="@+id/main_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

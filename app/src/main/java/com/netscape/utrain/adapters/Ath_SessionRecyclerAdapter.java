@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
     @NonNull
     @Override
     public Ath_SessionRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_session_layout_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_event_session_design, parent, false);
         return new ViewHolder(view);
     }
 
@@ -59,9 +60,10 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
 
         holder.eventName.setText(data.getName());
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
 //        holder.athleteEventAddressTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
-        holder.eventStartDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getDate());
+        holder.eventStartDateTimeEnterTv.setText(data.getDate()+" "+data.getBusiness_hour()+" ");
         holder.findPlaceActualPriceTv.setText("$"+data.getHourly_rate()+"/hr");
 
         try {
@@ -82,16 +84,20 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
         Date dt, dtEnd;
 
 
-        holder.viewPlacesBtn.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
 //                intent.putExtra("eventVenue", data.getLocation());
-                intent.putExtra("evenStartDateTime", data.getDate());
-                intent.putExtra("eventEndDateTime", data.getBusiness_hour());
+                intent.putExtra("evenStartDateTime", data.getBusiness_hour());
+                intent.putExtra("eventEndDateTime", data.getDate());
                 intent.putExtra("eventDescription", data.getDescription());
-
+                intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+                intent.putExtra("from", "sessions");
+                Bundle b = new Bundle();
+                b.putString("Array", data.getImages());
+                intent.putExtras(b);
                 context.startActivity(intent);
             }
         });
@@ -128,7 +134,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, findPlaceActualPriceTv,eventStartDateTimeEnterTv;
+        private AppCompatTextView eventName, findPlaceDistanceDetailTv,findPlaceActualPriceTv,eventStartDateTimeEnterTv;
         private ImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
 
@@ -139,6 +145,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
             eventName = itemView.findViewById(R.id.trainingSessionProfessionDesc);
             eventProfileImg = itemView.findViewById(R.id.findPlaceImage);
             viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);

@@ -1,5 +1,8 @@
 package com.netscape.utrain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AthleteEventListModel {
 
 
@@ -35,6 +38,14 @@ public class AthleteEventListModel {
     private String equipment_required;
     private double distance;
     private String images;
+
+    public AthleteEventListModel(String s) {
+        this.name = s;
+    }
+
+    public AthleteEventListModel() {
+
+    }
 
     public String getImages() {
         return images;
@@ -154,5 +165,15 @@ public class AthleteEventListModel {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public static List<AthleteEventListModel> createMovies(int itemCount) {
+        List<AthleteEventListModel> movies = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            AthleteEventListModel movie = new AthleteEventListModel("Movie " + (itemCount == 0 ?
+                    (itemCount + 1 + i) : (itemCount + i)));
+            movies.add(movie);
+        }
+        return movies;
     }
 }

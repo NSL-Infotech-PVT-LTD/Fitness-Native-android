@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/park"
+                android:src="@drawable/ic_place_holder"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +42,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/constraint_background"
                     android:background="@drawable/card_shape_outline_skyblue_bottom_round">
 
                     <View
@@ -108,6 +109,8 @@
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/venue_detail"
                         android:textSize="@dimen/_8sdp"
+                        android:singleLine="true"
+                        android:maxLength="30"
                         app:layout_constraintLeft_toLeftOf="@id/trainingSessionCoachNameEnterNameTv"
                         app:layout_constraintTop_toBottomOf="@id/trainingSessionCoachNameEnterNameTv" />
 

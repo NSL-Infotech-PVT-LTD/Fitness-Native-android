@@ -1,12 +1,17 @@
 package com.netscape.utrain.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -14,18 +19,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.common.Common;
 import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AllEventsMapAct;
 import com.netscape.utrain.activities.DiscoverTopRated;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
@@ -36,12 +48,14 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +87,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private List<CoachListModel> coachList = new ArrayList<>();
     TopCoachesAdapter coachAdapter;
     private Context context;
+    private AppCompatImageView drawer, sessionIconImg, eventIconImg, findSpacesIconImg;
 
 
     @Override
@@ -80,6 +95,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         super.onAttach(context);
         this.context = context;
     }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -131,7 +147,11 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         logOut = (TextView) view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
         btnTopCoaches = view.findViewById(R.id.topCoachesViewAllBtn);
+        sessionIconImg = view.findViewById(R.id.sessionIconImg);
         btnTopOrganization = view.findViewById(R.id.topOrgViewAllBtn);
+        eventIconImg = view.findViewById(R.id.eventIconImg);
+        findSpacesIconImg = view.findViewById(R.id.findSpacesIconImg);
+        drawer = view.findViewById(R.id.drawer);
 
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -142,10 +162,14 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         logOut.setOnClickListener(this);
         topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
         topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
-        topCoachesLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        topOrgLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        topCoachesLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         btnTopCoaches.setOnClickListener(this);
         btnTopOrganization.setOnClickListener(this);
+        drawer.setOnClickListener(this);
+        sessionIconImg.setOnClickListener(this);
+        eventIconImg.setOnClickListener(this);
+        findSpacesIconImg.setOnClickListener(this);
 
         getCoachListApi();
         getTopOrgaNization();
@@ -185,7 +209,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getCoachListApi() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<CoachListResponse> call = api.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),"","5","");
+        Call<CoachListResponse> call = api.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), "", "5", "");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -219,7 +243,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getTopOrgaNization() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<CoachListResponse> call = api.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),"","5","");
+        Call<CoachListResponse> call = api.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), "", "5", "");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -257,7 +281,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Ath_EvntsFragment(), "Events");
         adapter.addFragment(new A_SessionsFragment(), "Sessions");
-        adapter.addFragment(new A_PlacesFragment(),"Places");
+        adapter.addFragment(new A_PlacesFragment(), "Places");
 
         viewPager.setAdapter(adapter);
     }
@@ -288,23 +312,41 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.logOutTv:
-                LoginManager.getInstance().logOut();
-                CommonMethods.clearPrefData(getContext());
-                Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
-                view.getContext().startActivity(intent);
-                getActivity().finish();
+
+
                 break;
             case R.id.topCoachesViewAllBtn:
-                Intent topCoahces=new Intent(getContext(), DiscoverTopRated.class);
-                topCoahces.putExtra(Constants.TOP_TYPE_INTENT,Constants.TOP_COACHES);
+                Intent topCoahces = new Intent(getContext(), DiscoverTopRated.class);
+                topCoahces.putExtra(Constants.TOP_TYPE_INTENT, Constants.TOP_COACHES);
                 startActivity(topCoahces);
                 break;
             case R.id.topOrgViewAllBtn:
-                Intent topOrg=new Intent(getContext(), DiscoverTopRated.class);
-                topOrg.putExtra(Constants.TOP_TYPE_INTENT,Constants.TOP_ORG);
+                Intent topOrg = new Intent(getContext(), DiscoverTopRated.class);
+                topOrg.putExtra(Constants.TOP_TYPE_INTENT, Constants.TOP_ORG);
                 startActivity(topOrg);
+                break;
+            case R.id.drawer:
+                PopupWindow popupwindow_obj = popupDisplay();
+                popupwindow_obj.showAsDropDown(view, 0, 0);
+                break;
+            case R.id.sessionIconImg:
+                Intent intents = new Intent(getContext(), AllEventsMapAct.class);
+                intents.putExtra("from", "2");
+                getContext().startActivity(intents);
+                break;
+            case R.id.eventIconImg:
+                Intent intentss = new Intent(getContext(), AllEventsMapAct.class);
+                intentss.putExtra("from", "1");
+                getContext().startActivity(intentss);
+                break;
+            case R.id.findSpacesIconImg:
+                Intent intentsss = new Intent(getContext(), AllEventsMapAct.class);
+                intentsss.putExtra("from", "3");
+                getContext().startActivity(intentsss);
+
+
                 break;
         }
     }
@@ -323,6 +365,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -350,5 +393,64 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    public PopupWindow popupDisplay() {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+        View view = inflater.inflate(R.layout.drawer_layout, null);
+        final PopupWindow popupWindow = new PopupWindow(view, (int) context.getResources().getDimension(R.dimen._200sdp), ConstraintLayout.LayoutParams.MATCH_PARENT, true);
+// display the popup in the center
+        popupWindow.showAtLocation(view, Gravity.START, 0, 0);
+
+        MaterialTextView logout = view.findViewById(R.id.logOutTv);
+        MaterialTextView naviNameTv = view.findViewById(R.id.naviNameTv);
+//        MaterialButton naviNameTv = view.findViewById(R.id.naviNameTv);
+        CircleImageView naviProfileImage = view.findViewById(R.id.naviProfileImage);
+
+//        Glide.with(context).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(naviProfileImage);
+//
+//        naviNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage("Are you sure you want to Logout")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LoginManager.getInstance().logOut();
+                                CommonMethods.clearPrefData(getContext());
+                                Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
+                                context.startActivity(intent);
+                                getActivity().finish();
+
+                            }
+
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+
+                        })
+                        .show();
+            }
+        });
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+                popupWindow.dismiss();
+            }
+        });
+//
+        return popupWindow;
     }
 }
