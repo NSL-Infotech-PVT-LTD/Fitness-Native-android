@@ -17,6 +17,8 @@
         <activity android:name=".activities.AllEventsMapAct"></activity>
         <activity android:name=".activities.SelectServices"></activity>
         <activity android:name=".activities.organization.OrgHomeScreen"></activity>
+        <activity android:name=".activities.DiscoverTopRated"></activity>
+        <activity android:name=".activities.TopCoachesDetailsActivity" />
         <activity android:name=".activities.CoachBottomNavigation" />
         <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.FindSpaceActivity" />
@@ -66,6 +68,7 @@
         <activity
             android:name=".activities.EventDetail"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.SignUpTypeActivity"
             android:screenOrientation="portrait"

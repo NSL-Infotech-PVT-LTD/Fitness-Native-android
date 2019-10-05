@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/discoverImageCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/discoverUserImg"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sophie"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discvoverRecyclerNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/discoverRecylerName"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintLeft_toRightOf="@id/discoverImageCard"
+                app:layout_constraintTop_toTopOf="@id/discoverImageCard" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discoverType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/coach"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="@id/discvoverRecyclerNameTv"
+                app:layout_constraintTop_toBottomOf="@+id/discvoverRecyclerNameTv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discoverServices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/coach_profession"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/discoverType"
+                app:layout_constraintTop_toBottomOf="@id/discoverType" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discoverRecyclerRatingTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/rating"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="@id/discoverServices"
+                app:layout_constraintTop_toBottomOf="@+id/discoverServices" />
+
+
+            <RatingBar
+                android:id="@+id/discoverRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/colorLightGray"
+                android:progressTint="@color/colorGreen"
+                android:rating="3"
+                android:stepSize="1"
+                app:layout_constraintLeft_toLeftOf="@id/discoverRecyclerRatingTv"
+                app:layout_constraintTop_toBottomOf="@+id/discoverRecyclerRatingTv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

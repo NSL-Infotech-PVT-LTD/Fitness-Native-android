@@ -154,10 +154,8 @@ public class Ath_EvntsFragment extends Fragment {
                     if (response.body().isStatus()){
                         listModels.clear();
                         listModels.addAll(response.body().getData().getData());
-
                         adapter = new CoachesRecyclerAdapter(context, listModels);
                         recyclerView.setAdapter(adapter);
-
                     }
                 }
 

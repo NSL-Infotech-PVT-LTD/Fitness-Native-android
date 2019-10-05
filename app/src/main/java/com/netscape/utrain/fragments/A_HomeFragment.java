@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.DiscoverTopRated;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
@@ -62,8 +64,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private RecyclerView.LayoutManager topCoachesLayoutManager, topOrgLayoutManager;
     private TopCoachesAdapter adapter;
     private TopOrganizationAdapter orgAdapter;
-    private List<String> data = new ArrayList<>();
-    private List<String> orgList = new ArrayList<>();
+    private List<CoachListModel> data = new ArrayList<>();
+    private List<CoachListModel> orgList = new ArrayList<>();
 
     private MaterialButton btnTopCoaches;
     private MaterialButton btnTopOrganization;
@@ -78,7 +80,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         super.onAttach(context);
         this.context = context;
     }
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -87,8 +88,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
     private OnFragmentInteractionListener mListener;
 
     public A_HomeFragment() {
@@ -141,18 +140,16 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
         logOut.setOnClickListener(this);
-
-
         topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
+        topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
         topCoachesLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        topOrgLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        btnTopCoaches.setOnClickListener(this);
+        btnTopOrganization.setOnClickListener(this);
+
         getCoachListApi();
+        getTopOrgaNization();
 
-        btnTopCoaches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 //        topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
 //        data.add("Coach1");
@@ -186,24 +183,19 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void getCoachListApi(){
-
+    private void getCoachListApi() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<CoachListResponse> call = api.getCoachList("Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN,context));
+        Call<CoachListResponse> call = api.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),"","5","");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
-
-
-
-                if(response.body()!=null) {
+                if (response.body() != null) {
                     if (response.body().isStatus()) {
-                        coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData());
+                        coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData().getData());
                         topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
                         topCoachesRecycler.setAdapter(coachAdapter);
-
                     }
-                }else {
+                } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
@@ -215,13 +207,45 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 }
 
 
+            }
+
+            @Override
+            public void onFailure(Call<CoachListResponse> call, Throwable t) {
+
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getTopOrgaNization() {
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<CoachListResponse> call = api.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),"","5","");
+        call.enqueue(new Callback<CoachListResponse>() {
+            @Override
+            public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().isStatus()) {
+                        orgAdapter = new TopOrganizationAdapter(getActivity(), response.body().getData().getData());
+                        topOrgRecycler.setLayoutManager(topOrgLayoutManager);
+                        topOrgRecycler.setAdapter(orgAdapter);
+                    }
+                } else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
 
             }
 
             @Override
             public void onFailure(Call<CoachListResponse> call, Throwable t) {
 
-                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -271,6 +295,16 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
                 view.getContext().startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.topCoachesViewAllBtn:
+                Intent topCoahces=new Intent(getContext(), DiscoverTopRated.class);
+                topCoahces.putExtra(Constants.TOP_TYPE_INTENT,Constants.TOP_COACHES);
+                startActivity(topCoahces);
+                break;
+            case R.id.topOrgViewAllBtn:
+                Intent topOrg=new Intent(getContext(), DiscoverTopRated.class);
+                topOrg.putExtra(Constants.TOP_TYPE_INTENT,Constants.TOP_ORG);
+                startActivity(topOrg);
                 break;
         }
     }
