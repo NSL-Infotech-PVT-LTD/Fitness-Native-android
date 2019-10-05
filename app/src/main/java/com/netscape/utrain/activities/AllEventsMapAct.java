@@ -178,7 +178,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
                         Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 20, 20, false);
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
                             latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
@@ -231,7 +231,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
                         Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 20, 20, false);
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
                             latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
@@ -286,7 +286,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
                         Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 20, 20, false);
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         if (mGoogleMap != null) mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
                             latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));

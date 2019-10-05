@@ -46,10 +46,10 @@
         android:textColor="@color/colorWhite"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="@dimen/_26sdp"
-        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/typeCardView"
 
         />
 
@@ -66,11 +66,13 @@
         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
         android:background="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@id/tv_header_secondScreen">
+        app:layout_constraintTop_toTopOf="@id/tv_header_secondScreen"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/athleteCardView"
@@ -85,6 +87,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
                 android:layout_marginTop="@dimen/_12sdp">
                 <FrameLayout
                     android:layout_width="match_parent"
