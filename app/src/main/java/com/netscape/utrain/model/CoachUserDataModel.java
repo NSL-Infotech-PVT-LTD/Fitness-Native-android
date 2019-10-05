@@ -2,7 +2,6 @@ package com.netscape.utrain.model;
 
 public class CoachUserDataModel {
 
-
     /**
      * name : coach0985
      * email : coachdfsd6fgf0e5@gmail.com

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheet_services"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTransparentnew"
+    android:clickable="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      >
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/view1"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/bottom_sheet_design"></View>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Services"
+        android:textSize="@dimen/_20sdp"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_centerVertical="true"></TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/serviceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="@string/services"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:elevation="@dimen/_45sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="@string/rate"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="visible"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:elevation="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
+
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/servicMoreRecycler"
+           ></androidx.recyclerview.widget.RecyclerView>
+
+
+    </LinearLayout>
+</LinearLayout>

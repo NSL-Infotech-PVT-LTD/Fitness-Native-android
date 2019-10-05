@@ -257,7 +257,8 @@
             android:textSize="@dimen/_7sdp"
             app:cornerRadius="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchEdt"
+            app:layout_constraintTop_toTopOf="@+id/athleteTopCoachesTv"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesTv"
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
 
@@ -265,7 +266,7 @@
             android:id="@+id/athleteTopCoachesRecycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesTv" />
@@ -274,7 +275,7 @@
             android:id="@+id/athleteTopOrganizationTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:hint="@string/top_organization"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
@@ -294,7 +295,8 @@
             android:textSize="@dimen/_7sdp"
             app:cornerRadius="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesRecycler"
+            app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationTv"
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
 
@@ -302,7 +304,7 @@
             android:id="@+id/athleteTopOrganizationRecycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationTv" />

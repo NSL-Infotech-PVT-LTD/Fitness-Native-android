@@ -17,7 +17,9 @@
         <activity android:name=".activities.AllEventsMapAct"></activity>
         <activity android:name=".activities.SelectServices"></activity>
         <activity android:name=".activities.organization.OrgHomeScreen"></activity>
-        <activity android:name=".activities.DiscoverTopRated"></activity>
+        <activity android:name=".activities.DiscoverTopRated"
+            android:windowSoftInputMode="stateHidden"
+            ></activity>
         <activity android:name=".activities.TopCoachesDetailsActivity" />
         <activity android:name=".activities.CoachBottomNavigation" />
         <activity android:name=".activities.HistoryActivity" />
@@ -136,7 +138,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 

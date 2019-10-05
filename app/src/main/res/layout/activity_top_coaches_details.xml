@@ -1,199 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.EventDetail">
+    android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        tools:context=".activities.AllEventsWithMap">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coachDetaillayoutConstraint"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bottomboth_round_design"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutConstraint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_bottomboth_round_design"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/event"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/eventBackArrowImage"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_13sdp"
-                    android:src="@drawable/lefticonarrowwhite"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/getDirectionImage"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_30sdp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_directions"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_38sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="@string/get_direction"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_7sdp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/profileImageView"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="0dp"
-                app:layout_constraintLeft_toLeftOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/layoutConstraint">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/sophie" />
-            </com.google.android.material.card.MaterialCardView>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/nameTopTv"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/topDetailsTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:text="Christan Lawn"
-                android:textColor="@color/colorBlack"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/event"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                app:layout_constraintBottom_toTopOf="@+id/athleteBtn"
-                app:layout_constraintLeft_toRightOf="@+id/profileImageView"
-                app:layout_constraintTop_toTopOf="@+id/profileImageView" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/typeTopTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailBackArrow"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:src="@drawable/lefticonarrowwhite"
+                app:layout_constraintBottom_toBottomOf="@+id/topDetailsTitleTv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/topDetailsTitleTv" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailMapDirection"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_details_map"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:text="coach"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_38sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:fontFamily="@font/poppins_regular"
-                app:layout_constraintTop_toBottomOf="@+id/nameTopTv"
-                app:layout_constraintLeft_toRightOf="@+id/profileImageView"
-              />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/serviceTopTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:text="Cardio | Yoga | Dietician"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_semibold"
-                app:layout_constraintTop_toBottomOf="@+id/typeTopTv"
-                app:layout_constraintLeft_toRightOf="@+id/profileImageView"
-                />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/ratingTopTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:text="Rating"
-                android:textSize="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_semibold"
-                app:layout_constraintTop_toBottomOf="@+id/serviceTopTv"
-                app:layout_constraintLeft_toRightOf="@+id/profileImageView"
-                />
-            <RatingBar
-                android:id="@+id/ratingTopDetails"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:numStars="5"
-                android:progressBackgroundTint="@color/colorLightGray"
-                android:progressTint="@color/colorGreen"
-                android:rating="3"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:stepSize="1"
-                app:layout_constraintTop_toBottomOf="@+id/ratingTopTv"
-                app:layout_constraintLeft_toRightOf="@+id/profileImageView"/>
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="@string/get_direction"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_7sdp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_30sdp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_30sdp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        <ScrollView
+            android:id="@+id/scrollviewText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@+id/detailJoinNowBtn"
+            app:layout_constraintTop_toBottomOf="@id/coachDetaillayoutConstraint">
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/gradiant_design"
-        android:fontFamily="@font/poppins_regular"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_30sdp"
-        android:text="@string/join_now"
-        android:textColor="@color/colorBlack"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/discoverCardImg"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/detailImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sophie" />
+                </com.google.android.material.card.MaterialCardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/discoverRecylerName"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toRightOf="@id/discoverCardImg"
+                    app:layout_constraintTop_toTopOf="@id/discoverCardImg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserType"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/coach"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/detailUserName"
+                    app:layout_constraintTop_toBottomOf="@+id/detailUserName" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:text="@string/coach_profession"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/detailUserType"
+                    app:layout_constraintTop_toBottomOf="@id/detailUserType" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/moreServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="More +"
+                    android:textColor="@color/colorGreen"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detailUserService"
+                    app:layout_constraintLeft_toRightOf="@+id/detailUserService"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/detailUserService" />
 
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/discoverRecyclerRatingTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/rating"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/detailUserService"
+                    app:layout_constraintTop_toBottomOf="@+id/detailUserService" />
 
 
+                <RatingBar
+                    android:id="@+id/discoverRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:numStars="5"
+                    android:progressBackgroundTint="@color/colorLightGray"
+                    android:progressTint="@color/colorGreen"
+                    android:rating="3"
+                    android:stepSize="1"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverRecyclerRatingTv"
+                    app:layout_constraintTop_toBottomOf="@+id/discoverRecyclerRatingTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/discoverBioTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/bio_discover"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverCardImg"
+                    app:layout_constraintTop_toBottomOf="@id/discoverCardImg" />
 
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserBioTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="left"
+                    android:text="@string/instruction_detail"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@id/discoverBioTv" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailUserBioTv" />
 
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventNumOfCandidateAttendingTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/number_of_trainee"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverBioTv"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailNumTraineTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/number_of_candidate"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/eventNumOfCandidateAttendingTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/coachCandidateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/candidate"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/detailNumTraineTv"
+                    app:layout_constraintRight_toRightOf="@+id/detailNumTraineTv"
+                    app:layout_constraintTop_toTopOf="@+id/detailNumTraineTv" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/coachCandidateTv" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/coachTrainingPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/training_session_price"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverBioTv"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/coach_detail_price"
+                    android:textColor="@color/notificationRedIcon"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/coachPerHourTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_19sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/per_hour"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_6sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/detailPriceTv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detailJoinNowBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/join_now"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:backgroundTint="@color/colorGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/services_bottom_navigation" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

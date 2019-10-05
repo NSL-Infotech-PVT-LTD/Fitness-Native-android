@@ -9,6 +9,6 @@
         android:endColor="@color/colorGreen"
         />
     <corners
-        android:radius="@dimen/_9sdp"
+        android:radius="@dimen/_16sdp"
         />
 </shape>
