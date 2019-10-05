@@ -258,4 +258,11 @@
     <string name="discoverRecylerName">ChristianLawn</string>
     <string name="coach_profession">Cardio | Yoga | Dieticion</string>
     <string name="rating">Rating</string>
+    <string name="bio_discover">Bio:</string>
+    <string name="number_of_trainee">Number of Trainees</string>
+    <string name="training_session_price">Training Session Price</string>
+    <string name="coach_detail_price">$75</string>
+    <string name="per_hour">per hour</string>
+    <string name="add_new_address">Add a new Address</string>
+    <string name="dashboard">Dashboard</string>
 </resources>

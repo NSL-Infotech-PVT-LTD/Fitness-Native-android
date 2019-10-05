@@ -1,6 +1,11 @@
 package com.netscape.utrain.model;
 
-public class CoachListModel {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class CoachListModel implements Serializable {
 
 
     private int id;
@@ -17,7 +22,24 @@ public class CoachListModel {
     private int expertise_years;
     private int hourly_rate;
     private String portfolio_image;
+    private List<RolesModel> roles;
+    private List<ServiceIdModel> service_ids;
 
+    public List<ServiceIdModel> getService_ids() {
+        return service_ids;
+    }
+
+    public void setService_ids(List<ServiceIdModel> service_ids) {
+        this.service_ids = service_ids;
+    }
+
+    public List<RolesModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesModel> roles) {
+        this.roles = roles;
+    }
 
     public int getId() {
         return id;

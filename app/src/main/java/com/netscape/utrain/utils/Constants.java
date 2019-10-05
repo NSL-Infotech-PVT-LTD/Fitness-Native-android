@@ -36,6 +36,8 @@ public class Constants {
     public static final String TOP_COACHES = "topCoaches";
     public static final String TOP_ORG = "topOrg";
     public static final String TOP_TYPE_INTENT = "topTypIntent";
+    public static final String TOP_DATA_INTENT = "topDataIntent";
+    public static final String TOP_FROM_INTENT = "topFromIntent";
 
 
     public static final int WRITE_PERMISSION = 3;

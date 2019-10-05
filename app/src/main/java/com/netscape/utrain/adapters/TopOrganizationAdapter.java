@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -40,11 +42,19 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
 
     @Override
     public void onBindViewHolder(@NonNull TopOrgHolder holder, int position) {
-        CoachListModel data=supplierData.get(position);
+        final CoachListModel data=supplierData.get(position);
 
         Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+data.getProfile_image()).into(holder.imageView);
         holder.name.setText(data.getName());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent topCoachesDetails=new Intent(context, TopCoachesDetailsActivity.class);
+                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
+                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"2");
+                context.startActivity(topCoachesDetails);
+            }
+        });
     }
 
     @Override

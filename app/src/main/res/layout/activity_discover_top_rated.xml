@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_38sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/discover"
         android:textColor="@color/colorBlack"
@@ -25,11 +25,11 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_35sdp"
         android:scaleType="centerCrop"
         android:background="@drawable/ic_back"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/discoverHeaderTv"
+        app:layout_constraintBottom_toBottomOf="@+id/discoverHeaderTv"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/exploreTv"
@@ -42,72 +42,144 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/discoverHeaderTv" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/discoverCircleImg"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:src="@drawable/sophie"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/discoverCircleImg"-->
+<!--        android:layout_width="@dimen/_40sdp"-->
+<!--        android:layout_height="@dimen/_40sdp"-->
+<!--        android:layout_marginRight="@dimen/_20sdp"-->
+<!--        android:src="@drawable/sophie"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/discoverHeaderTv"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/discoverHeaderTv"/>-->
 
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/discoverSearchEdt"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:drawableLeft="@drawable/magnifier"
-        android:elevation="@dimen/_3sdp"
-        android:gravity="center"
-        android:hint="@string/search_keyword"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_70sdp"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exploreTv" />
-
-
-    <TextView
-        android:id="@+id/discoverSearchTv"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:background="@drawable/round_background_colord"
-        app:layout_constraintLeft_toRightOf="@id/discoverSearchEdt"
-        app:layout_constraintTop_toBottomOf="@id/exploreTv" />
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
+<!--    <com.google.android.material.textfield.TextInputEditText-->
+<!--        android:id="@+id/discoverSearchEdt"-->
+<!--        android:layout_width="@dimen/_200sdp"-->
+<!--        android:layout_height="@dimen/_40sdp"-->
+<!--        android:layout_marginLeft="@dimen/_10sdp"-->
+<!--        android:layout_marginTop="@dimen/_30sdp"-->
+<!--        android:drawableLeft="@drawable/magnifier"-->
+<!--        android:elevation="@dimen/_3sdp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="@string/search_keyword"-->
+<!--        android:paddingLeft="@dimen/_10sdp"-->
+<!--        android:paddingRight="@dimen/_70sdp"-->
+<!--        android:textSize="@dimen/_10sdp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
+    <com.google.android.material.card.MaterialCardView
+        android:visibility="gone"
+        android:id="@+id/searchAtuoCompleteEdt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/magnifier"
-        app:layout_constraintBottom_toBottomOf="@+id/discoverSearchTv"
-        app:layout_constraintLeft_toLeftOf="@+id/discoverSearchTv"
-        app:layout_constraintRight_toRightOf="@+id/discoverSearchTv"
-        app:layout_constraintTop_toTopOf="@+id/discoverSearchTv" />
+        android:layout_marginTop="@dimen/_30sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exploreTv"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/discoverSearchEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableRight="@drawable/magnifier"
+            android:drawablePadding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/search_keyword"
+            android:inputType="text"
+            android:padding="@dimen/_10sdp"
+            android:singleLine="true"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchIcon"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exploreTv"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchedt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableRight="@drawable/magnifier"
+            android:drawablePadding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="text"
+            android:padding="@dimen/_10sdp"
+            android:singleLine="true"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/discoverSearchTv"-->
+<!--        android:layout_width="@dimen/_60sdp"-->
+<!--        android:layout_height="@dimen/_40sdp"-->
+<!--        android:layout_marginLeft="@dimen/_5sdp"-->
+<!--        android:layout_marginTop="@dimen/_34sdp"-->
+<!--        android:background="@drawable/round_background_colord"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/searchAtuoCompleteEdt"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
+
+    <ImageView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/ic_common_background"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_goneMarginTop="@dimen/_74sdp"
+        app:layout_constraintTop_toBottomOf="@id/searchAtuoCompleteEdt"
+        android:layout_marginTop="@dimen/_18sdp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/topRateRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_goneMarginTop="@dimen/_80sdp"
+        android:layout_marginRight="@dimen/_20sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/discoverSearchEdt" />
-
-    <ImageView
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        android:src="@drawable/ic_common_background"
+        app:layout_constraintTop_toBottomOf="@+id/searchAtuoCompleteEdt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_20sdp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/noDataImageView"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@drawable/no_data_png"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/discoverSearchTv"
-        android:layout_marginTop="@dimen/_40sdp"/>
+        app:layout_constraintTop_toBottomOf="@+id/searchAtuoCompleteEdt"
+        app:layout_constraintBottom_toBottomOf="parent"></androidx.appcompat.widget.AppCompatImageView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
