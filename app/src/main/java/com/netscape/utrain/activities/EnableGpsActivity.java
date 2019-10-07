@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityEnableGpsBinding;
 
 public class EnableGpsActivity extends AppCompatActivity implements View.OnClickListener{

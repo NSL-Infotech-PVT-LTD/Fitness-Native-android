@@ -1,7 +1,6 @@
 package com.netscape.utrain.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,16 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AllEventsMapAct;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
-import com.netscape.utrain.adapters.Ath_SessionRecyclerAdapter;
-import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
-import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.databinding.AthletePlaceFragmentViewBinding;
 import com.netscape.utrain.model.AthletePlaceModel;
-import com.netscape.utrain.model.AthleteSessionModel;
 import com.netscape.utrain.response.AthletePlaceResponse;
-import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;

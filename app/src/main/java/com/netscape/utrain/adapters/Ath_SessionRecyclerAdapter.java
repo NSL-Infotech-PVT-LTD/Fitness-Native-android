@@ -11,21 +11,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.EventDetail;
-import com.netscape.utrain.model.AthleteEventListModel;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.AthleteSessionModel;
-import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

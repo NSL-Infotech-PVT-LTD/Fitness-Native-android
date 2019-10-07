@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivitySplashBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.PrefrenceConstant;

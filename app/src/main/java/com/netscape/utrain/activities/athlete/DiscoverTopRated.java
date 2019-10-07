@@ -1,4 +1,4 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -6,20 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
-import com.netscape.utrain.adapters.TopCoachesAdapter;
-import com.netscape.utrain.adapters.TopOrganizationAdapter;
 import com.netscape.utrain.databinding.ActivityDiscoverTopRatedBinding;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;

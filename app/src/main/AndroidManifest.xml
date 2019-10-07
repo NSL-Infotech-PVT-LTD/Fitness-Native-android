@@ -14,13 +14,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AllEventsMapAct"></activity>
+        <activity android:name=".activities.athlete.AllEventsMapAct"></activity>
         <activity android:name=".activities.SelectServices"></activity>
         <activity android:name=".activities.organization.OrgHomeScreen"></activity>
-        <activity android:name=".activities.DiscoverTopRated"
+        <activity android:name=".activities.athlete.DiscoverTopRated"
             android:windowSoftInputMode="stateHidden"
             ></activity>
-        <activity android:name=".activities.TopCoachesDetailsActivity" />
+        <activity android:name=".activities.athlete.TopCoachesDetailsActivity" />
         <activity android:name=".activities.CoachBottomNavigation" />
         <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.FindSpaceActivity" />
@@ -68,7 +68,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SettingSwitch" />
         <activity
-            android:name=".activities.EventDetail"
+            android:name=".activities.athlete.EventDetail"
             android:screenOrientation="portrait" />
 
         <activity
@@ -97,7 +97,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.AthleteHomeScreen"
+            android:name=".activities.athlete.AthleteHomeScreen"
             android:label="@string/title_activity_bottom_navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"></activity>

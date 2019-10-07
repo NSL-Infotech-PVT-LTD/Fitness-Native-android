@@ -1,4 +1,4 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

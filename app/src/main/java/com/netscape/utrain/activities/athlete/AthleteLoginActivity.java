@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AthleteHomeScreen;
 import com.netscape.utrain.activities.ForgetPasswordActivity;
 import com.netscape.utrain.databinding.ActivityAthleteLoginBinding;
 import com.netscape.utrain.response.LoginResponse;

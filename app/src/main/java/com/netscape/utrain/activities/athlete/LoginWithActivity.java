@@ -25,7 +25,6 @@ import com.facebook.login.LoginResult;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
 

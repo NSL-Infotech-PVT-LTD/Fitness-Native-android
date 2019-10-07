@@ -1,6 +1,5 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +23,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;

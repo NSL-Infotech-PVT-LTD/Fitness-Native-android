@@ -2,7 +2,6 @@ package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -30,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.response.OrgSignUpResponse;

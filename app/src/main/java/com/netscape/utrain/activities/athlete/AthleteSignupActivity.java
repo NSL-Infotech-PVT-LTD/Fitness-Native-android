@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -61,7 +60,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
-import com.netscape.utrain.activities.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;

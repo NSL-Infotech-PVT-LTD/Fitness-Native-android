@@ -1,4 +1,4 @@
-package com.netscape.utrain.activities;
+package com.netscape.utrain.activities.athlete;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
-import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;

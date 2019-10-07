@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,22 +22,17 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.facebook.common.Common;
 import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AllEventsMapAct;
-import com.netscape.utrain.activities.DiscoverTopRated;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
+import com.netscape.utrain.activities.athlete.DiscoverTopRated;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
@@ -48,7 +42,6 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
-import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 

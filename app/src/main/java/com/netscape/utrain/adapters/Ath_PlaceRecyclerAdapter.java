@@ -6,21 +6,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.EventDetail;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.AthletePlaceModel;
-import com.netscape.utrain.model.AthleteSessionModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;

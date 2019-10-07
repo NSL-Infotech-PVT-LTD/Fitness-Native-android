@@ -16,12 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.AllEventsMapAct;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_SessionRecyclerAdapter;
-import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
-import com.netscape.utrain.model.AthleteEventListModel;
 import com.netscape.utrain.model.AthleteSessionModel;
-import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
