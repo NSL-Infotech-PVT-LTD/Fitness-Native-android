@@ -162,21 +162,14 @@ public class Ath_EvntsFragment extends Fragment {
                         recyclerView.setAdapter(adapter);
                     }
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<AthleteEventListResponse> call, Throwable t) {
                 progressDialog.dismiss();
-
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -200,8 +193,6 @@ public class Ath_EvntsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this

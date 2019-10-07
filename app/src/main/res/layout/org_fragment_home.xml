@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/orgHomeLayout"
         tools:context=".fragments.O_HomeFragment">
 
         <androidx.constraintlayout.widget.Guideline
@@ -106,46 +106,34 @@
 
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/sessionIconImg"
+                    android:id="@+id/createEventImg"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_session_icon"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintRight_toLeftOf="@+id/createSessionImg"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/eventIconImg"
+                    android:id="@+id/createSessionImg"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_event_icon"
-                    app:layout_constraintLeft_toRightOf="@id/sessionIconImg"
-                    app:layout_constraintRight_toLeftOf="@id/findSpacesIconImg"
+                    app:layout_constraintLeft_toRightOf="@id/createEventImg"
+                    app:layout_constraintRight_toLeftOf="@id/createSpaceImg"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/findSpacesIconImg"
+                    android:id="@+id/createSpaceImg"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_find_spaces_icon"
-                    app:layout_constraintLeft_toRightOf="@id/eventIconImg"
-                    app:layout_constraintRight_toLeftOf="@id/serviceIconImg"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/serviceIconImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@drawable/ic_service_icon"
-                    app:layout_constraintLeft_toRightOf="@id/findSpacesIconImg"
+                    app:layout_constraintLeft_toRightOf="@id/createSessionImg"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -153,31 +141,31 @@
                     android:id="@+id/AthleteCardsessionTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/session"
+                    android:text="@string/create_event"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/sessionIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/sessionIconImg" />
+                    app:layout_constraintRight_toRightOf="@+id/createEventImg"
+                    app:layout_constraintLeft_toLeftOf="@id/createEventImg"
+                    app:layout_constraintTop_toBottomOf="@id/createEventImg" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/AthleteCardeventTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/event"
+                    android:text="@string/create_session"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/eventIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/eventIconImg" />
+                    app:layout_constraintRight_toRightOf="@+id/createSessionImg"
+                    app:layout_constraintLeft_toLeftOf="@id/createSessionImg"
+                    app:layout_constraintTop_toBottomOf="@id/createSessionImg" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/AthleteCardfindSpaceTv"
@@ -186,27 +174,13 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/find_space"
+                    android:text="@string/create_spaces"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/findSpacesIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/findSpacesIconImg" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/AthleteCardserviceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/service"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/serviceIconImg"
-                    app:layout_constraintTop_toBottomOf="@id/serviceIconImg" />
+                    app:layout_constraintRight_toRightOf="@+id/createSpaceImg"
+                    app:layout_constraintLeft_toLeftOf="@id/createSpaceImg"
+                    app:layout_constraintTop_toBottomOf="@id/createSpaceImg" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -297,10 +271,38 @@
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/orgRequestsCard">
 
-
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/yourSpacesTv"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/spaces_creates_by_you"
+                android:layout_marginLeft="@dimen/_20sdp"
+                ></com.google.android.material.textview.MaterialTextView>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/orgViewAllSpaces"
+                android:layout_marginRight="@dimen/_20sdp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/yourSpacesTv"
+                app:layout_constraintBottom_toBottomOf="@+id/yourSpacesTv"
+                android:text="@string/view_all"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_semibold"
+                ></com.google.android.material.textview.MaterialTextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/orgSpaceRecyclerView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv"
+                android:layout_marginTop="@dimen/_20sdp">
+            </androidx.recyclerview.widget.RecyclerView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
+</layout>

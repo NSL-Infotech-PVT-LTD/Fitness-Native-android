@@ -121,7 +121,7 @@
     <string name="organization">Organization</string>
     <string name="enter_valid_email">Enter valid email</string>
     <string name="loading">Loading...</string>
-    <string name="something_went_wrong">Something went wrong</string>
+    <string name="something_went_wrong">Something went wrong try again</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="please_click_again_to_exit">Press back again to exit</string>
     <string name="confirm_booking_btn_booking_slot">Confirm Booking</string>
@@ -272,4 +272,9 @@
     <string name="per_hour">per hour</string>
     <string name="add_new_address">Add a new Address</string>
     <string name="dashboard">Dashboard</string>
+    <string name="spaces_creates_by_you">Your spaces</string>
+    <string name="place_type">Place Type</string>
+    <string name="create_session">Create Session</string>
+    <string name="create_spaces">Create Space</string>
+    <string name="confirm_location">Confirm Location</string>
 </resources>

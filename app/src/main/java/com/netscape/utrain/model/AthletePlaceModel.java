@@ -12,7 +12,6 @@ public class AthletePlaceModel {
      * organizer_id : 95
      * price_daily : 800
      */
-
     private int id;
     private String name;
     private String images;

@@ -30,6 +30,7 @@ import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.response.OrgSignUpResponse;
@@ -373,7 +374,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+//        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
         Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, userImg, portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
@@ -389,7 +390,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
+                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN,PortfolioActivity.this);
+                            Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
@@ -411,7 +414,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.portFolioLayout, ""+t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }

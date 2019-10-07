@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class TestModel {
+import java.util.List;
+
+public class OrgUserModel {
 
 
     /**
@@ -30,7 +32,6 @@ public class TestModel {
     private String latitude;
     private String longitude;
     private String bio;
-    private String service_ids;
     private String expertise_years;
     private String hourly_rate;
     private String business_hour_starts;
@@ -40,6 +41,17 @@ public class TestModel {
     private String updated_at;
     private String created_at;
     private int id;
+    private List<ServiceIdModel> service_ids;
+    private List<RolesModel> roles;
+
+    public List<ServiceIdModel> getService_ids() {
+        return service_ids;
+    }
+
+    public void setService_ids(List<ServiceIdModel> service_ids) {
+        this.service_ids = service_ids;
+    }
+
 
     public String getName() {
         return name;
@@ -97,13 +109,6 @@ public class TestModel {
         this.bio = bio;
     }
 
-    public String getService_ids() {
-        return service_ids;
-    }
-
-    public void setService_ids(String service_ids) {
-        this.service_ids = service_ids;
-    }
 
     public String getExpertise_years() {
         return expertise_years;

@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,19 +10,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.login.LoginManager;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CreateEventActivity;
+import com.netscape.utrain.activities.CreateTrainingSession;
+import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
+import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
+import com.netscape.utrain.adapters_org.OrgSpaceAdapter;
+import com.netscape.utrain.databinding.OrgFragmentHomeBinding;
+import com.netscape.utrain.model.AthletePlaceModel;
+import com.netscape.utrain.response.AthletePlaceResponse;
+import com.netscape.utrain.response.AthletePlaceResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,9 +59,16 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class O_HomeFragment extends Fragment implements View.OnClickListener {
+    private OrgFragmentHomeBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
+    private View view;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
+    private List<AthletePlaceModel> listModels = new ArrayList<>();
+    private RecyclerView.LayoutManager layoutManager;
+    private Ath_PlaceRecyclerAdapter adapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,29 +117,23 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=LayoutInflater.from(container.getContext()).inflate(R.layout.org_fragment_home,container,false);
-//        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        binding= DataBindingUtil.inflate(inflater,R.layout.org_fragment_home,container,false);
+        view=binding.getRoot();
         logOut = (TextView) view.findViewById(R.id.logOutTv);
-//        setupViewPager(viewPager);
-
-
-
-//        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-//        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
-//        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-//        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
-//        tabLayout.setupWithViewPager(viewPager);
-//        logOut.setOnClickListener(this);
-
+        progressDialog=new ProgressDialog(getContext());
+        retrofitinterface=RetrofitInstance.getClient().create(Retrofitinterface.class);
+        layoutManager=new LinearLayoutManager(getContext());
+        binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
+        getSpaceList();
+        binding.createEventImg.setOnClickListener(this);
+        binding.createSessionImg.setOnClickListener(this);
+        binding.createSpaceImg.setOnClickListener(this);
+        binding.orgViewAllSpaces.setOnClickListener(this);
         return view;
 
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new O_HomeFragment(), "Event");
-        viewPager.setAdapter(adapter);
-    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -140,6 +168,23 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
                 view.getContext().startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.createEventImg:
+                Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
+                view.getContext().startActivity(createEvent);
+                break;
+            case R.id.createSessionImg:
+                Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
+                view.getContext().startActivity(createSession);
+                break;
+            case R.id.createSpaceImg:
+                Intent createSpace = new Intent(getActivity(), CreateTrainingSession.class);
+                view.getContext().startActivity(createSpace);
+                break;
+            case R.id.orgViewAllSpaces:
+                Intent viewAll = new Intent(getContext(), AllEventsMapAct.class);
+                viewAll.putExtra("from","3");
+                getContext().startActivity(viewAll);
                 break;
         }
     }
@@ -183,7 +228,49 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             return mFragmentTitleList.get(position);
         }
+    }
+
+    private void getSpaceList() {
+        progressDialog.show();
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "","5","price_low");
+        signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
+            @Override
+            public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            listModels.clear();
+                            listModels.addAll(response.body().getData().getData());
+                            adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
+                            binding.orgSpaceRecyclerView.setAdapter(adapter);
+                        }
+                    } else {
+                        Snackbar.make(binding.orgHomeLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.orgHomeLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.orgHomeLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
+                Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+
+            }
+        });
     }
 }

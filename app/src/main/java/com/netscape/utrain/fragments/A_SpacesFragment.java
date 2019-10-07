@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class A_PlacesFragment extends Fragment {
+public class A_SpacesFragment extends Fragment {
     private View view;
     private AthletePlaceFragmentViewBinding binding;
     private RecyclerView.LayoutManager layoutManager;
@@ -42,7 +42,7 @@ public class A_PlacesFragment extends Fragment {
     private Retrofitinterface api;
     private List<AthletePlaceModel> listModels = new ArrayList<>();
 
-    public A_PlacesFragment() {
+    public A_SpacesFragment() {
         // required empty constructor....
     }
 
@@ -62,7 +62,8 @@ public class A_PlacesFragment extends Fragment {
                 intent.putExtra("from","3");
                 getContext().startActivity(intent);
             }
-        });  getAthleteEventApi();
+        });
+        getAthleteEventApi();
         return view;
     }
 
@@ -81,7 +82,6 @@ public class A_PlacesFragment extends Fragment {
                     if (response.body().isStatus()) {
                         listModels.clear();
                         listModels.addAll(response.body().getData().getData());
-
                         adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
                         binding.athletePlaceRecycler.setAdapter(adapter);
 
@@ -93,7 +93,6 @@ public class A_PlacesFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
-
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

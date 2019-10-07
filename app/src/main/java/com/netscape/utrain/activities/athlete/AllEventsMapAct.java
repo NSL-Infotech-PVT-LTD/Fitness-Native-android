@@ -181,14 +181,16 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
-                            latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-                            mGoogleMap.addMarker(new MarkerOptions().position(latng).title("")
-                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                            if (response.body().getData().getData().get(i).getLatitude()!=null && response.body().getData().getData().get(i).getLongitude()!=null ) {
+                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+                                mGoogleMap.addMarker(new MarkerOptions().position(latng).title("")
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-                            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
-                            mGoogleMap.animateCamera(update);
-                            adapter = new CoachesRecyclerAdapter(activity, listModels);
-                            recyclerViewFindPlace.setAdapter(adapter);
+                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
+                                mGoogleMap.animateCamera(update);
+                                adapter = new CoachesRecyclerAdapter(activity, listModels);
+                                recyclerViewFindPlace.setAdapter(adapter);
+                            }
                         }
                         adapterPlace = new Ath_PlaceRecyclerAdapter(activity, listModelPlace);
                         recyclerViewFindPlace.setAdapter(adapterPlace);

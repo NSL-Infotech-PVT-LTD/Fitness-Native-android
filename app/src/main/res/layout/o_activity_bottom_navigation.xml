@@ -40,8 +40,6 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/orgNavView"
             android:layout_width="0dp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
             android:layout_height="@dimen/_50sdp"
             android:background="@drawable/bottom_nav_round_design"
             app:layout_constraintBottom_toBottomOf="parent"

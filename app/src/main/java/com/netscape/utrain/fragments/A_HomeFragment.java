@@ -274,7 +274,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Ath_EvntsFragment(), "Events");
         adapter.addFragment(new A_SessionsFragment(), "Sessions");
-        adapter.addFragment(new A_PlacesFragment(), "Spaces");
+        adapter.addFragment(new A_SpacesFragment(), "Spaces");
 
         viewPager.setAdapter(adapter);
     }

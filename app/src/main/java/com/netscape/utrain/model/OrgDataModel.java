@@ -3,13 +3,13 @@ package com.netscape.utrain.model;
 public class OrgDataModel {
     private String Message;
     private String token;
-    private TestModel user;
+    private OrgUserModel user;
 
-    public TestModel getUser() {
+    public OrgUserModel getUser() {
         return user;
     }
 
-    public void setUser(TestModel user) {
+    public void setUser(OrgUserModel user) {
         this.user = user;
     }
 

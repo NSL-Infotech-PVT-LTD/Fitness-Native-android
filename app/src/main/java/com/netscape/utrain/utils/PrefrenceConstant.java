@@ -17,5 +17,9 @@ public class PrefrenceConstant {
     public static final String USER_PHONE="userPhone";
     public static final String USER_EMAIL="userEmail";
     public static final String PROFILE_IMAGE="profileImg";
+    public static final String LOGED_IN_USER="logedInUser";
+    public static final String ATHLETE_LOG_IN="athleteLogIn";
+    public static final String COACH_LOG_IN="coachLogIn";
+    public static final String ORG_LOG_IN="orgLogIn";
 
 }

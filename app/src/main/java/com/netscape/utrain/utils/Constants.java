@@ -47,6 +47,12 @@ public class Constants {
     public static final int MY_PERMISSION_GALLERY = 1;
     public static final String APP_FOLDER_NAME = "UTrain";//3 seconds
     public static int CHECKBOX_IS_CHECKED = 0;
+    public static final int ACCESS_FINE_LOCATION_REQUEST = 6;
+    public static final String SIGN_UP_FLOW = "sign_up_flow";
+    public static final int REQUEST_CODE_GOOGLE_PLACE_SEARCH = 7;
+    public static final String LONGITUDE = "longitude";
+    public static final String ADDRESS = "address";
+
 
 
     public static final String DEVICE_TYPE = "ANDROID";

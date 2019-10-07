@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivitySplashBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -25,7 +26,7 @@ import java.security.NoSuchAlgorithmException;
 public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding binding;
     private int SPLASH_DISPLAY_LENGTH=2000;
-    private String userEmail="",userMobile="";
+    private String userEmail="",userMobile="",loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,45 @@ public class SplashActivity extends AppCompatActivity {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_splash);
         userEmail = CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, getApplicationContext());
         userMobile = CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, getApplicationContext());
+        loginUser = CommonMethods.getPrefData(PrefrenceConstant.LOGED_IN_USER, getApplicationContext());
 
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
-                    Intent intent = new Intent(getApplicationContext(), AthleteHomeScreen.class);
-                    startActivity(intent);
-                    finish();
+                if (!TextUtils.isEmpty(loginUser)){
+                    if (loginUser.equalsIgnoreCase(PrefrenceConstant.ATHLETE_LOG_IN)) {
+                    if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
+                        Intent intent = new Intent(getApplicationContext(), AthleteHomeScreen.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent mainIntent = new Intent(SplashActivity.this, SignUpTypeActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }
+                }else if (loginUser.equalsIgnoreCase(PrefrenceConstant.COACH_LOG_IN)) {
+                    if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
+                        Intent intent = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent mainIntent = new Intent(SplashActivity.this, SignUpTypeActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }
+                }
+                    else if (loginUser.equalsIgnoreCase(PrefrenceConstant.ORG_LOG_IN)) {
+                        if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
+                            Intent intent = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent mainIntent = new Intent(SplashActivity.this, SignUpTypeActivity.class);
+                            startActivity(mainIntent);
+                            finish();
+                        }
+                    }
                 }else {
                     Intent mainIntent = new Intent(SplashActivity.this, SignUpTypeActivity.class);
                     startActivity(mainIntent);
