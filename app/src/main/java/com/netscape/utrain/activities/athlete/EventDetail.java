@@ -55,38 +55,43 @@ public class EventDetail extends AppCompatActivity {
         eventDateDetailTv.setText(getIntent().getStringExtra("eventEndDateTime"));
         eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
-        if(getIntent().getStringExtra("from").equalsIgnoreCase("places"))
-            title.setText("Places");
-        if(getIntent().getStringExtra("from").equalsIgnoreCase("events"))
-            title.setText("Events");
-        if(getIntent().getStringExtra("from").equalsIgnoreCase("sessions"))
-            title.setText("Session");
+        if (getIntent().getStringExtra("from") != null)
+            if (getIntent().getStringExtra("from").equalsIgnoreCase("places"))
+                title.setText("Places");
+        if (getIntent().getStringExtra("from") != null)
+            if (getIntent().getStringExtra("from").equalsIgnoreCase("events"))
+                title.setText("Events");
+        if (getIntent().getStringExtra("from") != null)
+            if (getIntent().getStringExtra("from").equalsIgnoreCase("sessions"))
+                title.setText("Sessions");
 
 
         Bundle b = getIntent().getExtras();
-        String Array = b.getString("Array");
-        try {
-            JSONArray jsonArray = new JSONArray(Array);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                imageList.add(String.valueOf(getIntent().getStringExtra("image_url") +jsonArray.get(i)));
+        if (b != null) {
+            String Array = b.getString("Array");
+            try {
+                JSONArray jsonArray = new JSONArray(Array);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    imageList.add(String.valueOf(getIntent().getStringExtra("image_url") + jsonArray.get(i)));
+                }
+            } catch (JSONException e) {
+                Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        } catch (JSONException e) {
-            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+            imgBackArrowImage = findViewById(R.id.eventBackArrowImage);
+            imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
+                    startActivity(intent);
+                }
+            });
+            viewPager = findViewById(R.id.viewPagerImage);
+            pagerAdapter = new MyCustomPagerAdapter(this, imageList);
+            viewPager.setAdapter(pagerAdapter);
+            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+            indicator.setViewPager(viewPager);
         }
-
-
-        imgBackArrowImage = findViewById(R.id.eventBackArrowImage);
-        imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
-                startActivity(intent);
-            }
-        });
-        viewPager = findViewById(R.id.viewPagerImage);
-        pagerAdapter = new MyCustomPagerAdapter(this, imageList);
-        viewPager.setAdapter(pagerAdapter);
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
     }
 }

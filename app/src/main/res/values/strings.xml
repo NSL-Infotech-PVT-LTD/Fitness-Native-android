@@ -272,4 +272,7 @@
     <string name="per_hour">per hour</string>
     <string name="add_new_address">Add a new Address</string>
     <string name="dashboard">Dashboard</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="createEventEquipments">Equipments</string>
 </resources>

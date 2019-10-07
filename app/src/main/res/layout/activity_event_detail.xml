@@ -332,16 +332,19 @@
 
     </ScrollView>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:backgroundTint="@color/colorGreen"
+        android:background="@drawable/gradiant_design"
         android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp"
         android:text="@string/join_now"
+        android:textAllCaps="false"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
