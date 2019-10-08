@@ -40,11 +40,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_create_event);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_create_event);
+        setContentView(R.layout.activity_create_event);
         textViewDate = findViewById(R.id.createEvent_enterDateTv);
         tvEnterCapicity = findViewById(R.id.createEventEnterCapicityEdt);
-
         createEventStartDateTv = findViewById(R.id.createEventStartDateTv);
         createEventEndDatetv = findViewById(R.id.createEventEndDatetv);
 
@@ -88,24 +86,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        textViewDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//
-//                Calendar c = Calendar.getInstance();
-//                mYear = c.get(Calendar.YEAR);
-//                mMonth = c.get(Calendar.MONTH);
-//                mDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-//                        textViewDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-//                    }
-//                },mYear,mMonth,mDay);
-//                datePickerDialog.show();
-            }
-        });
+
 
         createEventStartDateTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +130,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
             }
         });
+
 
 
 //        spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);

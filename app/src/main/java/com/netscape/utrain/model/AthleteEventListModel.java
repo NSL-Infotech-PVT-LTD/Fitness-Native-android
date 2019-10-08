@@ -26,8 +26,43 @@ public class AthleteEventListModel {
     private int id;
     private String name;
     private String description;
-    private String start_at;
-    private String end_at;
+    private String start_date;
+    private String start_time;
+    private String end_date;
+    private String end_time;
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
     private int price;
     private String location;
     private String latitude;
@@ -77,22 +112,6 @@ public class AthleteEventListModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getStart_at() {
-        return start_at;
-    }
-
-    public void setStart_at(String start_at) {
-        this.start_at = start_at;
-    }
-
-    public String getEnd_at() {
-        return end_at;
-    }
-
-    public void setEnd_at(String end_at) {
-        this.end_at = end_at;
     }
 
     public int getPrice() {
