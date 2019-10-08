@@ -40,7 +40,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_create_event);
         textViewDate = findViewById(R.id.createEvent_enterDateTv);
         tvEnterCapicity = findViewById(R.id.createEventEnterCapicityEdt);
         createEventStartDateTv = findViewById(R.id.createEventStartDateTv);

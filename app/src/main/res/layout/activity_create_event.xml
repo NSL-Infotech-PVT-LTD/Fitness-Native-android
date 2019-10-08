@@ -115,6 +115,8 @@
                 android:id="@+id/mapAddressTv"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_30sdp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:background="@drawable/card_input_edt_background"
                 app:layout_constraintBottom_toBottomOf="@id/getAddressTv"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
