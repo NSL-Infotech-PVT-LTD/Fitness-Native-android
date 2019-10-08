@@ -31,7 +31,7 @@ import java.util.List;
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppCompatSpinner spinnerLocation;
-    MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate, createEventStartDateTv, createEventEndDatetv;
+    MaterialTextView startBusinessHourTv, endBusinessHourTv, createEventStartDateTv, createEventEndDatetv;
     TextInputEditText tvEnterCapicity;
     private  ActivityCreateEventBinding binding;
     private int ADDRESS_EVENT = 132;
@@ -44,7 +44,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         binding=DataBindingUtil.setContentView(this,R.layout.activity_create_event);
 
-        textViewDate = findViewById(R.id.createEvent_enterDateTv);
         tvEnterCapicity = findViewById(R.id.createEventEnterCapicityEdt);
         createEventStartDateTv = findViewById(R.id.createEventStartDateTv);
         createEventEndDatetv = findViewById(R.id.createEventEndDatetv);
@@ -103,7 +102,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                         createEventStartDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        createEventStartDateTv.setPadding(20, 0, 20, 0);
+                        createEventStartDateTv.setPadding(20, 20, 20, 20);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -126,7 +125,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                         createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        createEventEndDatetv.setPadding(20, 0, 20, 0);
+                        createEventEndDatetv.setPadding(20, 20, 20, 20);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
