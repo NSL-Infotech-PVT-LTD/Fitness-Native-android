@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/find_place_layout_round_design"
+    android:layout_marginTop="@dimen/_10sdp"
     android:elevation="@dimen/_10sdp"
     android:paddingBottom="@dimen/_10sdp"
 
@@ -75,7 +76,8 @@
                         android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toLeftOf="@+id/placeNameInfoTv"
                         app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />
-"
+                    "
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/placenameTv"
                         android:layout_width="wrap_content"
@@ -83,9 +85,9 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/park"
-                        android:singleLine="true"
                         android:maxLength="30"
+                        android:singleLine="true"
+                        android:text="@string/park"
                         android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toRightOf="@id/findPlaceTv"
                         app:layout_constraintTop_toBottomOf="@id/placeNameInfoTv" />

@@ -24,7 +24,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
 
     AppCompatSpinner spinnerLocation;
-    MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate;
+    MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate,createEventStartDateTv,createEventEndDatetv;
     TextInputEditText tvEnterCapicity;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -36,6 +36,9 @@ public class CreateEventActivity extends AppCompatActivity {
 
         textViewDate = findViewById(R.id.createEvent_enterDateTv);
         tvEnterCapicity = findViewById(R.id.createEventEnterCapicityEdt);
+
+        createEventStartDateTv = findViewById(R.id.createEventStartDateTv);
+        createEventEndDatetv = findViewById(R.id.createEventEndDatetv);
 
         startBusinessHourTv = findViewById(R.id.createEvent_selectstrtbsnshourTv);
         endBusinessHourTv = findViewById(R.id.createEvent_selectendbsnshourtv);
@@ -52,6 +55,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
 
                             startBusinessHourTv.setText(hourOfDay+ ":"+ minute);
+                            startBusinessHourTv.setPadding(20,0,70,0);
                     }
                 }, mHour,mMinute,true);
                 timePickerDialog.show();
@@ -69,6 +73,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                         endBusinessHourTv.setText(hourOfDay + ":" + minute);
+                        endBusinessHourTv.setPadding(20,0,70,0);
                     }
                 },mHour,mMinute,true);
                 timePickerDialog.show();
@@ -76,6 +81,47 @@ public class CreateEventActivity extends AppCompatActivity {
         });
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//
+//                Calendar c = Calendar.getInstance();
+//                mYear = c.get(Calendar.YEAR);
+//                mMonth = c.get(Calendar.MONTH);
+//                mDay = c.get(Calendar.DAY_OF_MONTH);
+//
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+//                        textViewDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+//                    }
+//                },mYear,mMonth,mDay);
+//                datePickerDialog.show();
+            }
+        });
+
+        createEventStartDateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        createEventStartDateTv.setText(dayOfMonth + "-" + (monthOfYear+1) + "-" + year  );
+                        createEventStartDateTv.setPadding(20,0,20,0);
+                    }
+                },mYear,mMonth,mDay);
+                datePickerDialog.show();
+
+
+            }
+        });
+
+
+        createEventEndDatetv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -87,12 +133,17 @@ public class CreateEventActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        textViewDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear+1) + "-" + year);
+                        createEventEndDatetv.setPadding(20,0,20,0);
                     }
                 },mYear,mMonth,mDay);
                 datePickerDialog.show();
+
             }
         });
+
+
+
         spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);
 
         List<String> list = new ArrayList<String>();

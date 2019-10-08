@@ -277,4 +277,7 @@
     <string name="create_session">Create Session</string>
     <string name="create_spaces">Create Space</string>
     <string name="confirm_location">Confirm Location</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="createEventEquipments">Equipments</string>
 </resources>

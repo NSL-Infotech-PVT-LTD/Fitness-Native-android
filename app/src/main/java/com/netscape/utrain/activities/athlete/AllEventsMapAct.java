@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
@@ -73,9 +74,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private Retrofitinterface api;
     private AllEventsMapAct activity;
     private LatLng latng;
-    private LinearLayout layoutBottomSheet, bottomsheet_list_laout;
+    private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
     private AppCompatImageView filterIcon;
-    private AppCompatEditText searchAtuoCompleteEdt;
+    private TextInputEditText searchAtuoCompleteEdt;
 
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;

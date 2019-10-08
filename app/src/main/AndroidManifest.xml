@@ -29,7 +29,13 @@
         <activity android:name=".activities.CreateTrainingSession" />
         <activity
             android:name=".activities.CreateEventActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.ViewProfileActivity" />
         <activity android:name=".activities.BookSlotCampusActivity" />
         <activity
@@ -70,7 +76,8 @@
             android:theme="@style/AppTheme.SettingSwitch" />
         <activity
             android:name=".activities.athlete.EventDetail"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".activities.SignUpTypeActivity"
             android:screenOrientation="portrait"
@@ -90,17 +97,15 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"
             android:label="@string/title_activity_bottom_navigation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"></activity>
+
         <activity
             android:name=".activities.AddCards"
             android:screenOrientation="portrait" />

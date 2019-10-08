@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,8 +14,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.AllEventsWithMap">
 
-        <fragment
-            xmlns:tools="http://schemas.android.com/tools"
+        <fragment xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
@@ -22,14 +23,14 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchAtuoCompleteEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
-            android:background="@color/colorWhite"
+            android:background="@drawable/etmaterial_design"
             android:drawableLeft="@drawable/magnifier"
-            android:drawablePadding="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_12sdp"
             android:elevation="@dimen/_1sdp"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/search_keyword"
@@ -37,17 +38,16 @@
             android:inputType="text"
             android:padding="@dimen/_10sdp"
             android:singleLine="true"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/bottom_sheet_map_list" />
+
     <include layout="@layout/custom_athelete_bottom_sheet" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
