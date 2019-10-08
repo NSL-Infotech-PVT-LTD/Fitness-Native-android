@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.AthleteEventListModel;
@@ -38,6 +39,11 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     private boolean isLoadingAdded = false;
     private static final int ITEM = 0;
     private static final int LOADING = 1;
+
+
+    String currentStringEnd, currentStringStart;
+    String[] separatedEnd =null,separated=null;
+
 
     public CoachesRecyclerAdapter(Context context, List<AthleteEventListModel> supplierData) {
         this.context = context;
@@ -78,73 +84,97 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
 
         final AthleteEventListModel data = supplierData.get(position);
+        holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
+        holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
+        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + "To" + data.getEnd_time());
+        holder.trainingSessionProfessionDesc.setText(data.getName());
+
+
+
+
 
 
         switch (getItemViewType(position)) {
             case ITEM:
-                String currentString = data.getStart_at();
-                String currentStringEnd = data.getEnd_at();
-                final String[] separated = currentString.split(" ");
-                String[] separatedEnd = currentStringEnd.split(" ");
-
-                holder.eventName.setText(data.getName());
-                holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
-                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
-                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
-//                holder.itemView.setBackground(context.getDrawable(R.drawable.card_shape_bottom_green));
-//        holder.eventEndDateTimeEnterTv.setText(data.getEnd_at());
-                try {
-                    if (data.getImages() != null) {
-                        JSONArray jsonArray = new JSONArray(data.getImages());
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventProfileImg);
-
-                        }
-                    }
-
-                } catch (JSONException e) {
-
-                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-                final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
-                Date dt = null, dtEnd;
 
 
-                try {
-                    dt = sdf.parse(separated[1]);
-                    dtEnd = sdf.parse(separatedEnd[1]);
-
-                    value = parseDateToddMMyyyy(separated[0]) + " " + sdfs.format(dt);
-                    valueEnd = parseDateToddMMyyyy(separatedEnd[0]) + "  " + sdfs.format(dtEnd);
-                    holder.eventStartDateTimeEnterTv.setText(value);
-//            holder.eventEndDateTimeEnterTv.setText(valueEnd);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-//                holder.viewPlacesBtn.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
-                final Date finalDt = dt;
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, EventDetail.class);
-                        intent.putExtra("eventName", data.getName());
-                        intent.putExtra("eventVenue", data.getLocation());
-                        intent.putExtra("evenStartDateTime", sdfs.format(finalDt));
-                        intent.putExtra("eventEndDateTime", parseDateToddMMyyyy(separated[0]));
-                        intent.putExtra("eventDescription", data.getDescription());
-                        intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
-                        intent.putExtra("from", "events");
-                        Bundle b = new Bundle();
-                        b.putString("Array", data.getImages());
-                        intent.putExtras(b);
-                        context.startActivity(intent);
-                    }
-                });
-                break;
+//                if (data.getEnd_at()!=null) {
+//                    currentStringEnd  = data.getEnd_at();
+//                    separatedEnd = currentStringEnd.split(" ");
+//
+//                }
+//
+//                if (data.getStart_at()!=null) {
+//                currentStringStart  = data.getStart_at();
+//
+//                separated = currentStringStart.split(" ");
+//
+//                }
+//                holder.eventName.setText(data.getName());
+//                holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
+//                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
+//                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
+////                holder.itemView.setBackground(context.getDrawable(R.drawable.card_shape_bottom_green));
+////        holder.eventEndDateTimeEnterTv.setText(data.getEnd_at());
+//                try {
+//                    if (data.getImages() != null) {
+//                        JSONArray jsonArray = new JSONArray(data.getImages());
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventProfileImg);
+//
+//                        }
+//                    }
+//
+//                } catch (JSONException e) {
+//
+//                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+//                final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+//                Date dt = null, dtEnd;
+//
+//
+//                try {
+//                    if (data.getStart_at()!=null) {
+//                        dt = sdf.parse(separated[1]);
+//
+//                        value = parseDateToddMMyyyy(separated[0]) + " " + sdfs.format(dt);
+//                        holder.eventStartDateTimeEnterTv.setText(value);
+//                    }
+//                    if (data.getEnd_at()!=null) {
+//                        dtEnd = sdf.parse(separatedEnd[1]);
+//
+//
+//                        valueEnd = parseDateToddMMyyyy(separatedEnd[0]) + "  " + sdfs.format(dtEnd);
+//                    }
+////            holder.eventEndDateTimeEnterTv.setText(valueEnd);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//
+////                holder.viewPlacesBtn.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
+//                final Date finalDt = dt;
+//                holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(context, EventDetail.class);
+//                        intent.putExtra("eventName", data.getName());
+//                        intent.putExtra("eventVenue", data.getLocation());
+//
+//                        if (sdfs.format(finalDt)!=null)intent.putExtra("evenStartDateTime", sdfs.format(finalDt));
+//                        if (parseDateToddMMyyyy(separated[0])!=null) intent.putExtra("eventEndDateTime", parseDateToddMMyyyy(separated[0]));
+//                        intent.putExtra("eventDescription", data.getDescription());
+//                        intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+//                        intent.putExtra("from", "events");
+//                        Bundle b = new Bundle();
+//                        b.putString("Array", data.getImages());
+//                        intent.putExtras(b);
+//                        context.startActivity(intent);
+//                    }
+//                });
+//                break;
             case LOADING:
 //                Do nothing
                 break;
@@ -188,9 +218,10 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, trainingSessionVenueDetailTv, findPlaceDistanceDetailTv,findPlaceActualPriceTv, eventStartDateTimeEnterTv;
+        private AppCompatTextView trainingSessionVenueDetailTv, findPlaceDistanceDetailTv,findPlaceActualPriceTv, eventStartDateTimeEnterTv;
         private ImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
+        MaterialTextView trainingSessionStrtDateEnterTv, trainingSessionEndDateEnterTv, trainingSessionTimeEnterTv,trainingSessionProfessionDesc;
 
         private ConstraintLayout constraint_background;
 //        public RatingBar ratingBar;
@@ -200,12 +231,17 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            eventName = itemView.findViewById(R.id.trainingSessionProfessionDesc);
+            trainingSessionProfessionDesc = itemView.findViewById(R.id.trainingSessionProfessionDesc);
             findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
-            eventProfileImg = itemView.findViewById(R.id.findPlaceImage);
+            eventProfileImg = itemView.findViewById(R.id.trainingSessionPlaceImage);
             trainingSessionVenueDetailTv = itemView.findViewById(R.id.trainingSessionVenueDetailTv);
-            viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
-            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTimeEnterTv);
+//            viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
+//            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTimeEnterTv);
+            trainingSessionStrtDateEnterTv = itemView.findViewById(R.id.trainingSessionStrtDateEnterTv);
+            trainingSessionEndDateEnterTv = itemView.findViewById(R.id.trainingSessionEndDateEnterTv);
+            trainingSessionTimeEnterTv = itemView.findViewById(R.id.trainingSessionTimeEnterTv);
+
+
             constraint_background = itemView.findViewById(R.id.constraint_background);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
 //

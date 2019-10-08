@@ -251,7 +251,7 @@
     <string name="coach_name_enter">Gregg</string>
     <string name="venue_detail">24Seven Gym,First Floor, Texas</string>
     <string name="date_time"><![CDATA[Date & Time]]></string>
-    <string name="date_time_format">12:30am, 30/12/2019</string>
+    <string name="date_time_format">30/12/2019</string>
     <string name="view">View</string>
     <string name="discover">Discover</string>
     <string name="explore_coaches_discover">Explore the best coaches with just a tap!</string>
