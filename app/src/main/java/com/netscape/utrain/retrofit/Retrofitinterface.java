@@ -8,6 +8,7 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.utils.Constants;
@@ -181,4 +182,13 @@ public interface Retrofitinterface {
                                                     @Query("limit") String limit,
                                                     @Query("order_by") String order_by
                                                   );
+
+    @Multipart
+    @POST(Constants.EVENTS_STORE)
+    Call<OrgCreateEventResponse> createEvent(@PartMap Map<String, RequestBody> fields,
+                                             @Part MultipartBody.Part imageOne,
+                                             @Part MultipartBody.Part imageTwo,
+                                             @Part MultipartBody.Part imageThree,
+                                             @Part MultipartBody.Part imageFour);
+
 }

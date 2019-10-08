@@ -282,4 +282,11 @@
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="createEventEquipments">Equipments</string>
+    <string name="selecte_event_address">Select event address</string>
+    <string name="select_start_time">Select start time</string>
+    <string name="select_start_date">Select start date</string>
+    <string name="select_end_date">Select end date</string>
+    <string name="select_end_time">Select end time</string>
+    <string name="enter_numbe_of_guest_allowed">Enter number of guest allowed</string>
+    <string name="enter_equipments_required">Enter equipments required</string>
 </resources>

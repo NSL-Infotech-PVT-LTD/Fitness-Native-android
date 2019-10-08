@@ -19,6 +19,7 @@ public class Constants {
     public static final String ATHLETE_EVENT_LIST = "events/athlete/list";
     public static final String ATHLETE_SESSION_LIST = "session/athlete/list";
     public static final String ATHLETE_PLACE_LIST = "spaces/athlete/list";
+    public static final String EVENTS_STORE = "events/store";
     public static final String AUTH_TOKEN = "auth token";
 
 

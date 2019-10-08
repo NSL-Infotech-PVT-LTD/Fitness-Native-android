@@ -211,7 +211,6 @@
                 android:text="@string/price_display"
                 android:textColor="@color/notificationRedIcon"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintTop_toTopOf=""
                 app:layout_constraintLeft_toLeftOf="@+id/findPlaceDistanceDetailTv"
                 app:layout_constraintTop_toBottomOf="@+id/findPlaceDistanceDetailTv" />
 

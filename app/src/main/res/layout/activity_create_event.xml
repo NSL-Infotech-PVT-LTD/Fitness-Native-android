@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/createEventLayout"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -95,13 +96,14 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/etmaterial_design"
+                    android:background="@drawable/card_input_edt_background"
                     android:drawableRight="@drawable/ic_my_location"
                     android:drawablePadding="@dimen/_14sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/address"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:focusable="false"
                     android:padding="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
@@ -112,17 +114,17 @@
 
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mapAddressTv"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:background="@drawable/card_input_edt_background"
-                app:layout_constraintBottom_toBottomOf="@id/getAddressTv"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/getAddressTv" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/mapAddressTv"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="@dimen/_30sdp"-->
+<!--                android:singleLine="true"-->
+<!--                android:ellipsize="end"-->
+<!--                android:background="@drawable/card_input_edt_background"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/getAddressTv"-->
+<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
+<!--                app:layout_constraintTop_toTopOf="@id/getAddressTv" />-->
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -182,7 +184,7 @@
                     app:layout_constraintTop_toBottomOf="@id/createEvent_startbsnshourTv" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_selectstrtbsnshourTv"
+                    android:id="@+id/createEvtnStartTimeTv"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -199,7 +201,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_selectendbsnshourtv"
+                    android:id="@+id/createEventEndTimeTv"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -224,10 +226,10 @@
                     android:textSize="@dimen/_13sdp"
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_selectstrtbsnshourTv" />
+                    app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_enterDateTv"
+                    android:id="@+id/createEventEquipmentTv"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -256,7 +258,7 @@
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_enterDateTv" />
+                    app:layout_constraintTop_toBottomOf="@id/createEventEquipmentTv" />
 
                 <View
                     android:id="@+id/createEvent_CapicityView"
@@ -270,7 +272,7 @@
                     app:layout_constraintTop_toTopOf="@id/createEventCapacityTv" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventEnterCapicityEdt"
+                    android:id="@+id/createEventCapicityEdt"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:background="@null"
@@ -285,12 +287,13 @@
                     app:layout_constraintTop_toTopOf="@id/createEvent_CapicityView" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_UploadTv"
+                    android:id="@+id/createEventImages"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/card_input_edt_background"
                     android:drawableRight="@drawable/ic_file_upload"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:text="@string/upload_photos"
                     android:textColor="@color/colorBlack"
@@ -301,7 +304,7 @@
 
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/createEvent_btnCreate"
+                    android:id="@+id/createEventBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -312,7 +315,7 @@
                     android:textColor="@color/colorBlack"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_UploadTv" />
+                    app:layout_constraintTop_toBottomOf="@id/createEventImages" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

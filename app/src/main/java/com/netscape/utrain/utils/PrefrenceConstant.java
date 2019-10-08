@@ -21,5 +21,6 @@ public class PrefrenceConstant {
     public static final String ATHLETE_LOG_IN="athleteLogIn";
     public static final String COACH_LOG_IN="coachLogIn";
     public static final String ORG_LOG_IN="orgLogIn";
+    public static final String PRICE="price";
 
 }
