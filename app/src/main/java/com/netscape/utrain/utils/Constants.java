@@ -52,6 +52,8 @@ public class Constants {
     public static final int REQUEST_CODE_GOOGLE_PLACE_SEARCH = 7;
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";
+    public static final String LOCATION_LAT = "locationLat";
+    public static final String LOCATION_LONG = "locationLong";
 
 
 

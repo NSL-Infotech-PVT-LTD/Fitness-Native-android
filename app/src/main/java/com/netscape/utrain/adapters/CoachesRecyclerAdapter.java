@@ -76,10 +76,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     @Override
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
-
         final AthleteEventListModel data = supplierData.get(position);
-
-
         switch (getItemViewType(position)) {
             case ITEM:
                 String currentString = data.getStart_at();

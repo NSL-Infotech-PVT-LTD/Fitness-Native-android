@@ -18,6 +18,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -29,6 +33,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,9 +42,9 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
-import com.netscape.utrain.databinding.ActivityOrgMapFindAddressBinding;
 import com.netscape.utrain.utils.Constants;
 
 import java.io.IOException;
@@ -48,7 +53,6 @@ import java.util.Locale;
 
 public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
         View.OnClickListener, GoogleMap.OnMapClickListener {
-    private ActivityOrgMapFindAddressBinding binding;
     private GoogleMap mGoogleMap;
     private MapView mapView;
     private AskPermission askPermObj;
@@ -58,18 +62,28 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     private boolean isSignUpFlow = false;
     private String TAG = OrgMapFindAddressActivity.class.getSimpleName();
     private String locationLatLng = "";
+    private String locationLat = "";
+    private String locationLong = "";
+    private RelativeLayout confirmLocRel;
+    private LinearLayout searchLin;
+    private MaterialTextView searchEdt;
+    SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_org_map_find_address);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
-                findFragmentById(R.id.map);
+        setContentView(R.layout.activity_org_map_find_address);
+        confirmLocRel=findViewById(R.id.confirmLocRel);
+        searchLin=findViewById(R.id.searchLin);
+        searchEdt=findViewById(R.id.searchEdt);
+//        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
+//                findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        if(getIntent() != null && getIntent().hasExtra(Constants.SIGN_UP_FLOW)){
-            isSignUpFlow = true;
-        }
+//        MapFragment mapFragment = ((MapFragment) getFragmentManager().findFragmentById(R.id.map));
+//        mapFragment.getMapAsync(this);
         inIt();
     }
 
@@ -81,8 +95,8 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //        binding.searchImgBtn.setOnClickListener(this);
 //        binding.searchEdt.setOnClickListener(this);
 
-        binding.confirmLocRel.setOnClickListener(this);
-        binding.searchLin.setOnClickListener(this);
+        confirmLocRel.setOnClickListener(this);
+        searchLin.setOnClickListener(this);
 
     }
 
@@ -192,7 +206,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        binding.searchEdt.setText(fullAdd);
+       searchEdt.setText(fullAdd);
         return fullAdd;
     }
     /*==================================================*/
@@ -239,8 +253,8 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.searchImgBtn:
-                if (!binding.searchEdt.getText().toString().trim().isEmpty()) {
-                    LatLng latLng = getLocationFromAddress(OrgMapFindAddressActivity.this, binding.
+                if (!searchEdt.getText().toString().trim().isEmpty()) {
+                    LatLng latLng = getLocationFromAddress(OrgMapFindAddressActivity.this,
                             searchEdt.getText().toString().trim());
                     if (latLng != null) {
                         selectedLatLng = latLng;
@@ -251,16 +265,19 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 break;
             case R.id.confirmLocRel:
 //                AppDelegate.Log(TAG,"confirm Loc Rel calling ");
-                if (binding.searchEdt.getText().toString().trim().isEmpty()) {
+                if (searchEdt.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Empty address", Toast.LENGTH_SHORT).show();
 //                    AppDelegate.showToast(OrgMapFindAddressActivity.this, OrgMapFindAddressActivity.this.getResources().getString(R.string.empty_address));
                     return;
                 }
                 if(isSignUpFlow){
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.ADDRESS,binding.searchEdt.getText().toString());
-                    locationLatLng = selectedLatLng.latitude +","+ selectedLatLng.longitude;
-                    intent.putExtra(Constants.LONGITUDE,locationLatLng);
+                    intent.putExtra(Constants.ADDRESS,searchEdt.getText().toString());
+//                    locationLatLng = selectedLatLng.latitude +","+ selectedLatLng.longitude;
+                    locationLat=selectedLatLng.latitude+"";
+                    locationLong=selectedLatLng.longitude+"";
+                    intent.putExtra(Constants.LOCATION_LAT,locationLat);
+                    intent.putExtra(Constants.LOCATION_LONG,locationLong);
                     setResult(RESULT_OK,intent);
                     OrgMapFindAddressActivity.this.finish();
                 }else {
@@ -289,7 +306,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //                }
 
                 break;
-
         }
     }
 
@@ -311,7 +327,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 
 //                AppDelegate.Log("OnPlaceSelectResult--->", mAddress + " " + place.getAddress().toString());
                 setMarkerOnMap(selectedLatLng);
-                binding.searchEdt.setText(placeName+ " "+mAddress);
+                searchEdt.setText(placeName+ " "+mAddress);
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);

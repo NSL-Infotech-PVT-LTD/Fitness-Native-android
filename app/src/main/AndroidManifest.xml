@@ -30,11 +30,6 @@
         <activity
             android:name=".activities.CreateEventActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.ViewProfileActivity" />
         <activity android:name=".activities.BookSlotCampusActivity" />
@@ -97,8 +92,11 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"
@@ -153,7 +151,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAJhw_OEXurbipEqQjg0rskaw_xaE5wn4E" />
+            android:value="@string/google_maps_api" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
