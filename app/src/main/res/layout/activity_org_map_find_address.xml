@@ -43,7 +43,7 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/magnifier" />
 
-                <com.google.android.material.textview.MaterialTextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/searchEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:hint="Search place"
                     android:singleLine="true"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:background="@drawable/button_shape_round_corner"
+            android:background="@drawable/round_background_colord"
             android:padding="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
@@ -87,7 +87,7 @@
                 android:text="@string/confirm_location"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="@dimen/_16sdp" />
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.Guideline

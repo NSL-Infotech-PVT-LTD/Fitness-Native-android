@@ -21,6 +21,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateEventBinding;
+import com.netscape.utrain.databinding.ActivityCreateEventBindingImpl;
 import com.netscape.utrain.utils.Constants;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     AppCompatSpinner spinnerLocation;
     MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate, createEventStartDateTv, createEventEndDatetv;
     TextInputEditText tvEnterCapicity;
-    private ActivityCreateEventBinding binding;
+    private  ActivityCreateEventBinding binding;
     private int ADDRESS_EVENT = 132;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String locationLat="",locationLong="";
@@ -40,7 +41,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_create_event);
+
         textViewDate = findViewById(R.id.createEvent_enterDateTv);
         tvEnterCapicity = findViewById(R.id.createEventEnterCapicityEdt);
         createEventStartDateTv = findViewById(R.id.createEventStartDateTv);
