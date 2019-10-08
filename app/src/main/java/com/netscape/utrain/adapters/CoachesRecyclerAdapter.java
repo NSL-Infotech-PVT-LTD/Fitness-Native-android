@@ -83,7 +83,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @Override
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
         final AthleteEventListModel data = supplierData.get(position);
-
         holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
         holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
         holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + "To" + data.getEnd_time());

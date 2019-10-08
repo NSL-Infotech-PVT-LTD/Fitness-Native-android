@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,8 +67,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     private String locationLong = "";
     private RelativeLayout confirmLocRel;
     private LinearLayout searchLin;
-    private MaterialTextView searchEdt;
+    private EditText searchEdt;
     SupportMapFragment mapFragment;
+    private ImageButton searchImgBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         confirmLocRel=findViewById(R.id.confirmLocRel);
         searchLin=findViewById(R.id.searchLin);
         searchEdt=findViewById(R.id.searchEdt);
+        searchImgBtn=findViewById(R.id.searchImgBtn);
 //        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
 //                findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
@@ -97,6 +100,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 
         confirmLocRel.setOnClickListener(this);
         searchLin.setOnClickListener(this);
+        searchImgBtn.setOnClickListener(this);
 
     }
 
@@ -238,7 +242,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     /*code to add the marker on the location using lat lng*/
     private void setMarkerOnMap(LatLng latLng) {
         mGoogleMap.clear();
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_map);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.pin);
         mGoogleMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .icon(icon));
@@ -270,7 +274,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //                    AppDelegate.showToast(OrgMapFindAddressActivity.this, OrgMapFindAddressActivity.this.getResources().getString(R.string.empty_address));
                     return;
                 }
-                if(isSignUpFlow){
+
                     Intent intent = new Intent();
                     intent.putExtra(Constants.ADDRESS,searchEdt.getText().toString());
 //                    locationLatLng = selectedLatLng.latitude +","+ selectedLatLng.longitude;
@@ -280,9 +284,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                     intent.putExtra(Constants.LOCATION_LONG,locationLong);
                     setResult(RESULT_OK,intent);
                     OrgMapFindAddressActivity.this.finish();
-                }else {
+
 //                    validateValues();
-                }
+
                 break;
             case R.id.searchLin:
                 try {
@@ -290,10 +294,10 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                             .setTypeFilter(Place.TYPE_COUNTRY)
                             .setCountry("US")
                             .build();
-                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).
+                    Intent place = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).
                             setFilter(autocompleteFilter).
                             build(this);
-                    startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
+                    startActivityForResult(place, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     // TODO: Handle the error.
 //                    e.printStackTrace();
@@ -337,7 +341,13 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     }
     @Override
     public void onMapClick(LatLng latLng) {
-        setMarkerOnMap(latLng);
+//        setMarkerOnMap(latLng);
+        if (latLng != null) {
+            selectedLatLng = latLng;
+            getAddress(OrgMapFindAddressActivity.this, latLng.latitude, latLng.longitude);
+            if (mGoogleMap != null)
+                setMarkerOnMap(latLng);
+        }
     }
     public static float getDptoPx(Context context,int dip){
         Resources r = context.getResources();

@@ -75,7 +75,7 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:singleLine="true"
                 android:text="@string/park"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_8sdp"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toRightOf="@+id/placenamesTv"
                 app:layout_constraintRight_toRightOf="parent"
@@ -87,12 +87,13 @@
                 android:id="@+id/findPlaceCandidateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/venue"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"
                 app:layout_constraintTop_toBottomOf="@+id/trainingSessionCoachNameEnterNameTv" />
+
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/trainingSessionVenueDetailTv"
@@ -195,8 +196,6 @@
                 android:id="@+id/findPlacePriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/price"
                 android:textSize="@dimen/_10sdp"
@@ -212,6 +211,7 @@
                 android:text="@string/price_display"
                 android:textColor="@color/notificationRedIcon"
                 android:textSize="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf=""
                 app:layout_constraintLeft_toLeftOf="@+id/findPlaceDistanceDetailTv"
                 app:layout_constraintTop_toBottomOf="@+id/findPlaceDistanceDetailTv" />
 
