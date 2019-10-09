@@ -289,4 +289,7 @@
     <string name="select_end_time">Select end time</string>
     <string name="enter_numbe_of_guest_allowed">Enter number of guest allowed</string>
     <string name="enter_equipments_required">Enter equipments required</string>
+    <string name="description_tv">Description</string>
+    <string name="start_time_hour">Start Time</string>
+    <string name="end_time_hour">End Time</string>
 </resources>

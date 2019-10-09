@@ -126,7 +126,7 @@
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/trainingSessionDateTimeEnterTv"
+                        android:id="@+id/trainingSessionDateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"

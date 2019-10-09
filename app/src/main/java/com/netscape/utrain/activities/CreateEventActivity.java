@@ -60,9 +60,12 @@ import retrofit2.Response;
 
 import static com.netscape.utrain.activities.PortfolioActivity.clearFromConstants;
 
+
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
     AppCompatSpinner spinnerLocation;
     MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate, createEventStartDateTv, createEventEndDatetv;
+    AppCompatSpinner createEventServiceSpinner;
+
     TextInputEditText tvEnterCapicity;
     private ProgressDialog progressDialog;
     private ActivityCreateEventBinding binding;
@@ -83,8 +86,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-
         textViewDate = findViewById(R.id.createEventStartDateTv);
+        tvEnterCapicity = findViewById(R.id.createEventCapicityEdt);
         tvEnterCapicity = findViewById(R.id.createEventCapicityEdt);
         createEventStartDateTv = findViewById(R.id.createEventStartDateTv);
         createEventEndDatetv = findViewById(R.id.createEventEndDatetv);
@@ -138,7 +141,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                         createEventStartDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        createEventStartDateTv.setPadding(20, 0, 20, 0);
+                        createEventStartDateTv.setPadding(20, 20, 20, 20);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -161,14 +164,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                         createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                        createEventEndDatetv.setPadding(20, 0, 20, 0);
+                        createEventEndDatetv.setPadding(20, 20, 20, 20);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
 
             }
         });
-
 
 //        spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);
 //
@@ -197,6 +199,33 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 //            }
 //        });
         getServiceIds();
+        createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
+
+        List<String> list = new ArrayList<String>();
+        list.add("Select Location");
+        list.add("Texas");
+        list.add("California");
+        list.add("India");
+        list.add("Canada");
+        list.add("Australia");
+        list.add("Brazil");
+
+        ArrayAdapter adapter = new ArrayAdapter(CreateEventActivity.this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        createEventServiceSpinner.setAdapter(adapter);
+
+        createEventServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                createEventServiceSpinner.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         init();
     }
 
