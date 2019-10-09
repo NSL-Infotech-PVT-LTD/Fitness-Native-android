@@ -35,7 +35,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -47,6 +46,9 @@ public class OfferSpaceActivity extends AppCompatActivity implements DatePickerD
     private ProgressDialog progressDialog;
     AppCompatSpinner spinnerLocation;
     MaterialTextView tvStartBsnsHour, tvEndBsnsHour, tvSelectDate;
+    AppCompatSpinner offerSpaceSelectStrtWeek, offerSpaceSelectEndWeek;
+    MaterialTextView OfferSpaceAvailableStrtTv, OfferSpaceAvailableEndTv;
+
 
     int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -55,96 +57,74 @@ public class OfferSpaceActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_space);
 
+
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
-        tvStartBsnsHour = findViewById(R.id.offerSpaceSelectStartbsnsHourTv);
-        tvEndBsnsHour = findViewById(R.id.offerSpaceSelectEndbsnsHourTv);
-        tvSelectDate = findViewById(R.id.offerSpaceEnterDateTv);
+//        tvStartBsnsHour = findViewById(R.id.offerSpaceSelectStartbsnsHourTv);
+//        tvEndBsnsHour = findViewById(R.id.offerSpaceSelectEndbsnsHourTv);
+//        tvSelectDate = findViewById(R.id.offerSpaceEnterDateTv);
 
-        tvStartBsnsHour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfday, int minute) {
-                        tvStartBsnsHour.setText(hourOfday + ":" + minute);
-                    }
-                }, mHour, mMinute, true);
-                timePickerDialog.show();
+//        tvStartBsnsHour = findViewById(R.id.offerSpaceSelectStartbsnsHourTv);
+//        tvEndBsnsHour = findViewById(R.id.offerSpaceSelectEndbsnsHourTv);
+//        tvSelectDate = findViewById(R.id.offerSpaceEnterDateTv);
 
 
 
-            }
-        });
-
-        tvEndBsnsHour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        tvEndBsnsHour.setText(hourOfDay + ":" + minute);
-                    }
-                }, mHour, mMinute, true);
-                timePickerDialog.show();
-            }
-        });
-
-        tvSelectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                DialogFragment datePicker = new DialogPickerFragment();
-//                datePicker.show(getSupportFragmentManager(), "date picker");
-
-                Calendar c = Calendar.getInstance();
-                c.get(Calendar.YEAR);
-                c.get(Calendar.MONTH);
-                c.get(Calendar.DAY_OF_MONTH);
-                final DatePickerDialog datePickerDialog = new DatePickerDialog(OfferSpaceActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        tvSelectDate.setText(dayOfMonth + "-" + month + "-" + year);
-
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-
-            }
-        });
-
-        spinnerLocation = findViewById(R.id.offerSpaceLocationSpinner);
+        offerSpaceSelectStrtWeek = findViewById(R.id.offerSpaceSelectStrtWeek);
+        offerSpaceSelectEndWeek = findViewById(R.id.offerSpaceSelectEndWeek);
+        OfferSpaceAvailableStrtTv = findViewById(R.id.OfferSpaceAvailableStrtTv);
+        OfferSpaceAvailableEndTv = findViewById(R.id.OfferSpaceAvailableEndTv);
 
 
-        List<String> list = new ArrayList<String>();
-        list.add("Select Location");
-        list.add("Texas");
-        list.add("America");
-        list.add("Australia");
-        list.add("England");
-        list.add("India");
-        list.add("Brazil");
+        final List<String> startWeekList = new ArrayList<String>();
+        startWeekList.add("Start Week");
+        startWeekList.add("Sunday");
+        startWeekList.add("Monday");
+        startWeekList.add("Tuesday");
+        startWeekList.add("Wednesday");
+        startWeekList.add("Thursday");
+        startWeekList.add("Friday");
+        startWeekList.add("Saturday");
 
-        ArrayAdapter adapter = new ArrayAdapter(OfferSpaceActivity.this,android.R.layout.simple_spinner_item,list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLocation.setAdapter(adapter);
+        ArrayAdapter startWeekadapter = new ArrayAdapter(OfferSpaceActivity.this,android.R.layout.simple_spinner_item,startWeekList);
+        startWeekadapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        offerSpaceSelectStrtWeek.setAdapter(startWeekadapter );
 
-        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        offerSpaceSelectStrtWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerLocation.setSelection(i);
+                offerSpaceSelectStrtWeek.setSelection(i);
+//                OfferSpaceAvailableStrtTv.setText(startWeekList.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        final List<String> endWeekList = new ArrayList<String>();
+        endWeekList.add("End Week");
+        endWeekList.add("Sunday");
+        endWeekList.add("Monday");
+        endWeekList.add("Tuesday");
+        endWeekList.add("Wednesday");
+        endWeekList.add("Thursday");
+        endWeekList.add("Friday");
+        endWeekList.add("Saturday");
+
+        ArrayAdapter endWeekAdapter = new ArrayAdapter(OfferSpaceActivity.this,android.R.layout.simple_spinner_item,endWeekList );
+        endWeekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        offerSpaceSelectEndWeek.setAdapter(endWeekAdapter);
+
+        offerSpaceSelectEndWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                offerSpaceSelectEndWeek.setSelection(i);
+//                OfferSpaceAvailableEndTv.setText(endWeekList.get(i));
             }
 
             @Override
@@ -153,7 +133,6 @@ public class OfferSpaceActivity extends AppCompatActivity implements DatePickerD
             }
         });
     }
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
@@ -213,4 +192,5 @@ public class OfferSpaceActivity extends AppCompatActivity implements DatePickerD
             }
         });
     }
+
 }

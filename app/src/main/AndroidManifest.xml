@@ -25,7 +25,9 @@
         <activity android:name=".activities.CoachBottomNavigation" />
         <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.FindSpaceActivity" />
-        <activity android:name=".activities.OfferSpaceActivity" />
+        <activity android:name=".activities.OfferSpaceActivity" >
+
+        </activity>
         <activity android:name=".activities.CreateTrainingSession" />
         <activity
             android:name=".activities.CreateEventActivity"
@@ -98,6 +100,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"

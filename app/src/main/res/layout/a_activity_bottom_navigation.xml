@@ -15,9 +15,9 @@
             <FrameLayout
                 android:id="@+id/containerTwo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/nav_view"
-               ></FrameLayout>
+                android:layout_height="match_parent">
+
+            </FrameLayout>
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,7 +29,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:menu="@menu/athlete_bottom_nav_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+                app:menu="@menu/athlete_bottom_nav_menu">
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView

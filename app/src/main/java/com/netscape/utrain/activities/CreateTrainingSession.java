@@ -55,6 +55,7 @@ public class CreateTrainingSession extends AppCompatActivity {
         setContentView(R.layout.activity_create_training_session);
 
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog=new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
 
