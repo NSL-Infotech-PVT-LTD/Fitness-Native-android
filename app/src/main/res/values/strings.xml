@@ -302,4 +302,8 @@
     <string name="enter_weekly_price">Enter weekly price</string>
     <string name="selecte_availability">Select availablity from</string>
     <string name="selecte_availability_to">Select availability to</string>
+    <string name="training_session_name">Outdoor training</string>
+    <string name="description_crate_training_session">Taking team fitness to a new level</string>
+    <string name="business_hour_training_session">Business Hour</string>
+    <string name="max_occupancy_training_session_text">Max Occupancy</string>
 </resources>
