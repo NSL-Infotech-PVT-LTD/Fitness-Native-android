@@ -298,4 +298,8 @@
     <string name="weekly_rate">Weekly Rate</string>
     <string name="start_week">Start Week</string>
     <string name="end_week">End Week</string>
+    <string name="training_session_name">Outdoor training</string>
+    <string name="description_crate_training_session">Taking team fitness to a new level</string>
+    <string name="business_hour_training_session">Business Hour</string>
+    <string name="max_occupancy_training_session_text">Max Occupancy</string>
 </resources>
