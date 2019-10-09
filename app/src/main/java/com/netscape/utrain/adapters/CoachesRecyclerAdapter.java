@@ -85,9 +85,26 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         final AthleteEventListModel data = supplierData.get(position);
         holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
         holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
-        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + "To" + data.getEnd_time());
+        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() +" "+ "To" +" "+ data.getEnd_time());
         holder.trainingSessionProfessionDesc.setText(data.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EventDetail.class);
+                intent.putExtra("eventName", data.getName());
+                intent.putExtra("eventVenue", data.getLocation());
 
+                intent.putExtra("evenStartDateTime",data.getStart_date());
+               intent.putExtra("eventEndDateTime", data.getStart_time());
+                intent.putExtra("eventDescription", data.getDescription());
+                intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                intent.putExtra("from", "events");
+                Bundle b = new Bundle();
+                b.putString("Array", data.getImages());
+                intent.putExtras(b);
+                context.startActivity(intent);
+            }
+        });
         switch (getItemViewType(position)) {
             case ITEM:
 
@@ -150,24 +167,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 //
 ////                holder.viewPlacesBtn.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
 //                final Date finalDt = dt;
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(context, EventDetail.class);
-//                        intent.putExtra("eventName", data.getName());
-//                        intent.putExtra("eventVenue", data.getLocation());
-//
-//                        if (sdfs.format(finalDt)!=null)intent.putExtra("evenStartDateTime", sdfs.format(finalDt));
-//                        if (parseDateToddMMyyyy(separated[0])!=null) intent.putExtra("eventEndDateTime", parseDateToddMMyyyy(separated[0]));
-//                        intent.putExtra("eventDescription", data.getDescription());
-//                        intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
-//                        intent.putExtra("from", "events");
-//                        Bundle b = new Bundle();
-//                        b.putString("Array", data.getImages());
-//                        intent.putExtras(b);
-//                        context.startActivity(intent);
-//                    }
-//                });
+
 //                break;
             case LOADING:
 //                Do nothing

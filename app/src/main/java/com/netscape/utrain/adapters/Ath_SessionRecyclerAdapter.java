@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,7 +68,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
             for (int i = 0; i < jsonArray.length(); i++) {
-                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.eventProfileImg);
+                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.trainingSessionPlaceImage);
 
             }
         } catch (JSONException e) {
@@ -134,7 +135,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
         private AppCompatTextView eventName, findPlaceDistanceDetailTv,findPlaceActualPriceTv;
         private MaterialTextView eventStartDateTimeEnterTv;
-        private ImageView eventProfileImg;
+        private AppCompatImageView trainingSessionPlaceImage;
         private MaterialButton viewPlacesBtn;
 
 //        public RatingBar ratingBar;
@@ -146,9 +147,9 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
             findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
             eventName = itemView.findViewById(R.id.trainingSessionProfessionDesc);
-            eventProfileImg = itemView.findViewById(R.id.findPlaceImage);
+            trainingSessionPlaceImage = itemView.findViewById(R.id.trainingSessionPlaceImage);
             viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
-            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTv);
+            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionStrtDateEnterTv);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
 //
 //            container = itemView.findViewById(R.id.container);

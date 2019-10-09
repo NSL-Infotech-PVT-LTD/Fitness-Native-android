@@ -53,6 +53,7 @@
                 android:text="@string/discoverRecylerName"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
+                android:singleLine="true"
                 app:layout_constraintLeft_toRightOf="@id/discoverImageCard"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,7 +98,7 @@
                 android:id="@+id/trainingSessionVenueDetailTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:singleLine="true"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/number_of_candidate_on_place"
                 android:textSize="@dimen/_8sdp"
@@ -121,6 +122,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/date_time_format"
                 android:textSize="@dimen/_8sdp"
+                android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionVenueDetailTv" />
 
@@ -142,6 +144,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/date_time_format"
                 android:textSize="@dimen/_8sdp"
+                android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionStrtDateEnterTv" />
 
@@ -162,6 +165,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/time_format"
                 android:textSize="@dimen/_8sdp"
+                android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionEndDateEnterTv" />
 
@@ -184,6 +188,7 @@
                 android:text="@string/distance"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
+                android:singleLine="true"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/trainingSessionTimeEnterTv"
                 app:layout_constraintTop_toBottomOf="@+id/trainingSessionTimeEnterTv" />
@@ -195,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/price"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/findPlaceCandidateTv"
                 app:layout_constraintTop_toBottomOf="@+id/findPlaceDistanceTv" />
 
@@ -208,6 +213,7 @@
                 android:text="@string/price_display"
                 android:textColor="@color/notificationRedIcon"
                 android:textSize="@dimen/_10sdp"
+                android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="@+id/findPlaceDistanceDetailTv"
                 app:layout_constraintTop_toBottomOf="@+id/findPlaceDistanceDetailTv"
                 />

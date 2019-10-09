@@ -91,7 +91,11 @@ public class EventDetail extends AppCompatActivity {
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);
             CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            indicator.setViewPager(viewPager);
+            if (viewPager.getAdapter().getCount() <=1)
+
+            indicator.setViewPager(null);
+            else
+                indicator.setViewPager(viewPager);
         }
     }
 }

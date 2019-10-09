@@ -255,17 +255,17 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_7sdp"
             app:cornerRadius="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesTv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/athleteTopCoachesTv"
-            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesTv"
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/athleteTopCoachesRecycler"
             android:layout_width="0dp"
-            android:layout_margin="@dimen/_10sdp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:elevation="@dimen/_4sdp"
             app:cardUseCompatPadding="true"
@@ -296,9 +296,9 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_7sdp"
             app:cornerRadius="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationTv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv"
-            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationTv"
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
 
@@ -306,10 +306,10 @@
             android:id="@+id/athleteTopOrganizationRecycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:elevation="@dimen/_4sdp"
             app:cardUseCompatPadding="true"
-            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationTv" />
@@ -359,7 +359,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_400sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_50sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
