@@ -88,7 +88,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, AthleteHomeScreen.this);
         if (!TextUtils.isEmpty(img)) {
-            Glide.with(this).load(Constants.IMAGE_BASE_URL + img).into(binding.athleteProfileImg);
+            Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).into(binding.athleteProfileImg);
         }
     }
 

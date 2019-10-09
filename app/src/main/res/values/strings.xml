@@ -155,7 +155,7 @@
     <string name="enter_price">Enter price</string>
     <string name="add_portforlio_text">Upload your Portfolio</string>
     <string name="apply">Apply</string>
-    <string name="price">price</string>
+    <string name="price">Price</string>
     <string name="rate">Price($/Hour)</string>
     <string name="services">Service(s)</string>
     <string name="campus_tv">Campus</string>
@@ -292,4 +292,8 @@
     <string name="description_tv">Description</string>
     <string name="start_time_hour">Start Time</string>
     <string name="end_time_hour">End Time</string>
+    <string name="availability">Availability</string>
+    <string name="weekly_rate">Weekly Rate</string>
+    <string name="start_week">Start Week</string>
+    <string name="end_week">End Week</string>
 </resources>

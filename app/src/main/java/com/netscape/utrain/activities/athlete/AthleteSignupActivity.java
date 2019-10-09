@@ -188,7 +188,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             String image_url = getIntent().getStringExtra("image_url");
         }
 
-        Glide.with(AthleteSignupActivity.this).load(getIntent().getStringExtra("image_url")).into(binding.athleProfileImg);
+//        Glide.with(AthleteSignupActivity.this).load(getIntent().getStringExtra("image_url")).into(binding.athleProfileImg);
     }
 
 
@@ -242,7 +242,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     binding.athleteAddressEdtTwo.setError(getString(R.string.enter_location));
                     binding.athleteAddressEdtTwo.requestFocus();
                 } else {
-                    athleteSignUpApi(getIntent().getStringExtra("email"), getIntent().getStringExtra("fb_id"), getIntent().getStringExtra("name"), binding.athletePhoneEdtTwo.getText().toString(), binding.athleteAddressEdtTwo.getText().toString());
+                    athleteSignUpApi(getIntent().getStringExtra("email"),
+                            getIntent().getStringExtra("fb_id"),
+                            getIntent().getStringExtra("name"),
+                            binding.athletePhoneEdtTwo.getText().toString(),
+                            binding.athleteAddressEdtTwo.getText().toString());
 
                 }
         }
