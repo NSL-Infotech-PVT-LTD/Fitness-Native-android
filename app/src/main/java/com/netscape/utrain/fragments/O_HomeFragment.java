@@ -26,6 +26,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.LoginActivity;
+import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
@@ -178,7 +179,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 view.getContext().startActivity(createSession);
                 break;
             case R.id.createSpaceImg:
-                Intent createSpace = new Intent(getActivity(), CreateTrainingSession.class);
+                Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
                 view.getContext().startActivity(createSpace);
                 break;
             case R.id.orgViewAllSpaces:

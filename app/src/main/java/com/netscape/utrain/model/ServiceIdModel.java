@@ -47,4 +47,8 @@ public class ServiceIdModel implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
+    @Override
+    public String toString() {
+        return name;
+    }
 }

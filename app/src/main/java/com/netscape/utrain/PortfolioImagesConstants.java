@@ -11,4 +11,5 @@ public class PortfolioImagesConstants {
     public static MultipartBody.Part partThree;
     public static String imageFour;
     public static MultipartBody.Part partFour;
+    public static String numImages;
 }

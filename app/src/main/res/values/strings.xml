@@ -292,4 +292,6 @@
     <string name="description_tv">Description</string>
     <string name="start_time_hour">Start Time</string>
     <string name="end_time_hour">End Time</string>
+    <string name="enter_event_name">Enter event name</string>
+    <string name="enter_event_descriptions">Enter event descriptions</string>
 </resources>

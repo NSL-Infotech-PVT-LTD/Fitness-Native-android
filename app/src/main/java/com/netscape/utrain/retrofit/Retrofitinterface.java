@@ -185,7 +185,23 @@ public interface Retrofitinterface {
 
     @Multipart
     @POST(Constants.EVENTS_STORE)
-    Call<OrgCreateEventResponse> createEvent(@PartMap Map<String, RequestBody> fields,
+    Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
+                                             @PartMap Map<String, RequestBody> fields,
+                                             @Part MultipartBody.Part imageOne,
+                                             @Part MultipartBody.Part imageTwo,
+                                             @Part MultipartBody.Part imageThree,
+                                             @Part MultipartBody.Part imageFour);
+
+    @Multipart
+    @POST(Constants.CREATE_SPACE)
+    Call<OrgCreateEventResponse> createSpace(@PartMap Map<String, RequestBody> fields,
+                                             @Part MultipartBody.Part imageOne,
+                                             @Part MultipartBody.Part imageTwo,
+                                             @Part MultipartBody.Part imageThree,
+                                             @Part MultipartBody.Part imageFour);
+    @Multipart
+    @POST(Constants.CREATE_SESSION)
+    Call<OrgCreateEventResponse> createSession(@PartMap Map<String, RequestBody> fields,
                                              @Part MultipartBody.Part imageOne,
                                              @Part MultipartBody.Part imageTwo,
                                              @Part MultipartBody.Part imageThree,

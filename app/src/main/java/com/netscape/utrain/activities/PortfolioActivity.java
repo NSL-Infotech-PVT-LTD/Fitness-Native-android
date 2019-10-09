@@ -155,12 +155,22 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.addImageSubmitBtn:
                 imgPortfolio = new ArrayList<>();
-                imgPortfolio.add(portFolioImage1);
-                imgPortfolio.add(portFolioImage2);
-                imgPortfolio.add(portFolioImage3);
-                imgPortfolio.add(portFolioImage4);
-                if (imgPortfolio != null && imgPortfolio.size() == 4) {
+                if (portFolioImage1 !=null){
+                    imgPortfolio.add(portFolioImage1);
+                }
+                if (portFolioImage2 !=null){
+                    imgPortfolio.add(portFolioImage2);
+                }
+                if (portFolioImage3 !=null){
+                    imgPortfolio.add(portFolioImage3);
+                }
+                if (portFolioImage4 !=null){
+                    imgPortfolio.add(portFolioImage4);
+                }
+
+                if (imgPortfolio != null && imgPortfolio.size() >=1) {
                     if (getImages){
+                        PortfolioImagesConstants.numImages=String.valueOf(imgPortfolio.size());
                         sendDataToIntent();
                     }else {
                         OrgSignUpApi();
