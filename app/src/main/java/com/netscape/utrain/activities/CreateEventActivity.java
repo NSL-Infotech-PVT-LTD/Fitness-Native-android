@@ -30,7 +30,7 @@ import java.util.List;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
-    AppCompatSpinner spinnerLocation;
+    AppCompatSpinner createEventServiceSpinner;
     MaterialTextView startBusinessHourTv, endBusinessHourTv, createEventStartDateTv, createEventEndDatetv;
     TextInputEditText tvEnterCapicity;
     private  ActivityCreateEventBinding binding;
@@ -135,32 +135,32 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
 
 
-//        spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);
-//
-//        List<String> list = new ArrayList<String>();
-//        list.add("Select Location");
-//        list.add("Texas");
-//        list.add("California");
-//        list.add("India");
-//        list.add("Canada");
-//        list.add("Australia");
-//        list.add("Brazil");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(CreateEventActivity.this, android.R.layout.simple_spinner_item, list);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerLocation.setAdapter(adapter);
-//
-//        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                spinnerLocation.setSelection(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+        createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
+
+        List<String> list = new ArrayList<String>();
+        list.add("Select Location");
+        list.add("Texas");
+        list.add("California");
+        list.add("India");
+        list.add("Canada");
+        list.add("Australia");
+        list.add("Brazil");
+
+        ArrayAdapter adapter = new ArrayAdapter(CreateEventActivity.this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        createEventServiceSpinner.setAdapter(adapter);
+
+        createEventServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                createEventServiceSpinner.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         init();
     }
