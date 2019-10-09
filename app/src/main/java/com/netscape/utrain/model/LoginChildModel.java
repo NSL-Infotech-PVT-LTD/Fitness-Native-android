@@ -26,14 +26,13 @@ public class LoginChildModel {
     private String deleted_at;
     private String token;
 
-    private List<ServicesModel> service_ids;
+    private List<ServiceIdModel> service_ids;
 
-
-    public List<ServicesModel> getService_ids() {
+    public List<ServiceIdModel> getService_ids() {
         return service_ids;
     }
 
-    public void setService_ids(List<ServicesModel> service_ids) {
+    public void setService_ids(List<ServiceIdModel> service_ids) {
         this.service_ids = service_ids;
     }
 

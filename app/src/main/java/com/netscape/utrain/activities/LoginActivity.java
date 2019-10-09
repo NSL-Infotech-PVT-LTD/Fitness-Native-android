@@ -11,13 +11,16 @@ import android.view.View;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginBinding;
+import com.netscape.utrain.model.LoginChildModel;
 import com.netscape.utrain.model.LoginRoleModel;
+import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -26,6 +29,9 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog progressDialog;
     private boolean doubleBackToExitPressedOnce=false;
     private String activeUserType="";
+    private List<ServiceIdModel> servicesList=new ArrayList<>();
 
 
 
@@ -131,6 +138,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", LoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN,LoginActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate()+"",LoginActivity.this);
+                            servicesList.addAll(response.body().getData().getUser().getService_ids());
+                            storeServiceIds(servicesList);
                             Intent homeScreen= new Intent(getApplicationContext(), OrgHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
@@ -159,6 +168,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+    }
+
+    private void storeServiceIds(List<ServiceIdModel> list) {
+        Gson gson = new Gson();
+        String listData = gson.toJson(list);
+        CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS,listData,getApplicationContext());
     }
 
 //    @Override

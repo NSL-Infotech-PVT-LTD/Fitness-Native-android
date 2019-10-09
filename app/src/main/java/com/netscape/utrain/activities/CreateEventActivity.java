@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,12 +22,16 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateEventBinding;
 import com.netscape.utrain.databinding.ActivityCreateEventBindingImpl;
+import com.netscape.utrain.model.ServiceIdModel;
+import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -35,8 +40,11 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -64,6 +72,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String locationLat = "", locationLong = "";
     private Retrofitinterface retrofitinterface;
     private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "";
+    private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,8 +196,22 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 //
 //            }
 //        });
-
+        getServiceIds();
         init();
+    }
+
+    private void getServiceIds() {
+        String serviceIds = CommonMethods.getPrefData(PrefrenceConstant.SERVICE_IDS, getApplicationContext());
+        Gson gson = new Gson();
+        if (serviceIds != null) {
+            if (serviceIds.isEmpty()) {
+                Toast.makeText(this, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<ServiceIdModel>>() {
+                }.getType();
+                selectedServices = gson.fromJson(serviceIds, type);
+            }
+        }
     }
 
     private void init() {
@@ -208,7 +231,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             case R.id.createEventImages:
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
                 getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PortfolioActivity.getImages=true;
+                PortfolioActivity.getImages = true;
                 startActivityForResult(getImages, ADDRESS_EVENT);
                 break;
             case R.id.createEventBtn:
@@ -231,7 +254,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         if (eventName.isEmpty()) {
 
-        } else if (eventDescription.isEmpty()) {
+        } else if (eventAddress.isEmpty()) {
 
         } else if (eventAddress.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.selecte_event_address), Toast.LENGTH_SHORT).show();
@@ -298,6 +321,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
         requestBodyMap.put("price", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.PRICE, CreateEventActivity.this)));
+        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.AUTH_TOKEN));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
         Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent(requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
