@@ -298,4 +298,8 @@
     <string name="weekly_rate">Weekly Rate</string>
     <string name="start_week">Start Week</string>
     <string name="end_week">End Week</string>
+    <string name="enter_space_name">Enter space name</string>
+    <string name="enter_weekly_price">Enter weekly price</string>
+    <string name="selecte_availability">Select availablity from</string>
+    <string name="selecte_availability_to">Select availability to</string>
 </resources>
