@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -62,9 +59,6 @@
             app:layout_constraintTop_toTopOf="@id/Guideline">
 
 
-
-
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuideline"
                 android:layout_width="wrap_content"
@@ -91,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionNameEdt"
+                android:id="@+id/createSessionNameEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -114,10 +108,10 @@
                 android:text="@string/description_tv"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionNameEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createSessionNameEdt" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionDescEdt"
+                android:id="@+id/createTrainingDescEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -143,10 +137,10 @@
                 android:text="@string/phone"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionDescEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createTrainingDescEdt" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionPhoneEdt"
+                android:id="@+id/createTrainingPhoneEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -171,10 +165,10 @@
                 android:text="@string/business_hour_training_session"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createTrainingPhoneEdt" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionDateEdt"
+                android:id="@+id/createTrainingDateEdt"
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -190,7 +184,7 @@
                 app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionTimeEdt"
+                android:id="@+id/createTrainingTimeEdt"
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -214,10 +208,10 @@
                 android:text="@string/hourly_rate"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionDateEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createTrainingDateEdt" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionHourRateEdt"
+                android:id="@+id/createTrainingHourRateEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -241,11 +235,11 @@
                 android:text="@string/max_occupancy_training_session_text"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionHourRateEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createTrainingHourRateEdt" />
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingSessionMaxOccuEdt"
+                android:id="@+id/createTrainingMaxOccuEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_input_edt_background"
@@ -273,7 +267,7 @@
 <!--                android:text="@string/location"-->
 <!--                android:textSize="@dimen/_12sdp"-->
 <!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionMaxOccuEdt" />-->
+<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingMaxOccuEdt" />-->
 
 <!--            <androidx.appcompat.widget.AppCompatSpinner-->
 <!--                android:id="@+id/createTrainingSessionLocationSpinner"-->
@@ -446,10 +440,11 @@
                 app:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                 app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionMaxOccuEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createTrainingMaxOccuEdt" />
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/createSessionBtn"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_20sdp"

@@ -40,13 +40,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateTrainingSession extends AppCompatActivity {
+public class CreateTrainingSession extends AppCompatActivity implements View.OnClickListener {
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    AppCompatSpinner spinnerLocation;
-    MaterialTextView tvStartBsnsHour, tvEndBsnsHour, tvSelectDate;
-
-    int mYear, mMonth, mDay, mHour, mMinute;
+    private String  sessionName="",sessionDescription="",sessionPhone="",sessionStartHour="",sessionStartTime="",sessionHourlyRate="",sessionMaxOccupancy="",businessHour="";
 
 
     @Override
@@ -192,5 +189,25 @@ public class CreateTrainingSession extends AppCompatActivity {
 //                Snackbar.make(binding.createEventLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.createTrainingDateEdt:
+                break;
+            case R.id.createTrainingTimeEdt:
+                break;
+            case R.id.createTrainingSessionUploadTv:
+                break;
+            case R.id.createSessionBtn:
+                getDataFromEdt();
+                break;
+        }
+    }
+
+    private void getDataFromEdt() {
+        
+
     }
 }
