@@ -44,7 +44,7 @@ public class CreateTrainingSession extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     AppCompatSpinner spinnerLocation;
-    MaterialTextView tvStartBsnsHour, tvEndBsnsHour, tvSelectDate;
+    MaterialTextView createTrainingDateTv;
 
     int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -53,6 +53,8 @@ public class CreateTrainingSession extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_training_session);
+
+        
 
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog=new ProgressDialog(this);
