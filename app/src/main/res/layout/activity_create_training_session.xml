@@ -1,470 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9ffe3"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activities.CreateTrainingSession">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/createTrainingSessionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/create_training_session"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/createEventImg"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:src="@drawable/ic_date"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/create_event_dummytxt"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/Guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f9ffe3"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        tools:context=".activities.CreateTrainingSession">
+        android:layout_height="0dp"
+        android:background="@drawable/card_shape_outline"
+        android:elevation="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="@id/Guideline">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/createTrainingSessionTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/create_training_session"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/createEventImg"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:src="@drawable/ic_date"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="@dimen/_240sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/Guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/scrollNested"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/card_shape_outline"
-            android:elevation="@dimen/_10sdp"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/Guideline">
+            >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:elevation="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="@id/Guideline">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_30sdp" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/leftGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_30sdp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/name"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createSessionNameEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="@string/training_session_name"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionNameText" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionDescTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/description_tv"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createSessionNameEdt" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingDescEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center_vertical"
-                android:hint="@string/description_crate_training_session"
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_12sdp"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionDescTv" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionPhoneText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/phone"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingDescEdt" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingPhoneEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="@string/phone_no"
-                android:inputType="number"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionPhoneText" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionDateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/business_hour_training_session"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingPhoneEdt" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingDateEdt"
-                android:layout_width="@dimen/_110sdp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:drawableRight="@drawable/ic_date"
-                android:paddingRight="@dimen/_15sdp"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingTimeEdt"
-                android:layout_width="@dimen/_110sdp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:drawableRight="@drawable/ic_time"
-                android:paddingRight="@dimen/_15sdp"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionHourRateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/hourly_rate"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingDateEdt" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingHourRateEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingRight="@dimen/_15sdp"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionHourRateText" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainSessionMaxoccuText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/max_occupancy_training_session_text"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingHourRateEdt" />
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/createTrainingMaxOccuEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_input_edt_background"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingRight="@dimen/_15sdp"
-                android:padding="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_15sdp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainSessionMaxoccuText" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/rightGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/_30sdp" />
 
 
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/name"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createTrainingSessionNameEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/training_session_name"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionNameText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionDescTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/description_tv"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionNameEdt" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createTrainingSessionDescEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/description_crate_training_session"
+                    android:inputType="textMultiLine"
+                    android:maxLines="10"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionDescTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionPhoneText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/phone"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionDescEdt" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createTrainingSessionPhoneEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/phone_no"
+                    android:inputType="number"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionPhoneText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/business_hour_training_session"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainingDateTv"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableRight="@drawable/ic_date"
+                    android:fontFamily="@font/poppins_regular"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainingTimeTv"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableRight="@drawable/ic_time"
+                    android:fontFamily="@font/poppins_regular"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionHourRateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/hourly_rate"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingDateTv" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createTrainingSessionHourRateEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionHourRateText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainSessionMaxoccuText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/max_occupancy_training_session_text"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionHourRateEdt" />
 
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainSessionLocationTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/location"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingMaxOccuEdt" />-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createTrainingSessionMaxOccuEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_input_edt_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainSessionMaxoccuText" />
 
-<!--            <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                android:id="@+id/createTrainingSessionLocationSpinner"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:paddingLeft="@dimen/_12sdp"-->
-<!--                android:spinnerMode="dropdown"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainSessionLocationTv" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:background="@drawable/card_input_edt_background"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:paddingLeft="@dimen/_12sdp"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/createTrainingSessionLocationSpinner"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toTopOf="@id/createTrainingSessionLocationSpinner" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainingSessionStartbsnshourTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/start_business_hour"-->
-
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionLocationSpinner" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createEvent_endbsnshourTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/end_business_hour"-->
-
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionLocationSpinner" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainingSessionSelectStartbsnsHourTv"-->
-<!--                android:layout_width="@dimen/_100sdp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:layout_marginTop="@dimen/_5sdp"-->
-<!--                android:background="@drawable/card_input_edt_background"-->
-<!--                android:drawableLeft="@drawable/ic_time"-->
-<!--                android:gravity="center"-->
-<!--                android:hint="@string/start_time"-->
-<!--                android:paddingLeft="@dimen/_10sdp"-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionStartbsnshourTv" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainingSessionSelectEndbsnsHourTv"-->
-<!--                android:layout_width="@dimen/_100sdp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:layout_marginTop="@dimen/_5sdp"-->
-<!--                android:background="@drawable/card_input_edt_background"-->
-<!--                android:drawableLeft="@drawable/ic_time"-->
-<!--                android:gravity="center"-->
-<!--                android:hint="@string/end_time"-->
-<!--                android:paddingLeft="@dimen/_10sdp"-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionStartbsnshourTv" />-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createTrainingSessionUploadTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableRight="@drawable/upload"
+                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:text="@string/upload_photos"
+                    android:textColor="@color/colorBlack"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionMaxOccuEdt" />
 
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainingSessionSelectDateTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:text="@string/select_date"-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionSelectStartbsnsHourTv" />-->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/createSessionBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:backgroundTint="@color/colorGreen"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:text="@string/create"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/createTrainingSessionUploadTv"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/createTrainingSessionEnterDateTv"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:background="@drawable/card_input_edt_background"-->
-<!--                android:drawableRight="@drawable/ic_date"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:paddingLeft="@dimen/_12sdp"-->
-<!--                android:paddingRight="@dimen/_10sdp"-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionSelectDateTv" />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/crateTrainingSessionHourlyRateTv"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:background="@drawable/card_input_edt_background"-->
-<!--                android:drawableRight="@drawable/ic_dollarsign"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:paddingRight="@dimen/_80sdp"-->
-<!--                android:text="@string/hourly_rate"-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:fontFamily="@font/poppins_regular"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionEnterDateTv" />-->
-
-<!--            <View-->
-<!--                android:id="@+id/createTrainingSessionHourlyRateView"-->
-<!--                android:layout_width="1dp"-->
-<!--                android:layout_height="@dimen/_26sdp"-->
-<!--                android:layout_marginLeft="@dimen/_100sdp"-->
-<!--                android:background="@color/colorBlack"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/crateTrainingSessionHourlyRateTv"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/crateTrainingSessionHourlyRateTv"-->
-<!--                app:layout_constraintRight_toRightOf="@id/crateTrainingSessionHourlyRateTv"-->
-<!--                app:layout_constraintTop_toTopOf="@id/crateTrainingSessionHourlyRateTv" />-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/createTrainingSessionEnterRateEdt"-->
-<!--                android:layout_width="@dimen/_80sdp"-->
-<!--                android:layout_height="@dimen/_35sdp"-->
-<!--                android:background="@null"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:gravity="center"-->
-<!--                android:hint="10"-->
-<!--                android:inputType="number"-->
-<!--                android:maxLines="1"-->
-<!--                android:textSize="@dimen/_12sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/crateTrainingSessionHourlyRateTv"-->
-<!--                app:layout_constraintHorizontal_bias="0"-->
-<!--                app:layout_constraintLeft_toRightOf="@id/createTrainingSessionHourlyRateView"-->
-<!--                app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                app:layout_constraintTop_toTopOf="@id/crateTrainingSessionHourlyRateTv" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/createTrainingSessionUploadTv"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/card_input_edt_background"
-                android:drawableRight="@drawable/ic_file_upload"
-                android:gravity="center_vertical"
-                android:paddingRight="@dimen/_10sdp"
-                android:text="@string/upload_photos"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:fontFamily="@font/poppins_regular"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingMaxOccuEdt" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/createSessionBtn"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:backgroundTint="@color/colorGreen"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center"
-                android:text="@string/create"
-                android:textAllCaps="false"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/createTrainingSessionUploadTv" />
-
-
-          
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

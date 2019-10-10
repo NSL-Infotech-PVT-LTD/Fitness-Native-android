@@ -45,11 +45,18 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private Retrofitinterface retrofitinterface;
     private String  sessionName="",sessionDescription="",sessionPhone="",sessionStartHour="",sessionStartTime="",sessionHourlyRate="",sessionMaxOccupancy="",businessHour="";
 
+    AppCompatSpinner spinnerLocation;
+    MaterialTextView createTrainingDateTv;
+
+    int mYear, mMonth, mDay, mHour, mMinute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_training_session);
+
+        
 
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog=new ProgressDialog(this);
@@ -194,9 +201,9 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.createTrainingDateEdt:
+            case R.id.createTrainingDateTv:
                 break;
-            case R.id.createTrainingTimeEdt:
+            case R.id.createTrainingTimeTv:
                 break;
             case R.id.createTrainingSessionUploadTv:
                 break;
