@@ -169,7 +169,7 @@
                     android:ellipsize="end"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_8sdp"
                     android:paddingLeft="@dimen/_15sdp"
                     android:paddingRight="@dimen/_15sdp"
                     android:singleLine="true"
@@ -377,9 +377,10 @@
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
                     app:layout_constraintTop_toTopOf="@id/createEvent_CapicityView" />
 
-                <com.google.android.material.textview.MaterialTextView
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/createEventImages"
                     android:layout_width="0dp"
+                    android:focusable="false"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_50sdp"

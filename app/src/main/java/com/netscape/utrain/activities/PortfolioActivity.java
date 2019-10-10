@@ -97,12 +97,14 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_portfolio);
 
-
-
         init();
     }
 
     private void init() {
+        if (getImages){
+            binding.portfolioTitleTv.setText("Select Images");
+            binding.noteTv.setText("Select at least one image");
+        }
 
         if (getIntent().getExtras() != null) {
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
@@ -520,16 +522,19 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     public void setPortfolioImages() {
         if (position == 1) {
+
             portFolioImage1 = userImg;
             PortfolioImagesConstants.partOne = portFolioImage1;
             PortfolioImagesConstants.imageOne = setImages;
         }
         if (position == 2) {
+
             portFolioImage2 = userImg;
             PortfolioImagesConstants.partTwo = portFolioImage1;
             PortfolioImagesConstants.imageTwo = setImages;
         }
         if (position == 3) {
+
             portFolioImage3 = userImg;
             PortfolioImagesConstants.partThree = portFolioImage1;
             PortfolioImagesConstants.imageThree = setImages;
@@ -542,22 +547,26 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void setImagesFromConstant() {
-//        if (position==1){
-        portFolioImage1 = PortfolioImagesConstants.partOne;
-        Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
-//        }
-//        if (position==2){
-        portFolioImage2 = PortfolioImagesConstants.partTwo;
-        Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
-//        }
-//        if (position==3){
-        portFolioImage3 = PortfolioImagesConstants.partThree;
-        Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
-//        }
-//        if (position==4){
-        portFolioImage4 = PortfolioImagesConstants.partFour;
-        Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
-//        }
+        if (PortfolioImagesConstants.partOne !=null){
+            binding.imagePlusone.setVisibility(View.GONE);
+            portFolioImage1 = PortfolioImagesConstants.partOne;
+            Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
+        }
+        if (PortfolioImagesConstants.partTwo !=null){
+            binding.imgPlusTwo.setVisibility(View.GONE);
+            portFolioImage2 = PortfolioImagesConstants.partTwo;
+            Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
+        }
+        if (PortfolioImagesConstants.partThree !=null){
+            binding.imgPlusThree.setVisibility(View.GONE);
+            portFolioImage3 = PortfolioImagesConstants.partThree;
+            Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
+        }
+        if (PortfolioImagesConstants.partFour !=null){
+            binding.imgPlusFour.setVisibility(View.GONE);
+            portFolioImage4 = PortfolioImagesConstants.partFour;
+            Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
+        }
 
     }
 

@@ -11,6 +11,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,8 +46,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,38 +81,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "";
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
     private String serviIds = "";
+    private String startDate="";
+    Date strDate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
 
-//        spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);
-//
-//        List<String> list = new ArrayList<String>();
-//        list.add("Select Location");
-//        list.add("Texas");
-//        list.add("California");
-//        list.add("India");
-//        list.add("Canada");
-//        list.add("Australia");
-//        list.add("Brazil");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(CreateEventActivity.this, android.R.layout.simple_spinner_item, list);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerLocation.setAdapter(adapter);
-//
-//        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                spinnerLocation.setSelection(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
         getServiceIds();
         createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
         ArrayAdapter<ServiceIdModel> adapter = new ArrayAdapter<ServiceIdModel>(CreateEventActivity.this, android.R.layout.simple_spinner_item, selectedServices);
@@ -233,8 +213,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createEventStartDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 binding.createEventStartDateTv.setPadding(20, 20, 20, 20);
+                startDate=dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                strDate=formatDate(startDate);
             }
         }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
         datePickerDialog.show();
     }
 
@@ -246,11 +229,31 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                binding.createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 binding.createEventEndDatetv.setPadding(20, 20, 20, 20);
+                startDate=dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                Date endDate=formatDate(startDate);
+                if (endDate.compareTo(strDate) > 0) {
+                    Log.i("app", "Date1 is after Date2");
+                    binding.createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                }else {
+                    Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public Date formatDate(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
+
+        try {
+            strDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  strDate;
     }
 
     private void getDataFromEdtText() {
@@ -326,7 +329,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
 
-        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName.toString()));
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), eventDescription));
         requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartDate));
         requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
@@ -335,7 +338,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
-        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
+        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), eventCapacity));
         requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));

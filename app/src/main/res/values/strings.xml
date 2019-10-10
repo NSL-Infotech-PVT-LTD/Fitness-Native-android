@@ -306,4 +306,8 @@
     <string name="description_crate_training_session">Taking team fitness to a new level</string>
     <string name="business_hour_training_session">Business Hour</string>
     <string name="max_occupancy_training_session_text">Max Occupancy</string>
+    <string name="enter_session_name">Enter session name</string>
+    <string name="enter_session_description">Enter session description</string>
+    <string name="enter_hourly_rate_session">Enter hourly rate</string>
+    <string name="enter_session_max_occupacy">Enter session max occupacy</string>
 </resources>

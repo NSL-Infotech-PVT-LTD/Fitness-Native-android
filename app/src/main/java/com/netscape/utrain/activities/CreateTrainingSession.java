@@ -1,11 +1,14 @@
 package com.netscape.utrain.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
+import com.netscape.utrain.databinding.ActivityCreateTrainingSessionBinding;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -28,8 +32,11 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,128 +48,51 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreateTrainingSession extends AppCompatActivity implements View.OnClickListener {
-    private ProgressDialog progressDialog;
-    private Retrofitinterface retrofitinterface;
-    private String  sessionName="",sessionDescription="",sessionPhone="",sessionStartHour="",sessionStartTime="",sessionHourlyRate="",sessionMaxOccupancy="",businessHour="";
-
     AppCompatSpinner spinnerLocation;
     MaterialTextView createTrainingDateTv;
-
     int mYear, mMonth, mDay, mHour, mMinute;
-
+    private ActivityCreateTrainingSessionBinding binding;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
+    private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", sessionStartTime = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
+    private int SESSIOM_IMAGE = 129;
+    private String dateNow = "";
+    DatePickerDialog datePickerDialog=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_training_session);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_training_session);
 
-        
+        init();
 
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
-        progressDialog=new ProgressDialog(this);
+    }
+
+    private void init() {
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
-
-
-
-
-//        tvStartBsnsHour.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar c = Calendar.getInstance();
-//                mHour = c.get(Calendar.HOUR_OF_DAY);
-//                mMinute = c.get(Calendar.MINUTE);
-//
-//                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-//
-//                        tvStartBsnsHour.setText(hourOfDay + ":" + minute);
-//                    }
-//                },mHour,mMinute,true);
-//                timePickerDialog.show();
-//            }
-//        });
-
-//        tvEndBsnsHour.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar c = Calendar.getInstance();
-//                mHour = c.get(Calendar.HOUR_OF_DAY);
-//                mMinute = c.get(Calendar.MINUTE);
-//
-//                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-//
-//                        tvEndBsnsHour.setText(hourOfDay + ":" + minute);
-//                    }
-//                }, mHour, mMinute,true);
-//                timePickerDialog.show();
-//            }
-//        });
-
-//        tvSelectDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar c = Calendar.getInstance();
-//                mYear = c.get(Calendar.YEAR);
-//                mMonth = c.get(Calendar.MONTH);
-//                mDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateTrainingSession.this, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-//                        tvSelectDate.setText(dayOfMonth + "-" + (month +1) + "-" + year);
-//                    }
-//                }, mDay, mMonth, mYear);
-//                datePickerDialog.show();
-//            }
-//        });
-
-//        spinnerLocation = findViewById(R.id.createTrainingSessionLocationSpinner);
-//
-//        List<String> list = new ArrayList<String>();
-//        list.add("Select Location");
-//        list.add("Texas");
-//        list.add("America");
-//        list.add("Australia");
-//        list.add("England");
-//        list.add("India");
-//        list.add("Brazil");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(CreateTrainingSession.this,android.R.layout.simple_spinner_item,list);
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerLocation.setAdapter(adapter);
-//
-//        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                spinnerLocation.setSelection(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+        binding.createTrainingDateTv.setOnClickListener(this);
+        binding.createTrainingTimeTv.setOnClickListener(this);
+        binding.createTrainingSessionUploadTv.setOnClickListener(this);
+        binding.createSessionBtn.setOnClickListener(this);
     }
-    private void hitCreateEventApi() {
+
+    private void hitCreateSessionApi() {
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
-        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), ""));
-        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(Constants.AUTH_TOKEN,getApplicationContext())));
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
+        requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
+        requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"), sessionStartTime));
+        requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), sessionStartDate));
+        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
+        requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("",requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
@@ -176,16 +106,16 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                             finish();
                         }
                     } else {
-//                        Snackbar.make(binding.createEventLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.createTrainingSessionLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-//                        Snackbar.make(binding.createEventLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.createTrainingSessionLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {
-//                        Snackbar.make(binding.createEventLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.createTrainingSessionLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -193,19 +123,25 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<OrgCreateEventResponse> call, Throwable t) {
                 progressDialog.dismiss();
-//                Snackbar.make(binding.createEventLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.createTrainingSessionLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.createTrainingDateTv:
+                getTrainingDate();
                 break;
             case R.id.createTrainingTimeTv:
+                getTrainingTime();
                 break;
             case R.id.createTrainingSessionUploadTv:
+                Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PortfolioActivity.getImages = true;
+                startActivityForResult(getImages, SESSIOM_IMAGE);
                 break;
             case R.id.createSessionBtn:
                 getDataFromEdt();
@@ -213,8 +149,104 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void getDataFromEdt() {
-        
+    private void getTrainingTime() {
+        Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
 
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+
+                binding.createTrainingTimeTv.setText(hourOfDay + ":" + minute);
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
+
+    private void getTrainingDate() {
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+         datePickerDialog = new DatePickerDialog(CreateTrainingSession.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                binding.createTrainingDateTv.setPadding(20, 20, 20, 20);
+                dateNow = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
+                Date strDate = null;
+                try {
+                    strDate = sdf.parse(dateNow);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (strDate.compareTo(now) > 0) {
+
+                }
+                if (strDate.before(now)) {
+
+                    Toast.makeText(CreateTrainingSession.this, "Please select valid date", Toast.LENGTH_SHORT).show();
+                } else {
+                    binding.createTrainingDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                }
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        datePickerDialog.show();
+    }
+
+    private void getDataFromEdt() {
+        sessionName = binding.createTrainingSessionNameEdt.getText().toString();
+        sessionDescription = binding.createTrainingSessionDescEdt.getText().toString();
+        sessionPhone = binding.createTrainingSessionPhoneEdt.getText().toString();
+        sessionStartDate = binding.createTrainingDateTv.getText().toString();
+        sessionStartTime = binding.createTrainingTimeTv.getText().toString();
+        sessionHourlyRate = binding.createTrainingSessionHourRateEdt.getText().toString();
+        sessionMaxOccupancy = binding.createTrainingSessionMaxOccuEdt.getText().toString();
+
+        if (sessionName.isEmpty()) {
+            binding.createTrainingSessionNameEdt.setError(getResources().getString(R.string.enter_session_name));
+            binding.createTrainingSessionNameEdt.requestFocus();
+
+        } else if (sessionDescription.isEmpty()) {
+            binding.createTrainingSessionDescEdt.setError(getResources().getString(R.string.enter_session_description));
+            binding.createTrainingSessionDescEdt.requestFocus();
+
+        } else if (sessionPhone.isEmpty()) {
+            binding.createTrainingSessionPhoneEdt.setError(getResources().getString(R.string.enter_phone_number));
+            binding.createTrainingSessionPhoneEdt.requestFocus();
+        } else if (sessionStartDate.isEmpty()) {
+            Toast.makeText(this, "Enter session start date", Toast.LENGTH_SHORT).show();
+
+        } else if (sessionStartTime.isEmpty()) {
+            Toast.makeText(this, "Enter session end date", Toast.LENGTH_SHORT).show();
+
+        } else if (sessionHourlyRate.isEmpty()) {
+            binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_session));
+            binding.createTrainingSessionHourRateEdt.requestFocus();
+        } else if (sessionMaxOccupancy.isEmpty()) {
+            binding.createTrainingSessionMaxOccuEdt.setError(getResources().getString(R.string.enter_session_max_occupacy));
+            binding.createTrainingSessionMaxOccuEdt.requestFocus();
+        } else {
+            hitCreateSessionApi();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SESSIOM_IMAGE) {
+                if (data != null && data.hasExtra(Constants.ADDRESS)) {
+                    Toast.makeText(CreateTrainingSession.this, "Images Imported", Toast.LENGTH_SHORT).show();
+                    binding.createTrainingSessionUploadTv.setText(PortfolioImagesConstants.numImages + " Images selected");
+                }
+            }
+        } else {
+            Toast.makeText(this, "Unable to import Images", Toast.LENGTH_SHORT).show();
+        }
     }
 }
