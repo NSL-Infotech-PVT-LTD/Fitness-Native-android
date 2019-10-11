@@ -5,14 +5,13 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_disable"
         android:title="" />
-
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_chat_disable"
         android:title="" />
-
     <item
         android:id="@+id/navigation_reqimage"
+        android:icon="@drawable/ic_gray_nav_bottom"
         android:title="" />
     <item
         android:id="@+id/navigation_running"

@@ -84,8 +84,8 @@
                 android:layout_height="0dp"
                 app:layout_constraintTop_toTopOf="@+id/orgGuideline"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp">
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,23 +93,19 @@
                     android:layout_height="match_parent"
                     >
 
-
-
-
-
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/innerLeftGuideLine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_begin="@dimen/_1sdp" />
+                        app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/innerRightGuideLine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_end="@dimen/_1sdp" />
+                        app:layout_constraintGuide_end="@dimen/_10sdp" />
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -304,11 +300,13 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/cards_shape"
                     android:elevation="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -343,16 +341,28 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/orgSpaceRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_200sdp"
                         android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv"
                         >
 
+
                     </androidx.recyclerview.widget.RecyclerView>
-
-
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:id="@+id/noDataFoundImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/no_data_png"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv"
+                        ></ImageView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -252,8 +252,13 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                         if (response.body().getData() != null) {
                             listModels.clear();
                             listModels.addAll(response.body().getData().getData());
-                            adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
-                            binding.orgSpaceRecyclerView.setAdapter(adapter);
+                            if (listModels!=null && listModels.size()>0) {
+                                binding.noDataFoundImg.setVisibility(View.GONE);
+                                adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
+                                binding.orgSpaceRecyclerView.setAdapter(adapter);
+                            }else {
+                                binding.noDataFoundImg.setVisibility(View.VISIBLE);
+                            }
                         }
                     } else {
                         Snackbar.make(binding.orgHomeLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -266,6 +271,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                         Snackbar.make(binding.orgHomeLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
+                        binding.noDataFoundImg.setVisibility(View.VISIBLE);
                         Snackbar.make(binding.orgHomeLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
