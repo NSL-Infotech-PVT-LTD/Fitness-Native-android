@@ -41,7 +41,7 @@
         android:id="@+id/tv_header_secondScreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/who_you_are"
+        android:text="@string/who_are_you"
         android:gravity="center"
         android:textColor="@color/colorWhite"
         android:fontFamily="@font/poppins_semibold"

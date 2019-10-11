@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/dashboard" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_booking"
+            android:title="@string/booking" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_transaction"
+            android:title="@string/transaction" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/notification" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/aboutUsTv"
+            android:icon="@drawable/ic_about_us"
+            android:title="@string/about_us" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/rateUsTv"
+            android:icon="@drawable/ic_rate_us"
+            android:title="@string/rate_us" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/settingsTv"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+
+    </group>
+
+
+</menu>

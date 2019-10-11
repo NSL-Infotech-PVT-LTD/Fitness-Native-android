@@ -47,7 +47,6 @@
             android:drawableLeft="@drawable/magnifier"
             android:drawablePadding="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"
-
             android:hint="@string/find"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
@@ -69,7 +68,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@drawable/gradiant_design">
 
 

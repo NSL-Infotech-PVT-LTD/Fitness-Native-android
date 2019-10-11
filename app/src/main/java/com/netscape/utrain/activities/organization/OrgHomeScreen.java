@@ -85,7 +85,7 @@ public class OrgHomeScreen extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.orgContainer, fragment);
+        transaction.replace(R.id.orgFramecontainerOrg, fragment);
         transaction.commit();
     }
     @Override

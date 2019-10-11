@@ -1,308 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/orgHomeLayout"
-        tools:context=".fragments.O_HomeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/innerLeftGuideLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_10sdp" />
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/orgHomeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".fragments.O_HomeFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/innerRightGuideLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_10sdp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/LeftGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/logOutTv"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="wrap_content"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/RightGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_10sdp" />
 
-            android:background="@drawable/round_background_colord"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:padding="@dimen/_2sdp"
-            android:text="@string/logout"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/orglogOutTv"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_background_colord"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:text="@string/logout"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/orgWelcomeOrgName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/welcome_org_name"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/orgWelcomeOrgName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/welcome_org_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_16sdp"
+                app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:src="@drawable/sophie"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:src="@drawable/sophie"
+                app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/organizationBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#50FAA6"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/organization"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_8sdp"
-            app:cornerRadius="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/organizationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#50FAA6"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/organization"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_8sdp"
+                app:cornerRadius="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/orgGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.2"/>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/orgCreateTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:drawableLeft="@drawable/ic_add_gray"
-            android:fontFamily="@font/poppins_semibold"
-            android:hint="@string/create"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
-            app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/organizationBtn" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/organizationCard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/orgCreateTv">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradiant_design">
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@+id/orgGuideline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp">
 
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/createEventImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:src="@drawable/ic_session_icon"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintRight_toLeftOf="@+id/createSessionImg"/>
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/createSessionImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:src="@drawable/ic_event_icon"
-                    app:layout_constraintLeft_toRightOf="@id/createEventImg"
-                    app:layout_constraintRight_toLeftOf="@id/createSpaceImg"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/createSpaceImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:src="@drawable/ic_find_spaces_icon"
-                    app:layout_constraintLeft_toRightOf="@id/createSessionImg"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/AthleteCardsessionTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/create_event"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="@+id/createEventImg"
-                    app:layout_constraintLeft_toLeftOf="@id/createEventImg"
-                    app:layout_constraintTop_toBottomOf="@id/createEventImg" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/AthleteCardeventTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/create_session"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="@+id/createSessionImg"
-                    app:layout_constraintLeft_toLeftOf="@id/createSessionImg"
-                    app:layout_constraintTop_toBottomOf="@id/createSessionImg" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/AthleteCardfindSpaceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/create_spaces"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="@+id/createSpaceImg"
-                    app:layout_constraintLeft_toLeftOf="@id/createSpaceImg"
-                    app:layout_constraintTop_toBottomOf="@id/createSpaceImg" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/orgRequestsCard"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            app:cardCornerRadius="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/organizationCard"
-            tools:layout_editor_absoluteY="153dp">
-            <!--            app:cardUseCompatPadding="true"-->
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/orgRequests"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:text="@string/requests"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    >
+
+
+
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/innerLeftGuideLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="@dimen/_1sdp" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/innerRightGuideLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="@dimen/_1sdp" />
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/gradiant_design"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/orgCreateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:drawableLeft="@drawable/ic_add_gray"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="@string/create"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:src="@drawable/ic_req_white_img"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/organizationCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/orgCreateTv">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradiant_design">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/createEventImg"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:src="@drawable/ic_session_icon"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/createSessionImg"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/createSessionImg"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginLeft="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:src="@drawable/ic_event_icon"
+                            app:layout_constraintLeft_toRightOf="@id/createEventImg"
+                            app:layout_constraintRight_toLeftOf="@id/createSpaceImg"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/createSpaceImg"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginLeft="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:src="@drawable/ic_find_spaces_icon"
+                            app:layout_constraintLeft_toRightOf="@id/createSessionImg"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/AthleteCardsessionTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/create_event"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@id/createEventImg"
+                            app:layout_constraintRight_toRightOf="@+id/createEventImg"
+                            app:layout_constraintTop_toBottomOf="@id/createEventImg" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/AthleteCardeventTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/create_session"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@id/createSessionImg"
+                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"
+                            app:layout_constraintTop_toBottomOf="@id/createSessionImg" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/AthleteCardfindSpaceTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/create_spaces"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@id/createSpaceImg"
+                            app:layout_constraintRight_toRightOf="@+id/createSpaceImg"
+                            app:layout_constraintTop_toBottomOf="@id/createSpaceImg" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/orgRequestsCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/organizationCard"
+                    tools:layout_editor_absoluteY="153dp">
+                    <!--            app:cardUseCompatPadding="true"-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/orgRequests"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="center"
+                            android:text="@string/requests"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/gradiant_design_square"
+                            android:padding="@dimen/_10sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:src="@drawable/ic_req_white_img"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_req_white_img" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_15sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/notification_no"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="@id/orgRequests"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/orgRequests" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_11sdp"
+                            android:layout_marginRight="@dimen/_11sdp"
+                            android:background="@drawable/notification_icon_red"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/orgRequests" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/cards_shape"
+                    android:elevation="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_req_white_img" />
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/orgRequestsCard">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/yourSpacesTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:text="@string/spaces_creates_by_you"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/orgViewAllSpaces"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/view_all"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/yourSpacesTv"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/yourSpacesTv">
+
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/orgSpaceRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv"
+                        >
+
+                    </androidx.recyclerview.widget.RecyclerView>
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/notification_no"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toBottomOf="@id/orgRequests"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/orgRequests" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_11sdp"
-                    android:layout_marginRight="@dimen/_11sdp"
-                    android:background="@drawable/notification_icon_red"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/orgRequests" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/cards_shape"
-            android:elevation="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/orgRequestsCard">
+            </ScrollView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/yourSpacesTv"
-                android:layout_marginTop="@dimen/_20sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/spaces_creates_by_you"
-                android:layout_marginLeft="@dimen/_20sdp"
-                ></com.google.android.material.textview.MaterialTextView>
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/orgViewAllSpaces"
-                android:layout_marginRight="@dimen/_20sdp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/yourSpacesTv"
-                app:layout_constraintBottom_toBottomOf="@+id/yourSpacesTv"
-                android:text="@string/view_all"
-                android:textSize="@dimen/_14sdp"
-                android:fontFamily="@font/poppins_semibold"
-                ></com.google.android.material.textview.MaterialTextView>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/orgSpaceRecyclerView"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv"
-                android:layout_marginTop="@dimen/_20sdp">
-            </androidx.recyclerview.widget.RecyclerView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+
 </layout>
