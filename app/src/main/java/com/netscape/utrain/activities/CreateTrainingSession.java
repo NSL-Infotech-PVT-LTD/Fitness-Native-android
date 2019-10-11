@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
@@ -9,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,13 +54,16 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     AppCompatSpinner spinnerLocation;
     MaterialTextView createTrainingDateTv;
     int mYear, mMonth, mDay, mHour, mMinute;
+    DatePickerDialog datePickerDialog = null;
     private ActivityCreateTrainingSessionBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", sessionStartTime = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
     private int SESSIOM_IMAGE = 129;
     private String dateNow = "";
-    DatePickerDialog datePickerDialog=null;
+    private String startTime = "";
+    private Date strDate = null;
+    private Date now = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,12 +159,26 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-
-                binding.createTrainingTimeTv.setText(hourOfDay + ":" + minute);
+                startTime=convertDate(hourOfDay) + ":" +convertDate( minute);
+                if (strDate!=null && now !=null) {
+                    if (strDate.compareTo(now) == 0) {
+                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+                            binding.createTrainingTimeTv.setText(startTime);
+                        } else {
+                            binding.createTrainingTimeTv.setText("");
+                            binding.createTrainingTimeTv.setHint("Start time");
+                            Toast.makeText(CreateTrainingSession.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        binding.createTrainingTimeTv.setText(startTime);
+                    }
+                }else {
+                    Toast.makeText(CreateTrainingSession.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                }
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
@@ -169,31 +189,27 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-         datePickerDialog = new DatePickerDialog(CreateTrainingSession.this, new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(CreateTrainingSession.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createTrainingDateTv.setPadding(20, 20, 20, 20);
-                dateNow = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                dateNow = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
-                Date strDate = null;
+                String currentDateandTime = sdf.format(new Date());
                 try {
+                    now=sdf.parse(currentDateandTime);
                     strDate = sdf.parse(dateNow);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (strDate.compareTo(now) > 0) {
-
-                }
-                if (strDate.before(now)) {
-
-                    Toast.makeText(CreateTrainingSession.this, "Please select valid date", Toast.LENGTH_SHORT).show();
+                if (strDate.compareTo(now) >= 0) {
+                    binding.createTrainingDateTv.setText(dateNow);
                 } else {
-                    binding.createTrainingDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    Toast.makeText(CreateTrainingSession.this, "Please select valid date", Toast.LENGTH_SHORT).show();
                 }
             }
         }, mYear, mMonth, mDay);
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
@@ -247,6 +263,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             }
         } else {
             Toast.makeText(this, "Unable to import Images", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public String convertDate(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + String.valueOf(input);
         }
     }
 }
