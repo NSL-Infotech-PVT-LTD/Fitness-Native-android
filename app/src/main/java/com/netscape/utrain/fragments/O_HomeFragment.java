@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +23,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
@@ -60,10 +62,11 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class O_HomeFragment extends Fragment implements View.OnClickListener {
+
     private OrgFragmentHomeBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView logOut;
+    private MaterialTextView orglogOutTv;
     private View view;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
@@ -120,7 +123,9 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater,R.layout.org_fragment_home,container,false);
         view=binding.getRoot();
-        logOut = (TextView) view.findViewById(R.id.logOutTv);
+
+
+        orglogOutTv = (MaterialTextView) view.findViewById(R.id.orglogOutTv);
         progressDialog=new ProgressDialog(getContext());
         retrofitinterface=RetrofitInstance.getClient().create(Retrofitinterface.class);
         layoutManager=new LinearLayoutManager(getContext());
@@ -130,6 +135,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
+        binding.orglogOutTv.setOnClickListener(this);
         return view;
 
     }
@@ -163,7 +169,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.logOutTv:
+            case R.id.orglogOutTv:
                 LoginManager.getInstance().logOut();
                 CommonMethods.clearPrefData(getContext());
                 Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
@@ -268,6 +274,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
 

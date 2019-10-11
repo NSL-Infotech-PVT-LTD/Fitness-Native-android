@@ -14,12 +14,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.organization.OrgMapFindAddressActivity">
+        <activity
+            android:name=".activities.athlete.DrawerAthleteHome"
+            android:label="@string/title_activity_drawer_athlete_home"
+            android:theme="@style/AppTheme.NoActionBar">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".activities.organization.OrgMapFindAddressActivity"></activity>
         <activity android:name=".activities.athlete.AllEventsMapAct" />
         <activity android:name=".activities.SelectServices" />
-        <activity android:name=".activities.organization.OrgHomeScreen" />
+        <activity android:name=".activities.organization.OrgHomeScreen"></activity>
         <activity
             android:name=".activities.athlete.DiscoverTopRated"
             android:windowSoftInputMode="stateHidden" />
@@ -27,21 +36,11 @@
         <activity android:name=".activities.CoachBottomNavigation" />
         <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.FindSpaceActivity" />
-        <activity android:name=".activities.OfferSpaceActivity" >
-
-        </activity>
-        <activity android:name=".activities.CreateTrainingSession" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".activities.OfferSpaceActivity"></activity>
+        <activity android:name=".activities.CreateTrainingSession"></activity>
         <activity
             android:name=".activities.CreateEventActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".activities.ViewProfileActivity" />
         <activity android:name=".activities.BookSlotCampusActivity" />
         <activity
@@ -82,10 +81,7 @@
             android:theme="@style/AppTheme.SettingSwitch" />
         <activity
             android:name=".activities.athlete.EventDetail"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.SignUpTypeActivity"
             android:screenOrientation="portrait"
@@ -104,15 +100,14 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.SplashActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"
             android:label="@string/title_activity_bottom_navigation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden">
 
+        </activity>
         <activity
             android:name=".activities.AddCards"
             android:screenOrientation="portrait" />
