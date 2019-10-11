@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
@@ -9,8 +10,10 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,8 +48,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,38 +84,19 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "";
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
     private String serviIds = "";
+    private String startDate = "";
+    private String eDate = "";
+    private String startTime = "";
+    private String endTime = "";
+    private Date strDate = null;
+    private Date stDate = null;
+    private Date endDate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
 
-//        spinnerLocation = findViewById(R.id.createEvent_LocationSpinner);
-//
-//        List<String> list = new ArrayList<String>();
-//        list.add("Select Location");
-//        list.add("Texas");
-//        list.add("California");
-//        list.add("India");
-//        list.add("Canada");
-//        list.add("Australia");
-//        list.add("Brazil");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(CreateEventActivity.this, android.R.layout.simple_spinner_item, list);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerLocation.setAdapter(adapter);
-//
-//        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                spinnerLocation.setSelection(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
         getServiceIds();
         createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
         ArrayAdapter<ServiceIdModel> adapter = new ArrayAdapter<ServiceIdModel>(CreateEventActivity.this, android.R.layout.simple_spinner_item, selectedServices);
@@ -200,10 +188,20 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                binding.createEvtnStartTimeTv.setText(hourOfDay + ":" + minute);
+                startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
+                if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+                    binding.createEvtnStartTimeTv.setText(startTime);
+                    binding.createEventEndTime.setText("");
+                    binding.createEventEndTime.setHint("End time");
+                } else {
+                    binding.createEvtnStartTimeTv.setText("");
+                    binding.createEvtnStartTimeTv.setHint("Start time");
+                    Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+                }
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
@@ -214,27 +212,54 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                binding.createEventEndTime.setText(hourOfDay + ":" + minute);
+                endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
+                if (stDate!=null && endDate!=null) {
+                    if (endDate.compareTo(stDate) == 0) {
+                        if (!startTime.isEmpty()) {
+                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+                                binding.createEventEndTime.setText(endTime);
+                            } else {
+                                binding.createEventEndTime.setText("");
+                                binding.createEventEndTime.setHint("End time");
+                                Toast.makeText(CreateEventActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(CreateEventActivity.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        binding.createEventEndTime.setText(endTime);
+
+                    }
+                }else {
+                    Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
     }
 
     private void getStartDate() {
-        Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        Calendar cal = Calendar.getInstance();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                binding.createEventStartDateTv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 binding.createEventStartDateTv.setPadding(20, 20, 20, 20);
+                startDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
+                binding.createEventStartDateTv.setText(startDate);
+                stDate = formatDate(startDate);
+                binding.createEventEndDatetv.setText("");
+                binding.createEventEndDatetv.setHint("End date");
             }
         }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
@@ -246,11 +271,33 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                binding.createEventEndDatetv.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 binding.createEventEndDatetv.setPadding(20, 20, 20, 20);
+                eDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
+                endDate = formatDate(eDate);
+                if (stDate!=null) {
+                    if (endDate.compareTo(stDate) >= 0) {
+                        Log.i("app", "Date1 is after Date2");
+                        binding.createEventEndDatetv.setText(eDate);
+                    } else {
+                        Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(CreateEventActivity.this, "Select start Date", Toast.LENGTH_SHORT).show();
+                }
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public Date formatDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
+        try {
+            strDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return strDate;
     }
 
     private void getDataFromEdtText() {
@@ -326,7 +373,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
 
-        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName.toString()));
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), eventDescription));
         requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartDate));
         requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
@@ -335,7 +382,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
-        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), "1"));
+        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), eventCapacity));
         requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
@@ -345,7 +392,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer"+" "+CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
@@ -379,5 +426,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 Snackbar.make(binding.createEventLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public String convertDate(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + String.valueOf(input);
+        }
     }
 }
