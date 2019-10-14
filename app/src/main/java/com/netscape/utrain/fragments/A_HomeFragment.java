@@ -53,6 +53,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.netscape.utrain.activities.athlete.AthleteHomeScreen.openCloseDrawer;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -321,8 +323,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(topOrg);
                 break;
             case R.id.drawer:
-                PopupWindow popupwindow_obj = popupDisplay();
-                popupwindow_obj.showAsDropDown(view, 0, 0);
+                openCloseDrawer();
+//                PopupWindow popupwindow_obj = popupDisplay();
+//                popupwindow_obj.showAsDropDown(view, 0, 0);
                 break;
             case R.id.sessionIconImg:
                 Intent intents = new Intent(getContext(), AllEventsMapAct.class);
