@@ -30,7 +30,7 @@ public class OngoingSessionAdapter extends RecyclerView.Adapter<OngoingSessionAd
     @Override
     public OngoingSessionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ongoing_session_recycler_design,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.evet_list_view,parent,false);
 
         return new OngoingSessionHolder(view);
     }

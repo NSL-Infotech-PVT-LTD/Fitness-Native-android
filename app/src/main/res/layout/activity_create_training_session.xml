@@ -18,7 +18,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_35sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/createTrainingSessionTv"
@@ -301,7 +301,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/createSessionBtn"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:backgroundTint="@color/colorGreen"

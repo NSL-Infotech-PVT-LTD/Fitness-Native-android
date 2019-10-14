@@ -1,5 +1,7 @@
 package com.netscape.utrain.model;
 
+import java.util.List;
+
 public class AthleteUserModel {
 
     /**
@@ -25,6 +27,15 @@ public class AthleteUserModel {
     private String updated_at;
     private String created_at;
     private int id;
+    private List<RolesModel> roles;
+
+    public List<RolesModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesModel> roles) {
+        this.roles = roles;
+    }
 
     public String getName() {
         return name;

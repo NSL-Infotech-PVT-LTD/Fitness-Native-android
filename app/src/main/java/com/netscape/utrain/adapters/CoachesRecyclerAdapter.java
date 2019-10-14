@@ -87,6 +87,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
         holder.trainingSessionTimeEnterTv.setText(data.getStart_time() +" "+ "To" +" "+ data.getEnd_time());
         holder.trainingSessionProfessionDesc.setText(data.getName());
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +123,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 //
 //                }
 //                holder.eventName.setText(data.getName());
-//                holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
 //                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
 //                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
 ////                holder.itemView.setBackground(context.getDrawable(R.drawable.card_shape_bottom_green));
