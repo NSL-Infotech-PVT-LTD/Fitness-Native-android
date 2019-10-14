@@ -90,7 +90,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                         if (response.body().getData() != null) {
                             Toast.makeText(ForgetPasswordActivity.this, response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
 //                            Snackbar.make(binding.forgetLayout,response.body().getData().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
-                            Intent homeScreen= new Intent(getApplicationContext(), AthleteLoginActivity.class);
+                            Intent homeScreen= new Intent(getApplicationContext(), SignUpTypeActivity.class);
                             startActivity(homeScreen);
                         }
                     } else {
