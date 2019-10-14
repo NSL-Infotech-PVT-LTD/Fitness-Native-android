@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomsheet_list"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    android:background="@color/colorLightGray"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@drawable/drawer_right_corner_laydesign_white"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_15sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:background="@drawable/drawer_right_corner_laydesign_white">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textviewBackground"
@@ -74,23 +73,24 @@
             android:id="@+id/icDashboardIcon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_dashboard"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintTop_toBottomOf="@id/textviewBackground" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/dashboardTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/dashboards"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view1"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/textviewBackground" />
 
         <View
@@ -113,17 +113,20 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookingTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/booking"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
-            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
-            app:layout_constraintTop_toBottomOf="@id/view1" />
+            app:layout_constraintBottom_toBottomOf="@id/view2"
+            app:layout_constraintLeft_toRightOf="@id/icBookingIcon"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toTopOf="@id/view1"
+            app:layout_goneMarginLeft="@dimen/_10sdp" />
 
         <View
             android:id="@+id/view2"
@@ -144,17 +147,20 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/transactionTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/transaction"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view3"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
-            app:layout_constraintTop_toBottomOf="@id/view2" />
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            app:layout_constraintTop_toTopOf="@id/view2" />
 
 
         <View
@@ -177,17 +183,18 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/notificationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/notification"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view4"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
-            app:layout_constraintTop_toBottomOf="@id/view3" />
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toTopOf="@id/view3" />
 
         <View
             android:id="@+id/view4"
@@ -208,17 +215,19 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/aboutUsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/about_us"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view5"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
-            app:layout_constraintTop_toBottomOf="@id/view4" />
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view4"
+            app:layout_constraintTop_toTopOf="@id/view4" />
 
         <View
             android:id="@+id/view5"
@@ -239,17 +248,19 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/rateUsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/rate_us"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view6"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
-            app:layout_constraintTop_toBottomOf="@id/view5" />
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view5"
+            app:layout_constraintTop_toTopOf="@id/view5" />
 
         <View
             android:id="@+id/view6"
@@ -271,33 +282,18 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/settingsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_36sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="@string/settings"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/view6" />
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/logOutTv"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/bottom_right_round_design"
-            android:gravity="center"
-            android:text="@string/logout"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

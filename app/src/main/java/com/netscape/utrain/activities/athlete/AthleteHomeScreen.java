@@ -1,15 +1,25 @@
 package com.netscape.utrain.activities.athlete;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.databinding.AActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_EditorFragment;
@@ -20,9 +30,13 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -36,6 +50,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -46,8 +61,9 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private AActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppBarConfiguration mAppBarConfiguration;
-    public static DrawerLayout drawer;
-
+    public DrawerLayout drawer;
+    private AppCompatImageView drawerImage;
+    BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,42 +103,150 @@ public class AthleteHomeScreen extends AppCompatActivity {
         }
     };
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.a_activity_bottom_navigation);
         binding = DataBindingUtil.setContentView(this, R.layout.a_activity_bottom_navigation);
-
-//        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
+        drawerImage = findViewById(R.id.drawerImage);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setVisibility(View.GONE);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        drawer = findViewById(R.id.drawer_layout);
+        final NavigationView navigationView = findViewById(R.id.slider);
+        View header = navigationView.getHeaderView(0);
+        MaterialTextView dashboardTv = header.findViewById(R.id.dashboardTv);
+        navigationView.findViewById(R.id.logOutTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new AlertDialog.Builder(AthleteHomeScreen.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage("Are you sure you want to Logout")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LoginManager.getInstance().logOut();
+                                CommonMethods.clearPrefData(AthleteHomeScreen.this);
+                                Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+
+                        })
+                        .show();
             }
         });
-         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.slider);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
 
+                openCloseDrawer();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                super.onDrawerStateChanged(newState);
+            }
+        });
+        drawerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+
+            }
+        });
+        dashboardTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+                loadFragment(new A_HomeFragment());
+
+            }
+        });
+        binding.slider.getHeaderView(0).findViewById(R.id.bookingTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+
+            }
+        });
+        binding.slider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
+        binding.slider.getHeaderView(0).findViewById(R.id.notificationTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_NotificationFragment());
+
+            }
+        });
+        binding.slider.getHeaderView(0).findViewById(R.id.aboutUsTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
+
+//        // Passing each menu ID as a set of Ids because each
+//        // menu should be considered as top level destinations.
+//        mAppBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+//                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+//                .setDrawerLayout(drawer)
+//                .build();
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+//        NavigationUI.setupWithNavController(navigationView, navController);
 
         setProfileImage();
-//        loadFragment(new A_HomeFragment());
+        loadFragment(new A_HomeFragment());
     }
 //
 //    @Override
@@ -132,17 +256,26 @@ public class AthleteHomeScreen extends AppCompatActivity {
 //        return true;
 //    }
 
-//    @Override
+    //    @Override
 //    public boolean onSupportNavigateUp() {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
 //                || super.onSupportNavigateUp();
 //    }
     @SuppressLint("WrongConstant")
-    public  static void openCloseDrawer(){
-        drawer.openDrawer(Gravity.START);
-    }
+    public void openCloseDrawer() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(Gravity.LEFT);
+            navView.setVisibility(View.VISIBLE);
+            binding.athleteProfileImg.setVisibility(View.VISIBLE);
+            //CLOSE Nav Drawer!
+        } else {
+            drawer.openDrawer(Gravity.LEFT); //OPEN Nav Drawer!
+            navView.setVisibility(View.GONE);
+            binding.athleteProfileImg.setVisibility(View.GONE);
+        }
 
+    }
 
     private void setProfileImage() {
 
@@ -162,22 +295,27 @@ public class AthleteHomeScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(Gravity.LEFT);
+        } else {
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
 //        Snackbar.make(binding.container,getResources().getString(R.string.please_click_again_to_exit), BaseTransientBottomBar.LENGTH_LONG).show();
 
-        Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
-
 }

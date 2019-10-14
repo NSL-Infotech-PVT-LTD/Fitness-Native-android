@@ -157,7 +157,9 @@ public class A_SessionsFragment extends Fragment {
             public void onFailure(Call<AthleteSessionResponse> call, Throwable t) {
 
                 progressDialog.dismiss();
-                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+//               if (!t.toString().equalsIgnoreCase("null") )
+//
+//                        Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
