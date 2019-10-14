@@ -33,10 +33,7 @@
         <activity android:name=".activities.athlete.AllEventsMapAct" />
         <activity android:name=".activities.SelectServices" />
         <activity android:name=".activities.organization.OrgHomeScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.athlete.DiscoverTopRated"
@@ -111,10 +108,10 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"

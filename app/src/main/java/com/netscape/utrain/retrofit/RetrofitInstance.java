@@ -2,7 +2,9 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.utils.Constants;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
@@ -12,6 +14,7 @@ public class RetrofitInstance {
     public static Retrofit retrofit_obj=null;
 
     public static Retrofit getClient() {
+//        OkHttpClient okHttpClient = new OkHttpClient();
         if (retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         }

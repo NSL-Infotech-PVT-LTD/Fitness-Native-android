@@ -1,5 +1,6 @@
 package com.netscape.utrain.activities.organization;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.HistoryActivity;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
@@ -22,6 +24,7 @@ import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
 import com.netscape.utrain.fragments.O_ChatsFragment;
 import com.netscape.utrain.fragments.O_EditorFragment;
+import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
@@ -69,8 +72,9 @@ public class OrgHomeScreen extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
+
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment=new O_ChatsFragment();
+                    fragment=new O_HistoryFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
