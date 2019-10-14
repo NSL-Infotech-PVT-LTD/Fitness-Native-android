@@ -1,5 +1,7 @@
 package com.netscape.utrain.model;
 
+import java.util.List;
+
 public class CoachUserDataModel {
 
     /**
@@ -30,13 +32,30 @@ public class CoachUserDataModel {
     private String business_hour_starts;
     private String business_hour_ends;
     private String bio;
-    private String service_ids;
     private String expertise_years;
     private String hourly_rate;
     private String profile_image;
     private String updated_at;
     private String created_at;
     private int id;
+    private List<ServiceIdModel> service_ids;
+    private List<RolesModel> roles;
+
+    public List<ServiceIdModel> getService_ids() {
+        return service_ids;
+    }
+
+    public List<RolesModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesModel> roles) {
+        this.roles = roles;
+    }
+
+    public void setService_ids(List<ServiceIdModel> service_ids) {
+        this.service_ids = service_ids;
+    }
 
     public String getName() {
         return name;
@@ -108,14 +127,6 @@ public class CoachUserDataModel {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public String getService_ids() {
-        return service_ids;
-    }
-
-    public void setService_ids(String service_ids) {
-        this.service_ids = service_ids;
     }
 
     public String getExpertise_years() {

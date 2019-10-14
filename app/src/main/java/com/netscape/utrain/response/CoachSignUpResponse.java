@@ -8,6 +8,7 @@ public class CoachSignUpResponse {
     private boolean status;
     private int code;
     private ErrorModel error;
+    private CoachDataModel data;
 
     public CoachDataModel getData() {
         return data;
@@ -16,8 +17,6 @@ public class CoachSignUpResponse {
     public void setData(CoachDataModel data) {
         this.data = data;
     }
-
-    private CoachDataModel data;
 
     public boolean isStatus() {
         return status;

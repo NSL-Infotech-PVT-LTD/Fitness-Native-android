@@ -8,7 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/drawerImage"
+        android:id="@+id/drawerImageNew"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_10sdp"
@@ -26,6 +26,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/drawerImage"
+        app:layout_constraintTop_toBottomOf="@id/drawerImageNew"
        />
 </androidx.constraintlayout.widget.ConstraintLayout>

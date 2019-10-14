@@ -117,7 +117,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.a_activity_bottom_navigation);
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
-        drawerImage = findViewById(R.id.drawerImage);
+        drawerImage = findViewById(R.id.drawerImageNew);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -18,7 +18,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_35sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp">
+
+        </androidx.appcompat.widget.AppCompatImageView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/createTrainingSessionTv"
