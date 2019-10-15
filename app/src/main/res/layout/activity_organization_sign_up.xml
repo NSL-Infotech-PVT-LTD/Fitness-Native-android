@@ -38,14 +38,14 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/signUpType"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@drawable/round_background_colord"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:padding="@dimen/_6sdp"
+                android:padding="@dimen/_4sdp"
                 android:text="@string/organization"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"

@@ -311,6 +311,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventEquipments = binding.createEventEquipmentEdt.getText().toString();
         eventCapacity = binding.createEventCapicityEdt.getText().toString();
 
+        binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.createEventCapicityEdt.requestFocusFromTouch();
+            }
+        });
 
         if (eventName.isEmpty()) {
             binding.createEventNameEnterTv.setError(getResources().getString(R.string.enter_event_name));

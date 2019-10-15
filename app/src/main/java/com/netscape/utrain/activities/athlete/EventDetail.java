@@ -50,9 +50,9 @@ public class EventDetail extends AppCompatActivity {
         eventInstructionsDetailTv = findViewById(R.id.eventInstructionsDetailTv);
 
         eventName.setText(getIntent().getStringExtra("eventName"));
-        venueAddress.setText(getIntent().getStringExtra("eventVenue"));
-        eventTimeDetailTv.setText(getIntent().getStringExtra("evenStartDateTime"));
-        eventDateDetailTv.setText(getIntent().getStringExtra("eventEndDateTime"));
+        venueAddress.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
+        eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+        eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
         eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
         if (getIntent().getStringExtra("from") != null)

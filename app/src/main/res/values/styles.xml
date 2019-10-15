@@ -28,11 +28,13 @@
         <item name="android:background">@drawable/spinner_selector</item>
         <item name="android:src">@drawable/card_input_edt_background</item>
     </style>
+
     <style name="Base.Widget.Design.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">@dimen/_4sdp</item>
 
     </style>
+
     <style name="ThemeOverlay.MySwitchCompat" parent="">
         <item name="colorControlActivated">@color/colorGreen</item>
         <item name="colorSwitchThumbNormal">#f1f1f1</item>

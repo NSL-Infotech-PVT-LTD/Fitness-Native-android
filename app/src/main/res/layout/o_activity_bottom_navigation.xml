@@ -1,53 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/orgContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.organization.OrgHomeScreen">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_10sdp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_10sdp" />
-
-        <FrameLayout
-            android:id="@+id/orgFramecontainerOrg"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toTopOf="@id/orgNavView"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-           />
+            android:layout_height="match_parent">
+
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:id="@+id/orgdrawer_layout"
+                tools:openDrawer="start">
+
+                <include
+                    layout="@layout/app_bar_org_drawer_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.navigation.NavigationView
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:id="@+id/o_slider"
+                    android:background="@drawable/drawer_right_corner_laydesign_white"
+                    android:fitsSystemWindows="true"
+                    app:headerLayout="@layout/drawer_layout">
 
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/orgNavView"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_50sdp"
-            android:background="@drawable/bottom_nav_round_design"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:menu="@menu/athlete_bottom_nav_menu">
-            <!--        ?android:attr/windowBackground-->
+                    <com.google.android.material.textview.MaterialTextVieworg_logOutTv
+                        android:id="@+id/org_logOutTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/bottom_right_round_design"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/logout"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="visible"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+
+                </com.google.android.material.navigation.NavigationView>
+
+            </androidx.drawerlayout.widget.DrawerLayout>
 
 
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/leftGuideline"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintGuide_begin="@dimen/_10sdp" />-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/rightGuideline"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintGuide_end="@dimen/_10sdp" />-->
+
+            <FrameLayout
+                android:id="@+id/orgFramecontainerOrg"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toTopOf="@id/orgNavView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/orgNavView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@drawable/bottom_nav_round_design"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:menu="@menu/athlete_bottom_nav_menu">
+                <!--        ?android:attr/windowBackground-->
+
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

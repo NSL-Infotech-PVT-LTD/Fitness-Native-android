@@ -47,12 +47,22 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
         binding.orgTv.setTextColor(getResources().getColor(R.color.colorBlack));
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Constants.ROLE_PLAY = "";
+
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.athleteCardView:
                 binding.findCoachesBtn.setText(getResources().getString(R.string.log_in_signup_as_athlete));
                 signUpAs= Constants.Athlete;
+                Constants.ROLE_PLAY=Constants.Athlete;
                 binding.coachLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.athleteLayout.setBackground(getResources().getDrawable(R.drawable.mask_athlete));
@@ -69,6 +79,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.coachCardView:
                 signUpAs=Constants.Coach;
+                Constants.ROLE_PLAY=Constants.Coach;
                 binding.athleteLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.organizationLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.coachLayout.setBackground(getResources().getDrawable(R.drawable.mask_coach));
@@ -84,6 +95,7 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.organizationCardView:
                 signUpAs=Constants.Organization;
+                Constants.ROLE_PLAY=Constants.Organization;
                 binding.athleteLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.coachLayout.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 binding.organizationLayout.setBackground(getResources().getDrawable(R.drawable.mask_org));

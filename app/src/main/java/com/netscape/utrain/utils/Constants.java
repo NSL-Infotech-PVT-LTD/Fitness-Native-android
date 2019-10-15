@@ -23,6 +23,7 @@ public class Constants {
     public static final String CREATE_SPACE = "spaces/create";
     public static final String CREATE_SESSION = "session/store";
     public static final String AUTH_TOKEN = "auth token";
+    public static String ROLE_PLAY = "";
 
 
     public static final String Coach = "coach";

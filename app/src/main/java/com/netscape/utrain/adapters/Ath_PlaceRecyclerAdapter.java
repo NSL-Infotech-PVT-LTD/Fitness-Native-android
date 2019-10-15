@@ -80,7 +80,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 intent.putExtra("eventVenue", data.getLocation());
 //                intent.putExtra("evenStartDateTime", data.get);
                 intent.putExtra("eventALLImages", data.getImages());
-                intent.putExtra("eventEndDateTime", data.getAvailability_week());
+                intent.putExtra("eventDate", data.getAvailability_week());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
                 intent.putExtra("from", "places");
                 Bundle b = new Bundle();

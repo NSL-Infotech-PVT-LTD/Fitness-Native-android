@@ -3,10 +3,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/createTrainingSessionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f9ffe3"
-        android:id="@+id/createTrainingSessionLayout"
         android:focusable="true"
         android:focusableInTouchMode="true"
         tools:context=".activities.CreateTrainingSession">
@@ -14,11 +14,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_35sdp"
             android:src="@drawable/ic_leftarrowicon"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_35sdp"
-            android:layout_marginLeft="@dimen/_10sdp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -48,7 +48,6 @@
             android:layout_width="@dimen/_240sdp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
             android:textSize="@dimen/_12sdp"
@@ -60,15 +59,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.22" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/card_shape_outline"
             android:elevation="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="@id/Guideline"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/Guideline">
 
             <ScrollView
                 android:id="@+id/scrollNested"
@@ -144,9 +143,9 @@
                         android:inputType="textMultiLine"
                         android:maxLines="10"
                         android:padding="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_12sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createTrainSessionDescTv" />
@@ -185,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/business_hour_training_session"
+                        android:text="@string/business_date_train_session"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
@@ -195,11 +194,12 @@
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_input_edt_background"
-                        android:drawableRight="@drawable/ic_date"
+                        android:drawableLeft="@drawable/ic_date"
                         android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:hint="12/11/2019"
                         android:padding="@dimen/_10sdp"
                         android:paddingLeft="@dimen/_15sdp"
-                        android:paddingRight="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -207,20 +207,33 @@
                         app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/TrainSessionDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/business_time_train_session"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/createTrainingTimeTv"
+                        app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createTrainingTimeTv"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_input_edt_background"
-                        android:drawableRight="@drawable/ic_time"
+                        android:drawableLeft="@drawable/ic_time"
                         android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:hint="10:10"
                         android:padding="@dimen/_10sdp"
                         android:paddingLeft="@dimen/_15sdp"
-                        android:paddingRight="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/createTrainSessionDateText" />
+                        app:layout_constraintTop_toBottomOf="@id/TrainSessionDateText" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createTrainSessionHourRateText"
@@ -236,10 +249,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/createTrainingSessionHourRateEdt"
                         android:layout_width="0dp"
-                        android:inputType="number"
                         android:layout_height="wrap_content"
                         android:background="@drawable/card_input_edt_background"
                         android:fontFamily="@font/poppins_regular"
+                        android:inputType="number"
                         android:padding="@dimen/_10sdp"
                         android:paddingLeft="@dimen/_15sdp"
                         android:paddingRight="@dimen/_15sdp"
@@ -266,12 +279,11 @@
                         android:id="@+id/createTrainingSessionMaxOccuEdt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
                         android:background="@drawable/card_input_edt_background"
                         android:fontFamily="@font/poppins_regular"
+                        android:inputType="number"
                         android:padding="@dimen/_10sdp"
                         android:paddingLeft="@dimen/_15sdp"
-                        android:paddingRight="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -282,11 +294,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/createTrainingSessionUploadTv"
                         android:layout_width="0dp"
-                        android:focusable="false"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/card_input_edt_background"
                         android:drawableRight="@drawable/upload"
+                        android:focusable="false"
                         android:padding="@dimen/_10sdp"
                         android:paddingLeft="@dimen/_15sdp"
                         android:paddingRight="@dimen/_15sdp"
@@ -302,16 +314,18 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/createSessionBtn"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:backgroundTint="@color/colorGreen"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
+                        android:padding="@dimen/_10sdp"
                         android:text="@string/create"
+                        app:cornerRadius="@dimen/_5sdp"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
