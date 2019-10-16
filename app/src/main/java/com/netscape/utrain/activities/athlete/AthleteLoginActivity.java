@@ -72,18 +72,21 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                         if (response.body().getData() != null) {
 
 
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteLoginActivity.this);
-                            Intent homeScreen = null;
+
 
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
                                 if (Constants.Athlete.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteLoginActivity.this);
+                                    Intent homeScreen = null;
+
                                     homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);

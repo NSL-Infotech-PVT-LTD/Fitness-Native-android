@@ -23,5 +23,6 @@ public class PrefrenceConstant {
     public static final String ORG_LOG_IN="orgLogIn";
     public static final String PRICE="price";
     public static final String SERVICE_IDS="serviceIds";
+    public static final String ROLE_PLAY="ROLE_PLAY";
 
 }

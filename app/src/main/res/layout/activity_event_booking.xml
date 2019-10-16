@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.EventBookingActivity">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/backgroundText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@drawable/gradiant_design_bottom_square"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/eventBookingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/event_booking"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/discoverImageCard"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_5sdp"
+
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@id/linear"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/eventBookMarathonHeaderTv">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/eventBookingImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_place_holder" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/eventBookingBackArrow"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:src="@drawable/lefticonarrowwhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/eventBookMarathonHeaderTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/marathon_run_for_fun"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/eventBookingText"
+        app:layout_constraintTop_toBottomOf="@id/eventBookingText" />
+
+
+    <LinearLayout
+
+        android:id="@+id/linear1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintLeft_toLeftOf="@id/eventBookMarathonHeaderTv"
+        app:layout_constraintRight_toRightOf="@+id/eventBookMarathonHeaderTv"
+        app:layout_constraintTop_toBottomOf="@id/eventBookMarathonHeaderTv">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventVenueTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/venue"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventTimeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/time"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/date"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintLeft_toLeftOf="@id/linear1"
+        app:layout_constraintRight_toRightOf="@id/linear1"
+        app:layout_constraintTop_toBottomOf="@id/linear1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventVanueDetailTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLength="15"
+            android:text="@string/vanue_address_nline"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventTimeDetailTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/time_format"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventDateDetailTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/date_format"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundText"
+        android:text="@string/ticket"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_50sdp"
+        android:textColor="@color/colorBlack"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/substractImg"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/ic_subtract"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toLeftOf="@id/ticket"
+        app:layout_constraintTop_toBottomOf="@id/ticket"
+        android:layout_marginLeft="@dimen/_20sdp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/countDisp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/ticket"
+        app:layout_constraintTop_toBottomOf="@id/ticket"
+        android:layout_marginLeft="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_5sdp"/>
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/addImg"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/ic_add"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toRightOf="@id/countDisp"
+        app:layout_constraintTop_toBottomOf="@id/ticket"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/darkGreen">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textSize="@dimen/_10sdp"
+            android:text="Total Price * 1"
+            android:textColor="@color/colorWhite"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textContinueToPay"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:text="Continue to pay >>"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$44"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/textContinueToPay"
+            android:layout_marginRight="@dimen/_20sdp"
+
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorWhite"
+
+            android:layout_marginTop="@dimen/_5sdp"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:id="@+id/orgdrawer_layout"
+
                 tools:openDrawer="start">
 
                 <include
@@ -34,7 +35,7 @@
                     app:headerLayout="@layout/drawer_layout">
 
 
-                    <com.google.android.material.textview.MaterialTextVieworg_logOutTv
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/org_logOutTv"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_60sdp"

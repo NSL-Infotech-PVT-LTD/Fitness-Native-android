@@ -11,14 +11,19 @@ import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -83,17 +88,22 @@ public class EventDetail extends AppCompatActivity {
             imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
-                    startActivity(intent);
+                    if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase(Constants.Athlete)) {
+                        Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
+                        startActivity(intent);
+                    } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase("Organizer")) {
+                        Intent intent = new Intent(EventDetail.this, OrgHomeScreen.class);
+                        startActivity(intent);
+                    }
                 }
             });
             viewPager = findViewById(R.id.viewPagerImage);
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);
             CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            if (viewPager.getAdapter().getCount() <=1)
+            if (viewPager.getAdapter().getCount() <= 1)
 
-            indicator.setViewPager(null);
+                indicator.setViewPager(null);
             else
                 indicator.setViewPager(viewPager);
         }

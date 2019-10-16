@@ -61,6 +61,7 @@ public class OrgHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 binding.orgdrawerLayout.openDrawer(GravityCompat.START);
+
             }
         });
         loadFragment(new O_HomeFragment());

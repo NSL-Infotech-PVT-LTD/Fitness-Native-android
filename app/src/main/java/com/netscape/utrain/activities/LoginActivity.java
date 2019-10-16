@@ -132,19 +132,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
-                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, LoginActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
-                            servicesList.addAll(response.body().getData().getUser().getService_ids());
-                            storeServiceIds(servicesList);
+
                             Intent homeScreen = null;
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
-                                if (Constants.Organization.equalsIgnoreCase(role)) {
+                                if (role.equalsIgnoreCase("organizer")) {
+
+                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL+response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
+                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                    storeServiceIds(servicesList);
+
                                     homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);

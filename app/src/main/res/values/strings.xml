@@ -327,4 +327,6 @@
     <string name="business_date_train_session">Business Date</string>
     <string name="business_time_train_session">Business Hour</string>
     <string name="title_activity_org_drawer_navigation">OrgDrawerNavigation</string>
+    <string name="event_booking">Event Booking</string>
+    <string name="ticket">Ticket(s) you want to Book</string>
 </resources>

@@ -314,7 +314,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler">
 
-            <com.google.android.material.tabs.TabLayout
+            <com.netscape.utrain.utils.TabLayoutEx
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,10 +326,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabGravity="fill"
                 app:tabIndicator="@drawable/indicator_circle"
-                app:tabIndicatorFullWidth="false"
                 app:tabIndicatorGravity="bottom"
+                app:tabIndicatorHeight="@dimen/_25sdp"
                 app:tabMode="fixed"
-                app:tabPadding="@dimen/_10sdp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
                 app:tabSelectedTextColor="@color/colorBlack"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                 app:tabTextColor="@color/lightGrayFont" />
