@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:orientation="vertical">
 
 
@@ -18,6 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
             android:background="@color/eventCardBgColor">
 
             <com.google.android.material.card.MaterialCardView
@@ -30,7 +32,7 @@
                 app:cardCornerRadius="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-
+                android:elevation="@dimen/_5sdp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -187,7 +189,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/distance"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_8sdp"
                 android:singleLine="true"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@+id/trainingSessionTimeEnterTv"
@@ -201,7 +203,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/price"
                 android:textSize="@dimen/_8sdp"
-                app:layout_constraintLeft_toLeftOf="@+id/findPlaceCandidateTv"
+                app:layout_constraintLeft_toLeftOf="@+id/findPlaceDistanceTv"
                 app:layout_constraintTop_toBottomOf="@+id/findPlaceDistanceTv" />
 
 

@@ -25,8 +25,19 @@ public class LoginChildModel {
     private String updated_at;
     private String deleted_at;
     private String token;
+    private List<RolesModel> roles;
+
 
     private List<ServiceIdModel> service_ids;
+
+
+    public List<RolesModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesModel> roles) {
+        this.roles = roles;
+    }
 
     public List<ServiceIdModel> getService_ids() {
         return service_ids;

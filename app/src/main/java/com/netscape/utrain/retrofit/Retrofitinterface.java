@@ -1,5 +1,7 @@
 package com.netscape.utrain.retrofit;
 
+import com.netscape.utrain.model.BookingConfirmModel;
+import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
@@ -50,10 +52,11 @@ public interface Retrofitinterface {
     @FormUrlEncoded
     @POST(Constants.LOGIN_METHOD)
     Call<LoginResponse> userLogin(@Field("email") String email,
-                                      @Field("password") String password,
-                                      @Field("device_type") String device_type,
-                                      @Field("device_token") String device_token,
-                                      @Header("Content-Type") String contentType);
+                                  @Field("password") String password,
+                                  @Field("device_type") String device_type,
+                                  @Field("device_token") String device_token,
+                                  @Header("Content-Type") String contentType);
+
     @FormUrlEncoded
     @POST("reset-password")
     Call<ForgetPasswordResponse> getForgetpassword(@Header("Content-Type") String Content_Type,
@@ -62,10 +65,6 @@ public interface Retrofitinterface {
 
     @POST(Constants.SERVICES)
     Call<ServiceListResponse> getServiceList(@Header("Content-Type") String Content_Type);
-
-
-
-
 
 
     @FormUrlEncoded
@@ -81,38 +80,19 @@ public interface Retrofitinterface {
                                           @Field("business_hour_starts") String business_hour_starts,
                                           @Field("business_hour_ends") String business_hour_ends,
                                           @Field("bio") String bio,
-                                          @Field("service_ids") String service_ids ,
+                                          @Field("service_ids") String service_ids,
                                           @Field("expertise_years") String expertise_years,
                                           @Field("hourly_rate") String hourly_rate,
                                           @Field("device_type") String device_type,
                                           @Field("device_token") String device_token);
 
-        @Multipart
-        @POST(Constants.ORG_SIGNUP)
-        Call<OrgSignUpResponse> orgSignup(@Part MultipartBody.Part profile_image,
-                                          @Part MultipartBody.Part portfolio_image_1,
-                                          @Part MultipartBody.Part portfolio_image_2,
-                                          @Part MultipartBody.Part portfolio_image_3,
-                                          @Part MultipartBody.Part portfolio_image_4,
-                                          @Query("name") String name,
-                                          @Query("email") String email,
-                                          @Query("password") String password,
-                                          @Query("phone") String phone,
-                                          @Query("location") String location,
-                                          @Query("latitude") String latitude,
-                                          @Query("longitude") String longitude,
-                                          @Query("bio") String bio,
-                                          @Query("service_ids") JSONArray serviceIds,
-                                          @Query("expertise_years") String expertiesYears,
-                                          @Query("hourly_rate") String hourlyRate,
-                                          @Query("business_hour_starts") String businessStartTime,
-                                          @Query("business_hour_ends") String businessEndTime,
-                                          @Query("device_type") String device_type,
-                                          @Query("device_token") String device_token,
-                                          @Header("Content-Type") String contentType);
     @Multipart
-    @POST(Constants.COACH_SIGNUP)
-    Call<CoachSignUpResponse> coachSignup(@Header("Content-Type") String contentType,
+    @POST(Constants.ORG_SIGNUP)
+    Call<OrgSignUpResponse> orgSignup(@Part MultipartBody.Part profile_image,
+                                      @Part MultipartBody.Part portfolio_image_1,
+                                      @Part MultipartBody.Part portfolio_image_2,
+                                      @Part MultipartBody.Part portfolio_image_3,
+                                      @Part MultipartBody.Part portfolio_image_4,
                                       @Query("name") String name,
                                       @Query("email") String email,
                                       @Query("password") String password,
@@ -120,24 +100,46 @@ public interface Retrofitinterface {
                                       @Query("location") String location,
                                       @Query("latitude") String latitude,
                                       @Query("longitude") String longitude,
-                                      @Query("business_hour_starts") String businessStartTime,
-                                      @Query("business_hour_ends") String businessEndTime,
                                       @Query("bio") String bio,
-                                      @Query("service_ids") String serviceIds,
+                                      @Query("service_ids") JSONArray serviceIds,
                                       @Query("expertise_years") String expertiesYears,
                                       @Query("hourly_rate") String hourlyRate,
+                                      @Query("business_hour_starts") String businessStartTime,
+                                      @Query("business_hour_ends") String businessEndTime,
                                       @Query("device_type") String device_type,
                                       @Query("device_token") String device_token,
-                                      @Part MultipartBody.Part profile_image, @Part("name") RequestBody requestBody);
+                                      @Header("Content-Type") String contentType);
+
+    @Multipart
+    @POST(Constants.COACH_SIGNUP)
+    Call<CoachSignUpResponse> coachSignup(@Header("Content-Type") String contentType,
+                                          @Query("name") String name,
+                                          @Query("email") String email,
+                                          @Query("password") String password,
+                                          @Query("phone") String phone,
+                                          @Query("location") String location,
+                                          @Query("latitude") String latitude,
+                                          @Query("longitude") String longitude,
+                                          @Query("business_hour_starts") String businessStartTime,
+                                          @Query("business_hour_ends") String businessEndTime,
+                                          @Query("bio") String bio,
+                                          @Query("service_ids") String serviceIds,
+                                          @Query("expertise_years") String expertiesYears,
+                                          @Query("hourly_rate") String hourlyRate,
+                                          @Query("device_type") String device_type,
+                                          @Query("device_token") String device_token,
+                                          @Part MultipartBody.Part profile_image, @Part("name") RequestBody requestBody);
 
     @Multipart
     @POST(Constants.ATHLETE_SIGNUP)
     Call<AthleteSignUpResponse> registerAthlete(@PartMap Map<String, RequestBody> fields,
-                                                 @Part MultipartBody.Part image);
+                                                @Part MultipartBody.Part image);
+
     @Multipart
     @POST(Constants.COACH_SIGNUP)
     Call<CoachSignUpResponse> registerCoach(@PartMap Map<String, RequestBody> fields,
-                                                 @Part MultipartBody.Part image);
+                                            @Part MultipartBody.Part image);
+
     @Multipart
     @POST(Constants.ORG_SIGNUP)
     Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
@@ -152,6 +154,7 @@ public interface Retrofitinterface {
                                          @Query("search") String search,
                                          @Query("limit") String Limit,
                                          @Query("page") String page);
+
     @POST(Constants.TOP_ORG_LIST)
     Call<CoachListResponse> getTopOrgList(@Header("Authorization") String Authorization,
                                           @Query("search") String search,
@@ -160,12 +163,12 @@ public interface Retrofitinterface {
 
     @POST(Constants.ATHLETE_EVENT_LIST)
     Call<AthleteEventListResponse> getAthleteEventList(@Header("Authorization") String Authorization,
-                                                    @Header("Content-Type") String contentType,
-                                                    @Query("order_by") String order_by,
-                                                    @Query("search") String search,
-                                                    @Query("limit") String limit,
-                                                    @Query("page") String page,
-                                                    @Query("radius") String radius);
+                                                       @Header("Content-Type") String contentType,
+                                                       @Query("order_by") String order_by,
+                                                       @Query("search") String search,
+                                                       @Query("limit") String limit,
+                                                       @Query("page") String page,
+                                                       @Query("radius") String radius);
 
     @POST(Constants.ATHLETE_SESSION_LIST)
     Call<AthleteSessionResponse> getAthleteSessionList(@Header("Authorization") String Authorization,
@@ -173,15 +176,15 @@ public interface Retrofitinterface {
                                                        @Query("search") String search,
                                                        @Query("limit") String limit,
                                                        @Query("order_by") String order_by
-                                                  );
+    );
 
     @POST(Constants.ATHLETE_PLACE_LIST)
     Call<AthletePlaceResponse> getAthletePlacesList(@Header("Authorization") String Authorization,
-                                                     @Header("Content-Type") String contentType,
+                                                    @Header("Content-Type") String contentType,
                                                     @Query("search") String search,
                                                     @Query("limit") String limit,
                                                     @Query("order_by") String order_by
-                                                  );
+    );
 
     @Multipart
     @POST(Constants.EVENTS_STORE)
@@ -200,13 +203,29 @@ public interface Retrofitinterface {
                                              @Part MultipartBody.Part imageTwo,
                                              @Part MultipartBody.Part imageThree,
                                              @Part MultipartBody.Part imageFour);
+
     @Multipart
     @POST(Constants.CREATE_SESSION)
     Call<OrgCreateEventResponse> createSession(@Header("Authorization") String auth,
-                                             @PartMap Map<String, RequestBody> fields,
-                                             @Part MultipartBody.Part imageOne,
-                                             @Part MultipartBody.Part imageTwo,
-                                             @Part MultipartBody.Part imageThree,
-                                             @Part MultipartBody.Part imageFour);
+                                               @PartMap Map<String, RequestBody> fields,
+                                               @Part MultipartBody.Part imageOne,
+                                               @Part MultipartBody.Part imageTwo,
+                                               @Part MultipartBody.Part imageThree,
+                                               @Part MultipartBody.Part imageFour);
+
+    @POST(Constants.EVENT_DETAIL)
+    Call<EventBookingModel> eventDetail(@Header("Authorization") String Authorization,
+                                        @Header("Content-Type") String contentType,
+                                        @Query("id") String id);
+
+    @POST(Constants.BOOKING_API)
+    Call<BookingConfirmModel> bookingConfrim(@Header("Authorization") String Authorization,
+                                          @Header("Content-Type") String contentType,
+                                          @Query("type") String type,
+                                          @Query("target_id") String id,
+                                          @Query("tickets") String tickets,
+                                          @Query("price") String price,
+                                          @Query("token") String token
+    );
 
 }

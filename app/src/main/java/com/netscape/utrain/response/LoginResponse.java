@@ -10,6 +10,7 @@ public class LoginResponse {
     private LoginRoleModel data;
     private ErrorModel error;
 
+
     public ErrorModel getError() {
         return error;
     }

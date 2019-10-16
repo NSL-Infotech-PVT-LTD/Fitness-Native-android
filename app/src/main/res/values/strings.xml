@@ -67,7 +67,7 @@
     <string name="notification">Notification</string>
     <string name="contact_us">Contact Us</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
-    <string name="logout">LogOut</string>
+    <string name="logout">Logout</string>
     <string name="dummy_text_notification_recycler">Rajeev has been scheduled for a training session with you.</string>
     <string name="notificationActivity">Notifications</string>
     <string name="no_more_notifications">No more Notifications</string>
@@ -324,5 +324,16 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="business_date_train_session">Business Date</string>
+    <string name="business_time_train_session">Business Hour</string>
+    <string name="title_activity_org_drawer_navigation">OrgDrawerNavigation</string>
+    <string name="event_booking">Event Booking</string>
+    <string name="ticket">Ticket(s) you want to Book</string>
     <string name="default_notification_channel_id">channel-1</string>
+    <string name="cannotExceed">You can book not more than 5 tickets</string>
+    <string name="chooseCorrect">You have to book atleast one ticket</string>
+    <string name="continues">Confirm Booking</string>
+    <string name="invalidField">Please Fill This FIeld</string>
+    <string name="invalidDate">Invalid Date</string>
+    <string name="invalidCardDetail">Invalid Card</string>
 </resources>

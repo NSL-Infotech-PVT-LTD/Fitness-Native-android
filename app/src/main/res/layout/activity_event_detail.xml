@@ -347,6 +347,7 @@
         android:textAllCaps="false"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_12sdp"
+        android:id="@+id/evntJoinNow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -46,6 +46,7 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.TabLayoutEx;
 
 import org.json.JSONObject;
 
@@ -69,7 +70,7 @@ import retrofit2.Response;
  */
 public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
-    private TabLayout tabLayout;
+    private TabLayoutEx tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
 
@@ -86,8 +87,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private List<CoachListModel> coachList = new ArrayList<>();
     TopCoachesAdapter coachAdapter;
     private Context context;
-    TabLayout.Tab tab;
-    private AppCompatImageView  sessionIconImg, eventIconImg, findSpacesIconImg;
+    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg;
 
 
     @Override
@@ -138,7 +138,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-    public void setIndicator (TabLayout tabs,int leftDip,int rightDip){
+
+    public void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
         Class<?> tabLayout = tabs.getClass();
         Field tabStrip = null;
         try {
@@ -150,26 +151,28 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         if (tabStrip != null) {
             tabStrip.setAccessible(true);
 
-        LinearLayout llTab = null;
-        try {
-            llTab = (LinearLayout) tabStrip.get(tabs);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LinearLayout llTab = null;
+            try {
+                llTab = (LinearLayout) tabStrip.get(tabs);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip, Resources.getSystem().getDisplayMetrics());
+            int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip, Resources.getSystem().getDisplayMetrics());
+
+            for (int i = 0; i < llTab.getChildCount(); i++) {
+                View child = llTab.getChildAt(i);
+                child.setPadding(0, 0, 0, 0);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+                params.leftMargin = left;
+                params.rightMargin = right;
+                child.setLayoutParams(params);
+                child.invalidate();
+            }
         }
-
-        int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip, Resources.getSystem().getDisplayMetrics());
-        int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip, Resources.getSystem().getDisplayMetrics());
-
-        for (int i = 0; i < llTab.getChildCount(); i++) {
-            View child = llTab.getChildAt(i);
-            child.setPadding(0, 0, 0, 0);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            params.leftMargin = left;
-            params.rightMargin = right;
-            child.setLayoutParams(params);
-            child.invalidate();
-        }}
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -184,7 +187,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         findSpacesIconImg = view.findViewById(R.id.findSpacesIconImg);
 
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout = (TabLayoutEx) view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
@@ -234,47 +237,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
         return view;
 
-    }public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
-        View tabStrip = tabLayout.getChildAt(0);
-        if (tabStrip instanceof ViewGroup) {
-            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
-            int childCount = ((ViewGroup) tabStrip).getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View tabView = tabStripGroup.getChildAt(i);
-//set minimum width to 0 for instead for small texts, indicator is not wrapped as expected
-                tabView.setMinimumWidth(0);
-// set padding to 0 for wrapping indicator as title
-                tabView.setPadding(0, tabView.getPaddingTop(), 0, tabView.getPaddingBottom());
-// setting custom margin between tabs
-                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
-                    if (i == 0) {
-// left
-                        settingMargin(layoutParams, externalMargin, internalMargin);
-                    } else if (i == childCount - 1) {
-// right
-                        settingMargin(layoutParams, internalMargin, externalMargin);
-                    } else {
-// internal
-                        settingMargin(layoutParams, internalMargin, internalMargin);
-                    }
-                }
-            }
-
-
-            tabLayout.requestLayout();
-        }
     }
 
-    private void settingMargin(ViewGroup.MarginLayoutParams layoutParams, int start, int end) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            layoutParams.setMarginStart(start);
-            layoutParams.setMarginEnd(end);
-        } else {
-            layoutParams.leftMargin = start;
-            layoutParams.rightMargin = end;
-        }
-    }
 
     private void getCoachListApi() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
@@ -292,7 +256,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-
                         Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
 

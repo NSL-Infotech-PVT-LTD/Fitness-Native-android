@@ -31,18 +31,16 @@ import java.util.Date;
 import java.util.List;
 
 public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecyclerAdapter.ViewHolder> {
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    AthleteEventData eventData;
+    String value = "", valueEnd = "";
+    String currentStringEnd, currentStringStart;
+    String[] separatedEnd = null, separated = null;
     private Context context;
     private int previusPos = -1;
     private List<AthleteEventListModel> supplierData;
-    AthleteEventData eventData;
-    String value = "", valueEnd = "";
     private boolean isLoadingAdded = false;
-    private static final int ITEM = 0;
-    private static final int LOADING = 1;
-
-
-    String currentStringEnd, currentStringStart;
-    String[] separatedEnd =null,separated=null;
 
 
     public CoachesRecyclerAdapter(Context context, List<AthleteEventListModel> supplierData) {
@@ -85,9 +83,9 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         final AthleteEventListModel data = supplierData.get(position);
         holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
         holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
-        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() +" "+ "To" +" "+ data.getEnd_time());
+        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + " " + "To" + " " + data.getEnd_time());
         holder.trainingSessionProfessionDesc.setText(data.getName());
-        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
 
         try {
             if (data.getImages() != null) {
@@ -109,9 +107,10 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
+                intent.putExtra("event_id", data.getId());
 
-                intent.putExtra("evenStartDateTime",data.getStart_date());
-               intent.putExtra("eventEndDateTime", data.getStart_time());
+                intent.putExtra("eventDate", data.getStart_date());
+                intent.putExtra("eventTime", data.getStart_time());
                 intent.putExtra("eventDescription", data.getDescription());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
                 intent.putExtra("from", "events");
@@ -192,11 +191,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     }
 
-    public interface AthleteEventData {
-        public void getData(Intent intent);
-
-    }
-
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
         String outputPattern = "dd MMMM yyyy";
@@ -223,41 +217,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     @Override
     public int getItemViewType(int position) {
         return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private AppCompatTextView trainingSessionVenueDetailTv, findPlaceDistanceDetailTv,findPlaceActualPriceTv, eventStartDateTimeEnterTv;
-        private ImageView eventProfileImg;
-        private MaterialButton viewPlacesBtn;
-        MaterialTextView trainingSessionStrtDateEnterTv, trainingSessionEndDateEnterTv, trainingSessionTimeEnterTv,trainingSessionProfessionDesc;
-
-        private ConstraintLayout constraint_background;
-//        public RatingBar ratingBar;
-//        public ImageView selectedImage;
-//        public ConstraintLayout container;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            trainingSessionProfessionDesc = itemView.findViewById(R.id.trainingSessionProfessionDesc);
-            findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
-            eventProfileImg = itemView.findViewById(R.id.trainingSessionPlaceImage);
-            trainingSessionVenueDetailTv = itemView.findViewById(R.id.trainingSessionVenueDetailTv);
-//            viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
-//            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTimeEnterTv);
-            trainingSessionStrtDateEnterTv = itemView.findViewById(R.id.trainingSessionStrtDateEnterTv);
-            trainingSessionEndDateEnterTv = itemView.findViewById(R.id.trainingSessionEndDateEnterTv);
-            trainingSessionTimeEnterTv = itemView.findViewById(R.id.trainingSessionTimeEnterTv);
-
-
-            constraint_background = itemView.findViewById(R.id.constraint_background);
-            findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
-//
-//            container = itemView.findViewById(R.id.container);
-//            ratingBar = itemView.findViewById(R.id.supplierRating);
-        }
-
     }
 
     public List<AthleteEventListModel> getsupplierData() {
@@ -298,7 +257,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         return getItemCount() == 0;
     }
 
-
     public void addLoadingFooter() {
         isLoadingAdded = true;
         add(new AthleteEventListModel());
@@ -320,6 +278,44 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         return supplierData.get(position);
     }
 
+    public interface AthleteEventData {
+        public void getData(Intent intent);
+
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        MaterialTextView trainingSessionStrtDateEnterTv, trainingSessionEndDateEnterTv, trainingSessionTimeEnterTv, trainingSessionProfessionDesc;
+        private AppCompatTextView trainingSessionVenueDetailTv, findPlaceDistanceDetailTv, findPlaceActualPriceTv, eventStartDateTimeEnterTv;
+        private ImageView eventProfileImg;
+        private MaterialButton viewPlacesBtn;
+        private ConstraintLayout constraint_background;
+//        public RatingBar ratingBar;
+//        public ImageView selectedImage;
+//        public ConstraintLayout container;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            trainingSessionProfessionDesc = itemView.findViewById(R.id.trainingSessionProfessionDesc);
+            findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
+            eventProfileImg = itemView.findViewById(R.id.trainingSessionPlaceImage);
+            trainingSessionVenueDetailTv = itemView.findViewById(R.id.trainingSessionVenueDetailTv);
+//            viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
+//            eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionDateTimeEnterTv);
+            trainingSessionStrtDateEnterTv = itemView.findViewById(R.id.trainingSessionStrtDateEnterTv);
+            trainingSessionEndDateEnterTv = itemView.findViewById(R.id.trainingSessionEndDateEnterTv);
+            trainingSessionTimeEnterTv = itemView.findViewById(R.id.trainingSessionTimeEnterTv);
+
+
+            constraint_background = itemView.findViewById(R.id.constraint_background);
+            findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
+//
+//            container = itemView.findViewById(R.id.container);
+//            ratingBar = itemView.findViewById(R.id.supplierRating);
+        }
+
+    }
 
     protected class LoadingVH extends CoachesRecyclerAdapter.ViewHolder {
 

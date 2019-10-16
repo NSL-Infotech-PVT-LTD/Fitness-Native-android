@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/createEventLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/createEventLayout"
-        android:background="#f9ffe3"
+        android:background="@color/yelloBackground"
         android:focusable="true"
         android:focusableInTouchMode="true"
         tools:context=".activities.CreateEventActivity">
@@ -61,388 +62,404 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.18" />
 
-        <ScrollView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Guideline">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/card_shape_outline"
-                android:elevation="@dimen/_10sdp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/leftGuideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/rightGuideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="@dimen/_30sdp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventNameTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/name"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventNameEnterTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:background="@drawable/card_input_edt_background"
-                    android:gravity="center_vertical"
-                    android:hint="@string/name"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventNameTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventDescriptionTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/description_tv"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@+id/createEventNameEnterTv" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventDescriptionEnterTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:background="@drawable/card_input_edt_background"
-                    android:gravity="center_vertical"
-                    android:hint="@string/description_tv"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventDescriptionTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_LocationTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/location"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@+id/createEventDescriptionEnterTv" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/getAddressTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableRight="@drawable/ic_my_location"
-                    android:fontFamily="@font/poppins_regular"
-                    android:hint="@string/address"
-                    android:focusable="false"
-                    android:ellipsize="end"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:padding="@dimen/_8sdp"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:paddingRight="@dimen/_15sdp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_LocationTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventServiceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/service"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@+id/getAddressTv" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventServiceEnterTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_input_edt_background"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventServiceTv" />
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/createEventServiceSpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:padding="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@id/createEventServiceEnterTv"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toTopOf="@id/createEventServiceEnterTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_startbsnshourTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/start_business_hour"
-
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_endbsnshourTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/end_business_hour"
-
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventStartDateTv"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_date"
-                    android:gravity="center"
-                    android:padding="@dimen/_10sdp"
-                    android:hint="@string/start_date"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_startbsnshourTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndDatetv"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_date"
-                    android:gravity="center"
-                    android:padding="@dimen/_10sdp"
-                    android:hint="@string/end_date"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_startbsnshourTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventStartTimeTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/start_time_hour"
-
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndTimeTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/end_time_hour"
-
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventEndDatetv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvtnStartTimeTv"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_time"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:hint="@string/start_time"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndTime"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_time"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:hint="@string/end_time"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/capacityTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableEnd="@drawable/ic_group"
-                    android:paddingEnd="@dimen/_90sdp"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/capicity"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
-
-                <View
-                    android:id="@+id/createEvent_CapicityView"
-                    android:layout_width="1dp"
-                    android:layout_height="@dimen/_26sdp"
-                    android:layout_marginLeft="@dimen/_100sdp"
-                    android:background="@color/colorBlack"
-                    app:layout_constraintBottom_toBottomOf="@id/capacityTV"
-                    app:layout_constraintLeft_toLeftOf="@id/capacityTV"
-                    app:layout_constraintRight_toRightOf="@id/capacityTV"
-                    app:layout_constraintTop_toTopOf="@id/capacityTV" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventCapicityEdt"
-                    android:layout_width="@dimen/_75sdp"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:hint="10"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@id/createEvent_CapicityView"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="@id/createEvent_CapicityView"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toTopOf="@id/createEvent_CapicityView" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventImages"
-                    android:layout_width="0dp"
-                    android:focusable="false"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_50sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableRight="@drawable/ic_file_upload"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:paddingRight="@dimen/_15sdp"
-                    android:text="@string/upload_photos"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/capacityTV" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_selectDateTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/createEventEquipments"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEventImages" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createEventEquipmentEdt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
-
-                    android:layout_marginBottom="@dimen/_50sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:gravity="center_vertical"
-                    android:hint="@string/createEventEquipments"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_selectDateTv" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/createEventBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:backgroundTint="@color/colorGreen"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/create"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
+            android:background="@drawable/card_shape_outline"
+            android:elevation="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/Guideline">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/leftGuideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/rightGuideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/name"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventNameEnterTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:gravity="center_vertical"
+                        android:hint="@string/name"
+                        android:singleLine="true"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventNameTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventDescriptionTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/description_tv"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@+id/createEventNameEnterTv" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventDescriptionEnterTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/card_input_edt_background"
+                        android:gravity="center_vertical"
+                        android:hint="@string/description_tv"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventDescriptionTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvent_LocationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/location"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@+id/createEventDescriptionEnterTv" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getAddressTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableRight="@drawable/ic_my_location"
+                        android:ellipsize="end"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/address"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:padding="@dimen/_8sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_LocationTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventServiceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/service"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@+id/getAddressTv" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventServiceEnterTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventServiceTv" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/createEventServiceSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:padding="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/createEventServiceEnterTv"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toTopOf="@id/createEventServiceEnterTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvent_startbsnshourTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/start_business_hour"
+
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvent_endbsnshourTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/end_business_hour"
+
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@+id/createEventEndDatetv"
+                        app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventStartDateTv"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_date"
+                        android:gravity="center"
+                        android:hint="@string/start_date"
+                        android:padding="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_startbsnshourTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventEndDatetv"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_date"
+                        android:gravity="center"
+                        android:hint="@string/end_date"
+                        android:padding="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_endbsnshourTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventStartTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/start_time_hour"
+
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventEndTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/end_time_hour"
+
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
+                        app:layout_constraintTop_toBottomOf="@id/createEventEndDatetv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvtnStartTimeTv"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:gravity="center"
+                        android:hint="@string/start_time"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventEndTime"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:gravity="center"
+                        android:hint="@string/end_time"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/capacityTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableEnd="@drawable/ic_group"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_90sdp"
+                        android:text="@string/capicity"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
+
+                    <View
+                        android:id="@+id/createEvent_CapicityView"
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:layout_marginLeft="@dimen/_100sdp"
+                        android:background="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/capacityTV"
+                        app:layout_constraintLeft_toLeftOf="@id/capacityTV"
+                        app:layout_constraintRight_toRightOf="@id/capacityTV"
+                        app:layout_constraintTop_toTopOf="@id/capacityTV" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventCapicityEdt"
+                        android:layout_width="@dimen/_75sdp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:hint="10"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/createEvent_CapicityView"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@id/createEvent_CapicityView"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toTopOf="@id/createEvent_CapicityView" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventImages"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_50sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableRight="@drawable/ic_file_upload"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:text="@string/upload_photos"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/capacityTV" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvent_selectDateTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/createEventEquipments"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventImages" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventEquipmentEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginBottom="@dimen/_50sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:gravity="center_vertical"
+                        android:hint="@string/createEventEquipments"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_selectDateTv" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/createEventBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:backgroundTint="@color/colorGreen"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="@dimen/_10sdp"
+                app:cornerRadius="@dimen/_5sdp"
+                android:text="@string/create"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

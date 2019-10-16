@@ -1,6 +1,7 @@
 package com.netscape.utrain.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -19,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -66,13 +71,16 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     private OrgFragmentHomeBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private MaterialTextView orglogOutTv;
+//    private MaterialButton orglogOutTv;
     private View view;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private List<AthletePlaceModel> listModels = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
     private Ath_PlaceRecyclerAdapter adapter;
+    private Context context;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,6 +92,12 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
 
     private OnFragmentInteractionListener mListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public O_HomeFragment() {
         // Required empty public constructor
@@ -125,17 +139,23 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         view=binding.getRoot();
 
 
-        orglogOutTv = (MaterialTextView) view.findViewById(R.id.orglogOutTv);
+//        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
         progressDialog=new ProgressDialog(getContext());
         retrofitinterface=RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager=new LinearLayoutManager(getContext());
+        layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false){
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
         binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
         getSpaceList();
+        Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context)).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
-        binding.orglogOutTv.setOnClickListener(this);
+//        binding.orglogOutTv.setOnClickListener(this);
         return view;
 
     }
@@ -169,13 +189,13 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.orglogOutTv:
-                LoginManager.getInstance().logOut();
-                CommonMethods.clearPrefData(getContext());
-                Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
-                view.getContext().startActivity(intent);
-                getActivity().finish();
-                break;
+//            case R.id.orglogOutTv:
+//                LoginManager.getInstance().logOut();
+//                CommonMethods.clearPrefData(getContext());
+//                Intent intent = new Intent(getActivity(), SignUpTypeActivity.class);
+//                view.getContext().startActivity(intent);
+//                getActivity().finish();
+//                break;
             case R.id.createEventImg:
                 Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
                 view.getContext().startActivity(createEvent);
@@ -252,7 +272,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                         if (response.body().getData() != null) {
                             listModels.clear();
                             listModels.addAll(response.body().getData().getData());
-                            if (listModels!=null && listModels.size()>0) {
+                                Toast.makeText(getContext(), ""+response.body().getData().getData().size(), Toast.LENGTH_SHORT).show();                               if (listModels!=null && listModels.size()>0) {
                                 binding.noDataFoundImg.setVisibility(View.GONE);
                                 adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
                                 binding.orgSpaceRecyclerView.setAdapter(adapter);
@@ -282,7 +302,6 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-
 
             }
         });
