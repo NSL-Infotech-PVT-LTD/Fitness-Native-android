@@ -60,6 +60,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:17.0.0'
 
     implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'com.stripe:stripe-android:6.1.2'
 
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
 
 }
+apply plugin: 'com.google.gms.google-services'
+

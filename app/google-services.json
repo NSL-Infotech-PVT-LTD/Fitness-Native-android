@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1033512730961",
+    "firebase_url": "https://banded-hexagon-254507.firebaseio.com",
+    "project_id": "banded-hexagon-254507",
+    "storage_bucket": "banded-hexagon-254507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033512730961:android:0674275e9ae8df9d279370",
+        "android_client_info": {
+          "package_name": "com.netscape.utrain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033512730961-fa6e9j5o7lmg8e7sljt15fv6ov2f97su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.netscape.utrain",
+            "certificate_hash": "dd49fd916343d05ba32235472ee272f954fdc64e"
+          }
+        },
+        {
+          "client_id": "1033512730961-t6rd1g5t72p10npgsrsrkng4fdimsbii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyTHgOQZ-cxTHNbXyLzUatkXdJm9pyaV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033512730961-t6rd1g5t72p10npgsrsrkng4fdimsbii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

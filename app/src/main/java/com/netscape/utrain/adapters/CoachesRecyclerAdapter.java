@@ -88,6 +88,21 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         holder.trainingSessionTimeEnterTv.setText(data.getStart_time() +" "+ "To" +" "+ data.getEnd_time());
         holder.trainingSessionProfessionDesc.setText(data.getName());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
+
+        try {
+            if (data.getImages() != null) {
+                JSONArray jsonArray = new JSONArray(data.getImages());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventProfileImg);
+
+                }
+            }
+
+        } catch (JSONException e) {
+
+            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
