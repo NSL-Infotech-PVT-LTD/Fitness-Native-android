@@ -25,6 +25,7 @@ import com.facebook.login.LoginResult;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.databinding.ActivityCoachLoginBinding;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -47,7 +48,6 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 
     private LinearLayout linearLayout;
     private CallbackManager callbackManager;
-
 
 
     private Retrofitinterface retrofitinterface;
@@ -189,7 +189,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 //                    fbintent.putExtra("image_url", image_url);
 //                    fbintent.putExtra("fb_id", id);
 
-                    Constants.SocialProfile=image_url;
+                    Constants.SocialProfile = image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("email", email,LoginWithActivity.this);
@@ -225,10 +225,13 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+
+
+                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginWithActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image(),LoginWithActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", LoginWithActivity.this);
                             Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);

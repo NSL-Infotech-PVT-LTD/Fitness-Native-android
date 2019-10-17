@@ -30,6 +30,7 @@ import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
@@ -78,7 +79,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private OrgUserDataModel orgDataModel;
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
-    public static boolean getImages=false;
+    public static boolean getImages = false;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -101,7 +102,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void init() {
-        if (getImages){
+        if (getImages) {
             binding.portfolioTitleTv.setText("Select Images");
             binding.noteTv.setText("Select at least one image");
         }
@@ -157,24 +158,24 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.addImageSubmitBtn:
                 imgPortfolio = new ArrayList<>();
-                if (portFolioImage1 !=null){
+                if (portFolioImage1 != null) {
                     imgPortfolio.add(portFolioImage1);
                 }
-                if (portFolioImage2 !=null){
+                if (portFolioImage2 != null) {
                     imgPortfolio.add(portFolioImage2);
                 }
-                if (portFolioImage3 !=null){
+                if (portFolioImage3 != null) {
                     imgPortfolio.add(portFolioImage3);
                 }
-                if (portFolioImage4 !=null){
+                if (portFolioImage4 != null) {
                     imgPortfolio.add(portFolioImage4);
                 }
 
-                if (imgPortfolio != null && imgPortfolio.size() >=1) {
-                    if (getImages){
-                        PortfolioImagesConstants.numImages=String.valueOf(imgPortfolio.size());
+                if (imgPortfolio != null && imgPortfolio.size() >= 1) {
+                    if (getImages) {
+                        PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
                         sendDataToIntent();
-                    }else {
+                    } else {
                         OrgSignUpApi();
                     }
                 } else {
@@ -190,7 +191,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     private void sendDataToIntent() {
         Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
+        setResult(RESULT_OK, intent);
         PortfolioActivity.this.finish();
     }
 
@@ -349,9 +350,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     imageUrl = photoFile.getPath();
                     plus.setVisibility(View.GONE);
                     Glide.with(this).load(photoFile.getPath()).into(imageView);
-                    if (getImages){
+                    if (getImages) {
                         userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-                    }else {
+                    } else {
                         userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
                         setImages = photoFile.getPath();
                     }
@@ -375,10 +376,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
             setImages = photoFile.getPath();
-            if (getImages){
+            if (getImages) {
                 userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
 
-            }else {
+            } else {
                 userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
             }
             setPortfolioImages();
@@ -416,19 +417,29 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            clearFromConstants();
-                            Constants.CHECKBOX_IS_CHECKED = 0;
-                            SelectedServiceList.getInstance().getList().clear();
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN,PortfolioActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate()+"",PortfolioActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(homeScreen);
+
+                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+                                if (Constants.Organization.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
+
+
+                                    clearFromConstants();
+                                    Constants.CHECKBOX_IS_CHECKED = 0;
+                                    SelectedServiceList.getInstance().getList().clear();
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);
+                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
+                                }
+                            }
                         }
                     } else {
                         Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -448,7 +459,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.portFolioLayout, ""+t, BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(binding.portFolioLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }
@@ -547,22 +558,22 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void setImagesFromConstant() {
-        if (PortfolioImagesConstants.partOne !=null){
+        if (PortfolioImagesConstants.partOne != null) {
             binding.imagePlusone.setVisibility(View.GONE);
             portFolioImage1 = PortfolioImagesConstants.partOne;
             Glide.with(this).load(PortfolioImagesConstants.imageOne).into(binding.addImageOne);
         }
-        if (PortfolioImagesConstants.partTwo !=null){
+        if (PortfolioImagesConstants.partTwo != null) {
             binding.imgPlusTwo.setVisibility(View.GONE);
             portFolioImage2 = PortfolioImagesConstants.partTwo;
             Glide.with(this).load(PortfolioImagesConstants.imageTwo).into(binding.addImageTwo);
         }
-        if (PortfolioImagesConstants.partThree !=null){
+        if (PortfolioImagesConstants.partThree != null) {
             binding.imgPlusThree.setVisibility(View.GONE);
             portFolioImage3 = PortfolioImagesConstants.partThree;
             Glide.with(this).load(PortfolioImagesConstants.imageThree).into(binding.addImageThree);
         }
-        if (PortfolioImagesConstants.partFour !=null){
+        if (PortfolioImagesConstants.partFour != null) {
             binding.imgPlusFour.setVisibility(View.GONE);
             portFolioImage4 = PortfolioImagesConstants.partFour;
             Glide.with(this).load(PortfolioImagesConstants.imageFour).into(binding.addImageFour);
@@ -570,7 +581,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public static void clearFromConstants(){
+    public static void clearFromConstants() {
         PortfolioImagesConstants.imageOne = "";
         PortfolioImagesConstants.imageTwo = "";
         PortfolioImagesConstants.imageThree = "";

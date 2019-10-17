@@ -328,7 +328,7 @@
     <string name="business_time_train_session">Business Hour</string>
     <string name="title_activity_org_drawer_navigation">OrgDrawerNavigation</string>
     <string name="event_booking">Event Booking</string>
-    <string name="ticket">Ticket(s) you want to Book</string>
+    <string name="ticket">Ticket(s) you want \n to Book</string>
     <string name="default_notification_channel_id">channel-1</string>
     <string name="cannotExceed">You can book not more than 5 tickets</string>
     <string name="chooseCorrect">You have to book atleast one ticket</string>

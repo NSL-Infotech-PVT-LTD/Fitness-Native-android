@@ -551,6 +551,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, activity);
+
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteSignupActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
