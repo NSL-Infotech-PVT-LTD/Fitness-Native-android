@@ -88,14 +88,14 @@ public class O_SessionListFragment extends Fragment {
         rejectedLayoutManager = new LinearLayoutManager(getContext());
         completedLayoutManager = new LinearLayoutManager(getContext());
         binding.sessionListRecycler.setLayoutManager(layoutManager);
-        binding.sessionCompletedRecycler.setLayoutManager(completedLayoutManager);
-        binding.sessionRejectedRecycler.setLayoutManager(rejectedLayoutManager);
+//        binding.sessionCompletedRecycler.setLayoutManager(completedLayoutManager);
+//        binding.sessionRejectedRecycler.setLayoutManager(rejectedLayoutManager);
         currentEventAdapter = new O_EventListAdapter(getContext(), data);
         rejectedEventAdapter = new O_EventListAdapter(getContext(), data);
         completedEventAdapter = new O_EventListAdapter(getContext(), data);
         binding.sessionListRecycler.setAdapter(currentEventAdapter);
-        binding.sessionCompletedRecycler.setAdapter(completedEventAdapter);
-        binding.sessionRejectedRecycler.setAdapter(rejectedEventAdapter);
+//        binding.sessionCompletedRecycler.setAdapter(completedEventAdapter);
+//        binding.sessionRejectedRecycler.setAdapter(rejectedEventAdapter);
         return view;
     }
 

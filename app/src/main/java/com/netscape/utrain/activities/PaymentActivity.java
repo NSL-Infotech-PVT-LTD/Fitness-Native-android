@@ -367,7 +367,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getIntExtra("event_id", 0) + "", tickets, price, token);
+        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getIntExtra("event_id", 0) + "", tickets, price,"pending", token);
         signUpAthlete.enqueue(new Callback<BookingConfirmModel>() {
             @Override
             public void onResponse(Call<BookingConfirmModel> call, Response<BookingConfirmModel> response) {

@@ -87,6 +87,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String startDate = "";
     private String eDate = "";
     private String startTime = "";
+    private String timeNow = "";
     private String endTime = "";
     private Date strDate = null;
     private Date stDate = null;
@@ -192,6 +193,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                timeNow=convertDate(mHour) + ":" + convertDate(mMinute);
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
                 if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
                     binding.createEvtnStartTimeTv.setText(startTime);

@@ -6,6 +6,7 @@ import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.response.AthleteSignUpResponse;
+import com.netscape.utrain.response.BookingListResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
@@ -225,7 +226,12 @@ public interface Retrofitinterface {
                                           @Query("target_id") String id,
                                           @Query("tickets") String tickets,
                                           @Query("price") String price,
-                                          @Query("token") String token
-    );
+                                          @Query("status") String status,
+                                          @Query("token") String token);
+
+    @POST(Constants.BOOKING_LIST_EVENT)
+    Call<BookingListResponse> getBookingList(@Header("Authorization") String Authorization,
+                                             @Header("Content-Type") String contentType,
+                                             @Query("type") String type);
 
 }

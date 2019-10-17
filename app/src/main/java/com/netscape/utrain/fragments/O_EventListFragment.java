@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,14 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.databinding.FragmentOEventListBinding;
 import com.netscape.utrain.model.CoachDataModel;
+import com.netscape.utrain.response.BookingListResponse;
+import com.netscape.utrain.response.BookingListResponse;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,15 +44,15 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class O_EventListFragment extends Fragment {
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private FragmentOEventListBinding binding;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.LayoutManager completedLayoutManager;
-    private RecyclerView.LayoutManager rejectedLayoutManager;
-    private O_EventListAdapter currentEventAdapter, completedEventAdapter, rejectedEventAdapter;
+    private O_EventListAdapter currentEventAdapter;
     private List<CoachDataModel> data = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,17 +97,9 @@ public class O_EventListFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_o__event_list, container, false);
         View view = binding.getRoot();
         layoutManager = new LinearLayoutManager(getContext());
-        rejectedLayoutManager = new LinearLayoutManager(getContext());
-        completedLayoutManager = new LinearLayoutManager(getContext());
         binding.eventListRecycler.setLayoutManager(layoutManager);
-        binding.eventCompletedRecycler.setLayoutManager(completedLayoutManager);
-        binding.eventRejectedRecycler.setLayoutManager(rejectedLayoutManager);
-        currentEventAdapter = new O_EventListAdapter(getContext(), data);
-        rejectedEventAdapter = new O_EventListAdapter(getContext(), data);
-        completedEventAdapter = new O_EventListAdapter(getContext(), data);
-        binding.eventListRecycler.setAdapter(currentEventAdapter);
-        binding.eventCompletedRecycler.setAdapter(completedEventAdapter);
-        binding.eventRejectedRecycler.setAdapter(rejectedEventAdapter);
+        
+
 
         return view;
     }
@@ -135,5 +141,53 @@ public class O_EventListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void getBookedEventList()  {
+        progressDialog.show();
+        Call<BookingListResponse> call = retrofitinterface.getBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,getContext()), Constants.CONTENT_TYPE,"event");
+        call.enqueue(new Callback<BookingListResponse>() {
+            @Override
+            public void onResponse(Call<BookingListResponse> call, Response<BookingListResponse> response) {
+                if (response.body() != null) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().size()>0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            currentEventAdapter = new O_EventListAdapter(getContext(), data);
+                            binding.eventListRecycler.setAdapter(currentEventAdapter);
+                            
+                        }else{
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        Toast.makeText(getContext(), "No Data Found" , Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+//                    binding.topRateRecycler.setVisibility(View.GONE);
+//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+            @Override
+            public void onFailure(Call<BookingListResponse> call, Throwable t) {
+//                binding.topRateRecycler.setVisibility(View.GONE);
+//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

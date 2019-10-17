@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,12 +15,26 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.DiscoverTopRated;
+import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
 import com.netscape.utrain.databinding.FragmentOHistoryBinding;
+import com.netscape.utrain.response.CoachListResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +45,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class O_HistoryFragment extends Fragment {
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private FragmentOHistoryBinding binding;
@@ -78,8 +95,9 @@ public class O_HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_o__history,container,false);
         View view=binding.getRoot();
-        binding.historyTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
-        binding.historyTabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+
+//        binding.historyTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
+//        binding.historyTabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         binding.historyTabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         setupViewPager(binding.historyViewPager);
         binding.historyTabLayout.setupWithViewPager(binding.historyViewPager);
@@ -128,9 +146,8 @@ public class O_HistoryFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new O_EventListFragment(), "Events");
-        adapter.addFragment(new O_SessionListFragment(), "Sessions");
-        adapter.addFragment(new O_PlaceListFragment(), "Places");
+        adapter.addFragment(new O_EventListFragment(), "Upcoming");
+        adapter.addFragment(new O_SessionListFragment(), "Completed");
         viewPager.setAdapter(adapter);
     }
 
@@ -162,4 +179,7 @@ public class O_HistoryFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+
 }

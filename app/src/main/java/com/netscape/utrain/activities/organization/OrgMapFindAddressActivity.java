@@ -222,10 +222,15 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         List<Address> address;
         LatLng p1 = null;
 
+
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
+                return null;
+            }
+            if (address.size()==0) {
+                Toast.makeText(context, "Address not found", Toast.LENGTH_SHORT).show();
                 return null;
             }
 
@@ -289,20 +294,20 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 
                 break;
             case R.id.searchLin:
-                try {
-                    AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
-                            .setTypeFilter(Place.TYPE_COUNTRY)
-                            .setCountry("US")
-                            .build();
-                    Intent place = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).
-                            setFilter(autocompleteFilter).
-                            build(this);
-                    startActivityForResult(place, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-                    // TODO: Handle the error.
-//                    e.printStackTrace();
-                }
 //                try {
+//                    AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
+//                            .setTypeFilter(Place.TYPE_COUNTRY)
+//                            .setCountry("US")
+//                            .build();
+//                    Intent place = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).
+//                            setFilter(autocompleteFilter).
+//                            build(this);
+//                    startActivityForResult(place, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
+//                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+//                    // TODO: Handle the error.
+////                    e.printStackTrace();
+//                }
+////                try {
 //                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this);
 //                    startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
 //                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {

@@ -24,6 +24,7 @@ public class Constants {
     public static final String CREATE_SESSION = "session/store";
     public static final String EVENT_DETAIL = "event/details";
     public static final String BOOKING_API = "booking/store";
+    public static final String BOOKING_LIST_EVENT = "bookings";
     public static final String AUTH_TOKEN = "auth token";
     public static String ROLE_PLAY = "";
 
