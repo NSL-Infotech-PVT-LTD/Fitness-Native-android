@@ -60,7 +60,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginEmailEdt"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_mail"
                     android:drawablePadding="@dimen/_10sdp"
@@ -89,7 +89,7 @@
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/loginEmailEdt"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_lock">
+                    app:startIconDrawable="@drawable/ic_lock_black_24dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginPasswordEdt"
@@ -98,8 +98,9 @@
                         android:layout_marginTop="15sp"
                         android:background="@drawable/etmaterial_design"
                         android:drawableLeft="@drawable/ic_lock"
-                        android:drawablePadding="@dimen/_10sdp"
+
                         android:fontFamily="@font/poppins_regular"
+                        android:gravity="left"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:maxLines="1"
@@ -136,8 +137,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginBtn"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_40sdp"
+                    android:padding="@dimen/_10sdp"
                     android:backgroundTint="@color/colorGreen"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"

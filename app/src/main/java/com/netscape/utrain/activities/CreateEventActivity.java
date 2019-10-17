@@ -107,7 +107,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 createEventServiceSpinner.setSelection(i);
-                Toast.makeText(CreateEventActivity.this, "" + i, Toast.LENGTH_SHORT).show();
                 serviIds = String.valueOf(selectedServices.get(i).getId());
             }
 
@@ -192,7 +191,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+
+//                int currentTime = LocalTime.parse(startTime);
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
+
+               Date time =  Calendar.getInstance().getTime();
+                Toast.makeText(CreateEventActivity.this, ""+time, Toast.LENGTH_SHORT).show();
                 if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
                     binding.createEvtnStartTimeTv.setText(startTime);
                     binding.createEventEndTime.setText("");
