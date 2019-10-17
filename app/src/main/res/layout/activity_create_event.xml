@@ -299,7 +299,6 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/end_time_hour"
-
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
@@ -313,8 +312,8 @@
                         android:drawableLeft="@drawable/ic_time"
                         android:gravity="center"
                         android:hint="@string/start_time"
-                        android:padding="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_10sdp"
+                        android:padding="@dimen/_12sdp"
+                        android:drawablePadding="@dimen/_10sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"

@@ -1,18 +1,26 @@
 package com.netscape.utrain.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.LoginWithActivity;
 import com.netscape.utrain.activities.coach.CoachSignupActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginTypeBinding;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 public class SignUpTypeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityLoginTypeBinding binding;
@@ -31,6 +39,23 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
         binding.organizationCardView.setOnClickListener(this);
         binding.findCoachesBtn.setOnClickListener(this);
         setDefaultSelected();
+        FirebaseApp.initializeApp(this);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Device", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+// Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        CommonMethods.setPrefData(PrefrenceConstant.DEVICE_TOKEN,token,getApplicationContext());
+
+                        Log.d("DeviceToken", "onComplete: " + token);
+                    }
+                });
     }
     public void setDefaultSelected(){
         binding.findCoachesBtn.setText(getResources().getString(R.string.log_in_signup_as_athlete));
@@ -130,4 +155,5 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
 }

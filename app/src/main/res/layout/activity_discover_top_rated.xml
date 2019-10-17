@@ -125,6 +125,7 @@
             android:fontFamily="@font/poppins_regular"
             android:inputType="text"
             android:padding="@dimen/_10sdp"
+            android:focusable="false"
             android:singleLine="true"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"

@@ -69,6 +69,7 @@ public class AthleteTopRatedAdapter extends RecyclerView.Adapter<AthleteTopRated
                 Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, type + "");
+                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(topCoachesDetails);
             }
         });
