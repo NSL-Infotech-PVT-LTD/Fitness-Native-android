@@ -62,7 +62,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
 
     private void hitLoginApi() {
         progressDialog.show();
-        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, Constants.DEVICE_TOKEN, Constants.CONTENT_TYPE);
+        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN,getApplicationContext()), Constants.CONTENT_TYPE);
         signUpAthlete.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -70,9 +70,6 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-
-
-
 
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();

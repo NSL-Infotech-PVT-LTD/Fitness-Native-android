@@ -163,7 +163,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
                 getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PortfolioActivity.getImages = true;
-                startActivityForResult(getImages, ADDRESS_EVENT);
+                startActivityForResult(getImages, IMAGE_GET);
                 break;
             case R.id.createEventEndDatetv:
                 getEndDate();
@@ -365,10 +365,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     locationLong = data.getStringExtra(Constants.LOCATION_LONG);
                 }
             } else if (requestCode == IMAGE_GET) {
-                if (data != null && data.hasExtra(Constants.ADDRESS)) {
+//                if (data != null && data.hasExtra(Constants.ADDRESS)) {
                     Toast.makeText(CreateEventActivity.this, "Images Imported", Toast.LENGTH_SHORT).show();
-                    binding.createEventImages.setText(PortfolioImagesConstants.numImages + " Images selected");
-                }
+                    binding.createEventImages.setText(PortfolioImagesConstants.numImages + " Selected");
+//                }
             }
         } else {
             Toast.makeText(CreateEventActivity.this, "Unable to get Address", Toast.LENGTH_SHORT).show();

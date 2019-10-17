@@ -310,7 +310,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
             Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
-
                 @Override
                 public void run() {
                     doubleBackToExitPressedOnce = false;
