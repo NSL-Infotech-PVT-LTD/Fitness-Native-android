@@ -205,7 +205,7 @@
                     android:gravity="center"
                     android:text="@string/vanue_address_nline"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
@@ -222,7 +222,7 @@
                     android:text="@string/time_format"
                     android:textColor="@color/colorBlack"
 
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
                     app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
@@ -238,7 +238,7 @@
                     android:gravity="center"
                     android:text="@string/date_format"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
                     app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
             </LinearLayout>

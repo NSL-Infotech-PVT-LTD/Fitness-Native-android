@@ -44,6 +44,14 @@ public class OrgUserModel {
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
 
+    public List<RolesModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RolesModel> roles) {
+        this.roles = roles;
+    }
+
     public List<ServiceIdModel> getService_ids() {
         return service_ids;
     }
