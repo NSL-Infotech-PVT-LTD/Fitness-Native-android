@@ -85,9 +85,11 @@
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerImage"
-                android:layout_width="@dimen/_290sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/view_pager_rounded"
                 android:elevation="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
