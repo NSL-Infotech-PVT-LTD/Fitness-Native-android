@@ -26,6 +26,7 @@ import com.netscape.utrain.fragments.A_EditorFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
+import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -90,7 +91,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_running:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new A_ChatsFragment();
+                    fragment = new O_HistoryFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:

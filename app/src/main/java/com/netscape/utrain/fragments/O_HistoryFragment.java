@@ -1,40 +1,31 @@
 package com.netscape.utrain.fragments;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.athlete.DiscoverTopRated;
-import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
+import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.FragmentOHistoryBinding;
-import com.netscape.utrain.response.CoachListResponse;
-import com.netscape.utrain.retrofit.RetrofitInstance;
-import com.netscape.utrain.retrofit.Retrofitinterface;
-import com.netscape.utrain.utils.CommonMethods;
-import com.netscape.utrain.utils.Constants;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,19 +36,25 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class O_HistoryFragment extends Fragment {
-
-
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private BottomSheetBehavior sheetBehavior;
+    private ServicesBottomSheetAdapter bottomSheetAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private FragmentOHistoryBinding binding;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private LinearLayout liearLayout;
+    private TextView sessionSel, eventSel, doneSel, spaceSel;
+    private int sort_count = 1;
+    private ViewPagerAdapter adapter;
+    private String completed="Completed";
+    private String upcoming="Upcoming";
+
 
     public O_HistoryFragment() {
         // Required empty public constructor
@@ -93,16 +90,157 @@ public class O_HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_o__history,container,false);
-        View view=binding.getRoot();
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_o__history, container, false);
+        View view = binding.getRoot();
+        liearLayout = view.findViewById(R.id.bottomsheet_services);
+        spaceSel = view.findViewById(R.id.spaceSel);
+        sessionSel = view.findViewById(R.id.sessionSel);
+        eventSel = view.findViewById(R.id.eventSel);
+        doneSel = view.findViewById(R.id.doneSel);
+        sheetBehavior = BottomSheetBehavior.from(liearLayout);
+        bottomSheetBehavior_sort();
 //        binding.historyTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
 //        binding.historyTabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-        binding.historyTabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
+        binding.historyTabLayou.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
         setupViewPager(binding.historyViewPager);
-        binding.historyTabLayout.setupWithViewPager(binding.historyViewPager);
+        binding.historyTabLayou.setupWithViewPager(binding.historyViewPager);
 
+        binding.filterSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetUpDown_address();
+            }
+        });
+
+
+        liearLayout.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View view) {
+                                               bottomSheetUpDown_address();
+                                           }
+                                       }
+        );
         return view;
+    }
+
+    private void checkClick() {
+
+        eventSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
+        sessionSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
+        spaceSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        O_UpcEventFragment.count = 1;
+        O_CmpEventFragment.count = 1;
+    }
+
+    private void bottomOnClickSort() {
+
+        selectedTExt();
+
+        eventSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sort_count = 1;
+                selectedTExt();
+                O_UpcEventFragment.count = sort_count;
+                O_CmpEventFragment.count = sort_count;
+                upcoming = upcoming;
+                completed = completed;
+                setupViewPager(binding.historyViewPager);
+                bottomSheetUpDown_address();
+
+            }
+        });
+        sessionSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sort_count = 2;
+                selectedTExt();
+                O_UpcEventFragment.count = sort_count;
+                O_CmpEventFragment.count = sort_count;
+
+                upcoming = upcoming;
+                completed = completed;
+                setupViewPager(binding.historyViewPager);
+                bottomSheetUpDown_address();
+
+            }
+        });
+        spaceSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sort_count = 3;
+                selectedTExt();
+
+                O_UpcEventFragment.count = sort_count;
+                O_CmpEventFragment.count = sort_count;
+
+                upcoming = "Booking";
+                completed = "Post Bookings";
+                setupViewPager(binding.historyViewPager);
+                bottomSheetUpDown_address();
+            }
+        });
+        doneSel.setVisibility(View.GONE);
+        doneSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectedTExt();
+
+
+                if (sort_count == 1) {
+
+
+                } else if (sort_count == 2) {
+                    O_UpcEventFragment.count = 2;
+                    O_CmpEventFragment.count = 2;
+                    setupViewPager(binding.historyViewPager);
+
+
+                } else if (sort_count == 3) {
+                    O_UpcEventFragment.count = 3;
+                    O_CmpEventFragment.count = 3;
+                    setupViewPager(binding.historyViewPager);
+
+                }
+                bottomSheetUpDown_address();
+
+            }
+        });
+
+
+    }
+
+
+    private void selectedTExt() {
+        if (sort_count == 1) {
+
+            checkClick();
+            binding.nameOfType.setText("Event");
+
+            eventSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
+
+
+        } else if (sort_count == 2) {
+            checkClick();
+            binding.nameOfType.setText("Session");
+
+            sessionSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
+
+
+        } else if (sort_count == 3) {
+            checkClick();
+            binding.nameOfType.setText("Space");
+
+            spaceSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
+
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,6 +249,7 @@ public class O_HistoryFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
 //    @Override
 //    public void onAttach(Context context) {
@@ -129,6 +268,51 @@ public class O_HistoryFragment extends Fragment {
         mListener = null;
     }
 
+    private void bottomSheetBehavior_sort() {
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void bottomSheetUpDown_address() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+
+
+        bottomOnClickSort();
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new O_UpcEventFragment(), upcoming);
+        adapter.addFragment(new O_CmpEventFragment(), completed);
+        viewPager.setAdapter(adapter);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -142,13 +326,6 @@ public class O_HistoryFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new O_EventListFragment(), "Upcoming");
-        adapter.addFragment(new O_SessionListFragment(), "Completed");
-        viewPager.setAdapter(adapter);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -179,7 +356,6 @@ public class O_HistoryFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
 
 
 }

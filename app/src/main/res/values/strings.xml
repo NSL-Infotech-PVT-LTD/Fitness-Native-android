@@ -336,4 +336,5 @@
     <string name="invalidField">Please Fill This FIeld</string>
     <string name="invalidDate">Invalid Date</string>
     <string name="invalidCardDetail">Invalid Card</string>
+    <string name="near_by_space">Near by spaces</string>
 </resources>
