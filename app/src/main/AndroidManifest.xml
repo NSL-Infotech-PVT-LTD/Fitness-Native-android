@@ -35,7 +35,8 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".activities.organization.OrgMapFindAddressActivity" />
+        <activity android:name=".activities.organization.OrgMapFindAddressActivity"
+            android:launchMode="singleInstance"/>
         <activity android:name=".activities.athlete.AllEventsMapAct" />
         <activity android:name=".activities.SelectServices" />
         <activity android:name=".activities.organization.OrgHomeScreen" />
@@ -139,6 +140,7 @@
         <activity
             android:name=".activities.PortfolioActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MainActivity"

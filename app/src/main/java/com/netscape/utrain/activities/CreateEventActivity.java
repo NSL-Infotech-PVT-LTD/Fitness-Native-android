@@ -155,12 +155,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.getAddressTv:
                 Intent getAddress = new Intent(CreateEventActivity.this, OrgMapFindAddressActivity.class);
-                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityForResult(getAddress, ADDRESS_EVENT);
                 break;
             case R.id.createEventImages:
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
-                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 PortfolioActivity.getImages = true;
                 startActivityForResult(getImages, IMAGE_GET);
                 break;
