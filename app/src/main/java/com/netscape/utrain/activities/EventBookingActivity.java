@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.databinding.ActivityEventBookingBinding;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -44,6 +45,15 @@ public class EventBookingActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_event_booking);
         activity = this;
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_event_booking);
+
+        binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EventBookingActivity.this, EventDetail.class);
+                startActivity(intent);
+
+            }
+        });
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 

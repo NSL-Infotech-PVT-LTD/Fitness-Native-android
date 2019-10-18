@@ -15,8 +15,8 @@
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:src="@drawable/ic_leftarrowicon"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_backblack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +25,8 @@
             android:id="@+id/createEvent_createEventTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_event"
             android:textColor="@color/colorBlack"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.18" />
+            app:layout_constraintGuide_percent="0.2" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -232,7 +232,6 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/start_business_hour"
-
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
@@ -259,6 +258,7 @@
                         android:gravity="center"
                         android:hint="@string/start_date"
                         android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
@@ -273,8 +273,9 @@
                         android:drawableLeft="@drawable/ic_date"
                         android:gravity="center"
                         android:hint="@string/end_date"
-                        android:textColor="@color/colorBlack"
                         android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
+                        android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
@@ -287,7 +288,6 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/start_time_hour"
-
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />
@@ -311,9 +311,9 @@
                         android:background="@drawable/card_input_edt_background"
                         android:drawableLeft="@drawable/ic_time"
                         android:drawablePadding="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_10sdp"
                         android:gravity="left|center_vertical"
                         android:hint="@string/start_time"
+                        android:paddingLeft="@dimen/_10sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
@@ -327,7 +327,8 @@
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/card_input_edt_background"
                         android:drawableLeft="@drawable/ic_time"
-                        android:gravity="center"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:gravity="left|center_vertical"
                         android:hint="@string/end_time"
                         android:paddingLeft="@dimen/_10sdp"
                         android:textColor="@color/colorBlack"
@@ -368,14 +369,13 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/createEventCapicityEdt"
                         android:layout_width="@dimen/_75sdp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@null"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:hint="10"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="@id/createEvent_CapicityView"
                         app:layout_constraintHorizontal_bias="0"

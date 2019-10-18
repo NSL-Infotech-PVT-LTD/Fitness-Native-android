@@ -87,6 +87,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         holder.trainingSessionProfessionDesc.setText(data.getName());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
 
+                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
+                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
         try {
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());

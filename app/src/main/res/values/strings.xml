@@ -10,7 +10,7 @@
     <string name="athlete">Athlete</string>
     <string name="add_cards">Add Cards</string>
     <string name="fill_your_card_details">Fill your card details</string>
-    <string name="name_on_card">Nam on card</string>
+    <string name="name_on_card">Name on card</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -336,4 +336,14 @@
     <string name="invalidField">Please Fill This FIeld</string>
     <string name="invalidDate">Invalid Date</string>
     <string name="invalidCardDetail">Invalid Card</string>
+    <string name="select_payment">Select Payment</string>
+    <string name="payment_demo">Please select your preferable payment method</string>
+    <string name="card_number_enter">1234 5678 1245 1247</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="enter_month_year_detail">09/2023</string>
+    <string name="cvv">CVV</string>
+    <string name="enter_cvv">***</string>
+    <string name="name_on_card_enter">Alden Smith</string>
+    <string name="user_previous_cards">User Previous Cards</string>
+    <string name="add_card_procees">Add Card and Proceed</string>
 </resources>

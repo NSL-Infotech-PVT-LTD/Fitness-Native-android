@@ -2,6 +2,7 @@ package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.facebook.login.LoginManager;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
+import com.netscape.utrain.databinding.ActivityPaymentBinding;
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -41,6 +44,8 @@ import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    private ActivityPaymentBinding binding;
+
     public static final String PUBLISHABLE_KEY = "pk_test_StB3j4S26BTUGHm7RfbMyzUn00q1Q55MWn";
     protected Card cardToSave;
     EditText cardNumberEditText, cardDate, cardCVV, cardHolder;
@@ -56,12 +61,23 @@ public class PaymentActivity extends AppCompatActivity {
     private Bundle extras;
     private Retrofitinterface retrofitinterface;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+//        setContentView(R.layout.activity_payment);
+        binding = DataBindingUtil.setContentView(PaymentActivity.this,R.layout.activity_payment);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+        binding.paymentBackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PaymentActivity.this, EventBookingActivity.class);
+                startActivity(intent);
+            }
+        });
         init();
+
 
 
     }
@@ -396,10 +412,13 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Toast.makeText(activity, ""+errorMessage, Toast.LENGTH_SHORT).show();
 
 
                     } catch (Exception e) {
-//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(activity, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
                     }
                 }
 

@@ -82,21 +82,21 @@
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt"
                 app:passwordToggleEnabled="true"
-
                 app:startIconDrawable="@drawable/ic_lock">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/athletePasswordEdt"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"

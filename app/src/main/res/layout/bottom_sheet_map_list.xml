@@ -46,10 +46,10 @@
                 android:id="@+id/imageLeftArrow"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_leftarrowicon"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/ic_backblack"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -69,8 +69,7 @@
                 android:id="@+id/filterIcon"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_13sdp"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:src="@drawable/filter_ic"
                 app:layout_constraintRight_toRightOf="@id/rightGuideline"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -91,18 +90,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.13"/>
+                app:layout_constraintGuide_percent="0.13" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/findPlaceRecycler"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
                 android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/bottomSheetGuideline" />
 
             <ProgressBar

@@ -9,16 +9,16 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_LogIn_TenthScreen"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
         android:textStyle="bold"
         android:textColor="#000"
-        android:textSize="@dimen/_25sdp"
+        android:textSize="@dimen/_16sdp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_50sdp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/_15sdp"
         />
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="30dp"
@@ -280,15 +280,6 @@
             app:layout_constraintTop_toBottomOf="@id/helpAndSupport_Tv" />
 
 
-        <View
-            android:id="@+id/viewThirdScreen"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_1sdp"
-            android:background="@drawable/view_design"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
