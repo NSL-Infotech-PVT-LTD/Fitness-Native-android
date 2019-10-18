@@ -2,6 +2,9 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.response.A_EventListResponse;
+import com.netscape.utrain.response.A_SessionResponse;
+import com.netscape.utrain.response.A_SpaceListResponse;
 import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
@@ -11,6 +14,9 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.O_EventListResponse;
+import com.netscape.utrain.response.O_SessionListResponse;
+import com.netscape.utrain.response.O_SpaceListResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
@@ -233,5 +239,36 @@ public interface Retrofitinterface {
     Call<BookingListResponse> getBookingList(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
                                              @Query("type") String type);
+    @POST(Constants.ORG_EVENT_LIST)
+    Call<O_EventListResponse> getOrgEentList(@Header("Authorization") String Authorization,
+                                             @Header("Content-Type") String contentType,
+                                             @Query("order_by") String order_by);
+    @POST(Constants.ORG_SPACE_LIST)
+    Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
+                                              @Header("Content-Type") String contentType,
+                                              @Query("order_by") String order_by);
+    @POST(Constants.ORG_SESSION_LIST)
+    Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,
+                                                  @Header("Content-Type") String contentType,
+                                                  @Query("order_by") String order_by);
 
+    @POST(Constants.A_EVENT_LIST)
+    Call<A_EventListResponse> getAthEventList(@Header("Authorization") String Authorization,
+                                              @Header("Content-Type") String contentType,
+                                              @Query("order_by") String order_by,
+                                              @Query("search") String search,
+                                              @Query("limit") String limit,
+                                              @Query("page") String page,
+                                              @Query("radius") String radius);
+    @POST(Constants.A_SPACE_LIST)
+    Call<A_SpaceListResponse> getAthSpaceList(@Header("Authorization") String Authorization,
+                                              @Header("Content-Type") String contentType,
+                                              @Query("order_by") String order_by,
+                                              @Query("limit") String limit);
+    @POST(Constants.A_SESSION_LIST)
+    Call<A_SessionResponse> getAthSessionList(@Header("Authorization") String Authorization,
+                                              @Header("Content-Type") String contentType,
+                                              @Query("order_by") String order_by,
+                                              @Query("search") String search,
+                                              @Query("limit") String limit);
 }

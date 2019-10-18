@@ -336,6 +336,7 @@
     <string name="invalidField">Please Fill This FIeld</string>
     <string name="invalidDate">Invalid Date</string>
     <string name="invalidCardDetail">Invalid Card</string>
+    <string name="near_by_space">Near by spaces</string>
     <string name="select_payment">Select Payment</string>
     <string name="payment_demo">Please select your preferable payment method</string>
     <string name="card_number_enter">1234 5678 1245 1247</string>
@@ -346,4 +347,5 @@
     <string name="name_on_card_enter">Alden Smith</string>
     <string name="user_previous_cards">User Previous Cards</string>
     <string name="add_card_procees">Add Card and Proceed</string>
+
 </resources>

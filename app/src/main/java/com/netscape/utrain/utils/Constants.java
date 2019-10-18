@@ -25,6 +25,14 @@ public class Constants {
     public static final String EVENT_DETAIL = "event/details";
     public static final String BOOKING_API = "booking/store";
     public static final String BOOKING_LIST_EVENT = "bookings";
+    public static final String ORG_EVENT_LIST = "events/organiser/list";
+    public static final String ORG_SESSION_LIST= "session/organiser/list";
+    public static final String A_EVENT_LIST= "events/athlete/list";
+    public static final String A_SPACE_LIST= "spaces/athlete/list";
+    public static final String A_SESSION_LIST= "session/athlete/list";
+
+
+    public static final String ORG_SPACE_LIST= "spaces/organiser/list";
     public static final String COACH_EVENT_LIST = "events/coach/list";
     public static final String COACH_SPACE_LIST = "spaces/coach/list";
     public static final String COACH_SESSION_LIST = "session/coach/list";

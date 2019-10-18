@@ -69,7 +69,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
                 JSONObject json = new JSONObject(response);
                 JSONObject jsonObject = json.getJSONObject("data");
-                tragetId = jsonObject.getString("target_id");
+              //  tragetId = jsonObject.getString("target_id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

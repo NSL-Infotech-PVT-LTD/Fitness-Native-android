@@ -15,10 +15,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_EventDataModel;
-import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_EventDataModel;
-import com.netscape.utrain.response.BookingListResponse;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -26,34 +25,34 @@ import org.json.JSONException;
 
 import java.util.List;
 
-public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.CustomTopCoachesHolder> {
+public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.CustomTopCoachesHolder> {
 
     private Context context;
     private int previusPos = -1;
-    private List<O_EventDataModel> supplierData;
+    private List<A_EventDataListModel> a_eventList;
 
-    public O_EventListAdapter(Context context, List supplierData) {
+    public A_EventListAdapter(Context context, List supplierData) {
         this.context = context;
-        this.supplierData = supplierData;
+        this.a_eventList = supplierData;
 
     }
 
 
     @NonNull
     @Override
-    public O_EventListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public A_EventListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-        return new O_EventListAdapter.CustomTopCoachesHolder(view);
+        return new A_EventListAdapter.CustomTopCoachesHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull O_EventListAdapter.CustomTopCoachesHolder holder, int position) {
-        final O_EventDataModel data = supplierData.get(position);
+    public void onBindViewHolder(@NonNull A_EventListAdapter.CustomTopCoachesHolder holder, int position) {
+        final A_EventDataListModel data = a_eventList.get(position);
         try {
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = position; i < jsonArray.length(); i++) {
                     Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventImage);
 
                 }
@@ -82,7 +81,7 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return a_eventList.size();
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
