@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp"
-    >
+    android:layout_width="match_parent"
+    android:background="@drawable/round_corner"
+    android:layout_height="@dimen/_160sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coachImageContainer"
-        android:layout_width="@dimen/_285sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_2sdp"
-        android:layout_marginRight="@dimen/_2sdp"
+        android:layout_margin="@dimen/_2sdp"
+        app:cardElevation="@dimen/_2sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/coachImageView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/park" />
+            app:cardCornerRadius="@dimen/_20sdp">
+
+            <ImageView
+                android:id="@+id/coachImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/park"
+                android:scaleType="center" />
+        </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-<!--    <androidx.appcompat.widget.AppCompatTextView-->
-<!--        android:id="@+id/supplierName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/_4sdp"-->
-<!--        android:fontFamily="@font/poppins_semibold"-->
-<!--        android:text="Roger David"-->
-<!--        android:textColor="@color/colorBlack"-->
-<!--        android:textSize="@dimen/_10sdp"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/coachImageContainer"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/coachImageContainer" />-->
+    <!--    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--        android:id="@+id/supplierName"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/_4sdp"-->
+    <!--        android:fontFamily="@font/poppins_semibold"-->
+    <!--        android:text="Roger David"-->
+    <!--        android:textColor="@color/colorBlack"-->
+    <!--        android:textSize="@dimen/_10sdp"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/coachImageContainer"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/coachImageContainer" />-->
 
-<!--    <RatingBar-->
-<!--        android:id="@+id/supplierRating"-->
-<!--        style="?android:attr/ratingBarStyleSmall"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fontFamily="@font/poppins_semibold"-->
-<!--        android:numStars="5"-->
-<!--        android:progressBackgroundTint="@color/colorLightGray"-->
-<!--        android:progressTint="@color/colorGreen"-->
-<!--        android:rating="3"-->
-<!--        android:stepSize="1"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/supplierName"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/supplierName" />-->
+    <!--    <RatingBar-->
+    <!--        android:id="@+id/supplierRating"-->
+    <!--        style="?android:attr/ratingBarStyleSmall"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/poppins_semibold"-->
+    <!--        android:numStars="5"-->
+    <!--        android:progressBackgroundTint="@color/colorLightGray"-->
+    <!--        android:progressTint="@color/colorGreen"-->
+    <!--        android:rating="3"-->
+    <!--        android:stepSize="1"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/supplierName"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/supplierName" />-->
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

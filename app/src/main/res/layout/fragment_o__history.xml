@@ -41,10 +41,10 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/round_background_colord"
+                android:fontFamily="@font/poppins_semibold"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/_10sdp"
                 android:text="Filter"
-                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="@id/layoutTitleText"
                 app:layout_constraintRight_toRightOf="parent"
@@ -61,17 +61,16 @@
                 app:layout_constraintLeft_toLeftOf="@+id/layoutTitleText"
                 app:layout_constraintRight_toRightOf="@+id/layoutTitleText"
                 app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
-                >
-            </com.google.android.material.textview.MaterialTextView>
+                ></com.google.android.material.textview.MaterialTextView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    app:layout_constraintRight_toRightOf="@+id/filterSelection"
-                    app:layout_constraintTop_toTopOf="@+id/filterSelection"
-                    app:layout_constraintBottom_toBottomOf="@id/filterSelection"
-                    android:background="@drawable/ic_filter_white"></androidx.appcompat.widget.AppCompatImageView>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/ic_filter_white"
+                app:layout_constraintBottom_toBottomOf="@id/filterSelection"
+                app:layout_constraintRight_toRightOf="@+id/filterSelection"
+                app:layout_constraintTop_toTopOf="@+id/filterSelection"></androidx.appcompat.widget.AppCompatImageView>
 
             <!--<androidx.coordinatorlayout.widget.CoordinatorLayout-->
             <!--    android:layout_width="match_parent"-->
@@ -111,10 +110,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_50sdp"
-                android:layout_marginBottom="@dimen/_45sdp"
                 android:background="@drawable/cards_shape"
                 android:elevation="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/parentLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
@@ -142,8 +140,10 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/historyViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/historyTabLayou" />

@@ -92,8 +92,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/athleteprofileImageView"
-                    android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_90sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:backgroundTint="@color/colorGreen"
                     app:cardCornerRadius="@dimen/_8sdp"
@@ -109,7 +109,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_profile_type"
                         android:fitsSystemWindows="true"
-                        android:scaleType="fitXY" />
+                        android:scaleType="center" />
 
                 </com.google.android.material.card.MaterialCardView>
 
