@@ -116,6 +116,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.putExtra("eventDescription", data.getDescription());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
                 intent.putExtra("from", "events");
+                intent.putExtra("capacity", data.getGuest_allowed());
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);

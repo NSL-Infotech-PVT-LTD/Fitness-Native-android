@@ -330,7 +330,7 @@
     <string name="event_booking">Event Booking</string>
     <string name="ticket">Ticket(s) you want \n to Book</string>
     <string name="default_notification_channel_id">channel-1</string>
-    <string name="cannotExceed">You can book not more than 5 tickets</string>
+    <string name="cannotExceed">You can book not more than 5 ticket>>>>>>> de26f9c31474c1c2a4639c05666c2564de9bd75ds</string>
     <string name="chooseCorrect">You have to book atleast one ticket</string>
     <string name="continues">Confirm Booking</string>
     <string name="invalidField">Please Fill This FIeld</string>

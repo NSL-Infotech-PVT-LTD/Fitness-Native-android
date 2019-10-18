@@ -79,17 +79,32 @@ public class EventDetail extends AppCompatActivity {
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Places");
+
+                binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
+                binding.eventCandidateTv.setVisibility(View.GONE);
+                binding.eventNumOfCandidateTv.setVisibility(View.GONE);
+                binding.view2.setVisibility(View.GONE);
                 eventType = "space";
             }
 
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("events")) {
                 title.setText("Events");
+                binding.eventNumOfCandidateAttendingTv.setVisibility(View.VISIBLE);
+                binding.eventCandidateTv.setVisibility(View.VISIBLE);
+                binding.eventNumOfCandidateTv.setVisibility(View.VISIBLE);
+                binding.view2.setVisibility(View.VISIBLE);
+
+                binding.eventNumOfCandidateTv.setText(getIntent().getIntExtra("capacity",0)+"");
                 eventType = "event";
             }
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("sessions")) {
                 title.setText("Sessions");
+                binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
+                binding.eventCandidateTv.setVisibility(View.GONE);
+                binding.eventNumOfCandidateTv.setVisibility(View.GONE);
+                binding.view2.setVisibility(View.GONE);
                 eventType = "session";
 
             }

@@ -97,7 +97,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
-
         getServiceIds();
         createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
         ArrayAdapter<ServiceIdModel> adapter = new ArrayAdapter<ServiceIdModel>(CreateEventActivity.this, android.R.layout.simple_spinner_item, selectedServices);
@@ -201,7 +200,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
 
                Date time =  Calendar.getInstance().getTime();
-                Toast.makeText(CreateEventActivity.this, ""+time, Toast.LENGTH_SHORT).show();
+                if (stDate!=null && endDate!=null) {
+                    if (endDate.compareTo(stDate) == 0) {
                 if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
                     binding.createEvtnStartTimeTv.setText(startTime);
                     binding.createEventEndTime.setText("");
@@ -211,6 +211,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     binding.createEvtnStartTimeTv.setHint("Start time");
                     Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
                 }
+                    } else {
+                        binding.createEvtnStartTimeTv.setText(startTime);
+                    }
+                }else {
+                    Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();

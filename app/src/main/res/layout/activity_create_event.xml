@@ -350,6 +350,7 @@
                         android:text="@string/capicity"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
@@ -443,6 +444,8 @@
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         app:cornerRadius="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/createEventEquipmentEdt" />

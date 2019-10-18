@@ -34,6 +34,7 @@ import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.OfferSpaceActivity;
+import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
@@ -57,6 +58,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.netscape.utrain.activities.PortfolioActivity.clearFromConstants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -197,14 +200,17 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 //                getActivity().finish();
 //                break;
             case R.id.createEventImg:
+                PortfolioActivity.clearFromConstants();
                 Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
                 view.getContext().startActivity(createEvent);
                 break;
             case R.id.createSessionImg:
+                PortfolioActivity.clearFromConstants();
                 Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
                 view.getContext().startActivity(createSession);
                 break;
             case R.id.createSpaceImg:
+                PortfolioActivity.clearFromConstants();
                 Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
                 view.getContext().startActivity(createSpace);
                 break;
