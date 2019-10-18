@@ -14,6 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.coach.CoachDashboard"></activity>
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.EventBookingActivity" />
         <activity android:name=".activities.BookingActivity" />

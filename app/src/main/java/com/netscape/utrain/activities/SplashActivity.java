@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivitySplashBinding;
 import com.netscape.utrain.utils.CommonMethods;
@@ -53,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }else if (loginUser.equalsIgnoreCase(PrefrenceConstant.COACH_LOG_IN)) {
                     if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
-                        Intent intent = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                        Intent intent = new Intent(getApplicationContext(), CoachDashboard.class);
                         startActivity(intent);
                         finish();
                     } else {

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityLoginBinding;
@@ -44,22 +45,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Retrofitinterface retrofitinterface;
     private LoginRoleModel loginRoleModel;
     private ProgressDialog progressDialog;
-    private boolean doubleBackToExitPressedOnce=false;
-    private String activeUserType="";
-    private List<ServiceIdModel> servicesList=new ArrayList<>();
-
+    private boolean doubleBackToExitPressedOnce = false;
+    private String activeUserType = "";
+    private List<ServiceIdModel> servicesList = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
-        if( getIntent().getExtras() != null)
-        {
-           activeUserType=getIntent().getStringExtra(Constants.ActiveUserType);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        if (getIntent().getExtras() != null) {
+            activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
         }
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
         init();
     }
@@ -68,34 +67,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.loginBtn.setOnClickListener(this);
         binding.loginForgetTv.setOnClickListener(this);
         binding.loginSignUpTv.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.loginBtn:
                 getLoginData();
 //                Intent homeScreen=new Intent(LoginActivity.this, AthleteHomeScreen.class);
 //                startActivity(homeScreen);
                 break;
             case R.id.loginForgetTv:
-                Intent forgetActivity=new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+                Intent forgetActivity = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 forgetActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(forgetActivity);
                 break;
             case R.id.loginSignUpTv:
                 SelectedServiceList.getInstance().getList().clear();
-                Constants.CHECKBOX_IS_CHECKED=0;
-                if (activeUserType.equals(Constants.TypeCoach)){
-                    Intent signUpActivity=new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
+                Constants.CHECKBOX_IS_CHECKED = 0;
+                if (activeUserType.equals(Constants.TypeCoach)) {
+                    Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    signUpActivity.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
+                    signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
                     startActivity(signUpActivity);
                 }
-                if (activeUserType.equals(Constants.TypeOrganization)){
-                    Intent signUpActivity=new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
+                if (activeUserType.equals(Constants.TypeOrganization)) {
+                    Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    signUpActivity.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
+                    signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
                     startActivity(signUpActivity);
                 }
                 break;
@@ -111,20 +111,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (binding.loginEmailEdt.getText().toString().isEmpty()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.loginEmailEdt.requestFocus();
-        }else if (! Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
             binding.loginEmailEdt.requestFocus();
-        }else if (binding.loginPasswordEdt.getText().toString().isEmpty()) {
+        } else if (binding.loginPasswordEdt.getText().toString().isEmpty()) {
             binding.loginPasswordEdt.setError(getResources().getString(R.string.enter_your_password));
             binding.loginPasswordEdt.requestFocus();
-        }else {
+        } else {
             hitLoginApi();
         }
     }
 
     private void hitLoginApi() {
         progressDialog.show();
-        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email,password,Constants.DEVICE_TYPE,CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN,getApplicationContext()),Constants.CONTENT_TYPE);
+        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE);
         signUpAthlete.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL+response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
@@ -153,23 +153,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
+                                } else if (role.equalsIgnoreCase(Constants.Coach)) {
+
+                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
+                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                    storeServiceIds(servicesList);
+
+                                    homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
                                 } else
                                     Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     } else {
-                        Snackbar.make(binding.loginLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.loginLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.loginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -177,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Snackbar.make(binding.loginLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
 
             }
@@ -187,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void storeServiceIds(List<ServiceIdModel> list) {
         Gson gson = new Gson();
         String listData = gson.toJson(list);
-        CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS,listData,getApplicationContext());
+        CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
     }
 
 //    @Override
@@ -208,7 +225,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            }
 //        }, 2000);
 //    }
-
 
 
 }
