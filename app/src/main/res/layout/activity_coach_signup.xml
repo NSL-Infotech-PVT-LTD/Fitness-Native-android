@@ -30,7 +30,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/complete_profile"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_20sdp"
+                android:textSize="@dimen/_16sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/coachSignUp_toolbar" />
 
@@ -38,16 +38,15 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/organization_coachTv"
                 android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@drawable/round_background_colord"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:padding="@dimen/_6sdp"
                 android:text="@string/coach"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/coachSignUp_toolbar" />
 
@@ -94,7 +93,7 @@
                         android:layout_marginTop="@dimen/_50sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/name"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,7 +101,6 @@
                         android:id="@+id/coachNameEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
@@ -110,10 +108,10 @@
                         android:inputType="text"
                         android:maxLength="40"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_nameTv" />
@@ -126,7 +124,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/email"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachNameEdt" />
 
@@ -135,7 +133,6 @@
                         android:id="@+id/coachEmailEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
@@ -143,10 +140,10 @@
                         android:inputType="text"
                         android:maxLength="40"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_emailTv" />
@@ -159,7 +156,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/password"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachEmailEdt" />
 
@@ -167,9 +164,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/coachPasswordEdtLayout"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="@dimen/_40sdp"
                         app:hintEnabled="false"
+                        app:endIconDrawable="@dimen/_15sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_passwordTv"
@@ -178,7 +175,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/coachPasswordEdt"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/_40sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@drawable/organization_edt_design"
                             android:fontFamily="@font/poppins_semibold"
@@ -186,13 +183,14 @@
                             android:hint="@string/enter_password"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:paddingLeft="@dimen/_16sdp"
+                            android:paddingLeft="@dimen/_15sdp"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_15sdp"
+                            android:paddingBottom="@dimen/_10sdp"
                             android:singleLine="true"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_12sdp"
-                            app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
-                            app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                            app:layout_constraintTop_toBottomOf="@id/coach_passwordTv" />
+                            android:textSize="@dimen/_10sdp"
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <View
@@ -211,7 +209,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/phone"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachPasswordEdtLayout" />
 
@@ -220,7 +218,6 @@
                         android:id="@+id/coachPhoneEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
@@ -228,10 +225,10 @@
                         android:inputType="number"
                         android:maxLength="10"
                         android:maxLines="1"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_phoneTv" />
@@ -244,7 +241,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/location"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachPhoneEdt" />
 
@@ -253,18 +250,17 @@
                         android:id="@+id/coachLocationEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:drawableRight="@drawable/ic_my_location"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_location"
                         android:inputType="text"
-                        android:paddingLeft="@dimen/_16sdp"
-                        android:paddingRight="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_locationTv" />
@@ -277,7 +273,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/start_business_hour"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachLocationEdt" />
 
@@ -286,11 +282,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_2sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/end_business_hour"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/coachEndHour"
                         app:layout_constraintTop_toBottomOf="@id/coachLocationEdt" />
 
 
@@ -298,13 +293,13 @@
                         android:id="@+id/coachStartHour"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/card_input_edt_background"
                         android:drawableLeft="@drawable/ic_time"
-                        android:drawablePadding="@dimen/_5sdp"
-                        android:gravity="left|center"
-                        android:paddingLeft="@dimen/_20sdp"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
                         android:text="Start Time"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv" />
 
@@ -313,15 +308,15 @@
                         android:id="@+id/coachEndHour"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/card_input_edt_background"
                         android:drawableLeft="@drawable/ic_time"
-                        android:gravity="left|center"
-                        android:padding="@dimen/_5sdp"
-                        android:paddingLeft="@dimen/_20sdp"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
                         android:text="End Time"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/coach_startBusinessHourTv" />
+                        app:layout_constraintTop_toBottomOf="@id/coach_endBusinessHourTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -331,22 +326,21 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/bio"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachStartHour" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/coachBioEdt"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_bio"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_bioTv" />
@@ -356,23 +350,23 @@
                         android:id="@+id/organization_ProfessionTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/profession"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachBioEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/coachProfessionTypeEdt"
-                        android:layout_width="@dimen/_115sdp"
+                        android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
                         android:hint="@string/type"
-                        android:paddingLeft="@dimen/_16sdp"
                         android:singleLine="true"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
 
@@ -380,25 +374,24 @@
                         android:id="@+id/organization_ExpertiseTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/expertise"
-                        app:layout_constraintRight_toLeftOf="@id/organization_right_Guideline"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/coachExperienceEdt"
                         app:layout_constraintTop_toBottomOf="@id/coachBioEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/coachExperienceEdt"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
                         android:hint="@string/type"
                         android:inputType="numberDecimal"
-                        android:paddingLeft="@dimen/_16sdp"
                         android:singleLine="true"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
 
@@ -407,10 +400,10 @@
                         android:id="@+id/coach_ExperienceDetailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/experience_detail"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachProfessionTypeEdt" />
 
@@ -418,14 +411,14 @@
                         android:id="@+id/coachExperienceDetailEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center_vertical"
+
                         android:hint="@string/experience"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
-                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_ExperienceDetailTv" />
@@ -434,10 +427,10 @@
                         android:id="@+id/coach_TrainingServiceDetailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/training_service_detail"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachExperienceDetailEdt" />
 
@@ -445,14 +438,13 @@
                         android:id="@+id/coachTrainingDetailEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center_vertical"
                         android:hint="@string/service_details"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coach_TrainingServiceDetailTv" />
@@ -462,32 +454,32 @@
                         android:id="@+id/coachHourlyRateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/hourly_rate"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachTrainingDetailEdt" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/coach_DollarSignTv"
-                        android:layout_width="@dimen/_35sdp"
+                        android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="@string/dollar_sign_value"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toLeftOf="@id/coachHourlyRateEdt"
                         app:layout_constraintTop_toBottomOf="@id/coachTrainingDetailEdt" />
 
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/coachHourlyRateEdt"
-                        android:layout_width="@dimen/_35sdp"
+                        android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -495,7 +487,7 @@
                         android:inputType="number"
                         android:maxLength="4"
                         android:singleLine="true"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachTrainingDetailEdt" />
 
@@ -504,16 +496,16 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_50sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_100sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
                         android:backgroundTint="@color/colorWhite"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:hint="@string/one_more_step"
+                        android:text="@string/one_more_step"
                         android:textAllCaps="false"
-
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:cornerRadius="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/coachHourlyRateEdt"

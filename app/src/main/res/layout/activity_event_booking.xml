@@ -26,8 +26,8 @@
                 android:id="@+id/eventBookingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/event_booking"
                 android:textColor="@color/colorWhite"
@@ -62,12 +62,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/eventBookingBackArrow"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:src="@drawable/lefticonarrowwhite"
+                android:id="@+id/eventBookingBackImg"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/ic_backwhite"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -173,6 +173,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold"
+                    android:maxLength="15"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/eventTimeDetailTv"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -215,59 +216,62 @@
                 android:id="@+id/ticket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/ticket"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/backgroundText" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/countDisplayConstraint"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="@+id/ticket"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ticket">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/substractImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:scaleType="fitCenter"
+
                     android:src="@drawable/ic_subtract"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/addImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/countDisplay"
                     android:layout_width="@dimen/_50sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_55sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="@dimen/_40sdp"
+
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@color/colorTransparent"
                     android:fontFamily="@font/poppins_regular"
                     android:text="1"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:backgroundTint="@color/colorWhite"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/substractImg"
+                    app:layout_constraintRight_toRightOf="@id/addImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/addImg"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_marginLeft="@dimen/_40sdp"
-                    android:scaleType="fitCenter"
+
                     android:src="@drawable/ic_add"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/substractImg"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

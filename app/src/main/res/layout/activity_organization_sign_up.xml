@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,13 +38,13 @@
                 android:id="@+id/completeProfileTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:background="@null"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/complete_profile"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_20sdp"
+                android:textSize="@dimen/_16sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +53,7 @@
                 android:id="@+id/signUpType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@drawable/round_background_colord"
                 android:fontFamily="@font/poppins_regular"
@@ -57,18 +70,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.136" />
+                app:layout_constraintGuide_percent="0.13" />
 
-            <FrameLayout
-                android:id="@+id/cardview1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="@+id/organization_Guideline">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayouttwo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@id/organization_Guideline"
                     android:background="@drawable/cards_shape"
                     android:elevation="@dimen/_10sdp"
                     app:cardUseCompatPadding="true">
@@ -103,16 +112,14 @@
                         android:id="@+id/orgNameEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_name"
                         android:maxLength="30"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
-
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
@@ -123,24 +130,23 @@
                         android:id="@+id/organization_emailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/email"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toTopOf="@id/orgNameEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/orgNameEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgEmailEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_email"
                         android:maxLength="40"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -153,26 +159,24 @@
                         android:id="@+id/organization_PhoneNoTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/phone"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toTopOf="@id/orgEmailEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/orgEmailEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgPhoneEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_phone_number"
                         android:inputType="number"
                         android:maxLength="10"
-
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -185,25 +189,23 @@
                         android:id="@+id/organization_LocationTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/location"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toTopOf="@id/orgPhoneEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/orgPhoneEdt" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgAddressEdt"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:drawableRight="@drawable/ic_my_location"
-                        android:drawablePadding="@dimen/_10sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center_vertical"
+                        android:fontFamily="@font/poppins_regular"
                         android:hint="@string/enter_location"
-                        android:padding="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -216,17 +218,17 @@
                         android:id="@+id/organization_passTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/password"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                        app:layout_constraintTop_toTopOf="@id/orgAddressEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/orgAddressEdt" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/orgPasswordEdtLayout"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         app:boxBackgroundMode="outline"
                         app:hintEnabled="false"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
@@ -237,17 +239,14 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/orgPasswordEdt"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:background="@drawable/organization_edt_design"
-                            android:drawablePadding="@dimen/_10sdp"
                             android:fontFamily="@font/poppins_regular"
                             android:gravity="center_vertical"
                             android:hint="@string/enter_password"
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:padding="@dimen/_10sdp"
-                            android:paddingLeft="@dimen/_16sdp"
                             android:singleLine="true"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
@@ -270,7 +269,7 @@
                         android:id="@+id/organization_bioTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/bio"
                         android:textSize="@dimen/_10sdp"
@@ -281,14 +280,13 @@
                         android:id="@+id/orgBioEdt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:hint="@string/enter_bio"
                         android:inputType="textMultiLine"
                         android:maxHeight="@dimen/_200sdp"
                         android:minHeight="@dimen/_40sdp"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
@@ -302,11 +300,11 @@
                         android:id="@+id/organization_BusinessHourstartTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="left"
                         android:text="@string/start_business_hour"
-                        app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgBioEdt" />
 
 
@@ -314,29 +312,26 @@
                         android:id="@+id/organization_BusinessHourendTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="left"
                         android:text="@string/end_business_hour"
-                        app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/orgEndTimeTv"
                         app:layout_constraintTop_toBottomOf="@id/orgBioEdt" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/orgStartTimeTv"
-                        android:layout_width="@dimen/_115sdp"
+                        android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_22sdp"
                         android:background="@drawable/organization_edt_design"
                         android:drawableLeft="@drawable/ic_time"
-                        android:drawablePadding="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:hint="@string/time_format"
                         android:inputType="date"
-                        android:paddingLeft="@dimen/_16sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourstartTv" />
 
@@ -344,39 +339,39 @@
                         android:id="@+id/orgEndTimeTv"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:drawableLeft="@drawable/ic_time"
-                        android:drawablePadding="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:gravity="left|center"
+                        android:gravity="center"
                         android:hint="@string/time_format"
                         android:inputType="date"
-                        android:paddingLeft="@dimen/_16sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_20sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourstartTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourendTv" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/organization_ProfessionTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/profession"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/orgStartTimeTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgProfessionType"
-                        android:layout_width="@dimen/_115sdp"
+                        android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:hint="@string/type"
-                        android:paddingLeft="@dimen/_10sdp"
                         android:singleLine="true"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                         app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
 
@@ -384,34 +379,34 @@
                         android:id="@+id/organization_ExpertiseTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/expertise"
-                        app:layout_constraintRight_toLeftOf="@id/organization_right_Guideline"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/orgExperienceEdt"
                         app:layout_constraintTop_toBottomOf="@id/orgEndTimeTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgExperienceEdt"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:hint="@string/type"
                         android:inputType="numberDecimal"
                         android:maxLength="3"
-                        android:paddingLeft="@dimen/_10sdp"
                         android:singleLine="true"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/organization_ProfessionTv" />
+                        app:layout_constraintTop_toBottomOf="@id/organization_ExpertiseTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/organization_ExperienceDetailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/experience_detail"
                         android:textSize="@dimen/_10sdp"
@@ -421,16 +416,15 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgExperienceDetailEdt"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center_vertical"
                         android:hint="@string/experience"
                         android:inputType="textMultiLine"
                         android:maxHeight="@dimen/_200sdp"
                         android:minHeight="@dimen/_40sdp"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
@@ -441,7 +435,7 @@
                         android:id="@+id/organization_TrainingServiceDetailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/training_service_detail"
                         android:textSize="@dimen/_10sdp"
@@ -451,16 +445,14 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgServiceDetailEdt"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/organization_edt_design"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center_vertical"
+                        android:fontFamily="@font/poppins_regular"
                         android:hint="@string/service_details"
                         android:inputType="textMultiLine"
                         android:maxHeight="@dimen/_200sdp"
                         android:minHeight="@dimen/_40sdp"
-                        android:paddingLeft="@dimen/_16sdp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
@@ -472,7 +464,7 @@
                         android:id="@+id/organization_HourlyRateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/hourly_rate"
                         android:textSize="@dimen/_10sdp"
@@ -481,9 +473,9 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/organization_DollarSignTv"
-                        android:layout_width="@dimen/_35sdp"
+                        android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -495,9 +487,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/orgHourlyRateEdt"
-                        android:layout_width="@dimen/_35sdp"
+                        android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/organization_edt_design"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -522,27 +514,30 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:cornerRadius="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                         app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                        app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt"
-                        app:layout_goneMarginBottom="@dimen/_20sdp" />
+                        app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </FrameLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profileImageView"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_75sdp"
                 android:backgroundTint="@color/colorGreen"
                 app:cardCornerRadius="@dimen/_8sdp"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toTopOf="@+id/cardview1"
+
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardview1">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/orgProfileImg"
@@ -552,10 +547,12 @@
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop" />
             </com.google.android.material.card.MaterialCardView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
 

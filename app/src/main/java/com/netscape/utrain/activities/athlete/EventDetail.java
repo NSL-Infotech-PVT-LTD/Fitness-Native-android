@@ -2,6 +2,7 @@ package com.netscape.utrain.activities.athlete;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.netscape.utrain.activities.EventBookingActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
+import com.netscape.utrain.databinding.ActivityEventDetailBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -29,6 +31,8 @@ import java.util.prefs.Preferences;
 import me.relex.circleindicator.CircleIndicator;
 
 public class EventDetail extends AppCompatActivity {
+
+    private ActivityEventDetailBinding binding;
 
     MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv;
     MaterialTextView title;
@@ -48,8 +52,16 @@ public class EventDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_detail);
+//        setContentView(R.layout.activity_event_detail);
 
+        binding = DataBindingUtil.setContentView(EventDetail.this,R.layout.activity_event_detail);
+        binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
         venueAddress = findViewById(R.id.eventVanueDetailTv);
         eventName = findViewById(R.id.eventMarathonHeaderTv);
         title = findViewById(R.id.title);
@@ -94,7 +106,7 @@ public class EventDetail extends AppCompatActivity {
             }
 
 
-            imgBackArrowImage = findViewById(R.id.eventBackArrowImage);
+            imgBackArrowImage = findViewById(R.id.eventBookingBackImg);
             imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
