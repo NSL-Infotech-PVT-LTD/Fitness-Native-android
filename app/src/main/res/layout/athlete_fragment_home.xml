@@ -248,6 +248,17 @@
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/no_data_png"
+            android:layout_margin="@dimen/_30sdp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/athleteTopCoachesRecycler"
+            app:layout_constraintRight_toRightOf="@+id/athleteTopCoachesRecycler"
+            app:layout_constraintTop_toTopOf="@id/athleteTopCoachesRecycler"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesRecycler"/>
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/athleteTopCoachesRecycler"
             android:layout_width="0dp"
@@ -288,6 +299,17 @@
             app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv"
             app:strokeColor="@color/colorGreen"
             app:strokeWidth="@dimen/_1sdp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/no_data_png"
+            android:layout_margin="@dimen/_30sdp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/athleteTopOrganizationRecycler"
+            app:layout_constraintRight_toRightOf="@+id/athleteTopOrganizationRecycler"
+            app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationRecycler"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationRecycler"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/athleteTopOrganizationRecycler"
