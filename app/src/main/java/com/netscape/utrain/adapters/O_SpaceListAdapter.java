@@ -70,10 +70,10 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
             public void onClick(View view) {
 
 
-                Intent topCoachesDetails=new Intent(context, TopCoachesDetailsActivity.class);
-//                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"1");
-                context.startActivity(topCoachesDetails);
+//                Intent topCoachesDetails=new Intent(context, TopCoachesDetailsActivity.class);
+////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
+//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"1");
+//                context.startActivity(topCoachesDetails);
             }
         });
     }
