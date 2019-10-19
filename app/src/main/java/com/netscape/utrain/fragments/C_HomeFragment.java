@@ -91,6 +91,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context)).into(binding.cDashProImage);
+        binding.orgWelcomeOrgName.setText("Welcome "+CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,context));
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);

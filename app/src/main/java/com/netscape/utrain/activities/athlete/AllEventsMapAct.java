@@ -160,9 +160,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void getAthletePlaceApi(String order_by, String s) {
-        allEventFindAPalceTv.setText("Find Places");
+        allEventFindAPalceTv.setText("Find Spaces");
         final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Loading Places....");
+        progressDialog.setMessage("Loading Spaces....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, "10", order_by);

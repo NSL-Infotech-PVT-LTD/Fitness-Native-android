@@ -5,7 +5,6 @@
     android:id="@+id/bottomsheet_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/drawer_right_corner_laydesign_white"
     android:orientation="vertical">
 

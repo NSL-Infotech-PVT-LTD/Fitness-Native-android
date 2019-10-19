@@ -26,6 +26,7 @@ import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
