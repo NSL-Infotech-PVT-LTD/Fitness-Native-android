@@ -155,7 +155,6 @@
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/organization_emailTv" />
 
-
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/organization_PhoneNoTv"
                             android:layout_width="wrap_content"
@@ -206,8 +205,9 @@
                             android:fontFamily="@font/poppins_regular"
                             android:hint="@string/enter_location"
                             android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp"
+                            android:paddingRight="@dimen/_5sdp"
                             android:singleLine="true"
+                            android:focusable="false"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"

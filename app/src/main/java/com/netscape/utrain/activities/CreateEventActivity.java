@@ -84,8 +84,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "";
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
     private String serviIds = "";
+    private String servicePrice = "";
     private String startDate = "";
+    private String sDate = "";
     private String eDate = "";
+    private String enDate = "";
     private String startTime = "";
     private String timeNow = "";
     private String endTime = "";
@@ -108,6 +111,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 createEventServiceSpinner.setSelection(i);
                 serviIds = String.valueOf(selectedServices.get(i).getId());
+                servicePrice = String.valueOf(selectedServices.get(i).getPrice());
+
             }
 
             @Override
@@ -268,7 +273,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createEventStartDateTv.setPadding(20, 20, 20, 20);
-                startDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
+                sDate = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
+                startDate = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
                 binding.createEventStartDateTv.setText(startDate);
                 stDate = formatDate(startDate);
                 binding.createEventEndDatetv.setText("");
@@ -288,7 +294,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createEventEndDatetv.setPadding(20, 20, 20, 20);
-                eDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
+                enDate = year + "-" + convertDate((monthOfYear + 1)) + "-" +convertDate(dayOfMonth) ;
+                eDate = year + "/" + convertDate((monthOfYear + 1)) + "/" +convertDate(dayOfMonth) ;
                 endDate = formatDate(eDate);
                 if (stDate!=null) {
                     if (endDate.compareTo(stDate) >= 0) {
@@ -306,7 +313,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     public Date formatDate(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
         try {
             strDate = sdf.parse(date);
@@ -323,7 +330,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventStartDate = binding.createEventStartDateTv.getText().toString();
         eventEndDate = binding.createEventEndDatetv.getText().toString();
         eventStartTime = binding.createEvtnStartTimeTv.getText().toString();
-        eventEndtime = binding.createEventEndTimeTv.getText().toString();
+        eventEndtime = binding.createEventEndTime.getText().toString();
         eventEquipments = binding.createEventEquipmentEdt.getText().toString();
         eventCapacity = binding.createEventCapicityEdt.getText().toString();
 
@@ -397,9 +404,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), eventDescription));
-        requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartDate));
+        requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), sDate));
         requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
-        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndDate));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"), enDate));
         requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndtime));
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
@@ -409,7 +416,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        requestBodyMap.put("price", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.PRICE, CreateEventActivity.this)));
+        requestBodyMap.put("price", RequestBody.create(MediaType.parse("multipart/form-data"), servicePrice));
 //        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("text/plain"),));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 

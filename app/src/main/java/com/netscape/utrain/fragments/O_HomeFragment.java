@@ -138,7 +138,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater,R.layout.org_fragment_home,container,false);
         view=binding.getRoot();
-
+        binding.orgWelcomeOrgName.setText("Welcome "+CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,getContext()));
 
 //        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
         progressDialog=new ProgressDialog(getContext());
@@ -150,8 +150,10 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
             }
         };
         binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
+
         getSpaceList();
-        Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context)).into(binding.orgProfileImage);
+        String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context);
+        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
