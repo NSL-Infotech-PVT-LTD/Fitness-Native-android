@@ -149,8 +149,9 @@ public class O_HistoryFragment extends Fragment {
                 selectedTExt();
                 O_UpcEventFragment.count = sort_count;
                 O_CmpEventFragment.count = sort_count;
-                upcoming = upcoming;
-                completed = completed;
+
+                upcoming = "Upcoming";
+                completed = "Completed";
                 setupViewPager(binding.historyViewPager);
                 bottomSheetUpDown_address();
 
@@ -164,8 +165,8 @@ public class O_HistoryFragment extends Fragment {
                 O_UpcEventFragment.count = sort_count;
                 O_CmpEventFragment.count = sort_count;
 
-                upcoming = upcoming;
-                completed = completed;
+                upcoming = "Upcoming";
+                completed = "Completed";
                 setupViewPager(binding.historyViewPager);
                 bottomSheetUpDown_address();
 

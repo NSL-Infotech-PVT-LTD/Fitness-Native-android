@@ -312,7 +312,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, Constants.REQUEST_CAMERA_CAPTURE);
-            }
+            } //9465878595
         }
     }
 
@@ -323,6 +323,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         }
         getImageFromStorage();
     }
+
 
     public void getImageFromStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -336,6 +337,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             PortfolioActivity.this.startActivityForResult(photoPickerIntent, Constants.REQUEST_CODE_GALLERY);
         }
     }
+
+
 
 
     @Override
@@ -383,6 +386,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
             }
             setPortfolioImages();
+        }  else if (requestCode == Constants.REQUEST_CODE_GALLERY ){
+
         }
     }
 
@@ -407,7 +412,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN,getApplicationContext())));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
 //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
         Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, userImg, portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {

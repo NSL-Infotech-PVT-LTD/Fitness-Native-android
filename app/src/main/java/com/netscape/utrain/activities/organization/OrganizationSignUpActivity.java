@@ -11,6 +11,7 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -123,22 +124,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding = DataBindingUtil.setContentView(this, R.layout.activity_organization_sign_up);
         init();
         PortfolioActivity.clearFromConstants();
-        binding.orgAddressEdt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
 
-                final int DRAWABLE_RIGHT = 2;
-
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (binding.orgAddressEdt.getRight() - binding.orgAddressEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (checkPermissions())
-                            binding.orgAddressEdt.setText(address);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
 
 
     }
@@ -166,6 +152,23 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         }
 
         setUpGClient();
+
+        binding.orgAddressEdt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (event.getRawX() >= (binding.orgAddressEdt.getRight() - binding.orgAddressEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if (checkPermissions())
+                            binding.orgAddressEdt.setText(address);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private synchronized void setUpGClient() {

@@ -347,5 +347,6 @@
     <string name="name_on_card_enter">Alden Smith</string>
     <string name="user_previous_cards">User Previous Cards</string>
     <string name="add_card_procees">Add Card and Proceed</string>
+    <string name="experience_text">Experience</string>
 
 </resources>

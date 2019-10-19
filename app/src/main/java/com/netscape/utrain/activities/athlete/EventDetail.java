@@ -78,7 +78,7 @@ public class EventDetail extends AppCompatActivity {
 
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
-                title.setText("Places");
+                title.setText("Spaces");
 
                 binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
                 binding.eventCandidateTv.setVisibility(View.GONE);
