@@ -28,7 +28,6 @@
                 android:id="@+id/orgWelcomeOrgName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/welcome_org_name"
                 android:textColor="@color/colorBlack"
@@ -41,7 +40,6 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/sophie"
                 android:id="@+id/orgProfileImage"
                 app:layout_constraintRight_toRightOf="@id/RightGuideLine"
                 app:layout_constraintTop_toTopOf="parent" />

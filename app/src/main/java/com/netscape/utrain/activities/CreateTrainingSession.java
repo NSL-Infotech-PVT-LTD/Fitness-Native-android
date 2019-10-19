@@ -61,6 +61,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", sessionStartTime = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
     private int SESSIOM_IMAGE = 129;
     private String dateNow = "";
+    private String dateSend = "";
     private String startTime = "";
     private Date strDate = null;
     private Date now = null;
@@ -91,7 +92,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
         requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"), sessionStartTime));
-        requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), sessionStartDate));
+        requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
         requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
@@ -193,7 +194,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createTrainingDateTv.setPadding(20, 20, 20, 20);
-                dateNow = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
+                dateSend = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
+                dateNow = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String currentDateandTime = sdf.format(new Date());
                 try {

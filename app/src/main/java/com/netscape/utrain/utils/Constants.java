@@ -48,6 +48,7 @@ public class Constants {
     public static final String Athlete = "athlete";
     public static final String TypeAthlete = "athleteActive";
     public static final String Organization = "organization";
+    public static final String Organizer = "organizer";
     public static final String TypeOrganization = "organizationActive";
     public static final String SELECTED_SERVICE = "selectedService";
     public static final String SERVICE_LIST = "serviceList";

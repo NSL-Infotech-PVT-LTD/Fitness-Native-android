@@ -420,10 +420,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
-                                if (Constants.Organization.equalsIgnoreCase(role)) {
+                                if (Constants.Organizer.equalsIgnoreCase(role)) {
                                     CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
-
-
                                     clearFromConstants();
                                     Constants.CHECKBOX_IS_CHECKED = 0;
                                     SelectedServiceList.getInstance().getList().clear();
