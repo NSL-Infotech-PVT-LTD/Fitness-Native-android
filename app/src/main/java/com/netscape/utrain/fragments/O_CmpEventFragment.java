@@ -18,6 +18,9 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.A_EventListAdapter;
 import com.netscape.utrain.adapters.A_SessionListAdapter;
 import com.netscape.utrain.adapters.A_SpaceListAdapter;
+import com.netscape.utrain.adapters.C_EventListAdapter;
+import com.netscape.utrain.adapters.C_SessionListAdapter;
+import com.netscape.utrain.adapters.C_SpaceListAdapter;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.adapters.O_SessionListAdapter;
 import com.netscape.utrain.adapters.O_SpaceListAdapter;
@@ -25,11 +28,15 @@ import com.netscape.utrain.databinding.FragmentOSessionListBinding;
 import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_SessionDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.C_EventDataListModel;
+import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.response.A_EventListResponse;
 import com.netscape.utrain.response.A_SpaceListResponse;
+import com.netscape.utrain.response.C_EventListResponse;
+import com.netscape.utrain.response.C_SessionListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_SessionListResponse;
@@ -83,6 +90,14 @@ public class O_CmpEventFragment extends Fragment {
     private List<A_EventDataListModel> a_eventData;
     private List<A_SessionDataModel> a_sessionData;
     private List<A_SpaceListModel> a_spaceData;
+
+
+    private C_EventListAdapter c_EventAdapter;
+    private C_SpaceListAdapter c_SpaceAdapter;
+    private C_SessionListAdapter c_SessionAdapter;
+
+    private List<C_EventDataListModel> c_eventData;
+    private List<C_SessionListModel> c_sessionData;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -131,12 +146,14 @@ public class O_CmpEventFragment extends Fragment {
         if (count == 1) {
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                 getCompletedEvents();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
-                a_getUpcommingEvents();
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                getCoachUpcommingEvents();
         } else if (count == 2) {
 
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                 getCompletedSession();
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                getCoachUpcommingSession();
 //            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
 //                a_getUpcommingSession();
         } else if (count == 3) {
@@ -164,6 +181,113 @@ public class O_CmpEventFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    //Coach Methods
+    public void getCoachUpcommingEvents() {
+        progressDialog.show();
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        call.enqueue(new Callback<C_EventListResponse>() {
+            @Override
+            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+                if (response.body() != null) {
+                    c_eventData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().size() > 0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            c_eventData.addAll(response.body().getData());
+                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData);
+                            binding.sessionListRecycler.setAdapter(c_EventAdapter);
+
+                        } else {
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+//                    binding.topRateRecycler.setVisibility(View.GONE);
+//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+//                binding.topRateRecycler.setVisibility(View.GONE);
+//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public void getCoachUpcommingSession() {
+        progressDialog.show();
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        call.enqueue(new Callback<C_SessionListResponse>() {
+            @Override
+            public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
+                if (response.body() != null) {
+                    c_sessionData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().size() > 0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            c_sessionData.addAll(response.body().getData());
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData);
+                            binding.sessionListRecycler.setAdapter(c_SessionAdapter);
+
+                        } else {
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+//                    binding.topRateRecycler.setVisibility(View.GONE);
+//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
+//                binding.topRateRecycler.setVisibility(View.GONE);
+//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     public void a_getUpcommingEvents() {
         progressDialog.show();
@@ -219,7 +343,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSpaces() {
         progressDialog.show();
-        Call<A_SpaceListResponse> call = retrofitinterface.getAthSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming", "10");
+        Call<A_SpaceListResponse> call = retrofitinterface.getAthSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed", "10");
         call.enqueue(new Callback<A_SpaceListResponse>() {
             @Override
             public void onResponse(Call<A_SpaceListResponse> call, Response<A_SpaceListResponse> response) {
@@ -340,7 +464,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCompletedSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"completed");
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -393,7 +517,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCompletedSession() {
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"completed");
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {

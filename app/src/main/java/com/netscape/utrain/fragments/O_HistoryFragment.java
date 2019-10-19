@@ -23,6 +23,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.FragmentOHistoryBinding;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +143,12 @@ public class O_HistoryFragment extends Fragment {
 
     private void bottomOnClickSort() {
 
+        if(CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY,getContext()).equalsIgnoreCase(Constants.Coach)){
+            spaceSel.setVisibility(View.GONE);
+        }else {
+            spaceSel.setVisibility(View.VISIBLE);
+
+        }
         selectedTExt();
 
         eventSel.setOnClickListener(new View.OnClickListener() {

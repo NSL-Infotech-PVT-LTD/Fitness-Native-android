@@ -10,6 +10,8 @@ import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.BookingListResponse;
+import com.netscape.utrain.response.C_EventListResponse;
+import com.netscape.utrain.response.C_SessionListResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
@@ -271,4 +273,13 @@ public interface Retrofitinterface {
                                               @Query("order_by") String order_by,
                                               @Query("search") String search,
                                               @Query("limit") String limit);
+
+    @POST(Constants.CO_EVENT_LIST)
+    Call<C_EventListResponse> getCoachEventList(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("order_by") String order_by);
+    @POST(Constants.CO_SESSION_LIST)
+    Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String contentType,
+                                                    @Query("order_by") String order_by);
 }

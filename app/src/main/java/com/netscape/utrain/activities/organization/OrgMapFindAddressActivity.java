@@ -280,18 +280,21 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                     return;
                 }
 
+                if (selectedLatLng !=null) {
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.ADDRESS,searchEdt.getText().toString());
+                    intent.putExtra(Constants.ADDRESS, searchEdt.getText().toString());
 //                    locationLatLng = selectedLatLng.latitude +","+ selectedLatLng.longitude;
-                    locationLat=selectedLatLng.latitude+"";
-                    locationLong=selectedLatLng.longitude+"";
-                    intent.putExtra(Constants.LOCATION_LAT,locationLat);
-                    intent.putExtra(Constants.LOCATION_LONG,locationLong);
-                    setResult(RESULT_OK,intent);
+                    locationLat = selectedLatLng.latitude + "";
+                    locationLong = selectedLatLng.longitude + "";
+                    intent.putExtra(Constants.LOCATION_LAT, locationLat);
+                    intent.putExtra(Constants.LOCATION_LONG, locationLong);
+                    setResult(RESULT_OK, intent);
                     OrgMapFindAddressActivity.this.finish();
 
 //                    validateValues();
-
+                }else {
+                    Toast.makeText(OrgMapFindAddressActivity.this, "Select a valid address", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.searchLin:
 //                try {

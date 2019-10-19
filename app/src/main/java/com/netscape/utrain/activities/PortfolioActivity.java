@@ -355,6 +355,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     Glide.with(this).load(photoFile.getPath()).into(imageView);
                     if (getImages) {
                         userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+                        setImages = photoFile.getPath();
                     } else {
                         userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
                         setImages = photoFile.getPath();
