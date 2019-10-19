@@ -8,16 +8,27 @@
     tools:context=".activities.BookSlotCampusActivity">
 
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bookingLeftArrowImg"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/ic_backblack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bookingCampus_BookingSlotTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/booking_slot"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_16sdp"
         app:fontFamily="@font/poppins_semibold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,27 +37,26 @@
         android:id="@+id/bookingCampus_privateTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:background="@drawable/round_background_colord"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
-        android:padding="@dimen/_6sdp"
+        android:padding="@dimen/_4sdp"
         android:text="@string/campus_tv"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bookingCampus_fill_your_reqTv"
-        android:layout_width="@dimen/_250sdp"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
         android:text="@string/booking_slot_fill_your_req"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_10sdp"
         app:fontFamily="@font/poppins_regular"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/bookingCampus_BookingSlotTv"
         app:layout_constraintTop_toBottomOf="@id/bookingCampus_BookingSlotTv" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -54,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.2" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -68,8 +78,8 @@
         android:id="@+id/bookingCampus_constLayoutTwo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:elevation="@dimen/_10sdp"
         android:background="@drawable/cards_shape"
+        android:elevation="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/bookingCampus_Guideline">
 
@@ -94,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/select_sports_training"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintTop_toTopOf="parent" />
@@ -104,7 +114,6 @@
             style="@style/CustomSpinnerTheme"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTrainingTv" />
@@ -112,8 +121,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:textSize="@dimen/_13sdp"
             android:background="@drawable/card_input_edt_background"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintBottom_toBottomOf="@id/bookingCampus_SelectTrainingSpinner"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
@@ -126,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/select_sports_organization"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectTrainingSpinner" />
@@ -136,7 +145,7 @@
             style="@style/CustomSpinnerTheme"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
             app:layout_constraintTop_toBottomOf="@+id/bookingCampus_selectOrganizationTv" />
@@ -144,8 +153,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:textSize="@dimen/_13sdp"
             android:background="@drawable/card_input_edt_background"
+            android:textSize="@dimen/_13sdp"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintBottom_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
@@ -158,9 +167,9 @@
             android:layout_width="@dimen/_90sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="left"
             android:text="@string/select_time"
             android:textSize="@dimen/_13sdp"
-            android:gravity="left"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner" />
@@ -171,9 +180,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_20sdp"
+            android:gravity="left"
             android:text="@string/select_date"
             android:textSize="@dimen/_13sdp"
-            android:gravity="left"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_SelectOrganizationSpinner" />
@@ -186,13 +195,13 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_22sdp"
             android:background="@drawable/organization_edt_design"
+            android:drawableLeft="@drawable/ic_time"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center"
-            android:inputType="date"
             android:hint="@string/time_format"
+            android:inputType="date"
             android:paddingLeft="@dimen/_20sdp"
             android:textSize="@dimen/_13sdp"
-            android:drawableLeft="@drawable/ic_time"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTimeTv" />
 
@@ -225,12 +234,12 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/organization_edt_design"
+            android:drawableLeft="@drawable/ic_date"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center"
             android:inputType="date"
             android:paddingLeft="@dimen/_20sdp"
             android:text="@string/date_format"
-            android:drawableLeft="@drawable/ic_date"
             android:textSize="@dimen/_13sdp"
             app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/bookingCampus_selectTimeTv" />
@@ -243,8 +252,8 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/confirm_booking_btn_booking_slot"
             android:textColor="@color/colorBlack"
-            app:cornerRadius="@dimen/_5sdp"
             android:textSize="@dimen/_13sdp"
+            app:cornerRadius="@dimen/_5sdp"
             app:layout_constraintLeft_toLeftOf="@id/bookingCampus_leftGuideline"
             app:layout_constraintRight_toRightOf="@id/bookingCampus_rightGuideline"
             app:layout_constraintTop_toBottomOf="@+id/bookingCampus_DateTv" />

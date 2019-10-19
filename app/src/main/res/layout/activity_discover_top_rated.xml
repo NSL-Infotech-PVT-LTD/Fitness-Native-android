@@ -11,7 +11,7 @@
         android:id="@+id/discoverHeaderTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/discover"
@@ -34,11 +34,10 @@
         android:id="@+id/exploreTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_38sdp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/explore_coaches_discover"
         android:textSize="@dimen/_10sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/discoverHeaderTv"
         app:layout_constraintTop_toBottomOf="@id/discoverHeaderTv" />
 
 <!--    <de.hdodenhof.circleimageview.CircleImageView-->

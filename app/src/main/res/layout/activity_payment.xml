@@ -29,7 +29,7 @@
                     android:id="@+id/createEvent_createEventTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:layout_marginLeft="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/select_payment"
@@ -52,12 +52,11 @@
                     android:id="@+id/paymentDemo"
                     android:layout_width="@dimen/_240sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/payment_demo"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
                     app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
 
 
@@ -124,7 +123,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:text="@string/card_number"
-                                android:textColor="@color/lightGrayFont"
+                                android:textColor="@color/offwhite"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -157,7 +156,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:text="@string/mm_yy"
-                                android:textColor="@color/lightGrayFont"
+                                android:textColor="@color/offwhite"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/cardNumberTV" />
@@ -191,7 +190,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:text="@string/cvv"
-                                android:textColor="@color/lightGrayFont"
+                                android:textColor="@color/offwhite"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
@@ -221,14 +220,14 @@
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_marginLeft="@dimen/_15sdp"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
+                                 android:layout_marginRight="@dimen/_15sdp"
                                 android:layout_marginBottom="@dimen/_15sdp"
                                 android:background="@drawable/gradiant_design_square_payment"
                                 android:fontFamily="@font/poppins_regular"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:text="@string/name_on_card"
-                                android:textColor="@color/lightGrayFont"
+                                android:textColor="@color/offwhite"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/mmyyText" />

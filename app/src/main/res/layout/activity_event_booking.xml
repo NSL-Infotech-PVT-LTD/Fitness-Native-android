@@ -26,7 +26,7 @@
                 android:id="@+id/eventBookingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/event_booking"

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
@@ -35,6 +36,7 @@ import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityPortfolioBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
+import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -80,6 +82,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
     public static boolean getImages = false;
+    private List<ServiceIdModel> servicesList = new ArrayList<>();
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -439,6 +442,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);
+                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                    storeServiceIds(servicesList);
                                     Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
@@ -508,6 +513,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
+
                             Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
@@ -594,5 +600,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         PortfolioImagesConstants.partTwo = null;
         PortfolioImagesConstants.partThree = null;
         PortfolioImagesConstants.partFour = null;
+    }
+    private void storeServiceIds(List<ServiceIdModel> list) {
+        Gson gson = new Gson();
+        String listData = gson.toJson(list);
+        CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
     }
 }

@@ -91,7 +91,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
-        requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"), sessionStartTime));
+        requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"),(dateSend+" "+sessionStartTime)));
         requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
@@ -195,7 +195,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createTrainingDateTv.setPadding(20, 20, 20, 20);
                 dateSend = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
-                dateNow = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
+                dateNow = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" +year ;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String currentDateandTime = sdf.format(new Date());
                 try {

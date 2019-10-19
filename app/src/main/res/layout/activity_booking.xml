@@ -23,7 +23,7 @@
         android:id="@+id/bookingHeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/booking"
@@ -34,10 +34,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bookingFilterIcon"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_20sdp"
         android:src="@drawable/filter_ic"
 
         app:layout_constraintRight_toRightOf="parent"
