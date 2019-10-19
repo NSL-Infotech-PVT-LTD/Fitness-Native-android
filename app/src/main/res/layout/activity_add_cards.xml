@@ -28,23 +28,23 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/addcardbackground"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCardsTv"
-            app:layout_constraintBottom_toBottomOf="@id/guideline"
-            android:layout_marginTop="@dimen/_10sdp"/>
+            app:layout_constraintTop_toBottomOf="@id/addCardsTv" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/addCardsTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="@string/add_cards"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_24sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -81,27 +81,27 @@
                 android:id="@+id/fill_card_detail_Tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/fill_your_card_details"
-                android:textSize="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_regular"
+                android:text="@string/fill_your_card_details"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addCardNameEdt"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_height="@dimen/_40sdp"
+
                 android:background="@drawable/card_input_edt_background"
                 android:focusable="true"
+                android:fontFamily="@font/poppins_regular"
                 android:hint="@string/name_on_card"
                 android:inputType="text"
                 android:padding="@dimen/_7sdp"
                 android:singleLine="true"
-                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/fill_card_detail_Tv" />
@@ -109,39 +109,42 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addCardNumEdt"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/card_input_edt_background"
                 android:focusable="true"
+                android:fontFamily="@font/poppins_semibold"
                 android:hint="@string/card_number"
                 android:inputType="number"
                 android:padding="@dimen/_7sdp"
                 android:singleLine="true"
-                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/addCardNameEdt" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/expiryMonthTV"
-                android:layout_width="@dimen/_55sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/card_input_edt_background"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
                 android:padding="@dimen/_9sdp"
                 android:text="2"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_10sdp"
+                app:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toLeftOf="@+id/expiryYearTV"
                 app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/citySpin"
                 style="@style/CustomSpinnerTheme"
-                android:layout_width="@dimen/_55sdp"
-                android:layout_height="@dimen/_38sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:gravity="left"
                 android:padding="@dimen/_15sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/expiryMonthTV"
@@ -151,23 +154,25 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/expiryYearTV"
-                android:layout_width="@dimen/_75sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/card_input_edt_background"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
                 android:padding="@dimen/_9sdp"
                 android:text="2"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_10sdp"
+                app:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toRightOf="@+id/expiryMonthTV"
-                app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt"
-                app:layout_constraintRight_toLeftOf="@+id/cvvTv" />
+                app:layout_constraintRight_toLeftOf="@+id/cvvTv"
+                app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/expiryYearSpin"
                 style="@style/CustomSpinnerTheme"
-                android:layout_width="@dimen/_75sdp"
-                android:layout_height="@dimen/_38sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:gravity="center_vertical"
                 android:padding="@dimen/_15sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/expiryYearTV"
@@ -177,43 +182,46 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/cvvTv"
                 android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_marginLeft="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/card_input_edt_background"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
                 android:padding="@dimen/_9sdp"
                 android:text="CVV"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toRightOf="@+id/expiryYearTV"
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@+id/addCardNumEdt" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/cvvEdt"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@null"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
                 android:inputType="text"
                 android:maxLines="1"
-                android:background="@null"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:gravity="center_vertical"
                 android:padding="@dimen/_15sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/cvvTv"
                 app:layout_constraintRight_toRightOf="@id/cvvTv"
-                app:layout_constraintTop_toTopOf="@+id/cvvTv"/>
+                app:layout_constraintTop_toTopOf="@+id/cvvTv" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorGreen"
+                android:fontFamily="@font/poppins_regular"
                 android:text="@string/add_card_details"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
-                android:fontFamily="@font/poppins_semibold"
-                app:cornerRadius="@dimen/_4sdp"
+                app:cornerRadius="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@+id/expiryYearTV" />
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

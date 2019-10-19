@@ -27,6 +27,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.OfferSpaceActivity;
+import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
@@ -78,11 +79,11 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.c_fragment_home, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.c_fragment_home, container, false);
         View view = binding.getRoot();
-        progressDialog=new ProgressDialog(getContext());
-        retrofitinterface=RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false){
+        progressDialog = new ProgressDialog(getContext());
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return true;
@@ -90,9 +91,10 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
         getSpaceList();
-        Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context)).into(binding.cDashProImage);
-        binding.orgWelcomeOrgName.setText("Welcome "+CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,context));
+        Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
+        binding.orgWelcomeOrgName.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
         binding.createEventImg.setOnClickListener(this);
+        binding.findPlace.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
@@ -103,7 +105,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 //            case R.id.orglogOutTv:
 //                LoginManager.getInstance().logOut();
 //                CommonMethods.clearPrefData(getContext());
@@ -112,10 +114,16 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 //                getActivity().finish();
 //                break;
             case R.id.createEventImg:
+                PortfolioActivity.clearFromConstants();
                 Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
                 view.getContext().startActivity(createEvent);
                 break;
+            case R.id.findPlace:
+                Intent map = new Intent(getActivity(), AllEventsMapAct.class);
+                map.putExtra("from", "3");  view.getContext().startActivity(map);
+                break;
             case R.id.createSessionImg:
+                PortfolioActivity.clearFromConstants();
                 Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
                 view.getContext().startActivity(createSession);
                 break;
@@ -125,14 +133,15 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.orgViewAllSpaces:
                 Intent viewAll = new Intent(getContext(), AllEventsMapAct.class);
-                viewAll.putExtra("from","3");
+                viewAll.putExtra("from", "3");
                 getContext().startActivity(viewAll);
                 break;
         }
     }
+
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "","5","price_low");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -142,27 +151,27 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                         if (response.body().getData() != null) {
                             listModels.clear();
                             listModels.addAll(response.body().getData().getData());
-                            if (listModels!=null && listModels.size()>0) {
+                            if (listModels != null && listModels.size() > 0) {
                                 binding.noDataFoundImg.setVisibility(View.GONE);
                                 adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
                                 binding.coachSpaceRecyclerView.setAdapter(adapter);
-                            }else {
+                            } else {
                                 binding.noDataFoundImg.setVisibility(View.VISIBLE);
                             }
                         }
                     } else {
-                        Snackbar.make(binding.orgHomeLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.orgHomeLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
                         binding.noDataFoundImg.setVisibility(View.VISIBLE);
-                        Snackbar.make(binding.orgHomeLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -171,12 +180,11 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Snackbar.make(binding.orgHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
             }
         });
     }
-
 
 
 }

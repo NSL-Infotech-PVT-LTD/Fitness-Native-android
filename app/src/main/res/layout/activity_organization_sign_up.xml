@@ -37,7 +37,7 @@
                         android:id="@+id/completeProfileTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_50sdp"
+                        android:layout_marginLeft="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:background="@null"
                         android:fontFamily="@font/poppins_semibold"
@@ -467,7 +467,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_20sdp"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="@string/hourly_rate"
+                            android:text="@string/hourly_price"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/orgServiceDetailEdt" />

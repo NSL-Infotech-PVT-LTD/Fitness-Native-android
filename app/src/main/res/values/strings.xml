@@ -92,7 +92,7 @@
     <string name="expertise">Expertise</string>
     <string name="experience_detail">Experience Detail</string>
     <string name="training_service_detail">Training Service Detail</string>
-    <string name="hourly_rate">Hourly Rate</string>
+    <string name="hourly_price">Hourly Price</string>
     <string name="dollar_sign_value">$</string>
     <string name="enter_hourly_rate">4</string>
     <string name="rihana">Rihana</string>
@@ -295,7 +295,7 @@
     <string name="enter_event_name">Enter event name</string>
     <string name="enter_event_descriptions">Enter event descriptions</string>
     <string name="availability">Availability</string>
-    <string name="weekly_rate">Weekly Rate</string>
+    <string name="weekly_price">Weekly Price</string>
     <string name="start_week">Start Week</string>
     <string name="end_week">End Week</string>
     <string name="enter_space_name">Enter space name</string>
@@ -348,5 +348,7 @@
     <string name="user_previous_cards">User Previous Cards</string>
     <string name="add_card_procees">Add Card and Proceed</string>
     <string name="experience_text">Experience</string>
+    <string name="price_weekly">Price (weekly)</string>
+    <string name="price_hourly">Price (Hourly)</string>
 
 </resources>
