@@ -70,10 +70,10 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
             public void onClick(View view) {
 
 
-                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
-//                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
-                context.startActivity(topCoachesDetails);
+//                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
+////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
+//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
+//                context.startActivity(topCoachesDetails);
             }
         });
     }
