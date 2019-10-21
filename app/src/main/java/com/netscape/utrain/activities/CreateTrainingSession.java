@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,9 +98,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
         requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
-
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(PortfolioImagesConstants.partOne);
+        parts.add(PortfolioImagesConstants.partTwo);
+        parts.add(PortfolioImagesConstants.partThree);
+        parts.add(PortfolioImagesConstants.partFour);
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts );
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {

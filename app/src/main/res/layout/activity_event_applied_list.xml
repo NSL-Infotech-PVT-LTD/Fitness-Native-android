@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.organization.EventAppliedList">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_70sdp"
+        android:id="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/gradiant_design_bottom_square"></View>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendees List"
+        android:id="@+id/titleTv"
+        app:layout_constraintLeft_toLeftOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginLeft="@dimen/_50sdp"></com.google.android.material.textview.MaterialTextView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:id="@+id/backArrow"
+        android:background="@drawable/lefticonarrowwhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleTv"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTv"></androidx.appcompat.widget.AppCompatImageView>
+<androidx.recyclerview.widget.RecyclerView
+    app:layout_constraintTop_toBottomOf="@+id/view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/appliedListRecycler"
+    android:layout_marginTop="@dimen/_10sdp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    ></androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

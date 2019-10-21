@@ -551,18 +551,18 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         if (position == 2) {
 
             portFolioImage2 = userImg;
-            PortfolioImagesConstants.partTwo = portFolioImage1;
+            PortfolioImagesConstants.partTwo = portFolioImage2;
             PortfolioImagesConstants.imageTwo = setImages;
         }
         if (position == 3) {
 
             portFolioImage3 = userImg;
-            PortfolioImagesConstants.partThree = portFolioImage1;
+            PortfolioImagesConstants.partThree = portFolioImage3;
             PortfolioImagesConstants.imageThree = setImages;
         }
         if (position == 4) {
             portFolioImage4 = userImg;
-            PortfolioImagesConstants.partFour = portFolioImage1;
+            PortfolioImagesConstants.partFour = portFolioImage4;
             PortfolioImagesConstants.imageFour = setImages;
         }
     }

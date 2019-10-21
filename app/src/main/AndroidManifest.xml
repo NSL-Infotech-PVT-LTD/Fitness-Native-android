@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.netscape.utrain">
-    android:requestLegacyExternalStorage="true"
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/u_train"
@@ -15,7 +16,8 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.coach.CoachDashboard"></activity>
+        <activity android:name=".activities.organization.EventAppliedList"></activity>
+        <activity android:name=".activities.coach.CoachDashboard" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.EventBookingActivity" />
         <activity android:name=".activities.BookingActivity" />
@@ -36,8 +38,9 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".activities.organization.OrgMapFindAddressActivity"
-            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".activities.organization.OrgMapFindAddressActivity"
+            android:launchMode="singleInstance" />
         <activity android:name=".activities.athlete.AllEventsMapAct" />
         <activity android:name=".activities.SelectServices" />
         <activity android:name=".activities.organization.OrgHomeScreen" />
@@ -140,8 +143,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PortfolioActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".MainActivity"
