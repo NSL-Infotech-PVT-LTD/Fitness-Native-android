@@ -32,6 +32,7 @@ public class Constants {
     public static final String A_EVENT_LIST= "events/athlete/list";
     public static final String A_SPACE_LIST= "spaces/athlete/list";
     public static final String A_SESSION_LIST= "session/athlete/list";
+    public static final String A_EVENT_BOOKING_LIST= "booking/athlete/list";
 
 
     public static final String ORG_SPACE_LIST= "spaces/organiser/list";

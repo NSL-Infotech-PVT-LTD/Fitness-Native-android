@@ -2,6 +2,7 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.response.A_BookedEventResponse;
 import com.netscape.utrain.response.A_EventListResponse;
 import com.netscape.utrain.response.A_SessionResponse;
 import com.netscape.utrain.response.A_SpaceListResponse;
@@ -292,4 +293,13 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
                                                     @Query("order_by") String order_by);
+
+    @POST(Constants.A_EVENT_BOOKING_LIST)
+    Call<A_BookedEventResponse> getAthleteBookingList(@Header("Authorization") String Authorization,
+                                                      @Header("Content-Type") String contentType,
+                                                      @Query("target_id") String target_id,
+                                                      @Query("type") String type);
+
+
+
 }

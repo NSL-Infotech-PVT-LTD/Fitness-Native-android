@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheet_sort"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparentnew"
+    android:clickable="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cards_shape"
+        android:elevation="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ti_confirmed"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_ti_confirm"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingConfirmedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/booking_confirmed"
+            android:textColor="@color/gradientDarkColor"
+            android:textSize="@dimen/_14sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toRightOf="@id/ti_confirmed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:src="@drawable/sophie"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLARKE LINDSA"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_regular"
+            app:layout_constraintLeft_toLeftOf="@+id/bookingConfirmedText"
+            app:layout_constraintTop_toBottomOf="@id/bookingConfirmedText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingIdText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID : UT00002121521"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@id/userName" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingPlaceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marathon  Day "
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/bookingIdText"
+            app:layout_constraintTop_toBottomOf="@id/bookingIdText" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/eventText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event"
+            android:background="@drawable/round_background_colord"
+            android:backgroundTint="@color/colorTransparentnew"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/bookingIdText" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ti_date"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_ti_date"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookingPlaceName"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookingDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID : UT00002121521"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@id/bookingPlaceName"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ti_location"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_ti_location"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ti_date"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ti_locationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID : UT00002121521"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@id/ti_date"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ti_tickets"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_ticket"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ti_location"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ti_Booking_Ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID : UT00002121521"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@id/ti_locationText"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+
+        <view
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:backgroundTint="@color/colorLightGray"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ti_Booking_Ticket"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ti_TotalTicketPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID : UT00002121521"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ti_TotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$100.00"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Taxes"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/ti_TotalTicketPrice"
+     />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ti_tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/ti_TotalPrice" />
+
+
+
+
+  <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/totalAmountpaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount Paid"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/tax"
+     />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$100.00"
+            android:textColor="@color/lightGrayFont"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/ti_tax" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

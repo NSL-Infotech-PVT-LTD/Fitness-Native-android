@@ -115,7 +115,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addDataToList() {
-        startWeekList.add("Start Week");
+        startWeekList.add("Week day");
         startWeekList.add("Sunday");
         startWeekList.add("Monday");
         startWeekList.add("Tuesday");
