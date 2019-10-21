@@ -15,8 +15,8 @@
             android:id="@+id/createTrainingSessionTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/offer_space"
             android:textColor="@color/colorBlack"
@@ -105,6 +105,93 @@
 
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/createEvent_LocationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/location"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/offerSpaceNameEdt" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/getAddressTv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:drawableRight="@drawable/ic_my_location"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/address"
+                android:inputType="text"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingRight="@dimen/_15sdp"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/createEvent_LocationTv" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/createEventStartTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/start_time_hour"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/createEventEndTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/end_time_hour"
+                android:textSize="@dimen/_10sdp"
+                app:fontFamily="@font/poppins_regular"
+                app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
+                app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/createEvtnStartTimeTv"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:drawableLeft="@drawable/ic_time"
+                android:drawablePadding="@dimen/_10sdp"
+                android:gravity="left|center_vertical"
+                android:hint="@string/start_time"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:fontFamily="@font/poppins_regular"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/createEventEndTime"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/card_input_edt_background"
+                android:drawableLeft="@drawable/ic_time"
+                android:drawablePadding="@dimen/_10sdp"
+                android:gravity="left|center_vertical"
+                android:hint="@string/end_time"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:fontFamily="@font/poppins_regular"
+                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
+
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/offerSpacePriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +201,7 @@
                 android:textSize="@dimen/_10sdp"
                 app:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/offerSpaceNameEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
 
             <!--        <com.google.android.material.textview.MaterialTextView-->
             <!--            android:id="@+id/offerSpacePriceEnterTv"-->
@@ -156,7 +243,7 @@
                 android:textSize="@dimen/_10sdp"
                 app:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="@id/offerSpaceWeeklyPrice"
-                app:layout_constraintTop_toBottomOf="@id/offerSpaceNameEdt" />
+                app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/offerSpaceWeeklyPrice"

@@ -81,8 +81,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private List<CoachListModel> data = new ArrayList<>();
     private List<CoachListModel> orgList = new ArrayList<>();
 
-    private MaterialButton btnTopCoaches;
-    private MaterialButton btnTopOrganization;
+    private MaterialTextView btnTopCoaches;
+    private MaterialTextView btnTopOrganization;
     private Retrofitinterface api;
     private List<CoachListModel> coachList = new ArrayList<>();
     TopCoachesAdapter coachAdapter;

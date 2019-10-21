@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateTrainingSessionBinding;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -66,8 +67,12 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private String startTime = "";
     private Date strDate = null;
     private Date now = null;
+    private int ADDRESS_EVENT = 132;
+    String eventAddress = "";
+    private String locationLat = "", locationLong = "";
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_training_session);
@@ -80,6 +85,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
+        binding.getAddressTv.setOnClickListener(this);
         progressDialog.setCancelable(false);
         binding.createTrainingDateTv.setOnClickListener(this);
         binding.createTrainingTimeTv.setOnClickListener(this);
@@ -96,7 +102,9 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
-        requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));   requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(PortfolioImagesConstants.partOne);
@@ -143,7 +151,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.createTrainingDateTv:
+            case R.id.getAddressTv:
+                Intent getAddress = new Intent(CreateTrainingSession.this, OrgMapFindAddressActivity.class);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(getAddress, ADDRESS_EVENT);
+                break; case R.id.createTrainingDateTv:
                 getTrainingDate();
                 break;
             case R.id.createTrainingTimeTv:
@@ -228,7 +240,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         sessionStartTime = binding.createTrainingTimeTv.getText().toString();
         sessionHourlyRate = binding.createTrainingSessionHourRateEdt.getText().toString();
         sessionMaxOccupancy = binding.createTrainingSessionMaxOccuEdt.getText().toString();
-
+        eventAddress = binding.getAddressTv.getText().toString();
         if (sessionName.isEmpty()) {
             binding.createTrainingSessionNameEdt.setError(getResources().getString(R.string.enter_session_name));
             binding.createTrainingSessionNameEdt.requestFocus();
@@ -240,6 +252,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionPhone.isEmpty()) {
             binding.createTrainingSessionPhoneEdt.setError(getResources().getString(R.string.enter_phone_number));
             binding.createTrainingSessionPhoneEdt.requestFocus();
+        } else if (eventAddress.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.selecte_event_address), Toast.LENGTH_SHORT).show();
         } else if (sessionStartDate.isEmpty()) {
             Toast.makeText(this, "Enter session start date", Toast.LENGTH_SHORT).show();
 
@@ -262,7 +276,15 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == SESSIOM_IMAGE) {
+            if (requestCode == ADDRESS_EVENT) {
+                if (data != null && data.hasExtra(Constants.ADDRESS)) {
+                    binding.getAddressTv.setText(data.getStringExtra(Constants.ADDRESS));
+                    binding.getAddressTv.setError(null);
+                    locationLat = data.getStringExtra(Constants.LOCATION_LAT);
+                    locationLong = data.getStringExtra(Constants.LOCATION_LONG);
+                }
+            }
+              else if (requestCode == SESSIOM_IMAGE) {
                 if (data != null && data.hasExtra(Constants.ADDRESS)) {
                     Toast.makeText(CreateTrainingSession.this, "Images Imported", Toast.LENGTH_SHORT).show();
                     binding.createTrainingSessionUploadTv.setText(PortfolioImagesConstants.numImages + " Images selected");

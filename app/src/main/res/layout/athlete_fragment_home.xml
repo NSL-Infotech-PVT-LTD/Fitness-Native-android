@@ -230,35 +230,33 @@
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/searchEdt" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/topCoachesViewAllBtn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:backgroundTint="@color/colorWhite"
+            android:layout_marginRight="@dimen/_20sdp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/view_all"
+            android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_7sdp"
-            app:cornerRadius="@dimen/_10sdp"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesTv"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/athleteTopCoachesTv"
-            app:strokeColor="@color/colorGreen"
-            app:strokeWidth="@dimen/_1sdp" />
+            app:layout_constraintTop_toTopOf="@+id/athleteTopCoachesTv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/no_data_png"
             android:layout_margin="@dimen/_30sdp"
+            android:src="@drawable/no_data_png"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesRecycler"
             app:layout_constraintLeft_toLeftOf="@id/athleteTopCoachesRecycler"
             app:layout_constraintRight_toRightOf="@+id/athleteTopCoachesRecycler"
-            app:layout_constraintTop_toTopOf="@id/athleteTopCoachesRecycler"
-            app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesRecycler"/>
-            />
+            app:layout_constraintTop_toTopOf="@id/athleteTopCoachesRecycler" />
+        />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/athleteTopCoachesRecycler"
             android:layout_width="0dp"
@@ -267,7 +265,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:elevation="@dimen/_4sdp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesTv" />
 
@@ -282,34 +280,32 @@
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesRecycler" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/topOrgViewAllBtn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:backgroundTint="@color/colorWhite"
+            android:layout_marginRight="@dimen/_20sdp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/view_all"
             android:textAllCaps="false"
+            android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_7sdp"
-            app:cornerRadius="@dimen/_10sdp"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationTv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv"
-            app:strokeColor="@color/colorGreen"
-            app:strokeWidth="@dimen/_1sdp" />
+             />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/no_data_png"
             android:layout_margin="@dimen/_30sdp"
+            android:src="@drawable/no_data_png"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationRecycler"
             app:layout_constraintLeft_toLeftOf="@id/athleteTopOrganizationRecycler"
             app:layout_constraintRight_toRightOf="@+id/athleteTopOrganizationRecycler"
-            app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationRecycler"
-            app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationRecycler"/>
+            app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationRecycler" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/athleteTopOrganizationRecycler"
@@ -319,7 +315,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:elevation="@dimen/_4sdp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationTv" />
 

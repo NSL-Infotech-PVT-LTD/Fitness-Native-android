@@ -160,12 +160,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.getAddressTv:
                 Intent getAddress = new Intent(CreateEventActivity.this, OrgMapFindAddressActivity.class);
-                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityForResult(getAddress, ADDRESS_EVENT);
                 break;
             case R.id.createEventImages:
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
-                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 PortfolioActivity.getImages = true;
                 startActivityForResult(getImages, IMAGE_GET);
                 break;
@@ -197,29 +197,29 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
 
-                timeNow=convertDate(mHour) + ":" + convertDate(mMinute);
+                timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
 
 
 //                int currentTime = LocalTime.parse(startTime);
 
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
 
-               Date time =  Calendar.getInstance().getTime();
-                if (stDate!=null && endDate!=null) {
+                Date time = Calendar.getInstance().getTime();
+                if (stDate != null && endDate != null) {
                     if (endDate.compareTo(stDate) == 0) {
-                if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
-                    binding.createEvtnStartTimeTv.setText(startTime);
-                    binding.createEventEndTime.setText("");
-                    binding.createEventEndTime.setHint("End time");
-                } else {
-                    binding.createEvtnStartTimeTv.setText("");
-                    binding.createEvtnStartTimeTv.setHint("Start time");
-                    Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
-                }
+                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+                            binding.createEvtnStartTimeTv.setText(startTime);
+                            binding.createEventEndTime.setText("");
+                            binding.createEventEndTime.setHint("End time");
+                        } else {
+                            binding.createEvtnStartTimeTv.setText("");
+                            binding.createEvtnStartTimeTv.setHint("Start time");
+                            Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         binding.createEvtnStartTimeTv.setText(startTime);
                     }
-                }else {
+                } else {
                     Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
                 }
 
@@ -238,7 +238,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
-                if (stDate!=null && endDate!=null) {
+                if (stDate != null && endDate != null) {
                     if (endDate.compareTo(stDate) == 0) {
                         if (!startTime.isEmpty()) {
                             if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
@@ -255,7 +255,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                         binding.createEventEndTime.setText(endTime);
 
                     }
-                }else {
+                } else {
                     Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
                 }
 
@@ -294,17 +294,17 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createEventEndDatetv.setPadding(20, 20, 20, 20);
-                enDate = year + "-" + convertDate((monthOfYear + 1)) + "-" +convertDate(dayOfMonth) ;
-                eDate = year + "/" + convertDate((monthOfYear + 1)) + "/" +convertDate(dayOfMonth) ;
+                enDate = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
+                eDate = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
                 endDate = formatDate(eDate);
-                if (stDate!=null) {
+                if (stDate != null) {
                     if (endDate.compareTo(stDate) >= 0) {
                         Log.i("app", "Date1 is after Date2");
                         binding.createEventEndDatetv.setText(eDate);
                     } else {
                         Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(CreateEventActivity.this, "Select start Date", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -389,8 +389,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 }
             } else if (requestCode == IMAGE_GET) {
 //                if (data != null && data.hasExtra(Constants.ADDRESS)) {
-                    Toast.makeText(CreateEventActivity.this, "Images Imported", Toast.LENGTH_SHORT).show();
-                    binding.createEventImages.setText(PortfolioImagesConstants.numImages + " Selected");
+                Toast.makeText(CreateEventActivity.this, "Images Imported", Toast.LENGTH_SHORT).show();
+                binding.createEventImages.setText(PortfolioImagesConstants.numImages + " Selected");
 //                }
             }
         } else {

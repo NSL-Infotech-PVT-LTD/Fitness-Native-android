@@ -3,6 +3,7 @@ package com.netscape.utrain.fragments;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.FragmentOHistoryBinding;
@@ -104,7 +106,7 @@ public class O_HistoryFragment extends Fragment {
         bottomSheetBehavior_sort();
 //        binding.historyTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
 //        binding.historyTabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-        binding.historyTabLayou.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
+        binding.historyTabLayou.setTabTextColors(Color.parseColor("#D6D6D6"), Color.parseColor("#ffffff"));
         setupViewPager(binding.historyViewPager);
         binding.historyTabLayou.setupWithViewPager(binding.historyViewPager);
 
@@ -115,6 +117,7 @@ public class O_HistoryFragment extends Fragment {
             }
         });
 
+        wrapTabIndicatorToTitle(binding.historyTabLayou,100,50);
 
         liearLayout.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -229,6 +232,7 @@ public class O_HistoryFragment extends Fragment {
 
 
     private void selectedTExt() {
+        wrapTabIndicatorToTitle(binding.historyTabLayou,100,50);
         if (sort_count == 1) {
 
             checkClick();
@@ -368,4 +372,45 @@ public class O_HistoryFragment extends Fragment {
     }
 
 
+    public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
+        View tabStrip = tabLayout.getChildAt(0);
+        if (tabStrip instanceof ViewGroup) {
+            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
+            int childCount = ((ViewGroup) tabStrip).getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View tabView = tabStripGroup.getChildAt(i);
+                //set minimum width to 0 for instead for small texts, indicator is not wrapped as expected
+                tabView.setMinimumWidth(0);
+                // set padding to 0 for wrapping indicator as title
+                tabView.setPadding(0, tabView.getPaddingTop(), 0, tabView.getPaddingBottom());
+                // setting custom margin between tabs
+                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
+                    if (i == 0) {
+                        // left
+                        settingMargin(layoutParams, externalMargin, internalMargin);
+                    } else if (i == childCount - 1) {
+                        // right
+                        settingMargin(layoutParams, internalMargin, externalMargin);
+                    } else {
+                        // internal
+                        settingMargin(layoutParams, internalMargin, internalMargin);
+                    }
+                }
+            }
+
+
+            tabLayout.requestLayout();
+        }
+    }
+
+    private void settingMargin(ViewGroup.MarginLayoutParams layoutParams, int start, int end) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            layoutParams.setMarginStart(start);
+            layoutParams.setMarginEnd(end);
+        } else {
+            layoutParams.leftMargin = start;
+            layoutParams.rightMargin = end;
+        }
+    }
 }

@@ -1,271 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/paymentContainer"
-    android:layout_height="match_parent">
-
-    <ScrollView
-        android:id="@+id/dash_scroll"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/paymentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent">
 
-        android:fillViewport="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/dash_scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_createEventTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/select_payment"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/paymentBackImg"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:src="@drawable/ic_backblack"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/paymentDemo"
-                    android:layout_width="@dimen/_240sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/payment_demo"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/cards_shape"
-                    android:elevation="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/paymentDemo">
-
+                    android:layout_height="match_parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/addCardText"
+                        android:id="@+id/createEvent_createEventTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:hint="@string/add_cards"
-                        android:textSize="@dimen/_10sdp"
+                        android:text="@string/select_payment"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_16sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/paymentBackImg"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/paymentBackImg"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:src="@drawable/ic_backblack"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
-                        android:id="@+id/paymentView"
-                        android:layout_width="@dimen/_200sdp"
-                        android:layout_height="@dimen/_2sdp"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/paymentDemo"
+                        android:layout_width="@dimen/_240sdp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:backgroundTint="@color/lightGrayFont"
-                        app:layout_constraintLeft_toLeftOf="@id/addCardText"
-                        app:layout_constraintTop_toBottomOf="@id/addCardText" />
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/payment_demo"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
 
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cardPayment"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        app:cardCornerRadius="@dimen/_10sdp"
+                        android:src="@drawable/card"
+                        app:layout_constraintTop_toBottomOf="@id/paymentDemo" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/cards_shape"
+                        android:elevation="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/paymentView">
+                        app:layout_constraintTop_toBottomOf="@id/card">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/addCardText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:hint="@string/add_cards"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/paymentView"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="@dimen/_2sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:backgroundTint="@color/lightGrayFont"
+                            app:layout_constraintLeft_toLeftOf="@id/addCardText"
+                            app:layout_constraintTop_toBottomOf="@id/addCardText" />
+
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardPayment"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gradientLightColor">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_50sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/paymentView"
+                            app:layout_constraintVertical_bias="0">
 
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/cardNumberTV"
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginLeft="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_15sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:text="@string/card_number"
-                                android:textColor="@color/offwhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_height="match_parent"
+                                android:background="@color/gradientLightColor">
 
-                            <EditText
-                                android:id="@+id/cardNumberEditText"
-                                android:layout_width="@dimen/_150sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_15sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:hint="@string/card_number_enter"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:singleLine="true"
-                                android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/cardNumberTV"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_15sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:text="@string/card_number"
+                                    android:textColor="@color/offwhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/mmyyText"
-                                android:layout_width="@dimen/_150sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginLeft="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:text="@string/mm_yy"
-                                android:textColor="@color/offwhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/cardNumberTV" />
+                                <EditText
+                                    android:id="@+id/cardNumberEditText"
+                                    android:layout_width="@dimen/_150sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginTop="@dimen/_15sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/card_number_enter"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorWhite"
+                                    android:textColorHint="@color/colorWhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <EditText
-                                android:id="@+id/carDate"
-                                android:layout_width="@dimen/_80sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center"
-                                android:hint="@string/enter_month_year_detail"
-                                android:inputType="number"
-                                android:singleLine="true"
-                                android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintRight_toRightOf="@id/mmyyText"
-                                app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/mmyyText"
+                                    android:layout_width="@dimen/_150sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:text="@string/mm_yy"
+                                    android:textColor="@color/offwhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/cardNumberTV" />
 
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/cvvText"
-                                android:layout_width="@dimen/_90sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:text="@string/cvv"
-                                android:textColor="@color/offwhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
+                                <EditText
+                                    android:id="@+id/carDate"
+                                    android:layout_width="@dimen/_80sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center"
+                                    android:hint="@string/enter_month_year_detail"
+                                    android:inputType="number"
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorWhite"
+                                    android:textColorHint="@color/colorWhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintRight_toRightOf="@id/mmyyText"
+                                    app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
 
 
-                            <EditText
-                                android:id="@+id/cardCVV"
-                                android:layout_width="@dimen/_40sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center"
-                                android:hint="@string/enter_cvv"
-                                android:inputType="numberPassword"
-                                android:singleLine="true"
-                                android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/cardNameTV"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginLeft="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                 android:layout_marginRight="@dimen/_15sdp"
-                                android:layout_marginBottom="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:text="@string/name_on_card"
-                                android:textColor="@color/offwhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/mmyyText" />
-
-                            <EditText
-                                android:id="@+id/cardHolder"
-                                android:layout_width="@dimen/_150sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:layout_marginRight="@dimen/_15sdp"
-                                android:background="@drawable/gradiant_design_square_payment"
-                                android:fontFamily="@font/poppins_regular"
-                                android:gravity="center_vertical"
-                                android:hint="@string/name_on_card_enter"
-                                android:paddingLeft="@dimen/_15sdp"
-                                android:singleLine="true"
-                                android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
-                                android:textSize="@dimen/_10sdp"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/mmyyText" />
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/cvvText"
+                                    android:layout_width="@dimen/_90sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:text="@string/cvv"
+                                    android:textColor="@color/offwhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                                <EditText
+                                    android:id="@+id/cardCVV"
+                                    android:layout_width="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center"
+                                    android:hint="@string/enter_cvv"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="3"
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorWhite"
+                                    android:textColorHint="@color/colorWhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/usePreCardText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/user_previous_cards"
-                        android:textColor="@color/lightGrayFont"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cardPayment" />
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/cardNameTV"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:layout_marginBottom="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:text="@string/name_on_card"
+                                    android:textColor="@color/offwhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/mmyyText" />
+
+                                <EditText
+                                    android:id="@+id/cardHolder"
+                                    android:layout_width="@dimen/_150sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_15sdp"
+                                    android:background="@drawable/gradiant_design_square_payment"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/name_on_card_enter"
+                                    android:paddingLeft="@dimen/_15sdp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorWhite"
+                                    android:textColorHint="@color/colorWhite"
+                                    android:textSize="@dimen/_10sdp"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/mmyyText" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/usePreCardText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:paddingBottom="@dimen/_100sdp"
+                            android:text="@string/user_previous_cards"
+                            android:textColor="@color/lightGrayFont"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cardPayment" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/usePreCardText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:paddingBottom="@dimen/_100sdp"
+                            android:text="@string/user_previous_cards"
+                            android:textColor="@color/lightGrayFont"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/usePreCardText" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -273,34 +301,29 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/validateCard"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:backgroundTint="@color/gradientDarkColor"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/confirm_booking_btn_booking_slot"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            app:cornerRadius="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/validateCard"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:backgroundTint="@color/gradientDarkColor"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/confirm_booking_btn_booking_slot"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_10sdp"
-        app:cornerRadius="@dimen/_5sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

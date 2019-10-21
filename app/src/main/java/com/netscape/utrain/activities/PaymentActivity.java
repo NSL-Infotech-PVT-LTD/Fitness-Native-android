@@ -72,8 +72,7 @@ public class PaymentActivity extends AppCompatActivity {
         binding.paymentBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PaymentActivity.this, EventBookingActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         init();

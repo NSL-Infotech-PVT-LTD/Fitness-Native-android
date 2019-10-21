@@ -8,7 +8,7 @@
     <string name="my_porfile">My Profile</string>
     <string name="edit">Edit</string>
     <string name="athlete">Athlete</string>
-    <string name="add_cards">Add Cards</string>
+    <string name="add_cards">Add Card</string>
     <string name="fill_your_card_details">Fill your card details</string>
     <string name="name_on_card">Name on card</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
@@ -236,7 +236,7 @@
     <string name="number_of_candidate">126</string>
     <string name="candidate">Candidate</string>
     <string name="instruction">Instructions</string>
-    <string name="instruction_detail">lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at \n dolore magna aliqua. \n lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at \n dolore magna aliqua. </string>
+    <string name="instruction_detail">1.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n 2.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do., \n 3.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do. </string>
     <string name="join_now">Join Now</string>
     <string name="find_a_place">Find a Place</string>
     <string name="find_a_place_text">Quisque euismod placerat ipsum, sed \n placerat nibh posuere et.</string>
@@ -327,7 +327,7 @@
     <string name="business_date_train_session">Business Date</string>
     <string name="business_time_train_session">Business Hour</string>
     <string name="title_activity_org_drawer_navigation">OrgDrawerNavigation</string>
-    <string name="event_booking">Event Booking</string>
+    <string name="event_booking">Booking</string>
     <string name="ticket">Ticket(s) you want \n to Book</string>
     <string name="default_notification_channel_id">channel-1</string>
     <string name="cannotExceed">You can book not more than 5 ticket>>>>>>> de26f9c31474c1c2a4639c05666c2564de9bd75ds</string>
@@ -343,12 +343,13 @@
     <string name="mm_yy">MM/YY</string>
     <string name="enter_month_year_detail">09/2023</string>
     <string name="cvv">CVV</string>
-    <string name="enter_cvv">***</string>
+    <string name="enter_cvv">...</string>
     <string name="name_on_card_enter">Alden Smith</string>
     <string name="user_previous_cards">User Previous Cards</string>
     <string name="add_card_procees">Add Card and Proceed</string>
     <string name="experience_text">Experience</string>
     <string name="price_weekly">Price (weekly)</string>
     <string name="price_hourly">Price (Hourly)</string>
+    <string name="seat">Seat</string>
 
 </resources>
