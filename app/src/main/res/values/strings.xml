@@ -350,7 +350,8 @@
     <string name="experience_text">Experience</string>
     <string name="price_weekly">Price (weekly)</string>
     <string name="price_hourly">Price (Hourly)</string>
-    <string name="seat">Seat</string>
+    <string name="seat">Seats</string>
     <string name="booking_confirmed">Booking Confirmed</string>
+    <string name="no_of_seat_left">Number of Seats \n Left</string>
 
 </resources>

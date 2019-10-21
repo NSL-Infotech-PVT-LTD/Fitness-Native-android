@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_EventDataModel;
 import com.netscape.utrain.model.O_EventDataModel;
@@ -66,6 +67,8 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         holder.eventName.setText(data.getName());
         holder.eventVenue.setText(data.getLocation());
         holder.eventDate.setText(data.getStart_date());
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +78,17 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 ////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
 //                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
 //                context.startActivity(topCoachesDetails);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                context.startActivity(topCoachesDetails);
             }
         });
     }

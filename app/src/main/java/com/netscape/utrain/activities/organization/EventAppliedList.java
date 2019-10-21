@@ -1,18 +1,22 @@
 package com.netscape.utrain.activities.organization;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.adapters_org.O_BookedEventListAdapter;
-import com.netscape.utrain.databinding.ActivityEventAppliedListBinding;
+import com.netscape.utrain.model.BookedUserModel;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -22,34 +26,107 @@ import com.netscape.utrain.utils.Constants;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EventAppliedList extends AppCompatActivity {
-    private ActivityEventAppliedListBinding binding;
     private RecyclerView.LayoutManager layoutManager;
     private O_BookedEventListAdapter adapter;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
+    private ConstraintLayout userBottomSheeet;
+    private List<BookedUserModel> list = new ArrayList<>();
+    BookedUserModel model;
+
+    private BottomSheetBehavior sheetBehavior;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_event_applied_list);
-        layoutManager=new LinearLayoutManager(this);
-        binding.appliedListRecycler.setLayoutManager(layoutManager);
+        setContentView(R.layout.activity_event_applied_list);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.appliedListRecycler);
+
+
+        userBottomSheeet = findViewById(R.id.userBottomSheeet);
+        sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
+
+        bottomSheetBehavior_sort();
         init();
+
 
     }
 
-    private void init() {
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Loading....");
-        if (getIntent().getExtras()!=null){
-            String id=getIntent().getStringExtra(Constants.SELECTED_ID);
+    private void bottomSheetUpDown_address() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
+
+
+    }
+
+    private void bottomSheetBehavior_sort() {
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void init() {
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading....");
+        if (getIntent().getExtras() != null) {
+            String id = getIntent().getStringExtra(Constants.SELECTED_ID);
+        }
+
+        for (int i = 0; i < 6; i++) {
+            model = new BookedUserModel();
+            model.setUserName("My Girlfriend");
+            model.setUserImage(R.drawable.sophie);
+
+            list.add(model);
+
+        }
+        adapter = new O_BookedEventListAdapter(EventAppliedList.this, list, new O_BookedEventListAdapter.onClick() {
+            @Override
+            public void onClick() {
+
+                bottomSheetUpDown_address();
+
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+
     }
 
 //    public void getNumOfBookedList() {
