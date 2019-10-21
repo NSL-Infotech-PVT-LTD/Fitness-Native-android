@@ -110,7 +110,7 @@ public class EventAppliedList extends AppCompatActivity {
 
         for (int i = 0; i < 6; i++) {
             model = new BookedUserModel();
-            model.setUserName("My Girlfriend");
+            model.setUserName("sophie sophie");
             model.setUserImage(R.drawable.sophie);
 
             list.add(model);

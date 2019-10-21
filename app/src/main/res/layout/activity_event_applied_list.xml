@@ -16,7 +16,7 @@
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_height="@dimen/_50sdp"
             android:background="@drawable/gradiant_design_bottom_square"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"></View>
@@ -29,7 +29,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Attendees List"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintLeft_toLeftOf="@+id/view"
             app:layout_constraintTop_toTopOf="@+id/view"></com.google.android.material.textview.MaterialTextView>
@@ -48,7 +48,7 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_margin="@dimen/_15sdp"
             android:background="@drawable/round_green_design"
             android:drawableRight="@drawable/magnifier"
             android:hint="Tap to Search Attendee"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
