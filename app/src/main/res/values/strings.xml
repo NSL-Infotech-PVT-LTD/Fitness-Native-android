@@ -351,5 +351,6 @@
     <string name="price_weekly">Price (weekly)</string>
     <string name="price_hourly">Price (Hourly)</string>
     <string name="seat">Seat</string>
+    <string name="booking_confirmed">Booking Confirmed</string>
 
 </resources>
