@@ -420,8 +420,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 //        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("text/plain"),));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(PortfolioImagesConstants.partOne);
+        parts.add(PortfolioImagesConstants.partTwo);
+        parts.add(PortfolioImagesConstants.partThree);
+        parts.add(PortfolioImagesConstants.partFour);
+
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, PortfolioImagesConstants.partOne, PortfolioImagesConstants.partTwo, PortfolioImagesConstants.partThree, PortfolioImagesConstants.partFour);
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap,parts);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {

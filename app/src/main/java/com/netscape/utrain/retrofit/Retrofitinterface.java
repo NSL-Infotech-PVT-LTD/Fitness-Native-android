@@ -26,6 +26,7 @@ import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -195,32 +196,41 @@ public interface Retrofitinterface {
                                                     @Query("order_by") String order_by
     );
 
-    @Multipart
-    @POST(Constants.EVENTS_STORE)
-    Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
-                                             @PartMap Map<String, RequestBody> fields,
-                                             @Part MultipartBody.Part imageOne,
-                                             @Part MultipartBody.Part imageTwo,
-                                             @Part MultipartBody.Part imageThree,
-                                             @Part MultipartBody.Part imageFour);
+//    @Multipart
+//    @POST(Constants.EVENTS_STORE)
+//    Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
+//                                             @PartMap Map<String, RequestBody> fields,
+//                                             @Part MultipartBody.Part imageOne,
+//                                             @Part MultipartBody.Part imageTwo,
+//                                             @Part MultipartBody.Part imageThree,
+//                                             @Part MultipartBody.Part imageFour);
+@Multipart
+@POST(Constants.EVENTS_STORE)
+Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
+                                         @PartMap Map<String, RequestBody> fields,
+                                         @Part List<MultipartBody.Part> files);
+
 
     @Multipart
     @POST(Constants.CREATE_SPACE)
     Call<OrgCreateEventResponse> createSpace(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
-                                             @Part MultipartBody.Part imageOne,
-                                             @Part MultipartBody.Part imageTwo,
-                                             @Part MultipartBody.Part imageThree,
-                                             @Part MultipartBody.Part imageFour);
+                                                 @Part List<MultipartBody.Part> files);
+
+//    @Multipart
+//    @POST(Constants.CREATE_SPACE)
+//    Call<OrgCreateEventResponse> createSpace(@Header("Authorization") String auth,
+//                                             @PartMap Map<String, RequestBody> fields,
+//                                             @Part MultipartBody.Part imageOne,
+//                                             @Part MultipartBody.Part imageTwo,
+//                                             @Part MultipartBody.Part imageThree,
+//                                             @Part MultipartBody.Part imageFour);
 
     @Multipart
     @POST(Constants.CREATE_SESSION)
     Call<OrgCreateEventResponse> createSession(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
-                                               @Part MultipartBody.Part imageOne,
-                                               @Part MultipartBody.Part imageTwo,
-                                               @Part MultipartBody.Part imageThree,
-                                               @Part MultipartBody.Part imageFour);
+                                               @Part List<MultipartBody.Part> files);
 
     @POST(Constants.EVENT_DETAIL)
     Call<EventBookingModel> eventDetail(@Header("Authorization") String Authorization,
