@@ -351,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="@string/number_of_candidate_attending"
+                android:text="@string/no_of_seat_left"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/view3"

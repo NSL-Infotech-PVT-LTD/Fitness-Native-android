@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.organization.EventAppliedList">
-    <View
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
-        android:id="@+id/view"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/gradiant_design_bottom_square"></View>
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Attendees List"
-        android:id="@+id/titleTv"
-        app:layout_constraintLeft_toLeftOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_20sdp"
-        android:fontFamily="@font/poppins_semibold"
-        android:layout_marginLeft="@dimen/_50sdp"></com.google.android.material.textview.MaterialTextView>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:id="@+id/backArrow"
-        android:background="@drawable/lefticonarrowwhite"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleTv"
-        android:layout_marginLeft="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleTv"></androidx.appcompat.widget.AppCompatImageView>
-<androidx.recyclerview.widget.RecyclerView
-    app:layout_constraintTop_toBottomOf="@+id/view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/appliedListRecycler"
-    android:layout_marginTop="@dimen/_10sdp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    ></androidx.recyclerview.widget.RecyclerView>
-</androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+        android:layout_height="match_parent"
+        tools:context=".activities.organization.EventAppliedList">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:background="@drawable/gradiant_design_bottom_square"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></View>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Attendees List"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintLeft_toLeftOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"></com.google.android.material.textview.MaterialTextView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backArrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:background="@drawable/lefticonarrowwhite"
+            app:layout_constraintBottom_toBottomOf="@+id/titleTv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/titleTv"></androidx.appcompat.widget.AppCompatImageView>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/round_green_design"
+            android:drawableRight="@drawable/magnifier"
+            android:hint="Tap to Search Attendee"
+            android:paddingLeft="@dimen/_12sdp"
+            android:paddingRight="@dimen/_15sdp"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/lightGrayFont"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appliedListRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include layout="@layout/custom_user_detail_bottom_sheet" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

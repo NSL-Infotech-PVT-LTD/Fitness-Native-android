@@ -16,7 +16,10 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.organization.EventAppliedList"></activity>
+        <activity android:name=".activities.organization.EventAppliedList"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activities.coach.CoachDashboard"
             android:screenOrientation="portrait" />
