@@ -149,8 +149,8 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 
 
-        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
-        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndtime));
+        requestBodyMap.put("open_hours_from", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
+        requestBodyMap.put("open_hours_to", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndtime));
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
@@ -230,33 +230,8 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
-
-                timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
-
-
-//                int currentTime = LocalTime.parse(startTime);
-
+                binding.createEvtnStartTimeTv.setText(startTime);
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
-
-                Date time = Calendar.getInstance().getTime();
-                if (stDate != null && endDate != null) {
-                    if (endDate.compareTo(stDate) == 0) {
-                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
-                            binding.createEvtnStartTimeTv.setText(startTime);
-                            binding.createEventEndTime.setText("");
-                            binding.createEventEndTime.setHint("End time");
-                        } else {
-                            binding.createEvtnStartTimeTv.setText("");
-                            binding.createEvtnStartTimeTv.setHint("Start time");
-                            Toast.makeText(OfferSpaceActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        binding.createEvtnStartTimeTv.setText(startTime);
-                    }
-                } else {
-                    Toast.makeText(OfferSpaceActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
-                }
-
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
@@ -279,26 +254,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
-                if (stDate != null && endDate != null) {
-                    if (endDate.compareTo(stDate) == 0) {
-                        if (!startTime.isEmpty()) {
-                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
-                                binding.createEventEndTime.setText(endTime);
-                            } else {
-                                binding.createEventEndTime.setText("");
-                                binding.createEventEndTime.setHint("End time");
-                                Toast.makeText(OfferSpaceActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(OfferSpaceActivity.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        binding.createEventEndTime.setText(endTime);
-
-                    }
-                } else {
-                    Toast.makeText(OfferSpaceActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
-                }
+                binding.createEventEndTime.setText(endTime);
 
             }
         }, mHour, mMinute, true);
