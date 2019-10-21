@@ -509,7 +509,7 @@
                             android:layout_marginTop="@dimen/_20sdp"
                             android:layout_marginBottom="@dimen/_20sdp"
                             android:backgroundTint="@color/colorGreen"
-                            android:fontFamily="@font/poppins_semibold"
+                            android:fontFamily="@font/poppins_regular"
                             android:gravity="center"
                             android:text="@string/two_more_step"
                             android:textAllCaps="false"

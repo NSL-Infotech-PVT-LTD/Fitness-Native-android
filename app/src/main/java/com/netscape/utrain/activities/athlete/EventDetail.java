@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventBookingActivity;
@@ -47,7 +48,7 @@ public class EventDetail extends AppCompatActivity {
     ViewPagerAdapter adapter;
     List<String> imageList = new ArrayList<>();
     MyCustomPagerAdapter pagerAdapter;
-    MaterialTextView evntJoinNow;
+    MaterialButton evntJoinNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class EventDetail extends AppCompatActivity {
         venueAddress.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
         eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
         eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
-        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
+//        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
@@ -151,7 +152,7 @@ public class EventDetail extends AppCompatActivity {
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);
             CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            if (viewPager.getAdapter().getCount() == 1)
+            if (viewPager.getAdapter().getCount() <= 1)
 
                 indicator.setViewPager(null);
             else

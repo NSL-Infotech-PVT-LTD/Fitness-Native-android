@@ -75,6 +75,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_map_find_address);
+
         confirmLocRel=findViewById(R.id.confirmLocRel);
         searchLin=findViewById(R.id.searchLin);
         searchEdt=findViewById(R.id.searchEdt);

@@ -12,6 +12,7 @@
         tools:context=".activities.CreateTrainingSession">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ctsBackArrowImg"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -25,13 +26,13 @@
             android:id="@+id/createTrainingSessionTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_training_session"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/ctsBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.17" />
+            app:layout_constraintGuide_percent="0.19" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -178,6 +179,38 @@
                         app:layout_constraintTop_toBottomOf="@id/createTrainSessionPhoneText" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvent_LocationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/location"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@+id/createTrainingSessionPhoneEdt" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/getAddressTv"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableRight="@drawable/ic_my_location"
+                        android:ellipsize="end"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/address"
+                        android:inputType="text"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEvent_LocationTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createTrainSessionDateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -186,7 +219,7 @@
                         android:text="@string/business_date_train_session"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createTrainingDateTv"
@@ -214,7 +247,7 @@
                         android:text="@string/business_time_train_session"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/createTrainingTimeTv"
-                        app:layout_constraintTop_toBottomOf="@id/createTrainingSessionPhoneEdt" />
+                        app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView

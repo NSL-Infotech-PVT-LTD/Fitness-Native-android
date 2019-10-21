@@ -37,6 +37,7 @@ public class EventBookingActivity extends AppCompatActivity {
     private ActivityEventBookingBinding binding;
     private int countVAlue = 1;
     private int ticketPrice;
+    String ticket = "Ticket Price";
     private int totalPrice;
 
     @Override
@@ -49,9 +50,7 @@ public class EventBookingActivity extends AppCompatActivity {
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EventBookingActivity.this, EventDetail.class);
-                startActivity(intent);
-
+                finish();
             }
         });
 
@@ -66,7 +65,7 @@ public class EventBookingActivity extends AppCompatActivity {
                 if (countVAlue < 5) {
                     countVAlue += 1;
                     totalPrice = ticketPrice * countVAlue;
-                    binding.text1.setText((ticketPrice + "  * " + countVAlue) + "");
+                    binding.text1.setText((ticket + "  * " + countVAlue) + "");
                     binding.eventPrice.setText("$" + totalPrice + "");
                     binding.countDisplay.setText(countVAlue + "");
                 } else {
@@ -82,7 +81,7 @@ public class EventBookingActivity extends AppCompatActivity {
                 if (countVAlue > 1) {
                     countVAlue -= 1;
                     totalPrice = ticketPrice * countVAlue;
-                    binding.text1.setText((ticketPrice + "  * " + countVAlue) + "");
+                    binding.text1.setText((ticket + "  * " + countVAlue) + "");
                     binding.eventPrice.setText("$" + totalPrice + "");
                     binding.countDisplay.setText(countVAlue + "");
                 } else {
@@ -128,7 +127,7 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventDateDetailTv.setText(response.body().getData().getStart_date());
                             binding.eventPrice.setText("$" + response.body().getData().getPrice() + "");
                             ticketPrice = response.body().getData().getPrice();
-                            binding.text1.setText((ticketPrice + "*" + countVAlue) + "");
+                            binding.text1.setText((ticket + "*" + countVAlue) + "");
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());

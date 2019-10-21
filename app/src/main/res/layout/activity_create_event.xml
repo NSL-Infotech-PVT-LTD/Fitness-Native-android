@@ -12,6 +12,7 @@
         tools:context=".activities.CreateEventActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ceBackArrowImg"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -25,13 +26,13 @@
             android:id="@+id/createEvent_createEventTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_event"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/ceBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
