@@ -264,7 +264,7 @@ public interface Retrofitinterface {
                                              @Header("Content-Type") String contentType,
                                              @Query("order_by") String order_by);
 
-    @POST(Constants.ORG_SPACE_LIST)
+    @GET(Constants.ORG_SPACE_LIST)
     Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
                                               @Query("order_by") String order_by);
@@ -310,18 +310,21 @@ public interface Retrofitinterface {
     Call<AthleteBookListModel> getAthleteBookingList(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String contentType,
                                                      @Query("target_id") String target_id,
+                                                     @Query("order_by") String order_by,
                                                      @Query("type") String type);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSessionBookList> getAthleteSessionBookList(@Header("Authorization") String Authorization,
                                                            @Header("Content-Type") String contentType,
                                                            @Query("target_id") String target_id,
+                                                           @Query("order_by") String order_by,
                                                            @Query("type") String type);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSpaceBookList> getAthleteSpaceBookList(@Header("Authorization") String Authorization,
                                                        @Header("Content-Type") String contentType,
                                                        @Query("target_id") String target_id,
+                                                       @Query("order_by") String order_by,
                                                        @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)

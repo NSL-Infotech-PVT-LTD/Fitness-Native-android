@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
@@ -347,6 +348,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     @Override
     public void onClick(int type, int position) {
         if (type == 1) {
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+list.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(list.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + list.get(position).getId());
             bookingPlaceName.setText(list.get(position).getEvent().getName());
@@ -383,10 +385,11 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
         }
         if (type == 2) {
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+spaceData.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(spaceData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + spaceData.get(position).getId());
             bookingPlaceName.setText(spaceData.get(position).getSpace().getName());
-            eventText.setText("Event");
+            eventText.setText("Space");
 //            String currentStringEnd = spaceData.get(position).getSpace().getAvailability_week();
 //
 //
@@ -412,16 +415,17 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
             ti_locationText.setText(spaceData.get(position).getSpace().getLocation());
             ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendees & Tickets (1 per person)");
-            ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + list.get(position).getEvent().getPrice() + " each");
+            ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + spaceData.get(position).getSpace().getPrice_hourly()+ " each");
             ti_TotalPrice.setText("$" + spaceData.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");
             totalAmount.setText("$" + spaceData.get(position).getPrice() + ".00");
         }
         if (type == 3) {
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+sessionData.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(sessionData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + sessionData.get(position).getId());
             bookingPlaceName.setText(sessionData.get(position).getSession().getName());
-            eventText.setText("Event");
+            eventText.setText("Session");
             String currentStringEnd = sessionData.get(position).getSession().getDate();
 
 

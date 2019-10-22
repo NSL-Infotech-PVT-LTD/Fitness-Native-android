@@ -336,7 +336,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void a_getUpcommingEvents() {
         progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", upcomg, "event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -388,7 +388,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void a_getUpcommingSpaces() {
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", upcomg,"space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -440,7 +440,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void a_getUpcommingSession() {
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", upcomg, "session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -507,7 +507,7 @@ public class O_UpcEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_eventData.addAll(response.body().getData());
-                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData);
+                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, upcomg);
                             binding.eventListRecycler.setAdapter(c_EventAdapter);
 
                         } else {
@@ -560,7 +560,7 @@ public class O_UpcEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_sessionData.addAll(response.body().getData());
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, upcomg);
                             binding.eventListRecycler.setAdapter(c_SessionAdapter);
 
                         } else {

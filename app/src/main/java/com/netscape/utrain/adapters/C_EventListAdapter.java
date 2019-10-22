@@ -30,13 +30,14 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
     private Context context;
     private int previusPos = -1;
     private List<C_EventDataListModel> a_eventList;
+    private String status;
 
-    public C_EventListAdapter(Context context, List supplierData) {
+
+    public C_EventListAdapter(Context context, List supplierData,String status) {
         this.context = context;
+        this.status = status;
         this.a_eventList = supplierData;
-
     }
-
 
     @NonNull
     @Override
@@ -74,7 +75,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "Event");
-                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "Event");
+                topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);
             }
         });

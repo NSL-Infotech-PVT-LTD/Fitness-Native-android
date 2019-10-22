@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_SessionDataModel;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.utils.Constants;
@@ -29,9 +30,11 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
     private Context context;
     private int previusPos = -1;
     private List<C_SessionListModel> supplierData;
+    private String status;
 
-    public C_SessionListAdapter(Context context, List supplierData) {
+    public C_SessionListAdapter(Context context, List supplierData, String status) {
         this.context = context;
+        this.status = status;
         this.supplierData = supplierData;
 
     }
@@ -70,10 +73,11 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
             public void onClick(View view) {
 
 
-//                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
-////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
-//                context.startActivity(topCoachesDetails);
+                Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
             }
         });
     }
