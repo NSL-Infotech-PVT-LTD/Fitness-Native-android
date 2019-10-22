@@ -206,7 +206,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_eventData.addAll(response.body().getData());
-                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData);
+                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData,completed);
                             binding.sessionListRecycler.setAdapter(c_EventAdapter);
 
                         } else {
@@ -259,7 +259,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_sessionData.addAll(response.body().getData());
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData,completed);
                             binding.sessionListRecycler.setAdapter(c_SessionAdapter);
 
                         } else {
@@ -298,7 +298,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSession() {
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -350,7 +350,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingEvents() {
         progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -403,7 +403,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSpaces() {
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {

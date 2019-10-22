@@ -29,9 +29,11 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
     private Context context;
     private int previusPos = -1;
     private List<C_SessionListModel> supplierData;
+    private String status;
 
-    public C_SpaceListAdapter(Context context, List supplierData) {
+    public C_SpaceListAdapter(Context context, List supplierData,String status) {
         this.context = context;
+        this.status = status;
         this.supplierData = supplierData;
 
     }
@@ -75,6 +77,7 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
                 Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
 //                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
+                topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);
             }
         });
