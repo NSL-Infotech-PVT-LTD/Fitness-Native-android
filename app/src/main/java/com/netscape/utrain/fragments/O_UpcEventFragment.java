@@ -90,6 +90,8 @@ public class O_UpcEventFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private String upcomg = "upcoming";
+
     public O_UpcEventFragment() {
         // Required empty public constructor
     }
@@ -178,7 +180,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void getUpcommingEvents() {
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming");
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -191,7 +193,7 @@ public class O_UpcEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             eventData.addAll(response.body().getData());
-                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData);
+                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
                             binding.eventListRecycler.setAdapter(currentEventAdapter);
 
                         } else {
@@ -230,7 +232,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void getUpcommingSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming");
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -243,7 +245,7 @@ public class O_UpcEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             spaceData.addAll(response.body().getData());
-                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData);
+                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, upcomg);
                             binding.eventListRecycler.setAdapter(currentSpaceAdapter);
 
                         } else {
@@ -282,7 +284,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void getUpcommingSession() {
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming");
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -295,7 +297,7 @@ public class O_UpcEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             sessionData.addAll(response.body().getData());
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, upcomg);
                             binding.eventListRecycler.setAdapter(currentSessionAdapter);
 
                         } else {
@@ -492,7 +494,7 @@ public class O_UpcEventFragment extends Fragment {
     //Coach Methods
     public void getCoachUpcommingEvents() {
         progressDialog.show();
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming");
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
         call.enqueue(new Callback<C_EventListResponse>() {
             @Override
             public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
@@ -545,7 +547,7 @@ public class O_UpcEventFragment extends Fragment {
 
     public void getCoachUpcommingSession() {
         progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "upcoming");
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {

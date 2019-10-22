@@ -194,24 +194,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     }
 
-    public String parseDateToddMMyyyy(String time) {
-        String inputPattern = "yyyy-MM-dd";
-        String outputPattern = "dd MMMM yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            date = inputFormat.parse(time);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
-
     @Override
     public int getItemCount() {
         return supplierData.size();

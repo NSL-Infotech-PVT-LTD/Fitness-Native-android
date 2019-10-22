@@ -1,17 +1,20 @@
 package com.netscape.utrain.model;
 
 public class O_BookedEventSessionModel {
-
     /**
-     * id : 5
-     * name : Chess training
-     * description : chess training session
-     * business_hour : 13:14:00
+     * id : 7
+     * name : Boxing session
+     * description : best coach and have a great day too
+     * business_hour : 18:46:00
      * date : 2019-10-25
-     * hourly_rate : 80
-     * images : ["1571643913692.jpeg"]
-     * phone : 8794564515
-     * max_occupancy : 40
+     * hourly_rate : 75
+     * images : ["1571656736223.jpeg","1571656736388.jpeg","1571656736595.jpeg"]
+     * phone : 5664424353
+     * location : D-210, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 140308, India
+     * latitude : 30.707004653027173
+     * longitude : 76.6940177232027
+     * guest_allowed : 78
+     * guest_allowed_left : 78
      * created_by : 215
      */
 
@@ -23,7 +26,11 @@ public class O_BookedEventSessionModel {
     private int hourly_rate;
     private String images;
     private String phone;
-    private int max_occupancy;
+    private String location;
+    private String latitude;
+    private String longitude;
+    private int guest_allowed;
+    private int guest_allowed_left;
     private int created_by;
 
     public int getId() {
@@ -90,12 +97,44 @@ public class O_BookedEventSessionModel {
         this.phone = phone;
     }
 
-    public int getMax_occupancy() {
-        return max_occupancy;
+    public String getLocation() {
+        return location;
     }
 
-    public void setMax_occupancy(int max_occupancy) {
-        this.max_occupancy = max_occupancy;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getGuest_allowed() {
+        return guest_allowed;
+    }
+
+    public void setGuest_allowed(int guest_allowed) {
+        this.guest_allowed = guest_allowed;
+    }
+
+    public int getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(int guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
     }
 
     public int getCreated_by() {
@@ -105,4 +144,18 @@ public class O_BookedEventSessionModel {
     public void setCreated_by(int created_by) {
         this.created_by = created_by;
     }
+
+    /**
+     * id : 5
+     * name : Chess training
+     * description : chess training session
+     * business_hour : 13:14:00
+     * date : 2019-10-25
+     * hourly_rate : 80
+     * images : ["1571643913692.jpeg"]
+     * phone : 8794564515
+     * max_occupancy : 40
+     * created_by : 215
+     */
+
 }

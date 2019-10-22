@@ -203,7 +203,7 @@ public interface Retrofitinterface {
                                                     @Query("order_by") String order_by
     );
 
-//    @Multipart
+    //    @Multipart
 //    @POST(Constants.EVENTS_STORE)
 //    Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
 //                                             @PartMap Map<String, RequestBody> fields,
@@ -211,18 +211,18 @@ public interface Retrofitinterface {
 //                                             @Part MultipartBody.Part imageTwo,
 //                                             @Part MultipartBody.Part imageThree,
 //                                             @Part MultipartBody.Part imageFour);
-@Multipart
-@POST(Constants.EVENTS_STORE)
-Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
-                                         @PartMap Map<String, RequestBody> fields,
-                                         @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.EVENTS_STORE)
+    Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
+                                             @PartMap Map<String, RequestBody> fields,
+                                             @Part List<MultipartBody.Part> files);
 
 
     @Multipart
     @POST(Constants.CREATE_SPACE)
     Call<OrgCreateEventResponse> createSpace(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
-                                                 @Part List<MultipartBody.Part> files);
+                                             @Part List<MultipartBody.Part> files);
 
 //    @Multipart
 //    @POST(Constants.CREATE_SPACE)
@@ -246,26 +246,29 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
 
     @POST(Constants.BOOKING_API)
     Call<BookingConfirmModel> bookingConfrim(@Header("Authorization") String Authorization,
-                                          @Header("Content-Type") String contentType,
-                                          @Query("type") String type,
-                                          @Query("target_id") String id,
-                                          @Query("tickets") String tickets,
-                                          @Query("price") String price,
-                                          @Query("status") String status,
-                                          @Query("token") String token);
+                                             @Header("Content-Type") String contentType,
+                                             @Query("type") String type,
+                                             @Query("target_id") String id,
+                                             @Query("tickets") String tickets,
+                                             @Query("price") String price,
+                                             @Query("status") String status,
+                                             @Query("token") String token);
 
     @POST(Constants.BOOKING_LIST_EVENT)
     Call<BookingListResponse> getBookingList(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
                                              @Query("type") String type);
+
     @POST(Constants.ORG_EVENT_LIST)
     Call<O_EventListResponse> getOrgEentList(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
                                              @Query("order_by") String order_by);
+
     @POST(Constants.ORG_SPACE_LIST)
     Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
                                               @Query("order_by") String order_by);
+
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
@@ -279,11 +282,13 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                               @Query("limit") String limit,
                                               @Query("page") String page,
                                               @Query("radius") String radius);
+
     @POST(Constants.A_SPACE_LIST)
     Call<A_SpaceListResponse> getAthSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
                                               @Query("order_by") String order_by,
                                               @Query("limit") String limit);
+
     @POST(Constants.A_SESSION_LIST)
     Call<A_SessionResponse> getAthSessionList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
@@ -295,6 +300,7 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
     Call<C_EventListResponse> getCoachEventList(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
                                                 @Query("order_by") String order_by);
+
     @POST(Constants.CO_SESSION_LIST)
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
@@ -305,13 +311,14 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                                      @Header("Content-Type") String contentType,
                                                      @Query("target_id") String target_id,
                                                      @Query("type") String type);
+
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSessionBookList> getAthleteSessionBookList(@Header("Authorization") String Authorization,
                                                            @Header("Content-Type") String contentType,
                                                            @Query("target_id") String target_id,
                                                            @Query("type") String type);
 
- @POST(Constants.A_EVENT_BOOKING_LIST)
+    @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSpaceBookList> getAthleteSpaceBookList(@Header("Authorization") String Authorization,
                                                        @Header("Content-Type") String contentType,
                                                        @Query("target_id") String target_id,
@@ -321,18 +328,22 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
     Call<O_EventBookedListResponse> getOrganiserBookedList(@Header("Authorization") String Authorization,
                                                            @Header("Content-Type") String contentType,
                                                            @Query("target_id") String target_id,
+                                                           @Query("order_by") String order_by,
                                                            @Query("type") String type);
+
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_SessionBookedListResponse> getOrganiserBookedSessionList(@Header("Authorization") String Authorization,
-                                                             @Header("Content-Type") String contentType,
-                                                             @Query("target_id") String target_id,
-                                                             @Query("type") String type);
+                                                                    @Header("Content-Type") String contentType,
+                                                                    @Query("target_id") String target_id,
+                                                                    @Query("order_by") String order_by,
+                                                                    @Query("type") String type);
+
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_BookedSpaceListResponse> getOrganiserBookedSpaceList(@Header("Authorization") String Authorization,
                                                                 @Header("Content-Type") String contentType,
                                                                 @Query("target_id") String target_id,
+                                                                @Query("order_by") String order_by,
                                                                 @Query("type") String type);
-
 
 
 }

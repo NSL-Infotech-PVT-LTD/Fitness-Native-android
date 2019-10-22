@@ -23,6 +23,7 @@ public class Constants {
     public static final String CREATE_SPACE = "spaces/create";
     public static final String CREATE_SESSION = "session/store";
     public static final String EVENT_DETAIL = "event/details";
+    public static final String SESSION_DETAIL = "session/details";
     public static final String BOOKING_API = "booking/store";
     public static final String BOOKING_LIST_EVENT = "bookings";
     public static final String ORG_EVENT_LIST = "events/organiser/list";
@@ -82,6 +83,7 @@ public class Constants {
     public static final String ADDRESS = "address";
     public static final String LOCATION_LAT = "locationLat";
     public static final String LOCATION_LONG = "locationLong";
+    public static final String STATUS = "";
 
 
 

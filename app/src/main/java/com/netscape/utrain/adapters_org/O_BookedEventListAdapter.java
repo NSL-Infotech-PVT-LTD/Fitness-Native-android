@@ -66,7 +66,7 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     }
 
     @Override
-    public void onBindViewHolder(@NonNull O_BookedEventListAdapter.CustomTopCoachesHolder holder, int position) {
+    public void onBindViewHolder(@NonNull O_BookedEventListAdapter.CustomTopCoachesHolder holder, final int position) {
 
         if (type==1){
              O_BookedEventDataModel data = supplierData.get(position);
@@ -89,7 +89,7 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
         holder.viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            onClick.onClick();
+            onClick.onClick(type,position);
 
             }
         });
@@ -98,7 +98,7 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     }
 
     public interface onClick {
-        public void onClick();
+        public void onClick(int type,int position);
     }
 
     @Override

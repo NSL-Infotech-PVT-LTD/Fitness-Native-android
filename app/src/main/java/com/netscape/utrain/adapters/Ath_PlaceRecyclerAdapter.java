@@ -29,10 +29,10 @@ import java.util.Date;
 import java.util.List;
 
 public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecyclerAdapter.ViewHolder> {
+    AthleteEventData eventData;
     private Context context;
     private int previusPos = -1;
     private List<AthletePlaceModel> supplierData;
-    AthleteEventData eventData;
 
 
     public Ath_PlaceRecyclerAdapter(Context context, List<AthletePlaceModel> supplierData) {
@@ -59,7 +59,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 //        holder.placenameTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.get());
         holder.placenameTv.setText(data.getLocation());
-        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" miles");
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " miles");
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -94,11 +94,6 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
     }
 
-    public interface AthleteEventData {
-        public void getData(Intent intent);
-
-    }
-
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
         String outputPattern = "dd MMMM yyyy";
@@ -122,9 +117,14 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
         return supplierData.size();
     }
 
+    public interface AthleteEventData {
+        public void getData(Intent intent);
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, placenameTv,findPlaceDistanceDetailTv, findPlaceActualPriceTv;
+        private AppCompatTextView eventName, placenameTv, findPlaceDistanceDetailTv, findPlaceActualPriceTv;
         private AppCompatImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
 

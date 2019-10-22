@@ -106,6 +106,8 @@ public class O_CmpEventFragment extends Fragment {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
+    private String completed = "completed";
+
     public O_CmpEventFragment() {
         // Required empty public constructor
     }
@@ -191,7 +193,7 @@ public class O_CmpEventFragment extends Fragment {
     //Coach Methods
     public void getCoachUpcommingEvents() {
         progressDialog.show();
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
         call.enqueue(new Callback<C_EventListResponse>() {
             @Override
             public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
@@ -244,7 +246,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCoachUpcommingSession() {
         progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
@@ -296,7 +298,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSession() {
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"","session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -470,7 +472,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCompletedEvents() {
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -483,7 +485,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             eventData.addAll(response.body().getData());
-                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData);
+                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
                             binding.sessionListRecycler.setAdapter(currentEventAdapter);
 
                         } else {
@@ -522,7 +524,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCompletedSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -536,7 +538,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             spaceData.addAll(response.body().getData());
-                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData);
+                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData,completed);
                             binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
 
                         } else {
@@ -575,7 +577,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void getCompletedSession() {
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed");
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -589,7 +591,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             sessionData.addAll(response.body().getData());
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData,completed);
                             binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
                         } else {

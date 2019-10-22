@@ -32,10 +32,12 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
     private Context context;
     private int previusPos = -1;
     private List<O_EventDataModel> supplierData;
+    private String status;
 
-    public O_EventListAdapter(Context context, List supplierData) {
+    public O_EventListAdapter(Context context, List supplierData,String status) {
         this.context = context;
         this.supplierData = supplierData;
+        this.status = status;
 
     }
 
@@ -76,6 +78,7 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE,Constants.EVENT);
+                topCoachesDetails.putExtra(Constants.STATUS,status);
 
                 context.startActivity(topCoachesDetails);
             }

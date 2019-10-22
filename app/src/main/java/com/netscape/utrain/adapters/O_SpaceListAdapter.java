@@ -28,11 +28,14 @@ import java.util.List;
 public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.CustomTopCoachesHolder> {
 
     private Context context;
-    private int previusPos=-1;
+    private int previusPos = -1;
     private List<O_SpaceDataModel> supplierData;
-    public O_SpaceListAdapter(Context context, List supplierData){
+    private String status;
+
+    public O_SpaceListAdapter(Context context, List supplierData, String status) {
         this.context = context;
         this.supplierData = supplierData;
+        this.status = status;
 
     }
 
@@ -44,9 +47,10 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
         return new O_SpaceListAdapter.CustomTopCoachesHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull O_SpaceListAdapter.CustomTopCoachesHolder holder, int position) {
-        final O_SpaceDataModel data=supplierData.get(position);
+        final O_SpaceDataModel data = supplierData.get(position);
 
         try {
             if (data.getImages() != null) {
@@ -69,9 +73,10 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent topCoachesDetails=new Intent(context, EventAppliedList.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
-                topCoachesDetails.putExtra(Constants.SELECTED_TYPE,Constants.SPACE);
+                Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+                topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);
             }
         });
@@ -85,7 +90,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName,eventVenue,eventDate;
+        MaterialTextView eventName, eventVenue, eventDate;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);

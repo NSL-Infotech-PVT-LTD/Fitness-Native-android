@@ -30,9 +30,11 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
     private Context context;
     private int previusPos = -1;
     private List<O_SessionDataModel> supplierData;
+    private String status;
 
-    public O_SessionListAdapter(Context context, List supplierData) {
+    public O_SessionListAdapter(Context context, List supplierData,String status) {
         this.context = context;
+        this.status = status;
         this.supplierData = supplierData;
 
     }
@@ -74,6 +76,7 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+                topCoachesDetails.putExtra(Constants.STATUS,status);
                 context.startActivity(topCoachesDetails);
             }
         });

@@ -6,6 +6,9 @@ public class O_BookedSessionDataModel {
     private int target_id;
     private int user_id;
     private int tickets;
+    private int price;
+    private O_BookedEventSessionModel session;
+    private O_BookedUserDetailsModel user_details;
 
     public int getId() {
         return id;
@@ -70,9 +73,5 @@ public class O_BookedSessionDataModel {
     public void setUser_details(O_BookedUserDetailsModel user_details) {
         this.user_details = user_details;
     }
-
-    private int price;
-    private O_BookedEventSessionModel session;
-    private O_BookedUserDetailsModel user_details;
 
 }
