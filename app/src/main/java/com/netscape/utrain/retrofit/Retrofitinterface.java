@@ -17,7 +17,10 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.O_BookedSpaceListResponse;
+import com.netscape.utrain.response.O_EventBookedListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
+import com.netscape.utrain.response.O_SessionBookedListResponse;
 import com.netscape.utrain.response.O_SessionListResponse;
 import com.netscape.utrain.response.O_SpaceListResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
@@ -299,6 +302,22 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                                       @Header("Content-Type") String contentType,
                                                       @Query("target_id") String target_id,
                                                       @Query("type") String type);
+
+    @POST(Constants.O_EVENT_BOOKING_LIST)
+    Call<O_EventBookedListResponse> getOrganiserBookedList(@Header("Authorization") String Authorization,
+                                                           @Header("Content-Type") String contentType,
+                                                           @Query("target_id") String target_id,
+                                                           @Query("type") String type);
+    @POST(Constants.O_EVENT_BOOKING_LIST)
+    Call<O_SessionBookedListResponse> getOrganiserBookedSessionList(@Header("Authorization") String Authorization,
+                                                             @Header("Content-Type") String contentType,
+                                                             @Query("target_id") String target_id,
+                                                             @Query("type") String type);
+    @POST(Constants.O_EVENT_BOOKING_LIST)
+    Call<O_BookedSpaceListResponse> getOrganiserBookedSpaceList(@Header("Authorization") String Authorization,
+                                                                @Header("Content-Type") String contentType,
+                                                                @Query("target_id") String target_id,
+                                                                @Query("type") String type);
 
 
 

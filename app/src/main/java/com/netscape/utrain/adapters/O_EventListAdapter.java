@@ -75,6 +75,8 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
 
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE,Constants.EVENT);
+
                 context.startActivity(topCoachesDetails);
             }
         });

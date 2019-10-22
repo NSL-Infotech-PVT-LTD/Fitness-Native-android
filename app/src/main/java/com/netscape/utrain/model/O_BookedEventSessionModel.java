@@ -1,18 +1,18 @@
 package com.netscape.utrain.model;
 
-public class O_SessionDataModel {
+public class O_BookedEventSessionModel {
 
     /**
-     * id : 15
-     * name : yoga
-     * description : fkfkf kfkfkf fjgjsudu g fifidididussi
-     * business_hour : 12:20:00
-     * date : 0000-00-00
-     * hourly_rate : 1234
-     * images : ["1570690275617.jpg"]
-     * phone : 9625632563
-     * max_occupancy : 134
-     * created_by : 125
+     * id : 5
+     * name : Chess training
+     * description : chess training session
+     * business_hour : 13:14:00
+     * date : 2019-10-25
+     * hourly_rate : 80
+     * images : ["1571643913692.jpeg"]
+     * phone : 8794564515
+     * max_occupancy : 40
+     * created_by : 215
      */
 
     private int id;
@@ -23,16 +23,8 @@ public class O_SessionDataModel {
     private int hourly_rate;
     private String images;
     private String phone;
-    private int guest_allowed;
+    private int max_occupancy;
     private int created_by;
-
-    public int getGuest_allowed() {
-        return guest_allowed;
-    }
-
-    public void setGuest_allowed(int guest_allowed) {
-        this.guest_allowed = guest_allowed;
-    }
 
     public int getId() {
         return id;
@@ -98,6 +90,13 @@ public class O_SessionDataModel {
         this.phone = phone;
     }
 
+    public int getMax_occupancy() {
+        return max_occupancy;
+    }
+
+    public void setMax_occupancy(int max_occupancy) {
+        this.max_occupancy = max_occupancy;
+    }
 
     public int getCreated_by() {
         return created_by;

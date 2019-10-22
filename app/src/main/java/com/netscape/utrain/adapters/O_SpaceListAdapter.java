@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.utils.Constants;
@@ -68,12 +69,10 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-//                Intent topCoachesDetails=new Intent(context, TopCoachesDetailsActivity.class);
-////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"1");
-//                context.startActivity(topCoachesDetails);
+                Intent topCoachesDetails=new Intent(context, EventAppliedList.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE,Constants.SPACE);
+                context.startActivity(topCoachesDetails);
             }
         });
     }

@@ -33,6 +33,7 @@ public class Constants {
     public static final String A_SPACE_LIST= "spaces/athlete/list";
     public static final String A_SESSION_LIST= "session/athlete/list";
     public static final String A_EVENT_BOOKING_LIST= "booking/athlete/list";
+    public static final String O_EVENT_BOOKING_LIST= "booking/organiser/list";
 
 
     public static final String ORG_SPACE_LIST= "spaces/organiser/list";
@@ -61,6 +62,10 @@ public class Constants {
     public static final String TOP_DATA_INTENT = "topDataIntent";
     public static final String TOP_FROM_INTENT = "topFromIntent";
     public static final String SELECTED_ID = "selectedId";
+    public static final String SELECTED_TYPE = "selectedType";
+    public static final String EVENT = "event";
+    public static final String SESSION= "session";
+    public static final String SPACE = "space";
 
 
     public static final int WRITE_PERMISSION = 3;

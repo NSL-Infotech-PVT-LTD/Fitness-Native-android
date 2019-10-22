@@ -14,7 +14,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.model.BookedUserModel;
+import com.netscape.utrain.model.O_BookedEventDataModel;
+import com.netscape.utrain.model.O_BookedSessionDataModel;
 import com.netscape.utrain.model.O_EventDataModel;
+import com.netscape.utrain.model.O_SpaceListDataModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -28,14 +31,28 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
 
     private Context context;
     private int previusPos = -1;
-    private List<BookedUserModel> supplierData;
+    private List<O_BookedEventDataModel> supplierData;
+    private List<O_BookedSessionDataModel> sessionData;
+    private List<O_SpaceListDataModel> spaceData;
+    private int type;
+    private onClick onClick;
 
-    onClick onClick;
 
-    public O_BookedEventListAdapter(Context context, List supplierData, onClick onClick) {
+
+    public O_BookedEventListAdapter(Context context, List supplierData ,int type,onClick onClick ) {
         this.context = context;
-        this.supplierData = supplierData;
-        this.onClick = onClick;
+        this.type=type;
+        this.onClick=onClick;
+        if (type==1){
+            this.supplierData = supplierData;
+        }
+        if (type==2){
+            this.spaceData = supplierData;
+        }
+        if (type==3){
+            this.sessionData = supplierData;
+        }
+
 
     }
 
@@ -50,16 +67,30 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
 
     @Override
     public void onBindViewHolder(@NonNull O_BookedEventListAdapter.CustomTopCoachesHolder holder, int position) {
-        final BookedUserModel data = supplierData.get(position);
 
-        holder.userName.setText(data.getUserName());
-        Glide.with(context).load(data.getUserImage()).into(holder.circleImageView);
+        if (type==1){
+             O_BookedEventDataModel data = supplierData.get(position);
+            holder.userName.setText(data.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+
+        }
+        if (type==2){
+             O_SpaceListDataModel data = spaceData.get(position);
+            holder.userName.setText(data.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+
+        }
+        if (type==3){
+             O_BookedSessionDataModel data = sessionData.get(position);
+            holder.userName.setText(data.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+        }
 
         holder.viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            onClick.onClick();
 
-                onClick.onClick();
             }
         });
 
@@ -72,7 +103,19 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        if (type==1){
+            return supplierData.size();
+
+        }
+        if (type==2){
+            return spaceData.size();
+
+        }
+        if (type==3){
+            return sessionData.size();
+
+        }
+        return 0;
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
