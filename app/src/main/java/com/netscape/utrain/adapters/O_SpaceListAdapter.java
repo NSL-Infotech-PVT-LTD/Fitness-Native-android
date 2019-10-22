@@ -69,6 +69,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getName());
         holder.eventVenue.setText(data.getAvailability_week());
+        holder.bookingTicketTv.setText(data.getAvailability_week());
         holder.eventDate.setText(data.getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +91,8 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        MaterialTextView eventName,eventVenue,bookingTicketTv,eventDate;
+
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +101,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
         }
     }
 

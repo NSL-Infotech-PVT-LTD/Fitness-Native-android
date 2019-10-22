@@ -7,8 +7,8 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginRight="@dimen/_10sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_2sdp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_2sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
         app:cardCornerRadius="@dimen/_16sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +28,7 @@
                 android:id="@+id/discoverImageCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_12sdp"
                 app:cardCornerRadius="@dimen/_20sdp"
@@ -37,69 +38,146 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bookingEventImage"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/sophie"
+
                     app:layout_constraintLeft_toLeftOf="parent" />
 
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookingEventName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/discoverRecylerName"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintLeft_toRightOf="@id/discoverImageCard"
-                app:layout_constraintTop_toTopOf="@id/discoverImageCard" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/statusImage"
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/ic_yellow_ticket"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/placenamesTv"
-                android:layout_width="wrap_content"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Venue"
-                android:textSize="@dimen/_8sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/statusImage"
                 app:layout_constraintLeft_toRightOf="@+id/discoverImageCard"
-                app:layout_constraintTop_toBottomOf="@+id/bookingEventName" />
+                app:layout_constraintRight_toRightOf="parent">
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookingVenueTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text=""
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"
-                app:layout_constraintTop_toBottomOf="@id/placenamesTv" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookingEventName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:singleLine="true"
+                    android:text="@string/discoverRecylerName"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ti_date"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/ic_ti_date"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bookingEventName" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/findPlaceDistanceTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Date &amp; Time"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"
-                app:layout_constraintTop_toBottomOf="@id/bookingVenueTv" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookingEventDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="WED,9OCT| 5:00PM"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/ti_date"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ti_date" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bookingEventDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text=""
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@+id/bookingVenueTv"
-                app:layout_constraintTop_toBottomOf="@id/findPlaceDistanceTv" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ti_location"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/ic_ti_location"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ti_date" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookingVenueTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="Sukhna Lake, Mall Road, California"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/ti_location"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ti_location" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ti_tickets"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/ic_ticket"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ti_location" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bookingTicketTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:text="3 Attandees and Ticket(1 person per ticket)"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/ti_tickets"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ti_tickets" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/findPlaceDistanceTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="Date &amp; Time"-->
+            <!--                android:layout_marginLeft="@dimen/_10sdp"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toRightOf="@+id/ti_date"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/ti_date" />-->
+
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/placenamesTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="@dimen/_10sdp"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="Venue"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toRightOf="@+id/ti_location"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/ti_location" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

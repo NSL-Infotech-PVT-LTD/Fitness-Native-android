@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.A_SpaceDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
@@ -68,17 +70,25 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getSpace().getName());
 //        holder.eventVenue.setText(data.getSpace().getLocation());
-        holder.findPlaceDistanceTv.setText("Availability");
+//        holder.findPlaceDistanceTv.setText("Availability");
         holder.eventDate.setText(data.getSpace().getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, EventDetail.class);
+                intent.putExtra("eventName", data.getSpace().getName());
+//                intent.putExtra("eventVenue", data.getSpace().getLocation());
+//                intent.putExtra("evenStartDateTime", data.get);
+                intent.putExtra("eventALLImages", data.getSpace().getImages());
+                intent.putExtra("eventDate", data.getSpace().getAvailability_week());
+                intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+                intent.putExtra("event_id", data.getSpace().getId());
+                intent.putExtra("from", "places");
+                Bundle b = new Bundle();
+                b.putString("Array", data.getSpace().getImages());
+                intent.putExtras(b);
 
-
-//                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
-////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
-//                context.startActivity(topCoachesDetails);
+                context.startActivity(intent);
             }
         });
     }
@@ -100,7 +110,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
-            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
+//            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
         }
     }
 
