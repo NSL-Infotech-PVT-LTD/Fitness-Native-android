@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.netscape.utrain.utils.FrameLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:frame_color="@android:color/transparent"
+    app:frame_width="1dp">
+
+    <com.netscape.utrain.utils.SelectedTextView
+        android:id="@+id/tv_calendar_day"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        app:selected_padding="2dp"
+        tools:enable="true"
+        tools:text="14" />
+
+    <com.netscape.utrain.utils.MultipleTriangleView
+        android:id="@+id/v_notes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        app:mtr_direction="top_left"
+        app:mtr_number_of_items="4"
+        app:mtr_separator_width="2dp"
+        app:mtr_view_direction="vertical" />
+
+</com.netscape.utrain.utils.FrameLinearLayout>

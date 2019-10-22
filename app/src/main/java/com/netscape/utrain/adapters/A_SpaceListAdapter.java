@@ -17,6 +17,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.A_SpaceDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -29,7 +30,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     private Context context;
     private int previusPos = -1;
-    private List<A_SpaceListModel> supplierData;
+    private List<AthleteSpaceBookList.DataBean> supplierData;
 
     public A_SpaceListAdapter(Context context, List supplierData) {
         this.context = context;
@@ -48,11 +49,11 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull A_SpaceListAdapter.CustomTopCoachesHolder holder, int position) {
-        final A_SpaceListModel data = supplierData.get(position);
+        final AthleteSpaceBookList.DataBean data = supplierData.get(position);
 
         try {
-            if (data.getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getImages());
+            if (data.getSpace().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(data.getSpace().getImages());
                 for (int i = position; i < jsonArray.length(); i++) {
                     Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).into(holder.eventImage);
 
@@ -65,9 +66,10 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
         }
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
-        holder.eventName.setText(data.getName());
-//        holder.eventVenue.setText(data.getLocation());
-//        holder.eventDate.setText(data.getStart_date());
+        holder.eventName.setText(data.getSpace().getName());
+//        holder.eventVenue.setText(data.getSpace().getLocation());
+        holder.findPlaceDistanceTv.setText("Availability");
+        holder.eventDate.setText(data.getSpace().getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +91,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        MaterialTextView eventName, findPlaceDistanceTv,eventVenue, eventDate;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +100,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
+            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
         }
     }
 

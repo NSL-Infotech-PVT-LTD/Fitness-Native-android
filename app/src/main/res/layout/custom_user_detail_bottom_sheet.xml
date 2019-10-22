@@ -200,7 +200,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:text="Booking ID : UT00002121521"
             android:textColor="@color/lightGrayFont"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view" />
@@ -215,7 +215,7 @@
             android:layout_marginRight="@dimen/_20sdp"
             android:text="$100.00"
             android:textColor="@color/lightGrayFont"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view" />
@@ -228,7 +228,7 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:text="Taxes"
             android:textColor="@color/lightGrayFont"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ti_TotalTicketPrice" />
@@ -242,7 +242,7 @@
             android:layout_marginRight="@dimen/_20sdp"
             android:text="$0.00"
             android:textColor="@color/lightGrayFont"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ti_TotalPrice" />
@@ -255,7 +255,7 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:text="Total Amount Paid"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tax" />
@@ -269,7 +269,7 @@
             android:layout_marginRight="@dimen/_20sdp"
             android:text="$100.00"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ti_tax" />

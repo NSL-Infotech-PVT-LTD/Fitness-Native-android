@@ -1,5 +1,8 @@
 package com.netscape.utrain.retrofit;
 
+import com.netscape.utrain.model.AthleteBookListModel;
+import com.netscape.utrain.model.AthleteSessionBookList;
+import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.A_BookedEventResponse;
@@ -298,10 +301,21 @@ Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                                     @Query("order_by") String order_by);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
-    Call<A_BookedEventResponse> getAthleteBookingList(@Header("Authorization") String Authorization,
-                                                      @Header("Content-Type") String contentType,
-                                                      @Query("target_id") String target_id,
-                                                      @Query("type") String type);
+    Call<AthleteBookListModel> getAthleteBookingList(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String contentType,
+                                                     @Query("target_id") String target_id,
+                                                     @Query("type") String type);
+    @POST(Constants.A_EVENT_BOOKING_LIST)
+    Call<AthleteSessionBookList> getAthleteSessionBookList(@Header("Authorization") String Authorization,
+                                                           @Header("Content-Type") String contentType,
+                                                           @Query("target_id") String target_id,
+                                                           @Query("type") String type);
+
+ @POST(Constants.A_EVENT_BOOKING_LIST)
+    Call<AthleteSpaceBookList> getAthleteSpaceBookList(@Header("Authorization") String Authorization,
+                                                       @Header("Content-Type") String contentType,
+                                                       @Query("target_id") String target_id,
+                                                       @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_EventBookedListResponse> getOrganiserBookedList(@Header("Authorization") String Authorization,

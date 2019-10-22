@@ -61,6 +61,8 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_applied_list);
+
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.appliedListRecycler);
 
@@ -125,11 +127,12 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             getNumOfBookedList();
         }
         if (type.equalsIgnoreCase(Constants.SPACE)){
-            getNumOfBookedList();
+            getNumSpaceList();
         }
         if (type.equalsIgnoreCase(Constants.SESSION)){
             getNumSessionList();
         }
+
 
         }
 //        adapter = new O_BookedEventListAdapter(EventAppliedList.this, list, new O_BookedEventListAdapter.onClick() {
@@ -142,6 +145,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 //        });
 //
 //        recyclerView.setAdapter(adapter);
+
 
 
     public void getNumOfBookedList() {
