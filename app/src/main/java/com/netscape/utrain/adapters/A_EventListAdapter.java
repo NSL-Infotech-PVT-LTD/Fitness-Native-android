@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_BookedEventDataModel;
@@ -68,31 +70,40 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         }
         holder.eventName.setText(data.getEvent().getName());
         holder.eventVenue.setText(data.getEvent().getLocation());
-        holder.eventDate.setText(data.getEvent().getStart_date());
+        holder.eventDate.setText(data.getEvent().getStart_date()+" "+ data.getEvent().getStart_time());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, EventDetail.class);
+                intent.putExtra("eventName", data.getEvent().getName());
+                intent.putExtra("eventVenue", data.getEvent().getLocation());
+                intent.putExtra("event_id", data.getEvent().getId());
 
+                intent.putExtra("eventDate", data.getEvent().getStart_date());
+                intent.putExtra("eventTime", data.getEvent().getStart_time());
+                intent.putExtra("eventDescription", data.getEvent().getDescription());
+                intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                intent.putExtra("from", "events");
+                intent.putExtra("capacity", data.getEvent().getGuest_allowed());
+                Bundle b = new Bundle();
+                b.putString("Array", data.getEvent().getImages());
+                intent.putExtras(b);
+                context.startActivity(intent);
+            }
+        });
 
-//                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
-////                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-//                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
+//                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
 //                context.startActivity(topCoachesDetails);
-            }
-        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
-                context.startActivity(topCoachesDetails);
-            }
-        });
+//            }
+//        });
     }
 
     @Override

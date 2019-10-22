@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.A_SessionDataModel;
 import com.netscape.utrain.model.AthleteBookListModel;
@@ -66,18 +68,26 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         }
         holder.eventName.setText(data.getSession().getName());
 //        holder.eventVenue.setText(data.getLocation());
-//        holder.eventDate.setText(data.getStart_date());
+        holder.eventDate.setText(data.getSession().getDate() + " " + data.getSession().getBusiness_hour());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
-//                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
-                context.startActivity(topCoachesDetails);
+                Intent intent = new Intent(context, EventDetail.class);
+                intent.putExtra("eventName", data.getSession().getName());
+//                intent.putExtra("eventVenue", data.getLocation());
+                intent.putExtra("eventTime", data.getSession().getBusiness_hour());
+                intent.putExtra("eventDate", data.getSession().getDate());
+                intent.putExtra("eventDescription", data.getSession().getDescription());
+                intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+                intent.putExtra("event_id", data.getSession().getId());
+                intent.putExtra("from", "sessions");
+                Bundle b = new Bundle();
+                b.putString("Array", data.getSession().getImages());
+                intent.putExtras(b);
+                context.startActivity(intent);
             }
         });
+
     }
 
     @Override
