@@ -47,6 +47,14 @@ public class EventBookingActivity extends AppCompatActivity {
         activity = this;
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_event_booking);
 
+        binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
+        binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
+        binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+        binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        Glide.with(EventBookingActivity.this).load(getIntent().getStringExtra("Array")).into(binding.eventBookingImage);
+
+
+
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +63,8 @@ public class EventBookingActivity extends AppCompatActivity {
         });
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
+
 
         hitEventDetailAPI();
         binding.addImg.setOnClickListener(new View.OnClickListener() {

@@ -143,6 +143,11 @@ public class EventDetail extends AppCompatActivity {
 
                     Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
                     intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
+                    intent.putExtra("eventName", getIntent().getIntExtra("eventName", 0));
+                    intent.putExtra("eventVenue", getIntent().getIntExtra("eventVenue", 0));
+                    intent.putExtra("eventTime", getIntent().getIntExtra("eventTime", 0));
+                    intent.putExtra("eventDate", getIntent().getIntExtra("eventDate", 0));
+                    intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
                     intent.putExtra("type", eventType);
                     startActivity(intent);
 
