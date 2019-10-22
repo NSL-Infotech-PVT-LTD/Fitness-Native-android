@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.databinding.AActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
@@ -221,7 +222,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onClick(View view) {
                 openCloseDrawer();
 
-                loadFragment(new A_NotificationFragment());
+                startActivity(new Intent(AthleteHomeScreen.this, CalendarViewWithNotesActivity.class));
 
             }
         });

@@ -16,10 +16,10 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.organization.EventAppliedList"
-            android:screenOrientation="portrait">
-
-        </activity>
+        <activity android:name=".activities.CalendarViewWithNotesActivity"></activity>
+        <activity
+            android:name=".activities.organization.EventAppliedList"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.coach.CoachDashboard"
             android:screenOrientation="portrait" />
@@ -54,7 +54,7 @@
         <activity
             android:name=".activities.organization.OrgMapFindAddressActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.athlete.AllEventsMapAct"
             android:screenOrientation="portrait" />

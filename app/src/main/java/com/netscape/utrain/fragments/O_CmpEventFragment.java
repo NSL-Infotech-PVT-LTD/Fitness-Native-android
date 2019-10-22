@@ -28,6 +28,9 @@ import com.netscape.utrain.databinding.FragmentOSessionListBinding;
 import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_SessionDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.AthleteBookListModel;
+import com.netscape.utrain.model.AthleteSessionBookList;
+import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.O_EventDataModel;
@@ -87,9 +90,9 @@ public class O_CmpEventFragment extends Fragment {
     private List<O_SessionDataModel> sessionData;
     private List<O_SpaceDataModel> spaceData;
 
-    private List<A_EventDataListModel> a_eventData;
-    private List<A_SessionDataModel> a_sessionData;
-    private List<A_SpaceListModel> a_spaceData;
+    private List<AthleteBookListModel.DataBean> a_eventData;
+    private List<AthleteSessionBookList.DataBean> a_sessionData;
+    private List<AthleteSpaceBookList.DataBean> a_spaceData;
 
 
     private C_EventListAdapter c_EventAdapter;
@@ -148,14 +151,17 @@ public class O_CmpEventFragment extends Fragment {
                 getCompletedEvents();
             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
                 getCoachUpcommingEvents();
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                a_getUpcommingEvents();
+
         } else if (count == 2) {
 
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                 getCompletedSession();
             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
                 getCoachUpcommingSession();
-//            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
-//                a_getUpcommingSession();
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                a_getUpcommingSession();
         } else if (count == 3) {
 
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
@@ -288,22 +294,73 @@ public class O_CmpEventFragment extends Fragment {
         });
     }
 
+    public void a_getUpcommingSession() {
+        progressDialog.show();
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"","session");
+        call.enqueue(new Callback<AthleteSessionBookList>() {
+            @Override
+            public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
+                if (response.body() != null) {
+                    a_sessionData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().size() > 0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            a_sessionData.addAll(response.body().getData());
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData);
+                            binding.sessionListRecycler.setAdapter(a_SessionAdapter);
+
+                        } else {
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+//                    binding.topRateRecycler.setVisibility(View.GONE);
+//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSessionBookList> call, Throwable t) {
+//                binding.topRateRecycler.setVisibility(View.GONE);
+//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void a_getUpcommingEvents() {
         progressDialog.show();
-        Call<A_EventListResponse> call = retrofitinterface.getAthEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "distance", "", "10", "", "50");
-        call.enqueue(new Callback<A_EventListResponse>() {
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "event");
+        call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
-            public void onResponse(Call<A_EventListResponse> call, Response<A_EventListResponse> response) {
+            public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
                 if (response.body() != null) {
                     a_eventData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().getData().size() > 0) {
+                        if (response.body().getData().size() > 0) {
 //                            binding.topRateRecycler.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            a_eventData.addAll(response.body().getData().getData());
+                            a_eventData.addAll(response.body().getData());
                             a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
@@ -332,32 +389,33 @@ public class O_CmpEventFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<A_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<AthleteBookListModel> call, Throwable t) {
 //                binding.topRateRecycler.setVisibility(View.GONE);
 //                binding.noDataImageView.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     public void a_getUpcommingSpaces() {
         progressDialog.show();
-        Call<A_SpaceListResponse> call = retrofitinterface.getAthSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "completed", "10");
-        call.enqueue(new Callback<A_SpaceListResponse>() {
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "space");
+        call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
-            public void onResponse(Call<A_SpaceListResponse> call, Response<A_SpaceListResponse> response) {
+            public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
                 if (response.body() != null) {
                     a_spaceData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().getData().size() > 0) {
+                        if (response.body().getData().size() > 0) {
 //                            binding.topRateRecycler.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            a_spaceData.addAll(response.body().getData().getData());
+                            a_spaceData.addAll(response.body().getData());
                             a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData);
-                            binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
+                            binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
 //                            binding.topRateRecycler.setVisibility(View.GONE);
@@ -384,7 +442,7 @@ public class O_CmpEventFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<A_SpaceListResponse> call, Throwable t) {
+            public void onFailure(Call<AthleteSpaceBookList> call, Throwable t) {
 //                binding.topRateRecycler.setVisibility(View.GONE);
 //                binding.noDataImageView.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();

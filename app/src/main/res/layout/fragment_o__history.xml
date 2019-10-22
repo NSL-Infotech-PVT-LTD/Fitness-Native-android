@@ -151,7 +151,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/org_selection_bottom_sheet" />
+        <include layout="@layout/org_selection_bottom_sheet"
+
+
+            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 

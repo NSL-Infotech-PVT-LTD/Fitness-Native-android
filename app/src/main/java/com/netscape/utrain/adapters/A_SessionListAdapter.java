@@ -16,6 +16,8 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.A_SessionDataModel;
+import com.netscape.utrain.model.AthleteBookListModel;
+import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -28,7 +30,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
     private Context context;
     private int previusPos = -1;
-    private List<A_SessionDataModel> supplierData;
+    private List<AthleteSessionBookList.DataBean> supplierData;
 
     public A_SessionListAdapter(Context context, List supplierData) {
         this.context = context;
@@ -47,10 +49,10 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
     @Override
     public void onBindViewHolder(@NonNull A_SessionListAdapter.CustomTopCoachesHolder holder, int position) {
-        final A_SessionDataModel data = supplierData.get(position);
+        final AthleteSessionBookList.DataBean data = supplierData.get(position);
         try {
-            if (data.getData().get(0).getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getData().get(0).getImages());
+            if (data.getSession().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(data.getSession().getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.eventImage);
 
@@ -62,7 +64,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
-        holder.eventName.setText(data.getData().get(0).getName());
+        holder.eventName.setText(data.getSession().getName());
 //        holder.eventVenue.setText(data.getLocation());
 //        holder.eventDate.setText(data.getStart_date());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

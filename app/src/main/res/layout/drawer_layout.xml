@@ -188,7 +188,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center_vertical"
-            android:text="@string/notification"
+            android:text="@string/calender"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/view4"

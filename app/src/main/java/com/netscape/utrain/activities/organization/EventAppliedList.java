@@ -48,6 +48,8 @@ public class EventAppliedList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_applied_list);
+
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.appliedListRecycler);
 
