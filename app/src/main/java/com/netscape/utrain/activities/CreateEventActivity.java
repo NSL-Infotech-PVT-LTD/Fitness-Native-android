@@ -212,19 +212,19 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
                 Date time = Calendar.getInstance().getTime();
                 if (stDate != null && endDate != null) {
-                    if (endDate.compareTo(stDate) == 0) {
-                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
-                            binding.createEvtnStartTimeTv.setText(startTime);
-                            binding.createEventEndTime.setText("");
-                            binding.createEventEndTime.setHint("End time");
-                        } else {
-                            binding.createEvtnStartTimeTv.setText("");
-                            binding.createEvtnStartTimeTv.setHint("Start time");
-                            Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        binding.createEvtnStartTimeTv.setText(startTime);
-                    }
+//                    if (endDate.compareTo(stDate) == 0) {
+//                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+                    binding.createEvtnStartTimeTv.setText(startTime);
+                    binding.createEventEndTime.setText("");
+                    binding.createEventEndTime.setHint("End time");
+//                        } else {
+//                            binding.createEvtnStartTimeTv.setText("");
+//                            binding.createEvtnStartTimeTv.setHint("Start time");
+//                            Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        binding.createEvtnStartTimeTv.setText(startTime);
+//                    }
                 } else {
                     Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
                 }
@@ -281,10 +281,17 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 binding.createEventStartDateTv.setPadding(20, 20, 20, 20);
                 sDate = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
                 startDate = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
-                binding.createEventStartDateTv.setText(startDate);
                 stDate = formatDate(startDate);
-                binding.createEventEndDatetv.setText("");
-                binding.createEventEndDatetv.setHint("End date");
+                if (stDate.getTime() > System.currentTimeMillis()) {
+                    binding.createEventStartDateTv.setText(startDate);
+                    binding.createEventEndDatetv.setText("");
+                    binding.createEventEndDatetv.setHint("End date");
+                } else {
+                    binding.createEventStartDateTv.setText("");
+                    binding.createEventStartDateTv.setHint("");
+                    Toast.makeText(CreateEventActivity.this, "Can't create event for current date", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -309,6 +316,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                         binding.createEventEndDatetv.setText(eDate);
                     } else {
                         Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                        binding.createEventEndDatetv.setText("");
+                        binding.createEventEndDatetv.setHint("End date");
                     }
                 } else {
                     Toast.makeText(CreateEventActivity.this, "Select start Date", Toast.LENGTH_SHORT).show();
@@ -339,7 +348,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventEndtime = binding.createEventEndTime.getText().toString();
         eventEquipments = binding.createEventEquipmentEdt.getText().toString();
         eventCapacity = binding.createEventCapicityEdt.getText().toString();
-
         binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -375,6 +383,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         } else if (eventCapacity.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.enter_numbe_of_guest_allowed), Toast.LENGTH_SHORT).show();
+        } else if (eventCapacity.equalsIgnoreCase("0") || eventCapacity.equalsIgnoreCase("00")) {
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
             hitCreateEventApi();
 
@@ -433,7 +443,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         parts.add(PortfolioImagesConstants.partFour);
 
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap,parts);
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createEvent("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {

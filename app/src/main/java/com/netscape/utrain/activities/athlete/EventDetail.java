@@ -150,8 +150,6 @@ public class EventDetail extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-
-
                     Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
                     intent.putExtra("event_id", getIntent().getIntExtra("event_id",0));
                     intent.putExtra("eventName", eventName.getText());

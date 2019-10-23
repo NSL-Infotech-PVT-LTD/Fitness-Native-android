@@ -203,7 +203,7 @@
     <string name="hey_you_can_addmore_than_one_service">Hey! you can add more than one service</string>
     <string name="you_can_add_service">Hey, you can add more than one services</string>
     <string name="note">Note:</string>
-    <string name="note_desc">Upload atleast 4 photos of your work to make profile more outgoing. \n you may add more photos further.</string>
+    <string name="note_desc">Upload atleast 1 photo of your work to make profile more outgoing. \n you may add more photos further.</string>
     <string name="log_in_signup_as_athlete">Log in / Sign Up Athlete</string>
     <string name="log_in_signup_as_coach">Log In / Sign Up As Coach</string>
     <string name="log_in_signup_as_org">Log In / Sign Up As Org.</string>
@@ -363,4 +363,6 @@
     <string name="event_default_title">My Events</string>
     <string name="request_image">Req. Image</string>
     <string name="occupancy">occupancy</string>
+    <string name="write_few_bio">Enter bio</string>
+    <string name="enter_valid_capacity">Enter valid capacity</string>
 </resources>
