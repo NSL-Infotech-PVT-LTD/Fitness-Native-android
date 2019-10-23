@@ -339,9 +339,23 @@ public interface Retrofitinterface {
                                                            @Query("order_by") String order_by,
                                                            @Query("search") String search,
                                                            @Query("type") String type);
+    @POST(Constants.COACH_EVENT_BOOKING_LIST)
+    Call<O_EventBookedListResponse> getCoachEventList(@Header("Authorization") String Authorization,
+                                                           @Header("Content-Type") String contentType,
+                                                           @Query("target_id") String target_id,
+                                                           @Query("order_by") String order_by,
+                                                           @Query("search") String search,
+                                                           @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_SessionBookedListResponse> getOrganiserBookedSessionList(@Header("Authorization") String Authorization,
+                                                                    @Header("Content-Type") String contentType,
+                                                                    @Query("target_id") String target_id,
+                                                                    @Query("order_by") String order_by,
+                                                                    @Query("search") String search,
+                                                                    @Query("type") String type);
+    @POST(Constants.O_EVENT_BOOKING_LIST)
+    Call<O_SessionBookedListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                                     @Header("Content-Type") String contentType,
                                                                     @Query("target_id") String target_id,
                                                                     @Query("order_by") String order_by,

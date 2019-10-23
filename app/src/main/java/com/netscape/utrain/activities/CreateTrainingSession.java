@@ -77,6 +77,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_training_session);
 
+        binding.ctsBackArrowImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         init();
 
     }

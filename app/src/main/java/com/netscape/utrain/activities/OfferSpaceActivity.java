@@ -82,6 +82,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         startWeekadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.offerSpaceSelectStrtWeek.setAdapter(startWeekadapter);
 
+        binding.osBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         binding.offerSpaceSelectStrtWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

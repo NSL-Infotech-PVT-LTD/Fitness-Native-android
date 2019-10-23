@@ -64,6 +64,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PortfolioActivity extends AppCompatActivity implements View.OnClickListener {
+    public static boolean getImages = false;
     MultipartBody.Part userImg = null;
     MultipartBody.Part portFolioImage1 = null, portFolioImage2 = null, portFolioImage3 = null, portFolioImage4 = null;
     private ActivityPortfolioBinding binding;
@@ -81,7 +82,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private OrgUserDataModel orgDataModel;
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
-    public static boolean getImages = false;
     private List<ServiceIdModel> servicesList = new ArrayList<>();
 
 
@@ -96,10 +96,28 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         return true;
     }
 
+    public static void clearFromConstants() {
+        PortfolioImagesConstants.imageOne = "";
+        PortfolioImagesConstants.imageTwo = "";
+        PortfolioImagesConstants.imageThree = "";
+        PortfolioImagesConstants.imageFour = "";
+        PortfolioImagesConstants.partOne = null;
+        PortfolioImagesConstants.partTwo = null;
+        PortfolioImagesConstants.partThree = null;
+        PortfolioImagesConstants.partFour = null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_portfolio);
+
+        binding.portfolioBackArrowImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         init();
     }
@@ -227,7 +245,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         checkForPermissions();
     }
 
-
     private void checkForPermissions() {
         if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             askRequiredPermission();
@@ -327,7 +344,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         getImageFromStorage();
     }
 
-
     public void getImageFromStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -340,9 +356,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             PortfolioActivity.this.startActivityForResult(photoPickerIntent, Constants.REQUEST_CODE_GALLERY);
         }
     }
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -390,7 +403,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
             }
             setPortfolioImages();
-        }  else if (requestCode == Constants.REQUEST_CODE_GALLERY ){
+        } else if (requestCode == Constants.REQUEST_CODE_GALLERY) {
 
         }
     }
@@ -591,16 +604,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public static void clearFromConstants() {
-        PortfolioImagesConstants.imageOne = "";
-        PortfolioImagesConstants.imageTwo = "";
-        PortfolioImagesConstants.imageThree = "";
-        PortfolioImagesConstants.imageFour = "";
-        PortfolioImagesConstants.partOne = null;
-        PortfolioImagesConstants.partTwo = null;
-        PortfolioImagesConstants.partThree = null;
-        PortfolioImagesConstants.partFour = null;
-    }
     private void storeServiceIds(List<ServiceIdModel> list) {
         Gson gson = new Gson();
         String listData = gson.toJson(list);

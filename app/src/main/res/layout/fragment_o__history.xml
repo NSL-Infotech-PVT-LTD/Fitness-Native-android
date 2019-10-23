@@ -57,13 +57,14 @@
                 android:id="@+id/nameOfType"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/gray_text_background"
+                android:background="@drawable/round_background_colord"
                 android:gravity="center"
+                android:padding="@dimen/_4sdp"
                 android:text="Event"
+                android:textSize="@dimen/_8sdp"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintLeft_toLeftOf="@+id/layoutTitleText"
-                app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
-                ></com.google.android.material.textview.MaterialTextView>
+                app:layout_constraintTop_toBottomOf="@id/layoutTitleText"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_10sdp"

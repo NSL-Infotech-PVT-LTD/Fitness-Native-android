@@ -126,7 +126,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         PortfolioActivity.clearFromConstants();
 
 
-
     }
 
     private void init() {

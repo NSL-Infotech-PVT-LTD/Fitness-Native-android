@@ -21,6 +21,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.adapters_org.O_BookedEventListAdapter;
+import com.netscape.utrain.databinding.ActivityEventAppliedListBinding;
 import com.netscape.utrain.model.BookedUserModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
 import com.netscape.utrain.model.O_BookedSessionDataModel;
@@ -36,6 +37,7 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
@@ -50,6 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EventAppliedList extends AppCompatActivity implements O_BookedEventListAdapter.onClick {
+    ActivityEventAppliedListBinding binding;
     BookedUserModel model;
     private RecyclerView.LayoutManager layoutManager;
     private O_BookedEventListAdapter adapter;
@@ -63,7 +66,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private String type = "";
     private String searchText = "";
     private EditText search;
-    private ImageView customerImage,noDataImageView;
+    private ImageView customerImage, noDataImageView;
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
 
@@ -73,7 +76,9 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_applied_list);
+//        setContentView(R.layout.activity_event_applied_list);
+
+        binding = DataBindingUtil.setContentView(EventAppliedList.this, R.layout.activity_event_applied_list);
 
 
         layoutManager = new LinearLayoutManager(this);
@@ -97,6 +102,13 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         search = findViewById(R.id.search);
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
 
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         bottomSheetBehavior_sort();
         init();
         search.setOnTouchListener(new View.OnTouchListener() {
@@ -107,10 +119,10 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (search.getRight() - search.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        searchText=search.getText().toString();
-                        if (searchText.isEmpty()){
+                        searchText = search.getText().toString();
+                        if (searchText.isEmpty()) {
                             Toast.makeText(EventAppliedList.this, "Enter some text to search", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             if (type.equalsIgnoreCase(Constants.EVENT)) {
                                 getNumOfBookedList();
                             }
@@ -128,7 +140,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
                 return false;
             }
         });
-
 
 
     }
@@ -181,13 +192,23 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             type = getIntent().getStringExtra(Constants.SELECTED_TYPE);
         }
         if (type.equalsIgnoreCase(Constants.EVENT)) {
-            getNumOfBookedList();
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                getCoachEventList();
+            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
+                getNumOfBookedList();
+            }
+
         }
         if (type.equalsIgnoreCase(Constants.SPACE)) {
             getNumSpaceList();
         }
         if (type.equalsIgnoreCase(Constants.SESSION)) {
-            getNumSessionList();
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                getCoachSessionList();
+            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
+                getNumSessionList();
+            }
+
         }
 
 
@@ -206,7 +227,66 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
     public void getNumOfBookedList() {
         progressDialog.show();
-        Call<O_EventBookedListResponse> call = retrofitinterface.getOrganiserBookedList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS),searchText, "event");
+        Call<O_EventBookedListResponse> call = retrofitinterface.getOrganiserBookedList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "event");
+        call.enqueue(new Callback<O_EventBookedListResponse>() {
+            @Override
+            public void onResponse(Call<O_EventBookedListResponse> call, Response<O_EventBookedListResponse> response) {
+                if (response.body() != null) {
+                    list = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            list.addAll(response.body().getData().getData());
+                            adapter = new O_BookedEventListAdapter(EventAppliedList.this, list, 1, EventAppliedList.this);
+//                                    new O_BookedEventListAdapter.onClick() {
+//                                @Override
+//                                public void onClick() {
+//
+//                                    bottomSheetUpDown_address();
+//
+//                                }
+//                            });
+                            recyclerView.setAdapter(adapter);
+                        } else {
+                            recyclerView.setVisibility(View.GONE);
+                            noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    noDataImageView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_EventBookedListResponse> call, Throwable t) {
+                recyclerView.setVisibility(View.GONE);
+                noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getCoachEventList() {
+        progressDialog.show();
+        Call<O_EventBookedListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "event");
         call.enqueue(new Callback<O_EventBookedListResponse>() {
             @Override
             public void onResponse(Call<O_EventBookedListResponse> call, Response<O_EventBookedListResponse> response) {
@@ -265,7 +345,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
     public void getNumSessionList() {
         progressDialog.show();
-        Call<O_SessionBookedListResponse> callSession = retrofitinterface.getOrganiserBookedSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS),searchText, "session");
+        Call<O_SessionBookedListResponse> callSession = retrofitinterface.getOrganiserBookedSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "session");
         callSession.enqueue(new Callback<O_SessionBookedListResponse>() {
             @Override
             public void onResponse(Call<O_SessionBookedListResponse> call, Response<O_SessionBookedListResponse> response) {
@@ -298,7 +378,8 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
                     }
                 } else {
                     recyclerView.setVisibility(View.GONE);
-                    noDataImageView.setVisibility(View.VISIBLE);;
+                    noDataImageView.setVisibility(View.VISIBLE);
+                    ;
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -314,8 +395,68 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
             @Override
             public void onFailure(Call<O_SessionBookedListResponse> call, Throwable t) {
-                 recyclerView.setVisibility(View.GONE);
-                 noDataImageView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                noDataImageView.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getCoachSessionList() {
+        progressDialog.show();
+        Call<O_SessionBookedListResponse> callSession = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "session");
+        callSession.enqueue(new Callback<O_SessionBookedListResponse>() {
+            @Override
+            public void onResponse(Call<O_SessionBookedListResponse> call, Response<O_SessionBookedListResponse> response) {
+                if (response.body() != null) {
+                    sessionData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            noDataImageView.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+                            sessionData.addAll(response.body().getData().getData());
+                            adapter = new O_BookedEventListAdapter(EventAppliedList.this, sessionData, 3, EventAppliedList.this);
+//                                    new O_BookedEventListAdapter.onClick() {
+//                                @Override
+//                                public void onClick() {
+//
+//                                    bottomSheetUpDown_address();
+//
+//                                }
+//                            });
+                            recyclerView.setAdapter(adapter);
+                        } else {
+                            recyclerView.setVisibility(View.GONE);
+                            noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    noDataImageView.setVisibility(View.VISIBLE);
+                    ;
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_SessionBookedListResponse> call, Throwable t) {
+                recyclerView.setVisibility(View.GONE);
+                noDataImageView.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -324,7 +465,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
     public void getNumSpaceList() {
         progressDialog.show();
-        Call<O_BookedSpaceListResponse> callSession = retrofitinterface.getOrganiserBookedSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText,"space");
+        Call<O_BookedSpaceListResponse> callSession = retrofitinterface.getOrganiserBookedSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "space");
         callSession.enqueue(new Callback<O_BookedSpaceListResponse>() {
             @Override
             public void onResponse(Call<O_BookedSpaceListResponse> call, Response<O_BookedSpaceListResponse> response) {
@@ -384,7 +525,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     @Override
     public void onClick(int type, int position) {
         if (type == 1) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+list.get(position).getUser_details().getProfile_image()).into(customerImage);
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + list.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(list.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + list.get(position).getId());
             bookingPlaceName.setText(list.get(position).getEvent().getName());
@@ -421,7 +562,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
         }
         if (type == 2) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+spaceData.get(position).getUser_details().getProfile_image()).into(customerImage);
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + spaceData.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(spaceData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + spaceData.get(position).getId());
             bookingPlaceName.setText(spaceData.get(position).getSpace().getName());
@@ -451,13 +592,13 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
             ti_locationText.setText(spaceData.get(position).getSpace().getLocation());
             ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendees & Tickets (1 per person)");
-            ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + spaceData.get(position).getSpace().getPrice_hourly()+ " each");
+            ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + spaceData.get(position).getSpace().getPrice_hourly() + " each");
             ti_TotalPrice.setText("$" + spaceData.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");
             totalAmount.setText("$" + spaceData.get(position).getPrice() + ".00");
         }
         if (type == 3) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL+sessionData.get(position).getUser_details().getProfile_image()).into(customerImage);
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + sessionData.get(position).getUser_details().getProfile_image()).into(customerImage);
             userName.setText(sessionData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + sessionData.get(position).getId());
             bookingPlaceName.setText(sessionData.get(position).getSession().getName());
