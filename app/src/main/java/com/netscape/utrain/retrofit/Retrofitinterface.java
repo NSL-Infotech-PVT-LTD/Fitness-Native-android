@@ -29,6 +29,7 @@ import com.netscape.utrain.response.O_SpaceListResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
+import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -243,6 +244,10 @@ public interface Retrofitinterface {
     Call<EventBookingModel> eventDetail(@Header("Authorization") String Authorization,
                                         @Header("Content-Type") String contentType,
                                         @Query("id") String id);
+    @POST(Constants.SESSION_DETAIL)
+    Call<SessionDetailResponse> getSessionDetails(@Header("Authorization") String Authorization,
+                                                  @Header("Content-Type") String contentType,
+                                                  @Query("id") String id);
 
     @POST(Constants.BOOKING_API)
     Call<BookingConfirmModel> bookingConfrim(@Header("Authorization") String Authorization,

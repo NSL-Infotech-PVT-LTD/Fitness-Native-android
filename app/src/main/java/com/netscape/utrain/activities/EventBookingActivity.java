@@ -16,6 +16,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.databinding.ActivityEventBookingBinding;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
@@ -86,9 +87,13 @@ public class EventBookingActivity extends AppCompatActivity {
        type = getIntent().getStringExtra("type");
             if (type.equalsIgnoreCase("space")){
 //                hitEventDetailAPI();
-            } else {
-                hitEventDetailAPI();
             }
+        if (type.equalsIgnoreCase("event")){
+                hitEventDetailAPI();
+        }
+        if (type.equalsIgnoreCase("session")){
+                getSessionDetails();
+        }
 //
 
 
@@ -200,6 +205,69 @@ public class EventBookingActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EventBookingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+    private void getSessionDetails() {
+
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getIntExtra("event_id", 0) + "");
+        signUpAthlete.enqueue(new Callback<SessionDetailResponse>() {
+            @Override
+            public void onResponse(Call<SessionDetailResponse> call, Response<SessionDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            binding.eventBookMarathonHeaderTv.setText(response.body().getData().getName());
+                            binding.eventVanueDetailTv.setText(response.body().getData().getLocation());
+                            binding.eventTimeDetailTv.setText(response.body().getData().getBusiness_hour());
+                            binding.eventDateDetailTv.setText(response.body().getData().getDate());
+                            binding.eventPrice.setText("$" + response.body().getData().getHourly_rate() + "");
+                            ticketPrice = response.body().getData().getHourly_rate();
+                            binding.text1.setText((ticket + "*" + countVAlue) + "");
+                            try {
+                                if (response.body().getData().getImages() != null) {
+                                    JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(binding.eventBookingImage);
+
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+
+                                Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+
+                    } catch (Exception e) {
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SessionDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 

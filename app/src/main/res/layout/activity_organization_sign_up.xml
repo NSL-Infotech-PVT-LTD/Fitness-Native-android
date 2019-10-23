@@ -283,7 +283,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/organization_edt_design"
                             android:fontFamily="@font/poppins_regular"
-                            android:hint="@string/enter_bio"
+                            android:hint="@string/write_few_bio"
                             android:inputType="textMultiLine"
                             android:maxHeight="@dimen/_200sdp"
                             android:minHeight="@dimen/_40sdp"
