@@ -36,12 +36,13 @@ public class EventDetail extends AppCompatActivity {
 
     private ActivityEventDetailBinding binding;
 
-    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv;
+    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv,eventNumOfCandidateTv,seatNo;
     MaterialTextView title;
     MaterialTextView endDateTime;
     private AthletePlaceModel placeModel;
 
     String eventType = "";
+
 
     AppCompatImageView imgBackArrowImage;
 
@@ -72,11 +73,17 @@ public class EventDetail extends AppCompatActivity {
         eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
         eventInstructionsDetailTv = findViewById(R.id.eventInstructionsDetailTv);
         evntJoinNow = findViewById(R.id.evntJoinNow);
+        eventNumOfCandidateTv = findViewById(R.id.eventNumOfCandidateTv);
+        seatNo = findViewById(R.id.seatNo);
 
         eventName.setText(getIntent().getStringExtra("eventName"));
         venueAddress.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
         eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
         eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
+        seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
+
+
 //        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
         if (getIntent().getStringExtra("from") != null)
@@ -144,12 +151,13 @@ public class EventDetail extends AppCompatActivity {
                 public void onClick(View view) {
 
 
+
                     Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
-                    intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
-                    intent.putExtra("eventName", getIntent().getIntExtra("eventName", 0));
-                    intent.putExtra("eventVenue", getIntent().getIntExtra("eventVenue", 0));
-                    intent.putExtra("eventTime", getIntent().getIntExtra("eventTime", 0));
-                    intent.putExtra("eventDate", getIntent().getIntExtra("eventDate", 0));
+                    intent.putExtra("event_id", getIntent().getIntExtra("event_id",0));
+                    intent.putExtra("eventName", eventName.getText());
+                    intent.putExtra("eventVenue", venueAddress.getText());
+                    intent.putExtra("eventTime", eventTimeDetailTv.getText());
+                    intent.putExtra("eventDate", eventDateDetailTv.getText());
                     intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
                     intent.putExtra("type", eventType);
                     startActivity(intent);

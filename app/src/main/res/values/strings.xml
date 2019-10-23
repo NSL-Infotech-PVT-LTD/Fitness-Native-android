@@ -361,4 +361,6 @@
     <string name="ok">Ok</string>
     <string name="no_events">No Event</string>
     <string name="event_default_title">My Events</string>
+    <string name="request_image">Req. Image</string>
+    <string name="occupancy">occupancy</string>
 </resources>

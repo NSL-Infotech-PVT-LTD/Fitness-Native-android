@@ -88,7 +88,9 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
-//                intent.putExtra("eventVenue", data.getLocation());
+                intent.putExtra("guest_allowed", data.getGuest_allowed());
+                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left());
+                intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("eventTime", data.getBusiness_hour());
                 intent.putExtra("eventDate", data.getDate());
                 intent.putExtra("eventDescription", data.getDescription());

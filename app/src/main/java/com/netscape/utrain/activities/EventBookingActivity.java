@@ -47,11 +47,27 @@ public class EventBookingActivity extends AppCompatActivity {
         activity = this;
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_event_booking);
 
+        if (getIntent().hasExtra("eventName"))
         binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
+        else
+            binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("Loading.."));
+        if (getIntent().hasExtra("eventVenue"))
         binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
+        else
+            binding.eventVanueDetailTv.setText(getIntent().getStringExtra("Loading.."));
+            if (getIntent().hasExtra("eventTime"))
         binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+            else
+                binding.eventTimeDetailTv.setText(getIntent().getStringExtra("Loading.."));
+                if (getIntent().hasExtra("eventDate"))
         binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+                else
+                    binding.eventDateDetailTv.setText(getIntent().getStringExtra("Loading.."));
+                    if (getIntent().hasExtra("Array"))
         Glide.with(EventBookingActivity.this).load(getIntent().getStringExtra("Array")).into(binding.eventBookingImage);
+                    else
+                        Glide.with(EventBookingActivity.this).load(getResources().getDrawable(R.drawable.ic_place_holder)).into(binding.eventBookingImage);
+
 
 
 
@@ -63,6 +79,17 @@ public class EventBookingActivity extends AppCompatActivity {
         });
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
+
+        String type = "";
+
+       type = getIntent().getStringExtra("type");
+            if (type.equalsIgnoreCase("space")){
+//                hitEventDetailAPI();
+            } else {
+                hitEventDetailAPI();
+            }
+//
 
 
 

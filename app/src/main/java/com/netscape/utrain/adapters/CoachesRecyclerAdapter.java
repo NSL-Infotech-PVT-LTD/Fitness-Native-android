@@ -110,6 +110,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("event_id", data.getId());
+                intent.putExtra("guest_allowed", data.getGuest_allowed());
+                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left());
 
                 intent.putExtra("eventDate", data.getStart_date());
                 intent.putExtra("eventTime", data.getStart_time());

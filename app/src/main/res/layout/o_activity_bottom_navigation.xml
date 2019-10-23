@@ -89,6 +89,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:backgroundTint="@color/whiteTransparent"
+                android:layout_marginRight="@dimen/_10sdp"
                 app:menu="@menu/athlete_bottom_nav_menu">
                 <!--        ?android:attr/windowBackground-->
 

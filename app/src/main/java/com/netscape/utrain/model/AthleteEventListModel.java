@@ -37,6 +37,7 @@ public class AthleteEventListModel {
     private int service_id;
     private int organizer_id;
     private int guest_allowed;
+    private int guest_allowed_left;
     private String equipment_required;
     private double distance;
     private String images;
@@ -55,6 +56,14 @@ public class AthleteEventListModel {
             movies.add(movie);
         }
         return movies;
+    }
+
+    public int getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(int guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
     }
 
     public String getStart_date() {

@@ -152,11 +152,11 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                             listModels.clear();
                             listModels.addAll(response.body().getData().getData());
                             if (listModels != null && listModels.size() > 0) {
-                                binding.noDataFoundImg.setVisibility(View.GONE);
+//                                binding.noDataFoundImg.setVisibility(View.GONE);
                                 adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
                                 binding.coachSpaceRecyclerView.setAdapter(adapter);
                             } else {
-                                binding.noDataFoundImg.setVisibility(View.VISIBLE);
+//                                binding.noDataFoundImg.setVisibility(View.VISIBLE);
                             }
                         }
                     } else {
@@ -170,7 +170,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                         Snackbar.make(binding.orgHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        binding.noDataFoundImg.setVisibility(View.VISIBLE);
+//                        binding.noDataFoundImg.setVisibility(View.VISIBLE);
                         Snackbar.make(binding.orgHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
