@@ -30,6 +30,32 @@ public class AthleteEventListModel {
     private String start_time;
     private String end_date;
     private String end_time;
+    private int price;
+    private String location;
+    private String latitude;
+    private String longitude;
+    private int service_id;
+    private int organizer_id;
+    private int guest_allowed;
+    private String equipment_required;
+    private double distance;
+    private String images;
+    public AthleteEventListModel(String s) {
+        this.name = s;
+    }
+    public AthleteEventListModel() {
+
+    }
+
+    public static List<AthleteEventListModel> createMovies(int itemCount) {
+        List<AthleteEventListModel> movies = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            AthleteEventListModel movie = new AthleteEventListModel("Movie " + (itemCount == 0 ?
+                    (itemCount + 1 + i) : (itemCount + i)));
+            movies.add(movie);
+        }
+        return movies;
+    }
 
     public String getStart_date() {
         return start_date;
@@ -61,25 +87,6 @@ public class AthleteEventListModel {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
-    }
-
-    private int price;
-    private String location;
-    private String latitude;
-    private String longitude;
-    private int service_id;
-    private int organizer_id;
-    private int guest_allowed;
-    private String equipment_required;
-    private double distance;
-    private String images;
-
-    public AthleteEventListModel(String s) {
-        this.name = s;
-    }
-
-    public AthleteEventListModel() {
-
     }
 
     public String getImages() {
@@ -184,15 +191,5 @@ public class AthleteEventListModel {
 
     public void setDistance(double distance) {
         this.distance = distance;
-    }
-
-    public static List<AthleteEventListModel> createMovies(int itemCount) {
-        List<AthleteEventListModel> movies = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            AthleteEventListModel movie = new AthleteEventListModel("Movie " + (itemCount == 0 ?
-                    (itemCount + 1 + i) : (itemCount + i)));
-            movies.add(movie);
-        }
-        return movies;
     }
 }

@@ -3,13 +3,23 @@ package com.netscape.utrain.response;
 import com.netscape.utrain.model.A_BookedEventDataModel;
 import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
+import com.netscape.utrain.model.O_BookedEventPaginationModel;
 
 import java.util.List;
 
 public class O_EventBookedListResponse {
     private boolean status;
     private int code;
-    private List<O_BookedEventDataModel> data;
+    private O_BookedEventPaginationModel data;
+
+    public O_BookedEventPaginationModel getData() {
+        return data;
+    }
+
+    public void setData(O_BookedEventPaginationModel data) {
+        this.data = data;
+    }
+
     private ErrorModel error;
 
     public boolean isStatus() {
@@ -28,13 +38,6 @@ public class O_EventBookedListResponse {
         this.code = code;
     }
 
-    public List<O_BookedEventDataModel> getData() {
-        return data;
-    }
-
-    public void setData(List<O_BookedEventDataModel> data) {
-        this.data = data;
-    }
 
     public ErrorModel getError() {
         return error;

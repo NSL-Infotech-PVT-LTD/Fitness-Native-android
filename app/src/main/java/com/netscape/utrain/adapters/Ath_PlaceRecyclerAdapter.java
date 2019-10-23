@@ -87,7 +87,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);
-
+                    intent.putExtra(Constants.SPACE_DATA,data);
                 context.startActivity(intent);
             }
         });

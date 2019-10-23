@@ -332,6 +332,7 @@ public interface Retrofitinterface {
                                                            @Header("Content-Type") String contentType,
                                                            @Query("target_id") String target_id,
                                                            @Query("order_by") String order_by,
+                                                           @Query("search") String search,
                                                            @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
@@ -339,6 +340,7 @@ public interface Retrofitinterface {
                                                                     @Header("Content-Type") String contentType,
                                                                     @Query("target_id") String target_id,
                                                                     @Query("order_by") String order_by,
+                                                                    @Query("search") String search,
                                                                     @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
@@ -346,6 +348,7 @@ public interface Retrofitinterface {
                                                                 @Header("Content-Type") String contentType,
                                                                 @Query("target_id") String target_id,
                                                                 @Query("order_by") String order_by,
+                                                                @Query("search") String search,
                                                                 @Query("type") String type);
 
 

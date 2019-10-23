@@ -18,6 +18,7 @@ import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
 import com.netscape.utrain.databinding.ActivityEventDetailBinding;
+import com.netscape.utrain.model.AthletePlaceModel;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -38,6 +39,7 @@ public class EventDetail extends AppCompatActivity {
     MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv;
     MaterialTextView title;
     MaterialTextView endDateTime;
+    private AthletePlaceModel placeModel;
 
     String eventType = "";
 
@@ -80,6 +82,7 @@ public class EventDetail extends AppCompatActivity {
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Spaces");
+//                placeModel= (AthletePlaceModel) getIntent().getSerializableExtra(Constants.SPACE_DATA);
 
                 binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
                 binding.eventCandidateTv.setVisibility(View.GONE);

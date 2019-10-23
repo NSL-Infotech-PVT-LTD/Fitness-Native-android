@@ -21,6 +21,15 @@
                 app:layout_constraintTop_toTopOf="parent"
 
                 />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:id="@+id/noDataImageCmp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/no_data_png"
+                app:layout_constraintBottom_toBottomOf="parent"></androidx.appcompat.widget.AppCompatImageView>
 <!--            <com.google.android.material.textview.MaterialTextView-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->

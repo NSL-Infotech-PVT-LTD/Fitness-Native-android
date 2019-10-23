@@ -2,6 +2,7 @@ package com.netscape.utrain.response;
 
 import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
+import com.netscape.utrain.model.O_BookedSpacePagination;
 import com.netscape.utrain.model.O_SpaceListDataModel;
 
 import java.util.List;
@@ -9,14 +10,14 @@ import java.util.List;
 public class O_BookedSpaceListResponse {
     private boolean status;
     private int code;
-    private List<O_SpaceListDataModel> data;
+    private O_BookedSpacePagination data;
     private ErrorModel error;
 
-    public List<O_SpaceListDataModel> getData() {
+    public O_BookedSpacePagination getData() {
         return data;
     }
 
-    public void setData(List<O_SpaceListDataModel> data) {
+    public void setData(O_BookedSpacePagination data) {
         this.data = data;
     }
 

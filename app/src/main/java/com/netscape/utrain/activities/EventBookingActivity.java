@@ -66,7 +66,7 @@ public class EventBookingActivity extends AppCompatActivity {
 
 
 
-        hitEventDetailAPI();
+//        hitEventDetailAPI();
         binding.addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

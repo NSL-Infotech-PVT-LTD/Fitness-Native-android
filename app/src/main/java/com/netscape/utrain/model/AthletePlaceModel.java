@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class AthletePlaceModel {
+import java.io.Serializable;
+
+public class AthletePlaceModel implements Serializable {
 
     /**
      * id : 11

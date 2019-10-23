@@ -153,7 +153,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
         getSpaceList();
         String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context);
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
+//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
+        Glide.with(context).load(path).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
@@ -279,17 +280,24 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                             listModels.clear();
                             listModels.addAll(response.body().getData().getData());
                                 if (listModels!=null && listModels.size()>0) {
-                                binding.noDataFoundImg.setVisibility(View.GONE);
+                                binding.noSpaceOrgImg.setVisibility(View.GONE);
+                                binding.orgViewAllSpaces.setVisibility(View.VISIBLE);
                                 adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
                                 binding.orgSpaceRecyclerView.setAdapter(adapter);
                             }else {
-                                binding.noDataFoundImg.setVisibility(View.VISIBLE);
+                                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                                binding.orgViewAllSpaces.setVisibility(View.GONE);
                             }
                         }
                     } else {
                         Snackbar.make(binding.orgHomeLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                        binding.orgViewAllSpaces.setVisibility(View.GONE);
+
                     }
                 } else {
+                    binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                    binding.orgViewAllSpaces.setVisibility(View.GONE);
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -297,7 +305,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                         Snackbar.make(binding.orgHomeLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        binding.noDataFoundImg.setVisibility(View.VISIBLE);
+
+
                         Snackbar.make(binding.orgHomeLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
@@ -306,6 +315,9 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
+                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                binding.orgViewAllSpaces.setVisibility(View.GONE);
+
                 progressDialog.dismiss();
                 Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 

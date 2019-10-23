@@ -2,7 +2,9 @@ package com.netscape.utrain.response;
 
 import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
+import com.netscape.utrain.model.O_BookedEventPaginationModel;
 import com.netscape.utrain.model.O_BookedSessionDataModel;
+import com.netscape.utrain.model.O_BookedSessionPaginationModel;
 
 import java.util.List;
 
@@ -10,7 +12,17 @@ public class O_SessionBookedListResponse {
 
     private boolean status;
     private int code;
-    private List<O_BookedSessionDataModel> data;
+
+    private O_BookedSessionPaginationModel data;
+
+    public O_BookedSessionPaginationModel getData() {
+        return data;
+    }
+
+    public void setData(O_BookedSessionPaginationModel data) {
+        this.data = data;
+    }
+
     private ErrorModel error;
 
     public boolean isStatus() {
@@ -29,13 +41,7 @@ public class O_SessionBookedListResponse {
         this.code = code;
     }
 
-    public List<O_BookedSessionDataModel> getData() {
-        return data;
-    }
 
-    public void setData(List<O_BookedSessionDataModel> data) {
-        this.data = data;
-    }
 
     public ErrorModel getError() {
         return error;

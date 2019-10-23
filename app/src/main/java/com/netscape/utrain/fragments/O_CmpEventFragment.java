@@ -206,7 +206,7 @@ public class O_CmpEventFragment extends Fragment {
 //                            binding.noDataImageView.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_eventData.addAll(response.body().getData());
-                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData,completed);
+                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, completed);
                             binding.sessionListRecycler.setAdapter(c_EventAdapter);
 
                         } else {
@@ -255,24 +255,23 @@ public class O_CmpEventFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+
+                            binding.noDataImageCmp.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
                             c_sessionData.addAll(response.body().getData());
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData,completed);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, completed);
                             binding.sessionListRecycler.setAdapter(c_SessionAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
-
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -288,8 +287,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -298,7 +297,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSession() {
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -307,24 +306,25 @@ public class O_CmpEventFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             a_sessionData.addAll(response.body().getData());
                             a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData);
                             binding.sessionListRecycler.setAdapter(a_SessionAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -340,8 +340,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AthleteSessionBookList> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -350,7 +350,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingEvents() {
         progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -359,24 +359,24 @@ public class O_CmpEventFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             a_eventData.addAll(response.body().getData());
                             a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -392,8 +392,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AthleteBookListModel> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -403,7 +403,7 @@ public class O_CmpEventFragment extends Fragment {
 
     public void a_getUpcommingSpaces() {
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -412,24 +412,24 @@ public class O_CmpEventFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData());
                             a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData);
                             binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -445,8 +445,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AthleteSpaceBookList> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -481,24 +481,24 @@ public class O_CmpEventFragment extends Fragment {
                     eventData = new ArrayList<>();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             eventData.addAll(response.body().getData());
                             currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
                             binding.sessionListRecycler.setAdapter(currentEventAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -514,8 +514,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<O_EventListResponse> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -534,24 +534,24 @@ public class O_CmpEventFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             spaceData.addAll(response.body().getData());
-                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData,completed);
+                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, completed);
                             binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -567,8 +567,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<O_SpaceListResponse> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -587,24 +587,25 @@ public class O_CmpEventFragment extends Fragment {
 
                     if (response.body().isStatus()) {
                         if (response.body().getData().size() > 0) {
-//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
-//                            binding.noDataImageView.setVisibility(View.GONE);
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
 //                            data.addAll(response.body().getData());
                             sessionData.addAll(response.body().getData());
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData,completed);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, completed);
                             binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
                         } else {
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                         }
                     } else {
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                     }
                 } else {
-//                    binding.topRateRecycler.setVisibility(View.GONE);
-//                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -620,8 +621,8 @@ public class O_CmpEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<O_SessionListResponse> call, Throwable t) {
-//                binding.topRateRecycler.setVisibility(View.GONE);
-//                binding.noDataImageView.setVisibility(View.VISIBLE);
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

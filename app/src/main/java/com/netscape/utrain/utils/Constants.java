@@ -42,6 +42,7 @@ public class Constants {
     public static final String COACH_SPACE_LIST = "spaces/coach/list";
     public static final String COACH_SESSION_LIST = "session/coach/list";
     public static final String AUTH_TOKEN = "auth token";
+    public static final String SPACE_DATA = "spaceData";
     public static String ROLE_PLAY = "";
 
 

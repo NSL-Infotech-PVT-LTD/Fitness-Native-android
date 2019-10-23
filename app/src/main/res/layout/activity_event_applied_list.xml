@@ -58,7 +58,15 @@
             android:textColorHint="@color/lightGrayFont"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/noDataImageView"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/no_data_png"></androidx.appcompat.widget.AppCompatImageView>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/appliedListRecycler"
             android:layout_width="match_parent"
