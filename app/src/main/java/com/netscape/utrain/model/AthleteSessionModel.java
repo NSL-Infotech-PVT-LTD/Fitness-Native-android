@@ -24,9 +24,27 @@ public class AthleteSessionModel {
     private int hourly_rate;
     private String images;
     private String phone;
-    private int max_occupancy;
+    private int guest_allowed;
+    private int guest_allowed_left;
     private int created_by;
     private String latitude;
+
+    public int getGuest_allowed() {
+        return guest_allowed;
+    }
+
+    public void setGuest_allowed(int guest_allowed) {
+        this.guest_allowed = guest_allowed;
+    }
+
+    public int getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(int guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
+    }
+
     private String longitude;
     private String location;
     private String distance;
@@ -127,13 +145,7 @@ public class AthleteSessionModel {
         this.phone = phone;
     }
 
-    public int getMax_occupancy() {
-        return max_occupancy;
-    }
 
-    public void setMax_occupancy(int max_occupancy) {
-        this.max_occupancy = max_occupancy;
-    }
 
     public int getCreated_by() {
         return created_by;
