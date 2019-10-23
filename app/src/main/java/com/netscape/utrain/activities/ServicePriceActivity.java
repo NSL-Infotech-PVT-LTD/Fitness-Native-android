@@ -26,6 +26,7 @@ import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.ServicePriceAdapter;
 import com.netscape.utrain.databinding.ActivityServicePriceBinding;
 import com.netscape.utrain.model.OrgUserDataModel;
+import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -69,6 +71,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     private File photoFile = null;
     private boolean userPrice = false;
     private int SELECTED_SERVICES = 11;
+    private List<ServiceIdModel> servicesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +200,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate()+"",ServicePriceActivity.this);
                             Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                            servicesList.addAll(response.body().getData().getUser().getService_ids());
+                            storeServiceIds(servicesList);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
@@ -452,4 +457,10 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 //        }
 //
 //    }
+
+    private void storeServiceIds(List<ServiceIdModel> list) {
+        Gson gson = new Gson();
+        String listData = gson.toJson(list);
+        CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
+    }
 }
