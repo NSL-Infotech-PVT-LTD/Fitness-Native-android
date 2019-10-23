@@ -17,7 +17,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_55sdp">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -276,6 +277,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/instruction_detail"
                 android:textSize="@dimen/_8sdp"
+                app:layout_goneMarginBottom="@dimen/_80sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                 app:layout_constraintRight_toRightOf="@id/rightGuideline"
                 app:layout_constraintTop_toBottomOf="@id/eventInstructionsTv" />
@@ -383,7 +385,8 @@
                 android:textColor="@color/notificationRedIcon"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/seatNo"/>
+                app:layout_constraintTop_toTopOf="@id/seatNo"
+                />
 
 
 

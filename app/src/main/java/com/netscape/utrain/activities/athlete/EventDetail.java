@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
@@ -86,6 +87,8 @@ public class EventDetail extends AppCompatActivity {
 
 //        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
+
+
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Spaces");
@@ -95,6 +98,9 @@ public class EventDetail extends AppCompatActivity {
                 binding.eventCandidateTv.setVisibility(View.GONE);
                 binding.eventNumOfCandidateTv.setVisibility(View.GONE);
                 binding.view2.setVisibility(View.GONE);
+                binding.noOfSeatText.setVisibility(View.GONE);
+                binding.seatNo.setVisibility(View.GONE);
+                binding.totalAvailableSeat.setVisibility(View.GONE);
                 eventType = "space";
             }
 
@@ -105,18 +111,23 @@ public class EventDetail extends AppCompatActivity {
                 binding.eventCandidateTv.setVisibility(View.VISIBLE);
                 binding.eventNumOfCandidateTv.setVisibility(View.VISIBLE);
                 binding.view2.setVisibility(View.VISIBLE);
-
                 binding.eventNumOfCandidateTv.setText(getIntent().getIntExtra("capacity",0)+"");
                 eventType = "event";
+                binding.noOfSeatText.setVisibility(View.VISIBLE);
+                binding.seatNo.setVisibility(View.VISIBLE);
+                binding.totalAvailableSeat.setVisibility(View.VISIBLE);
             }
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("sessions")) {
                 title.setText("Sessions");
-                binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
-                binding.eventCandidateTv.setVisibility(View.GONE);
-                binding.eventNumOfCandidateTv.setVisibility(View.GONE);
-                binding.view2.setVisibility(View.GONE);
+                binding.eventNumOfCandidateAttendingTv.setVisibility(View.VISIBLE);
+                binding.eventCandidateTv.setVisibility(View.VISIBLE);
+                binding.eventNumOfCandidateTv.setVisibility(View.VISIBLE);
+                binding.view2.setVisibility(View.VISIBLE);
                 eventType = "session";
+                binding.noOfSeatText.setVisibility(View.VISIBLE);
+                binding.seatNo.setVisibility(View.VISIBLE);
+                binding.totalAvailableSeat.setVisibility(View.VISIBLE);
 
             }
         Bundle b = getIntent().getExtras();

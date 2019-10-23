@@ -61,6 +61,7 @@ public class A_SpacesFragment extends Fragment {
                 Intent intent = new Intent(getContext(), AllEventsMapAct.class);
                 intent.putExtra("from","3");
                 getContext().startActivity(intent);
+
             }
         });
         getAthleteEventApi();
