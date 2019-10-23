@@ -21,6 +21,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.adapters_org.O_BookedEventListAdapter;
+import com.netscape.utrain.databinding.ActivityEventAppliedListBinding;
 import com.netscape.utrain.model.BookedUserModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
 import com.netscape.utrain.model.O_BookedSessionDataModel;
@@ -50,6 +51,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EventAppliedList extends AppCompatActivity implements O_BookedEventListAdapter.onClick {
+    ActivityEventAppliedListBinding binding;
     BookedUserModel model;
     private RecyclerView.LayoutManager layoutManager;
     private O_BookedEventListAdapter adapter;
@@ -73,7 +75,9 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_applied_list);
+//        setContentView(R.layout.activity_event_applied_list);
+
+        binding = DataBindingUtil.setContentView(EventAppliedList.this,R.layout.activity_event_applied_list);
 
 
         layoutManager = new LinearLayoutManager(this);
@@ -96,6 +100,13 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         noDataImageView = findViewById(R.id.noDataImageView);
         search = findViewById(R.id.search);
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
+
+        binding.backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         bottomSheetBehavior_sort();
         init();

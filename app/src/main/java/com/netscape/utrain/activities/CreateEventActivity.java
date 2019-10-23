@@ -100,6 +100,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
+        binding.ceBackArrowImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         getServiceIds();
         createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
         ArrayAdapter<ServiceIdModel> adapter = new ArrayAdapter<ServiceIdModel>(CreateEventActivity.this, android.R.layout.simple_spinner_item, selectedServices);

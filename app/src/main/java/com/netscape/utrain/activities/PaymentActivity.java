@@ -44,14 +44,13 @@ import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private ActivityPaymentBinding binding;
-
     public static final String PUBLISHABLE_KEY = "pk_test_StB3j4S26BTUGHm7RfbMyzUn00q1Q55MWn";
     protected Card cardToSave;
     EditText cardNumberEditText, cardDate, cardCVV, cardHolder;
     TextView validateCard;
     Stripe stripe;
     String backString = "";
+    private ActivityPaymentBinding binding;
     private int month, year;
     private ProgressDialog progressDoalog;
     private PaymentActivity activity;
@@ -66,7 +65,9 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_payment);
-        binding = DataBindingUtil.setContentView(PaymentActivity.this,R.layout.activity_payment);
+        binding = DataBindingUtil.setContentView(PaymentActivity.this, R.layout.activity_payment);
+
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         binding.paymentBackImg.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +77,6 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
         init();
-
 
 
     }
@@ -382,7 +382,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getIntExtra("event_id", 0) + "", tickets, price,"pending", token);
+        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getIntExtra("event_id", 0) + "", tickets, price, "pending", token);
         signUpAthlete.enqueue(new Callback<BookingConfirmModel>() {
             @Override
             public void onResponse(Call<BookingConfirmModel> call, Response<BookingConfirmModel> response) {
@@ -411,11 +411,11 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Toast.makeText(activity, ""+errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "" + errorMessage, Toast.LENGTH_SHORT).show();
 
 
                     } catch (Exception e) {
-                        Toast.makeText(activity, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
 
                     }
