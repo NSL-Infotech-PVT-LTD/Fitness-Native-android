@@ -13,10 +13,10 @@
             android:layout_height="match_parent">
 
             <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/orgdrawer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                android:id="@+id/orgdrawer_layout"
                 tools:openDrawer="start">
 
                 <include
@@ -25,10 +25,10 @@
                     android:layout_height="match_parent" />
 
                 <com.google.android.material.navigation.NavigationView
+                    android:id="@+id/o_slider"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
-                    android:id="@+id/o_slider"
                     android:background="@drawable/drawer_right_corner_laydesign_white"
                     android:fitsSystemWindows="true"
                     app:headerLayout="@layout/drawer_layout">
@@ -55,19 +55,19 @@
             </androidx.drawerlayout.widget.DrawerLayout>
 
 
-<!--            <androidx.constraintlayout.widget.Guideline-->
-<!--                android:id="@+id/leftGuideline"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintGuide_begin="@dimen/_10sdp" />-->
+            <!--            <androidx.constraintlayout.widget.Guideline-->
+            <!--                android:id="@+id/leftGuideline"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="vertical"-->
+            <!--                app:layout_constraintGuide_begin="@dimen/_10sdp" />-->
 
-<!--            <androidx.constraintlayout.widget.Guideline-->
-<!--                android:id="@+id/rightGuideline"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintGuide_end="@dimen/_10sdp" />-->
+            <!--            <androidx.constraintlayout.widget.Guideline-->
+            <!--                android:id="@+id/rightGuideline"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="vertical"-->
+            <!--                app:layout_constraintGuide_end="@dimen/_10sdp" />-->
 
             <FrameLayout
                 android:id="@+id/orgFramecontainerOrg"
@@ -85,13 +85,13 @@
                 android:id="@+id/orgNavView"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/bottom_nav_round_design"
+                android:backgroundTint="@color/whiteTransparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:backgroundTint="@color/whiteTransparent"
-                android:layout_marginRight="@dimen/_10sdp"
                 app:menu="@menu/athlete_bottom_nav_menu">
                 <!--        ?android:attr/windowBackground-->
 

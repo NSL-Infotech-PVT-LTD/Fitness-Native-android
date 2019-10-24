@@ -365,4 +365,5 @@
     <string name="occupancy">occupancy</string>
     <string name="write_few_bio">Enter bio</string>
     <string name="enter_valid_capacity">Enter valid capacity</string>
+    <string name="working_hours">Working Hrs</string>
 </resources>

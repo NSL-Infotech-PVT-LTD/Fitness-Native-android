@@ -1,10 +1,8 @@
-package com.netscape.utrain.activities.athlete;
+package com.netscape.utrain.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,18 +12,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
-import com.netscape.utrain.model.CoachDataModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
 
-public class TopCoachesDetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    //    private ActivityTopCoachesDetailsBinding binding;
+public class TopCoachOrgDetailActivity extends AppCompatActivity implements View.OnClickListener {
+
+    ChipGroup chipGroup;
+    RelativeLayout add_service;
     private CoachListModel coachListModel;
     private int type;
     private BottomSheetBehavior sheetBehavior;
@@ -37,11 +40,10 @@ public class TopCoachesDetailsActivity extends AppCompatActivity implements View
     private TextView name, typeUser, service, bio, price, training, title, moreServices;
     private AppCompatImageView detailMapDirection;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_coaches_details);
+        setContentView(R.layout.activity_top_coach_org_detail);
 //        binding= DataBindingUtil.setContentView(this,R.layout.activity_top_coaches_details);
         detailMapDirection = findViewById(R.id.detailMapDirection);
         detailMapDirection.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +51,7 @@ public class TopCoachesDetailsActivity extends AppCompatActivity implements View
             public void onClick(View view) {
 
                 Intent intent = null;
-                intent= new Intent(Intent.ACTION_VIEW);
+                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("geo:19.076,72.8777"));
                 startActivity(intent);
 
@@ -72,7 +74,10 @@ public class TopCoachesDetailsActivity extends AppCompatActivity implements View
         title = findViewById(R.id.topDetailsTitleTv);
         backArrow = findViewById(R.id.detailBackArrow);
         profImage = findViewById(R.id.detailImage);
+        add_service = findViewById(R.id.add_service);
 
+        chipGroup = new ChipGroup(this);
+        chipGroup.setSingleSelection(false);
 
         liearLayout = findViewById(R.id.bottomsheet_services);
         serviceRecycler = findViewById(R.id.servicMoreRecycler);
@@ -94,30 +99,52 @@ public class TopCoachesDetailsActivity extends AppCompatActivity implements View
             if (type == 1) {
                 title.setText("Coach");
                 Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+
+
+                for (int i = 0; i < coachListModel.getService_ids().size(); i++) {
+                    final Chip chip = new Chip(this);
+                    chip.setEnabled(false);
+                    ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+                    chip.setChipDrawable(chipDrawable);
+                    chip.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                    chip.setText(coachListModel.getService_ids().get(i).getName());
+                    chip.setTag(coachListModel.getService_ids().get(i).getId());
+
+
+                    chipGroup.addView(chip);
+                }
+
+                chipGroup.setEnabled(false);
+
+
+                add_service.addView(chipGroup);
+
             }
-            if (type == 2) {
-                title.setText("Organization");
-                Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
-            }
-            name.setText(coachListModel.getName());
-            if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
-                typeUser.setText(coachListModel.getRoles().get(0).getName());
-            }
-            if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
+        }
+        if (type == 2) {
+            title.setText("Organization");
+            Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+        }
+        name.setText(coachListModel.getName());
+        if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
+            typeUser.setText(coachListModel.getRoles().get(0).getName());
+        }
+        if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
 //            for (int i=0;i<data.getService_ids().size();i++){
-                service.setText(coachListModel.getService_ids().get(0).getName());
+            service.setText(coachListModel.getService_ids().get(0).getName());
 //            }
 
 
-            }
+        }
 //            binding.detailUserType.setText(coachListModel.getName());
 //            binding.detailUserService.setText(coachListModel.getName());
 //            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
-            bio.setText(coachListModel.getBio());
+        bio.setText(coachListModel.getBio());
 //            binding.detailNumTraineTv.setText("");
-            price.setText("$ " + coachListModel.getHourly_rate());
-        }
+//            price.setText("$ " + coachListModel.getHourly_rate());
     }
+
 
     @Override
     public void onClick(View view) {
