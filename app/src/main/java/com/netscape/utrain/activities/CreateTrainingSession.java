@@ -277,6 +277,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionMaxOccupancy.isEmpty()) {
             binding.createTrainingSessionMaxOccuEdt.setError(getResources().getString(R.string.enter_session_max_occupacy));
             binding.createTrainingSessionMaxOccuEdt.requestFocus();
+        } else if (sessionMaxOccupancy.equalsIgnoreCase("0") || sessionMaxOccupancy.equalsIgnoreCase("00")) {
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
             hitCreateSessionApi();
         }

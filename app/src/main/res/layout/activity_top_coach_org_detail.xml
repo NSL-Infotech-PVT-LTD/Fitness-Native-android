@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.AllEventsWithMap">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coachDetaillayoutConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bottomboth_round_design"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/topDetailsTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/event"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_16sdp"
+                app:layout_constraintLeft_toRightOf="@+id/detailBackArrow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailBackArrow"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/ic_backwhite"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/detailMapDirection"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_details_map"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_38sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="@string/get_direction"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_7sdp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollviewText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@+id/detailJoinNowBtn"
+            app:layout_constraintTop_toBottomOf="@id/coachDetaillayoutConstraint">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/discoverCardImg"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/detailImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sophie" />
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/discoverRecylerName"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toRightOf="@id/discoverCardImg"
+                    app:layout_constraintTop_toTopOf="@id/discoverCardImg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/coach"
+                    android:textSize="@dimen/_8sdp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="@id/detailUserName"
+                    app:layout_constraintTop_toBottomOf="@+id/detailUserName" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:text="@string/coach_profession"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/detailUserType"
+                    app:layout_constraintTop_toBottomOf="@id/detailUserType" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/moreServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="More +"
+                    android:textColor="@color/colorGreen"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/detailUserService"
+                    app:layout_constraintLeft_toRightOf="@+id/detailUserService"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/detailUserService" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/discoverRecyclerRatingTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/rating"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/detailUserService"
+                    app:layout_constraintTop_toBottomOf="@+id/detailUserService" />
+
+
+                <RatingBar
+                    android:id="@+id/discoverRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:numStars="5"
+                    android:progressBackgroundTint="@color/colorLightGray"
+                    android:progressTint="@color/colorGreen"
+                    android:rating="3"
+                    android:stepSize="1"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverRecyclerRatingTv"
+                    app:layout_constraintTop_toBottomOf="@+id/discoverRecyclerRatingTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/discoverBioTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/bio_discover"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverCardImg"
+                    app:layout_constraintTop_toBottomOf="@id/discoverCardImg" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailUserBioTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="left"
+                    android:text="@string/instruction_detail"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@id/discoverBioTv" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailUserBioTv" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventNumOfCandidateAttendingTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/services"
+                    android:textColor="@color/themeColor"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/discoverBioTv"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/detailNumTraineTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:background="@drawable/round_background_colord"
+                    android:backgroundTint="@color/themeColor"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="View More +"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/eventNumOfCandidateAttendingTv" />
+
+
+                <RelativeLayout
+                    android:id="@+id/add_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:theme="@style/ChipTheme"
+                    app:chipIconEnabled="false"
+                    app:layout_constraintLeft_toLeftOf="@+id/discoverBioTv"
+                    app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_service" />
+
+
+                <LinearLayout
+
+                    android:id="@+id/linear1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventVenueTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/price"
+                        android:textColor="@color/themeColor"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventTimeTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/working_hours"
+                        android:textColor="@color/themeColor"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventVenueTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/experience_text"
+                        android:textColor="@color/themeColor"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventTimeTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detailJoinNowBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/join_now"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:backgroundTint="@color/colorGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/services_bottom_navigation" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

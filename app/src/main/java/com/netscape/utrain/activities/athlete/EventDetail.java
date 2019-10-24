@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -54,6 +57,7 @@ public class EventDetail extends AppCompatActivity {
 //        setContentView(R.layout.activity_event_detail);
 
         binding = DataBindingUtil.setContentView(EventDetail.this, R.layout.activity_event_detail);
+
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +81,19 @@ public class EventDetail extends AppCompatActivity {
         eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
         eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
         seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
+
+
+        binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(EventDetail.this, "map Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = null;
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:19.076,72.8777"));
+                startActivity(intent);
+
+            }
+        });
 
 
 //        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
@@ -166,6 +183,13 @@ public class EventDetail extends AppCompatActivity {
 
                 }
             });
+            if (eventType.equalsIgnoreCase("space")) {
+            }else {
+            if (getIntent().getStringExtra("guest_allowed_left").equalsIgnoreCase("0")) {
+                binding.evntJoinNow.setClickable(false);
+                binding.evntJoinNow.setText("No Seats Available");
+            }
+        }
             viewPager = findViewById(R.id.viewPagerImage);
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);
@@ -177,4 +201,7 @@ public class EventDetail extends AppCompatActivity {
                 indicator.setViewPager(viewPager);
         }
     }
+
 }
+
+

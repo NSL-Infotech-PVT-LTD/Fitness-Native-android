@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
@@ -49,7 +50,7 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
+                Intent topCoachesDetails = new Intent(context, TopCoachOrgDetailActivity.class);
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
                 context.startActivity(topCoachesDetails);
