@@ -57,6 +57,7 @@ public class EventDetail extends AppCompatActivity {
 //        setContentView(R.layout.activity_event_detail);
 
         binding = DataBindingUtil.setContentView(EventDetail.this, R.layout.activity_event_detail);
+
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,6 +182,13 @@ public class EventDetail extends AppCompatActivity {
 
                 }
             });
+            if (eventType.equalsIgnoreCase("space")) {
+            }else {
+            if (getIntent().getStringExtra("guest_allowed_left").equalsIgnoreCase("0")) {
+                binding.evntJoinNow.setClickable(false);
+                binding.evntJoinNow.setText("No Seats Available");
+            }
+        }
             viewPager = findViewById(R.id.viewPagerImage);
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);
