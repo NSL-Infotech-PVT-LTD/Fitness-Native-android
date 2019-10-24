@@ -31,11 +31,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_SessionRecyclerAdapter.ViewHolder> {
+    AthleteEventData eventData;
+    String value = "", valueEnd = "";
     private Context context;
     private int previusPos = -1;
     private List<AthleteSessionModel> supplierData;
-    AthleteEventData eventData;
-    String value = "", valueEnd = "";
 
 
     public Ath_SessionRecyclerAdapter(Context context, List<AthleteSessionModel> supplierData) {
@@ -58,22 +58,22 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
 
         holder.eventName.setText(data.getName());
-        holder.findPlaceDistanceDetailTv.setText(data.getDistance()+" Miles");
+        holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
 //        holder.athleteEventAddressTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
 
-        holder.eventStartDateTimeEnterTv.setText(data.getDate()+" "+ data.getBusiness_hour()+" ");
-        holder.findPlaceActualPriceTv.setText("$"+data.getHourly_rate()+"/hr");
+        holder.eventStartDateTimeEnterTv.setText(data.getDate() + " " + data.getBusiness_hour() + " ");
+        holder.findPlaceActualPriceTv.setText("$" + data.getHourly_rate() + "/hr");
 
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
             for (int i = 0; i < jsonArray.length(); i++) {
-                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.trainingSessionPlaceImage);
+                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.trainingSessionPlaceImage);
 
             }
         } catch (JSONException e) {
 
-            Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -88,8 +88,8 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
-                intent.putExtra("guest_allowed", data.getGuest_allowed()+"");
-                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left()+"");
+                intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
+                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("eventTime", data.getBusiness_hour());
                 intent.putExtra("eventDate", data.getDate());
@@ -103,11 +103,6 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
                 context.startActivity(intent);
             }
         });
-
-    }
-
-    public interface AthleteEventData {
-        public void getData(Intent intent);
 
     }
 
@@ -134,9 +129,14 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
         return supplierData.size();
     }
 
+    public interface AthleteEventData {
+        public void getData(Intent intent);
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, findPlaceDistanceDetailTv,findPlaceActualPriceTv;
+        private AppCompatTextView eventName, findPlaceDistanceDetailTv, findPlaceActualPriceTv;
         private MaterialTextView eventStartDateTimeEnterTv;
         private AppCompatImageView trainingSessionPlaceImage;
         private MaterialButton viewPlacesBtn;

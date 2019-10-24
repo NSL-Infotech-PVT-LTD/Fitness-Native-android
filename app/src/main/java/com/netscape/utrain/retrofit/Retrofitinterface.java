@@ -1,5 +1,6 @@
 package com.netscape.utrain.retrofit;
 
+import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
@@ -244,6 +245,7 @@ public interface Retrofitinterface {
     Call<EventBookingModel> eventDetail(@Header("Authorization") String Authorization,
                                         @Header("Content-Type") String contentType,
                                         @Query("id") String id);
+
     @POST(Constants.SESSION_DETAIL)
     Call<SessionDetailResponse> getSessionDetails(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
@@ -273,6 +275,11 @@ public interface Retrofitinterface {
     Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
                                               @Query("order_by") String order_by);
+
+    @POST(Constants.ALL_BOOKING_ATHLETE)
+    Call<AllBookingListModel> getAllBooking(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType
+                                               );
 
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,

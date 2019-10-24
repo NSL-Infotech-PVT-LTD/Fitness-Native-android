@@ -32,13 +32,13 @@ import retrofit2.Response;
 
 public class EventBookingActivity extends AppCompatActivity {
 
+    String ticket = "Ticket Price";
     private Retrofitinterface retrofitinterface;
     private ProgressDialog progressDialog;
     private EventBookingActivity activity;
     private ActivityEventBookingBinding binding;
     private int countVAlue = 1;
     private int ticketPrice;
-    String ticket = "Ticket Price";
     private int totalPrice;
 
     @Override
@@ -49,27 +49,25 @@ public class EventBookingActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_event_booking);
 
         if (getIntent().hasExtra("eventName"))
-        binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
+            binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
         else
             binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("Loading.."));
         if (getIntent().hasExtra("eventVenue"))
-        binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
+            binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
         else
             binding.eventVanueDetailTv.setText(getIntent().getStringExtra("Loading.."));
-            if (getIntent().hasExtra("eventTime"))
-        binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
-            else
-                binding.eventTimeDetailTv.setText(getIntent().getStringExtra("Loading.."));
-                if (getIntent().hasExtra("eventDate"))
-        binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
-                else
-                    binding.eventDateDetailTv.setText(getIntent().getStringExtra("Loading.."));
-                    if (getIntent().hasExtra("Array"))
-        Glide.with(EventBookingActivity.this).load(getIntent().getStringExtra("Array")).into(binding.eventBookingImage);
-                    else
-                        Glide.with(EventBookingActivity.this).load(getResources().getDrawable(R.drawable.ic_place_holder)).into(binding.eventBookingImage);
-
-
+        if (getIntent().hasExtra("eventTime"))
+            binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+        else
+            binding.eventTimeDetailTv.setText(getIntent().getStringExtra("Loading.."));
+        if (getIntent().hasExtra("eventDate"))
+            binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        else
+            binding.eventDateDetailTv.setText(getIntent().getStringExtra("Loading.."));
+        if (getIntent().hasExtra("Array"))
+            Glide.with(EventBookingActivity.this).load(getIntent().getStringExtra("Array")).into(binding.eventBookingImage);
+        else
+            Glide.with(EventBookingActivity.this).load(getResources().getDrawable(R.drawable.ic_place_holder)).into(binding.eventBookingImage);
 
 
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
@@ -84,18 +82,17 @@ public class EventBookingActivity extends AppCompatActivity {
 
         String type = "";
 
-       type = getIntent().getStringExtra("type");
-            if (type.equalsIgnoreCase("space")){
+        type = getIntent().getStringExtra("type");
+        if (type.equalsIgnoreCase("space")) {
 //                hitEventDetailAPI();
-            }
-        if (type.equalsIgnoreCase("event")){
-                hitEventDetailAPI();
         }
-        if (type.equalsIgnoreCase("session")){
-                getSessionDetails();
+        if (type.equalsIgnoreCase("event")) {
+            hitEventDetailAPI();
+        }
+        if (type.equalsIgnoreCase("session")) {
+            getSessionDetails();
         }
 //
-
 
 
 //        hitEventDetailAPI();
@@ -107,7 +104,7 @@ public class EventBookingActivity extends AppCompatActivity {
                 if (countVAlue < 5) {
                     countVAlue += 1;
                     totalPrice = ticketPrice * countVAlue;
-                    binding.text1.setText((ticket + "  * " + countVAlue) + "");
+                    binding.text1.setText((ticket + " * " + countVAlue) + "");
                     binding.eventPrice.setText("$" + totalPrice + "");
                     binding.countDisplay.setText(countVAlue + "");
                 } else {
@@ -123,7 +120,7 @@ public class EventBookingActivity extends AppCompatActivity {
                 if (countVAlue > 1) {
                     countVAlue -= 1;
                     totalPrice = ticketPrice * countVAlue;
-                    binding.text1.setText((ticket + "  * " + countVAlue) + "");
+                    binding.text1.setText((ticket + " * " + countVAlue) + "");
                     binding.eventPrice.setText("$" + totalPrice + "");
                     binding.countDisplay.setText(countVAlue + "");
                 } else {
@@ -132,7 +129,7 @@ public class EventBookingActivity extends AppCompatActivity {
             }
         });
 
-        binding.textContinueToPay.setOnClickListener(new View.OnClickListener() {
+        binding.bottomConstraint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, PaymentActivity.class);
@@ -169,12 +166,12 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventDateDetailTv.setText(response.body().getData().getStart_date());
                             binding.eventPrice.setText("$" + response.body().getData().getPrice() + "");
                             ticketPrice = response.body().getData().getPrice();
-                            binding.text1.setText((ticket + "*" + countVAlue) + "");
+                            binding.text1.setText((ticket + " * " + countVAlue) + "");
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
                                     for (int i = 0; i < jsonArray.length(); i++) {
-                                        Glide.with(activity).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(binding.eventBookingImage);
+                                        Glide.with(activity).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(activity).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.eventBookingImage);
 
                                     }
                                 }
@@ -211,6 +208,7 @@ public class EventBookingActivity extends AppCompatActivity {
             }
         });
     }
+
     private void getSessionDetails() {
 
         progressDialog = new ProgressDialog(activity);
@@ -237,7 +235,7 @@ public class EventBookingActivity extends AppCompatActivity {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
                                     for (int i = 0; i < jsonArray.length(); i++) {
-                                        Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(binding.eventBookingImage);
+                                        Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(activity).load(Constants.IMAGE_BASE_SESSION+Constants.THUMBNAILS + jsonArray.get(i))).into(binding.eventBookingImage);
 
                                     }
                                 }

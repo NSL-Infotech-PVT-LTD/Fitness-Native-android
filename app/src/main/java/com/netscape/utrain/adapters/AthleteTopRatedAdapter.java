@@ -57,10 +57,10 @@ public class AthleteTopRatedAdapter extends RecyclerView.Adapter<AthleteTopRated
         }
 
         if (type == 1) {
-            Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + data.getProfile_image()).into(holder.profileImage);
+            Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.profileImage);
         }
         if (type == 2) {
-            Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + data.getProfile_image()).into(holder.profileImage);
+            Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.profileImage);
 
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

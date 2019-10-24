@@ -87,13 +87,13 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         holder.trainingSessionProfessionDesc.setText(data.getName());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
 
-                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
-                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
+        holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
+        holder.trainingSessionVenueDetailTv.setText(data.getLocation());
         try {
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventProfileImg);
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventProfileImg);
 
                 }
             }
@@ -110,8 +110,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("event_id", data.getId());
-                intent.putExtra("guest_allowed", data.getGuest_allowed()+"");
-                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left()+"");
+                intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
+                intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
 
                 intent.putExtra("eventDate", data.getStart_date());
                 intent.putExtra("eventTime", data.getStart_time());

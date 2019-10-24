@@ -27,25 +27,24 @@ public class Constants {
     public static final String BOOKING_API = "booking/store";
     public static final String BOOKING_LIST_EVENT = "bookings";
     public static final String ORG_EVENT_LIST = "events/organiser/list";
-    public static final String ORG_SESSION_LIST= "session/organiser/list";
-    public static final String CO_EVENT_LIST= "events/coach/list";
-    public static final String CO_SESSION_LIST= "session/coach/list";
-    public static final String A_EVENT_LIST= "events/athlete/list";
-    public static final String A_SPACE_LIST= "spaces/athlete/list";
-    public static final String A_SESSION_LIST= "session/athlete/list";
-    public static final String A_EVENT_BOOKING_LIST= "booking/athlete/list";
-    public static final String O_EVENT_BOOKING_LIST= "booking/organiser/list";
+    public static final String ORG_SESSION_LIST = "session/organiser/list";
+    public static final String CO_EVENT_LIST = "events/coach/list";
+    public static final String CO_SESSION_LIST = "session/coach/list";
+    public static final String A_EVENT_LIST = "events/athlete/list";
+    public static final String A_SPACE_LIST = "spaces/athlete/list";
+    public static final String A_SESSION_LIST = "session/athlete/list";
+    public static final String A_EVENT_BOOKING_LIST = "booking/athlete/list";
+    public static final String O_EVENT_BOOKING_LIST = "booking/organiser/list";
+    public static final String ALL_BOOKING_ATHLETE = "booking/athlete/list/all";
 
 
-    public static final String ORG_SPACE_LIST= "spaces/organiser/list";
+    public static final String ORG_SPACE_LIST = "spaces/organiser/list";
     public static final String COACH_EVENT_LIST = "events/coach/list";
     public static final String COACH_SPACE_LIST = "spaces/coach/list";
     public static final String COACH_SESSION_LIST = "session/coach/list";
     public static final String AUTH_TOKEN = "auth token";
     public static final String SPACE_DATA = "spaceData";
-    public static String ROLE_PLAY = "";
-
-
+    public static final String THUMBNAILS = "thumbnail_";
     public static final String Coach = "coach";
     public static final String OrgSignUpIntent = "orgIntent";
     public static final String JsonArrayIntent = "arrayIntent";
@@ -66,17 +65,14 @@ public class Constants {
     public static final String SELECTED_ID = "selectedId";
     public static final String SELECTED_TYPE = "selectedType";
     public static final String EVENT = "event";
-    public static final String SESSION= "session";
+    public static final String SESSION = "session";
     public static final String SPACE = "space";
-
-
     public static final int WRITE_PERMISSION = 3;
     public static final int CAMERA_PERMISSION = 5;
     public static final int REQUEST_CAMERA_CAPTURE = 4;
     public static final int REQUEST_CODE_GALLERY = 2;
     public static final int MY_PERMISSION_GALLERY = 1;
     public static final String APP_FOLDER_NAME = "UTrain";//3 seconds
-    public static int CHECKBOX_IS_CHECKED = 0;
     public static final int ACCESS_FINE_LOCATION_REQUEST = 6;
     public static final String SIGN_UP_FLOW = "sign_up_flow";
     public static final int REQUEST_CODE_GOOGLE_PLACE_SEARCH = 7;
@@ -85,11 +81,10 @@ public class Constants {
     public static final String LOCATION_LAT = "locationLat";
     public static final String LOCATION_LONG = "locationLong";
     public static final String STATUS = "";
-
-
-
     public static final String DEVICE_TYPE = "ANDROID";
     public static final String DEVICE_TOKEN = "KFGLKFSDFJKJSDF";
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    public static String ROLE_PLAY = "";
+    public static int CHECKBOX_IS_CHECKED = 0;
     public static String SocialProfile = "";
 }

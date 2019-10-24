@@ -35,31 +35,25 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class EventDetail extends AppCompatActivity {
 
-    private ActivityEventDetailBinding binding;
-
-    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv,eventNumOfCandidateTv,seatNo;
+    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv, eventNumOfCandidateTv, seatNo;
     MaterialTextView title;
     MaterialTextView endDateTime;
-    private AthletePlaceModel placeModel;
-
     String eventType = "";
-
-
     AppCompatImageView imgBackArrowImage;
-
-
     ViewPager viewPager;
     ViewPagerAdapter adapter;
     List<String> imageList = new ArrayList<>();
     MyCustomPagerAdapter pagerAdapter;
     MaterialButton evntJoinNow;
+    private ActivityEventDetailBinding binding;
+    private AthletePlaceModel placeModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_event_detail);
 
-        binding = DataBindingUtil.setContentView(EventDetail.this,R.layout.activity_event_detail);
+        binding = DataBindingUtil.setContentView(EventDetail.this, R.layout.activity_event_detail);
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +82,6 @@ public class EventDetail extends AppCompatActivity {
 //        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
 
-
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Spaces");
@@ -111,7 +104,7 @@ public class EventDetail extends AppCompatActivity {
                 binding.eventCandidateTv.setVisibility(View.VISIBLE);
                 binding.eventNumOfCandidateTv.setVisibility(View.VISIBLE);
                 binding.view2.setVisibility(View.VISIBLE);
-                binding.eventNumOfCandidateTv.setText(getIntent().getIntExtra("capacity",0)+"");
+                binding.eventNumOfCandidateTv.setText(getIntent().getIntExtra("capacity", 0) + "");
                 eventType = "event";
                 binding.noOfSeatText.setVisibility(View.VISIBLE);
                 binding.seatNo.setVisibility(View.VISIBLE);
@@ -162,7 +155,7 @@ public class EventDetail extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
-                    intent.putExtra("event_id", getIntent().getIntExtra("event_id",0));
+                    intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
                     intent.putExtra("eventName", eventName.getText());
                     intent.putExtra("eventVenue", venueAddress.getText());
                     intent.putExtra("eventTime", eventTimeDetailTv.getText());

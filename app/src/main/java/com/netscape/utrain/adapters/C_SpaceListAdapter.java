@@ -55,7 +55,7 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE +Constants.THUMBNAILS+ jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }

@@ -80,7 +80,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exploreTv"
         >
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/discoverSearchEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exploreTv"
         >
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/searchedt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

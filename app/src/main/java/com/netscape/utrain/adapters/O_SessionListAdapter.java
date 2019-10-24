@@ -55,7 +55,7 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION +Constants.THUMBNAILS+ jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }

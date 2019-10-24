@@ -22,10 +22,10 @@ import java.util.List;
 public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganizationAdapter.TopOrgHolder> {
 
     private Context context;
-    private int previusPos=-1;
+    private int previusPos = -1;
     private List<CoachListModel> supplierData;
 
-    public TopOrganizationAdapter(Context context, List supplierData){
+    public TopOrganizationAdapter(Context context, List supplierData) {
         this.context = context;
         this.supplierData = supplierData;
 
@@ -35,23 +35,23 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
     @Override
     public TopOrgHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_org_recycler_design,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_org_recycler_design, parent, false);
 
         return new TopOrgHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TopOrgHolder holder, int position) {
-        final CoachListModel data=supplierData.get(position);
+        final CoachListModel data = supplierData.get(position);
 
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+data.getProfile_image()).into(holder.imageView);
+        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.imageView);
         holder.name.setText(data.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent topCoachesDetails=new Intent(context, TopCoachesDetailsActivity.class);
-                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"2");
+                Intent topCoachesDetails = new Intent(context, TopCoachesDetailsActivity.class);
+                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
+                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
                 context.startActivity(topCoachesDetails);
             }
         });
@@ -65,14 +65,14 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
     public class TopOrgHolder extends RecyclerView.ViewHolder {
 
 
-    AppCompatImageView imageView;
-    MaterialTextView name;
+        AppCompatImageView imageView;
+        MaterialTextView name;
 
-    public TopOrgHolder(@NonNull View itemView) {
-        super(itemView);
+        public TopOrgHolder(@NonNull View itemView) {
+            super(itemView);
 
-        imageView = itemView.findViewById(R.id.topOrgRecyclerImg);
-        name = itemView.findViewById(R.id.topOrgRecyclerTv);
+            imageView = itemView.findViewById(R.id.topOrgRecyclerImg);
+            name = itemView.findViewById(R.id.topOrgRecyclerTv);
         }
     }
 }

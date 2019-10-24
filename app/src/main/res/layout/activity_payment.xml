@@ -146,7 +146,7 @@
 
                             <EditText
                                 android:id="@+id/cardNumberEditText"
-                                android:layout_width="@dimen/_150sdp"
+                                android:layout_width="@dimen/_140sdp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_marginTop="@dimen/_15sdp"
                                 android:layout_marginRight="@dimen/_15sdp"
@@ -157,7 +157,7 @@
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
+                                android:textColorHint="@color/lightGrayFont"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +190,7 @@
                                 android:inputType="number"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
+                                android:textColorHint="@color/lightGrayFont"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="@id/mmyyText"
                                 app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
@@ -227,7 +227,7 @@
                                 android:maxLength="3"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
+                                android:textColorHint="@color/lightGrayFont"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
@@ -252,7 +252,7 @@
 
                             <EditText
                                 android:id="@+id/cardHolder"
-                                android:layout_width="@dimen/_150sdp"
+                                android:layout_width="@dimen/_140sdp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:layout_marginRight="@dimen/_15sdp"
@@ -262,8 +262,9 @@
                                 android:hint="@string/name_on_card_enter"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:singleLine="true"
+                                android:maxLength="20"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/colorWhite"
+                                android:textColorHint="@color/lightGrayFont"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/mmyyText" />
@@ -279,7 +280,7 @@
                         android:layout_marginLeft="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:paddingBottom="@dimen/_100sdp"
+
                         android:text="@string/user_previous_cards"
                         android:textColor="@color/lightGrayFont"
                         android:textSize="@dimen/_10sdp"

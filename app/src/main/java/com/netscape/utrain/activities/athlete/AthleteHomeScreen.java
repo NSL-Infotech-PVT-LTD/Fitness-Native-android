@@ -59,14 +59,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AthleteHomeScreen extends AppCompatActivity {
+    public DrawerLayout drawer;
+    BottomNavigationView navView;
     private TextView mTextMessage;
     private AActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppBarConfiguration mAppBarConfiguration;
-    public DrawerLayout drawer;
     private AppCompatImageView drawerImage;
-    BottomNavigationView navView;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -283,7 +282,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, AthleteHomeScreen.this);
         if (!TextUtils.isEmpty(img)) {
-            Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).into(binding.athleteProfileImg);
+            Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(binding.athleteProfileImg);
         }
     }
 

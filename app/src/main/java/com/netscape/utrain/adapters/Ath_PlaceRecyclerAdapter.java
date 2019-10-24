@@ -63,7 +63,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
             for (int i = 0; i < jsonArray.length(); i++) {
-                Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).into(holder.eventProfileImg);
+                Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventProfileImg);
 
             }
         } catch (JSONException e) {
@@ -87,7 +87,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);
-                    intent.putExtra(Constants.SPACE_DATA,data);
+                intent.putExtra(Constants.SPACE_DATA, data);
                 context.startActivity(intent);
             }
         });

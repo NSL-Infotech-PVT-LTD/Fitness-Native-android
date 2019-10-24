@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.19" />
 
         <ScrollView
             android:id="@+id/scroll"
@@ -99,7 +99,7 @@
                     android:id="@+id/orgCreateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:drawableLeft="@drawable/ic_add_gray"
                     android:fontFamily="@font/poppins_semibold"
                     android:hint="@string/create"
@@ -341,6 +341,7 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:layout_marginTop="@dimen/_11sdp"
                             android:layout_marginRight="@dimen/_11sdp"
                             android:background="@drawable/notification_icon_red"

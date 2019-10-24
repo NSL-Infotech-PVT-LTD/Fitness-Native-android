@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_50sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Attendees List"
+            android:text="Attendies List"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -48,7 +48,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleTv"></androidx.appcompat.widget.AppCompatImageView>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"

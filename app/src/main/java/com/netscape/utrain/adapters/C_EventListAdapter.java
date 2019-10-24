@@ -33,7 +33,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
     private String status;
 
 
-    public C_EventListAdapter(Context context, List supplierData,String status) {
+    public C_EventListAdapter(Context context, List supplierData, String status) {
         this.context = context;
         this.status = status;
         this.a_eventList = supplierData;
@@ -54,7 +54,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -73,7 +73,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
 
 
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "Event");
                 topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);

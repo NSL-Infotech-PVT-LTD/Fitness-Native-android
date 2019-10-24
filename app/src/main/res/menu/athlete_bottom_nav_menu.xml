@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_main"
+        android:icon="@drawable/home_selector"
         android:title="" />
     <item
         android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_chat_main"
+        android:icon="@drawable/chat_selector"
         android:title="" />
     <item
         android:id="@+id/navigation_reqimage"
@@ -15,11 +15,11 @@
         android:title="" />
     <item
         android:id="@+id/navigation_running"
-        android:icon="@drawable/ic_running_main"
+        android:icon="@drawable/running_selector"
         android:title="" />
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notification_main"
+        android:icon="@drawable/notification_selector"
         android:title="" />
 
 </menu>

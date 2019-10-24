@@ -56,7 +56,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -91,7 +91,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName,eventVenue,bookingTicketTv,eventDate;
+        MaterialTextView eventName, eventVenue, bookingTicketTv, eventDate;
 
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
