@@ -230,10 +230,12 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (strDate.compareTo(now) >= 0) {
+                if (strDate.compareTo(now) > 0) {
                     binding.createTrainingDateTv.setText(dateNow);
                 } else {
-                    Toast.makeText(CreateTrainingSession.this, "Please select valid date", Toast.LENGTH_SHORT).show();
+                    binding.createTrainingDateTv.setText("");
+                    binding.createTrainingDateTv.setHint("Enter date");
+                    Toast.makeText(CreateTrainingSession.this, "Can't create session for current date", Toast.LENGTH_SHORT).show();
                 }
             }
         }, mYear, mMonth, mDay);

@@ -61,7 +61,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private O_BookedEventListAdapter adapter;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    private ConstraintLayout userBottomSheeet;
     private List<O_BookedEventDataModel> list;
     private List<O_BookedSessionDataModel> sessionData;
     private List<O_SpaceListDataModel> spaceData;
@@ -74,6 +73,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
 
+    private ConstraintLayout userBottomSheeet;
     private BottomSheetBehavior sheetBehavior;
     private RecyclerView recyclerView;
 

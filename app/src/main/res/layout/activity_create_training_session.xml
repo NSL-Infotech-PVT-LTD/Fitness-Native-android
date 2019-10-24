@@ -229,7 +229,7 @@
                         android:drawableLeft="@drawable/ic_date"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:hint="12/11/2019"
+                        android:hint="Enter date"
                         android:paddingLeft="@dimen/_15sdp"
                         android:paddingRight="@dimen/_20sdp"
                         android:singleLine="true"

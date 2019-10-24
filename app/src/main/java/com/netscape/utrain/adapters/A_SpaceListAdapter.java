@@ -30,12 +30,14 @@ import java.util.List;
 
 public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.CustomTopCoachesHolder> {
 
+    onSpaceClick onSpaceClick;
     private Context context;
     private int previusPos = -1;
-    private List<AthleteSpaceBookList.DataBean> supplierData;
+    private List<AthleteSpaceBookList.DataBeanX.DataBean> supplierData;
 
-    public A_SpaceListAdapter(Context context, List supplierData) {
+    public A_SpaceListAdapter(Context context, List supplierData, onSpaceClick onSpaceClick) {
         this.context = context;
+        this.onSpaceClick = onSpaceClick;
         this.supplierData = supplierData;
 
     }
@@ -51,13 +53,13 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull A_SpaceListAdapter.CustomTopCoachesHolder holder, int position) {
-        final AthleteSpaceBookList.DataBean data = supplierData.get(position);
+        final AthleteSpaceBookList.DataBeanX.DataBean data = supplierData.get(position);
 
         try {
             if (data.getSpace().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getSpace().getImages());
                 for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE +Constants.THUMBNAILS+ jsonArray.get(i))).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -69,26 +71,29 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         }
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getSpace().getName());
-//        holder.eventVenue.setText(data.getSpace().getLocation());
+        holder.eventVenue.setText(data.getSpace().getLocation());
 //        holder.findPlaceDistanceTv.setText("Availability");
         holder.eventDate.setText(data.getSpace().getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EventDetail.class);
-                intent.putExtra("eventName", data.getSpace().getName());
-//                intent.putExtra("eventVenue", data.getSpace().getLocation());
-//                intent.putExtra("evenStartDateTime", data.get);
-                intent.putExtra("eventALLImages", data.getSpace().getImages());
-                intent.putExtra("eventDate", data.getSpace().getAvailability_week());
-                intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
-                intent.putExtra("event_id", data.getSpace().getId());
-                intent.putExtra("from", "places");
-                Bundle b = new Bundle();
-                b.putString("Array", data.getSpace().getImages());
-                intent.putExtras(b);
+                onSpaceClick.getSpaceAmount(data);
+//                Intent intent = new Intent(context, EventDetail.class);
+//                intent.putExtra("eventName", data.getSpace().getName());
+////                intent.putExtra("eventVenue", data.getSpace().getLocation());
+////                intent.putExtra("evenStartDateTime", data.get);
+//                intent.putExtra("eventALLImages", data.getSpace().getImages());
+//                intent.putExtra("eventDate", data.getSpace().getAvailability_week());
+//                intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+//                intent.putExtra("event_id", data.getSpace().getId());
+//                intent.putExtra("from", "places");
+//                Bundle b = new Bundle();
+//                b.putString("Array", data.getSpace().getImages());
+//                intent.putExtras(b);
+//
+//                context.startActivity(intent);
 
-                context.startActivity(intent);
+
             }
         });
     }
@@ -98,10 +103,14 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         return supplierData.size();
     }
 
+    public interface onSpaceClick {
+        public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean dataBean);
+    }
+
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, findPlaceDistanceTv,eventVenue, eventDate;
+        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
