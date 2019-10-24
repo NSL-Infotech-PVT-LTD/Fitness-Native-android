@@ -37,7 +37,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ServicesBottomSheetAdapter bottomSheetAdapter;
     private RecyclerView serviceRecycler;
     private ImageView profImage, backArrow;
-    private TextView name, typeUser, service, bio, price, training, title, moreServices;
+    private TextView name, typeUser, service, bio, price,experienceTv, training,eventDateDetailTv,eventTimeDetailTv, title, moreServices;
     private AppCompatImageView detailMapDirection;
 
     @Override
@@ -74,6 +74,9 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         title = findViewById(R.id.topDetailsTitleTv);
         backArrow = findViewById(R.id.detailBackArrow);
         profImage = findViewById(R.id.detailImage);
+        eventTimeDetailTv = findViewById(R.id.eventTimeDetailTv);
+        eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
+        experienceTv = findViewById(R.id.experienceTv);
         add_service = findViewById(R.id.add_service);
 
         chipGroup = new ChipGroup(this);
@@ -125,6 +128,24 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (type == 2) {
             title.setText("Organization");
             Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+            for (int i = 0; i < coachListModel.getService_ids().size(); i++) {
+                final Chip chip = new Chip(this);
+                chip.setEnabled(false);
+                ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+                chip.setChipDrawable(chipDrawable);
+                chip.setTextColor(getResources().getColor(R.color.colorWhite));
+
+                chip.setText(coachListModel.getService_ids().get(i).getName());
+                chip.setTag(coachListModel.getService_ids().get(i).getId());
+
+
+                chipGroup.addView(chip);
+            }
+
+            chipGroup.setEnabled(false);
+
+
+            add_service.addView(chipGroup);
         }
         name.setText(coachListModel.getName());
         if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
@@ -141,8 +162,14 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 //            binding.detailUserService.setText(coachListModel.getName());
 //            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
         bio.setText(coachListModel.getBio());
+
+
+
 //            binding.detailNumTraineTv.setText("");
-//            price.setText("$ " + coachListModel.getHourly_rate());
+            price.setText("$ " + coachListModel.getHourly_rate());
+        eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
+        eventDateDetailTv.setText(coachListModel.getExpertise_years()+"+ Years");
     }
 
 

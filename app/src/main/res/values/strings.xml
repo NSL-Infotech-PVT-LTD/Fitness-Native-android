@@ -366,4 +366,6 @@
     <string name="write_few_bio">Enter bio</string>
     <string name="enter_valid_capacity">Enter valid capacity</string>
     <string name="working_hours">Working Hrs</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="years_of_experience">Year of Experience</string>
 </resources>

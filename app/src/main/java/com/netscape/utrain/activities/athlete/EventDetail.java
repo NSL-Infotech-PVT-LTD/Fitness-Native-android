@@ -85,7 +85,6 @@ public class EventDetail extends AppCompatActivity {
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EventDetail.this, "map Clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = null;
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("geo:19.076,72.8777"));
@@ -95,7 +94,7 @@ public class EventDetail extends AppCompatActivity {
         });
 
 
-//        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
+        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
 
         if (getIntent().getStringExtra("from") != null)
