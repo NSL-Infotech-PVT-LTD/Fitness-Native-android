@@ -422,6 +422,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/portfolio"
                     android:textColor="@color/themeColor"
+
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/linear" />
@@ -443,19 +444,22 @@
                         android:id="@+id/pcard1"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_70sdp"
-                        android:layout_margin="@dimen/_5sdp"
+
+                        app:cardCornerRadius="@dimen/_5sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/pcard2"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            >
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/port1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
                                 app:layout_constraintLeft_toLeftOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -467,6 +471,7 @@
                         android:layout_height="@dimen/_70sdp"
                         android:layout_margin="@dimen/_5sdp"
                         app:layout_constraintLeft_toRightOf="@+id/pcard1"
+                        android:visibility="gone"
                         app:layout_constraintRight_toLeftOf="@+id/pcard3"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -489,6 +494,7 @@
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_70sdp"
                         android:layout_margin="@dimen/_5sdp"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toRightOf="@+id/pcard2"
                         app:layout_constraintRight_toLeftOf="@+id/pcard4"
                         app:layout_constraintTop_toTopOf="parent">
@@ -512,6 +518,7 @@
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_70sdp"
                         android:layout_margin="@dimen/_5sdp"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toRightOf="@+id/pcard3"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent">

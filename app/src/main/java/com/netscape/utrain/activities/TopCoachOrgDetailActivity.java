@@ -3,6 +3,7 @@ package com.netscape.utrain.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
+import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -39,12 +41,13 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ImageView profImage, backArrow;
     private TextView name, typeUser, service, bio, price,experienceTv, training,eventDateDetailTv,eventTimeDetailTv, title, moreServices;
     private AppCompatImageView detailMapDirection;
+    ActivityTopCoachOrgDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_coach_org_detail);
-//        binding= DataBindingUtil.setContentView(this,R.layout.activity_top_coaches_details);
+//        setContentView(R.layout.activity_top_coach_org_detail);
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_top_coach_org_detail);
         detailMapDirection = findViewById(R.id.detailMapDirection);
         detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +105,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             if (type == 1) {
                 title.setText("Coach");
                 Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.port1);
 
 
                 for (int i = 0; i < coachListModel.getService_ids().size(); i++) {
@@ -128,6 +132,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (type == 2) {
             title.setText("Organization");
             Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+            Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.port1);
             for (int i = 0; i < coachListModel.getService_ids().size(); i++) {
                 final Chip chip = new Chip(this);
                 chip.setEnabled(false);

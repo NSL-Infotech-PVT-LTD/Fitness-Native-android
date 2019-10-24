@@ -16,8 +16,12 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.TopCoachOrgDetailActivity"></activity>
-        <activity android:name=".activities.CalendarViewWithNotesActivity" />
+        <activity android:name=".activities.TopCoachOrgDetailActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".activities.CalendarViewWithNotesActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.organization.EventAppliedList"
             android:screenOrientation="portrait" />
