@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/start_business_hour"
+                        android:text="@string/start_date"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/end_business_hour"
+                        android:text="@string/end_date"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@+id/createEventEndDatetv"
