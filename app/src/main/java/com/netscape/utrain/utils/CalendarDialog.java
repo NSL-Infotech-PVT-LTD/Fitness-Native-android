@@ -23,6 +23,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.model.AllBookingListModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -54,7 +55,7 @@ public class CalendarDialog {
 
     private Calendar mSelectedDate = sToday;
 
-    private List<Event> mEventList = new ArrayList<>();
+    private List<AllBookingListModel> mEventList = new ArrayList<>();
     private OnCalendarDialogListener mListener;
 
     private AlertDialog mAlertDialog;
@@ -71,13 +72,22 @@ public class CalendarDialog {
         buildView();
     }
 
+    private static int diffYMD(Calendar date1, Calendar date2) {
+        if (date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
+                date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) &&
+                date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH))
+            return 0;
+
+        return date1.before(date2) ? -1 : 1;
+    }
+
     public void setSelectedDate(Calendar selectedDate) {
         mSelectedDate = selectedDate;
         mViewPagerAdapter.setSelectedDate(mSelectedDate);
         mViewPager.setCurrentItem(mViewPagerAdapter.initialPageAndDay.first);
     }
 
-    public void setEventList(List<Event> eventList) {
+    public void setEventList(List<AllBookingListModel> eventList) {
         mEventList = eventList;
         mViewPagerAdapter.notifyDataSetChanged();
     }
@@ -171,6 +181,68 @@ public class CalendarDialog {
         view.setScaleY(scale);
     }
 
+    public interface OnCalendarDialogListener {
+        void onEventClick(AllBookingListModel event);
+
+        void onCreateEvent(Calendar calendar);
+    }
+
+    public static class Builder {
+
+        private final CalendarDialogParams P;
+
+        private Builder(Context context) {
+            P = new CalendarDialogParams(context);
+        }
+
+        public static Builder instance(Context context) {
+            return new Builder(context);
+        }
+
+        public Builder setEventList(List<AllBookingListModel> calendarEventList) {
+            P.mEventList = calendarEventList;
+            return this;
+        }
+
+        public Builder setSelectedDate(Calendar selectedDate) {
+            P.mSelectedDate = selectedDate;
+            return this;
+        }
+
+        public Builder setOnItemClickListener(OnCalendarDialogListener listener) {
+            P.mOnCalendarDialogListener = listener;
+            return this;
+        }
+
+        public CalendarDialog create() {
+            CalendarDialog calendarDialog = new CalendarDialog(P.mContext);
+
+            P.apply(calendarDialog);
+
+            return calendarDialog;
+        }
+    }
+
+    private static class CalendarDialogParams {
+
+        Context mContext;
+
+        Calendar mSelectedDate = sToday;
+        List<AllBookingListModel> mEventList = new ArrayList<>();
+
+        OnCalendarDialogListener mOnCalendarDialogListener;
+
+        CalendarDialogParams(Context context) {
+            mContext = context;
+        }
+
+        void apply(CalendarDialog calendarDialog) {
+            calendarDialog.setSelectedDate(mSelectedDate);
+            calendarDialog.setEventList(mEventList);
+            calendarDialog.setOnCalendarDialogListener(mOnCalendarDialogListener);
+        }
+    }
+
     private class ViewPagerAdapter extends PagerAdapter {
 
         private static final String DEFAULT_MIN_DATE = "01/01/1992";
@@ -183,7 +255,7 @@ public class CalendarDialog {
 
         private int TOTAL_COUNT;
 
-        ViewPagerAdapter(Calendar selectedDate, List<Event> eventList) {
+        ViewPagerAdapter(Calendar selectedDate, List<AllBookingListModel> eventList) {
             mEventList = eventList;
 
             // Total number of pages (between min and max date)
@@ -211,13 +283,12 @@ public class CalendarDialog {
             View rlNoAlerts = view.findViewById(R.id.rl_no_events);
             View fabCreate = view.findViewById(R.id.fab_create_event);
 
-            List<Event> eventList = getCalendarEventsOfDay(day);
+            List<AllBookingListModel> eventList = getCalendarEventsOfDay(day);
 
             if (diffYMD(day, sToday) == -1) {
                 fabCreate.setVisibility(View.INVISIBLE);
                 fabCreate.setOnClickListener(null);
-            }
-            else {
+            } else {
                 fabCreate.setVisibility(View.VISIBLE);
                 fabCreate.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -233,9 +304,9 @@ public class CalendarDialog {
 
             rvDay.setLayoutManager(new LinearLayoutManager(collection.getContext(), LinearLayoutManager.VERTICAL, false));
             rvDay.setAdapter(new CalendarEventAdapter(eventList));
-            rvDay.setVisibility(eventList.size() == 0? View.GONE : View.VISIBLE);
+            rvDay.setVisibility(eventList.size() == 0 ? View.GONE : View.VISIBLE);
 
-            rlNoAlerts.setVisibility(eventList.size() == 0? View.VISIBLE : View.GONE);
+            rlNoAlerts.setVisibility(eventList.size() == 0 ? View.VISIBLE : View.GONE);
 
             collection.addView(view);
 
@@ -269,18 +340,10 @@ public class CalendarDialog {
             initialPageAndDay = new Pair<>(position, selectedDate);
         }
 
-        private class ViewHolder {
-            final View container;
-
-            ViewHolder(View container) {
-                this.container = container;
-            }
-        }
-
-        private List<Event> getCalendarEventsOfDay(Calendar day) {
-            List<Event> eventList = new ArrayList<>();
-            for (Event e : mEventList) {
-                if (diffYMD(e.getDate(), day) == 0)
+        private List<AllBookingListModel> getCalendarEventsOfDay(Calendar day) {
+            List<AllBookingListModel> eventList = new ArrayList<>();
+            for (AllBookingListModel e : mEventList) {
+                if (diffYMD(day, day) == 0)
                     eventList.add(e);
             }
             return eventList;
@@ -304,13 +367,21 @@ public class CalendarDialog {
             return calendar;
         }
 
+        private class ViewHolder {
+            final View container;
+
+            ViewHolder(View container) {
+                this.container = container;
+            }
+        }
+
     }
 
-    private class CalendarEventAdapter extends RecyclerView.Adapter<CalendarEventAdapter.ViewHolder>{
+    private class CalendarEventAdapter extends RecyclerView.Adapter<CalendarEventAdapter.ViewHolder> {
 
-        private final List<Event> mCalendarEvents;
+        private final List<AllBookingListModel> mCalendarEvents;
 
-        CalendarEventAdapter(List<Event> events) {
+        CalendarEventAdapter(List<AllBookingListModel> events) {
             mCalendarEvents = events;
         }
 
@@ -323,14 +394,14 @@ public class CalendarDialog {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            Event event = mCalendarEvents.get(position);
+            AllBookingListModel event = mCalendarEvents.get(position);
 
             String defaultTitle = holder.itemView.getContext().getString(R.string.event_default_title);
-            String title = event.getTitle() == null ? defaultTitle : event.getTitle();
+            String title = event.getData().getData().get(0).getTarget_data().getName() == null ? defaultTitle : event.getData().getData().get(0).getTarget_data().getName() ;
 
             holder.tvEventName.setText(title);
-            holder.rclEventIcon.setBackgroundColor(event.getColor());
-            holder.tvEventStatus.setText(timeFormat.format(event.getDate().getTime()));
+//            holder.rclEventIcon.setBackgroundColor(event.getColor());
+//            holder.tvEventStatus.setText(timeFormat.format(event.getDate().getTime()));
         }
 
         @Override
@@ -356,76 +427,6 @@ public class CalendarDialog {
                 if (mListener != null)
                     mListener.onEventClick(mEventList.get(getAdapterPosition()));
             }
-        }
-    }
-
-    public interface OnCalendarDialogListener {
-        void onEventClick(Event event);
-        void onCreateEvent(Calendar calendar);
-    }
-
-    private static int diffYMD(Calendar date1, Calendar date2) {
-        if (date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
-                date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) &&
-                date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH))
-            return 0;
-
-        return date1.before(date2) ? -1 : 1;
-    }
-
-    public static class Builder  {
-
-        private final CalendarDialogParams P;
-
-        public static Builder instance(Context context) {
-            return new Builder(context);
-        }
-
-        private Builder(Context context) {
-            P = new CalendarDialogParams(context);
-        }
-
-        public Builder setEventList(List<Event> calendarEventList) {
-            P.mEventList = calendarEventList;
-            return this;
-        }
-
-        public Builder setSelectedDate(Calendar selectedDate) {
-            P.mSelectedDate = selectedDate;
-            return this;
-        }
-
-        public Builder setOnItemClickListener(OnCalendarDialogListener listener) {
-            P.mOnCalendarDialogListener = listener;
-            return this;
-        }
-
-        public CalendarDialog create() {
-            CalendarDialog calendarDialog = new CalendarDialog(P.mContext);
-
-            P.apply(calendarDialog);
-
-            return calendarDialog;
-        }
-    }
-
-    private static class CalendarDialogParams {
-
-        Context mContext;
-
-        Calendar mSelectedDate = sToday;
-        List<Event> mEventList = new ArrayList<>();
-
-        OnCalendarDialogListener mOnCalendarDialogListener;
-
-        CalendarDialogParams(Context context) {
-            mContext = context;
-        }
-
-        void apply(CalendarDialog calendarDialog) {
-            calendarDialog.setSelectedDate(mSelectedDate);
-            calendarDialog.setEventList(mEventList);
-            calendarDialog.setOnCalendarDialogListener(mOnCalendarDialogListener);
         }
     }
 }

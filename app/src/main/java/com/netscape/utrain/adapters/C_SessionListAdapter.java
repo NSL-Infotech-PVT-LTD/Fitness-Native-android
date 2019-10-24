@@ -55,7 +55,7 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -81,7 +81,7 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
 
 
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
                 topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);

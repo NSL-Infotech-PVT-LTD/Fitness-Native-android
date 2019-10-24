@@ -38,18 +38,17 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     private onClick onClick;
 
 
-
-    public O_BookedEventListAdapter(Context context, List supplierData ,int type,onClick onClick ) {
+    public O_BookedEventListAdapter(Context context, List supplierData, int type, onClick onClick) {
         this.context = context;
-        this.type=type;
-        this.onClick=onClick;
-        if (type==1){
+        this.type = type;
+        this.onClick = onClick;
+        if (type == 1) {
             this.supplierData = supplierData;
         }
-        if (type==2){
+        if (type == 2) {
             this.spaceData = supplierData;
         }
-        if (type==3){
+        if (type == 3) {
             this.sessionData = supplierData;
         }
 
@@ -68,28 +67,28 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     @Override
     public void onBindViewHolder(@NonNull O_BookedEventListAdapter.CustomTopCoachesHolder holder, final int position) {
 
-        if (type==1){
-             O_BookedEventDataModel data = supplierData.get(position);
+        if (type == 1) {
+            O_BookedEventDataModel data = supplierData.get(position);
             holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
 
         }
-        if (type==2){
-             O_SpaceListDataModel data = spaceData.get(position);
+        if (type == 2) {
+            O_SpaceListDataModel data = spaceData.get(position);
             holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
 
         }
-        if (type==3){
-             O_BookedSessionDataModel data = sessionData.get(position);
+        if (type == 3) {
+            O_BookedSessionDataModel data = sessionData.get(position);
             holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL+data.getUser_details().getProfile_image()).into(holder.circleImageView);
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
         }
 
         holder.viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            onClick.onClick(type,position);
+                onClick.onClick(type, position);
 
             }
         });
@@ -97,25 +96,25 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
 
     }
 
-    public interface onClick {
-        public void onClick(int type,int position);
-    }
-
     @Override
     public int getItemCount() {
-        if (type==1){
+        if (type == 1) {
             return supplierData.size();
 
         }
-        if (type==2){
+        if (type == 2) {
             return spaceData.size();
 
         }
-        if (type==3){
+        if (type == 3) {
             return sessionData.size();
 
         }
         return 0;
+    }
+
+    public interface onClick {
+        public void onClick(int type, int position);
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {

@@ -11,6 +11,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -65,7 +68,8 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private String id = "";
     private String type = "";
     private String searchText = "";
-    private EditText search;
+
+    private AutoCompleteTextView search;
     private ImageView customerImage, noDataImageView;
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
@@ -295,6 +299,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     public void getCoachEventList() {
         progressDialog.show();
         Call<O_EventBookedListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, id, getIntent().getStringExtra(Constants.STATUS), searchText, "event");
+
         call.enqueue(new Callback<O_EventBookedListResponse>() {
             @Override
             public void onResponse(Call<O_EventBookedListResponse> call, Response<O_EventBookedListResponse> response) {
@@ -317,6 +322,24 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 //                                }
 //                            });
                             recyclerView.setAdapter(adapter);
+
+                            String[] array = new String[response.body().getData().getData().size()];
+
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getEvent().getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventAppliedList.this, android.R.layout.simple_dropdown_item_1line, array);
+                            search.setThreshold(1);
+                            search.setAdapter(adapter);
+
+                            search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    searchText = adapterView.getItemAtPosition(i).toString();
+                                    getNumOfBookedList();
+                                }
+                            });
                         } else {
                             recyclerView.setVisibility(View.GONE);
                             noDataImageView.setVisibility(View.VISIBLE);
@@ -376,6 +399,24 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 //                                }
 //                            });
                             recyclerView.setAdapter(adapter);
+
+                            String[] array = new String[response.body().getData().getData().size()];
+
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getSession().getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventAppliedList.this, android.R.layout.simple_dropdown_item_1line, array);
+                            search.setThreshold(1);
+                            search.setAdapter(adapter);
+
+                            search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    searchText = adapterView.getItemAtPosition(i).toString();
+                                    getNumSessionList();
+                                }
+                            });
                         } else {
                             recyclerView.setVisibility(View.GONE);
                             noDataImageView.setVisibility(View.VISIBLE);
@@ -405,6 +446,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             public void onFailure(Call<O_SessionBookedListResponse> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
                 noDataImageView.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -465,6 +507,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             public void onFailure(Call<O_SessionBookedListResponse> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
                 noDataImageView.setVisibility(View.VISIBLE);
+
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -496,6 +539,23 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 //                                }
 //                            });
                             recyclerView.setAdapter(adapter);
+                            String[] array = new String[response.body().getData().getData().size()];
+
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getSpace().getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventAppliedList.this, android.R.layout.simple_dropdown_item_1line, array);
+                            search.setThreshold(1);
+                            search.setAdapter(adapter);
+
+                            search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    searchText = adapterView.getItemAtPosition(i).toString();
+                                    getNumSpaceList();
+                                }
+                            });
                         } else {
                             recyclerView.setVisibility(View.GONE);
                             noDataImageView.setVisibility(View.VISIBLE);
@@ -533,7 +593,9 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     @Override
     public void onClick(int type, int position) {
         if (type == 1) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + list.get(position).getUser_details().getProfile_image()).into(customerImage);
+
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + list.get(position).getUser_details().getProfile_image()).thumbnail(Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.get(position).getUser_details().getProfile_image())).into(customerImage);
+
             userName.setText(list.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + list.get(position).getId());
             bookingPlaceName.setText(list.get(position).getEvent().getName());
@@ -562,7 +624,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
 
             ti_locationText.setText(list.get(position).getEvent().getLocation());
-            ti_Booking_Ticket.setText(list.get(position).getTickets() + " Attendees & Tickets (1 per person)");
+            ti_Booking_Ticket.setText(list.get(position).getTickets() + " Attendies & Tickets (1 per person)");
             ti_TotalTicketPrice.setText(list.get(position).getTickets() + " Tickets @ $" + list.get(position).getEvent().getPrice() + " each");
             ti_TotalPrice.setText("$" + list.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");
@@ -570,7 +632,8 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
         }
         if (type == 2) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + spaceData.get(position).getUser_details().getProfile_image()).into(customerImage);
+
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + spaceData.get(position).getUser_details().getProfile_image()).thumbnail(Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.get(position).getUser_details().getProfile_image())).into(customerImage);
             userName.setText(spaceData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + spaceData.get(position).getId());
             bookingPlaceName.setText(spaceData.get(position).getSpace().getName());
@@ -599,14 +662,16 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
 
             ti_locationText.setText(spaceData.get(position).getSpace().getLocation());
-            ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendees & Tickets (1 per person)");
+
+            ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendies & Tickets (1 per person)");
             ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + spaceData.get(position).getSpace().getPrice_hourly() + " each");
             ti_TotalPrice.setText("$" + spaceData.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");
             totalAmount.setText("$" + spaceData.get(position).getPrice() + ".00");
         }
         if (type == 3) {
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + sessionData.get(position).getUser_details().getProfile_image()).into(customerImage);
+
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + sessionData.get(position).getUser_details().getProfile_image()).thumbnail( Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL +Constants.THUMBNAILS+ sessionData.get(position).getUser_details().getProfile_image())).into(customerImage);
             userName.setText(sessionData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + sessionData.get(position).getId());
             bookingPlaceName.setText(sessionData.get(position).getSession().getName());
@@ -633,7 +698,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
 
             ti_locationText.setText(sessionData.get(position).getSession().getLocation());
-            ti_Booking_Ticket.setText(sessionData.get(position).getTickets() + " Attendees & Tickets (1 per person)");
+            ti_Booking_Ticket.setText(sessionData.get(position).getTickets() + " Attendies & Tickets (1 per person)");
             ti_TotalTicketPrice.setText(sessionData.get(position).getTickets() + " Tickets @ $" + sessionData.get(position).getSession().getHourly_rate() + " each");
             ti_TotalPrice.setText("$" + sessionData.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");

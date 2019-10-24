@@ -57,7 +57,7 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }

@@ -2,6 +2,7 @@ package com.netscape.utrain.activities.athlete;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,6 +22,9 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -68,6 +73,7 @@ import retrofit2.Response;
 
 public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final int PAGE_START = 0;
     GoogleMap mGoogleMap;
     private AskPermission askPermObj;
     RecyclerView recyclerViewFindPlace;
@@ -76,6 +82,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private GPSService gpsService;
     Ath_SessionRecyclerAdapter adapterSesson;
     Ath_PlaceRecyclerAdapter adapterPlace;
+    ProgressBar progressBar;
     private List<AthleteEventListModel> listModels = new ArrayList<>();
     private List<AthleteSessionModel> listModelSession = new ArrayList<>();
     private List<AthletePlaceModel> listModelPlace = new ArrayList<>();
@@ -84,17 +91,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
     private AppCompatImageView filterIcon;
-    private TextInputEditText searchAtuoCompleteEdt;
-
+    private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;
     private int sort_count = 1;
     private String search;
     private MaterialTextView allEventFindAPalceTv;
     private ConstraintLayout constraint_background;
-    ProgressBar progressBar;
-
-    private static final int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES = 3;
@@ -168,7 +171,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-    private void getAthletePlaceApi(String order_by, String s) {
+    private void getAthletePlaceApi(final String order_by, final String s) {
         allEventFindAPalceTv.setText("Find Spaces");
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading Spaces....");
@@ -191,7 +194,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
-                            if (response.body().getData().getData().get(i).getLatitude()!=null && response.body().getData().getData().get(i).getLongitude()!=null ) {
+                            if (response.body().getData().getData().get(i).getLatitude() != null && response.body().getData().getData().get(i).getLongitude() != null) {
                                 latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
                                 mGoogleMap.addMarker(new MarkerOptions().position(latng).title("")
                                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
@@ -204,7 +207,22 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         }
                         adapterPlace = new Ath_PlaceRecyclerAdapter(activity, listModelPlace);
                         recyclerViewFindPlace.setAdapter(adapterPlace);
+                        String[] array = new String[response.body().getData().getData().size()];
 
+                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                            array[i] = response.body().getData().getData().get(i).getName();
+                        }
+                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                        searchAtuoCompleteEdt.setThreshold(1);
+                        searchAtuoCompleteEdt.setAdapter(adapter);
+
+                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString());
+                            }
+                        });
                     }
                 }
 
@@ -222,7 +240,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-    private void getAthleteSessionApi(String orderBy, String s) {
+    private void getAthleteSessionApi(final String orderBy, final String s) {
         allEventFindAPalceTv.setText("Find Sessions");
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading Session....");
@@ -246,20 +264,36 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         mGoogleMap.clear();
                         for (int i = 0; i < value; i++) {
-                            if((response.body().getData().getData().get(i).getLatitude() != null)&&(response.body().getData().getData().get(i).getLongitude()!=null)){
-                            latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-                            mGoogleMap.addMarker(new MarkerOptions().position(latng).title("")
-                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                            if ((response.body().getData().getData().get(i).getLatitude() != null) && (response.body().getData().getData().get(i).getLongitude() != null)) {
+                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+                                mGoogleMap.addMarker(new MarkerOptions().position(latng).title("")
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                            mGoogleMap.animateCamera(update);
+
                             }
                             adapter = new CoachesRecyclerAdapter(activity, listModels);
                             recyclerViewFindPlace.setAdapter(adapter);
                         }
                         adapterSesson = new Ath_SessionRecyclerAdapter(activity, listModelSession);
                         recyclerViewFindPlace.setAdapter(adapterSesson);
+                        String[] array = new String[response.body().getData().getData().size()];
 
+                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                            array[i] = response.body().getData().getData().get(i).getName();
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                        searchAtuoCompleteEdt.setThreshold(1);
+                        searchAtuoCompleteEdt.setAdapter(adapter);
+
+                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString());
+                            }
+                        });
                     }
                 }
 
@@ -277,7 +311,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-    private void getAthleteEventApi(String sortBy, String search) {
+    private void getAthleteEventApi(final String sortBy, final String search) {
         allEventFindAPalceTv.setText("Find Events");
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading....");
@@ -313,6 +347,23 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             recyclerViewFindPlace.setAdapter(adapter);
                         }
 
+
+                        String[] array = new String[response.body().getData().getData().size()];
+
+                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                            array[i] = response.body().getData().getData().get(i).getName();
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                        searchAtuoCompleteEdt.setThreshold(1);
+                        searchAtuoCompleteEdt.setAdapter(adapter);
+
+                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString());
+                            }
+                        });
 
                     }
                 }

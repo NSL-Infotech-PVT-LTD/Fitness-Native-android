@@ -76,17 +76,17 @@ public class TopCoachesDetailsActivity extends AppCompatActivity implements View
         if (coachListModel != null) {
             if (type == 1) {
                 title.setText("Coach");
-                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).into(profImage);
+                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
             }
             if (type == 2) {
                 title.setText("Organization");
-                Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).into(profImage);
+                Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
             }
             name.setText(coachListModel.getName());
-            if (coachListModel.getRoles()!=null && coachListModel.getRoles().size()>0) {
+            if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
                 typeUser.setText(coachListModel.getRoles().get(0).getName());
             }
-            if (coachListModel.getService_ids()!=null && coachListModel.getService_ids().size()>0) {
+            if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
 //            for (int i=0;i<data.getService_ids().size();i++){
                 service.setText(coachListModel.getService_ids().get(0).getName());
 //            }

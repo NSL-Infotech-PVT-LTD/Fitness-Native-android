@@ -41,7 +41,7 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomTopCoachesHolder holder, int position) {
                     final CoachListModel data=supplierData.get(position);
-        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getProfile_image()).into(holder.imageView);
+        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getProfile_image()).thumbnail( Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+Constants.THUMBNAILS+data.getProfile_image())).into(holder.imageView);
         holder.name.setText(data.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
