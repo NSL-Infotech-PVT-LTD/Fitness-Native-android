@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:fillViewport="true"-->
-<!--        >-->
+<layout >
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/eventAppliedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <androidx.constraintlayout.widget.ConstraintLayout
 
             xmlns:tools="http://schemas.android.com/tools"
@@ -89,5 +93,7 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/custom_user_detail_bottom_sheet" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 <!--    </ScrollView>-->
 </layout>

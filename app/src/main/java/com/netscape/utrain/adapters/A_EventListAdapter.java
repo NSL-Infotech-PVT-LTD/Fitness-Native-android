@@ -32,13 +32,15 @@ import java.util.List;
 
 public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.CustomTopCoachesHolder> {
 
+    onEventClick onEventClick;
     private Context context;
     private int previusPos = -1;
     private List<AthleteBookListModel.DataBeanX.DataBean> a_eventList;
 
-    public A_EventListAdapter(Context context, List supplierData) {
+    public A_EventListAdapter(Context context, List supplierData, onEventClick onEventClick) {
         this.context = context;
         this.a_eventList = supplierData;
+        this.onEventClick = onEventClick;
 
     }
 
@@ -58,7 +60,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             if (data.getEvent().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getEvent().getImages());
                 for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT+Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -70,29 +72,32 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         }
         holder.eventName.setText(data.getEvent().getName());
         holder.eventVenue.setText(data.getEvent().getLocation());
-        holder.eventDate.setText(data.getEvent().getStart_date()+" "+ data.getEvent().getStart_time());
+        holder.numTicket.setText(data.getEvent().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
+        holder.eventDate.setText(data.getEvent().getStart_date() + " " + data.getEvent().getStart_time());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EventDetail.class);
-                intent.putExtra("eventName", data.getEvent().getName());
-                intent.putExtra("guest_allowed", data.getEvent().getGuest_allowed()+"");
-                intent.putExtra("guest_allowed_left", data.getEvent().getGuest_allowed_left()+"");
-                intent.putExtra("eventVenue", data.getEvent().getLocation());
-                intent.putExtra("event_id", data.getEvent().getId());
+//                Intent intent = new Intent(context, EventDetail.class);
+//                intent.putExtra("eventName", data.getEvent().getName());
+//                intent.putExtra("guest_allowed", data.getEvent().getGuest_allowed()+"");
+//                intent.putExtra("guest_allowed_left", data.getEvent().getGuest_allowed_left()+"");
+//                intent.putExtra("eventVenue", data.getEvent().getLocation());
+//                intent.putExtra("event_id", data.getEvent().getId());
+//
+//                intent.putExtra("eventDate", data.getEvent().getStart_date());
+//                intent.putExtra("eventTime", data.getEvent().getStart_time());
+//                intent.putExtra("eventDescription", data.getEvent().getDescription());
+//                intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+//                intent.putExtra("from", "events");
+//                intent.putExtra("capacity", data.getEvent().getGuest_allowed());
+//                Bundle b = new Bundle();
+//                b.putString("Array", data.getEvent().getImages());
+//                intent.putExtras(b);
+//                context.startActivity(intent);
 
-                intent.putExtra("eventDate", data.getEvent().getStart_date());
-                intent.putExtra("eventTime", data.getEvent().getStart_time());
-                intent.putExtra("eventDescription", data.getEvent().getDescription());
-                intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
-                intent.putExtra("from", "events");
-                intent.putExtra("capacity", data.getEvent().getGuest_allowed());
-                Bundle b = new Bundle();
-                b.putString("Array", data.getEvent().getImages());
-                intent.putExtras(b);
-                context.startActivity(intent);
+                onEventClick.eventAmount(data);
             }
         });
 
@@ -113,10 +118,14 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         return a_eventList.size();
     }
 
+    public interface onEventClick {
+        public void eventAmount(AthleteBookListModel.DataBeanX.DataBean dataBean);
+    }
+
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        MaterialTextView eventName, eventVenue, eventDate,numTicket;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,6 +134,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
+            numTicket = itemView.findViewById(R.id.bookingTicketTv);
         }
     }
 

@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,9 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.adapters.A_EventListAdapter;
 import com.netscape.utrain.adapters.A_SessionListAdapter;
 import com.netscape.utrain.adapters.A_SpaceListAdapter;
@@ -52,7 +59,10 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,7 +77,7 @@ import retrofit2.Response;
  * Use the {@link O_CmpEventFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class O_CmpEventFragment extends Fragment {
+public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.onEventClick, A_SessionListAdapter.onSessionClick, A_SpaceListAdapter.onSpaceClick {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -92,7 +102,7 @@ public class O_CmpEventFragment extends Fragment {
 
     private List<AthleteBookListModel.DataBeanX.DataBean> a_eventData;
     private List<AthleteSessionBookList.DataBeanX.DataBean> a_sessionData;
-    private List<AthleteSpaceBookList.DataBean> a_spaceData;
+    private List<AthleteSpaceBookList.DataBeanX.DataBean> a_spaceData;
 
 
     private C_EventListAdapter c_EventAdapter;
@@ -105,8 +115,12 @@ public class O_CmpEventFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-
+    private ConstraintLayout userBottomSheeet;
+    private BottomSheetBehavior sheetBehavior;
     private String completed = "completed";
+    private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
+            ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
+    private ImageView customerImage;
 
     public O_CmpEventFragment() {
         // Required empty public constructor
@@ -147,7 +161,21 @@ public class O_CmpEventFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-
+        userName = view.findViewById(R.id.userName);
+        bookingIdText = view.findViewById(R.id.bookingIdText);
+        bookingPlaceName = view.findViewById(R.id.bookingPlaceName);
+        eventText = view.findViewById(R.id.eventText);
+        bookingDateText = view.findViewById(R.id.bookingDateText);
+        ti_locationText = view.findViewById(R.id.ti_locationText);
+        ti_Booking_Ticket = view.findViewById(R.id.ti_Booking_Ticket);
+        ti_TotalTicketPrice = view.findViewById(R.id.ti_TotalTicketPrice);
+        ti_TotalPrice = view.findViewById(R.id.ti_TotalPrice);
+        ti_tax = view.findViewById(R.id.ti_tax);
+        totalAmount = view.findViewById(R.id.totalAmount);
+        customerImage = view.findViewById(R.id.customerImage);
+        userBottomSheeet = view.findViewById(R.id.userBottomSheeet);
+        sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
+        bottomSheetBehavior_sort();
         if (count == 1) {
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                 getCompletedEvents();
@@ -188,6 +216,45 @@ public class O_CmpEventFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void bottomSheetUpDown_address() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+
+
+    }
+
+    private void bottomSheetBehavior_sort() {
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
     //Coach Methods
@@ -308,7 +375,7 @@ public class O_CmpEventFragment extends Fragment {
 
 //                            data.addAll(response.body().getData());
                             a_sessionData.addAll(response.body().getData().getData());
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_SessionAdapter);
 
                         } else {
@@ -361,7 +428,7 @@ public class O_CmpEventFragment extends Fragment {
 
 //                            data.addAll(response.body().getData());
                             a_eventData.addAll(response.body().getData().getData());
-                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData);
+                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
                         } else {
@@ -409,12 +476,12 @@ public class O_CmpEventFragment extends Fragment {
                     a_spaceData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_spaceData.addAll(response.body().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData);
+                            a_spaceData.addAll(response.body().getData().getData());
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -626,6 +693,119 @@ public class O_CmpEventFragment extends Fragment {
         });
     }
 
+    @Override
+    public void eventAmount(AthleteBookListModel.DataBeanX.DataBean list) {
+        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
+
+        userName.setText(list.getUser_details().getName());
+        bookingIdText.setText("Booking ID : " + list.getId());
+        bookingPlaceName.setText(list.getEvent().getName());
+        eventText.setText("Event");
+        String currentStringEnd = list.getEvent().getStart_date();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+        Date dt = null, dtEnd;
+
+
+        try {
+
+            dt = sdf.parse(list.getEvent().getStart_time());
+
+
+            String value = null;
+            if (dt != null) {
+                value = parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
+            }
+            bookingDateText.setText(value);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        ti_locationText.setText(list.getEvent().getLocation());
+        ti_Booking_Ticket.setText(list.getTickets() + " Attendies & Tickets (1 per person)");
+        ti_TotalTicketPrice.setText(list.getTickets() + " Tickets @ $" + list.getEvent().getPrice() + " each");
+        ti_TotalPrice.setText("$" + list.getPrice() + ".00");
+        ti_tax.setText("$0.00");
+        totalAmount.setText("$" + list.getPrice() + ".00");
+        bottomSheetUpDown_address();
+    }
+
+
+    @Override
+    public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean spaceData) {
+        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+        userName.setText(spaceData.getUser_details().getName());
+        bookingIdText.setText("Booking ID : " + spaceData.getId());
+        bookingPlaceName.setText(spaceData.getSpace().getName());
+        eventText.setText("Space");
+
+//        ti_locationText.setText(spaceData.getSpace().getLocation());
+
+        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
+        ti_TotalTicketPrice.setText(spaceData.getTickets() + " Tickets @ $" + spaceData.getSpace().getPrice_hourly() + " each")
+        ;
+        ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
+        ti_tax.setText("$0.00");
+        totalAmount.setText("$" + spaceData.getPrice() + ".00");
+        bottomSheetUpDown_address();   }
+
+    @Override
+    public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean sessionData) {
+        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
+        userName.setText(sessionData.getUser_details().getName());
+        bookingIdText.setText("Booking ID : " + sessionData.getId());
+        bookingPlaceName.setText(sessionData.getSession().getName());
+        eventText.setText("Session");
+        String currentStringEnd = sessionData.getSession().getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+        Date dt = null, dtEnd;
+
+
+        try {
+
+            dt = sdf.parse(sessionData.getSession().getDate());
+
+
+            String value = null;
+            if (dt != null) {
+                value = parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
+            }
+            bookingDateText.setText(value);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        ti_locationText.setText(sessionData.getSession().getLocation());
+        ti_Booking_Ticket.setText(sessionData.getTickets() + " Attendies & Tickets (1 per person)");
+        ti_TotalTicketPrice.setText(sessionData.getTickets() + " Tickets @ $" + sessionData.getSession().getHourly_rate() + " each");
+        ti_TotalPrice.setText("$" + sessionData.getPrice() + ".00");
+        ti_tax.setText("$0.00");
+        totalAmount.setText("$" + sessionData.getPrice() + ".00");
+        bottomSheetUpDown_address(); }
+
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "EEE, dd MMM";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -640,4 +820,5 @@ public class O_CmpEventFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

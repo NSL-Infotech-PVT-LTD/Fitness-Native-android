@@ -57,8 +57,8 @@ public class O_HistoryFragment extends Fragment {
     private TextView sessionSel, eventSel, doneSel, spaceSel;
     private int sort_count = 1;
     private ViewPagerAdapter adapter;
-    private String completed="Completed";
-    private String upcoming="Upcoming";
+    private String completed = "Completed";
+    private String upcoming = "Upcoming";
 
 
     public O_HistoryFragment() {
@@ -117,7 +117,7 @@ public class O_HistoryFragment extends Fragment {
             }
         });
 
-        wrapTabIndicatorToTitle(binding.historyTabLayou,100,50);
+        wrapTabIndicatorToTitle(binding.historyTabLayou, 100, 50);
 
         liearLayout.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -146,9 +146,9 @@ public class O_HistoryFragment extends Fragment {
 
     private void bottomOnClickSort() {
 
-        if(CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY,getContext()).equalsIgnoreCase(Constants.Coach)){
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach)) {
             spaceSel.setVisibility(View.GONE);
-        }else {
+        } else {
             spaceSel.setVisibility(View.VISIBLE);
 
         }
@@ -232,7 +232,7 @@ public class O_HistoryFragment extends Fragment {
 
 
     private void selectedTExt() {
-        wrapTabIndicatorToTitle(binding.historyTabLayou,100,50);
+        wrapTabIndicatorToTitle(binding.historyTabLayou, 100, 50);
         if (sort_count == 1) {
 
             checkClick();
@@ -320,12 +320,55 @@ public class O_HistoryFragment extends Fragment {
         bottomOnClickSort();
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(final ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new O_UpcEventFragment(), upcoming);
         adapter.addFragment(new O_CmpEventFragment(), completed);
         viewPager.setAdapter(adapter);
     }
+
+    public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
+        View tabStrip = tabLayout.getChildAt(0);
+        if (tabStrip instanceof ViewGroup) {
+            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
+            int childCount = ((ViewGroup) tabStrip).getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View tabView = tabStripGroup.getChildAt(i);
+                //set minimum width to 0 for instead for small texts, indicator is not wrapped as expected
+                tabView.setMinimumWidth(0);
+                // set padding to 0 for wrapping indicator as title
+                tabView.setPadding(0, tabView.getPaddingTop(), 0, tabView.getPaddingBottom());
+                // setting custom margin between tabs
+                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
+                    if (i == 0) {
+                        // left
+                        settingMargin(layoutParams, externalMargin, internalMargin);
+                    } else if (i == childCount - 1) {
+                        // right
+                        settingMargin(layoutParams, internalMargin, externalMargin);
+                    } else {
+                        // internal
+                        settingMargin(layoutParams, internalMargin, internalMargin);
+                    }
+                }
+            }
+
+
+            tabLayout.requestLayout();
+        }
+    }
+
+    private void settingMargin(ViewGroup.MarginLayoutParams layoutParams, int start, int end) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            layoutParams.setMarginStart(start);
+            layoutParams.setMarginEnd(end);
+        } else {
+            layoutParams.leftMargin = start;
+            layoutParams.rightMargin = end;
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -368,49 +411,6 @@ public class O_HistoryFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
-        }
-    }
-
-
-    public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
-        View tabStrip = tabLayout.getChildAt(0);
-        if (tabStrip instanceof ViewGroup) {
-            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
-            int childCount = ((ViewGroup) tabStrip).getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View tabView = tabStripGroup.getChildAt(i);
-                //set minimum width to 0 for instead for small texts, indicator is not wrapped as expected
-                tabView.setMinimumWidth(0);
-                // set padding to 0 for wrapping indicator as title
-                tabView.setPadding(0, tabView.getPaddingTop(), 0, tabView.getPaddingBottom());
-                // setting custom margin between tabs
-                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
-                    if (i == 0) {
-                        // left
-                        settingMargin(layoutParams, externalMargin, internalMargin);
-                    } else if (i == childCount - 1) {
-                        // right
-                        settingMargin(layoutParams, internalMargin, externalMargin);
-                    } else {
-                        // internal
-                        settingMargin(layoutParams, internalMargin, internalMargin);
-                    }
-                }
-            }
-
-
-            tabLayout.requestLayout();
-        }
-    }
-
-    private void settingMargin(ViewGroup.MarginLayoutParams layoutParams, int start, int end) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            layoutParams.setMarginStart(start);
-            layoutParams.setMarginEnd(end);
-        } else {
-            layoutParams.leftMargin = start;
-            layoutParams.rightMargin = end;
         }
     }
 }

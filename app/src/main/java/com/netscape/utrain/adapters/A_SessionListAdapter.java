@@ -30,13 +30,15 @@ import java.util.List;
 
 public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdapter.CustomTopCoachesHolder> {
 
+    onSessionClick onSessionClick;
     private Context context;
     private int previusPos = -1;
     private List<AthleteSessionBookList.DataBeanX.DataBean> supplierData;
 
-    public A_SessionListAdapter(Context context, List supplierData) {
+    public A_SessionListAdapter(Context context, List supplierData, onSessionClick onSessionClick) {
         this.context = context;
         this.supplierData = supplierData;
+        this.onSessionClick = onSessionClick;
 
     }
 
@@ -56,7 +58,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             if (data.getSession().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getSession().getImages());
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION+Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
+                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
 
                 }
             }
@@ -67,26 +69,29 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
         }
         holder.eventName.setText(data.getSession().getName());
-//        holder.eventVenue.setText(data.getLocation());
+        holder.eventVenue.setText(data.getSession().getLocation());
+        holder.bookingTv.setText(data.getSession().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
         holder.eventDate.setText(data.getSession().getDate() + " " + data.getSession().getBusiness_hour());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EventDetail.class);
-                intent.putExtra("eventName", data.getSession().getName());
-                intent.putExtra("guest_allowed", data.getSession().getGuest_allowed()+"");
-                intent.putExtra("guest_allowed_left", data.getSession().getGuest_allowed_left()+"");
-                intent.putExtra("eventVenue", data.getSession().getLocation());
-                intent.putExtra("eventTime", data.getSession().getBusiness_hour());
-                intent.putExtra("eventDate", data.getSession().getDate());
-                intent.putExtra("eventDescription", data.getSession().getDescription());
-                intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
-                intent.putExtra("event_id", data.getSession().getId());
-                intent.putExtra("from", "sessions");
-                Bundle b = new Bundle();
-                b.putString("Array", data.getSession().getImages());
-                intent.putExtras(b);
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, EventDetail.class);
+//                intent.putExtra("eventName", data.getSession().getName());
+//                intent.putExtra("guest_allowed", data.getSession().getGuest_allowed()+"");
+//                intent.putExtra("guest_allowed_left", data.getSession().getGuest_allowed_left()+"");
+//                intent.putExtra("eventVenue", data.getSession().getLocation());
+//                intent.putExtra("eventTime", data.getSession().getBusiness_hour());
+//                intent.putExtra("eventDate", data.getSession().getDate());
+//                intent.putExtra("eventDescription", data.getSession().getDescription());
+//                intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+//                intent.putExtra("event_id", data.getSession().getId());
+//                intent.putExtra("from", "sessions");
+//                Bundle b = new Bundle();
+//                b.putString("Array", data.getSession().getImages());
+//                intent.putExtras(b);
+//                context.startActivity(intent);
+                onSessionClick.sessionAmount(data);
+
             }
         });
 
@@ -97,10 +102,14 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         return supplierData.size();
     }
 
+    public interface onSessionClick {
+        public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean dataBean);
+    }
+
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        MaterialTextView eventName, eventVenue, eventDate,bookingTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,6 +118,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
+            bookingTv = itemView.findViewById(R.id.bookingTicketTv);
         }
     }
 

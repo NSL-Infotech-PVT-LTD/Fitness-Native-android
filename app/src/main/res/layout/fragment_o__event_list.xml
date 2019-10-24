@@ -1,112 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        >
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.O_UpcEventFragment">
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventCurrentTV"
-        android:layout_marginLeft="@dimen/_20sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Current Sessions"
-        ></com.google.android.material.textview.MaterialTextView>
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View All"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eventCurrentTV"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/eventCurrentTV"
-        android:layout_marginRight="@dimen/_20sdp"></com.google.android.material.textview.MaterialTextView>
+        android:fillViewport="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/eventListRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventCurrentTV"
-        android:layout_marginTop="@dimen/_4sdp"
-        ></androidx.recyclerview.widget.RecyclerView>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/noBookingImg"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/no_data_png"
-        app:layout_constraintBottom_toBottomOf="parent"></androidx.appcompat.widget.AppCompatImageView>
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/eventCompletedTV"-->
-<!--        android:layout_marginLeft="@dimen/_20sdp"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/eventListRecycler"-->
-<!--        android:layout_marginTop="@dimen/_10sdp"-->
-<!--        android:text="Completed Sessions"-->
-<!--        ></com.google.android.material.textview.MaterialTextView>-->
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="View All"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/eventCompletedTV"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/eventCompletedTV"-->
-<!--        android:layout_marginRight="@dimen/_20sdp"></com.google.android.material.textview.MaterialTextView>-->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/eventAppliedContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/eventCompletedRecycler"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/eventCompletedTV"-->
-<!--        android:layout_marginTop="@dimen/_4sdp"-->
-<!--        ></androidx.recyclerview.widget.RecyclerView>-->
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".fragments.O_UpcEventFragment">
 
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/eventRejectedTV"-->
-<!--        android:layout_marginLeft="@dimen/_20sdp"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/eventCompletedRecycler"-->
-<!--        android:layout_marginTop="@dimen/_10sdp"-->
-<!--        android:text="Current Sessions"-->
-<!--        ></com.google.android.material.textview.MaterialTextView>-->
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="View All"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/eventRejectedTV"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/eventRejectedTV"-->
-<!--        android:layout_marginRight="@dimen/_20sdp"></com.google.android.material.textview.MaterialTextView>-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventCurrentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Current Sessions"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/eventRejectedRecycler"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/eventRejectedTV"-->
-<!--        android:layout_marginTop="@dimen/_4sdp"-->
-<!--        ></androidx.recyclerview.widget.RecyclerView>-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:text="View All"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/eventCurrentTV"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/eventCurrentTV"></com.google.android.material.textview.MaterialTextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/eventListRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/eventCurrentTV"></androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/noBookingImg"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:background="@drawable/no_data_png"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatImageView>
+                <!--    <com.google.android.material.textview.MaterialTextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:id="@+id/eventCompletedTV"-->
+                <!--        android:layout_marginLeft="@dimen/_20sdp"-->
+                <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--        app:layout_constraintTop_toBottomOf="@+id/eventListRecycler"-->
+                <!--        android:layout_marginTop="@dimen/_10sdp"-->
+                <!--        android:text="Completed Sessions"-->
+                <!--        ></com.google.android.material.textview.MaterialTextView>-->
+                <!--    <com.google.android.material.textview.MaterialTextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:text="View All"-->
+                <!--        app:layout_constraintRight_toRightOf="parent"-->
+                <!--        app:layout_constraintTop_toTopOf="@+id/eventCompletedTV"-->
+                <!--        app:layout_constraintBottom_toBottomOf="@+id/eventCompletedTV"-->
+                <!--        android:layout_marginRight="@dimen/_20sdp"></com.google.android.material.textview.MaterialTextView>-->
+
+                <!--    <androidx.recyclerview.widget.RecyclerView-->
+                <!--        android:id="@+id/eventCompletedRecycler"-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--        app:layout_constraintTop_toBottomOf="@+id/eventCompletedTV"-->
+                <!--        android:layout_marginTop="@dimen/_4sdp"-->
+                <!--        ></androidx.recyclerview.widget.RecyclerView>-->
+
+                <!--    <com.google.android.material.textview.MaterialTextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:id="@+id/eventRejectedTV"-->
+                <!--        android:layout_marginLeft="@dimen/_20sdp"-->
+                <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--        app:layout_constraintTop_toBottomOf="@+id/eventCompletedRecycler"-->
+                <!--        android:layout_marginTop="@dimen/_10sdp"-->
+                <!--        android:text="Current Sessions"-->
+                <!--        ></com.google.android.material.textview.MaterialTextView>-->
+                <!--    <com.google.android.material.textview.MaterialTextView-->
+                <!--        android:layout_width="wrap_content"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        android:text="View All"-->
+                <!--        app:layout_constraintRight_toRightOf="parent"-->
+                <!--        app:layout_constraintTop_toTopOf="@+id/eventRejectedTV"-->
+                <!--        app:layout_constraintBottom_toBottomOf="@+id/eventRejectedTV"-->
+                <!--        android:layout_marginRight="@dimen/_20sdp"></com.google.android.material.textview.MaterialTextView>-->
+
+                <!--    <androidx.recyclerview.widget.RecyclerView-->
+                <!--        android:id="@+id/eventRejectedRecycler"-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="wrap_content"-->
+                <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--        app:layout_constraintTop_toBottomOf="@+id/eventRejectedTV"-->
+                <!--        android:layout_marginTop="@dimen/_4sdp"-->
+                <!--        ></androidx.recyclerview.widget.RecyclerView>-->
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <include layout="@layout/custom_user_detail_bottom_sheet" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </ScrollView>
 </layout>
