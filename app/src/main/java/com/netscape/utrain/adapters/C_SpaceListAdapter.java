@@ -31,7 +31,7 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
     private List<C_SessionListModel> supplierData;
     private String status;
 
-    public C_SpaceListAdapter(Context context, List supplierData,String status) {
+    public C_SpaceListAdapter(Context context, List supplierData, String status) {
         this.context = context;
         this.status = status;
         this.supplierData = supplierData;
@@ -65,8 +65,17 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        if (status.equalsIgnoreCase("completed")) {
+            holder.statusImage.setImageResource(R.drawable.ic_ti_confirm);
+        } else {
+            holder.statusImage.setImageResource(R.drawable.ic_yellow_ticket);
+
+        }
+
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getName());
+        holder.ti_tickets.setVisibility(View.GONE);
+        holder.bookingTicketTv.setVisibility(View.GONE);
 //        holder.eventVenue.setText(data.getLocation());
 //        holder.eventDate.setText(data.getStart_date());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +99,18 @@ public class C_SpaceListAdapter extends RecyclerView.Adapter<C_SpaceListAdapter.
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        AppCompatImageView eventImage, ti_tickets, statusImage;
+        MaterialTextView eventName, eventVenue, eventDate, bookingTicketTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
 
+            statusImage = itemView.findViewById(R.id.statusImage);
+            ti_tickets = itemView.findViewById(R.id.ti_tickets);
             eventImage = itemView.findViewById(R.id.bookingEventImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
         }
     }

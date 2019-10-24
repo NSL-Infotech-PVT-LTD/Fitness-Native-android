@@ -75,8 +75,8 @@ public class O_UpcEventFragment extends Fragment {
     private List<O_SessionDataModel> sessionData;
     private List<O_SpaceDataModel> spaceData;
 
-    private List<AthleteBookListModel.DataBean> a_eventData;
-    private List<AthleteSessionBookList.DataBean> a_sessionData;
+    private List<AthleteBookListModel.DataBeanX.DataBean> a_eventData;
+    private List<AthleteSessionBookList.DataBeanX.DataBean> a_sessionData;
     private List<AthleteSpaceBookList.DataBean> a_spaceData;
     private C_EventListAdapter c_EventAdapter;
     private C_SpaceListAdapter c_SpaceAdapter;
@@ -336,14 +336,14 @@ public class O_UpcEventFragment extends Fragment {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
                 if (response.body() != null) {
-                    a_eventData = new ArrayList<>();
+                    a_eventData = new ArrayList<AthleteBookListModel.DataBeanX.DataBean>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_eventData.addAll(response.body().getData());
+                            a_eventData.addAll(response.body().getData().getData());
                             a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData);
                             binding.eventListRecycler.setAdapter(a_EventAdapter);
 
@@ -442,11 +442,11 @@ public class O_UpcEventFragment extends Fragment {
                     a_sessionData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_sessionData.addAll(response.body().getData());
+                            a_sessionData.addAll(response.body().getData().getData());
                             a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData);
                             binding.eventListRecycler.setAdapter(a_SessionAdapter);
 

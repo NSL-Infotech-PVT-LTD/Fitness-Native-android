@@ -23,8 +23,17 @@ public class O_SessionDataModel {
     private int hourly_rate;
     private String images;
     private String phone;
+    private String location;
     private int guest_allowed;
     private int created_by;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public int getGuest_allowed() {
         return guest_allowed;

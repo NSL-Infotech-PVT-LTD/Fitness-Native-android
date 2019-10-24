@@ -126,6 +126,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             mGoogleMap.setMyLocationEnabled(true);
 
         askPermission();
+
 //        mGoogleMap.setOnMapLongClickListener(this);
     }
 

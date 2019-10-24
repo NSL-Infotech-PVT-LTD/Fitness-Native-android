@@ -32,7 +32,7 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
     private List<O_SessionDataModel> supplierData;
     private String status;
 
-    public O_SessionListAdapter(Context context, List supplierData,String status) {
+    public O_SessionListAdapter(Context context, List supplierData, String status) {
         this.context = context;
         this.status = status;
         this.supplierData = supplierData;
@@ -65,8 +65,16 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        if (status.equalsIgnoreCase("completed")) {
+            holder.statusImage.setImageResource(R.drawable.ic_ti_confirm);
+        } else {
+            holder.statusImage.setImageResource(R.drawable.ic_yellow_ticket);
+
+        }
+
         holder.eventName.setText(data.getName());
-        holder.eventVenue.setText(data.getPhone());
+        holder.eventVenue.setText(data.getLocation());
+        holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
         holder.eventDate.setText(data.getDate());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +82,9 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
 
 
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID,data.getId()+"");
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
-                topCoachesDetails.putExtra(Constants.STATUS,status);
+                topCoachesDetails.putExtra(Constants.STATUS, status);
                 context.startActivity(topCoachesDetails);
             }
         });
@@ -89,15 +97,17 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        AppCompatImageView eventImage, statusImage;
+        MaterialTextView eventName, eventVenue, eventDate, bookingTicketTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
 
             eventImage = itemView.findViewById(R.id.bookingEventImage);
+            statusImage = itemView.findViewById(R.id.statusImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
         }
     }

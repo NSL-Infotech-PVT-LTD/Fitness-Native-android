@@ -124,13 +124,21 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
                             Toast.makeText(EventAppliedList.this, "Enter some text to search", Toast.LENGTH_SHORT).show();
                         } else {
                             if (type.equalsIgnoreCase(Constants.EVENT)) {
-                                getNumOfBookedList();
+                                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                                    getCoachEventList();
+                                } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
+                                    getNumOfBookedList();
+                                }
                             }
                             if (type.equalsIgnoreCase(Constants.SPACE)) {
                                 getNumSpaceList();
                             }
                             if (type.equalsIgnoreCase(Constants.SESSION)) {
-                                getNumSessionList();
+                                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                                    getCoachSessionList();
+                                } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
+                                    getNumSessionList();
+                                }
                             }
 
                         }

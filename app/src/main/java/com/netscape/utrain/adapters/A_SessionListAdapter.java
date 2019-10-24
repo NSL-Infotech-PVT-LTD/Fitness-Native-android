@@ -32,7 +32,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
     private Context context;
     private int previusPos = -1;
-    private List<AthleteSessionBookList.DataBean> supplierData;
+    private List<AthleteSessionBookList.DataBeanX.DataBean> supplierData;
 
     public A_SessionListAdapter(Context context, List supplierData) {
         this.context = context;
@@ -51,7 +51,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
     @Override
     public void onBindViewHolder(@NonNull A_SessionListAdapter.CustomTopCoachesHolder holder, int position) {
-        final AthleteSessionBookList.DataBean data = supplierData.get(position);
+        final AthleteSessionBookList.DataBeanX.DataBean data = supplierData.get(position);
         try {
             if (data.getSession().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getSession().getImages());
@@ -74,7 +74,9 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getSession().getName());
-//                intent.putExtra("eventVenue", data.getLocation());
+                intent.putExtra("guest_allowed", data.getSession().getGuest_allowed()+"");
+                intent.putExtra("guest_allowed_left", data.getSession().getGuest_allowed_left()+"");
+                intent.putExtra("eventVenue", data.getSession().getLocation());
                 intent.putExtra("eventTime", data.getSession().getBusiness_hour());
                 intent.putExtra("eventDate", data.getSession().getDate());
                 intent.putExtra("eventDescription", data.getSession().getDescription());

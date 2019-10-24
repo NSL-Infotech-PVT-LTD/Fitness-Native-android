@@ -19,8 +19,17 @@ public class O_SpaceDataModel {
     private String description;
     private int price_hourly;
     private String availability_week;
+    private String location;
     private int created_by;
     private int price_daily;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public int getId() {
         return id;

@@ -65,8 +65,15 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        if (status.equalsIgnoreCase("completed")) {
+            holder.statusImage.setImageResource(R.drawable.ic_ti_confirm);
+        } else {
+            holder.statusImage.setImageResource(R.drawable.ic_yellow_ticket);
+
+        }
         holder.eventName.setText(data.getName());
         holder.eventVenue.setText(data.getBusiness_hour());
+        holder.bookingTicketTv.setText(data.getMax_occupancy()+" Attandees and Ticket(1 person per ticket)");
         holder.eventDate.setText(data.getDate());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +96,17 @@ public class C_SessionListAdapter extends RecyclerView.Adapter<C_SessionListAdap
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate;
+        AppCompatImageView eventImage,statusImage;
+        MaterialTextView eventName, eventVenue, eventDate,bookingTicketTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
 
             eventImage = itemView.findViewById(R.id.bookingEventImage);
+            statusImage = itemView.findViewById(R.id.statusImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
         }
     }

@@ -34,7 +34,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 
     private Context context;
     private int previusPos = -1;
-    private List<AthleteBookListModel.DataBean> a_eventList;
+    private List<AthleteBookListModel.DataBeanX.DataBean> a_eventList;
 
     public A_EventListAdapter(Context context, List supplierData) {
         this.context = context;
@@ -53,7 +53,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull A_EventListAdapter.CustomTopCoachesHolder holder, int position) {
-        final AthleteBookListModel.DataBean data = a_eventList.get(position);
+        final AthleteBookListModel.DataBeanX.DataBean data = a_eventList.get(position);
         try {
             if (data.getEvent().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getEvent().getImages());
@@ -78,6 +78,8 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getEvent().getName());
+                intent.putExtra("guest_allowed", data.getEvent().getGuest_allowed()+"");
+                intent.putExtra("guest_allowed_left", data.getEvent().getGuest_allowed_left()+"");
                 intent.putExtra("eventVenue", data.getEvent().getLocation());
                 intent.putExtra("event_id", data.getEvent().getId());
 

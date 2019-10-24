@@ -8,11 +8,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,6 +41,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.organization.GPSService;
+import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
 import com.netscape.utrain.adapters.Ath_SessionRecyclerAdapter;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
@@ -62,10 +69,11 @@ import retrofit2.Response;
 public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
-
+    private AskPermission askPermObj;
     RecyclerView recyclerViewFindPlace;
     LinearLayoutManager layoutManager;
     CoachesRecyclerAdapter adapter;
+    private GPSService gpsService;
     Ath_SessionRecyclerAdapter adapterSesson;
     Ath_PlaceRecyclerAdapter adapterPlace;
     private List<AthleteEventListModel> listModels = new ArrayList<>();
@@ -92,6 +100,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private int TOTAL_PAGES = 3;
     private int currentPage = PAGE_START;
     private int page = 1;
+    private  MapFragment map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +197,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
                                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
-                                mGoogleMap.animateCamera(update);
+//                                mGoogleMap.animateCamera(update);
                                 adapter = new CoachesRecyclerAdapter(activity, listModels);
                                 recyclerViewFindPlace.setAdapter(adapter);
                             }
@@ -243,7 +252,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
-                            mGoogleMap.animateCamera(update);}
+//                            mGoogleMap.animateCamera(update);
+                            }
                             adapter = new CoachesRecyclerAdapter(activity, listModels);
                             recyclerViewFindPlace.setAdapter(adapter);
                         }
@@ -273,7 +283,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         progressDialog.setMessage("Loading....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, sortBy, search, "10", page + "", "1000000");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, sortBy, search, "10", page + "", "100");
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
             public void onResponse(Call<AthleteEventListResponse> call, final Response<AthleteEventListResponse> response) {
@@ -298,7 +308,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
-                            mGoogleMap.animateCamera(update);
+//                            mGoogleMap.animateCamera(update);
                             adapter = new CoachesRecyclerAdapter(activity, listModels);
                             recyclerViewFindPlace.setAdapter(adapter);
                         }
@@ -399,9 +409,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void inItMap() {
-
-        MapFragment map = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment));
+         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment));
         map.getMapAsync(this);
+        askPermObj = new AskPermission(AllEventsMapAct.this, this);
+
     }
 
 
@@ -527,7 +538,18 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(AllEventsMapAct.this);
+
         mGoogleMap = googleMap;
+        if (askPermObj.isPermissionGiven(this, Manifest.permission.ACCESS_FINE_LOCATION))
+            mGoogleMap.setMyLocationEnabled(true);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+        mGoogleMap.getUiSettings().setRotateGesturesEnabled(true);
+        mGoogleMap.getUiSettings().setScrollGesturesEnabled(true);
+        mGoogleMap.getUiSettings().setTiltGesturesEnabled(true);
+        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
         if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
             constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
             getAthleteEventApi("distance", search);
@@ -538,8 +560,27 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
             getAthletePlaceApi("distance", search);
         }
+
+
+        askPermission();
+
+        View locationButton = ((View) map.getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        rlp.setMargins(0, 120, 0, 0);
     }
 
+    /*ask permissoin of location*/
+    private void askPermission() {
+        if (!askPermObj.isPermissionGiven(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            askPermObj.askPermission(Manifest.permission.ACCESS_FINE_LOCATION, Constants.ACCESS_FINE_LOCATION_REQUEST);
+            return;
+        }
+        if (mGoogleMap != null) {
+            getUserCurrentLocation();
+        }
+    }
     private void pagination(final CoachesRecyclerAdapter adapter, final List<AthleteEventListModel> listModels) {
         recyclerViewFindPlace.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
@@ -611,6 +652,16 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
             if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
             else isLastPage = true;
+        }
+    }
+    private void getUserCurrentLocation() {
+        gpsService = new GPSService(AllEventsMapAct.this);
+        Location userLocation = gpsService.getLocation();
+        if (userLocation != null) {
+            LatLng placeOn = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+            CameraUpdate zoom = CameraUpdateFactory.zoomTo(14);
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(placeOn));
+            mGoogleMap.animateCamera(zoom);
         }
     }
 }

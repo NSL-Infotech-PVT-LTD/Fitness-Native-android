@@ -318,6 +318,13 @@ public interface Retrofitinterface {
                                                      @Query("order_by") String order_by,
                                                      @Query("type") String type);
 
+    @POST(Constants.ATHLETE_EVENT_LIST)
+    Call<AthleteBookListModel> getAthleteEventList(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String contentType,
+                                                     @Query("target_id") String target_id,
+                                                     @Query("order_by") String order_by,
+                                                     @Query("type") String type);
+
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSessionBookList> getAthleteSessionBookList(@Header("Authorization") String Authorization,
                                                            @Header("Content-Type") String contentType,
@@ -354,7 +361,7 @@ public interface Retrofitinterface {
                                                                     @Query("order_by") String order_by,
                                                                     @Query("search") String search,
                                                                     @Query("type") String type);
-    @POST(Constants.O_EVENT_BOOKING_LIST)
+    @POST(Constants.COACH_EVENT_BOOKING_LIST)
     Call<O_SessionBookedListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                                     @Header("Content-Type") String contentType,
                                                                     @Query("target_id") String target_id,

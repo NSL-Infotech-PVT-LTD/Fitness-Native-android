@@ -66,10 +66,17 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        if (status.equalsIgnoreCase("completed")) {
+            holder.statusImage.setImageResource(R.drawable.ic_ti_confirm);
+        } else {
+            holder.statusImage.setImageResource(R.drawable.ic_yellow_ticket);
+
+        }
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getName());
-        holder.eventVenue.setText(data.getAvailability_week());
-        holder.bookingTicketTv.setText(data.getAvailability_week());
+        holder.eventVenue.setText(data.getLocation());
+        holder.bookingTicketTv.setVisibility(View.GONE);
+        holder.ti_tickets.setVisibility(View.GONE);
         holder.eventDate.setText(data.getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +97,16 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
-        MaterialTextView eventName,eventVenue,bookingTicketTv,eventDate;
+        AppCompatImageView eventImage,ti_tickets, statusImage;
+        MaterialTextView eventName, eventVenue, bookingTicketTv, eventDate;
 
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
 
             eventImage = itemView.findViewById(R.id.bookingEventImage);
+            ti_tickets = itemView.findViewById(R.id.ti_tickets);
+            statusImage = itemView.findViewById(R.id.statusImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
