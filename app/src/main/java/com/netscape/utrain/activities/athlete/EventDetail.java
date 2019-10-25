@@ -110,6 +110,7 @@ public class EventDetail extends AppCompatActivity {
                 binding.noOfSeatText.setVisibility(View.GONE);
                 binding.seatNo.setVisibility(View.GONE);
                 binding.totalAvailableSeat.setVisibility(View.GONE);
+                binding.evntJoinNow.setEnabled(false);
                 eventType = "space";
             }
 

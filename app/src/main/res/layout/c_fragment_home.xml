@@ -72,6 +72,7 @@
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginRight="@dimen/_1sdp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@+id/orgGuideline">
 
@@ -403,6 +404,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginBottom="@dimen/_50sdp"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/yourSpacesTv" />
 
