@@ -116,7 +116,7 @@ public class SelectSportActivity extends AppCompatActivity {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
 
-                            sportList = response.body().getData().getUser().getSport_id();
+//                            sportList = response.body().getData().getUser().getSport_id();
 //                            adapter = new SportsAdapter(sportsList, SelectSportActivity.this);
                             binding.sportsRecyclerView.setAdapter(adapter);
                             CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, activity);

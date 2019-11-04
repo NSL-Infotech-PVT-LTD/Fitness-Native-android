@@ -16,6 +16,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -28,8 +29,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,12 +42,18 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.utils.Constants;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -86,6 +91,28 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        String apiKey = getString(R.string.google_maps_api);
+
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+
+// Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
+
+
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+
+
 //        MapFragment mapFragment = ((MapFragment) getFragmentManager().findFragmentById(R.id.map));
 //        mapFragment.getMapAsync(this);
         inIt();
@@ -299,10 +326,16 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 }
                 break;
             case R.id.searchLin:
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
+                // Start the autocomplete intent.
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IN") //NIGERIA
+                        .build(this);
+                startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
 //                try {
 //                    AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
 //                            .setTypeFilter(Place.TYPE_COUNTRY)
-//                            .setCountry("US")
+//                            .setCountry("India")
 //                            .build();
 //                    Intent place = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).
 //                            setFilter(autocompleteFilter).
@@ -310,9 +343,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //                    startActivityForResult(place, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
 //                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
 //                    // TODO: Handle the error.
-////                    e.printStackTrace();
+//                    e.printStackTrace();
 //                }
-////                try {
+//                try {
 //                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this);
 //                    startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
 //                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
@@ -329,7 +362,16 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH) {
             if (resultCode == RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(this, data);
+
+
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress());
+                Toast.makeText(OrgMapFindAddressActivity.this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
+                String address = place.getAddress();
+
+
+
+//                Place place = (Place) PlaceAutocomplete.getPlace(this, data);
                 selectedLatLng = place.getLatLng();
 //                mAddress = place.getName().toString();
                 // placeName = place.getAddress().toString().replace(place.getName().toString(), "");

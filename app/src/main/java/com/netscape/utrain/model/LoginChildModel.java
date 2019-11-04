@@ -29,14 +29,14 @@ public class LoginChildModel {
 
     private String experience_detail;
     private String achievements;
-    private List<SportListModel.DataBeanX.DataBean> sport_id;
+    private String sport_id;
     private List<ServiceIdModel> service_ids;
 
-    public List<SportListModel.DataBeanX.DataBean> getSport_id() {
+    public String getSport_id() {
         return sport_id;
     }
 
-    public void setSport_id(List<SportListModel.DataBeanX.DataBean> sport_id) {
+    public void setSport_id(String sport_id) {
         this.sport_id = sport_id;
     }
 

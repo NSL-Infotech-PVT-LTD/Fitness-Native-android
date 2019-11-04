@@ -309,6 +309,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             CommonMethods.setPrefData("athleteEmail", binding.athleteEmailEdt.getText().toString(), AthleteSignupActivity.this);
             CommonMethods.setPrefData("athletePhone", binding.athletePhoneEdt.getText().toString(), AthleteSignupActivity.this);
             CommonMethods.setPrefData("athleteAddress", binding.athleteAddressEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("latitude", String.valueOf(latitude), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("longitude", String.valueOf(longitude), AthleteSignupActivity.this);
             CommonMethods.setPrefData("athletePassword", binding.athletePasswordEdt.getText().toString(), AthleteSignupActivity.this);
             CommonMethods.setPrefData("athleteExperience", binding.athleteExperienceEdt.getText().toString(), AthleteSignupActivity.this);
             CommonMethods.setPrefData("athleteAchievement", binding.athleteAchievementEdt.getText().toString(), AthleteSignupActivity.this);
