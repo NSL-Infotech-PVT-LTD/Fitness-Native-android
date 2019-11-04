@@ -175,6 +175,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS,response.body().getData().getUser().getAddress(),ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
 
                             Intent homeScreen = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);

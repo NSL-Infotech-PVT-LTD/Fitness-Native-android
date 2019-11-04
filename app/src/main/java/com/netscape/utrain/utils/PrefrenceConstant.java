@@ -27,6 +27,7 @@ public class PrefrenceConstant {
     public static final String SERVICE_IDS="serviceIds";
     public static final String ROLE_PLAY="ROLE_PLAY";
     public static final String DEVICE_TOKEN="deviceToken";
+    public static final String ADDRESS ="address" ;
 
     public static String USER_ACHIEVE="acheive";
 }

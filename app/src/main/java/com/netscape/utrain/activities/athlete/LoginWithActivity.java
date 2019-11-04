@@ -178,18 +178,19 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     id = object.getString("id");
                     image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
-                    Intent fbintent = new Intent(LoginWithActivity.this,AthleteSignupActivity.class);
-                    fbintent.putExtra("name", first_name +" "+last_name);
-                    fbintent.putExtra("email", fb_email);
-                    fbintent.putExtra("image_url", image_url);
-                    fbintent.putExtra("fb_id", id);
+//                    Intent fbintent = new Intent(LoginWithActivity.this,AthleteSignupActivity.class);
+//                    fbintent.putExtra("name", first_name +" "+last_name);
+//                    fbintent.putExtra("email", fb_email);
+//                    fbintent.putExtra("image_url", image_url);
+//                    fbintent.putExtra("fb_id", id);
                     Constants.SocialProfile = image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("email", email,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("image_url", image_url, LoginWithActivity.this);
 //                    CommonMethods.setPrefData();
-                    startActivity(fbintent);
+//                    fbintent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                    startActivity(fbintent);
 
 
                 } catch (JSONException e) {
@@ -221,6 +222,9 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", LoginWithActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", LoginWithActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginWithActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, LoginWithActivity.this);
                             Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);
                             fbreg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -234,12 +238,13 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.athleteLoginLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+//                        Snackbar.make(binding.athleteLoginLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                         Intent fbintent = new Intent(LoginWithActivity.this, AthleteSignupActivity.class);
                         fbintent.putExtra("name", first_name + " " + last_name);
                         fbintent.putExtra("email", fb_email);
                         fbintent.putExtra("image_url", image_url);
                         fbintent.putExtra("fb_id", id);
+                        fbintent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(fbintent);
                     } catch (Exception e) {
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/updateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.UpdateProfileActivity">
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/innerLeftGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/innerRightGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/athlete_SignUpTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/update_profile"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/uProfileImageCard"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:backgroundTint="@color/colorGreen"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/athlete_SignUpTv">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/uProfileImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_profile_type"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="center" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uNameTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/user_name"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uProfileImageCard" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uEmailTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/email"
+                    android:inputType="text"
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uNameTv" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uPhoneEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/phone_number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uEmailTv" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uAddressEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawableRight="@drawable/ic_my_location"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/address"
+                    android:inputType="text"
+                    android:maxLines="3"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uPhoneEdt" />
+
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/athletePasswordEdtLayout"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    app:hintEnabled="false"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/uAddressEdt"-->
+<!--                    app:passwordToggleEnabled="true"-->
+<!--                    app:startIconDrawable="@drawable/ic_password">-->
+
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/uPasswordEdt"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/etmaterial_design"-->
+<!--                        android:drawableLeft="@drawable/ic_lock"-->
+<!--                        android:hint="@string/password"-->
+<!--                        android:inputType="textPassword"-->
+<!--                        android:maxLength="20"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="@dimen/_2sdp"-->
+<!--                    android:background="@drawable/view_bottom_round_design"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />-->
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uExperienceEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/enter_your_experience_details"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uAddressEdt" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uAchievementEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/enter_your_achievements_details"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uExperienceEdt" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/updateBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:backgroundTint="@color/colorGreen"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:cornerRadius="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/uAchievementEdt" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
