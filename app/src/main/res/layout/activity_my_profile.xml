@@ -7,12 +7,12 @@
         android:layout_height="match_parent"
         tools:context=".activities.MyProfile">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/toolbar_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <include-->
+<!--            android:id="@+id/header"-->
+<!--            layout="@layout/toolbar_layout"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/innerLeftGuideLine"
@@ -32,32 +32,37 @@
             android:id="@+id/myProfileText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="@string/my_porfile"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_24sdp"
-            android:textStyle="bold"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/editProfileBtn"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:background="@drawable/round_corner_background"
             android:backgroundTint="@color/colorWhite"
+            android:fontFamily="@font/poppins_regular"
             android:gravity="center"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
             android:text="@string/edit"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/myProfileText"
             app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
             app:layout_constraintTop_toTopOf="@id/myProfileText"
-            app:strokeColor="@color/colorBlack"
+            app:strokeColor="@color/lightGrayFont"
             app:strokeWidth="@dimen/_1sdp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_profile_setting"
+            android:padding="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/editProfileBtn"
             app:layout_constraintHorizontal_bias="0.73"
             app:layout_constraintLeft_toRightOf="@+id/myProfileText"
@@ -69,8 +74,7 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/myProfileText">
 
@@ -84,10 +88,10 @@
             android:id="@+id/profileNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:text="sophia"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toTopOf="@+id/athleteBtn"
             app:layout_constraintLeft_toRightOf="@+id/profileImageView"
             app:layout_constraintTop_toTopOf="@+id/profileImageView" />
@@ -95,13 +99,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/athleteBtn"
-            android:layout_width="@dimen/_60sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:background="@drawable/round_background_colord"
             android:backgroundTint="@color/colorGreen"
+            android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:padding="@dimen/_6sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
             android:text="@string/athlete"
             app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
             app:layout_constraintLeft_toRightOf="@+id/profileImageView"
@@ -128,8 +134,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:elevation="@dimen/_10sdp"
             android:background="@drawable/cards_shape"
+            android:elevation="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -169,7 +175,7 @@
             android:background="@color/colorLightGray"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/profileEmailTv"></View>
+            app:layout_constraintTop_toBottomOf="@+id/profileEmailTv" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/phoneText"
@@ -207,7 +213,7 @@
             android:background="@color/colorLightGray"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/profilePhoneTv"/>
+            app:layout_constraintTop_toBottomOf="@+id/profilePhoneTv" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/cardText"
@@ -230,6 +236,6 @@
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/cardText"/>
+            app:layout_constraintTop_toBottomOf="@+id/cardText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

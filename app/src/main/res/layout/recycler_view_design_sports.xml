@@ -21,11 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <CheckBox
         android:id="@+id/sportsNameCBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/edt_white_background"
         app:layout_constraintBottom_toBottomOf="@id/recycler_sportsNameTv"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/recycler_sportsNameTv" />
