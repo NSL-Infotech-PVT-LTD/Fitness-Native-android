@@ -16,11 +16,15 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SelectServices;
 import com.netscape.utrain.activities.SelectedServiceList;
+import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityChooseSportBinding;
 import com.netscape.utrain.model.AthleteUserModel;
+import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.model.SportsIdModel;
 import com.netscape.utrain.response.AthleteSignUpResponse;
@@ -33,6 +37,7 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,16 +51,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class ChooseSportActivity extends AppCompatActivity implements SportsAdapter.RecyclePosition {
 
     ActivityChooseSportBinding binding;
     SportsAdapter adapter;
     Retrofitinterface api;
     int mPosition;
-    String mSport,athName,athEmail,athPhone,athAddress,athPwd,athExperience,athAchieve,latitude,longitude;
+    String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
     //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
     JsonArray jsonArray;
     private List<SportListModel.DataBeanX.DataBean> sportsList = new ArrayList<>();
+    private List<SportListModel.DataBeanX.DataBean> sportsListAll = new ArrayList<>();
     private AthleteUserModel athModel;
     private ProgressDialog progressDialog;
 //    private double latitude = 0.0, longitude = 0.0;
@@ -75,19 +83,24 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 //        achievement = getIntent().getStringExtra("achievement");
 //        achievement = getIntent().getStringExtra("achievement");
 //        fbImage = getIntent().getStringExtra("fbImage");
+        sportsListAll.clear();
+        init();
+
+        if (sportsListAll != null && sportsListAll.size() > 0) {
+        } else {
+            sportsListApi();
+        }
 
 
-        sportsListApi();
-
-         athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
-         athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
-         athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
-         athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
-         latitude = CommonMethods.getPrefData("latitude", ChooseSportActivity.this);
-         longitude = CommonMethods.getPrefData("longitude", ChooseSportActivity.this);
-         athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
-         athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
-         athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
+        athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
+        athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
+        athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
+        athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
+        latitude = CommonMethods.getPrefData("latitude", ChooseSportActivity.this);
+        longitude = CommonMethods.getPrefData("longitude", ChooseSportActivity.this);
+        athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
+        athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
+        athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
 
 
         binding.addSportsBtn.setOnClickListener(new View.OnClickListener() {
@@ -108,24 +121,58 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
     }
 
-    private void sportsListApi() {
+    private void init() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading....");
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORT_NAME, getApplicationContext());
+        Gson gson = new Gson();
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportsListAll = gson.fromJson(sportName, type);
 
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportsListAll) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+            }
+        }
+        if (sportsListAll != null && sportsListAll.size() > 0) {
+            binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
+            adapter = new SportsAdapter(sportsListAll, ChooseSportActivity.this, ChooseSportActivity.this);
+            binding.csRecyclerView.setAdapter(adapter);
+            for (int i = 0; i < sportsListAll.size(); i++) {
+                if (sportsListAll.get(i).isCheckekd()) {
+                    sportsList.add(sportsListAll.get(i));
+                }
+            }
+        }
+    }
+
+    private void sportsListApi() {
+        progressDialog.show();
         Call<SportListModel> call = api.getSportList(Constants.CONTENT_TYPE, "", "");
         call.enqueue(new Callback<SportListModel>() {
             @Override
             public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
-
-                if (response.body().isStatus())
-                    if (response.body() != null)
-
+                progressDialog.dismiss();
+                if (response.body().isStatus()) {
+                    if (response.body() != null) {
                         binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
-                adapter = new SportsAdapter(response.body().getData().getData(), ChooseSportActivity.this, ChooseSportActivity.this);
-                binding.csRecyclerView.setAdapter(adapter);
-
+                        adapter = new SportsAdapter(response.body().getData().getData(), ChooseSportActivity.this, ChooseSportActivity.this);
+                        binding.csRecyclerView.setAdapter(adapter);
+                        sportsListAll.addAll(response.body().getData().getData());
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<SportListModel> call, Throwable t) {
+                progressDialog.dismiss();
 
             }
         });
@@ -133,8 +180,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
     private void athleteSignUpApi(String email, String password, String name, String phone, String address, String experience, String achievement) {
 //        CommonMethods.hideKeyboard(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading....");
+
         progressDialog.show();
         MultipartBody.Part userImg = null;
         File myFile = (File) getIntent().getSerializableExtra("image");
@@ -164,6 +210,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                             CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ChooseSportActivity.this);
@@ -176,7 +223,6 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
-
                             Intent homeScreen = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
@@ -200,8 +246,6 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.serviceLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
-
-
             }
         });
     }
@@ -234,7 +278,9 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
         if (ischecked) {
             sportsList.add(list);
+            sportsListAll.get(pos).setCheckekd(ischecked);
         } else {
+            sportsListAll.get(pos).setCheckekd(ischecked);
             for (int i = 0; i < sportsList.size(); i++) {
                 if (list.getId() == sportsList.get(i).getId()) {
                     sportsList.remove(i);
@@ -250,4 +296,18 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     }
     //if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
     //                    jsonArray = (JsonArray) new Gson().toJsonTree(SelectedServiceList.getInstance().getList());
+
+    private void storeServiceIds(List<SportListModel.DataBeanX.DataBean> list) {
+        Gson gson = new Gson();
+        String listData = gson.toJson(list);
+        CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, listData, getApplicationContext());
+    }
+
+    @Override
+    protected void onDestroy() {
+        storeServiceIds(sportsListAll);
+        super.onDestroy();
+    }
+
+
 }
