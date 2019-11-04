@@ -5,7 +5,9 @@ import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
+import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.A_BookedEventResponse;
 import com.netscape.utrain.response.A_EventListResponse;
 import com.netscape.utrain.response.A_SessionResponse;
@@ -66,7 +68,10 @@ public interface Retrofitinterface {
                                               @Query("longitude") String longitude,
                                               @Query("device_type") String device_type,
                                               @Query("device_token") String device_token,
-                                              @Header("Content-Type") String contentType);
+                                              @Header("Content-Type") String contentType,
+                                              @Query("sport_id") String sport_id,
+                                              @Query("achievements") String achievements,
+                                              @Query("experience_detail") String experience_detail);
 
     @FormUrlEncoded
     @POST(Constants.LOGIN_METHOD)
@@ -174,6 +179,7 @@ public interface Retrofitinterface {
                                          @Query("limit") String Limit,
                                          @Query("page") String page);
 
+
     @POST(Constants.TOP_ORG_LIST)
     Call<CoachListResponse> getTopOrgList(@Header("Authorization") String Authorization,
                                           @Query("search") String search,
@@ -278,8 +284,9 @@ public interface Retrofitinterface {
 
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<AllBookingListModel> getAllBooking(@Header("Authorization") String Authorization,
-                                                @Header("Content-Type") String contentType
-                                               );
+                                            @Header("Content-Type") String contentType,
+                                            @Query("limit") String limit
+    );
 
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,
@@ -327,10 +334,10 @@ public interface Retrofitinterface {
 
     @POST(Constants.ATHLETE_EVENT_LIST)
     Call<AthleteBookListModel> getAthleteEventList(@Header("Authorization") String Authorization,
-                                                     @Header("Content-Type") String contentType,
-                                                     @Query("target_id") String target_id,
-                                                     @Query("order_by") String order_by,
-                                                     @Query("type") String type);
+                                                   @Header("Content-Type") String contentType,
+                                                   @Query("target_id") String target_id,
+                                                   @Query("order_by") String order_by,
+                                                   @Query("type") String type);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteSessionBookList> getAthleteSessionBookList(@Header("Authorization") String Authorization,
@@ -353,13 +360,14 @@ public interface Retrofitinterface {
                                                            @Query("order_by") String order_by,
                                                            @Query("search") String search,
                                                            @Query("type") String type);
+
     @POST(Constants.COACH_EVENT_BOOKING_LIST)
     Call<O_EventBookedListResponse> getCoachEventList(@Header("Authorization") String Authorization,
-                                                           @Header("Content-Type") String contentType,
-                                                           @Query("target_id") String target_id,
-                                                           @Query("order_by") String order_by,
-                                                           @Query("search") String search,
-                                                           @Query("type") String type);
+                                                      @Header("Content-Type") String contentType,
+                                                      @Query("target_id") String target_id,
+                                                      @Query("order_by") String order_by,
+                                                      @Query("search") String search,
+                                                      @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_SessionBookedListResponse> getOrganiserBookedSessionList(@Header("Authorization") String Authorization,
@@ -368,13 +376,14 @@ public interface Retrofitinterface {
                                                                     @Query("order_by") String order_by,
                                                                     @Query("search") String search,
                                                                     @Query("type") String type);
+
     @POST(Constants.COACH_EVENT_BOOKING_LIST)
     Call<O_SessionBookedListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
-                                                                    @Header("Content-Type") String contentType,
-                                                                    @Query("target_id") String target_id,
-                                                                    @Query("order_by") String order_by,
-                                                                    @Query("search") String search,
-                                                                    @Query("type") String type);
+                                                          @Header("Content-Type") String contentType,
+                                                          @Query("target_id") String target_id,
+                                                          @Query("order_by") String order_by,
+                                                          @Query("search") String search,
+                                                          @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)
     Call<O_BookedSpaceListResponse> getOrganiserBookedSpaceList(@Header("Authorization") String Authorization,
@@ -383,6 +392,12 @@ public interface Retrofitinterface {
                                                                 @Query("order_by") String order_by,
                                                                 @Query("search") String search,
                                                                 @Query("type") String type);
+
+
+    @POST(Constants.SPORTS_LIST)
+    Call<SportListModel> getSportList(@Header("Content-Type") String Content_Type,
+                                      @Query("search") String search,
+                                      @Query("limit") String limit);
 
 
 }

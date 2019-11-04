@@ -84,9 +84,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 //        selectedService.clear();
         init();
-
-
-
     }
 
     private void init() {

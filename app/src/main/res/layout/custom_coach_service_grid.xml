@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/_5sdp"
+    android:paddingRight="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_20sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="Industrial Training/Group"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/priceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:text="Price"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="@id/headerText"
+        app:layout_constraintTop_toBottomOf="@id/headerText" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/priceDispText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="60"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="@id/headerText"
+        app:layout_constraintTop_toBottomOf="@id/headerText" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/durationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="Duration"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="@id/headerText"
+        app:layout_constraintTop_toBottomOf="@id/priceText" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/durationDispText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="1 /hour"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="@id/headerText"
+        app:layout_constraintTop_toBottomOf="@id/priceDispText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

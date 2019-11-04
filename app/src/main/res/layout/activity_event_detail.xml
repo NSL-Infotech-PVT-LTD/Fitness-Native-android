@@ -2,420 +2,441 @@
 
 <layout>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/eventDetailContainer"
-    android:layout_height="match_parent"
-    tools:context=".activities.athlete.EventDetail">
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/eventDetailContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".activities.athlete.EventDetail">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_55sdp">
-
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutConstraint"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_bottomboth_round_design"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_55sdp">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutConstraint"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/card_bottomboth_round_design"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/event"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_16sdp"
+                        app:layout_constraintLeft_toRightOf="@+id/eventBookingBackImg"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/eventBookingBackImg"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:src="@drawable/ic_backwhite"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/getDirectionImage"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_details_map"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_38sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:text="@string/get_direction"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_7sdp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/event"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintLeft_toRightOf="@+id/eventBookingBackImg"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/eventBookingBackImg"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:src="@drawable/ic_backwhite"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@drawable/view_pager_rounded"
+                    android:elevation="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/getDirectionImage"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_30sdp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_details_map"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/layoutConstraint" />
 
-                <com.google.android.material.textview.MaterialTextView
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    app:ci_drawable="@drawable/indicator_design"
+                    app:layout_constraintLeft_toLeftOf="@id/viewPagerImage"
+                    app:layout_constraintRight_toRightOf="@id/viewPagerImage"
+                    app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/leftGuideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_38sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/rightGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventMarathonHeaderTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/marathon_run_for_fun"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_16sdp"
+
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
+
+
+                <LinearLayout
+
+                    android:id="@+id/linear1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventVenueTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/venue"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventTimeTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/time"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventVenueTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="@string/date"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventTimeTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:id="@+id/linear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/linear1">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventVanueDetailTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="@string/vanue_address_nline"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_8sdp"
+
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventTimeDetailTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="@string/time_format"
+                        android:textColor="@color/colorBlack"
+
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventDateDetailTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="@string/date_format"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
+                        app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintTop_toBottomOf="@id/linear" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventInstructionsTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="@string/get_direction"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_7sdp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/instruction"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventInstructionsDetailTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/instruction_detail"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/eventInstructionsTv"
+                    app:layout_goneMarginBottom="@dimen/_80sdp" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintTop_toBottomOf="@id/eventInstructionsDetailTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/inviteAthlete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/invite_other_athlete"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintTop_toBottomOf="@id/inviteAthlete" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventNumOfCandidateAttendingTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/number_of_candidate_attending"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/view4" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventNumOfCandidateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/number_of_candidate"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/view4" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/eventCandidateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_19sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/candidate"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toTopOf="@id/eventNumOfCandidateTv" />
+
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintTop_toBottomOf="@id/eventNumOfCandidateAttendingTv" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/noOfSeatText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingBottom="@dimen/_100sdp"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/no_of_seat_left"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/view3" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/seatNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/number_of_candidate"
+                    android:textColor="@color/notificationRedIcon"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toTopOf="@id/view3" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/totalAvailableSeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_19sdp"
+                    android:layout_marginRight="@dimen/_13sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/seat"
+                    android:textColor="@color/notificationRedIcon"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toTopOf="@id/seatNo" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPagerImage"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@drawable/view_pager_rounded"
-                android:elevation="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutConstraint" />
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/evntJoinNow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:backgroundTint="@color/gradientDarkColor"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/join_now"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:cornerRadius="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                app:ci_drawable="@drawable/indicator_design"
-                app:layout_constraintLeft_toLeftOf="@id/viewPagerImage"
-                app:layout_constraintRight_toRightOf="@id/viewPagerImage"
-                app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
-
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_30sdp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_30sdp" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventMarathonHeaderTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/marathon_run_for_fun"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_16sdp"
-
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
-
-
-            <LinearLayout
-
-                android:id="@+id/linear1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventVenueTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_weight="1"
-
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:text="@string/venue"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventTimeTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:text="@string/time"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintLeft_toRightOf="@id/eventVenueTv"
-                    app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center"
-                    android:text="@string/date"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintLeft_toRightOf="@id/eventTimeTv"
-                    app:layout_constraintTop_toBottomOf="@id/eventMarathonHeaderTv" />
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:id="@+id/linear"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginTop="@dimen/_7sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/linear1">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventVanueDetailTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="@string/vanue_address_nline"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_8sdp"
-
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventTimeDetailTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="@string/time_format"
-                    android:textColor="@color/colorBlack"
-
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
-                    app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventDateDetailTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:text="@string/date_format"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
-                    app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@color/colorLightGray"
-                app:layout_constraintTop_toBottomOf="@id/linear" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventInstructionsTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/instruction"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/view1" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventInstructionsDetailTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/instruction_detail"
-                android:textSize="@dimen/_8sdp"
-                app:layout_goneMarginBottom="@dimen/_80sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/eventInstructionsTv" />
-
-
-
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@color/colorLightGray"
-                app:layout_constraintTop_toBottomOf="@id/eventInstructionsDetailTv" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventNumOfCandidateAttendingTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/number_of_candidate_attending"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/view2" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventNumOfCandidateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/number_of_candidate"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_15sdp"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toBottomOf="@id/view2" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/eventCandidateTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_19sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/candidate"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/eventNumOfCandidateTv"/>
-
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@color/colorLightGray"
-                app:layout_constraintTop_toBottomOf="@id/eventNumOfCandidateAttendingTv" />
-
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/noOfSeatText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/no_of_seat_left"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/view3"
-                android:paddingBottom="@dimen/_100sdp"/>
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/seatNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/number_of_candidate"
-                android:textColor="@color/notificationRedIcon"
-                android:textSize="@dimen/_15sdp"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/view3" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/totalAvailableSeat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_19sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:layout_marginRight="@dimen/_13sdp"
-                android:text="@string/seat"
-                android:textColor="@color/notificationRedIcon"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                app:layout_constraintTop_toTopOf="@id/seatNo"
-                />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_30sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:backgroundTint="@color/gradientDarkColor"
-        android:fontFamily="@font/poppins_regular"
-        android:gravity="center"
-        android:text="@string/join_now"
-        app:cornerRadius="@dimen/_5sdp"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_10sdp"
-        android:id="@+id/evntJoinNow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

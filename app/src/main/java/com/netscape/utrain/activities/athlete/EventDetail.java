@@ -94,6 +94,25 @@ public class EventDetail extends AppCompatActivity {
             }
         });
 
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase(Constants.Athlete)) {
+            binding.inviteAthlete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                    sendIntent.setType("text/plain");
+
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    startActivity(shareIntent);
+
+                }
+            });
+
+        } else {
+            binding.inviteAthlete.setVisibility(View.GONE);
+            binding.view4.setVisibility(View.GONE);
+        }
 
         eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
@@ -184,12 +203,12 @@ public class EventDetail extends AppCompatActivity {
                 }
             });
             if (eventType.equalsIgnoreCase("space")) {
-            }else {
-            if (getIntent().getStringExtra("guest_allowed_left").equalsIgnoreCase("0")) {
-                binding.evntJoinNow.setClickable(false);
-                binding.evntJoinNow.setText("No Seats Available");
+            } else {
+                if (getIntent().getStringExtra("guest_allowed_left").equalsIgnoreCase("0")) {
+                    binding.evntJoinNow.setClickable(false);
+                    binding.evntJoinNow.setText("No Seats Available");
+                }
             }
-        }
             viewPager = findViewById(R.id.viewPagerImage);
             pagerAdapter = new MyCustomPagerAdapter(this, imageList);
             viewPager.setAdapter(pagerAdapter);

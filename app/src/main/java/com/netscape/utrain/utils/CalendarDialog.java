@@ -55,7 +55,7 @@ public class CalendarDialog {
 
     private Calendar mSelectedDate = sToday;
 
-    private List<AllBookingListModel> mEventList = new ArrayList<>();
+    private List<AllBookingListModel.DataBeanX> mEventList = new ArrayList<>();
     private OnCalendarDialogListener mListener;
 
     private AlertDialog mAlertDialog;
@@ -87,7 +87,7 @@ public class CalendarDialog {
         mViewPager.setCurrentItem(mViewPagerAdapter.initialPageAndDay.first);
     }
 
-    public void setEventList(List<AllBookingListModel> eventList) {
+    public void setEventList(List<AllBookingListModel.DataBeanX> eventList) {
         mEventList = eventList;
         mViewPagerAdapter.notifyDataSetChanged();
     }
@@ -182,7 +182,7 @@ public class CalendarDialog {
     }
 
     public interface OnCalendarDialogListener {
-        void onEventClick(AllBookingListModel event);
+        void onEventClick(AllBookingListModel.DataBeanX event);
 
         void onCreateEvent(Calendar calendar);
     }
@@ -199,7 +199,7 @@ public class CalendarDialog {
             return new Builder(context);
         }
 
-        public Builder setEventList(List<AllBookingListModel> calendarEventList) {
+        public Builder setEventList(List<AllBookingListModel.DataBeanX> calendarEventList) {
             P.mEventList = calendarEventList;
             return this;
         }
@@ -228,7 +228,7 @@ public class CalendarDialog {
         Context mContext;
 
         Calendar mSelectedDate = sToday;
-        List<AllBookingListModel> mEventList = new ArrayList<>();
+        List<AllBookingListModel.DataBeanX> mEventList = new ArrayList<>();
 
         OnCalendarDialogListener mOnCalendarDialogListener;
 
@@ -255,7 +255,7 @@ public class CalendarDialog {
 
         private int TOTAL_COUNT;
 
-        ViewPagerAdapter(Calendar selectedDate, List<AllBookingListModel> eventList) {
+        ViewPagerAdapter(Calendar selectedDate, List<AllBookingListModel.DataBeanX> eventList) {
             mEventList = eventList;
 
             // Total number of pages (between min and max date)
@@ -283,7 +283,7 @@ public class CalendarDialog {
             View rlNoAlerts = view.findViewById(R.id.rl_no_events);
             View fabCreate = view.findViewById(R.id.fab_create_event);
 
-            List<AllBookingListModel> eventList = getCalendarEventsOfDay(day);
+            List<AllBookingListModel.DataBeanX> eventList = getCalendarEventsOfDay(day);
 
             if (diffYMD(day, sToday) == -1) {
                 fabCreate.setVisibility(View.INVISIBLE);
@@ -340,9 +340,9 @@ public class CalendarDialog {
             initialPageAndDay = new Pair<>(position, selectedDate);
         }
 
-        private List<AllBookingListModel> getCalendarEventsOfDay(Calendar day) {
-            List<AllBookingListModel> eventList = new ArrayList<>();
-            for (AllBookingListModel e : mEventList) {
+        private List<AllBookingListModel.DataBeanX> getCalendarEventsOfDay(Calendar day) {
+            List<AllBookingListModel.DataBeanX> eventList = new ArrayList<>();
+            for (AllBookingListModel.DataBeanX e : mEventList) {
                 if (diffYMD(day, day) == 0)
                     eventList.add(e);
             }
@@ -379,9 +379,9 @@ public class CalendarDialog {
 
     private class CalendarEventAdapter extends RecyclerView.Adapter<CalendarEventAdapter.ViewHolder> {
 
-        private final List<AllBookingListModel> mCalendarEvents;
+        private final List<AllBookingListModel.DataBeanX> mCalendarEvents;
 
-        CalendarEventAdapter(List<AllBookingListModel> events) {
+        CalendarEventAdapter(List<AllBookingListModel.DataBeanX> events) {
             mCalendarEvents = events;
         }
 
@@ -394,10 +394,10 @@ public class CalendarDialog {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            AllBookingListModel event = mCalendarEvents.get(position);
+            AllBookingListModel.DataBeanX event = mCalendarEvents.get(position);
 
             String defaultTitle = holder.itemView.getContext().getString(R.string.event_default_title);
-            String title = event.getData().getData().get(0).getTarget_data().getName() == null ? defaultTitle : event.getData().getData().get(0).getTarget_data().getName() ;
+            String title = event.getData().get(0).getTarget_data().getName() == null ? defaultTitle : event.getData().get(0).getTarget_data().getName() ;
 
             holder.tvEventName.setText(title);
 //            holder.rclEventIcon.setBackgroundColor(event.getColor());

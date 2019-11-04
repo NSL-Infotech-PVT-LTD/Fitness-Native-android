@@ -74,7 +74,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_user"
+                    android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/user_name"
@@ -119,8 +119,8 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="@dimen/_7sdp"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="@dimen/_8sdp"
                     android:hint="@string/email"
                     android:inputType="text"
                     android:maxLength="40"
@@ -140,8 +140,8 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:drawablePadding="@dimen/_12sdp"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_9sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/phone_number"
                     android:inputType="number"
@@ -161,7 +161,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
-                    android:drawableLeft="@drawable/ic_email"
+                    android:drawableLeft="@drawable/ic_mail"
                     android:drawableRight="@drawable/ic_my_location"
                     android:drawablePadding="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
@@ -187,7 +187,7 @@
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_lock">
+                    app:startIconDrawable="@drawable/ic_password">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -196,7 +196,6 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/etmaterial_design"
                         android:drawableLeft="@drawable/ic_lock"
-
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:maxLength="20"
@@ -208,17 +207,58 @@
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_2sdp"
                     android:background="@drawable/view_bottom_round_design"
-
-
                     app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/athleteExperienceEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/enter_your_experience_details"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/athletePasswordEdtLayout" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/athleteAchievementEdt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/etmaterial_design"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/enter_your_achievements_details"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/athleteExperienceEdt" />
 
 
                 <com.google.android.material.button.MaterialButton
@@ -227,16 +267,16 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:backgroundTint="@color/colorGreen"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                    android:text="@string/sign_up"
+                    android:text="@string/one_more_step"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack"
-                    app:cornerRadius="@dimen/_5sdp"
                     android:textSize="@dimen/_10sdp"
+                    app:cornerRadius="@dimen/_5sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/athletePasswordEdtLayout" />
+                    app:layout_constraintTop_toBottomOf="@id/athleteAchievementEdt" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/alreadyAccountText"
@@ -286,7 +326,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/back"
-
             android:visibility="gone">
 
             <androidx.constraintlayout.widget.Guideline
@@ -309,8 +348,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/etmaterial_design"
-                android:drawableLeft="@drawable/ic_phone"
-                android:drawablePadding="@dimen/_12sdp"
+                android:drawableLeft="@drawable/ic_call"
+                android:drawablePadding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/phone_number"
                 android:inputType="number"
@@ -319,9 +358,8 @@
                 android:padding="@dimen/_10sdp"
                 android:singleLine="true"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-
                 app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
                 app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
                 app:layout_constraintTop_toTopOf="parent"
@@ -334,9 +372,9 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/etmaterial_design"
-                android:drawableLeft="@drawable/ic_email"
+                android:drawableLeft="@drawable/ic_mail"
                 android:drawableRight="@drawable/ic_my_location"
-                android:drawablePadding="@dimen/_14sdp"
+                android:drawablePadding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/address"
                 android:inputType="text"
@@ -344,10 +382,52 @@
                 android:padding="@dimen/_10sdp"
                 android:singleLine="true"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
                 app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
                 app:layout_constraintTop_toBottomOf="@id/athletePhoneEdtTwo" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/athleteExperienceEdtTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/etmaterial_design"
+                android:drawableLeft="@drawable/ic_call"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/enter_your_experience_details"
+                android:inputType="textMultiLine"
+                android:maxLength="100"
+                android:maxLines="3"
+                android:minHeight="@dimen/_40sdp"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
+                app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
+                app:layout_constraintTop_toBottomOf="@id/athleteAddressEdtTwo" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/athleteAchievementEdtTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/etmaterial_design"
+                android:drawableLeft="@drawable/ic_call"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/enter_your_achievements_details"
+                android:inputType="textMultiLine"
+                android:maxLength="100"
+                android:maxLines="3"
+                android:minHeight="@dimen/_40sdp"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
+                app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
+                app:layout_constraintTop_toBottomOf="@id/athleteExperienceEdtTwo" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/athleteSignUpBtnTwo"
@@ -355,15 +435,15 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:backgroundTint="@color/colorGreen"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="@string/sign_up"
+                android:text="@string/one_more_step"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/leftGuidelineLayoutTwo"
                 app:layout_constraintRight_toRightOf="@id/rightGuidelineLayoutTwo"
-                app:layout_constraintTop_toBottomOf="@id/athleteAddressEdtTwo" />
+                app:layout_constraintTop_toBottomOf="@id/athleteAchievementEdtTwo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

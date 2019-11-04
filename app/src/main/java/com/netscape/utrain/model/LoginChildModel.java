@@ -27,8 +27,34 @@ public class LoginChildModel {
     private String token;
     private List<RolesModel> roles;
 
-
+    private String experience_detail;
+    private String achievements;
+    private List<SportListModel.DataBeanX.DataBean> sport_id;
     private List<ServiceIdModel> service_ids;
+
+    public List<SportListModel.DataBeanX.DataBean> getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(List<SportListModel.DataBeanX.DataBean> sport_id) {
+        this.sport_id = sport_id;
+    }
+
+    public String getExperience_detail() {
+        return experience_detail;
+    }
+
+    public void setExperience_detail(String experience_detail) {
+        this.experience_detail = experience_detail;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
 
 
     public List<RolesModel> getRoles() {

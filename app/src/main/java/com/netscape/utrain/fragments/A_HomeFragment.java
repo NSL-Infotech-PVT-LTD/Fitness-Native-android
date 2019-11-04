@@ -30,27 +30,36 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.activities.athlete.DiscoverTopRated;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
+import com.netscape.utrain.model.AthleteSignUpModel;
+import com.netscape.utrain.model.AthleteUserModel;
 import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.ServiceIdModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 import com.netscape.utrain.utils.TabLayoutEx;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +67,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -70,41 +81,31 @@ import retrofit2.Response;
  */
 public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    TopCoachesAdapter coachAdapter;
     private TabLayoutEx tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
-
     private RecyclerView topCoachesRecycler, topOrgRecycler;
     private RecyclerView.LayoutManager topCoachesLayoutManager, topOrgLayoutManager;
     private TopCoachesAdapter adapter;
     private TopOrganizationAdapter orgAdapter;
     private List<CoachListModel> data = new ArrayList<>();
     private List<CoachListModel> orgList = new ArrayList<>();
-
-    private MaterialTextView btnTopCoaches;
+    private MaterialTextView btnTopCoaches, athleteNameTvDBoard, aExpDetailTv, aAchieveDetailTv, aSportsNameTv;
     private MaterialTextView btnTopOrganization;
     private Retrofitinterface api;
     private List<CoachListModel> coachList = new ArrayList<>();
-    TopCoachesAdapter coachAdapter;
     private Context context;
-    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg;
-
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg, aProfileImgDBoard;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
+    private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
 
     public A_HomeFragment() {
         // Required empty public constructor
@@ -126,6 +127,12 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -185,6 +192,18 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         btnTopOrganization = view.findViewById(R.id.topOrgViewAllBtn);
         eventIconImg = view.findViewById(R.id.eventIconImg);
         findSpacesIconImg = view.findViewById(R.id.findSpacesIconImg);
+        aExpDetailTv = view.findViewById(R.id.aExpDetailTv);
+        aAchieveDetailTv = view.findViewById(R.id.aAchieveDetailTv);
+        aSportsNameTv = view.findViewById(R.id.aSportsNameTv);
+        aProfileImgDBoard = view.findViewById(R.id.aProfileImgDBoard);
+        aExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+        aAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
+        getServiceIds();
+
+        Glide.with(context).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(aProfileImgDBoard);
+
+        athleteNameTvDBoard = view.findViewById(R.id.athleteNameTvDBoard);
+        athleteNameTvDBoard.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
 
 
         tabLayout = (TabLayoutEx) view.findViewById(R.id.tabs);
@@ -202,6 +221,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         sessionIconImg.setOnClickListener(this);
         eventIconImg.setOnClickListener(this);
         findSpacesIconImg.setOnClickListener(this);
+
 
         getCoachListApi();
         getTopOrgaNization();
@@ -239,6 +259,27 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void getServiceIds() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+                Toast.makeText(context, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportList = gson.fromJson(sportName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+                aSportsNameTv.setText(builder.toString());
+            }
+        }
+    }
 
     private void getCoachListApi() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
@@ -251,6 +292,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                         coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData().getData());
                         topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
                         topCoachesRecycler.setAdapter(coachAdapter);
+
                     }
                 } else {
                     try {
@@ -380,50 +422,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
     public PopupWindow popupDisplay() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -481,5 +479,49 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         });
 //
         return popupWindow;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

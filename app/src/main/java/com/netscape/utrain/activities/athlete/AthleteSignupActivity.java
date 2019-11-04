@@ -102,6 +102,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private GoogleApiClient googleApiClient;
     private AlertDialog dialogMultiOrder;
     private String currentPhotoFilePath = "", imageUrl = "";
+    //    private String phone,address,experience,achievement; // Sending value as Intent....
     private File photoFile = null;
     private AskPermission askPermObj;
     private AthleteSignupActivity activity;
@@ -134,7 +135,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_signup);
 
-
         init();
         binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -153,7 +153,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-
         binding.athleteAddressEdtTwo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -171,7 +170,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-
         if (getIntent().hasExtra("name")) {
             binding.layoutOne.setVisibility(View.GONE);
             binding.layoutTwo.setVisibility(View.VISIBLE);
@@ -184,14 +182,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         if (getIntent().hasExtra("email")) {
             binding.athleteEmailEdt.setText(getIntent().getStringExtra("email"));
         }
-
-        if (getIntent().hasExtra("image_url")) {
-            String image_url = getIntent().getStringExtra("image_url");
-        }
-
-//        Glide.with(AthleteSignupActivity.this).load(getIntent().getStringExtra("image_url")).into(binding.athleProfileImg);
+        if (getIntent().hasExtra("fb_id")) ;
     }
-
 
     private void init() {
         activity = this;
@@ -235,6 +227,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 startActivity(signInActivity);
                 break;
             case R.id.athleteSignUpBtnTwo:
+
                 if (binding.athletePhoneEdtTwo.getText().toString().isEmpty()) {
                     binding.athletePhoneEdtTwo.setError(getString(R.string.enter_phone_number));
                     binding.athletePhoneEdtTwo.requestFocus();
@@ -242,13 +235,33 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 if (binding.athleteAddressEdtTwo.getText().toString().isEmpty()) {
                     binding.athleteAddressEdtTwo.setError(getString(R.string.enter_location));
                     binding.athleteAddressEdtTwo.requestFocus();
-                } else {
-                    athleteSignUpApi(getIntent().getStringExtra("email"),
-                            getIntent().getStringExtra("fb_id"),
-                            getIntent().getStringExtra("name"),
-                            binding.athletePhoneEdtTwo.getText().toString(),
-                            binding.athleteAddressEdtTwo.getText().toString());
+                }
 
+                if (binding.athleteExperienceEdtTwo.getText().toString().isEmpty()) {
+                    binding.athleteExperienceEdtTwo.setError(getString(R.string.enter_experience));
+                    binding.athleteExperienceEdtTwo.requestFocus();
+                }
+                if (binding.athleteAchievementEdtTwo.getText().toString().isEmpty()) {
+                    binding.athleteAchievementEdtTwo.setError(getString(R.string.enter_your_achievements_details));
+                    binding.athleteAchievementEdtTwo.requestFocus();
+                } else {
+//            athleteSignUpApi(binding.athleteEmailEdt.getText().toString(),
+//                    binding.athletePasswordEdt.getText().toString(),
+//                    binding.athleteNameEdt.getText().toString(),
+//                    binding.athletePhoneEdt.getText().toString(),
+//                    binding.athleteAddressEdt.getText().toString());
+
+                    CommonMethods.setPrefData("athleteName", getIntent().getStringExtra("name"), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athleteEmail", getIntent().getStringExtra("email"), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athletePhone", binding.athletePhoneEdtTwo.getText().toString(), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athleteAddress", binding.athleteAddressEdtTwo.getText().toString(), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athleteExperience", binding.athleteExperienceEdtTwo.getText().toString(), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athleteAchievement", binding.athleteAchievementEdtTwo.getText().toString(), AthleteSignupActivity.this);
+                    CommonMethods.setPrefData("athletePassword", getIntent().getStringExtra("fb_id"), AthleteSignupActivity.this);
+
+                    Intent intent = new Intent(AthleteSignupActivity.this, ChooseSportActivity.class);
+                    intent.putExtra("image", photoFile);
+                    startActivity(intent);
                 }
         }
     }
@@ -276,10 +289,33 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (binding.athletePasswordEdt.getText().toString().isEmpty()) {
             binding.athletePasswordEdt.setError(getString(R.string.enter_password));
             binding.athletePasswordEdt.requestFocus();
+        } else if (binding.athleteExperienceEdt.getText().toString().isEmpty()) {
+            binding.athleteExperienceEdt.setError(getString(R.string.enter_name));
+            binding.athleteExperienceEdt.requestFocus();
+        } else if (binding.athleteAchievementEdt.getText().toString().isEmpty()) {
+            binding.athleteAchievementEdt.setError(getString(R.string.enter_name));
+            binding.athleteAchievementEdt.requestFocus();
         } else if (photoFile == null) {
             Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
         } else {
-            athleteSignUpApi(binding.athleteEmailEdt.getText().toString(), binding.athletePasswordEdt.getText().toString(), binding.athleteNameEdt.getText().toString(), binding.athletePhoneEdt.getText().toString(), binding.athleteAddressEdt.getText().toString());
+//            athleteSignUpApi(binding.athleteEmailEdt.getText().toString(),
+//                    binding.athletePasswordEdt.getText().toString(),
+//                    binding.athleteNameEdt.getText().toString(),
+//                    binding.athletePhoneEdt.getText().toString(),
+//                    binding.athleteAddressEdt.getText().toString());
+
+
+            CommonMethods.setPrefData("athleteName", binding.athleteNameEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athleteEmail", binding.athleteEmailEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athletePhone", binding.athletePhoneEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athleteAddress", binding.athleteAddressEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athletePassword", binding.athletePasswordEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athleteExperience", binding.athleteExperienceEdt.getText().toString(), AthleteSignupActivity.this);
+            CommonMethods.setPrefData("athleteAchievement", binding.athleteAchievementEdt.getText().toString(), AthleteSignupActivity.this);
+
+            Intent intent = new Intent(AthleteSignupActivity.this, ChooseSportActivity.class);
+            intent.putExtra("image", photoFile);
+            startActivity(intent);
         }
     }
 
@@ -524,74 +560,74 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         return MultipartBody.Part.createFormData(partName, fileName, requestFile);
     }
 
-    private void athleteSignUpApi(String email, String password, String name, String phone, String address) {
-//        CommonMethods.hideKeyboard(this);
-        progressDialog.show();
-        MultipartBody.Part userImg = null;
-        if (photoFile != null) {
-            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
-//            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
-        }
-        Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
-        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), name));
-        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
-        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
-        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), address));
-        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(latitude)));
-        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(longitude)));
-        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
-        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
-        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.registerAthlete(requestBodyMap, userImg);
-        signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
-            @Override
-            public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
-                if (response.isSuccessful()) {
-                    progressDialog.dismiss();
-                    if (response.body().isStatus()) {
-                        if (response.body().getData() != null) {
-                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, activity);
-
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteSignupActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteSignupActivity.this);
-
-                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90",AthleteSignupActivity.this);
-
-                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(homeScreen);
-                        }
-                    } else {
-                        Snackbar.make(binding.layoutMain, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
-                    }
-                } else {
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.layoutMain, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        Snackbar.make(binding.layoutMain, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
-                progressDialog.dismiss();
-                Snackbar.make(binding.layoutMain, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
-
-
-            }
-        });
-    }
+//    private void athleteSignUpApi(String email, String password, String name, String phone, String address) {
+////        CommonMethods.hideKeyboard(this);
+//        progressDialog.show();
+//        MultipartBody.Part userImg = null;
+//        if (photoFile != null) {
+//            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
+////            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+//        }
+//        Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
+//        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), name));
+//        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
+//        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
+//        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
+//        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), address));
+//        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(latitude)));
+//        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(longitude)));
+//        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+//        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+//        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+//        Call<AthleteSignUpResponse> signUpAthlete = retrofitInterface.registerAthlete(requestBodyMap, userImg);
+//        signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {
+//            @Override
+//            public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
+//                if (response.isSuccessful()) {
+//                    progressDialog.dismiss();
+//                    if (response.body().isStatus()) {
+//                        if (response.body().getData() != null) {
+//                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, activity);
+//
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteSignupActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", AthleteSignupActivity.this);
+//
+//
+//                            Intent homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
+//                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(homeScreen);
+//                        }
+//                    } else {
+//                        Snackbar.make(binding.layoutMain, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    progressDialog.dismiss();
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.layoutMain, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        Snackbar.make(binding.layoutMain, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//                Snackbar.make(binding.layoutMain, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });
+//    }
 
     private synchronized void setUpGClient() {
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -805,9 +841,4 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 //            if (bm != null) profileImage.setImageBitmap(bm);
         }
     }
-
 }
-
-
-
-
