@@ -619,7 +619,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-        rlp.setMargins(0, 120, 0, 0);
+        rlp.setMargins(0, 180, 0, 0);
     }
 
     /*ask permissoin of location*/

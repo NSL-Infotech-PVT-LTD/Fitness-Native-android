@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SelectedServiceList;
 import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityChooseSportBinding;
 import com.netscape.utrain.model.AthleteUserModel;
@@ -51,13 +52,13 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     SportsAdapter adapter;
     Retrofitinterface api;
     int mPosition;
-    String mSport;
+    String mSport,athName,athEmail,athPhone,athAddress,athPwd,athExperience,athAchieve,latitude,longitude;
     //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
     JsonArray jsonArray;
     private List<SportListModel.DataBeanX.DataBean> sportsList = new ArrayList<>();
     private AthleteUserModel athModel;
     private ProgressDialog progressDialog;
-    private double latitude = 0.0, longitude = 0.0;
+//    private double latitude = 0.0, longitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +79,15 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
         sportsListApi();
 
-        final String athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
-        final String athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
-        final String athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
-        final String athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
-        final String athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
-        final String athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
-        final String athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
+         athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
+         athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
+         athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
+         athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
+         latitude = CommonMethods.getPrefData("latitude", ChooseSportActivity.this);
+         longitude = CommonMethods.getPrefData("longitude", ChooseSportActivity.this);
+         athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
+         athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
+         athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
 
 
         binding.addSportsBtn.setOnClickListener(new View.OnClickListener() {
@@ -147,9 +150,9 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), address));
         requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), experience));
         requestBodyMap.put("achievements", RequestBody.create(MediaType.parse("multipart/form-data"), achievement));
-        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), jsonArray.toString()));
-        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(latitude)));
-        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(longitude)));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(jsonArray)));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), latitude));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), longitude));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
@@ -240,6 +243,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         }
         if (sportsList != null && sportsList.size() > 0) {
             jsonArray = (JsonArray) new Gson().toJsonTree(sportsList);
+
+
 //            Toast.makeText(this, ""+jsonArray, Toast.LENGTH_SHORT).show();\
         }
     }
