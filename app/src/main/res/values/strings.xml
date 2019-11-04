@@ -236,7 +236,7 @@
     <string name="number_of_candidate">126</string>
     <string name="candidate">Candidate</string>
     <string name="instruction">Instructions</string>
-    <string name="instruction_detail">1.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n 2.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do., \n 3.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do. </string>
+    <string name="instruction_detail">Bio:- 1.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do elusmod tempor incididunt ut labare at dolore magna aliqua. \n 2.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do., \n 3.lorm ipsum  lsdjfl dollor sit amet, consectectur adlipicsing abdiskjl, abjumpid do. </string>
     <string name="join_now">Join Now</string>
     <string name="find_a_place">Find a Place</string>
     <string name="find_a_place_text">Quisque euismod placerat ipsum, sed \n placerat nibh posuere et.</string>
@@ -368,4 +368,15 @@
     <string name="working_hours">Working Hrs</string>
     <string name="portfolio">Portfolio</string>
     <string name="years_of_experience">Year of Experience</string>
+    <string name="achievements_details">National team \n top goal soccer</string>
+    <string name="sports_name">Soccer, Volley ball, Cricket, Badminton</string>
+    <string name="enter_your_achievements_details">Enter your achievements</string>
+    <string name="sevice_summary_of_sports">Summary of Sports</string>
+    <string name="sports_name_text">Sports name</string>
+    <string name="select_sport_text">Select Sport</string>
+    <string name="choose_your_sports">Choose your sports</string>
+    <string name="select_sports">Select Sport</string>
+    <string name="choose_sport_text">Choose Sport</string>
+    <string name="invite_other_athlete">Invite Other Athlete</string>
+    <string name="enter_experience">Enter Experience</string>
 </resources>

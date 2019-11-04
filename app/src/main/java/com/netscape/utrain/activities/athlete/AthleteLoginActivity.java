@@ -14,10 +14,12 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.ForgetPasswordActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityAthleteLoginBinding;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -27,6 +29,8 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -41,6 +45,8 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
     Retrofitinterface retrofitinterface;
     ProgressDialog progressDialog;
     ActivityAthleteLoginBinding binding;
+
+    ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
 
 
     @Override
@@ -62,7 +68,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
 
     private void hitLoginApi() {
         progressDialog.show();
-        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN,getApplicationContext()), Constants.CONTENT_TYPE);
+        Call<LoginResponse> signUpAthlete = retrofitinterface.userLogin(email, password, Constants.DEVICE_TYPE, CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE);
         signUpAthlete.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -80,6 +86,10 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", AthleteLoginActivity.this);
+                                    sportList.addAll(response.body().getData().getUser().getSport_id());
+                                    storeSportList(sportList);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteLoginActivity.this);
                                     Intent homeScreen = null;
@@ -89,7 +99,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                                     startActivity(homeScreen);
                                 } else
                                     Toast.makeText(AthleteLoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
-                                }
+                            }
                         }
                     } else {
                         Snackbar.make(binding.athleteLoginLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -116,7 +126,11 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
-
+    private void storeSportList(List<SportListModel.DataBeanX.DataBean> list) {
+        Gson gson = new Gson();
+        String listData = gson.toJson(list);
+        CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, listData, getApplicationContext());
+    }
     private boolean isValidEmailId(String email) {
 
         return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"

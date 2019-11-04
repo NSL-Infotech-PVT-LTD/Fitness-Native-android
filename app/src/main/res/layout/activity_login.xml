@@ -89,7 +89,7 @@
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/loginEmailEdt"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_lock_black_24dp">
+                    app:startIconDrawable="@drawable/ic_password">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginPasswordEdt"
@@ -97,8 +97,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="15sp"
                         android:background="@drawable/etmaterial_design"
-                        android:drawableLeft="@drawable/ic_lock"
-
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="left"
                         android:hint="@string/password"

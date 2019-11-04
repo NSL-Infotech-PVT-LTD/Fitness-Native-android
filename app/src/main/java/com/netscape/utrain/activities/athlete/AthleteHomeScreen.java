@@ -115,7 +115,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.a_activity_bottom_navigation);
-        binding = DataBindingUtil.setContentView(this, R.layout.a_activity_bottom_navigation);
+        binding = DataBindingUtil.setContentView(AthleteHomeScreen.this, R.layout.a_activity_bottom_navigation);
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         drawerImage = findViewById(R.id.drawerImageNew);

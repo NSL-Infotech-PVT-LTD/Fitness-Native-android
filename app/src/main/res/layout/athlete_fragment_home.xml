@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,6 +27,135 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/_10sdp" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/athleteNameTvDBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Welcome John"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/aProfileImgCard"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="@dimen/_1sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+            app:layout_constraintTop_toBottomOf="@+id/athleteNameTvDBoard">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/aProfileImgDBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_place_holder"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+
+            app:layout_constraintBottom_toBottomOf="@id/aProfileImgCard"
+            app:layout_constraintLeft_toRightOf="@id/aProfileImgCard"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/aProfileImgCard">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aSportsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Sports"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aSportsNameTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_35sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="2"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toTopOf="@id/aExperienceDBoard"
+                app:layout_constraintLeft_toRightOf="@id/aSportsText"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/aSportsText" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aExperienceDBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Experience"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/aSportsNameTv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aExpDetailTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLines="2"
+                android:text="Manchester United for 5 years"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toTopOf="@id/aAchieveDBoard"
+                app:layout_constraintLeft_toLeftOf="@id/aSportsNameTv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/aExperienceDBoard" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aAchieveDBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Achievements"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/aExpDetailTv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aAchieveDetailTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textMultiLine"
+                android:maxLength="50"
+                android:maxLines="3"
+                android:text="@string/achievements_details"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="@id/aSportsNameTv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/aAchieveDBoard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/findTv"
@@ -43,16 +173,18 @@
             android:visibility="gone"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginTop="@dimen/_20sdp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/athleteCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
             app:cardCornerRadius="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/aProfileImgCard">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -364,9 +496,10 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_420sdp"
+                android:layout_height="@dimen/_400sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewTab" />

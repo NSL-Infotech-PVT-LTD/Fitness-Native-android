@@ -12,7 +12,9 @@ import java.util.List;
 
 public class PrefrenceConstant {
     public static final String USER_NAME="userName";
+    public static final String USER_EXPERIENCE="experience_detail";
     public static final String USER_ID="userId";
+    public static final String SPORTS_NAME="sportName";
     public static final String HOURLY_RATE="hourlyRate";
     public static final String USER_PHONE="userPhone";
     public static final String USER_EMAIL="userEmail";
@@ -26,4 +28,5 @@ public class PrefrenceConstant {
     public static final String ROLE_PLAY="ROLE_PLAY";
     public static final String DEVICE_TOKEN="deviceToken";
 
+    public static String USER_ACHIEVE="acheive";
 }

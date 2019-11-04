@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -22,15 +23,29 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.netscape.utrain.R;
+import com.netscape.utrain.adapters.CoachGridRecyclerAdapter;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
 import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.ServiceIdModel;
+import com.netscape.utrain.response.CoachListResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TopCoachOrgDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     ChipGroup chipGroup;
     RelativeLayout add_service;
+    ActivityTopCoachOrgDetailBinding binding;
+    Retrofitinterface retrofitinterface;
     private CoachListModel coachListModel;
     private int type;
     private BottomSheetBehavior sheetBehavior;
@@ -39,15 +54,16 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ServicesBottomSheetAdapter bottomSheetAdapter;
     private RecyclerView serviceRecycler;
     private ImageView profImage, backArrow;
-    private TextView name, typeUser, service, bio, price,experienceTv, training,eventDateDetailTv,eventTimeDetailTv, title, moreServices;
+    private TextView name, typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
     private AppCompatImageView detailMapDirection;
-    ActivityTopCoachOrgDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_top_coach_org_detail);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_top_coach_org_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_top_coach_org_detail);
+
+
         detailMapDirection = findViewById(R.id.detailMapDirection);
         detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +95,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         profImage = findViewById(R.id.detailImage);
         eventTimeDetailTv = findViewById(R.id.eventTimeDetailTv);
         eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
-        experienceTv = findViewById(R.id.experienceTv);
+//        experienceTv = findViewById(R.id.experienceTv);
         add_service = findViewById(R.id.add_service);
 
         chipGroup = new ChipGroup(this);
@@ -169,12 +185,11 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         bio.setText(coachListModel.getBio());
 
 
-
 //            binding.detailNumTraineTv.setText("");
-            price.setText("$ " + coachListModel.getHourly_rate());
+        price.setText("$ " + coachListModel.getHourly_rate());
         eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
-        eventDateDetailTv.setText(coachListModel.getExpertise_years()+"+ Years");
+//        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
+        eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
     }
 
 
@@ -240,4 +255,5 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             }
         });
     }
+
 }

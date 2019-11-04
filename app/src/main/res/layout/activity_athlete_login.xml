@@ -6,11 +6,12 @@
         android:id="@+id/athleteLoginLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/back"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/etmaterial_design"
-                android:drawableLeft="@drawable/ic_email"
+                android:drawableLeft="@drawable/ic_mail"
                 android:drawablePadding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/enter_email"
@@ -70,8 +71,8 @@
 
                 app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@id/guideline"
-                />
+                app:layout_constraintTop_toBottomOf="@id/guideline" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/athletePasswordEdtLayout"
                 android:layout_width="0dp"
@@ -82,7 +83,7 @@
                 app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@id/athleteEmailEdt"
                 app:passwordToggleEnabled="true"
-                app:startIconDrawable="@drawable/ic_lock">
+                app:startIconDrawable="@drawable/ic_password">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -95,8 +96,8 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/_10sdp"
                     android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
@@ -154,11 +155,11 @@
                 android:text="@string/dont_have_a_account"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toLeftOf="@id/athleteSignUpTv"
-                app:layout_constraintTop_toBottomOf="@+id/athleteLogInBtn"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/athleteLogInBtn" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/athleteSignUpTv"

@@ -40,6 +40,7 @@ public class Constants {
     public static final String COACH_EVENT_BOOKING_LIST= "booking/coach/list";
 
     public static final String ALL_BOOKING_ATHLETE = "booking/athlete/list/all";
+    public static final String SPORTS_LIST ="sports";
 
 
 
@@ -52,6 +53,7 @@ public class Constants {
     public static final String THUMBNAILS = "thumbnail_";
     public static final String Coach = "coach";
     public static final String OrgSignUpIntent = "orgIntent";
+    public static final String AthSignUpIntent = "athIntent";
     public static final String JsonArrayIntent = "arrayIntent";
     public static final String TypeCoach = "coachActive";
     public static final String ActiveUserType = "activeType";

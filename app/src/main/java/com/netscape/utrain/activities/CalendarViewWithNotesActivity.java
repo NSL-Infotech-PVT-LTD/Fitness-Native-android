@@ -47,7 +47,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
     private CalendarView mCalendarView;
     private CalendarDialog mCalendarDialog;
 
-    private List<AllBookingListModel> mEventList = new ArrayList<>();
+    private List<AllBookingListModel.DataBeanX> mEventList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
 
@@ -109,6 +109,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getTopOrgaNization();
 
         mCalendarView = findViewById(R.id.calendarView);
         mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
@@ -136,7 +137,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //            }
         });
 
-        for (AllBookingListModel e : mEventList) {
+        for (AllBookingListModel.DataBeanX e : mEventList) {
 //            mCalendarView.addCalendarObject(parseCalendarObject(e));
         }
 
@@ -159,7 +160,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                 .setEventList(mEventList)
                 .setOnItemClickListener(new CalendarDialog.OnCalendarDialogListener() {
                     @Override
-                    public void onEventClick(AllBookingListModel event) {
+                    public void onEventClick(AllBookingListModel.DataBeanX event) {
                         // onEventSelected(event);
                     }
 
@@ -180,7 +181,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
     private void getTopOrgaNization() {
         progressDialog.show();
-        Call<AllBookingListModel> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE);
+        Call<AllBookingListModel> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE,"");
         call.enqueue(new Callback<AllBookingListModel>() {
             @Override
             public void onResponse(Call<AllBookingListModel> call, Response<AllBookingListModel> response) {
@@ -188,6 +189,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
+
+
+                            mEventList.add(response.body().getData());
 
                         } else {
 
@@ -237,9 +241,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 //                int action = CreateEventActivity.extractActionFromIntent(data);
 //                Event event = CreateEventActivity.extractEventFromIntent(data);
-                AllBookingListModel oldEvent = null;
-                for (AllBookingListModel e : mEventList) {
-                    if (Objects.equals(e.getData().getData().get(0).getId(), e.getData().getData().get(0).getId())) {
+                AllBookingListModel.DataBeanX oldEvent = null;
+                for (AllBookingListModel.DataBeanX e : mEventList) {
+                    if (Objects.equals(e.getData().get(0).getId(), e.getData().get(0).getId())) {
                         oldEvent = e;
                         break;
                     }

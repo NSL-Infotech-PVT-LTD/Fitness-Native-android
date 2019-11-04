@@ -118,14 +118,9 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     public void onSuccess(LoginResult loginResult) {
 
                         Log.d("Success", "Login");
-//                        loadUserProfile(loginResult.getAccessToken());
-
-
                     }
-
                     @Override
                     public void onCancel() {
-
                         Toast.makeText(LoginWithActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
                     }
 
@@ -183,26 +178,23 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     id = object.getString("id");
                     image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
-//                    Intent fbintent = new Intent(LoginWithActivity.this,AthleteSignupActivity.class);
-//                    fbintent.putExtra("name", first_name +" "+last_name);
-//                    fbintent.putExtra("email", email);
-//                    fbintent.putExtra("image_url", image_url);
-//                    fbintent.putExtra("fb_id", id);
-
+                    Intent fbintent = new Intent(LoginWithActivity.this,AthleteSignupActivity.class);
+                    fbintent.putExtra("name", first_name +" "+last_name);
+                    fbintent.putExtra("email", fb_email);
+                    fbintent.putExtra("image_url", image_url);
+                    fbintent.putExtra("fb_id", id);
                     Constants.SocialProfile = image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("email", email,LoginWithActivity.this);
 //                    CommonMethods.setPrefData("image_url", image_url, LoginWithActivity.this);
 //                    CommonMethods.setPrefData();
-//                    startActivity(fbintent);
+                    startActivity(fbintent);
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
 
@@ -210,8 +202,6 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
         parameters.putString("fields", "first_name, last_name, email,id");
         request.setParameters(parameters);
         request.executeAsync();
-
-
     }
 
     private void hitLoginApi(String email, String password) {
@@ -221,12 +211,9 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 //                progressDialog.dismiss();
-
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-
-
                             CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginWithActivity.this);
@@ -238,15 +225,12 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                             Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);
                             fbreg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(fbreg);
-
-
                         }
                     } else {
                         Snackbar.make(binding.athleteLoginLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 } else {
 //                    progressDialog.dismiss();
-
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
@@ -257,21 +241,17 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                         fbintent.putExtra("image_url", image_url);
                         fbintent.putExtra("fb_id", id);
                         startActivity(fbintent);
-
                     } catch (Exception e) {
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
-
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.athleteLoginLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-
             }
         });
     }
-
 }

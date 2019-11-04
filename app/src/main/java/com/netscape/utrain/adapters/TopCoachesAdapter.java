@@ -40,10 +40,11 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
         return new CustomTopCoachesHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull CustomTopCoachesHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CustomTopCoachesHolder holder, int position) {
                     final CoachListModel data=supplierData.get(position);
         Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getProfile_image()).thumbnail( Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+Constants.THUMBNAILS+data.getProfile_image())).into(holder.imageView);
         holder.name.setText(data.getName());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +52,7 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"1");
                 context.startActivity(topCoachesDetails);
+
             }
         });
     }
@@ -65,11 +67,14 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
         AppCompatImageView imageView;
         MaterialTextView name;
 
+
+
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.topCoachesRecyclerImg);
             name = itemView.findViewById(R.id.topCoachesRecyclerTv);
+
         }
     }
 }
