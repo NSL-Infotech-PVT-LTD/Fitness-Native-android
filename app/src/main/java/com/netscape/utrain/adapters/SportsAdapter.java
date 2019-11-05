@@ -45,6 +45,7 @@ public class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.SportsView
 
         final SportListModel.DataBeanX.DataBean data = list.get(position);
         holder.sportsName.setText(data.getName());
+        holder.sportsNameCBox.setChecked(data.isCheckekd());
         holder.sportsNameCBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

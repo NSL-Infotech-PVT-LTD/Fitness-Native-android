@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fillViewport="true">-->
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/eventAppliedContainer"
@@ -19,7 +19,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:context=".fragments.O_UpcEventFragment">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -54,8 +54,10 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/noBookingImg"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_90sdp"
-                    android:background="@drawable/no_data_png"
+                    android:layout_height="@dimen/_70sdp"
+                    android:src="@drawable/no_data_png"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -121,5 +123,5 @@
 
             <include layout="@layout/custom_user_detail_bottom_sheet" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </ScrollView>
+<!--    </ScrollView>-->
 </layout>

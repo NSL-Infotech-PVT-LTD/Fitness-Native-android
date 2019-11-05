@@ -41,7 +41,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
     TextInputEditText edtEmail, edtPassword;
     MaterialTextView tvSignUp, tvForgetPassword;
     MaterialButton btnLogin;
-    String email, password;
+    String email, password, selectedSport;
     Retrofitinterface retrofitinterface;
     ProgressDialog progressDialog;
     ActivityAthleteLoginBinding binding;
@@ -89,6 +89,9 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", AthleteLoginActivity.this);
+
+                                    CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
+
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteLoginActivity.this);

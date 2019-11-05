@@ -315,8 +315,6 @@ public class O_HistoryFragment extends Fragment {
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
-
-
         bottomOnClickSort();
     }
 

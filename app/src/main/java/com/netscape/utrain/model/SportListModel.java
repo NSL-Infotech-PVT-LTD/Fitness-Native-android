@@ -177,9 +177,17 @@ public class SportListModel {
              * id : 1
              * name : cricket
              */
-
+            private boolean isCheckekd;
             private int id;
             private String name;
+
+            public boolean isCheckekd() {
+                return isCheckekd;
+            }
+
+            public void setCheckekd(boolean checkekd) {
+                isCheckekd = checkekd;
+            }
 
             public int getId() {
                 return id;

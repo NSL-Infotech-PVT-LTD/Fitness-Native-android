@@ -189,32 +189,22 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
-
-
                             mEventList.add(response.body().getData());
-
                         } else {
-
                         }
                     }
                 } else {
-
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
-
                     }
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<AllBookingListModel> call, Throwable t) {
-
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

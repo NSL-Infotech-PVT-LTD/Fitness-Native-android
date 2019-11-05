@@ -53,7 +53,19 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
     private Retrofitinterface retrofitinterface;
     private String first_name, last_name, id, image_url, fb_email;
     private ProgressDialog progressDialog;
+    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+        @Override
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
+            if (currentAccessToken == null) {
+
+                Toast.makeText(LoginWithActivity.this, "User Logged Out ", Toast.LENGTH_SHORT).show();
+            } else {
+                loadUserProfile(currentAccessToken);
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +73,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_coach_login);
-        linearLayout = (LinearLayout) findViewById(R.id.fbLin);
+        linearLayout = findViewById(R.id.fbLin);
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(LoginWithActivity.this);
@@ -119,6 +131,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 
                         Log.d("Success", "Login");
                     }
+
                     @Override
                     public void onCancel() {
                         Toast.makeText(LoginWithActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
@@ -138,6 +151,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
             case R.id.tvSignUp:
                 Intent signUpType = new Intent(LoginWithActivity.this, AthleteSignupActivity.class);
                 signUpType.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                 startActivity(signUpType);
                 break;
         }
@@ -150,20 +164,6 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-            if (currentAccessToken == null) {
-
-                Toast.makeText(LoginWithActivity.this, "User Logged Out ", Toast.LENGTH_SHORT).show();
-            } else {
-                loadUserProfile(currentAccessToken);
-            }
-
-        }
-    };
 
     private void loadUserProfile(final AccessToken newAccessToken) {
 
@@ -183,6 +183,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
 //                    fbintent.putExtra("email", fb_email);
 //                    fbintent.putExtra("image_url", image_url);
 //                    fbintent.putExtra("fb_id", id);
+
                     Constants.SocialProfile = image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
@@ -238,7 +239,9 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
 //                        Snackbar.make(binding.athleteLoginLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
                         Intent fbintent = new Intent(LoginWithActivity.this, AthleteSignupActivity.class);
                         fbintent.putExtra("name", first_name + " " + last_name);
                         fbintent.putExtra("email", fb_email);
