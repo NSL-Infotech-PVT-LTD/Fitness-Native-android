@@ -5,12 +5,15 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.facebook.common.Common;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityMyProfileBinding;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 public class MyProfile extends AppCompatActivity {
@@ -53,10 +56,26 @@ public class MyProfile extends AppCompatActivity {
 
                 Intent editProfileActivity = new Intent(MyProfile.this, UpdateProfileActivity.class);
                 startActivity(editProfileActivity);
-                finish();
             }
         });
 
+        binding.mpBookingBackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        setProfileImage();
 
+
+    }
+
+    private void setProfileImage() {
+
+        String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, MyProfile.this);
+        if (!TextUtils.isEmpty(img)) {
+            Glide.with(MyProfile.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(MyProfile.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(binding.myProfileImg);
+
+        }
     }
 }

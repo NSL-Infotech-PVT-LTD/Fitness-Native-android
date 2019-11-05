@@ -59,6 +59,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class AthleteHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
     BottomNavigationView navView;
@@ -258,7 +260,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
                 Intent myProfileIntent = new Intent(AthleteHomeScreen.this, MyProfile.class);
                 startActivity(myProfileIntent);
-                finish();
 
             }
         });
@@ -297,6 +298,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, AthleteHomeScreen.this);
         if (!TextUtils.isEmpty(img)) {
             Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(binding.athleteProfileImg);
+
         }
     }
 
