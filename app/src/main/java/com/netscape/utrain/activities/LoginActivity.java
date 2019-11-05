@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 SelectedServiceList.getInstance().getList().clear();
                 Constants.CHECKBOX_IS_CHECKED = 0;
                 if (activeUserType.equals(Constants.TypeCoach)) {
+                    CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
@@ -154,7 +155,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 } else if (role.equalsIgnoreCase(Constants.Coach)) {
-
                                     CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
@@ -163,6 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
                                     servicesList.addAll(response.body().getData().getUser().getService_ids());
                                     storeServiceIds(servicesList);
@@ -183,10 +184,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.loginLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.loginLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -195,7 +196,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-
+                progressDialog.dismiss();
 
             }
         });

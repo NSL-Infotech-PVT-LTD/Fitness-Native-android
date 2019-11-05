@@ -119,7 +119,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.addServiceBtn:
-              passTheIntent();
+                passTheIntent();
                 break;
             case R.id.addServiceCenterBtn:
                 passTheIntent();
@@ -175,9 +175,11 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
         requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(jsonArray)));
         requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSport_id()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN,getApplicationContext())));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.registerCoach(requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
@@ -186,16 +188,17 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-
-                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Coach,ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
+                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Coach, ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN,ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate()+"",ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
+                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
                             Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
                             servicesList.addAll(response.body().getData().getUser().getService_ids());
                             storeServiceIds(servicesList);
@@ -301,7 +304,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            mList.addAll(response.body().getData());
+                            mList.addAll(response.body().getData().getData());
                             binding.serviceTv.setVisibility(View.GONE);
                             binding.rateTV.setVisibility(View.GONE);
                         }
@@ -313,9 +316,9 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.serviceLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
                     } catch (Exception e) {
-                        Snackbar.make(binding.serviceLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
             }

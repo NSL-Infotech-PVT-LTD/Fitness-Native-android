@@ -18,12 +18,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.SelectServices;
 import com.netscape.utrain.activities.SelectedServiceList;
+import com.netscape.utrain.activities.ServicePriceActivity;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityChooseSportBinding;
 import com.netscape.utrain.model.AthleteUserModel;
+import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.model.SportsIdModel;
@@ -59,6 +63,9 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     SportsAdapter adapter;
     Retrofitinterface api;
     int mPosition;
+    private String activeUserType = "";
+    private OrgUserDataModel orgDataModel;
+    public static boolean coachActive=false;
     String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
     //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
     JsonArray jsonArray;
@@ -112,10 +119,16 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     Toast.makeText(ChooseSportActivity.this, "Please Select sport", Toast.LENGTH_SHORT).show();
 
                 } else
-
-
-                    athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
-
+                        if (coachActive){
+                            orgDataModel.setSport_id(String.valueOf(jsonArray));
+                            Intent intent = new Intent(ChooseSportActivity.this, ServicePriceActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+                            intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+                            startActivity(intent);
+                        }else {
+                            athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
+                        }
             }
         });
 
@@ -148,6 +161,16 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             for (int i = 0; i < sportsListAll.size(); i++) {
                 if (sportsListAll.get(i).isCheckekd()) {
                     sportsList.add(sportsListAll.get(i));
+                }
+            }
+        }
+
+        if (coachActive){
+            if (getIntent().getExtras() != null) {
+                orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
+                activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
+                if (activeUserType.equals(Constants.TypeCoach)) {
+                    binding.addSportsBtn.setText(getResources().getString(R.string.one_more_step));
                 }
             }
         }

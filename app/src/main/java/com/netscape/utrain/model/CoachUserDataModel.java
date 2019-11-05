@@ -36,13 +36,26 @@ public class CoachUserDataModel {
     private String hourly_rate;
     private String profile_image;
     private String updated_at;
+    private String sport_id;
     private String created_at;
     private int id;
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
 
+    public String getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(String sport_id) {
+        this.sport_id = sport_id;
+    }
+
     public List<ServiceIdModel> getService_ids() {
         return service_ids;
+    }
+
+    public void setService_ids(List<ServiceIdModel> service_ids) {
+        this.service_ids = service_ids;
     }
 
     public List<RolesModel> getRoles() {
@@ -51,10 +64,6 @@ public class CoachUserDataModel {
 
     public void setRoles(List<RolesModel> roles) {
         this.roles = roles;
-    }
-
-    public void setService_ids(List<ServiceIdModel> service_ids) {
-        this.service_ids = service_ids;
     }
 
     public String getName() {

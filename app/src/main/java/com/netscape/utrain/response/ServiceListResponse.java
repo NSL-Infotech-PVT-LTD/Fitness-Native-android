@@ -1,5 +1,6 @@
 package com.netscape.utrain.response;
 
+import com.netscape.utrain.model.ServiceDataModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 
 import java.util.List;
@@ -13,13 +14,13 @@ public class ServiceListResponse {
 
     private boolean status;
     private int code;
-    private List<ServiceListDataModel> data;
+    private ServiceDataModel data;
 
-    public List<ServiceListDataModel> getData() {
+    public ServiceDataModel getData() {
         return data;
     }
 
-    public void setData(List<ServiceListDataModel> data) {
+    public void setData(ServiceDataModel data) {
         this.data = data;
     }
 

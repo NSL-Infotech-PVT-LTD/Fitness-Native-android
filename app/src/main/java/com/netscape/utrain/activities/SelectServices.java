@@ -93,7 +93,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            mList.addAll(response.body().getData());
+                            mList.addAll(response.body().getData().getData());
                             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
                             dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
                             binding.serviceRecyclerView.setAdapter(dialogAdapter);

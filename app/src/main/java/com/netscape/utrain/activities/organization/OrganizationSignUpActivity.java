@@ -57,6 +57,7 @@ import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.ServicePriceActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
+import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.activities.coach.CoachSignupActivity;
 import com.netscape.utrain.adapters.SelectServiceSpinnerAdapter;
 import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
@@ -141,7 +142,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
             if (activeUserType.equals(Constants.TypeCoach)) {
                 binding.signUpType.setText(getResources().getString(R.string.coach));
-                binding.orgNextBtn.setText(getResources().getString(R.string.one_more_step));
+                binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
             }
             if (activeUserType.equals(Constants.TypeOrganization)) {
                 binding.signUpType.setText(getResources().getString(R.string.organization));
@@ -419,17 +420,22 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     //                            binding.orgHourlyRateEdt.setError("");
 
     private void hitOrgSignUpApi() {
-
-        Intent intent = new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
         if (activeUserType.equals(Constants.TypeOrganization)) {
+            Intent intent = new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
             intent.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+            startActivity(intent);
         }
         if (activeUserType.equals(Constants.TypeCoach)) {
+            Intent intent = new Intent(OrganizationSignUpActivity.this, ChooseSportActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
             intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+            ChooseSportActivity.coachActive=true;
+            startActivity(intent);
         }
-        startActivity(intent);
+
     }
 
     public void getStartTime() {

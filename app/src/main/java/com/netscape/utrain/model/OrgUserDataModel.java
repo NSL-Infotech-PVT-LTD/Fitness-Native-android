@@ -34,7 +34,7 @@ public class OrgUserDataModel implements Serializable {
      * created_at : 2019-09-14 07:27:17
      * id : 19
      */
-
+    private String sport_id;
     private String name;
     private String email;
     private String professionType;
@@ -60,6 +60,16 @@ public class OrgUserDataModel implements Serializable {
     private File port_folio_image3;
     private File port_folio_image4;
     private File profile_img;
+    private int id;
+    private String selectedServices;
+
+    public String getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(String sport_id) {
+        this.sport_id = sport_id;
+    }
 
     public File getProfile_img() {
         return profile_img;
@@ -68,9 +78,6 @@ public class OrgUserDataModel implements Serializable {
     public void setProfile_img(File profile_img) {
         this.profile_img = profile_img;
     }
-
-    private int id;
-    private String selectedServices;
 
     public String getService_ids() {
         return service_ids;
