@@ -178,12 +178,12 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                     id = object.getString("id");
                     image_url = "https://graph.facebook.com/" + id + "/picture?type=normal";
 
-
 //                    Intent fbintent = new Intent(LoginWithActivity.this,AthleteSignupActivity.class);
 //                    fbintent.putExtra("name", first_name +" "+last_name);
 //                    fbintent.putExtra("email", fb_email);
 //                    fbintent.putExtra("image_url", image_url);
 //                    fbintent.putExtra("fb_id", id);
+
                     Constants.SocialProfile = image_url;
                     hitLoginApi(fb_email, id);
 //                    CommonMethods.setPrefData("name", first_name + " " + last_name ,LoginWithActivity.this);
