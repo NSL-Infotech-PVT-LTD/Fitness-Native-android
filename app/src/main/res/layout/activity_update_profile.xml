@@ -40,11 +40,22 @@
                     app:layout_constraintGuide_end="@dimen/_30sdp" />
 
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/uBookingBackImg"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:src="@drawable/ic_backwhite"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/athlete_SignUpTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/update_profile"
                     android:textColor="@color/colorWhite"

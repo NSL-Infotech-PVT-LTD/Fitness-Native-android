@@ -33,6 +33,7 @@
                     android:layout_gravity="start"
                     android:background="@drawable/drawer_right_corner_laydesign_white"
                     android:fitsSystemWindows="true"
+                    class = "com.fragment.NavigationDrawerFragment"
                     app:headerLayout="@layout/drawer_layout"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
