@@ -138,7 +138,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
                                 if (role.equalsIgnoreCase(Constants.Organizer)) {
-
                                     CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
@@ -150,7 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
                                     servicesList.addAll(response.body().getData().getUser().getService_ids());
                                     storeServiceIds(servicesList);
-
                                     homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
