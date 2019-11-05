@@ -16,7 +16,8 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.UpdateProfileActivity"></activity>
+        <activity android:name=".activities.SpaceBookingActivity"></activity>
+        <activity android:name=".activities.UpdateProfileActivity" />
         <activity android:name=".activities.athlete.ChooseSportActivity" />
         <activity android:name=".activities.athlete.SelectSportActivity" />
         <activity
@@ -166,7 +167,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.athlete.AthleteHomeScreen"
@@ -186,9 +186,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MyProfile"
-
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.PortfolioActivity"
             android:launchMode="singleInstance"

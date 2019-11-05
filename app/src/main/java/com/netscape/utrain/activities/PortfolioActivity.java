@@ -197,6 +197,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                         PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
                         sendDataToIntent();
                     } else {
+
                         OrgSignUpApi();
                     }
                 } else {
