@@ -229,19 +229,19 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
 
 
-//                CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), UpdateProfileActivity.this);
+                CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", UpdateProfileActivity.this);
                 if (response.body().isStatus()) {
                     if (response.body() != null) {
 

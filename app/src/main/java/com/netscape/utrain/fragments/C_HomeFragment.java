@@ -91,6 +91,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
         binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME,context));
+        binding.cExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context));
+        binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE,context));
+
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
         binding.orgWelcomeOrgName.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));

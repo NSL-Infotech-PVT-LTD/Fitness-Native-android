@@ -196,6 +196,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         aAchieveDetailTv = view.findViewById(R.id.aAchieveDetailTv);
         aSportsNameTv = view.findViewById(R.id.aSportsNameTv);
         aProfileImgDBoard = view.findViewById(R.id.aProfileImgDBoard);
+
         aExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
         aAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
         getServiceIds();
