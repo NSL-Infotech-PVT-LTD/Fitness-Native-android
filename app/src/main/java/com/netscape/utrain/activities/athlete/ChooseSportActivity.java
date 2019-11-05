@@ -52,7 +52,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     SportsAdapter adapter;
     Retrofitinterface api;
     int mPosition;
-    String mSport,athName,athEmail,athPhone,athAddress,athPwd,athExperience,athAchieve,latitude,longitude;
+    String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
     //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
     JsonArray jsonArray;
     private List<SportListModel.DataBeanX.DataBean> sportsList = new ArrayList<>();
@@ -79,15 +79,15 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
         sportsListApi();
 
-         athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
-         athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
-         athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
-         athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
-         latitude = CommonMethods.getPrefData("latitude", ChooseSportActivity.this);
-         longitude = CommonMethods.getPrefData("longitude", ChooseSportActivity.this);
-         athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
-         athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
-         athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
+        athName = CommonMethods.getPrefData("athleteName", ChooseSportActivity.this);
+        athEmail = CommonMethods.getPrefData("athleteEmail", ChooseSportActivity.this);
+        athPhone = CommonMethods.getPrefData("athletePhone", ChooseSportActivity.this);
+        athAddress = CommonMethods.getPrefData("athleteAddress", ChooseSportActivity.this);
+        latitude = CommonMethods.getPrefData("latitude", ChooseSportActivity.this);
+        longitude = CommonMethods.getPrefData("longitude", ChooseSportActivity.this);
+        athPwd = CommonMethods.getPrefData("athletePassword", ChooseSportActivity.this);
+        athExperience = CommonMethods.getPrefData("athleteExperience", ChooseSportActivity.this);
+        athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
 
 
         binding.addSportsBtn.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +175,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, ChooseSportActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS,response.body().getData().getUser().getAddress(),ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
 
                             Intent homeScreen = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);

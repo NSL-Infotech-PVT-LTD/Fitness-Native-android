@@ -44,7 +44,7 @@
                     android:id="@+id/athlete_SignUpTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/update_profile"
                     android:textColor="@color/colorWhite"
@@ -82,15 +82,16 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_person"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center_vertical"
                     android:hint="@string/user_name"
                     android:inputType="text"
                     android:maxLength="30"
                     android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/lightGrayFont"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
@@ -105,14 +106,15 @@
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_mail"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center_vertical"
                     android:hint="@string/email"
                     android:inputType="text"
                     android:maxLength="40"
                     android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/lightGrayFont"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -132,7 +134,7 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
@@ -144,17 +146,18 @@
                     android:id="@+id/uAddressEdt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/etmaterial_design"
                     android:drawableLeft="@drawable/ic_mail"
                     android:drawableRight="@drawable/ic_my_location"
-                    android:drawablePadding="@dimen/_10sdp"
+                    android:drawablePadding="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="@string/address"
                     android:inputType="text"
                     android:maxLines="3"
-                    android:padding="@dimen/_10sdp"
+                    android:minHeight="@dimen/_40sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
                     android:singleLine="true"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
@@ -163,46 +166,46 @@
                     app:layout_constraintTop_toBottomOf="@id/uPhoneEdt" />
 
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/athletePasswordEdtLayout"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/_10sdp"-->
-<!--                    app:hintEnabled="false"-->
-<!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
-<!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/uAddressEdt"-->
-<!--                    app:passwordToggleEnabled="true"-->
-<!--                    app:startIconDrawable="@drawable/ic_password">-->
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/athletePasswordEdtLayout"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+                <!--                    app:hintEnabled="false"-->
+                <!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+                <!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/uAddressEdt"-->
+                <!--                    app:passwordToggleEnabled="true"-->
+                <!--                    app:startIconDrawable="@drawable/ic_password">-->
 
 
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:id="@+id/uPasswordEdt"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="@drawable/etmaterial_design"-->
-<!--                        android:drawableLeft="@drawable/ic_lock"-->
-<!--                        android:hint="@string/password"-->
-<!--                        android:inputType="textPassword"-->
-<!--                        android:maxLength="20"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:padding="@dimen/_10sdp"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:textColor="@color/colorBlack"-->
-<!--                        android:textSize="@dimen/_10sdp"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
-<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />-->
+                <!--                    <com.google.android.material.textfield.TextInputEditText-->
+                <!--                        android:id="@+id/uPasswordEdt"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:background="@drawable/etmaterial_design"-->
+                <!--                        android:drawableLeft="@drawable/ic_lock"-->
+                <!--                        android:hint="@string/password"-->
+                <!--                        android:inputType="textPassword"-->
+                <!--                        android:maxLength="20"-->
+                <!--                        android:maxLines="1"-->
+                <!--                        android:padding="@dimen/_10sdp"-->
+                <!--                        android:singleLine="true"-->
+                <!--                        android:textColor="@color/colorBlack"-->
+                <!--                        android:textSize="@dimen/_10sdp"-->
+                <!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+                <!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+                <!--                        app:layout_constraintTop_toBottomOf="@id/athleteAddressEdt" />-->
 
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--                <View-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="@dimen/_2sdp"-->
-<!--                    android:background="@drawable/view_bottom_round_design"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"-->
-<!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
-<!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />-->
+                <!--                <View-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="@dimen/_2sdp"-->
+                <!--                    android:background="@drawable/view_bottom_round_design"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/athletePasswordEdtLayout"-->
+                <!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+                <!--                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine" />-->
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/uExperienceEdt"
@@ -217,8 +220,8 @@
                     android:inputType="textMultiLine"
                     android:maxLength="100"
                     android:maxLines="3"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:minHeight="@dimen/_40sdp"
-                    android:padding="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
@@ -239,7 +242,7 @@
                     android:maxLength="100"
                     android:maxLines="3"
                     android:minHeight="@dimen/_40sdp"
-                    android:padding="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"

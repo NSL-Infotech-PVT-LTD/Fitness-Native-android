@@ -15,21 +15,22 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 public class MyProfile extends AppCompatActivity {
     ActivityMyProfileBinding binding;
-    String userName, roleType, email, phoneTv,addressTv, experienceTv,achievementTv;
+    String userName, roleType, email, phoneTv, addressTv, experienceTv, achievementTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_my_profile);
-        binding= DataBindingUtil.setContentView(MyProfile.this,R.layout.activity_my_profile);
+        binding = DataBindingUtil.setContentView(MyProfile.this, R.layout.activity_my_profile);
 
 
         // Getting value by shared Preferrence to display....
 
-        userName = CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,MyProfile.this);
-        roleType = CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY,MyProfile.this);
-        email = CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL,MyProfile.this);
+        userName = CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, MyProfile.this);
+        roleType = CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, MyProfile.this);
+        email = CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, MyProfile.this);
         phoneTv = CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, MyProfile.this);
-        addressTv = CommonMethods.getPrefData(PrefrenceConstant.ADDRESS,MyProfile.this);
+        addressTv = CommonMethods.getPrefData(PrefrenceConstant.ADDRESS, MyProfile.this);
         experienceTv = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, MyProfile.this);
         achievementTv = CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, MyProfile.this);
 
@@ -50,7 +51,7 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent editProfileActivity = new Intent(MyProfile.this,UpdateProfileActivity.class);
+                Intent editProfileActivity = new Intent(MyProfile.this, UpdateProfileActivity.class);
                 startActivity(editProfileActivity);
                 finish();
             }
