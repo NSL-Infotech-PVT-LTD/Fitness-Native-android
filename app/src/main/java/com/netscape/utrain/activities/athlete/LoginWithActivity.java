@@ -225,6 +225,7 @@ public class LoginWithActivity extends AppCompatActivity implements View.OnClick
                             CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginWithActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", LoginWithActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, LoginWithActivity.this);
                             Intent fbreg = new Intent(LoginWithActivity.this, AthleteHomeScreen.class);

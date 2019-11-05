@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.common.Common;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -46,6 +49,7 @@ import com.google.gson.JsonArray;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityUpdateProfileBinding;
+import com.netscape.utrain.model.AthleteUserModel;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -69,13 +73,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class UpdateProfileActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class UpdateProfileActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
 
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
     ActivityUpdateProfileBinding binding;
-    String uNameTv, uEmailTv, uPhoneEdt, uAddressEdt, uExperienceEdt, uAchievementEdt, latitude, longitude,password; // these variable to store sharedPrefValues....
+    String uNameTv, uEmailTv, uPhoneEdt, uAddressEdt, uExperienceEdt, uAchievementEdt, latitude, longitude, password; // these variable to store sharedPrefValues....
     String name, email, phoneNo, address, expDetail, achievementDetail;
     Retrofitinterface retrofitinterface;
     JsonArray jsonArray;
@@ -87,6 +91,10 @@ public abstract class UpdateProfileActivity extends AppCompatActivity implements
     private UpdateProfileActivity activity;
     private GoogleApiClient googleApiClient;
     private Location mylocation;
+
+    AthleteUserModel model;
+
+
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -146,7 +154,7 @@ public abstract class UpdateProfileActivity extends AppCompatActivity implements
         binding.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hitUpdateAthleteDetailApi(email,password,name,phoneNo,address,expDetail,achievementDetail);
+                hitUpdateAthleteDetailApi(email, password, name, phoneNo, address, expDetail, achievementDetail);
             }
         });
 
@@ -219,6 +227,8 @@ public abstract class UpdateProfileActivity extends AppCompatActivity implements
         updateDetail.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
+
+
 //                CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, UpdateProfileActivity.this);
 //                CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), UpdateProfileActivity.this);
 //                CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), UpdateProfileActivity.this);
@@ -232,13 +242,20 @@ public abstract class UpdateProfileActivity extends AppCompatActivity implements
 //                CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, UpdateProfileActivity.this);
 //                CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), UpdateProfileActivity.this);
 //                CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", UpdateProfileActivity.this);
-
-                Toast.makeText(UpdateProfileActivity.this,"Detail updated successfully",Toast.LENGTH_LONG).show();
-                Intent updatedDetail = new Intent(UpdateProfileActivity.this, MyProfile.class);
-                updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(updatedDetail);
+                if (response.body().isStatus()) {
+                    if (response.body() != null) {
 
 
+
+                        Toast.makeText(UpdateProfileActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
+                        Intent updatedDetail = new Intent(UpdateProfileActivity.this, MyProfile.class);
+                        updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(updatedDetail);
+                    } else {
+                        Toast.makeText(UpdateProfileActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
+                    }
+                }
+                    // isStatus error message here....
 
             }
 
@@ -496,4 +513,28 @@ public abstract class UpdateProfileActivity extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
 }
