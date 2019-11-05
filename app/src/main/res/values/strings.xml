@@ -379,4 +379,13 @@
     <string name="choose_sport_text">Choose Sport</string>
     <string name="invite_other_athlete">Invite Other Athlete</string>
     <string name="enter_experience">Enter Experience</string>
+    <string name="user_name_demo">Sophie</string>
+    <string name="enter_emil_demo">sophie123@gmail.com</string>
+    <string name="enter_mobile_demo">223xxx1435</string>
+    <string name="enter_address_demo">Sukhna lake, Canada</string>
+    <string name="enter_your_experience_demo">2 years experience at Gold gym,</string>
+    <string name="achievement_Text">Achievements</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="update">Update</string>
+    <string name="enter_your_achievements_details_demo">Soccer coach at Manchester club \n Gold medalist in soccer</string>
 </resources>

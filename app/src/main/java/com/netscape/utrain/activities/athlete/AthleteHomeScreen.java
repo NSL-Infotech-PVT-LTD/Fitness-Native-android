@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
+import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.databinding.AActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
@@ -248,6 +249,19 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         setProfileImage();
         loadFragment(new A_HomeFragment());
+
+        // When User Will Click on Athlete Home Screen ImageView, it will open MyProfileActivity....
+
+        binding.athleteProfileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myProfileIntent = new Intent(AthleteHomeScreen.this, MyProfile.class);
+                startActivity(myProfileIntent);
+                finish();
+
+            }
+        });
     }
 //
 //    @Override

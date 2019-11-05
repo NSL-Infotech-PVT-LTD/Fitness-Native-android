@@ -12,7 +12,7 @@
     <color name="colorLightGray">#E9DAD6D7</color>
     <color name="facebook">#4267B2</color>
     <color name="lightGrayBtn">#D6D6D6</color>
-    <color name="lightGrayFont">#929292</color>
+    <color name="lightGrayFont">#A0A0A0</color>
     <color name="chooseService">#727272</color>
     <color name="recyclerView">#FBFBFB</color>
     <color name="tabTextColor">@color/colorBlack</color>
