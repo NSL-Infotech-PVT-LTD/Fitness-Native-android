@@ -22,23 +22,32 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.CoachGridRecyclerAdapter;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.ServiceIdModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class TopCoachOrgDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,18 +63,15 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ServicesBottomSheetAdapter bottomSheetAdapter;
     private RecyclerView serviceRecycler;
     private ImageView profImage, backArrow;
+    private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private TextView name, typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
-    private AppCompatImageView detailMapDirection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_top_coach_org_detail);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_top_coach_org_detail);
-
-
-        detailMapDirection = findViewById(R.id.detailMapDirection);
-        detailMapDirection.setOnClickListener(new View.OnClickListener() {
+        binding.detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -78,6 +84,27 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         });
 
         init();
+
+        getSportsIds();
+        binding.viewEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
+                intent.putExtra("from", "topCoach");
+                intent.putExtra("coach_id", coachListModel.getId() + "");
+                startActivity(intent);
+            }
+        });
+
+        binding.viewSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
+                vSesssion.putExtra("from", "toporg");
+                vSesssion.putExtra("coach_id", coachListModel.getId() + "");
+                startActivity(vSesssion);
+            }
+        });
 
     }
 
@@ -169,6 +196,9 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             add_service.addView(chipGroup);
         }
         name.setText(coachListModel.getName());
+        binding.location.setText(coachListModel.getLocation());
+
+
         if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
             typeUser.setText(coachListModel.getRoles().get(0).getName());
         }
@@ -254,6 +284,33 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
             }
         });
+    }
+
+    private void getSportsIds() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+                Toast.makeText(TopCoachOrgDetailActivity.this, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportList = gson.fromJson(sportName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+                binding.sportsDetail.setText(builder.toString());
+            }
+        } else {
+            binding.sportsDetail.setVisibility(View.GONE);
+            binding.sportsName.setVisibility(View.GONE);
+
+        }
     }
 
 }

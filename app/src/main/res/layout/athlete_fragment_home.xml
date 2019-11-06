@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Sports"
+                android:text="@string/sports"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Experience"
+                android:text="@string/experience_text"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/aSportsNameTv" />
@@ -119,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:maxLines="2"
-                android:text="Manchester United for 5 years"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintBottom_toTopOf="@id/aAchieveDBoard"
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Achievements"
+                android:text="@string/achievement_Text"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/aExpDetailTv" />
@@ -142,12 +141,10 @@
                 android:id="@+id/aAchieveDetailTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textMultiLine"
                 android:maxLength="50"
                 android:maxLines="3"
-                android:text="@string/achievements_details"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@id/aSportsNameTv"

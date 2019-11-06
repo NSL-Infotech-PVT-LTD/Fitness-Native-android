@@ -368,7 +368,6 @@
     <string name="working_hours">Working Hrs</string>
     <string name="portfolio">Portfolio</string>
     <string name="years_of_experience">Year of Experience</string>
-    <string name="achievements_details">National team \n top goal soccer</string>
     <string name="sports_name">Soccer, Volley ball, Cricket, Badminton</string>
     <string name="enter_your_achievements_details">Enter your achievements</string>
     <string name="sevice_summary_of_sports">Summary of Sports</string>
@@ -388,4 +387,7 @@
     <string name="update_profile">Update Profile</string>
     <string name="update">Update</string>
     <string name="enter_your_achievements_details_demo">Soccer coach at Manchester club \n Gold medalist in soccer</string>
+    <string name="view_more">View More +</string>
+    <string name="view_events">View Events</string>
+    <string name="view_session">View Sessions</string>
 </resources>

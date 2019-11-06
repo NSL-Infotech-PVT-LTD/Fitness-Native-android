@@ -95,7 +95,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private TopOrganizationAdapter orgAdapter;
     private List<CoachListModel> data = new ArrayList<>();
     private List<CoachListModel> orgList = new ArrayList<>();
-    private MaterialTextView btnTopCoaches, athleteNameTvDBoard, aExpDetailTv, aAchieveDetailTv, aSportsNameTv;
+    private MaterialTextView btnTopCoaches, athleteNameTvDBoard, aExpDetailTv, aAchieveDetailTv, aSportsNameTv, aSportsText, aExperienceDBoard, aAchieveDBoard;
     private MaterialTextView btnTopOrganization;
     private Retrofitinterface api;
     private List<CoachListModel> coachList = new ArrayList<>();
@@ -106,6 +106,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
+
+    String sExperience, sAchievement;
 
     public A_HomeFragment() {
         // Required empty public constructor
@@ -196,10 +198,36 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         aAchieveDetailTv = view.findViewById(R.id.aAchieveDetailTv);
         aSportsNameTv = view.findViewById(R.id.aSportsNameTv);
         aProfileImgDBoard = view.findViewById(R.id.aProfileImgDBoard);
+        aSportsText = view.findViewById(R.id.aSportsText);
+        aExperienceDBoard = view.findViewById(R.id.aExperienceDBoard);
+        aAchieveDBoard = view.findViewById(R.id.aAchieveDBoard);
+        sExperience = (CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+        sAchievement = (CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
 
-        aExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
-        aAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
-        getServiceIds();
+
+        if (sExperience == null) {
+            aExperienceDBoard.setVisibility(View.GONE);
+            aExpDetailTv.setVisibility(View.GONE);
+        } else {
+            aExpDetailTv.setVisibility(View.VISIBLE);
+            aExperienceDBoard.setVisibility(View.VISIBLE);
+            aExpDetailTv.setText(sExperience);
+
+
+        }
+        if (sAchievement == null) {
+            aAchieveDBoard.setVisibility(View.GONE);
+            aAchieveDetailTv.setVisibility(View.GONE);
+        } else {
+
+            aAchieveDBoard.setVisibility(View.VISIBLE);
+            aAchieveDetailTv.setVisibility(View.VISIBLE);
+            aAchieveDetailTv.setText(sAchievement);
+
+
+        }
+
+        getSportsIds();
 
         Glide.with(context).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(aProfileImgDBoard);
 
@@ -260,9 +288,10 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void getServiceIds() {
+    private void getSportsIds() {
         String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
         Gson gson = new Gson();
+
         if (sportName != null) {
             if (sportName.isEmpty()) {
                 Toast.makeText(context, "Service Not Found", Toast.LENGTH_SHORT).show();
@@ -279,6 +308,10 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
                 aSportsNameTv.setText(builder.toString());
             }
+        } else {
+            aSportsText.setVisibility(View.GONE);
+            aSportsNameTv.setVisibility(View.GONE);
+
         }
     }
 

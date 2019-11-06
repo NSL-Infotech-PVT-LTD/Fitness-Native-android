@@ -2,6 +2,7 @@ package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.AthleteBookListModel;
+import com.netscape.utrain.model.AthleteResponseEventData;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
@@ -193,14 +194,16 @@ public interface Retrofitinterface {
                                                        @Query("search") String search,
                                                        @Query("limit") String limit,
                                                        @Query("page") String page,
-                                                       @Query("radius") String radius);
+                                                       @Query("radius") String radius,
+                                                       @Query("coach_id") String coach_id);
 
     @POST(Constants.ATHLETE_SESSION_LIST)
     Call<AthleteSessionResponse> getAthleteSessionList(@Header("Authorization") String Authorization,
                                                        @Header("Content-Type") String contentType,
                                                        @Query("search") String search,
                                                        @Query("limit") String limit,
-                                                       @Query("order_by") String order_by
+                                                       @Query("order_by") String order_by,
+                                                       @Query("coach_id") String coach_id
     );
 
     @POST(Constants.ATHLETE_PLACE_LIST)
@@ -398,6 +401,13 @@ public interface Retrofitinterface {
     Call<SportListModel> getSportList(@Header("Content-Type") String Content_Type,
                                       @Query("search") String search,
                                       @Query("limit") String limit);
+
+
+    @Multipart
+    @POST(Constants.ATHLETE_SIGNUP)
+    Call<AthleteSignUpResponse> updateProfile(@Part MultipartBody.Part file,
+                                              @PartMap Map<String, RequestBody> fields
+    );
 
 
 }
