@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.HistoryActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
@@ -45,6 +46,7 @@ import com.netscape.utrain.utils.CommonMethods;
 
 public class OrgHomeScreen extends AppCompatActivity {
     private TextView mTextMessage;
+    public DrawerLayout drawer;
     private OActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView orgDrawerImageNew;
@@ -54,21 +56,22 @@ public class OrgHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.a_activity_bottom_navigation);
-        binding = DataBindingUtil.setContentView(this, R.layout.o_activity_bottom_navigation);
+        binding = DataBindingUtil.setContentView(OrgHomeScreen.this, R.layout.o_activity_bottom_navigation);
         orgDrawerImageNew = findViewById(R.id.orgDrawerImageNew);
         orgNavView = findViewById(R.id.orgNavView);
-        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.orgdrawerLayout.openDrawer(GravityCompat.START);
-
-            }
-        });
+        drawer = findViewById(R.id.orgdrawer_layout);
+//        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                binding.orgdrawerLayout.openDrawer(GravityCompat.START);
+//
+//            }
+//        });
         loadFragment(new O_HomeFragment());
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         binding.orgNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        final NavigationView navigationView = findViewById(R.id.o_slider);
+        final NavigationView navigationView = findViewById(R.id.orgSlider);
         navigationView.findViewById(R.id.org_logOutTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,21 +93,19 @@ public class OrgHomeScreen extends AppCompatActivity {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
-
                             }
 
                         })
                         .show();
             }
         });
-        binding.orgdrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
 
-                openCloseDrawer(binding.orgdrawerLayout);
+                openCloseDrawer();
             }
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -122,13 +123,66 @@ public class OrgHomeScreen extends AppCompatActivity {
             }
         });
 
+        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                openCloseDrawer();
+
+            }
+        });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.coachDashboardTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+                loadFragment(new A_HomeFragment());
+
+            }
+        });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.bookingTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+
+            }
+        });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                startActivity(new Intent(OrgHomeScreen.this, CalendarViewWithNotesActivity.class));
+
+            }
+        });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.aboutUsTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
 
 
     }
 
     @SuppressLint("WrongConstant")
-    public void openCloseDrawer(DrawerLayout drawer) {
+    public void openCloseDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(Gravity.LEFT);
             orgNavView.setVisibility(View.VISIBLE);

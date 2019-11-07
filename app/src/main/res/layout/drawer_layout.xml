@@ -7,8 +7,7 @@
     android:background="@drawable/drawer_right_corner_laydesign_white"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -76,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@id/textviewBackground" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/dashboardTv"
+            android:id="@+id/coachDashboardTv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
