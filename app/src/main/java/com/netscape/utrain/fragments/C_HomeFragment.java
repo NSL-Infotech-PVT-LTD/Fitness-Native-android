@@ -23,6 +23,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
@@ -34,6 +36,7 @@ import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
 import com.netscape.utrain.databinding.CFragmentHomeBinding;
 import com.netscape.utrain.model.AthletePlaceModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -45,12 +48,15 @@ import com.netscape.utrain.utils.TabLayoutEx;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -62,6 +68,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     private RecyclerView.LayoutManager layoutManager;
     private Ath_PlaceRecyclerAdapter adapter;
     private CFragmentHomeBinding binding;
+    private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
 
 
     @Override
@@ -91,6 +98,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
         binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME,context));
+        binding.cExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context));
+        binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE,context));
+
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
         binding.orgWelcomeOrgName.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
@@ -101,7 +111,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         binding.orgViewAllSpaces.setOnClickListener(this);
 //        binding.orglogOutTv.setOnClickListener(this);
 
+        getSportsIds();
         return view;
+
     }
 
     @Override
@@ -142,7 +154,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low","");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -185,6 +197,33 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
             }
         });
+    }
+
+    private void getSportsIds() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+                Toast.makeText(context, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportList = gson.fromJson(sportName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+                binding.cSportsNameTv.setText(builder.toString());
+            }
+        } else {
+            binding.cSportsNameTv.setVisibility(View.GONE);
+            binding.cSportsNameTv.setVisibility(View.GONE);
+
+        }
     }
 
 

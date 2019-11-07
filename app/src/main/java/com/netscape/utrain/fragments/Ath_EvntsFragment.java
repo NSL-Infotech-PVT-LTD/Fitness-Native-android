@@ -26,6 +26,7 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +123,7 @@ public class Ath_EvntsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
+
 //        data.add("chet");
 //        data.add("chet");
 //        data.add("chet");
@@ -147,7 +149,7 @@ public class Ath_EvntsFragment extends Fragment {
         progressDialog.setMessage("Loading Events....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","10","1","1000000");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"distance","","10","1","1000000","");
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
             public void onResponse(Call<AthleteEventListResponse> call, Response<AthleteEventListResponse> response) {

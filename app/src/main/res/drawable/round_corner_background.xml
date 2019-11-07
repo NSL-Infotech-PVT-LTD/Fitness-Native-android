@@ -4,6 +4,6 @@
     <stroke
         android:width="@dimen/_1sdp"
         android:color="@color/lightGrayFont" />
-    <solid android:color="@color/yelloBackground" />
+    <solid android:color="@color/portflioImageBackground" />
     <corners android:radius="@dimen/_20sdp" />
 </shape>

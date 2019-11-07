@@ -37,6 +37,15 @@ public class MyProfile extends AppCompatActivity {
         experienceTv = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, MyProfile.this);
         achievementTv = CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, MyProfile.this);
 
+        if (getIntent().hasExtra("uphoneNumber"))
+            binding.phoneTv.setText(getIntent().getStringExtra("uphoneNumber"));
+        if (getIntent().hasExtra("uaddress"))
+            binding.addressTv.setText(getIntent().getStringExtra("uaddress"));
+        if (getIntent().hasExtra("uexperience"))
+            binding.experienceTv.setText(getIntent().getStringExtra("uexperience"));
+        if (getIntent().hasExtra("uachievement"))
+            binding.achievementTv.setText(getIntent().getStringExtra("uachievement"));
+
 
         // Binding values to the views ....
 

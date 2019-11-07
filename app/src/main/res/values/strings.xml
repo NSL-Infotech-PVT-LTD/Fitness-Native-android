@@ -368,7 +368,6 @@
     <string name="working_hours">Working Hrs</string>
     <string name="portfolio">Portfolio</string>
     <string name="years_of_experience">Year of Experience</string>
-    <string name="achievements_details">National team \n top goal soccer</string>
     <string name="sports_name">Soccer, Volley ball, Cricket, Badminton</string>
     <string name="enter_your_achievements_details">Enter your achievements</string>
     <string name="sevice_summary_of_sports">Summary of Sports</string>
@@ -391,4 +390,8 @@
     <string name="today_schedule">Today schedule</string>
     <string name="close">Close</string>
     <string name="event_type">Type</string>
+    <string name="view_more">View More +</string>
+    <string name="view_events">View Events</string>
+    <string name="view_session">View Sessions</string>
+    <string name="view_spaces">View Spaces</string>
 </resources>

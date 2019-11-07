@@ -40,6 +40,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private String searchText = "";
     private ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_org));
+
                 getTopOrgaNization();
             }
         }

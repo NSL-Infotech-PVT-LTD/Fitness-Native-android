@@ -45,11 +45,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityUpdateProfileBinding;
 import com.netscape.utrain.model.AthleteUserModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -61,6 +64,7 @@ import com.netscape.utrain.utils.ImageFilePath;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +77,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class UpdateProfileActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
 
@@ -80,9 +86,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
     ActivityUpdateProfileBinding binding;
     String uNameTv, uEmailTv, uPhoneEdt, uAddressEdt, uExperienceEdt, uAchievementEdt, latitude, longitude, password; // these variable to store sharedPrefValues....
-    String name, email, phoneNo, address, expDetail, achievementDetail;
+    String name = "", email = "", phoneNo = "", address = "", expDetail = "", achievementDetail = "";
     Retrofitinterface retrofitinterface;
     JsonArray jsonArray;
+    AthleteUserModel model;
     private ProgressDialog progressDialog;
     private AlertDialog dialogMultiOrder;
     private AskPermission askPermObj;
@@ -91,10 +98,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
     private UpdateProfileActivity activity;
     private GoogleApiClient googleApiClient;
     private Location mylocation;
-
-    AthleteUserModel model;
-
-
+    private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -116,13 +120,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
 
         // storing entered values to variables....
 
-        name = binding.uNameTv.getText().toString();
-        email = binding.uEmailTv.getText().toString();
-        phoneNo = binding.uPhoneEdt.getText().toString();
-        address = binding.uAddressEdt.getText().toString();
-        expDetail = binding.uExperienceEdt.getText().toString();
-        achievementDetail = binding.uAchievementEdt.getText().toString();
-
 
         // Getting value by shared Preferrence to display....
 
@@ -134,7 +131,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         uAchievementEdt = CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, UpdateProfileActivity.this);
         latitude = CommonMethods.getPrefData("latitude", UpdateProfileActivity.this);
         longitude = CommonMethods.getPrefData("longitude", UpdateProfileActivity.this);
-        password = CommonMethods.getPrefData("athletePassword", UpdateProfileActivity.this);
 
 
         // Binding values to the views ....
@@ -144,6 +140,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         binding.uAddressEdt.setText(uAddressEdt);
         binding.uExperienceEdt.setText(uExperienceEdt);
         binding.uAchievementEdt.setText(uAchievementEdt);
+        Glide.with(UpdateProfileActivity.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, this)).into(binding.uProfileImg);
+        setProfileImage();
         binding.uBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +152,33 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         binding.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hitUpdateAthleteDetailApi(email, password, name, phoneNo, address, expDetail, achievementDetail);
+
+                photoFile = new File(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, UpdateProfileActivity.this));
+                // checking validation on update btn....
+                name = binding.uNameTv.getText().toString();
+                email = binding.uEmailTv.getText().toString();
+                phoneNo = binding.uPhoneEdt.getText().toString();
+                if (phoneNo.equals(""))
+                    binding.uPhoneEdt.setError(getResources().getString(R.string.enter_phone_number));
+                binding.uPhoneEdt.requestFocus();
+                address = binding.uAddressEdt.getText().toString();
+                if (address.equals(""))
+                    binding.uAddressEdt.setError(getResources().getString(R.string.select_address));
+                binding.uAddressEdt.requestFocus();
+                expDetail = binding.uExperienceEdt.getText().toString();
+                if (expDetail.equals(""))
+                    binding.uExperienceEdt.setError(getResources().getString(R.string.enter_your_experience_details));
+                binding.uExperienceEdt.requestFocus();
+                achievementDetail = binding.uAchievementEdt.getText().toString();
+                if (achievementDetail.equals("")) {
+                    binding.uAchievementEdt.setError(getResources().getString(R.string.enter_your_achievements_details));
+                    binding.uAchievementEdt.requestFocus();
+                } else {
+
+                    // update profile api hit here....
+                    hitUpdateAthleteDetailApi(email, name, phoneNo, address, expDetail, achievementDetail);
+                }
+
             }
         });
 
@@ -174,6 +198,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                 return false;
             }
         });
+
+        getSportsIds();
 
 
     }
@@ -195,23 +221,19 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void hitUpdateAthleteDetailApi(String email, String password, String name, String phone, String address, String experience, String achievement) {
+    private void hitUpdateAthleteDetailApi(final String email, final String name, String phone, final String address, final String experience, String achievement) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading....");
         progressDialog.show();
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         MultipartBody.Part userImg = null;
-
-        File myFile = photoFile;
-        if (myFile != null) {
-            userImg = prepareFilePart("profile_image", myFile.getName(), myFile);
+        if (photoFile != null) {
+            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
 //            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
         }
-
         Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), name));
         requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), email));
-        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), password));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), phone));
         requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), address));
         requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), experience));
@@ -223,44 +245,37 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
-        Call<AthleteSignUpResponse> updateDetail = retrofitinterface.registerAthlete(requestBodyMap, userImg);
+        Call<AthleteSignUpResponse> updateDetail = retrofitinterface.updateProfile(userImg, requestBodyMap);
         updateDetail.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
+                progressDialog.dismiss();
 
 
-//                CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), UpdateProfileActivity.this);
-//                CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", UpdateProfileActivity.this);
-                if (response.body().isStatus()) {
-                    if (response.body() != null) {
-
-
-
-                        Toast.makeText(UpdateProfileActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
-                        Intent updatedDetail = new Intent(UpdateProfileActivity.this, MyProfile.class);
-                        updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(updatedDetail);
-                    } else {
-                        Toast.makeText(UpdateProfileActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
+                if (response.isSuccessful())
+                    if (response.body().isStatus()) {
+                        if (response.body() != null) {
+                            Toast.makeText(UpdateProfileActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
+                            Intent updatedDetail = new Intent(UpdateProfileActivity.this, MyProfile.class);
+                            updatedDetail.putExtra("uname", name);
+                            updatedDetail.putExtra("uemail", email);
+                            updatedDetail.putExtra("uphoneNumber", phoneNo);
+                            updatedDetail.putExtra("uaddress", address);
+                            updatedDetail.putExtra("uexperience", expDetail);
+                            updatedDetail.putExtra("uachievement", expDetail);
+                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(updatedDetail);
+                        } else {
+                            Toast.makeText(UpdateProfileActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-                    // isStatus error message here....
+                // isStatus error message here....
 
             }
 
             @Override
             public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
 
             }
         });
@@ -537,4 +552,41 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
     public void onLocationChanged(Location location) {
 
     }
+
+    private void setProfileImage() {
+
+        String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, UpdateProfileActivity.this);
+        if (!TextUtils.isEmpty(img)) {
+            Glide.with(UpdateProfileActivity.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(UpdateProfileActivity.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(binding.uProfileImg);
+
+        }
+    }
+
+    private void getSportsIds() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+                Toast.makeText(UpdateProfileActivity.this, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportList = gson.fromJson(sportName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+//                aSportsNameTv.setText(builder.toString());
+            }
+        } else {
+//            aSportsText.setVisibility(View.GONE);
+//            aSportsNameTv.setVisibility(View.GONE);
+
+        }
+    }
+
 }
