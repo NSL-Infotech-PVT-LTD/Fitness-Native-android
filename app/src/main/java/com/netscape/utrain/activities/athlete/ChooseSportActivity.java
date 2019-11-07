@@ -90,6 +90,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 //        achievement = getIntent().getStringExtra("achievement");
 //        achievement = getIntent().getStringExtra("achievement");
 //        fbImage = getIntent().getStringExtra("fbImage");
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading....");
         sportsListAll.clear();
         init();
 
@@ -135,8 +137,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     }
 
     private void init() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading....");
+
         String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORT_NAME, getApplicationContext());
         Gson gson = new Gson();
         if (sportName != null) {
@@ -223,7 +224,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), latitude));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), longitude));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, ChooseSportActivity.this)));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
         Call<AthleteSignUpResponse> signUpAthlete = api.registerAthlete(requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<AthleteSignUpResponse>() {

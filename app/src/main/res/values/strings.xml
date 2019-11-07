@@ -390,4 +390,5 @@
     <string name="view_more">View More +</string>
     <string name="view_events">View Events</string>
     <string name="view_session">View Sessions</string>
+    <string name="view_spaces">View Spaces</string>
 </resources>

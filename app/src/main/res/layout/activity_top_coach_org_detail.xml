@@ -254,7 +254,6 @@
                         android:layout_marginRight="@dimen/_30sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="left"
-
                         android:textSize="@dimen/_8sdp"
                         app:layout_constraintTop_toBottomOf="@id/discoverBioTv" />
 
@@ -270,40 +269,72 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/detailUserBioTv" />
 
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/viewEvents"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnCoachContainer"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="visible"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:background="@drawable/round_background_colord"
-                        android:backgroundTint="@color/themeColor"
-                        android:fontFamily="@font/poppins_regular"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/view_events"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:layout_constraintBottom_toTopOf="@id/view2"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/viewSession"
-                        app:layout_constraintTop_toTopOf="@+id/view1" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/viewSession"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/round_background_colord"
-                        android:backgroundTint="@color/themeColor"
-                        android:fontFamily="@font/poppins_regular"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/view_session"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toRightOf="@+id/viewEvents"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/view1" />
+                        app:layout_constraintTop_toTopOf="@id/view1">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/viewEvents"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@drawable/round_background_colord"
+                            android:backgroundTint="@color/themeColor"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/view_events"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/viewSession"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/viewSession"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_background_colord"
+                            android:backgroundTint="@color/themeColor"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/view_session"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/viewEvents"
+                            app:layout_constraintRight_toLeftOf="@+id/viewSpaces"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/viewSpaces"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/round_background_colord"
+                            android:backgroundTint="@color/themeColor"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/view_spaces"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/viewSession"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                     <View
                         android:id="@+id/view2"
@@ -315,7 +346,7 @@
                         android:background="@color/colorLightGray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/viewSession" />
+                        app:layout_constraintTop_toBottomOf="@id/btnCoachContainer" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/eventNumOfCandidateAttendingTv"

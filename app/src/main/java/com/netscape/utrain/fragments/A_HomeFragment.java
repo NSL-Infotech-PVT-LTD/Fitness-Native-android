@@ -86,6 +86,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     TopCoachesAdapter coachAdapter;
+    String sExperience, sAchievement;
     private TabLayoutEx tabLayout;
     private ViewPager viewPager;
     private TextView logOut;
@@ -106,8 +107,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
-
-    String sExperience, sAchievement;
 
     public A_HomeFragment() {
         // Required empty public constructor

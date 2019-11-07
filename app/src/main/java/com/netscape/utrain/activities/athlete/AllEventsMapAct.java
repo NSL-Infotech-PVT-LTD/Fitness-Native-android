@@ -166,7 +166,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getAthleteSessionApi("distance", search,sCoach_Id);
                     } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
-                        getAthletePlaceApi("distance", search);
+                        getAthletePlaceApi("distance", search,sCoach_Id);
                     }
                     return true;
                 }
@@ -179,13 +179,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     }
 
-    private void getAthletePlaceApi(final String order_by, final String s) {
+    private void getAthletePlaceApi(final String order_by, final String s, final String sCoach_Id) {
         allEventFindAPalceTv.setText("Find Spaces");
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading Spaces....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, "10", order_by);
+        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, "10", order_by,sCoach_Id);
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -228,7 +228,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString());
+                                getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(),sCoach_Id);
                             }
                         });
                     }
@@ -517,7 +517,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi("distance", search,sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("distance", search);
+                    getAthletePlaceApi("distance", search,sCoach_Id);
             }
         });
         sort_high.setOnClickListener(new View.OnClickListener() {
@@ -531,7 +531,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi("price_high", search,sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("price_high", search);
+                    getAthletePlaceApi("price_high", search,sCoach_Id);
 
             }
         });
@@ -546,7 +546,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi("latest", search,sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("latest", search);
+                    getAthletePlaceApi("latest", search,sCoach_Id);
 
             }
         });
@@ -562,7 +562,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi("price_low", search,"");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("price_low", search);
+                    getAthletePlaceApi("price_low", search,sCoach_Id);
             }
         });
 
@@ -621,11 +621,14 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             getAthleteSessionApi("distance", search,"");
         } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
             constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
-            getAthletePlaceApi("distance", search);
-        } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topcoach")) {
+            getAthletePlaceApi("distance", search,sCoach_Id);
+        } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topEvent")) {
             getAthleteEventApi("distance", search, sCoach_Id);
-        } else if (getIntent().getStringExtra("from").equalsIgnoreCase("toporg")) {
+        } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topSession")) {
             getAthleteSessionApi("distance", search, sCoach_Id);
+        } else  if (getIntent().getStringExtra("from").equalsIgnoreCase("topSpace")){
+            getAthletePlaceApi("distance",search,sCoach_Id);
+
         }
 
 

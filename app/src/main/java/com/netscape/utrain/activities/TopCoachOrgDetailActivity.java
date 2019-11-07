@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,6 +57,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     ActivityTopCoachOrgDetailBinding binding;
     Retrofitinterface retrofitinterface;
     private CoachListModel coachListModel;
+
     private int type;
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout liearLayout;
@@ -86,11 +88,25 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         init();
 
         getSportsIds();
+        String saveIntent =getIntent().getStringExtra("intentFrom");
+        if (! TextUtils.isEmpty(saveIntent)) {
+
+            if (saveIntent.equalsIgnoreCase("coach")) {
+                binding.viewEvents.setVisibility(View.VISIBLE);
+                binding.viewSession.setVisibility(View.VISIBLE);
+                binding.viewSpaces.setVisibility(View.GONE);
+            }
+            if (saveIntent.equalsIgnoreCase("org")) {
+                binding.viewEvents.setVisibility(View.VISIBLE);
+                binding.viewSession.setVisibility(View.VISIBLE);
+                binding.viewSpaces.setVisibility(View.VISIBLE);
+            }
+        }
         binding.viewEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
-                intent.putExtra("from", "topCoach");
+                intent.putExtra("from", "topEvent");
                 intent.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(intent);
             }
@@ -100,11 +116,23 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View view) {
                 Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
-                vSesssion.putExtra("from", "toporg");
+                vSesssion.putExtra("from", "topSession");
                 vSesssion.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(vSesssion);
             }
         });
+
+        binding.viewSpaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent vEventOrg = new Intent(TopCoachOrgDetailActivity.this,AllEventsMapAct.class);
+                vEventOrg.putExtra("from","topSpace");
+                vEventOrg.putExtra("coach_id", coachListModel.getId()+"");
+                startActivity(vEventOrg);
+            }
+        });
+
 
     }
 

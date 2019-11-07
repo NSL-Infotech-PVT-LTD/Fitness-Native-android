@@ -68,6 +68,12 @@ public class AthleteTopRatedAdapter extends RecyclerView.Adapter<AthleteTopRated
             @Override
             public void onClick(View view) {
                 Intent topCoachesDetails = new Intent(context, TopCoachOrgDetailActivity.class);
+                if (type == 1) {
+                    topCoachesDetails.putExtra("intentFrom", "coach");
+                }
+                if (type == 2) {
+                    topCoachesDetails.putExtra("intentFrom", "org");
+                }
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, type + "");
                 topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

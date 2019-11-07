@@ -154,7 +154,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low","");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
