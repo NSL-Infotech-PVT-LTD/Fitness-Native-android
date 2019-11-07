@@ -30,8 +30,6 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
         this.supplierData = supplierData;
 
     }
-
-
     @NonNull
     @Override
     public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

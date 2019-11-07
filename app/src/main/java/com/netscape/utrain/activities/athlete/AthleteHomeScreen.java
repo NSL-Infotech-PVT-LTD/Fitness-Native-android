@@ -219,7 +219,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
             }
         });
-        binding.slider.getHeaderView(0).findViewById(R.id.notificationTv).setOnClickListener(new View.OnClickListener() {
+        binding.slider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();

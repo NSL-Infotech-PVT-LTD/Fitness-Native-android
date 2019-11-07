@@ -106,7 +106,6 @@ public class OrgHomeScreen extends AppCompatActivity {
 
                 openCloseDrawer(binding.orgdrawerLayout);
             }
-
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -122,6 +121,8 @@ public class OrgHomeScreen extends AppCompatActivity {
                 super.onDrawerStateChanged(newState);
             }
         });
+
+
 
 
     }

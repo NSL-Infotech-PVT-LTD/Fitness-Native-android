@@ -20,14 +20,50 @@
         tools:enable="true"
         tools:text="14" />
 
-    <com.netscape.utrain.utils.MultipleTriangleView
+<!--    <com.netscape.utrain.utils.MultipleTriangleView-->
+<!--        android:id="@+id/v_notes"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:padding="2dp"-->
+<!--        app:mtr_direction="top_left"-->
+<!--        app:mtr_number_of_items="4"-->
+<!--        app:mtr_separator_width="2dp"-->
+<!--        app:mtr_view_direction="vertical" />-->
+    <TextView
         android:id="@+id/v_notes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="2dp"
-        app:mtr_direction="top_left"
-        app:mtr_number_of_items="4"
-        app:mtr_separator_width="2dp"
-        app:mtr_view_direction="vertical" />
+        android:textSize="@dimen/_8sdp"
+        android:maxLength="10"
+        android:textColor="@color/colorWhite"
+        android:gravity="center_horizontal"
+        android:singleLine="true"  />
+    <TextView
+        android:id="@+id/v_notesTwo"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:textSize="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:maxLength="10"
+        android:textColor="@color/colorWhite"
+        android:gravity="center_horizontal"
+        android:singleLine="true"  />
+    <TextView
+        android:textSize="@dimen/_8sdp"
+        android:id="@+id/v_notesThree"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textColor="@color/colorWhite"
+        android:maxLength="10"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+
+        />
+
+
 
 </com.netscape.utrain.utils.FrameLinearLayout>

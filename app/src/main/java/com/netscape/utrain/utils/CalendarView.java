@@ -51,20 +51,17 @@ public class CalendarView extends FrameLayout {
 
     private static final String TAG = CalendarView.class.getSimpleName();
 
-    private static final String DEFAULT_MIN_DATE = "01/01/1992";
+    private static final String DEFAULT_MIN_DATE = "01/01/2017";
     private static final String DEFAULT_MAX_DATE = "01/01/2100";
     private static final String TEMPLATE = "MM/dd/yyyy";
-
-    private YMDCalendar mMinDate = new YMDCalendar(
-            parseCalendar(DEFAULT_MIN_DATE, TEMPLATE, Locale.getDefault()));
-    private YMDCalendar mMaxDate = new YMDCalendar(
-            parseCalendar(DEFAULT_MAX_DATE, TEMPLATE, Locale.getDefault()));
-
     private final int[] weekHeaderIds = {
             R.id.tv_weekday_1, R.id.tv_weekday_2, R.id.tv_weekday_3, R.id.tv_weekday_4,
             R.id.tv_weekday_5, R.id.tv_weekday_6, R.id.tv_weekday_7
     };
-
+    private YMDCalendar mMinDate = new YMDCalendar(
+            parseCalendar(DEFAULT_MIN_DATE, TEMPLATE, Locale.getDefault()));
+    private YMDCalendar mMaxDate = new YMDCalendar(
+            parseCalendar(DEFAULT_MAX_DATE, TEMPLATE, Locale.getDefault()));
     private View mHeader;
     private View mWeekHeader;
     private CalendarViewPager mViewPager;
@@ -114,6 +111,58 @@ public class CalendarView extends FrameLayout {
         initChildViews(context);
     }
 
+    private static int getDateCode(Calendar c, int type) {
+        return getDateCode(new YMDCalendar(c), type);
+    }
+
+    private static int getDateCode(YMDCalendar c, int type) {
+        if (type == 1)
+            return c.year * 100 + c.month;
+        else if (type == 2)
+            return c.month * 100 + c.day;
+        else
+            return -1;
+    }
+
+    public static Calendar parseCalendar(String date, String template, Locale locale) {
+        Calendar calendar = Calendar.getInstance(locale);
+        if (date != null && !date.isEmpty()) {
+            java.text.DateFormat DATE_FORMATTER = new SimpleDateFormat(template, locale);
+            try {
+                final Date parsedDate = DATE_FORMATTER.parse(date);
+                calendar.setTime(parsedDate);
+            } catch (ParseException e) {
+                Log.e(TAG, "ParseException: " + e.getMessage());
+            }
+        }
+        return calendar;
+    }
+
+    public static void setImageDrawableColor(ImageView imageView, @ColorInt int color) {
+        Drawable backgroundResource = imageView.getDrawable();
+        if (backgroundResource != null) {
+            backgroundResource.mutate();
+            backgroundResource.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            imageView.setImageDrawable(backgroundResource);
+        }
+    }
+
+    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(attributeColor, value, true);
+        return value.data;
+    }
+
+    private static String simpleText(String text) {
+        for (int i = 0; i < text.length(); i++) {
+            char charAt = text.charAt(i);
+            if (!Character.isLetter(charAt)) {
+                return text.substring(0, i);
+            }
+        }
+        return text;
+    }
+
     private void readAttributes(Context context, AttributeSet attrs) {
 
         int colorPrimary = getThemeColor(context, R.attr.colorPrimary);
@@ -131,7 +180,7 @@ public class CalendarView extends FrameLayout {
         mAttributes.put(Attr.monthHeaderArrowsColor,
                 a.getColor(R.styleable.CalendarView_month_header_arrows_color, colorPrimary));
         mAttributes.put(Attr.monthHeaderShow,
-                a.getBoolean(R.styleable.CalendarView_month_header_show, true)? 1 : 0);
+                a.getBoolean(R.styleable.CalendarView_month_header_show, true) ? 1 : 0);
 
         // WeekHeader
         mAttributes.put(Attr.weekHeaderTextColor,
@@ -144,7 +193,7 @@ public class CalendarView extends FrameLayout {
                 a.getColor(R.styleable.CalendarView_week_header_offset_day_background_color,
                         mAttributes.get(Attr.weekHeaderBackgroundColor)));
         mAttributes.put(Attr.weekHeaderMovable,
-                a.getBoolean(R.styleable.CalendarView_week_header_movable, true)? 1 : 0);
+                a.getBoolean(R.styleable.CalendarView_week_header_movable, true) ? 1 : 0);
 
         // Day Item
         mAttributes.put(Attr.dayTextColor,
@@ -167,7 +216,7 @@ public class CalendarView extends FrameLayout {
         mAttributes.put(Attr.currentDayTextStyle,
                 a.getInt(R.styleable.CalendarView_current_day_text_style, Typeface.BOLD));
         mAttributes.put(Attr.currentDayCircleEnable,
-                a.getBoolean(R.styleable.CalendarView_current_day_circle_enable, false)? 1 : 0);
+                a.getBoolean(R.styleable.CalendarView_current_day_circle_enable, false) ? 1 : 0);
         mAttributes.put(Attr.currentDayCircleColor,
                 a.getColor(R.styleable.CalendarView_current_day_circle_color,
                         mAttributes.get(Attr.currentDayTextColor)));
@@ -207,7 +256,7 @@ public class CalendarView extends FrameLayout {
             }
         });
 
-        setWeekHeader(this, mAttributes.get(Attr.weekHeaderMovable) == 1? GONE : VISIBLE);
+        setWeekHeader(this, mAttributes.get(Attr.weekHeaderMovable) == 1 ? GONE : VISIBLE);
 
         ivPrevious = findViewById(R.id.ib_previous_month);
         ivPrevious.setOnClickListener(new OnClickListener() {
@@ -225,11 +274,11 @@ public class CalendarView extends FrameLayout {
             }
         });
 
-        changeVisibility(ivPrevious, mAttributes.get(Attr.monthHeaderShow) == 1? VISIBLE : GONE);
-        changeVisibility(ivNext, mAttributes.get(Attr.monthHeaderShow) == 1? VISIBLE : GONE);
+        changeVisibility(ivPrevious, mAttributes.get(Attr.monthHeaderShow) == 1 ? VISIBLE : GONE);
+        changeVisibility(ivNext, mAttributes.get(Attr.monthHeaderShow) == 1 ? VISIBLE : GONE);
 
         setImageDrawableColor(ivPrevious, mAttributes.get(Attr.monthHeaderArrowsColor));
-        setImageDrawableColor(ivNext,     mAttributes.get(Attr.monthHeaderArrowsColor));
+        setImageDrawableColor(ivNext, mAttributes.get(Attr.monthHeaderArrowsColor));
     }
 
     public int getShownMonth() {
@@ -244,8 +293,16 @@ public class CalendarView extends FrameLayout {
         return YMDCalendar.toCalendar(mCurrentDate);
     }
 
+    public void setCurrentDate(Calendar date) {
+        mCalendarPagerAdapter.setCurrentDate(date);
+    }
+
     public Calendar getSelectedDate() {
         return YMDCalendar.toCalendar(mSelectedDate);
+    }
+
+    public void setSelectedDate(Calendar date) {
+        mCalendarPagerAdapter.setSelectedDate(date);
     }
 
     public void addCalendarObject(CalendarObject calendarObject) {
@@ -259,7 +316,7 @@ public class CalendarView extends FrameLayout {
         List<CalendarObject> calendarObjectList = mObjectsByMonthMap.get(dateCode);
         if (calendarObjectList != null) {
             CalendarObject objectToRemove = null;
-            for (CalendarObject object :calendarObjectList) {
+            for (CalendarObject object : calendarObjectList) {
                 if (object.getID() != null && object.getID().equals(calendarObject.getID())) {
                     objectToRemove = object;
                     break;
@@ -289,16 +346,8 @@ public class CalendarView extends FrameLayout {
         mPageListener = listener;
     }
 
-    public void setSelectedDate(Calendar date) {
-        mCalendarPagerAdapter.setSelectedDate(date);
-    }
-
     public void setMinimumDate(Calendar minimumDate) {
         mCalendarPagerAdapter.setMinimumDate(minimumDate);
-    }
-
-    public void setCurrentDate(Calendar date) {
-        mCalendarPagerAdapter.setCurrentDate(date);
     }
 
     private void setMonthHeader(View view, Calendar month) {
@@ -307,7 +356,7 @@ public class CalendarView extends FrameLayout {
         tvMonth.setTextColor(mAttributes.get(Attr.monthHeaderTextColor));
         tvMonth.setText(DateFormat.format("MMMM yyyy", month));
         tvMonth.setPaintFlags(tvMonth.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        changeVisibility(tvMonth, mAttributes.get(Attr.monthHeaderShow) == 1? VISIBLE : GONE);
+        changeVisibility(tvMonth, mAttributes.get(Attr.monthHeaderShow) == 1 ? VISIBLE : GONE);
     }
 
     private void setWeekHeader(View view, int weekHeaderVisible) {
@@ -330,14 +379,14 @@ public class CalendarView extends FrameLayout {
         int weekHeaderOffsetDayBackgroundColor = mAttributes.get(Attr.weekHeaderOffsetDayBackgroundColor);
 
         String[] weekHeaderTexts = new String[7];
-        for (int i = 0 ; i < weekHeaderTexts.length ; i++) {
-            int dayIndex = (i + startingWeekDay - 1)%7 + 1;
+        for (int i = 0; i < weekHeaderTexts.length; i++) {
+            int dayIndex = (i + startingWeekDay - 1) % 7 + 1;
             weekHeaderTexts[i] = simpleText(new DateFormatSymbols().getWeekdays()[dayIndex]);
         }
 
         // Set TextColor
-        int j = (7 + dayOffset - startingWeekDay)%7;
-        for (int i = 0 ; i < weekHeaderIds.length ; i++) {
+        int j = (7 + dayOffset - startingWeekDay) % 7;
+        for (int i = 0; i < weekHeaderIds.length; i++) {
             TextView tv = view.findViewById(weekHeaderIds[i]);
             tv.setText(weekHeaderTexts[i]);
             tv.setAllCaps(true);
@@ -346,8 +395,7 @@ public class CalendarView extends FrameLayout {
             if (i != j) {
                 tv.setTextColor(weekHeaderTextColor);
                 tv.setBackgroundColor(weekHeaderBackgroundColor);
-            }
-            else {
+            } else {
                 tv.setTextColor(weekHeaderOffsetDayTextColor);
                 tv.setBackgroundColor(weekHeaderOffsetDayBackgroundColor);
             }
@@ -361,12 +409,10 @@ public class CalendarView extends FrameLayout {
         if (position == 0) {
             changeVisibility(ivPrevious, View.INVISIBLE);
             changeVisibility(ivNext, View.VISIBLE);
-        }
-        else if (position == mCalendarPagerAdapter.getCount() - 1) {
+        } else if (position == mCalendarPagerAdapter.getCount() - 1) {
             changeVisibility(ivPrevious, View.VISIBLE);
             changeVisibility(ivNext, View.INVISIBLE);
-        }
-        else {
+        } else {
             changeVisibility(ivPrevious, View.VISIBLE);
             changeVisibility(ivNext, View.VISIBLE);
         }
@@ -379,7 +425,7 @@ public class CalendarView extends FrameLayout {
             Collections.sort(mObjectsByMonthMap.get(dateCode), new Comparator<CalendarObject>() {
                 @Override
                 public int compare(CalendarObject o1, CalendarObject o2) {
-                    return o1.getDatetime().after(o2.getDatetime())? 1 : -1;
+                    return o1.getDatetime().after(o2.getDatetime()) ? 1 : -1;
                 }
             });
         } else {
@@ -400,19 +446,6 @@ public class CalendarView extends FrameLayout {
         }
     }
 
-    private static int getDateCode(Calendar c, int type) {
-        return getDateCode(new YMDCalendar(c), type);
-    }
-
-    private static int getDateCode(YMDCalendar c, int type) {
-        if (type == 1)
-            return c.year * 100 + c.month;
-        else if (type == 2)
-            return c.month * 100 + c.day;
-        else
-            return -1;
-    }
-
     @Override
     public void invalidate() {
         mCalendarPagerAdapter.notifyDataSetChanged();
@@ -420,15 +453,319 @@ public class CalendarView extends FrameLayout {
         super.invalidate();
     }
 
-    private class CalendarPagerAdapter extends PagerAdapter {
+    public interface OnItemClickListener {
+        void onItemClicked(List<CalendarObject> calendarObjects, Calendar previousDate, Calendar selectedDate);
+    }
 
+    public interface OnMonthChangedListener {
+        void onMonthChanged(int month, int year);
+    }
+
+    public static class CalendarObject {
+
+        private String mID;
+        private Calendar mDatetime;
+        private int mPrimaryColor;
+        private String mTitle;
+        private String mtype;
+        private int mSecondaryColor;
+        public CalendarObject(String id, Calendar datetime, int primaryColor, int secondaryColor, String title, String type) {
+            mID = id;
+            mDatetime = datetime;
+            mPrimaryColor = primaryColor;
+            mSecondaryColor = secondaryColor;
+            mtype = type;
+            mTitle = title;
+        }
+
+        public String getMtype() {
+            return mtype;
+        }
+
+        public String getmTitle() {
+            return mTitle;
+        }
+
+        public String getID() {
+            return mID;
+        }
+
+        public Calendar getDatetime() {
+            return mDatetime;
+        }
+
+        public int getPrimaryColor() {
+            return mPrimaryColor;
+        }
+
+        public int getSecondaryColor() {
+            return mSecondaryColor;
+        }
+    }
+
+    public static class CalendarViewPager extends ViewPager {
+
+        @SuppressWarnings("unused")
         private final String TAG = getClass().getSimpleName();
+
+        private FixedSpeedScroller mScroller = null;
+
+        public CalendarViewPager(Context context) {
+            super(context);
+            init();
+        }
+
+        public CalendarViewPager(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init();
+        }
+
+        private void init() {
+            try {
+                Class<?> viewpager = ViewPager.class;
+                Field scroller = viewpager.getDeclaredField("mScroller");
+                scroller.setAccessible(true);
+                mScroller = new FixedSpeedScroller(getContext(),
+                        new DecelerateInterpolator());
+                scroller.set(this, mScroller);
+            } catch (Exception ignored) {
+            }
+        }
+
+        @SuppressWarnings("unused")
+        public void setScrollDuration(int duration) {
+            mScroller.setScrollDuration(duration);
+        }
+
+        /*@Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int mode = MeasureSpec.getMode(heightMeasureSpec);
+            // Unspecified means that the ViewPager is in a ScrollView WRAP_CONTENT.
+            // At Most means that the ViewPager is not in a ScrollView WRAP_CONTENT.
+            if (mode == MeasureSpec.UNSPECIFIED || mode == MeasureSpec.AT_MOST) {
+                // super has to be called in the beginning so the child views can be initialized.
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+                int height = 0;
+                for (int i = 0; i < getChildCount(); i++) {
+                    View child = getChildAt(i);
+                    child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+                    int h = child.getMeasuredHeight();
+                    if (h > height) height = h;
+                }
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+            }
+            // super has to be called again so the new specs are treated as exact measurements
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }/**/
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+
+            int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+            if (heightMode == MeasureSpec.EXACTLY) {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+                return;
+            }
+            int height = 0;
+            for (int i = 0; i < getChildCount(); i++) {
+                View child = getChildAt(i);
+                child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+                int h = child.getMeasuredHeight();
+                if (h > height) height = h;
+            }
+
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+
+        @Override
+        protected void onPageScrolled(int position, float offset, int offsetPixels) {
+            if (getAdapter() != null && offsetPixels == 0)
+                ((CalendarPagerAdapter) getAdapter()).pageCurrentlyBeingCompletelyShown(position);
+            super.onPageScrolled(position, offset, offsetPixels);
+        }
+
+        private class FixedSpeedScroller extends Scroller {
+            private int mDuration = 500;
+
+            FixedSpeedScroller(Context context, Interpolator interpolator) {
+                super(context, interpolator);
+            }
+
+            @Override
+            public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+                // Ignore received duration, use fixed one instead
+                super.startScroll(startX, startY, dx, dy, mDuration);
+            }
+
+            @Override
+            public void startScroll(int startX, int startY, int dx, int dy) {
+                // Ignore received duration, use fixed one instead
+                super.startScroll(startX, startY, dx, dy, mDuration);
+            }
+
+            void setScrollDuration(int duration) {
+                mDuration = duration;
+            }
+        }
+    }
+
+    //
+    // Utilities
+    //
+
+    public static class Builder {
+
+        private final CalenderViewParams P;
+
+        public Builder(Context context) {
+            P = new CalenderViewParams(context);
+        }
+
+        public Builder setWeekHeaderBackgroundColor(int color) {
+            P.weekHeaderBackgroundColor = color;
+            return this;
+        }
+
+        public Builder setWeekHeaderOffsetDayBackgroundColor(int color) {
+            P.weekHeaderOffsetDayBackgroundColor = color;
+            return this;
+        }
+
+        public Builder setCurrentDayTextColor(int color) {
+            P.currentDayTextColor = color;
+            return this;
+        }
+
+        public Builder setSelectedItemBorderColor(int color) {
+            P.selectedItemBorderColor = color;
+            return this;
+        }
+
+        public Builder setDayItemTextColor(int color) {
+            P.dayItemTextColor = color;
+            return this;
+        }
+
+        public Builder setMonthHeaderTextColor(int color) {
+            P.monthHeaderTextColor = color;
+            return this;
+        }
+
+        public Builder setMonthArrowsColor(int color) {
+            P.monthArrowsColor = color;
+            return this;
+        }
+
+        public Builder setDayItemSelectedTextColor(int color) {
+            P.dayItemSelectedTextColor = color;
+            return this;
+        }
+
+        public Builder setEventList(List<CalendarObject> calendarEventList) {
+            P.calendarObjectList = calendarEventList;
+            return this;
+        }
+
+        public Builder setOnItemClickedListener(OnItemClickListener onItemClickListener) {
+            P.onItemClickListener = onItemClickListener;
+            return this;
+        }
+
+        public CalendarView create() {
+            CalendarView calendarView = new CalendarView(P.mContext);
+
+            P.apply(calendarView.mAttributes);
+
+            calendarView.setOnItemClickedListener(P.onItemClickListener);
+            calendarView.setCalendarObjectList(P.calendarObjectList);
+
+            return calendarView;
+        }
+    }
+
+    private static class CalenderViewParams {
+
+        Context mContext;
+        List<CalendarObject> calendarObjectList;
+        OnItemClickListener onItemClickListener;
+
+        // Attributes
+        int weekHeaderBackgroundColor;
+        int weekHeaderOffsetDayBackgroundColor;
+        int currentDayTextColor;
+        int selectedItemBorderColor;
+        int dayItemSelectedTextColor;
+        int dayItemTextColor;
+        int monthHeaderTextColor;
+        int monthArrowsColor;
+
+        CalenderViewParams(Context context) {
+            mContext = context;
+        }
+
+        void apply(SparseIntArray attributes) {
+            attributes.put(Attr.weekHeaderBackgroundColor, weekHeaderBackgroundColor);
+            attributes.put(Attr.weekHeaderOffsetDayBackgroundColor, weekHeaderOffsetDayBackgroundColor);
+            attributes.put(Attr.currentDayTextColor, currentDayTextColor);
+            attributes.put(Attr.selectedDayBorderColor, selectedItemBorderColor);
+            if (attributes.get(Attr.selectedDayTextColor) == attributes.get(Attr.dayTextColor))
+                attributes.put(Attr.selectedDayTextColor, dayItemTextColor);
+            attributes.put(Attr.selectedDayTextColor, dayItemSelectedTextColor);
+            attributes.put(Attr.dayTextColor, dayItemTextColor);
+            attributes.put(Attr.monthHeaderTextColor, monthHeaderTextColor);
+            attributes.put(Attr.monthHeaderArrowsColor, monthArrowsColor);
+
+        }
+    }
+
+    private static class Attr {
+        static final int dayOffset = 1;
+        static final int startingWeekDay = 2;
+
+        static final int monthHeaderBackgroundColor = 16;
+        static final int monthHeaderTextColor = 17;
+        static final int monthHeaderArrowsColor = 22;
+        static final int monthHeaderShow = 23;
+
+        static final int weekHeaderBackgroundColor = 18;
+        static final int weekHeaderTextColor = 19;
+        static final int weekHeaderOffsetDayBackgroundColor = 20;
+        static final int weekHeaderOffsetDayTextColor = 21;
+        static final int weekHeaderMovable = 24;
+
+        static final int contentBackgroundColor = 4;
+
+        static final int dayTextColor = 5;
+        static final int dayBackgroundColor = 6;
+
+        static final int currentDayTextColor = 7;
+        static final int currentDayTextStyle = 3;
+        static final int currentDayBackgroundColor = 8;
+        static final int currentDayCircleEnable = 9;
+        static final int currentDayCircleColor = 10;
+
+        static final int offsetDayTextColor = 11;
+        static final int offsetDayBackgroundColor = 12;
+
+        static final int selectedDayTextColor = 13;
+        static final int selectedDayBackgroundColor = 14;
+        static final int selectedDayBorderColor = 15;
+    }
+
+    private class CalendarPagerAdapter extends PagerAdapter {
 
         static final int PREVIOUS_MONTH = -1;
         static final int THIS_MONTH = 0;
         static final int NEXT_MONTH = 1;
-
-        private final int[] dayViewIDs = new int[] {
+        private final String TAG = getClass().getSimpleName();
+        private final int[] dayViewIDs = new int[]{
                 R.id.day_item_1_1, R.id.day_item_1_2, R.id.day_item_1_3, R.id.day_item_1_4,
                 R.id.day_item_1_5, R.id.day_item_1_6, R.id.day_item_1_7,
 
@@ -472,8 +809,8 @@ public class CalendarView extends FrameLayout {
             // Total number of pages (between min and max date)
             NUMBER_OF_PAGES =
                     mMaxDate.month - mMinDate.month +
-                    12 * (mMaxDate.year - mMinDate.year) +
-                    1;
+                            12 * (mMaxDate.year - mMinDate.year) +
+                            1;
 
             // Total number of pages (between min and max date)
             int diffYear = mSelectedDate.year - mMinDate.year;
@@ -536,13 +873,13 @@ public class CalendarView extends FrameLayout {
             SparseArray<List<CalendarObject>> mObjectsByDayMap = getCalendarObjectsOfMonthByDay(month);
 
             List<CalendarObject> emptyEventList = new ArrayList<>();
-            for (int i = 0 ; i < dayList.size() ; i++) {
+            for (int i = 0; i < dayList.size(); i++) {
                 YMDCalendar day = dayList.get(i);
                 onBindView(i,
-                           month,
-                           day,
-                           mObjectsByDayMap.get(getDateCode(day, 2), emptyEventList),
-                           viewList.get(i));
+                        month,
+                        day,
+                        mObjectsByDayMap.get(getDateCode(day, 2), emptyEventList),
+                        viewList.get(i));
             }
 
             mInstantiatedMonthViewList.put(getDateCode(month, 1), view);
@@ -556,20 +893,43 @@ public class CalendarView extends FrameLayout {
 
             FrameLinearLayout container = (FrameLinearLayout) view;
             SelectedTextView tvDay = view.findViewById(R.id.tv_calendar_day);
-            MultipleTriangleView vNotes = view.findViewById(R.id.v_notes);
+            TextView vNotes = view.findViewById(R.id.v_notes);
+            TextView vNotesTwo = view.findViewById(R.id.v_notesTwo);
+            TextView vNotesThree = view.findViewById(R.id.v_notesThree);
 
             // Set Notes
-            vNotes.setColor(Color.TRANSPARENT);
-            vNotes.setTriangleBackgroundColor(Color.TRANSPARENT);
-            int i = 0;
-            for (CalendarObject c : calendarObjectList) {
-                vNotes.setColor(i, c.getSecondaryColor());
-                vNotes.setTriangleBackgroundColor(i, c.getPrimaryColor());
+//            vNotes.setColor(Color.TRANSPARENT);
+//            vNotes.setTriangleBackgroundColor(Color.TRANSPARENT);
+//            int i = 0;
+//            for (CalendarObject c : calendarObjectList) {
+////                vNotes.setColor(i, c.getSecondaryColor());
+//                vNotes.setText( c.getmTitle());
+//
+//                i++;
+////                if (i == vNotes.g)
+////                    break;
+//            }
+            for (int i = 0; i < calendarObjectList.size(); i++) {
 
-                i++;
-                if (i == vNotes.getNumberOfItems())
+                if (i == 0) {
+                    vNotes.setText(calendarObjectList.get(i).getmTitle());
+                    setBackground(vNotes,calendarObjectList.get(i).getMtype());
+//                    vNotes.setBackgroundColor(calendarObjectList.get(i).getPrimaryColor());
+                } else if (i == 1) {
+                    vNotesTwo.setText(calendarObjectList.get(i).getmTitle());
+                    setBackground(vNotesTwo,calendarObjectList.get(i).getMtype());
+
+//                    vNotesTwo.setBackgroundColor(calendarObjectList.get(i).getPrimaryColor());
+                } else if (i == 2) {
+                    vNotesThree.setText(calendarObjectList.get(i).getmTitle());
+                    setBackground(vNotesThree,calendarObjectList.get(i).getMtype());
+
+//                    vNotesThree.setBackgroundColor(calendarObjectList.get(i).getPrimaryColor());
+                } else {
                     break;
+                }
             }
+
 
             // Set day TextView (default)
             tvDay.setText(String.valueOf(day.day));
@@ -621,8 +981,7 @@ public class CalendarView extends FrameLayout {
 
             if (day.isBefore(mMinDate)) {
                 container.setOnClickListener(null);
-            }
-            else {
+            } else {
                 container.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -666,7 +1025,17 @@ public class CalendarView extends FrameLayout {
             month.add(Calendar.MONTH, position - mInitialPage);
             return new YMDCalendar(month);
         }
-
+        private void setBackground(TextView textView,String type){
+            if (type.equalsIgnoreCase("session")){
+                textView.setBackground(getResources().getDrawable(R.drawable.session_tv_backround));
+            }
+            if (type.equalsIgnoreCase("space")){
+                textView.setBackground(getResources().getDrawable(R.drawable.space_tv_background));
+            }
+            if (type.equalsIgnoreCase("event")){
+                textView.setBackground(getResources().getDrawable(R.drawable.event_tv_background));
+            }
+        }
         private int isFirstFromSameMonth(YMDCalendar ymdCalendarFirst, YMDCalendar ymdCalendar) {
             int h1 = getDateCode(ymdCalendarFirst, 1);
             int h2 = getDateCode(ymdCalendar, 1);
@@ -723,7 +1092,7 @@ public class CalendarView extends FrameLayout {
 
             // Adjust for Start WeekDay of Calendar
             firstWeekDayOfMonth = firstWeekDayOfMonth - mAttributes.get(Attr.startingWeekDay);
-            firstWeekDayOfMonth = (firstWeekDayOfMonth + 6)%7 + 1;
+            firstWeekDayOfMonth = (firstWeekDayOfMonth + 6) % 7 + 1;
 
             // Previous month maximum day
             Calendar prevMonth = (Calendar) month.clone();
@@ -741,7 +1110,7 @@ public class CalendarView extends FrameLayout {
             // Filling Calendar GridView.
             int n = 1;
             List<YMDCalendar> daysList = new ArrayList<>();
-            while (n <= NUMBER_OF_DAYS ) {
+            while (n <= NUMBER_OF_DAYS) {
                 daysList.add(new YMDCalendar(prevMonth));
 
                 // Next day
@@ -754,7 +1123,7 @@ public class CalendarView extends FrameLayout {
         private int getDayViewPositionInMonthView(Calendar month, YMDCalendar day) {
             List<YMDCalendar> dayList = getDayList(month);
             int position = -1;
-            for (int i = 0 ; i < dayList.size() ; i++)
+            for (int i = 0; i < dayList.size(); i++)
                 if (getDateCode(dayList.get(i), 2) == getDateCode(day, 2)) {
                     position = i;
                     break;
@@ -784,7 +1153,7 @@ public class CalendarView extends FrameLayout {
             List<View> dayViewList = new ArrayList<>();
 
             for (int id : dayViewIDs)
-                    dayViewList.add(monthView.findViewById(id));
+                dayViewList.add(monthView.findViewById(id));
 
             return dayViewList;
         }
@@ -857,7 +1226,7 @@ public class CalendarView extends FrameLayout {
             updateViewDay(mSelectedDate);
 
             int year = mMinDate.year + mCurrentPage / 12;
-            int month = mCurrentPage %12 - mMinDate.month;
+            int month = mCurrentPage % 12 - mMinDate.month;
 
             int isFromThisMonth = isFirstFromSameMonth(mSelectedDate, new YMDCalendar(10, month, year));
             if (isFromThisMonth != THIS_MONTH) {
@@ -882,340 +1251,5 @@ public class CalendarView extends FrameLayout {
                 this.container = container;
             }
         }
-    }
-
-    public static class CalendarObject {
-
-        private String mID;
-        private Calendar mDatetime;
-        private int mPrimaryColor;
-        private int mSecondaryColor;
-
-        public CalendarObject(String id, Calendar datetime, int primaryColor, int secondaryColor) {
-            mID = id;
-            mDatetime = datetime;
-            mPrimaryColor = primaryColor;
-            mSecondaryColor = secondaryColor;
-        }
-
-        public String getID() {
-            return mID;
-        }
-
-        public Calendar getDatetime() {
-            return mDatetime;
-        }
-
-        public int getPrimaryColor() {
-            return mPrimaryColor;
-        }
-
-        public int getSecondaryColor() {
-            return mSecondaryColor;
-        }
-    }
-
-    public static class CalendarViewPager extends ViewPager {
-
-        @SuppressWarnings("unused") private final String TAG = getClass().getSimpleName();
-
-        private FixedSpeedScroller mScroller = null;
-
-        public CalendarViewPager(Context context) {
-            super(context);
-            init();
-        }
-
-        public CalendarViewPager(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            init();
-        }
-
-        private void init() {
-            try {
-                Class<?> viewpager = ViewPager.class;
-                Field scroller = viewpager.getDeclaredField("mScroller");
-                scroller.setAccessible(true);
-                mScroller = new FixedSpeedScroller(getContext(),
-                        new DecelerateInterpolator());
-                scroller.set(this, mScroller);
-            } catch (Exception ignored) {
-            }
-        }
-
-        @SuppressWarnings("unused")
-        public void setScrollDuration(int duration) {
-            mScroller.setScrollDuration(duration);
-        }
-
-        /*@Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            int mode = MeasureSpec.getMode(heightMeasureSpec);
-            // Unspecified means that the ViewPager is in a ScrollView WRAP_CONTENT.
-            // At Most means that the ViewPager is not in a ScrollView WRAP_CONTENT.
-            if (mode == MeasureSpec.UNSPECIFIED || mode == MeasureSpec.AT_MOST) {
-                // super has to be called in the beginning so the child views can be initialized.
-                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-                int height = 0;
-                for (int i = 0; i < getChildCount(); i++) {
-                    View child = getChildAt(i);
-                    child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                    int h = child.getMeasuredHeight();
-                    if (h > height) height = h;
-                }
-                heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-            }
-            // super has to be called again so the new specs are treated as exact measurements
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }/**/
-
-        @Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-
-
-            int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-            int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-            int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-
-            if (heightMode == MeasureSpec.EXACTLY) {
-                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-                return;
-            }
-            int height = 0;
-            for(int i = 0; i < getChildCount(); i++) {
-                View child = getChildAt(i);
-                child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                int h = child.getMeasuredHeight();
-                if(h > height) height = h;
-            }
-
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        }
-
-        @Override
-        protected void onPageScrolled(int position, float offset, int offsetPixels) {
-            if (getAdapter() != null && offsetPixels == 0)
-                ((CalendarPagerAdapter) getAdapter()).pageCurrentlyBeingCompletelyShown(position);
-            super.onPageScrolled(position, offset, offsetPixels);
-        }
-
-        private class FixedSpeedScroller extends Scroller {
-            private int mDuration = 500;
-
-            FixedSpeedScroller(Context context, Interpolator interpolator) {
-                super(context, interpolator);
-            }
-
-            @Override
-            public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-                // Ignore received duration, use fixed one instead
-                super.startScroll(startX, startY, dx, dy, mDuration);
-            }
-
-            @Override
-            public void startScroll(int startX, int startY, int dx, int dy) {
-                // Ignore received duration, use fixed one instead
-                super.startScroll(startX, startY, dx, dy, mDuration);
-            }
-
-            void setScrollDuration(int duration) {
-                mDuration = duration;
-            }
-        }
-    }
-
-    public static class Builder  {
-
-        private final CalenderViewParams P;
-
-        public Builder(Context context) {
-            P = new CalenderViewParams(context);
-        }
-
-        public Builder setWeekHeaderBackgroundColor(int color) {
-            P.weekHeaderBackgroundColor = color;
-            return this;
-        }
-
-        public Builder setWeekHeaderOffsetDayBackgroundColor(int color) {
-            P.weekHeaderOffsetDayBackgroundColor = color;
-            return this;
-        }
-
-        public Builder setCurrentDayTextColor(int color) {
-            P.currentDayTextColor = color;
-            return this;
-        }
-
-        public Builder setSelectedItemBorderColor(int color) {
-            P.selectedItemBorderColor = color;
-            return this;
-        }
-
-        public Builder setDayItemTextColor(int color) {
-            P.dayItemTextColor = color;
-            return this;
-        }
-
-        public Builder setMonthHeaderTextColor(int color) {
-            P.monthHeaderTextColor = color;
-            return this;
-        }
-
-        public Builder setMonthArrowsColor(int color) {
-            P.monthArrowsColor = color;
-            return this;
-        }
-
-        public Builder setDayItemSelectedTextColor(int color) {
-            P.dayItemSelectedTextColor = color;
-            return this;
-        }
-
-        public Builder setEventList(List<CalendarObject> calendarEventList) {
-            P.calendarObjectList = calendarEventList;
-            return this;
-        }
-
-        public Builder setOnItemClickedListener(OnItemClickListener onItemClickListener) {
-            P.onItemClickListener = onItemClickListener;
-            return this;
-        }
-
-        public CalendarView create() {
-            CalendarView calendarView = new CalendarView(P.mContext);
-
-            P.apply(calendarView.mAttributes);
-
-            calendarView.setOnItemClickedListener(P.onItemClickListener);
-            calendarView.setCalendarObjectList(P.calendarObjectList);
-
-            return calendarView;
-        }
-    }
-
-    private static class CalenderViewParams  {
-
-        Context mContext;
-        List<CalendarObject> calendarObjectList;
-        OnItemClickListener onItemClickListener;
-
-        // Attributes
-        int weekHeaderBackgroundColor;
-        int weekHeaderOffsetDayBackgroundColor;
-        int currentDayTextColor;
-        int selectedItemBorderColor;
-        int dayItemSelectedTextColor;
-        int dayItemTextColor;
-        int monthHeaderTextColor;
-        int monthArrowsColor;
-
-        CalenderViewParams(Context context) {
-            mContext = context;
-        }
-
-        void apply(SparseIntArray attributes) {
-            attributes.put(Attr.weekHeaderBackgroundColor, weekHeaderBackgroundColor);
-            attributes.put(Attr.weekHeaderOffsetDayBackgroundColor, weekHeaderOffsetDayBackgroundColor);
-            attributes.put(Attr.currentDayTextColor, currentDayTextColor);
-            attributes.put(Attr.selectedDayBorderColor, selectedItemBorderColor);
-            if (attributes.get(Attr.selectedDayTextColor) == attributes.get(Attr.dayTextColor))
-                attributes.put(Attr.selectedDayTextColor, dayItemTextColor);
-            attributes.put(Attr.selectedDayTextColor, dayItemSelectedTextColor);
-            attributes.put(Attr.dayTextColor, dayItemTextColor);
-            attributes.put(Attr.monthHeaderTextColor, monthHeaderTextColor);
-            attributes.put(Attr.monthHeaderArrowsColor, monthArrowsColor);
-
-        }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClicked(List<CalendarObject> calendarObjects, Calendar previousDate, Calendar selectedDate);
-    }
-
-    public interface OnMonthChangedListener {
-        void onMonthChanged(int month, int year);
-    }
-
-    private static class Attr {
-        static final int dayOffset = 1;
-        static final int startingWeekDay = 2;
-
-        static final int monthHeaderBackgroundColor = 16;
-        static final int monthHeaderTextColor = 17;
-        static final int monthHeaderArrowsColor = 22;
-        static final int monthHeaderShow = 23;
-
-        static final int weekHeaderBackgroundColor = 18;
-        static final int weekHeaderTextColor = 19;
-        static final int weekHeaderOffsetDayBackgroundColor = 20;
-        static final int weekHeaderOffsetDayTextColor = 21;
-        static final int weekHeaderMovable = 24;
-
-        static final int contentBackgroundColor = 4;
-
-        static final int dayTextColor = 5;
-        static final int dayBackgroundColor = 6;
-
-        static final int currentDayTextColor = 7;
-        static final int currentDayTextStyle = 3;
-        static final int currentDayBackgroundColor = 8;
-        static final int currentDayCircleEnable = 9;
-        static final int currentDayCircleColor = 10;
-
-        static final int offsetDayTextColor = 11;
-        static final int offsetDayBackgroundColor = 12;
-
-        static final int selectedDayTextColor = 13;
-        static final int selectedDayBackgroundColor = 14;
-        static final int selectedDayBorderColor = 15;
-    }
-
-    //
-    // Utilities
-    //
-
-
-    public static Calendar parseCalendar(String date, String template, Locale locale) {
-        Calendar calendar = Calendar.getInstance(locale);
-        if (date != null && !date.isEmpty()) {
-            java.text.DateFormat DATE_FORMATTER = new SimpleDateFormat(template, locale);
-            try {
-                final Date parsedDate = DATE_FORMATTER.parse(date);
-                calendar.setTime(parsedDate);
-            } catch (ParseException e) {
-                Log.e(TAG, "ParseException: " + e.getMessage());
-            }
-        }
-        return calendar;
-    }
-
-    public static void setImageDrawableColor(ImageView imageView, @ColorInt int color) {
-        Drawable backgroundResource = imageView.getDrawable();
-        if (backgroundResource != null) {
-            backgroundResource.mutate();
-            backgroundResource.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-            imageView.setImageDrawable(backgroundResource);
-        }
-    }
-
-    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor) {
-        final TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(attributeColor, value, true);
-        return value.data;
-    }
-
-    private static String simpleText(String text) {
-        for (int i = 0; i < text.length(); i++) {
-            char charAt = text.charAt(i);
-            if (!Character.isLetter(charAt)) {
-                return text.substring(0, i);
-            }
-        }
-        return text;
     }
 }

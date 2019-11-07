@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_1sdp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false"
+        app:strokeWidth="@dimen/_1sdp"
+
+        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/availableSupplier"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/loginBtnColor"-->
+        <!--android:fontFamily="@font/montserrat_medium"-->
+        <!--android:padding="@dimen/_10sdp"-->
+        <!--android:text="@string/currently_these_supplier_are_available_in_the_section"-->
+        <!--android:textColor="@color/whiteColor"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/titleView" />-->
+
+
+
+
+
+        <TextView
+            android:padding="@dimen/_14sdp"
+            android:id="@+id/txtAvailableSupplier"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colorWhite"
+            android:text="@string/today_schedule"
+            android:background="@color/colorGreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/customeDialogRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_172sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAvailableSupplier"></androidx.recyclerview.widget.RecyclerView>
+
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/yesBtn"-->
+<!--            android:layout_width="@dimen/_96sdp"-->
+<!--            android:layout_height="@dimen/_48sdp"-->
+<!--            android:layout_marginStart="@dimen/_20sdp"-->
+<!--            android:layout_marginTop="@dimen/_20sdp"-->
+<!--            android:layout_marginBottom="@dimen/_20sdp"-->
+<!--            android:backgroundTint="@color/greenColor"-->
+<!--            android:fontFamily="@font/montserrat_semibold"-->
+<!--            android:text="@string/yes"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/whiteColor"-->
+<!--            app:cornerRadius="@dimen/_8sdp"-->
+<!--            android:textSize="@dimen/_16sdp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/customeDialogRecycler" />-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/closeBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/_96sdp"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:backgroundTint="@color/colorGreen"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/close"
+            android:textSize="@dimen/_16sdp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:cornerRadius="@dimen/_8sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customeDialogRecycler" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>

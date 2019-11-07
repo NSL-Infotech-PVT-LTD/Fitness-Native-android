@@ -388,4 +388,7 @@
     <string name="update_profile">Update Profile</string>
     <string name="update">Update</string>
     <string name="enter_your_achievements_details_demo">Soccer coach at Manchester club \n Gold medalist in soccer</string>
+    <string name="today_schedule">Today schedule</string>
+    <string name="close">Close</string>
+    <string name="event_type">Type</string>
 </resources>

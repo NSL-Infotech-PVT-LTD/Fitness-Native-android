@@ -6,18 +6,29 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.all.All;
+import com.facebook.internal.Utility;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.netscape.utrain.R;
+import com.netscape.utrain.adapters.CalendarEventListAdapter;
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -30,10 +41,16 @@ import com.netscape.utrain.utils.Event;
 import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,8 +63,10 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
     private String[] mShortMonths;
     private CalendarView mCalendarView;
     private CalendarDialog mCalendarDialog;
+    private int colour1;
+    private int colour2;
 
-    private List<AllBookingListModel.DataBeanX> mEventList = new ArrayList<>();
+    List<AllBookingListModel.DataBeanX.DataBean>  mEventList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
 
@@ -95,6 +114,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         mShortMonths = new DateFormatSymbols().getShortMonths();
 
         initializeUI();
+        getBookingList();
     }
 
     private void initializeUI() {
@@ -109,7 +129,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getTopOrgaNization();
+
 
         mCalendarView = findViewById(R.id.calendarView);
         mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
@@ -128,7 +148,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                       Calendar selectedDate) {
 //                if (calendarObjects.size() != 0) {
                 mCalendarDialog.setSelectedDate(selectedDate);
-                mCalendarDialog.show();
+//                mCalendarDialog.show();
+                displaySupplierList(calendarObjects);
             }
 //                else {
 //                    if (diffYMD(previousDate, selectedDate) == 0)
@@ -137,9 +158,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //            }
         });
 
-        for (AllBookingListModel.DataBeanX e : mEventList) {
-//            mCalendarView.addCalendarObject(parseCalendarObject(e));
-        }
+
 
         if (getSupportActionBar() != null) {
             int month = mCalendarView.getCurrentDate().get(Calendar.MONTH);
@@ -148,20 +167,14 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
             getSupportActionBar().setSubtitle(Integer.toString(year));
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                createEvent(mCalendarView.getSelectedDate());
-            }
-        });
+
 
         mCalendarDialog = CalendarDialog.Builder.instance(this)
                 .setEventList(mEventList)
                 .setOnItemClickListener(new CalendarDialog.OnCalendarDialogListener() {
                     @Override
-                    public void onEventClick(AllBookingListModel.DataBeanX event) {
-                        // onEventSelected(event);
+                    public void onEventClick(AllBookingListModel.DataBeanX.DataBean event) {
+//                         onEventSelected(event);
                     }
 
                     @Override
@@ -178,18 +191,95 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
         return true;
     }
+    public void displaySupplierList(List<CalendarView.CalendarObject> calendarObjects) {
+        RecyclerView mRecyclerView;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        final View content = inflater.inflate(R.layout.calander_item_list_dialog_view, null);
+        builder.setView(content);
+        mRecyclerView = (RecyclerView) content.findViewById(R.id.customeDialogRecycler);
+        MaterialButton noBtn = (MaterialButton) content.findViewById(R.id.closeBtn);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final CalendarEventListAdapter adapter = new CalendarEventListAdapter(this, calendarObjects);
+        mRecyclerView.setAdapter(adapter);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        // Change the alert dialog background color
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+//        dialog.show();
+    }
 
-    private void getTopOrgaNization() {
+    private void getBookingList() {
         progressDialog.show();
-        Call<AllBookingListModel> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE,"");
+        Call<AllBookingListModel> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
         call.enqueue(new Callback<AllBookingListModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<AllBookingListModel> call, Response<AllBookingListModel> response) {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().getData().size() > 0) {
-                            mEventList.add(response.body().getData());
+                        mEventList  = response.body().getData().getData();
+                        if (mEventList.size() > 0) {
+
+                            for (AllBookingListModel.DataBeanX.DataBean e : mEventList) {
+                                String type=e.getType();
+                                if (e.getType().equalsIgnoreCase("event")){
+                                     colour1=Color.GREEN;
+                                     colour2=Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("session")){
+                                    colour1=Color.RED;
+                                    colour2=Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("space")){
+                                    colour1=Color.BLUE;
+                                    colour2=Color.BLACK;
+                                }
+                                String startDate = e.getTarget_data().getStart_date();
+                                String endDate = e.getTarget_data().getEnd_date();
+                                try {
+
+                                    Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1,date2);
+                                    Log.e("","list"+ list);
+                                    if (list.size() > 0){
+                                        for (Date date : list){
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(date);
+                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                    e.getId()+"",
+                                                    calendar,
+                                                    colour1,colour2,e.getTarget_data().getName(),type));
+                                        }
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                e.getId()+"",
+                                                calendar,
+                                                colour1,colour2,e.getTarget_data().getName(),type));
+                                    }else {
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                e.getId()+"",
+                                                calendar,
+                                                colour1,colour2,e.getTarget_data().getName(),type));
+                                    }
+                                } catch (ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
                         } else {
                         }
                     }
@@ -203,6 +293,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<AllBookingListModel> call, Throwable t) {
                 progressDialog.dismiss();
@@ -212,7 +303,13 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
 
     }
-
+//    private static CalendarView.CalendarObject parseCalendarObject(AllBookingListModel.DataBeanX e) {
+//        return new CalendarView.CalendarObject(
+//                event.getID(),
+//                event.getDate(),
+//                event.getTitle(),
+//                event.isCompleted() ? Color.TRANSPARENT : Color.RED);
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -232,11 +329,11 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //                int action = CreateEventActivity.extractActionFromIntent(data);
 //                Event event = CreateEventActivity.extractEventFromIntent(data);
                 AllBookingListModel.DataBeanX oldEvent = null;
-                for (AllBookingListModel.DataBeanX e : mEventList) {
-                    if (Objects.equals(e.getData().get(0).getId(), e.getData().get(0).getId())) {
-                        oldEvent = e;
-                        break;
-                    }
+                for (AllBookingListModel.DataBeanX.DataBean e : mEventList) {
+//                    if (Objects.equals(e.getData().get(0).getId(), e.getData().get(0).getId())) {
+//                        oldEvent = e;
+//                        break;
+//                    }
                 }
 //                switch (action) {
 //                    case CreateEventActivity.ACTION_CREATE: {

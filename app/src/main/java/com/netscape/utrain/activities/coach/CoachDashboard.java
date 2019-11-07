@@ -53,8 +53,7 @@ public class CoachDashboard extends AppCompatActivity {
         orgNavView = findViewById(R.id.orgNavView);
         coachDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                binding.orgdrawerLayout.openDrawer(GravityCompat.START);
+            public void onClick(View view) { binding.orgdrawerLayout.openDrawer(GravityCompat.START);
 
             }
         });

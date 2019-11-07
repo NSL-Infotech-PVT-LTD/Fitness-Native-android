@@ -336,8 +336,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
                     }
                 }
-
-
             }
 
             @Override

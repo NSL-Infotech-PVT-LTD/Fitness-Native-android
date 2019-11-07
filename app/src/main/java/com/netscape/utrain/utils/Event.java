@@ -13,16 +13,26 @@ public class Event implements Parcelable {
 
     private String mID;
     private String mTitle;
+    private String mType;
     private Calendar mDate;
     private int mColor;
-    private boolean isCompleted;
 
-    public Event(String id, String title, Calendar date, int color, boolean isCompleted) {
+
+    public Event(String id, String title, Calendar date, int color, String type) {
         mID = id;
         mTitle = title;
+        mType = type;
         mDate = date;
         mColor = color;
-        this.isCompleted = isCompleted;
+
+    }
+
+    public String getmType() {
+        return mType;
+    }
+
+    public void setmType(String mType) {
+        this.mType = mType;
     }
 
     public String getID() {
@@ -41,25 +51,25 @@ public class Event implements Parcelable {
         return mColor;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
+
 
     protected Event(Parcel in) {
         mID = in.readString();
         mTitle = in.readString();
+        mType = in.readString();
         mColor = in.readInt();
         mDate = (Calendar) in.readSerializable();
-        isCompleted = in.readByte() != 0;
+
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mID);
         dest.writeString(mTitle);
+        dest.writeString(mType);
         dest.writeInt(mColor);
         dest.writeSerializable(mDate);
-        dest.writeByte((byte) (isCompleted ? 1 : 0));
+
     }
 
     @Override

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomsheet_list"
@@ -183,7 +182,7 @@
             app:layout_constraintTop_toBottomOf="@id/view3" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/notificationTv"
+            android:id="@+id/calenderTv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
