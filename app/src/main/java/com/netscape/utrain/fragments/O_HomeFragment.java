@@ -69,10 +69,14 @@ import static com.netscape.utrain.activities.PortfolioActivity.clearFromConstant
  */
 public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     private OrgFragmentHomeBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-//    private MaterialButton orglogOutTv;
+    //    private MaterialButton orglogOutTv;
     private View view;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
@@ -80,25 +84,12 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     private RecyclerView.LayoutManager layoutManager;
     private Ath_PlaceRecyclerAdapter adapter;
     private Context context;
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
 
     private OnFragmentInteractionListener mListener;
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     public O_HomeFragment() {
         // Required empty public constructor
@@ -123,6 +114,12 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -136,14 +133,14 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= DataBindingUtil.inflate(inflater,R.layout.org_fragment_home,container,false);
-        view=binding.getRoot();
-        binding.orgWelcomeOrgName.setText("Welcome "+CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,getContext()));
+        binding = DataBindingUtil.inflate(inflater, R.layout.org_fragment_home, container, false);
+        view = binding.getRoot();
+        binding.orgWelcomeOrgName.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, getContext()));
 
 //        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
-        progressDialog=new ProgressDialog(getContext());
-        retrofitinterface=RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false){
+        progressDialog = new ProgressDialog(getContext());
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return true;
@@ -152,18 +149,19 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
 
         getSpaceList();
-        String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context);
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
-//        Glide.with(context).load(path).into(binding.orgProfileImage);
+        String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
+//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.orgProfileImage);
+        Glide.with(context).load(path).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
 //        binding.orglogOutTv.setOnClickListener(this);
+
+        binding.bioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO,context));
+
         return view;
-
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -192,7 +190,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 //            case R.id.orglogOutTv:
 //                LoginManager.getInstance().logOut();
 //                CommonMethods.clearPrefData(getContext());
@@ -217,10 +215,68 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.orgViewAllSpaces:
                 Intent viewAll = new Intent(getContext(), AllEventsMapAct.class);
-                viewAll.putExtra("from","3");
+                viewAll.putExtra("from", "3");
                 getContext().startActivity(viewAll);
                 break;
         }
+    }
+
+    private void getSpaceList() {
+        progressDialog.show();
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low", "");
+        signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
+            @Override
+            public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            listModels.clear();
+                            listModels.addAll(response.body().getData().getData());
+                            if (listModels != null && listModels.size() > 0) {
+                                binding.noSpaceOrgImg.setVisibility(View.GONE);
+                                binding.orgViewAllSpaces.setVisibility(View.VISIBLE);
+                                adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
+                                binding.orgSpaceRecyclerView.setAdapter(adapter);
+                            } else {
+                                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                                binding.orgViewAllSpaces.setVisibility(View.GONE);
+                            }
+                        }
+                    } else {
+                        Snackbar.make(binding.orgHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                        binding.orgViewAllSpaces.setVisibility(View.GONE);
+
+                    }
+                } else {
+                    binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                    binding.orgViewAllSpaces.setVisibility(View.GONE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.orgHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+
+
+                        Snackbar.make(binding.orgHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
+                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
+                binding.orgViewAllSpaces.setVisibility(View.GONE);
+
+                progressDialog.dismiss();
+                Snackbar.make(binding.orgHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     /**
@@ -237,6 +293,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -265,63 +322,5 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
             return mFragmentTitleList.get(position);
         }
-    }
-
-    private void getSpaceList() {
-        progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "","5","price_low","");
-        signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
-            @Override
-            public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
-                if (response.isSuccessful()) {
-                    progressDialog.dismiss();
-                    if (response.body().isStatus()) {
-                        if (response.body().getData() != null) {
-                            listModels.clear();
-                            listModels.addAll(response.body().getData().getData());
-                                if (listModels!=null && listModels.size()>0) {
-                                binding.noSpaceOrgImg.setVisibility(View.GONE);
-                                binding.orgViewAllSpaces.setVisibility(View.VISIBLE);
-                                adapter = new Ath_PlaceRecyclerAdapter(getContext(), listModels);
-                                binding.orgSpaceRecyclerView.setAdapter(adapter);
-                            }else {
-                                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
-                                binding.orgViewAllSpaces.setVisibility(View.GONE);
-                            }
-                        }
-                    } else {
-                        Snackbar.make(binding.orgHomeLayout,response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                        binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
-                        binding.orgViewAllSpaces.setVisibility(View.GONE);
-
-                    }
-                } else {
-                    binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
-                    binding.orgViewAllSpaces.setVisibility(View.GONE);
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.orgHomeLayout,errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-
-                    } catch (Exception e) {
-
-
-                        Snackbar.make(binding.orgHomeLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
-                binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
-                binding.orgViewAllSpaces.setVisibility(View.GONE);
-
-                progressDialog.dismiss();
-                Snackbar.make(binding.orgHomeLayout,getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-
-            }
-        });
     }
 }

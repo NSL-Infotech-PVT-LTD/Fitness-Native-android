@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/createEvent_eventImg"
+            android:id="@+id/ceEventImg"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_15sdp"
@@ -46,12 +46,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="@dimen/_240sdp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
             android:textSize="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
+            app:layout_constraintRight_toLeftOf="@+id/ceEventImg"
             app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
 
         <androidx.constraintlayout.widget.Guideline

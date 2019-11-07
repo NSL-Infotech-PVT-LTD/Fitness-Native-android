@@ -36,129 +36,13 @@
             app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:id="@+id/cDashProImage"-->
-<!--            android:layout_width="@dimen/_50sdp"-->
-<!--            android:layout_height="@dimen/_50sdp"-->
-<!--            android:src="@drawable/sophie"-->
-<!--            app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cProfileImgCard"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:padding="@dimen/_1sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/cDashProImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_place_holder"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@id/cProfileImgCard"
-            app:layout_constraintLeft_toRightOf="@id/cProfileImgCard"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cProfileImgCard">
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cSportsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Sports"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cSportsNameTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_35sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:maxLines="2"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toTopOf="@id/cExperienceDBoard"
-                app:layout_constraintLeft_toRightOf="@id/cSportsText"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/cSportsText" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cExperienceDBoard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Experience"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cSportsNameTv" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cExpDetailTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:maxLines="2"
-                android:text=""
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toTopOf="@id/cAchieveDBoard"
-                app:layout_constraintLeft_toLeftOf="@id/cSportsNameTv"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/cExperienceDBoard" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cAchieveDBoard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Achievements"
-                android:textSize="@dimen/_8sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cExpDetailTv" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cAchieveDetailTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:fontFamily="@font/poppins_regular"
-                android:inputType="textMultiLine"
-                android:maxLength="50"
-                android:maxLines="3"
-                android:text=""
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/cSportsNameTv"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/cAchieveDBoard" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--            android:id="@+id/cDashProImage"-->
+        <!--            android:layout_width="@dimen/_50sdp"-->
+        <!--            android:layout_height="@dimen/_50sdp"-->
+        <!--            android:src="@drawable/sophie"-->
+        <!--            app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <!--        <com.google.android.material.button.MaterialButton-->
@@ -180,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.32" />
+            app:layout_constraintGuide_percent="0.07" />
 
         <ScrollView
             android:id="@+id/scroll"
@@ -211,6 +95,122 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="@dimen/_10sdp" />
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cProfileImgCard"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_1sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/cDashProImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_place_holder"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/cProfileImgCard"
+                    app:layout_constraintLeft_toRightOf="@id/cProfileImgCard"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cProfileImgCard">
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cSportsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Sports"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cSportsNameTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_35sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="2"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toTopOf="@id/cExperienceDBoard"
+                        app:layout_constraintLeft_toRightOf="@id/cSportsText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cSportsText" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cExperienceDBoard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Experience"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cSportsNameTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cExpDetailTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="2"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toTopOf="@id/cAchieveDBoard"
+                        app:layout_constraintLeft_toLeftOf="@id/cSportsNameTv"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cExperienceDBoard" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cAchieveDBoard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Achievements"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cExpDetailTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/cAchieveDetailTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="textMultiLine"
+                        android:maxLength="50"
+                        android:maxLines="3"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/cSportsNameTv"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/cAchieveDBoard" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/orgCreateTv"
@@ -224,7 +224,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/cProfileImgCard" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"
