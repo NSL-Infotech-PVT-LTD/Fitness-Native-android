@@ -8,103 +8,86 @@
         android:layout_height="match_parent"
         tools:context=".fragments.O_HomeFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/LeftGuideLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_10sdp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/RightGuideLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_10sdp" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/orgWelcomeOrgName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="@string/welcome_org_name"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--            android:id="@+id/cDashProImage"-->
-        <!--            android:layout_width="@dimen/_50sdp"-->
-        <!--            android:layout_height="@dimen/_50sdp"-->
-        <!--            android:src="@drawable/sophie"-->
-        <!--            app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-
-        <!--        <com.google.android.material.button.MaterialButton-->
-        <!--            android:id="@+id/organizationBtn"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:backgroundTint="@color/gradientDarkColor"-->
-        <!--            android:fontFamily="@font/poppins_regular"-->
-        <!--            android:text="@string/coach"-->
-        <!--            android:textAllCaps="false"-->
-        <!--            android:textColor="@color/colorBlack"-->
-        <!--            android:textSize="@dimen/_8sdp"-->
-        <!--            app:cornerRadius="@dimen/_10sdp"-->
-        <!--            app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName" />-->
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/orgGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.07" />
-
         <ScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_1sdp"
             android:layout_marginRight="@dimen/_1sdp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/orgGuideline">
-
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/innerLeftGuideLine"
+                    android:id="@+id/LeftGuideLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/innerRightGuideLine"
+                    android:id="@+id/RightGuideLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_end="@dimen/_10sdp" />
 
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/orgWelcomeOrgName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/welcome_org_name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+                <!--            android:id="@+id/cDashProImage"-->
+                <!--            android:layout_width="@dimen/_50sdp"-->
+                <!--            android:layout_height="@dimen/_50sdp"-->
+                <!--            android:src="@drawable/sophie"-->
+                <!--            app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
+                <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+                <!--        <com.google.android.material.button.MaterialButton-->
+                <!--            android:id="@+id/organizationBtn"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:backgroundTint="@color/gradientDarkColor"-->
+                <!--            android:fontFamily="@font/poppins_regular"-->
+                <!--            android:text="@string/coach"-->
+                <!--            android:textAllCaps="false"-->
+                <!--            android:textColor="@color/colorBlack"-->
+                <!--            android:textSize="@dimen/_8sdp"-->
+                <!--            app:cornerRadius="@dimen/_10sdp"-->
+                <!--            app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"-->
+                <!--            app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName" />-->
+
+                <!--        <androidx.constraintlayout.widget.Guideline-->
+                <!--            android:id="@+id/orgGuideline"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:orientation="horizontal"-->
+                <!--            app:layout_constraintGuide_percent="0.07" />-->
+
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cProfileImgCard"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:cardCornerRadius="@dimen/_20sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/orgWelcomeOrgName">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -223,7 +206,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/cProfileImgCard" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -233,8 +216,8 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:cardCornerRadius="@dimen/_20sdp"
                     app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/orgCreateTv">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -335,14 +318,13 @@
                     android:id="@+id/coachFindText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:drawableLeft="@drawable/magnifier"
                     android:fontFamily="@font/poppins_regular"
                     android:padding="@dimen/_2sdp"
                     android:text="@string/find"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/organizationCard" />
 
 
@@ -350,10 +332,9 @@
                     android:id="@+id/cardFind"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/coachFindText">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -400,7 +381,7 @@
                     android:elevation="@dimen/_10sdp"
                     android:padding="@dimen/_10sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/cardFind">
                     <!--            app:cardUseCompatPadding="true"-->
@@ -478,8 +459,8 @@
                     android:background="@drawable/cards_shape"
                     android:elevation="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/orgRequestsCard">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -533,6 +514,5 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

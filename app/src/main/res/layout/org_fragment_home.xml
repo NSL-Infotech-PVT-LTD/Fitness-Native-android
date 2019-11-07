@@ -31,7 +31,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/welcome_org_name"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 

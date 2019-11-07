@@ -239,7 +239,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
         tabLayout.setupWithViewPager(viewPager);
-        logOut.setOnClickListener(this);
         topCoachesRecycler = view.findViewById(R.id.athleteTopCoachesRecycler);
         topOrgRecycler = view.findViewById(R.id.athleteTopOrganizationRecycler);
         topCoachesLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
