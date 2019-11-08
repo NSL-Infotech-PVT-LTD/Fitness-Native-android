@@ -1,6 +1,7 @@
 package com.netscape.utrain.response;
 
 import com.netscape.utrain.model.C_EventDataListModel;
+import com.netscape.utrain.model.C_SessionDataModel;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.ErrorModel;
 
@@ -9,8 +10,16 @@ import java.util.List;
 public class C_SessionListResponse {
     private boolean status;
     private int code;
-    private List<C_SessionListModel> data;
+    private C_SessionDataModel data;
     private ErrorModel error;
+
+    public C_SessionDataModel getData() {
+        return data;
+    }
+
+    public void setData(C_SessionDataModel data) {
+        this.data = data;
+    }
 
     public boolean isStatus() {
         return status;
@@ -28,13 +37,6 @@ public class C_SessionListResponse {
         this.code = code;
     }
 
-    public List<C_SessionListModel> getData() {
-        return data;
-    }
-
-    public void setData(List<C_SessionListModel> data) {
-        this.data = data;
-    }
 
     public ErrorModel getError() {
         return error;
