@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -30,12 +33,15 @@ import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
+import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
 import com.netscape.utrain.adapters.TopCoachesAdapter;
 import com.netscape.utrain.adapters.TopOrganizationAdapter;
 import com.netscape.utrain.databinding.CFragmentHomeBinding;
 import com.netscape.utrain.model.AthletePlaceModel;
+import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.CoachListResponse;
@@ -60,6 +66,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
+    ChipGroup cChipGroup;
     private Context context;
     private View view;
     private ProgressDialog progressDialog;
@@ -69,19 +76,20 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     private Ath_PlaceRecyclerAdapter adapter;
     private CFragmentHomeBinding binding;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
+    private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
+    private CoachListModel coachListModel;
 
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     public C_HomeFragment() {
 
 
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -97,9 +105,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
             }
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
-        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME,context));
-        binding.cExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context));
-        binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE,context));
+        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
+        binding.cExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+        binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
 
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
@@ -112,8 +120,24 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 //        binding.orglogOutTv.setOnClickListener(this);
 
         getSportsIds();
-        return view;
+        getService();
 
+        cChipGroup = new ChipGroup(context);
+        cChipGroup.setSingleSelection(false);
+        for (int i = 0; i < sList.size(); i++) {
+            final Chip chip = new Chip(context);
+            chip.setEnabled(false);
+            ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(context, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+            chip.setChipDrawable(chipDrawable);
+            chip.setTextColor(getResources().getColor(R.color.colorBlack));
+
+            chip.setText(sList.get(i).getName());
+
+            cChipGroup.addView(chip);
+        }
+        cChipGroup.setEnabled(false);
+        binding.constraintChipGroup.addView(cChipGroup);
+        return view;
     }
 
     @Override
@@ -133,7 +157,8 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.findPlace:
                 Intent map = new Intent(getActivity(), AllEventsMapAct.class);
-                map.putExtra("from", "3");  view.getContext().startActivity(map);
+                map.putExtra("from", "3");
+                view.getContext().startActivity(map);
                 break;
             case R.id.createSessionImg:
                 PortfolioActivity.clearFromConstants();
@@ -154,7 +179,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low","");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low", "");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -223,6 +248,28 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
             binding.cSportsNameTv.setVisibility(View.GONE);
             binding.cSportsNameTv.setVisibility(View.GONE);
 
+        }
+    }
+
+    private void getService() {
+        String serviceName = CommonMethods.getPrefData(PrefrenceConstant.SERVICE_IDS, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (serviceName != null) {
+            if (serviceName.isEmpty()) {
+                Toast.makeText(context, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<ServiceListDataModel>>() {
+                }.getType();
+                sList = gson.fromJson(serviceName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (ServiceListDataModel details : sList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+            }
         }
     }
 

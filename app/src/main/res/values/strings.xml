@@ -395,4 +395,5 @@
     <string name="view_session">View Sessions</string>
     <string name="view_spaces">View Spaces</string>
     <string name="bio_colon">Bio:</string>
+    <string name="experience_text_colon">Experience:</string>
 </resources>

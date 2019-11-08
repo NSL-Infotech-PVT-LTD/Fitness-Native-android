@@ -194,6 +194,22 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <RelativeLayout
+                    android:id="@+id/constraintChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:theme="@style/ChipTheme"
+                    app:chipIconEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/cProfileImgCard"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintBottom_toTopOf="@+id/orgCreateTv"/>
+
+
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/orgCreateTv"
@@ -207,7 +223,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/cProfileImgCard" />
+                    app:layout_constraintTop_toBottomOf="@id/constraintChipGroup" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"

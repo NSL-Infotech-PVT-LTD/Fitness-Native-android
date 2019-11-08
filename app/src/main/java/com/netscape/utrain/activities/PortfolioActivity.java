@@ -428,6 +428,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
         requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSelectedServices()));
         requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
+        requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExperienceDetail()));
+        requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
@@ -452,9 +454,11 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation()+ "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio()+"", PortfolioActivity.this);
-                                   CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);

@@ -14,10 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
 import com.netscape.utrain.databinding.ActivityDiscoverTopRatedBinding;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -26,6 +30,10 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +47,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private Retrofitinterface retrofitinterface;
     private String searchText = "";
     private ProgressDialog progressDialog;
+    private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
+    private ArrayList<String> sports = new ArrayList<>();
+
 
 
     @Override
@@ -47,6 +58,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //        setContentView(R.layout.activity_discover_top_rated);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_discover_top_rated);
         init();
+
     }
 
     private void init() {
@@ -103,8 +115,21 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
         binding.discoverBackArrowImg.setOnClickListener(this);
         binding.searchedt.setOnClickListener(this);
 
+        initializeUI();
     }
+    private void initializeUI() {
 
+        getSportsIds();
+        for (SportListModel.DataBeanX.DataBean details : sportList) {
+            sports.add(details.getName());
+        }
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(getApplicationContext(), R.layout.discover_sports_spinner, sports);
+//        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        binding.dServiceSpinner.setAdapter(adapter);
+
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -276,5 +301,27 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void getSportsIds() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+                Toast.makeText(DiscoverTopRated.this, "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sportList = gson.fromJson(sportName, type);
+
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+
+            }
+        }
     }
 }

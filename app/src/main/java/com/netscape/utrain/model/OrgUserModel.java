@@ -40,9 +40,27 @@ public class OrgUserModel {
     private String portfolio_image;
     private String updated_at;
     private String created_at;
+    private String experience_detail;
+    private String training_service_detail;
     private int id;
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
+
+    public String getExperience_detail() {
+        return experience_detail;
+    }
+
+    public void setExperience_detail(String experience_detail) {
+        this.experience_detail = experience_detail;
+    }
+
+    public String getTraining_service_detail() {
+        return training_service_detail;
+    }
+
+    public void setTraining_service_detail(String training_service_detail) {
+        this.training_service_detail = training_service_detail;
+    }
 
     public List<RolesModel> getRoles() {
         return roles;

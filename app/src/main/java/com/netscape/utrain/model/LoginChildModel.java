@@ -28,6 +28,16 @@ public class LoginChildModel {
     private List<RolesModel> roles;
 
     private String experience_detail;
+    private String training_service_detail;
+
+    public String getTraining_service_detail() {
+        return training_service_detail;
+    }
+
+    public void setTraining_service_detail(String training_service_detail) {
+        this.training_service_detail = training_service_detail;
+    }
+
     private String achievements;
     private String sport_id;
     private List<ServiceIdModel> service_ids;

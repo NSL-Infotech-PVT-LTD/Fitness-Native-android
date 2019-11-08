@@ -150,16 +150,21 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
         getSpaceList();
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
-//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.orgProfileImage);
-        Glide.with(context).load(path).into(binding.orgProfileImage);
+//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.orgProfileImage); // working code line to display image
+//        Glide.with(context).load(path).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
 //        binding.orglogOutTv.setOnClickListener(this);
 
-        binding.bioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO,context));
-
+//        String experience = (CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context));
+//        if (experience != null){
+//            binding.expTv.setText(experience);
+//        } else {
+//            binding.expTv.setVisibility(View.GONE);
+//            binding.bioText.setVisibility(View.GONE);
+//        }
         return view;
     }
 
