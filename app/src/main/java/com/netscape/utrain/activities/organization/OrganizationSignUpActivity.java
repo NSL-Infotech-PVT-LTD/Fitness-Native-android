@@ -335,7 +335,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgDataModel.setExpertise_years(orgExpertise);
         orgExpDetail = binding.orgExperienceDetailEdt.getText().toString();
         orgDataModel.setExperienceDetail(orgExpDetail);
-        orgTrainingDetail = binding.orgServiceDetailEdt.getText().toString();
+        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString();
         orgDataModel.setTrainingDetail(orgTrainingDetail);
         orgHourlyRate = binding.orgHourlyRateEdt.getText().toString();
         orgDataModel.setHourly_rate(orgHourlyRate);
@@ -393,8 +393,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgExperienceDetailEdt.setError(getResources().getString(R.string.enter_your_experience_details));
             binding.orgExperienceDetailEdt.requestFocus();
         } else if (orgTrainingDetail.isEmpty()) {
-            binding.orgServiceDetailEdt.setError(getResources().getString(R.string.enter_org_service_details));
-            binding.orgServiceDetailEdt.requestFocus();
+            binding.orgTrainingDetailEdt.setError(getResources().getString(R.string.enter_org_service_details));
+            binding.orgTrainingDetailEdt.requestFocus();
         } else if (orgHourlyRate.isEmpty()) {
             binding.orgHourlyRateEdt.setError(getResources().getString(R.string.enter_hourly_rate));
             binding.orgHourlyRateEdt.requestFocus();

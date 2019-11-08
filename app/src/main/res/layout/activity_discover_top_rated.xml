@@ -1,185 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.athlete.DiscoverTopRated">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/discoverHeaderTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/discover"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintLeft_toRightOf="@+id/discoverBackArrowImg"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/discoverBackArrowImg"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:src="@drawable/ic_backblack"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/exploreTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/explore_coaches_discover"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintLeft_toLeftOf="@+id/discoverHeaderTv"
-        app:layout_constraintTop_toBottomOf="@id/discoverHeaderTv" />
-
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/discoverCircleImg"-->
-<!--        android:layout_width="@dimen/_40sdp"-->
-<!--        android:layout_height="@dimen/_40sdp"-->
-<!--        android:layout_marginRight="@dimen/_20sdp"-->
-<!--        android:src="@drawable/sophie"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/discoverHeaderTv"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/discoverHeaderTv"/>-->
-
-
-<!--    <com.google.android.material.textfield.TextInputEditText-->
-<!--        android:id="@+id/discoverSearchEdt"-->
-<!--        android:layout_width="@dimen/_200sdp"-->
-<!--        android:layout_height="@dimen/_40sdp"-->
-<!--        android:layout_marginLeft="@dimen/_10sdp"-->
-<!--        android:layout_marginTop="@dimen/_30sdp"-->
-<!--        android:drawableLeft="@drawable/magnifier"-->
-<!--        android:elevation="@dimen/_3sdp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="@string/search_keyword"-->
-<!--        android:paddingLeft="@dimen/_10sdp"-->
-<!--        android:paddingRight="@dimen/_70sdp"-->
-<!--        android:textSize="@dimen/_10sdp"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
-    <com.google.android.material.card.MaterialCardView
-        android:visibility="gone"
-        android:id="@+id/searchAtuoCompleteEdt"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:elevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_6sdp"
-        app:cardUseCompatPadding="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exploreTv"
-        >
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/discoverSearchEdt"
-            android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.athlete.DiscoverTopRated">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/discoverHeaderTv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:drawableRight="@drawable/magnifier"
-            android:drawablePadding="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/search_keyword"
-            android:inputType="text"
-            android:padding="@dimen/_10sdp"
-            android:singleLine="true"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/discover"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintLeft_toRightOf="@+id/discoverBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchIcon"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:elevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_6sdp"
-        app:cardUseCompatPadding="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exploreTv"
-        >
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/searchedt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:drawableRight="@drawable/magnifier"
-            android:drawablePadding="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:inputType="text"
-            android:padding="@dimen/_10sdp"
-            android:focusable="false"
-            android:singleLine="true"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/discoverBackArrowImg"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_backblack"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/exploreTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/explore_coaches_discover"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/discoverHeaderTv"
+            app:layout_constraintTop_toBottomOf="@id/discoverHeaderTv" />
+
+        <!--    <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--        android:id="@+id/discoverCircleImg"-->
+        <!--        android:layout_width="@dimen/_40sdp"-->
+        <!--        android:layout_height="@dimen/_40sdp"-->
+        <!--        android:layout_marginRight="@dimen/_20sdp"-->
+        <!--        android:src="@drawable/sophie"-->
+        <!--        app:layout_constraintRight_toRightOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="@+id/discoverHeaderTv"-->
+        <!--        app:layout_constraintBottom_toBottomOf="@id/discoverHeaderTv"/>-->
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/discoverSearchTv"-->
-<!--        android:layout_width="@dimen/_60sdp"-->
-<!--        android:layout_height="@dimen/_40sdp"-->
-<!--        android:layout_marginLeft="@dimen/_5sdp"-->
-<!--        android:layout_marginTop="@dimen/_34sdp"-->
-<!--        android:background="@drawable/round_background_colord"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/searchAtuoCompleteEdt"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
+        <!--    <com.google.android.material.textfield.TextInputEditText-->
+        <!--        android:id="@+id/discoverSearchEdt"-->
+        <!--        android:layout_width="@dimen/_200sdp"-->
+        <!--        android:layout_height="@dimen/_40sdp"-->
+        <!--        android:layout_marginLeft="@dimen/_10sdp"-->
+        <!--        android:layout_marginTop="@dimen/_30sdp"-->
+        <!--        android:drawableLeft="@drawable/magnifier"-->
+        <!--        android:elevation="@dimen/_3sdp"-->
+        <!--        android:gravity="center"-->
+        <!--        android:hint="@string/search_keyword"-->
+        <!--        android:paddingLeft="@dimen/_10sdp"-->
+        <!--        android:paddingRight="@dimen/_70sdp"-->
+        <!--        android:textSize="@dimen/_10sdp"-->
+        <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchAtuoCompleteEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/exploreTv">
 
-    <ImageView
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/ic_common_background"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_goneMarginTop="@dimen/_74sdp"
-        app:layout_constraintTop_toBottomOf="@id/searchAtuoCompleteEdt"
-        android:layout_marginTop="@dimen/_18sdp"/>
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/discoverSearchEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:drawableRight="@drawable/magnifier"
+                android:drawablePadding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/search_keyword"
+                android:inputType="text"
+                android:padding="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topRateRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_goneMarginTop="@dimen/_80sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchAtuoCompleteEdt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_20sdp"/>
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/noDataImageView"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_30sdp"
-        android:layout_height="@dimen/_200sdp"
-        android:background="@drawable/no_data_png"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchAtuoCompleteEdt"
-        app:layout_constraintBottom_toBottomOf="parent"></androidx.appcompat.widget.AppCompatImageView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchIcon"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/exploreTv">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/searchedt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:drawableRight="@drawable/magnifier"
+                android:drawablePadding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:focusable="false"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="text"
+                android:padding="@dimen/_10sdp"
+                android:singleLine="true"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/dServiceSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchIcon" />
 
 
+        <!--    <TextView-->
+        <!--        android:id="@+id/discoverSearchTv"-->
+        <!--        android:layout_width="@dimen/_60sdp"-->
+        <!--        android:layout_height="@dimen/_40sdp"-->
+        <!--        android:layout_marginLeft="@dimen/_5sdp"-->
+        <!--        android:layout_marginTop="@dimen/_34sdp"-->
+        <!--        android:background="@drawable/round_background_colord"-->
+        <!--        app:layout_constraintLeft_toRightOf="@id/searchAtuoCompleteEdt"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
+
+        <ImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:src="@drawable/ic_common_background"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAtuoCompleteEdt"
+            app:layout_goneMarginTop="@dimen/_74sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topRateRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dServiceSpinner"
+            app:layout_goneMarginTop="@dimen/_80sdp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/noDataImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:background="@drawable/no_data_png"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchAtuoCompleteEdt"></androidx.appcompat.widget.AppCompatImageView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

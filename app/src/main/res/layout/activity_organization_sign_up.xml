@@ -444,7 +444,7 @@
                             app:layout_constraintTop_toBottomOf="@id/orgExperienceDetailEdt" />
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/orgServiceDetailEdt"
+                            android:id="@+id/orgTrainingDetailEdt"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
                             android:background="@drawable/organization_edt_design"
@@ -470,7 +470,7 @@
                             android:text="@string/hourly_price"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintLeft_toRightOf="@id/organization_left_Guideline"
-                            app:layout_constraintTop_toBottomOf="@id/orgServiceDetailEdt" />
+                            app:layout_constraintTop_toBottomOf="@id/orgTrainingDetailEdt" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/organization_DollarSignTv"
@@ -483,7 +483,7 @@
                             android:text="@string/dollar_sign_value"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintRight_toLeftOf="@id/orgHourlyRateEdt"
-                            app:layout_constraintTop_toBottomOf="@id/orgServiceDetailEdt" />
+                            app:layout_constraintTop_toBottomOf="@id/orgTrainingDetailEdt" />
 
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -500,7 +500,7 @@
                             android:singleLine="true"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                            app:layout_constraintTop_toBottomOf="@id/orgServiceDetailEdt" />
+                            app:layout_constraintTop_toBottomOf="@id/orgTrainingDetailEdt" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/orgNextBtn"

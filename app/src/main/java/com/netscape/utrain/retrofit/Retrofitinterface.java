@@ -153,6 +153,8 @@ public interface Retrofitinterface {
                                           @Query("hourly_rate") String hourlyRate,
                                           @Query("device_type") String device_type,
                                           @Query("device_token") String device_token,
+                                          @Query("experience_detail") String experience_detail,
+                                          @Query("training_service_detail") String training_service_detail,
                                           @Part MultipartBody.Part profile_image, @Part("name") RequestBody requestBody);
 
     @Multipart

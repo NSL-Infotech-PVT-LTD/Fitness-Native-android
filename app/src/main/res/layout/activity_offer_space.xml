@@ -47,7 +47,7 @@
             android:layout_width="@dimen/_240sdp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
             android:textSize="@dimen/_12sdp"
