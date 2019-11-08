@@ -687,8 +687,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         ti_locationText.setText(list.getEvent().getLocation());
         ti_Booking_Ticket.setText(list.getTickets() + " Attendies & Tickets (1 per person)");
         ti_TotalTicketPrice.setText(list.getTickets() + " Tickets @ $" + list.getEvent().getPrice() + " each");
@@ -731,10 +729,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 
         try {
-
             dt = sdf.parse(sessionData.getSession().getDate());
-
-
             String value = null;
             if (dt != null) {
                 value = parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);

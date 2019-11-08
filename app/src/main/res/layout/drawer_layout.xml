@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/drawer_right_corner_laydesign_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_10sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,6 +30,20 @@
             android:src="@drawable/ic_place_holder"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/navNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center_vertical"
+            android:text="John Right"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/naviProfileImage"
+            app:layout_constraintRight_toRightOf="@+id/naviProfileImage"
+            app:layout_constraintTop_toBottomOf="@id/naviProfileImage"
+            app:layout_constraintBottom_toBottomOf="@+id/textviewBackground"/>
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/naviNameTv"

@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -40,6 +41,9 @@ import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CoachDashboard extends AppCompatActivity {
     private TextView mTextMessage;
@@ -48,6 +52,8 @@ public class CoachDashboard extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView coachDrawer;
     BottomNavigationView orgNavView;
+    private CircleImageView navImageView;
+    private MaterialTextView navNameTv;
     
     CoachDashboard activity;
     @Override
@@ -55,6 +61,12 @@ public class CoachDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(CoachDashboard.this, R.layout.activity_coach_dashboard);
        activity = this ;
+       navImageView=binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv=binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
+
+        Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(navImageView);
+        navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, CoachDashboard.this));
+
         coachDrawer = findViewById(R.id.coachDrawer);
         orgNavView = findViewById(R.id.orgNavView);
         drawer = findViewById(R.id.orgdrawerlayout);

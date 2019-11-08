@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -43,6 +44,10 @@ import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OrgHomeScreen extends AppCompatActivity {
     private TextView mTextMessage;
@@ -51,6 +56,8 @@ public class OrgHomeScreen extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView orgDrawerImageNew;
     BottomNavigationView orgNavView;
+    private CircleImageView navImageView;
+    private MaterialTextView navNameTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,12 @@ public class OrgHomeScreen extends AppCompatActivity {
         orgDrawerImageNew = findViewById(R.id.orgDrawerImageNew);
         orgNavView = findViewById(R.id.orgNavView);
         drawer = findViewById(R.id.orgdrawer_layout);
+        navImageView=binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv=binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
+        String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,OrgHomeScreen.this);
+        Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
+        navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrgHomeScreen.this));
+
 //        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

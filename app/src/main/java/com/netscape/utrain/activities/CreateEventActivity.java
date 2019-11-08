@@ -288,7 +288,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     binding.createEventEndDatetv.setHint("End date");
                 } else {
                     binding.createEventStartDateTv.setText("");
-                    binding.createEventStartDateTv.setHint("");
+                    binding.createEventStartDateTv.setHint("Start date");
                     Toast.makeText(CreateEventActivity.this, "Can't create event for current date", Toast.LENGTH_SHORT).show();
                 }
 

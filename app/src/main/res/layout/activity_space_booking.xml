@@ -228,19 +228,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/ticket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_50sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/ticket"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/spaceTypeDropdownTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:singleLine="true"
+                    app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spaceTypeSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/spaceTypeDropdownTv"
+                    app:layout_constraintLeft_toLeftOf="@id/spaceTypeDropdownTv"
+                    app:layout_constraintRight_toRightOf="@id/spaceTypeDropdownTv"
+                    app:layout_constraintTop_toTopOf="@id/spaceTypeDropdownTv" />
+
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/ticket"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Hours of booking"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spaceTypeDropdownTv" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/lightGrayFont"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/ticket"></View>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/countDisplayConstraint"
                     android:layout_width="wrap_content"
