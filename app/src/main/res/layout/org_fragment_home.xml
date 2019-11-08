@@ -35,13 +35,13 @@
             app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--            android:id="@+id/orgProfileImage"-->
-        <!--            android:layout_width="@dimen/_50sdp"-->
-        <!--            android:layout_height="@dimen/_50sdp"-->
-        <!--            android:src="@drawable/ic_details_map"-->
-        <!--            app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/orgProfileImage"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/ic_details_map"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.constraintlayout.widget.Guideline

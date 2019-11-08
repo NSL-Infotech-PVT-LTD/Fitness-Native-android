@@ -14,7 +14,7 @@
             android:layout_height="match_parent">
 
             <androidx.drawerlayout.widget.DrawerLayout
-                android:id="@+id/orgdrawer_layout"
+                android:id="@+id/orgdrawerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -26,7 +26,7 @@
                     android:layout_height="match_parent" />
 
                 <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/o_slider"
+                    android:id="@+id/coachSlider"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"

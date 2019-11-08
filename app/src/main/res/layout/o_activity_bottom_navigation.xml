@@ -27,7 +27,7 @@
                     android:layout_height="match_parent" />
 
                 <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/o_slider"
+                    android:id="@+id/orgSlider"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"

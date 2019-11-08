@@ -37,6 +37,7 @@ import com.netscape.utrain.utils.CalendarView;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.Event;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
 
@@ -114,13 +115,23 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         mShortMonths = new DateFormatSymbols().getShortMonths();
 
         initializeUI();
-        getBookingList();
+
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer))
+            getBookingList();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)){
+
+        }
+//            a_getUpcommingEvents();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)){
+
+        }
+//            getCoachUpcommingEvents();
+
     }
 
     private void initializeUI() {
 
         setContentView(R.layout.activity_calendar_view_with_notes);
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.....");

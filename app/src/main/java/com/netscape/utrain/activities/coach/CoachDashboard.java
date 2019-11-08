@@ -21,13 +21,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
+import com.netscape.utrain.fragments.A_ChatsFragment;
+import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.C_HomeFragment;
 import com.netscape.utrain.fragments.O_EditorFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
@@ -35,33 +41,47 @@ import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CoachDashboard extends AppCompatActivity {
     private TextView mTextMessage;
+    public DrawerLayout drawer;
     private ActivityCoachDashboardBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView coachDrawer;
     BottomNavigationView orgNavView;
+    private CircleImageView navImageView;
+    private MaterialTextView navNameTv;
     
     CoachDashboard activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_coach_dashboard);
+        binding = DataBindingUtil.setContentView(CoachDashboard.this, R.layout.activity_coach_dashboard);
        activity = this ;
+       navImageView=binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv=binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
+
+        Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(navImageView);
+        navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, CoachDashboard.this));
+
         coachDrawer = findViewById(R.id.coachDrawer);
         orgNavView = findViewById(R.id.orgNavView);
-        coachDrawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { binding.orgdrawerLayout.openDrawer(GravityCompat.START);
-
-            }
-        });
+        drawer = findViewById(R.id.orgdrawerlayout);
+//        coachDrawer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) { binding.orgdrawerlayout.openDrawer(GravityCompat.START);
+//
+//            }
+//        });
         loadFragment(new C_HomeFragment());
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
+
         binding.orgNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        final NavigationView navigationView = findViewById(R.id.o_slider);
+        final NavigationView navigationView = findViewById(R.id.coachSlider);
         navigationView.findViewById(R.id.org_logOutTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,12 +112,12 @@ public class CoachDashboard extends AppCompatActivity {
                         .show();
             }
         });
-        binding.orgdrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
 
-                openCloseDrawer(binding.orgdrawerLayout);
+                openCloseDrawer();
             }
 
             @Override
@@ -115,12 +135,66 @@ public class CoachDashboard extends AppCompatActivity {
                 super.onDrawerStateChanged(newState);
             }
         });
+        coachDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+
+            }
+        });
+        binding.coachSlider.getHeaderView(0).findViewById(R.id.coachDashboardTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+                loadFragment(new A_HomeFragment());
+
+            }
+        });
+        binding.coachSlider.getHeaderView(0).findViewById(R.id.bookingTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+
+            }
+        });
+        binding.coachSlider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
+        binding.coachSlider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                startActivity(new Intent(CoachDashboard.this, CalendarViewWithNotesActivity.class));
+
+            }
+        });
+        binding.coachSlider.getHeaderView(0).findViewById(R.id.aboutUsTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+
+                loadFragment(new A_ChatsFragment());
+
+            }
+        });
 
 
     }
 
     @SuppressLint("WrongConstant")
-    public void openCloseDrawer(DrawerLayout drawer) {
+    public void openCloseDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(Gravity.LEFT);
             orgNavView.setVisibility(View.VISIBLE);
@@ -130,6 +204,7 @@ public class CoachDashboard extends AppCompatActivity {
             orgNavView.setVisibility(View.GONE);
 
         }
+
 
     }
 
@@ -182,8 +257,8 @@ public class CoachDashboard extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (binding.orgdrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.orgdrawerLayout.closeDrawer(Gravity.LEFT);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(Gravity.LEFT);
         } else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();

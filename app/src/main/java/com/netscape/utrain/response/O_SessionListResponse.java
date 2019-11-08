@@ -3,14 +3,24 @@ package com.netscape.utrain.response;
 import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SessionDataModel;
+import com.netscape.utrain.model.O_SessionPageDataModel;
 
 import java.util.List;
 
 public class O_SessionListResponse {
     private boolean status;
     private int code;
-    private List<O_SessionDataModel> data;
+
+    public O_SessionPageDataModel getData() {
+        return data;
+    }
+
+    private O_SessionPageDataModel data;
     private ErrorModel error;
+
+    public void setData(O_SessionPageDataModel data) {
+        this.data = data;
+    }
 
     public boolean isStatus() {
         return status;
@@ -28,13 +38,6 @@ public class O_SessionListResponse {
         this.code = code;
     }
 
-    public List<O_SessionDataModel> getData() {
-        return data;
-    }
-
-    public void setData(List<O_SessionDataModel> data) {
-        this.data = data;
-    }
 
     public ErrorModel getError() {
         return error;

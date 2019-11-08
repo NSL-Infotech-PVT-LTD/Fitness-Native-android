@@ -8,6 +8,7 @@ public class Constants {
     public static final String IMAGE_BASE_EVENT = "https://dev.netscapelabs.com/utrain/public/uploads/events/";
     public static final String COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/coach/profile_image/";
     public static final String ORG_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/profile_image/";
+    public static final String ORG_PORTFOLIO_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/portfolio_image/";
 
     public static final String ATHLETE_SIGNUP = "athlete/register";
     public static final String LOGIN_METHOD = "login";

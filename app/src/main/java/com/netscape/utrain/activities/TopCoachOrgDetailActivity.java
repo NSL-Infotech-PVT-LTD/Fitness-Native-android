@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -66,6 +67,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private RecyclerView serviceRecycler;
     private ImageView profImage, backArrow;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
+    private ArrayList<String> portfolioImageList= new ArrayList<>();
     private TextView name, typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
 
     @Override
@@ -88,8 +90,10 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         init();
 
         getSportsIds();
-        String saveIntent =getIntent().getStringExtra("intentFrom");
-        if (! TextUtils.isEmpty(saveIntent)) {
+
+
+        String saveIntent = getIntent().getStringExtra("intentFrom");
+        if (!TextUtils.isEmpty(saveIntent)) {
 
             if (saveIntent.equalsIgnoreCase("coach")) {
                 binding.viewEvents.setVisibility(View.VISIBLE);
@@ -100,6 +104,8 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 binding.viewEvents.setVisibility(View.VISIBLE);
                 binding.viewSession.setVisibility(View.VISIBLE);
                 binding.viewSpaces.setVisibility(View.VISIBLE);
+                getPortfolioImages();
+                setPortFolidImages();
             }
         }
         binding.viewEvents.setOnClickListener(new View.OnClickListener() {
@@ -126,14 +132,41 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View view) {
 
-                Intent vEventOrg = new Intent(TopCoachOrgDetailActivity.this,AllEventsMapAct.class);
-                vEventOrg.putExtra("from","topSpace");
-                vEventOrg.putExtra("coach_id", coachListModel.getId()+"");
+                Intent vEventOrg = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
+                vEventOrg.putExtra("from", "topSpace");
+                vEventOrg.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(vEventOrg);
             }
         });
 
 
+    }
+
+    private void setPortFolidImages() {
+        if (portfolioImageList.size()>0 ) {
+            binding.portfolioText.setVisibility(View.VISIBLE);
+            for (int i = 0; i < portfolioImageList.size(); i++) {
+                if (i == 0) {
+                    binding.pcard1.setVisibility(View.VISIBLE);
+                    Glide.with(TopCoachOrgDetailActivity.this).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + portfolioImageList.get(i)).into(binding.port1);
+                }
+                if (i == 1) {
+                    binding.pcard2.setVisibility(View.VISIBLE);
+                    Glide.with(TopCoachOrgDetailActivity.this).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + portfolioImageList.get(i)).into(binding.port2);
+
+                }
+                if (i == 2) {
+                    binding.pcard3.setVisibility(View.VISIBLE);
+                    Glide.with(TopCoachOrgDetailActivity.this).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + portfolioImageList.get(i)).into(binding.port3);
+
+                }
+                if (i == 3) {
+                    binding.pcard4.setVisibility(View.VISIBLE);
+                    Glide.with(TopCoachOrgDetailActivity.this).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + portfolioImageList.get(i)).into(binding.port4);
+
+                }
+            }
+        }
     }
 
     private void init() {
@@ -329,9 +362,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 StringBuilder builder = new StringBuilder();
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
                     builder.append(details.getName() + "\n");
-
                 }
-
                 binding.sportsDetail.setText(builder.toString());
             }
         } else {
@@ -341,4 +372,20 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         }
     }
 
+    private void getPortfolioImages() {
+        Gson gson = new Gson();
+
+        if (coachListModel.getPortfolio_image() != null) {
+            if (coachListModel.getPortfolio_image().isEmpty()) {
+                Toast.makeText(TopCoachOrgDetailActivity.this, "No portfolio images", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<String>>() {
+                }.getType();
+                portfolioImageList = gson.fromJson(coachListModel.getPortfolio_image(), type);
+            }
+        }
+    }
 }
+
+
+

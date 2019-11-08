@@ -253,10 +253,10 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     eventData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            eventData.addAll(response.body().getData());
+                            eventData.addAll(response.body().getData().getData());
                             currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
                             binding.eventListRecycler.setAdapter(currentEventAdapter);
 
@@ -352,11 +352,11 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     sessionData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            sessionData.addAll(response.body().getData());
+                            sessionData.addAll(response.body().getData().getData());
                             currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, upcomg);
                             binding.eventListRecycler.setAdapter(currentSessionAdapter);
 
@@ -562,11 +562,11 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     c_eventData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            c_eventData.addAll(response.body().getData());
+                            c_eventData.addAll(response.body().getData().getData());
                             c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, upcomg);
                             binding.eventListRecycler.setAdapter(c_EventAdapter);
 
@@ -614,11 +614,11 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     c_sessionData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            c_sessionData.addAll(response.body().getData());
+                            c_sessionData.addAll(response.body().getData().getData());
                             c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, upcomg);
                             binding.eventListRecycler.setAdapter(c_SessionAdapter);
 
@@ -687,8 +687,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         ti_locationText.setText(list.getEvent().getLocation());
         ti_Booking_Ticket.setText(list.getTickets() + " Attendies & Tickets (1 per person)");
         ti_TotalTicketPrice.setText(list.getTickets() + " Tickets @ $" + list.getEvent().getPrice() + " each");
@@ -731,10 +729,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 
         try {
-
             dt = sdf.parse(sessionData.getSession().getDate());
-
-
             String value = null;
             if (dt != null) {
                 value = parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);

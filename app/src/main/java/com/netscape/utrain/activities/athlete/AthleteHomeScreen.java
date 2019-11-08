@@ -22,6 +22,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.databinding.AActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_EditorFragment;
@@ -56,10 +57,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AthleteHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
@@ -69,6 +73,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private AppBarConfiguration mAppBarConfiguration;
     private AppCompatImageView drawerImage;
+    private CircleImageView headerImage;
+    private MaterialTextView navNameTv;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -122,6 +128,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         drawerImage = findViewById(R.id.drawerImageNew);
+        navNameTv=binding.slider.getHeaderView(0).findViewById(R.id.navNameTv);
+        headerImage=binding.slider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,7 +137,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.slider);
         View header = navigationView.getHeaderView(0);
-        MaterialTextView dashboardTv = header.findViewById(R.id.dashboardTv);
+        MaterialTextView dashboardTv = header.findViewById(R.id.coachDashboardTv);
         navigationView.findViewById(R.id.logOutTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,6 +246,9 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
 
+
+
+
 //        // Passing each menu ID as a set of Ids because each
 //        // menu should be considered as top level destinations.
 //        mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -298,7 +309,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, AthleteHomeScreen.this);
         if (!TextUtils.isEmpty(img)) {
             Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(binding.athleteProfileImg);
-
+            Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(AthleteHomeScreen.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(headerImage);
+            navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, AthleteHomeScreen.this));
         }
     }
 

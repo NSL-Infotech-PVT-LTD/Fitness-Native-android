@@ -3,14 +3,23 @@ package com.netscape.utrain.response;
 import com.netscape.utrain.model.BookingListDataModel;
 import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.O_EventDataModel;
+import com.netscape.utrain.model.O_EventPageDataModel;
 
 import java.util.List;
 
 public class O_EventListResponse {
     private boolean status;
     private int code;
-    private List<O_EventDataModel> data;
+    private O_EventPageDataModel data;
     private ErrorModel error;
+
+    public O_EventPageDataModel getData() {
+        return data;
+    }
+
+    public void setData(O_EventPageDataModel data) {
+        this.data = data;
+    }
 
     public boolean isStatus() {
         return status;
@@ -26,14 +35,6 @@ public class O_EventListResponse {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public List<O_EventDataModel> getData() {
-        return data;
-    }
-
-    public void setData(List<O_EventDataModel> data) {
-        this.data = data;
     }
 
     public ErrorModel getError() {

@@ -268,10 +268,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     c_eventData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            c_eventData.addAll(response.body().getData());
+                            c_eventData.addAll(response.body().getData().getData());
                             c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, completed);
                             binding.sessionListRecycler.setAdapter(c_EventAdapter);
 
@@ -319,11 +319,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     c_sessionData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
 
                             binding.noDataImageCmp.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            c_sessionData.addAll(response.body().getData());
+                            c_sessionData.addAll(response.body().getData().getData());
                             c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, completed);
                             binding.sessionListRecycler.setAdapter(c_SessionAdapter);
 
@@ -544,11 +544,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     progressDialog.dismiss();
                     eventData = new ArrayList<>();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            eventData.addAll(response.body().getData());
+                            eventData.addAll(response.body().getData().getData());
                             currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
                             binding.sessionListRecycler.setAdapter(currentEventAdapter);
 
@@ -650,11 +650,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     sessionData = new ArrayList<>();
 
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            sessionData.addAll(response.body().getData());
+                            sessionData.addAll(response.body().getData().getData());
                             currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, completed);
                             binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
