@@ -20,6 +20,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
+import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityDiscoverTopRatedBinding;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.CoachListResponse;
@@ -41,6 +42,7 @@ import retrofit2.Response;
 
 public class DiscoverTopRated extends AppCompatActivity implements View.OnClickListener {
     public static boolean coaches = false;
+    Retrofitinterface api;
     private ActivityDiscoverTopRatedBinding binding;
     private AthleteTopRatedAdapter coachAdapter, orgAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -48,16 +50,18 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private String searchText = "";
     private ProgressDialog progressDialog;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
+    private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private ArrayList<String> sports = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_discover_top_rated);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_discover_top_rated);
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         init();
+
 
     }
 
@@ -73,11 +77,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                         if (!binding.discoverSearchEdt.getText().toString().isEmpty()) {
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES)) {
+                                binding.dServiceSpinner.setVisibility(View.VISIBLE);
                                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_coaches));
                                 searchText = binding.discoverSearchEdt.getText().toString();
                                 getCoachListApi();
                             }
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
+
                                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_org));
                                 searchText = binding.discoverSearchEdt.getText().toString();
                                 getTopOrgaNization();
@@ -104,10 +110,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES)) {
                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_coaches));
                 getCoachListApi();
+                sportsListApi();
+
             }
             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_org));
-
+                binding.dServiceSpinner.setVisibility(View.GONE);
+                binding.spinnerText.setVisibility(View.GONE);
                 getTopOrgaNization();
             }
         }
@@ -115,12 +124,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
         binding.discoverBackArrowImg.setOnClickListener(this);
         binding.searchedt.setOnClickListener(this);
 
-        initializeUI();
+//        initializeUI();
     }
+
     private void initializeUI() {
 
         getSportsIds();
-        for (SportListModel.DataBeanX.DataBean details : sportList) {
+        for (SportListModel.DataBeanX.DataBean details : dropDownList) {
             sports.add(details.getName());
         }
         ArrayAdapter<String> adapter =
@@ -128,8 +138,26 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         binding.dServiceSpinner.setAdapter(adapter);
+        binding.dServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String position = i + "";
+                binding.dServiceSpinner.setSelection(i);
+                binding.spinnerText.setText(dropDownList.get(i).getName());
+                searchText = dropDownList.get(i).getName();
+                getCoachListApi();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -302,6 +330,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
     private void getSportsIds() {
         String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
         Gson gson = new Gson();
@@ -324,4 +353,28 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+
+    private void sportsListApi() {
+        progressDialog.show();
+        Call<SportListModel> call = api.getSportList(Constants.CONTENT_TYPE, "", "");
+        call.enqueue(new Callback<SportListModel>() {
+            @Override
+            public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
+                progressDialog.dismiss();
+                if (response.body().isStatus()) {
+                    if (response.body() != null) {
+                        dropDownList.addAll(response.body().getData().getData());
+                        initializeUI();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportListModel> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+        });
+    }
+
 }
