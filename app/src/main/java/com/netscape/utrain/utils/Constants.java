@@ -41,6 +41,8 @@ public class Constants {
     public static final String COACH_EVENT_BOOKING_LIST= "booking/coach/list";
 
     public static final String ALL_BOOKING_ATHLETE = "booking/athlete/list/all";
+    public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
+    public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
     public static final String SPORTS_LIST ="sports";
 
 

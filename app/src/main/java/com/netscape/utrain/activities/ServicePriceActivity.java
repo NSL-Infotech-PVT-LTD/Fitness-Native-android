@@ -173,6 +173,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_starts()));
         requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_ends()));
         requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
+        requestBodyMap.put("profession", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getProfessionType()));
         requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExperienceDetail()));
         requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
         requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(jsonArray)));

@@ -396,4 +396,6 @@
     <string name="view_spaces">View Spaces</string>
     <string name="bio_colon">Bio:</string>
     <string name="experience_text_colon">Experience:</string>
+    <string name="open_hour_from">Open hour from</string>
+    <string name="open_hour_to">Open hour to</string>
 </resources>

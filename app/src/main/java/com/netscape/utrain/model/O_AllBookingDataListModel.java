@@ -19,6 +19,15 @@ public class O_AllBookingDataListModel {
     private int price;
     private O_AllBookingTargetDataModel target_data;
     private O_AllBookingUserDetailsModel user_details;
+    private BookingDateModel booking_date;
+
+    public BookingDateModel getBooking_date() {
+        return booking_date;
+    }
+
+    public void setBooking_date(BookingDateModel booking_date) {
+        this.booking_date = booking_date;
+    }
 
     public O_AllBookingUserDetailsModel getUser_details() {
         return user_details;

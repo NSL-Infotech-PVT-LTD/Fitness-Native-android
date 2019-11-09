@@ -12,6 +12,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,12 +61,17 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private ActivityCreateTrainingSessionBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", sessionStartTime = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
+    private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "",eventStartTime = "", eventEndtime = "", sessionEndDate = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
     private int SESSIOM_IMAGE = 129;
     private String dateNow = "";
     private String dateSend = "";
     private String startTime = "";
     private Date strDate = null;
+    private Date sEndDate = null;
+    private String enDate = null;
+    private String eDate = null;
+    private String endTime = "";
+    private String timeNow = "";
     private Date now = null;
     private int ADDRESS_EVENT = 132;
     String eventAddress = "";
@@ -95,9 +101,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         binding.getAddressTv.setOnClickListener(this);
         progressDialog.setCancelable(false);
         binding.createTrainingDateTv.setOnClickListener(this);
-        binding.createTrainingTimeTv.setOnClickListener(this);
+        binding.EndDateTv.setOnClickListener(this);
         binding.createTrainingSessionUploadTv.setOnClickListener(this);
         binding.createSessionBtn.setOnClickListener(this);
+        binding.createEventEndTime.setOnClickListener(this);
+        binding.createEvtnStartTimeTv.setOnClickListener(this);
     }
 
     private void hitCreateSessionApi() {
@@ -105,8 +113,10 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
-        requestBodyMap.put("business_hour", RequestBody.create(MediaType.parse("multipart/form-data"),(dateSend+" "+sessionStartTime)));
-        requestBodyMap.put("date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"),(enDate)));
+        requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
+        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), startTime));
+        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), endTime));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
@@ -167,8 +177,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 break; case R.id.createTrainingDateTv:
                 getTrainingDate();
                 break;
-            case R.id.createTrainingTimeTv:
-                getTrainingTime();
+            case R.id.EndDateTv:
+                getEndDate();
                 break;
             case R.id.createTrainingSessionUploadTv:
                 Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
@@ -179,37 +189,43 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             case R.id.createSessionBtn:
                 getDataFromEdt();
                 break;
+            case R.id.createEventEndTime:
+                getEndTime();
+                break;
+            case R.id.createEvtnStartTimeTv:
+                getStartTime();
+                break;
         }
     }
 
-    private void getTrainingTime() {
-        Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                startTime=convertDate(hourOfDay) + ":" +convertDate( minute);
-                if (strDate!=null && now !=null) {
-                    if (strDate.compareTo(now) == 0) {
-                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
-                            binding.createTrainingTimeTv.setText(startTime);
-                        } else {
-                            binding.createTrainingTimeTv.setText("");
-                            binding.createTrainingTimeTv.setHint("Start time");
-                            Toast.makeText(CreateTrainingSession.this, "Select a valid time", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        binding.createTrainingTimeTv.setText(startTime);
-                    }
-                }else {
-                    Toast.makeText(CreateTrainingSession.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, mHour, mMinute, true);
-        timePickerDialog.show();
-    }
+//    private void getTrainingTime() {
+//        Calendar c = Calendar.getInstance();
+//        mHour = c.get(Calendar.HOUR_OF_DAY);
+//        mMinute = c.get(Calendar.MINUTE);
+//        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+//                startTime=convertDate(hourOfDay) + ":" +convertDate( minute);
+//                if (strDate!=null && now !=null) {
+//                    if (strDate.compareTo(now) == 0) {
+//                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+//                            binding.createTrainingTimeTv.setText(startTime);
+//                        } else {
+//                            binding.createTrainingTimeTv.setText("");
+//                            binding.createTrainingTimeTv.setHint("Start time");
+//                            Toast.makeText(CreateTrainingSession.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        binding.createTrainingTimeTv.setText(startTime);
+//                    }
+//                }else {
+//                    Toast.makeText(CreateTrainingSession.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }, mHour, mMinute, true);
+//        timePickerDialog.show();
+//    }
 
     private void getTrainingDate() {
         final Calendar c = Calendar.getInstance();
@@ -242,13 +258,125 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+    private void getEndDate() {
+        Calendar cal = Calendar.getInstance();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CreateTrainingSession.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                binding.EndDateTv.setPadding(20, 20, 20, 20);
+                enDate = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
+                eDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" +year ;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    sEndDate = sdf.parse(eDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (strDate != null) {
+                    if (sEndDate.compareTo(strDate) >= 0) {
+                        Log.i("app", "Date1 is after Date2");
+                        binding.EndDateTv.setText(eDate);
+                    } else {
+                        Toast.makeText(CreateTrainingSession.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                        binding.EndDateTv.setText("");
+                        binding.EndDateTv.setHint("Enter date");
+                    }
+                } else {
+                    Toast.makeText(CreateTrainingSession.this, "Select start Date", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+    }
+    private void getStartTime() {
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+
+                timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
+
+
+//                int currentTime = LocalTime.parse(startTime);
+
+                binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
+
+                Date time = Calendar.getInstance().getTime();
+                if (strDate != null && sEndDate != null) {
+//                    if (endDate.compareTo(stDate) == 0) {
+//                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+                    binding.createEvtnStartTimeTv.setText(startTime);
+                    binding.createEventEndTime.setText("");
+                    binding.createEventEndTime.setHint("End time");
+//                        } else {
+//                            binding.createEvtnStartTimeTv.setText("");
+//                            binding.createEvtnStartTimeTv.setHint("Start time");
+//                            Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        binding.createEvtnStartTimeTv.setText(startTime);
+//                    }
+                } else {
+                    Toast.makeText(CreateTrainingSession.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
+    private void getEndTime() {
+        Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                binding.createEventEndTime.setPadding(20, 0, 70, 0);
+                if (strDate != null && sEndDate!= null) {
+                    if (sEndDate.compareTo(strDate) == 0) {
+                        if (!startTime.isEmpty()) {
+                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+                                binding.createEventEndTime.setText(endTime);
+                            } else {
+                                binding.createEventEndTime.setText("");
+                                binding.createEventEndTime.setHint("End time");
+                                Toast.makeText(CreateTrainingSession.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(CreateTrainingSession.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        binding.createEventEndTime.setText(endTime);
+
+                    }
+                } else {
+                    Toast.makeText(CreateTrainingSession.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
+
 
     private void getDataFromEdt() {
         sessionName = binding.createTrainingSessionNameEdt.getText().toString();
         sessionDescription = binding.createTrainingSessionDescEdt.getText().toString();
         sessionPhone = binding.createTrainingSessionPhoneEdt.getText().toString();
         sessionStartDate = binding.createTrainingDateTv.getText().toString();
-        sessionStartTime = binding.createTrainingTimeTv.getText().toString();
+        sessionEndDate = binding.EndDateTv.getText().toString();
+        eventStartTime = binding.createEvtnStartTimeTv.getText().toString();
+        eventEndtime = binding.createEventEndTime.getText().toString();
         sessionHourlyRate = binding.createTrainingSessionHourRateEdt.getText().toString();
         sessionMaxOccupancy = binding.createTrainingSessionMaxOccuEdt.getText().toString();
         eventAddress = binding.getAddressTv.getText().toString();
@@ -268,8 +396,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionStartDate.isEmpty()) {
             Toast.makeText(this, "Enter session start date", Toast.LENGTH_SHORT).show();
 
-        } else if (sessionStartTime.isEmpty()) {
+        } else if (sessionEndDate.isEmpty()) {
             Toast.makeText(this, "Enter session end date", Toast.LENGTH_SHORT).show();
+        } else if (eventStartTime.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.select_start_time), Toast.LENGTH_SHORT).show();
+
+        } else if (eventEndtime.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.select_end_time), Toast.LENGTH_SHORT).show();
 
         } else if (sessionHourlyRate.isEmpty()) {
             binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_session));

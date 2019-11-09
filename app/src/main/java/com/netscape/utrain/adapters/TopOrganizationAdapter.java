@@ -51,6 +51,7 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
             @Override
             public void onClick(View view) {
                 Intent topCoachesDetails = new Intent(context, TopCoachOrgDetailActivity.class);
+                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 topCoachesDetails.putExtra("intentFrom","org");
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");

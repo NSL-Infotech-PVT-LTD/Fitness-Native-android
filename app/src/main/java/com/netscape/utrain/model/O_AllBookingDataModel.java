@@ -30,7 +30,6 @@ public class O_AllBookingDataModel {
     private int to;
     private int total;
     private List<O_AllBookingDataListModel> data;
-
     public List<O_AllBookingDataListModel> getData() {
         return data;
     }
