@@ -33,7 +33,6 @@ import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.C_HomeFragment;
-import com.netscape.utrain.fragments.O_ChatsFragment;
 import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
@@ -226,8 +225,8 @@ public class CoachDashboard extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:
-                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_ChatsFragment();
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new O_NotificationFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
