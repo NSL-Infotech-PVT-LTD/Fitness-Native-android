@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +67,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
     private final static int CREATE_EVENT_REQUEST_CODE = 100;
     List<AllBookingListModel.DataBeanX.DataBean> mEventList = new ArrayList<>();
     List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
+    ArrayList<CalendarView.CalendarObject> calendarObjectArrayList = new ArrayList();
     private String[] mShortMonths;
     private CalendarView mCalendarView;
     private CalendarDialog mCalendarDialog;
@@ -118,23 +120,23 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         mShortMonths = new DateFormatSymbols().getShortMonths();
 
         initializeUI();
-        if (getIntent().getExtras()!=null){
-            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Coach")){
-                getCoachBooking();
-            }
-            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Organization")){
-               getOrgBooking();
-            }
-        }else {
+//        if (getIntent().getExtras()!=null){
+//            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Coach")){
+//                getCoachBooking();
+//            }
+//            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Organization")){
+//               getOrgBooking();
+//            }
+//        }else {
 
-            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
-                getOrgBooking();
-            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
-                getBookingList();
-            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
-                getCoachBooking();
-            }
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
+            getOrgBooking();
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
+            getBookingList();
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
+            getCoachBooking();
         }
+//        }
     }
 
     private void initializeUI() {
@@ -261,8 +263,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                     colour1 = Color.BLUE;
                                     colour2 = Color.BLACK;
                                 }
-                                String startDate = e.getTarget_data().getStart_date();
-                                String endDate = e.getTarget_data().getEnd_date();
+                                String startDate = e.getBooking_date().getStart();
+                                String endDate = e.getBooking_date().getEnd();
                                 try {
                                     Date date1 = null;
                                     Date date2 = null;
@@ -279,28 +281,47 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                         for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
-                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                            calendarObjectArrayList.add((new CalendarView.CalendarObject(
                                                     e.getId() + "",
                                                     calendar,
-                                                    colour1, colour2, e.getTarget_data().getName(), type));
+                                                    colour1, colour2, e.getTarget_data().getName(), type)));
+//                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                    e.getId() + "",
+//                                                    calendar,
+//                                                    colour1, colour2, e.getTarget_data().getName(), type));
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
                                                 e.getId() + "",
                                                 calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                                colour1, colour2, e.getTarget_data().getName(), type)));
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     } else {
+
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
                                                 e.getId() + "",
                                                 calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                                colour1, colour2, e.getTarget_data().getName(), type)));
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     }
+
+
                                 } catch (ParseException ex) {
                                     ex.printStackTrace();
                                 }
+
+                            }
+                            for (CalendarView.CalendarObject calendarObject : calendarObjectArrayList) {
+                                mCalendarView.addCalendarObject(calendarObject);
 
                             }
                         } else {
@@ -441,8 +462,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                     colour1 = Color.BLUE;
                                     colour2 = Color.BLACK;
                                 }
-                                String startDate = e.getTarget_data().getStart_date();
-                                String endDate = e.getTarget_data().getEnd_date();
+                                String startDate = e.getBooking_date().getStart();
+                                String endDate = e.getBooking_date().getEnd();
                                 try {
 
                                     Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
@@ -500,8 +521,6 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
     //    private static CalendarView.CalendarObject parseCalendarObject(AllBookingListModel.DataBeanX e) {

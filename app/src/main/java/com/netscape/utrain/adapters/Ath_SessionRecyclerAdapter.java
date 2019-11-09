@@ -62,7 +62,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 //        holder.athleteEventAddressTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
 
-        holder.eventStartDateTimeEnterTv.setText(data.getDate() + " " + data.getBusiness_hour() + " ");
+        holder.eventStartDateTimeEnterTv.setText(data.getStart_date() + " " + data.getStart_time()+ " ");
         holder.findPlaceActualPriceTv.setText("$" + data.getHourly_rate() + "/hr");
 
         try {
@@ -91,8 +91,8 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
                 intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
                 intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
                 intent.putExtra("eventVenue", data.getLocation());
-                intent.putExtra("eventTime", data.getBusiness_hour());
-                intent.putExtra("eventDate", data.getDate());
+                intent.putExtra("eventTime", data.getStart_time());
+                intent.putExtra("eventDate", data.getStart_date());
                 intent.putExtra("eventDescription", data.getDescription());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
                 intent.putExtra("event_id", data.getId());

@@ -759,7 +759,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         bookingIdText.setText("Booking ID : " + sessionData.getId());
         bookingPlaceName.setText(sessionData.getSession().getName());
         eventText.setText("Session");
-        String currentStringEnd = sessionData.getSession().getDate();
+        String currentStringEnd = sessionData.getSession().getStart_date();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
         Date dt = null, dtEnd;
@@ -767,7 +767,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
         try {
 
-            dt = sdf.parse(sessionData.getSession().getDate());
+            dt = sdf.parse(sessionData.getSession().getStart_date());
 
 
             String value = null;

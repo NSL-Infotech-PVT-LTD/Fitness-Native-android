@@ -71,7 +71,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         holder.eventName.setText(data.getSession().getName());
         holder.eventVenue.setText(data.getSession().getLocation());
         holder.bookingTv.setText(data.getSession().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
-        holder.eventDate.setText(data.getSession().getDate() + " " + data.getSession().getBusiness_hour());
+        holder.eventDate.setText(data.getSession().getStart_date() + " " + data.getSession().getStart_time());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,13 +103,13 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
     }
 
     public interface onSessionClick {
-        public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean dataBean);
+        void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean dataBean);
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
-        MaterialTextView eventName, eventVenue, eventDate,bookingTv;
+        MaterialTextView eventName, eventVenue, eventDate, bookingTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);

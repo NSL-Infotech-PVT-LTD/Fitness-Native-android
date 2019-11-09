@@ -22,9 +22,36 @@ public class CoachListModel implements Serializable {
     private int expertise_years;
     private int hourly_rate;
     private String sport_id;
+    private String profession;
+    private String experience_detail;
+    private String training_service_detail;
     private String portfolio_image;
     private List<RolesModel> roles;
     private List<ServiceIdModel> service_ids;
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getExperience_detail() {
+        return experience_detail;
+    }
+
+    public void setExperience_detail(String experience_detail) {
+        this.experience_detail = experience_detail;
+    }
+
+    public String getTraining_service_detail() {
+        return training_service_detail;
+    }
+
+    public void setTraining_service_detail(String training_service_detail) {
+        this.training_service_detail = training_service_detail;
+    }
 
     public String getSport_id() {
         return sport_id;
