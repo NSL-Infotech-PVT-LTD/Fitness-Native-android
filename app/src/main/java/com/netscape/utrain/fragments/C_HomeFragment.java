@@ -78,6 +78,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     private CoachListModel coachListModel;
+    String cExp = null;
 
 
     public C_HomeFragment() {
@@ -106,8 +107,14 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
         binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
-        binding.cExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+
+        cExp = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context);
+        if (cExp != null)
+        binding.cExpDetailTv.setText(cExp);
+        else
+        binding.cExpDetailTv.setVisibility(View.GONE);
         binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
+        binding.coachBioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, context));
 
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);

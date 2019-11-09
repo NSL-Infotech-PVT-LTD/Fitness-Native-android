@@ -37,8 +37,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/orgProfileImage"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_details_map"
                     app:layout_constraintRight_toRightOf="@id/RightGuideLine"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintGuide_percent="0.093" />
 
         <ScrollView
             android:id="@+id/scroll"
@@ -143,7 +143,8 @@
                     android:textSize="@dimen/_12sdp"
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/oProfileImgCard" />
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"

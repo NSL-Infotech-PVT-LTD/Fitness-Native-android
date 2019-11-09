@@ -215,7 +215,7 @@ public interface Retrofitinterface {
                                                     @Query("search") String search,
                                                     @Query("limit") String limit,
                                                     @Query("order_by") String order_by,
-                                                    @Query("coach_id") String coach_id
+                                                    @Query("organiser_id") String coach_id
     );
 
     //    @Multipart

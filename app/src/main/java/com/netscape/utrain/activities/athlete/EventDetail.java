@@ -38,7 +38,6 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class EventDetail extends AppCompatActivity {
 
-    MaterialTextView venueAddress, eventName, eventInstructionsDetailTv, eventTimeDetailTv, eventDateDetailTv, eventNumOfCandidateTv, seatNo;
     MaterialTextView title;
     MaterialTextView endDateTime;
     String eventType = "";
@@ -47,7 +46,6 @@ public class EventDetail extends AppCompatActivity {
     ViewPagerAdapter adapter;
     List<String> imageList = new ArrayList<>();
     MyCustomPagerAdapter pagerAdapter;
-    MaterialButton evntJoinNow;
     private ActivityEventDetailBinding binding;
     private AthletePlaceModel placeModel;
 
@@ -65,22 +63,14 @@ public class EventDetail extends AppCompatActivity {
                 finish();
             }
         });
-        venueAddress = findViewById(R.id.eventVanueDetailTv);
-        eventName = findViewById(R.id.eventMarathonHeaderTv);
-        title = findViewById(R.id.title);
-        eventTimeDetailTv = findViewById(R.id.eventTimeDetailTv);
-        eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
-        eventInstructionsDetailTv = findViewById(R.id.eventInstructionsDetailTv);
-        evntJoinNow = findViewById(R.id.evntJoinNow);
-        eventNumOfCandidateTv = findViewById(R.id.eventNumOfCandidateTv);
-        seatNo = findViewById(R.id.seatNo);
 
-        eventName.setText(getIntent().getStringExtra("eventName"));
-        venueAddress.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
-        eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
-        eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
-        eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
-        seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
+        title = findViewById(R.id.title);
+        binding.eventMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
+        binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
+        binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+        binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
+        binding.seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
 
 
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +104,7 @@ public class EventDetail extends AppCompatActivity {
             binding.view4.setVisibility(View.GONE);
         }
 
-        eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
+        binding.eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
 
 
         if (getIntent().getStringExtra("from") != null)
@@ -186,16 +176,17 @@ public class EventDetail extends AppCompatActivity {
                 }
             });
 
-            evntJoinNow.setOnClickListener(new View.OnClickListener() {
+            binding.evntJoinNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
                     intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
-                    intent.putExtra("eventName", eventName.getText());
-                    intent.putExtra("eventVenue", venueAddress.getText());
-                    intent.putExtra("eventTime", eventTimeDetailTv.getText());
-                    intent.putExtra("eventDate", eventDateDetailTv.getText());
+                    intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
+                    intent.putExtra("seatLeft", binding.seatNo.getText());
+                    intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());
+                    intent.putExtra("eventTime", binding.eventTimeDetailTv.getText());
+                    intent.putExtra("eventDate", binding.eventDateDetailTv.getText());
                     intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
                     intent.putExtra("type", eventType);
                     startActivity(intent);

@@ -4,7 +4,7 @@
     android:id="@+id/userBottomSheeet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTransparentnew"
+    android:background="@color/whiteTransparent"
     android:gravity="bottom"
     android:orientation="vertical"
     app:behavior_hideable="true"

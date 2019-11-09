@@ -398,4 +398,10 @@
     <string name="experience_text_colon">Experience:</string>
     <string name="open_hour_from">Open hour from</string>
     <string name="open_hour_to">Open hour to</string>
+    <string name="book_date_from">Book date from</string>
+    <string name="book_date_to">Book date to</string>
+    <string name="view_coach_staff">View Coach Staff</string>
+    <string name="rent_our_space">Rent Our Space</string>
+    <string name="registration">Registration</string>
+>>>>>>> dc88a50546ce5fcae696b65cbccf8623e62190ae
 </resources>

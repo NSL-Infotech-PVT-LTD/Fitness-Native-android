@@ -21,9 +21,18 @@ public class CoachListModel implements Serializable {
     private String bio;
     private int expertise_years;
     private int hourly_rate;
+    private String sport_id;
     private String portfolio_image;
     private List<RolesModel> roles;
     private List<ServiceIdModel> service_ids;
+
+    public String getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(String sport_id) {
+        this.sport_id = sport_id;
+    }
 
     public List<ServiceIdModel> getService_ids() {
         return service_ids;

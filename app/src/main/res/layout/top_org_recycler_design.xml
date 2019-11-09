@@ -31,7 +31,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/topOrgRecyclerTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/sophie"
                 android:textSize="@dimen/_10sdp"
@@ -41,6 +41,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_semibold"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topOrgRecyclerImg"/>
 
             <RatingBar
