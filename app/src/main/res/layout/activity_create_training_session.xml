@@ -216,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/business_date_train_session"
+                        android:text="Session start Date"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
@@ -244,28 +244,90 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/business_time_train_session"
+                        android:text="Session end Date"
                         android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toLeftOf="@id/createTrainingTimeTv"
+                        app:layout_constraintLeft_toLeftOf="@id/EndDateTv"
                         app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
 
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/createTrainingTimeTv"
+                        android:id="@+id/EndDateTv"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/card_input_edt_background"
-                        android:drawableLeft="@drawable/ic_time"
+                        android:drawableLeft="@drawable/ic_date"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:hint="10:10"
+                        android:hint="Enter Date"
                         android:paddingLeft="@dimen/_15sdp"
-                        android:paddingRight="@dimen/_30sdp"
+                        android:paddingRight="@dimen/_10sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
                         app:layout_constraintTop_toBottomOf="@id/TrainSessionDateText" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventStartTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/start_time_hour"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createTrainingDateTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventEndTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/end_time_hour"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
+                        app:layout_constraintTop_toBottomOf="@id/EndDateTv" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEvtnStartTimeTv"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:gravity="left|center_vertical"
+                        android:hint="@string/start_time"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventEndTime"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:gravity="left|center_vertical"
+                        android:hint="@string/end_time"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
+
+
+
+
+
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createTrainSessionHourRateText"
@@ -276,7 +338,7 @@
                         android:text="@string/hourly_price"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/createTrainingDateTv" />
+                        app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/createTrainingSessionHourRateEdt"

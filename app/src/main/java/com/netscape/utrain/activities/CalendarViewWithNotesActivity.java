@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.CalendarEventListAdapter;
 import com.netscape.utrain.model.AllBookingListModel;
+import com.netscape.utrain.model.O_AllBookingDataListModel;
+import com.netscape.utrain.model.O_AllBookingDataModel;
+import com.netscape.utrain.model.O_AllBookingTargetDataModel;
+import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CalendarDialog;
@@ -60,14 +65,14 @@ import retrofit2.Response;
 public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
     private final static int CREATE_EVENT_REQUEST_CODE = 100;
-
+    List<AllBookingListModel.DataBeanX.DataBean> mEventList = new ArrayList<>();
+    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
+    ArrayList<CalendarView.CalendarObject> calendarObjectArrayList = new ArrayList();
     private String[] mShortMonths;
     private CalendarView mCalendarView;
     private CalendarDialog mCalendarDialog;
     private int colour1;
     private int colour2;
-
-    List<AllBookingListModel.DataBeanX.DataBean>  mEventList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
 
@@ -115,18 +120,23 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         mShortMonths = new DateFormatSymbols().getShortMonths();
 
         initializeUI();
+//        if (getIntent().getExtras()!=null){
+//            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Coach")){
+//                getCoachBooking();
+//            }
+//            if (getIntent().getStringExtra("fromCalendar").equalsIgnoreCase("Organization")){
+//               getOrgBooking();
+//            }
+//        }else {
 
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer))
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
+            getOrgBooking();
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
             getBookingList();
-        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)){
-
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
+            getCoachBooking();
         }
-//            a_getUpcommingEvents();
-        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)){
-
-        }
-//            getCoachUpcommingEvents();
-
+//        }
     }
 
     private void initializeUI() {
@@ -139,7 +149,6 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         mCalendarView = findViewById(R.id.calendarView);
@@ -170,14 +179,12 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         });
 
 
-
         if (getSupportActionBar() != null) {
             int month = mCalendarView.getCurrentDate().get(Calendar.MONTH);
             int year = mCalendarView.getCurrentDate().get(Calendar.YEAR);
             getSupportActionBar().setTitle(mShortMonths[month]);
             getSupportActionBar().setSubtitle(Integer.toString(year));
         }
-
 
 
         mCalendarDialog = CalendarDialog.Builder.instance(this)
@@ -202,6 +209,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
         return true;
     }
+
     public void displaySupplierList(List<CalendarView.CalendarObject> calendarObjects) {
         RecyclerView mRecyclerView;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -210,8 +218,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //        builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         final View content = inflater.inflate(R.layout.calander_item_list_dialog_view, null);
         builder.setView(content);
-        mRecyclerView = (RecyclerView) content.findViewById(R.id.customeDialogRecycler);
-        MaterialButton noBtn = (MaterialButton) content.findViewById(R.id.closeBtn);
+        mRecyclerView = content.findViewById(R.id.customeDialogRecycler);
+        MaterialButton noBtn = content.findViewById(R.id.closeBtn);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         final CalendarEventListAdapter adapter = new CalendarEventListAdapter(this, calendarObjects);
         mRecyclerView.setAdapter(adapter);
@@ -230,61 +238,173 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
     private void getBookingList() {
         progressDialog.show();
-        Call<AllBookingListModel> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
-        call.enqueue(new Callback<AllBookingListModel>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<AllBookingListModel> call, Response<AllBookingListModel> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        mEventList  = response.body().getData().getData();
-                        if (mEventList.size() > 0) {
+                        orgEventList = response.body().getData().getData();
+                        if (orgEventList.size() > 0) {
 
-                            for (AllBookingListModel.DataBeanX.DataBean e : mEventList) {
-                                String type=e.getType();
-                                if (e.getType().equalsIgnoreCase("event")){
-                                     colour1=Color.GREEN;
-                                     colour2=Color.BLACK;
+                            for (O_AllBookingDataListModel e : orgEventList) {
+                                String type = e.getType();
+                                if (e.getType().equalsIgnoreCase("event")) {
+                                    colour1 = Color.GREEN;
+                                    colour2 = Color.BLACK;
                                 }
-                                if (e.getType().equalsIgnoreCase("session")){
-                                    colour1=Color.RED;
-                                    colour2=Color.BLACK;
+                                if (e.getType().equalsIgnoreCase("session")) {
+                                    colour1 = Color.RED;
+                                    colour2 = Color.BLACK;
                                 }
-                                if (e.getType().equalsIgnoreCase("space")){
-                                    colour1=Color.BLUE;
-                                    colour2=Color.BLACK;
+                                if (e.getType().equalsIgnoreCase("space")) {
+                                    colour1 = Color.BLUE;
+                                    colour2 = Color.BLACK;
                                 }
-                                String startDate = e.getTarget_data().getStart_date();
-                                String endDate = e.getTarget_data().getEnd_date();
+                                String startDate = e.getBooking_date().getStart();
+                                String endDate = e.getBooking_date().getEnd();
+                                try {
+                                    Date date1 = null;
+                                    Date date2 = null;
+                                    if (startDate != null) {
+                                        date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    }
+                                    if (endDate != null) {
+                                        date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    }
+
+                                    List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
+                                    Log.e("", "list" + list);
+                                    if (list != null & list.size() > 0) {
+                                        for (Date date : list) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(date);
+                                            calendarObjectArrayList.add((new CalendarView.CalendarObject(
+                                                    e.getId() + "",
+                                                    calendar,
+                                                    colour1, colour2, e.getTarget_data().getName(), type)));
+//                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                    e.getId() + "",
+//                                                    calendar,
+//                                                    colour1, colour2, e.getTarget_data().getName(), type));
+                                        }
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
+                                                e.getId() + "",
+                                                calendar,
+                                                colour1, colour2, e.getTarget_data().getName(), type)));
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                    } else {
+
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
+                                                e.getId() + "",
+                                                calendar,
+                                                colour1, colour2, e.getTarget_data().getName(), type)));
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                    }
+
+
+                                } catch (ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
+                            for (CalendarView.CalendarObject calendarObject : calendarObjectArrayList) {
+                                mCalendarView.addCalendarObject(calendarObject);
+
+                            }
+                        } else {
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void getOrgBooking() {
+        progressDialog.show();
+        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        call.enqueue(new Callback<O_AllBookingResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
+                if (response.body() != null) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        orgEventList.addAll(response.body().getData().getData());
+                        if (orgEventList.size() > 0) {
+
+                            for (O_AllBookingDataListModel e : orgEventList) {
+                                String type = e.getType();
+                                if (e.getType().equalsIgnoreCase("event")) {
+                                    colour1 = Color.GREEN;
+                                    colour2 = Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("session")) {
+                                    colour1 = Color.RED;
+                                    colour2 = Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("space")) {
+                                    colour1 = Color.BLUE;
+                                    colour2 = Color.BLACK;
+                                }
+                                String startDate = e.getBooking_date().getStart();
+                                String endDate = e.getBooking_date().getEnd();
                                 try {
 
-                                    Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-                                    Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-                                    List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1,date2);
-                                    Log.e("","list"+ list);
-                                    if (list.size() > 0){
-                                        for (Date date : list){
+                                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
+                                    Log.e("", "list" + list);
+                                    if (list != null & list.size() > 0) {
+                                        for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
                                             mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                    e.getId()+"",
+                                                    e.getId() + "",
                                                     calendar,
-                                                    colour1,colour2,e.getTarget_data().getName(),type));
+                                                    colour1, colour2, e.getTarget_data().getName(), type));
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
                                         mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId()+"",
+                                                e.getId() + "",
                                                 calendar,
-                                                colour1,colour2,e.getTarget_data().getName(),type));
-                                    }else {
+                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                    } else {
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
                                         mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId()+"",
+                                                e.getId() + "",
                                                 calendar,
-                                                colour1,colour2,e.getTarget_data().getName(),type));
+                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     }
                                 } catch (ParseException ex) {
                                     ex.printStackTrace();
@@ -306,7 +426,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AllBookingListModel> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -314,7 +434,96 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
 
     }
-//    private static CalendarView.CalendarObject parseCalendarObject(AllBookingListModel.DataBeanX e) {
+
+    private void getCoachBooking() {
+        progressDialog.show();
+        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        call.enqueue(new Callback<O_AllBookingResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
+                if (response.body() != null) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        orgEventList.addAll(response.body().getData().getData());
+                        if (orgEventList.size() > 0) {
+
+                            for (O_AllBookingDataListModel e : orgEventList) {
+                                String type = e.getType();
+                                if (e.getType().equalsIgnoreCase("event")) {
+                                    colour1 = Color.GREEN;
+                                    colour2 = Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("session")) {
+                                    colour1 = Color.RED;
+                                    colour2 = Color.BLACK;
+                                }
+                                if (e.getType().equalsIgnoreCase("space")) {
+                                    colour1 = Color.BLUE;
+                                    colour2 = Color.BLACK;
+                                }
+                                String startDate = e.getBooking_date().getStart();
+                                String endDate = e.getBooking_date().getEnd();
+                                try {
+
+                                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
+                                    Log.e("", "list" + list);
+                                    if (list != null & list.size() > 0) {
+                                        for (Date date : list) {
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(date);
+                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                    e.getId() + "",
+                                                    calendar,
+                                                    colour1, colour2, e.getTarget_data().getName(), type));
+                                        }
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                e.getId() + "",
+                                                calendar,
+                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                    } else {
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(date2);
+                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+                                                e.getId() + "",
+                                                calendar,
+                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                    }
+                                } catch (ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
+                        } else {
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+
+    //    private static CalendarView.CalendarObject parseCalendarObject(AllBookingListModel.DataBeanX e) {
 //        return new CalendarView.CalendarObject(
 //                event.getID(),
 //                event.getDate(),
@@ -340,7 +549,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //                int action = CreateEventActivity.extractActionFromIntent(data);
 //                Event event = CreateEventActivity.extractEventFromIntent(data);
                 AllBookingListModel.DataBeanX oldEvent = null;
-                for (AllBookingListModel.DataBeanX.DataBean e : mEventList) {
+                for (O_AllBookingDataListModel e : orgEventList) {
 //                    if (Objects.equals(e.getData().get(0).getId(), e.getData().get(0).getId())) {
 //                        oldEvent = e;
 //                        break;

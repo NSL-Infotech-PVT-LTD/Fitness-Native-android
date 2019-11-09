@@ -114,6 +114,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("from", "topEvent");
                 intent.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(intent);
@@ -204,6 +205,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         backArrow.setOnClickListener(this);
         moreServices.setOnClickListener(this);
         liearLayout.setOnClickListener(this);
+        binding.viewBookings.setOnClickListener(this);
     }
 
     private void setData() {
@@ -220,19 +222,12 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                     ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
                     chip.setChipDrawable(chipDrawable);
                     chip.setTextColor(getResources().getColor(R.color.colorWhite));
-
                     chip.setText(coachListModel.getService_ids().get(i).getName());
                     chip.setTag(coachListModel.getService_ids().get(i).getId());
-
-
                     chipGroup.addView(chip);
                 }
-
                 chipGroup.setEnabled(false);
-
-
                 add_service.addView(chipGroup);
-
             }
         }
         if (type == 2) {
@@ -276,8 +271,6 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 //            binding.detailUserService.setText(coachListModel.getName());
 //            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
         bio.setText(coachListModel.getBio());
-
-
 //            binding.detailNumTraineTv.setText("");
         price.setText("$ " + coachListModel.getHourly_rate());
         eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
@@ -299,6 +292,11 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 break;
             case R.id.bottomsheet_services:
                 bottomSheetUpDown_address();
+                break;
+            case R.id.viewBookings:
+                Intent intent=new Intent(TopCoachOrgDetailActivity.this,CalendarViewWithNotesActivity.class);
+                intent.putExtra("fromCalendar",title.getText().toString());
+                startActivity(intent);
                 break;
         }
 

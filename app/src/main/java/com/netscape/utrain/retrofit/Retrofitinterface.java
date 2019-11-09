@@ -24,6 +24,7 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.response.O_BookedSpaceListResponse;
 import com.netscape.utrain.response.O_EventBookedListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
@@ -289,10 +290,17 @@ public interface Retrofitinterface {
                                               @Query("order_by") String order_by);
 
     @POST(Constants.ALL_BOOKING_ATHLETE)
-    Call<AllBookingListModel> getAllBooking(@Header("Authorization") String Authorization,
+    Call<O_AllBookingResponse> getAllBooking(@Header("Authorization") String Authorization,
                                             @Header("Content-Type") String contentType,
-                                            @Query("limit") String limit
-    );
+                                            @Query("limit") String limit);
+    @POST(Constants.ALL_BOOKING_ORG)
+    Call<O_AllBookingResponse> getAllBookingOrg(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("limit") String limit);
+    @POST(Constants.ALL_BOOKING_COACH)
+    Call<O_AllBookingResponse> getAllBookingCoach(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("limit") String limit);
 
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,

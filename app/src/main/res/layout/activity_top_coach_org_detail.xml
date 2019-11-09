@@ -223,7 +223,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_semibold"
-
                         android:numStars="5"
                         android:progressBackgroundTint="@color/colorLightGray"
                         android:progressTint="@color/colorGreen"
@@ -231,6 +230,19 @@
                         android:stepSize="1"
                         app:layout_constraintLeft_toLeftOf="@id/sportsName"
                         app:layout_constraintTop_toBottomOf="@+id/location" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/viewBookings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="View Schedule"
+                        android:textColor="@color/colorGreen"
+                        android:textSize="@dimen/_12sdp"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"
+                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />
+
+
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/discoverBioTv"

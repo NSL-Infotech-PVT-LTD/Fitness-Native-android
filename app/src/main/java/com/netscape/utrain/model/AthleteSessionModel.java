@@ -20,7 +20,17 @@ public class AthleteSessionModel {
     private String name;
     private String description;
     private String business_hour;
-    private String date;
+    private String start_date;
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    private String start_time;
     private int hourly_rate;
     private String images;
     private String phone;
@@ -28,6 +38,17 @@ public class AthleteSessionModel {
     private int guest_allowed_left;
     private int created_by;
     private String latitude;
+    private String longitude;
+    private String location;
+    private String distance;
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
 
     public int getGuest_allowed() {
         return guest_allowed;
@@ -44,10 +65,6 @@ public class AthleteSessionModel {
     public void setGuest_allowed_left(int guest_allowed_left) {
         this.guest_allowed_left = guest_allowed_left;
     }
-
-    private String longitude;
-    private String location;
-    private String distance;
 
     public String getDistance() {
         return distance;
@@ -113,13 +130,6 @@ public class AthleteSessionModel {
         this.business_hour = business_hour;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public int getHourly_rate() {
         return hourly_rate;
@@ -144,7 +154,6 @@ public class AthleteSessionModel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
 
     public int getCreated_by() {

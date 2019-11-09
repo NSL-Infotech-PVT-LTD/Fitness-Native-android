@@ -722,14 +722,14 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         bookingIdText.setText("Booking ID : " + sessionData.getId());
         bookingPlaceName.setText(sessionData.getSession().getName());
         eventText.setText("Session");
-        String currentStringEnd = sessionData.getSession().getDate();
+        String currentStringEnd = sessionData.getSession().getStart_date();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
         Date dt = null, dtEnd;
 
 
         try {
-            dt = sdf.parse(sessionData.getSession().getDate());
+            dt = sdf.parse(sessionData.getSession().getStart_date());
             String value = null;
             if (dt != null) {
                 value = parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);

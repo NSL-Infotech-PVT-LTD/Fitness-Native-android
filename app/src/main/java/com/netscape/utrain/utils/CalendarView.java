@@ -51,8 +51,8 @@ public class CalendarView extends FrameLayout {
 
     private static final String TAG = CalendarView.class.getSimpleName();
 
-    private static final String DEFAULT_MIN_DATE = "01/01/2017";
-    private static final String DEFAULT_MAX_DATE = "01/01/2100";
+    private static final String DEFAULT_MIN_DATE = "01/01/2019";
+    private static final String DEFAULT_MAX_DATE = "01/01/2020";
     private static final String TEMPLATE = "MM/dd/yyyy";
     private final int[] weekHeaderIds = {
             R.id.tv_weekday_1, R.id.tv_weekday_2, R.id.tv_weekday_3, R.id.tv_weekday_4,
@@ -310,6 +310,9 @@ public class CalendarView extends FrameLayout {
         mCalendarPagerAdapter.notifyDataSetChanged();
     }
 
+    public void notifyCalander(){
+        mCalendarPagerAdapter.notifyDataSetChanged();
+    }
     public void removeCalendarObjectByID(CalendarObject calendarObject) {
         int dateCode = getDateCode(calendarObject.getDatetime(), 1);
 
@@ -422,12 +425,12 @@ public class CalendarView extends FrameLayout {
         int dateCode = getDateCode(calendarObject.getDatetime(), 1);
         if (mObjectsByMonthMap.get(dateCode) != null) {
             mObjectsByMonthMap.get(dateCode).add(calendarObject);
-            Collections.sort(mObjectsByMonthMap.get(dateCode), new Comparator<CalendarObject>() {
-                @Override
-                public int compare(CalendarObject o1, CalendarObject o2) {
-                    return o1.getDatetime().after(o2.getDatetime()) ? 1 : -1;
-                }
-            });
+//            Collections.sort(mObjectsByMonthMap.get(dateCode), new Comparator<CalendarObject>() {
+//                @Override
+//                public int compare(CalendarObject o1, CalendarObject o2) {
+//                    return o1.getDatetime().after(o2.getDatetime()) ? 1 : -1;
+//                }
+//            });
         } else {
             mObjectsByMonthMap.put(dateCode, new ArrayList<CalendarObject>());
             mObjectsByMonthMap.get(dateCode).add(calendarObject);

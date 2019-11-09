@@ -79,8 +79,7 @@ public class CommonMethods {
         }
         return callLog;
     }
-    public static List<Date> getDatesBetweenUsingJava7(
-            Date startDate, Date endDate) {
+    public static List<Date> getDatesBetweenUsingJava7(Date startDate, Date endDate) {
         List<Date> datesInRange = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(startDate);

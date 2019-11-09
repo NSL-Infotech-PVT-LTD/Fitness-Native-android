@@ -341,7 +341,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<CoachListResponse> call, Throwable t) {
-
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
