@@ -100,6 +100,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 binding.viewSession.setVisibility(View.VISIBLE);
                 binding.viewSpaces.setVisibility(View.GONE);
                 binding.layoutBtnConstraint.setVisibility(View.GONE);
+                binding.view2.setVisibility(View.GONE);
             }
             if (saveIntent.equalsIgnoreCase("org")) {
                 binding.viewEvents.setVisibility(View.VISIBLE);
