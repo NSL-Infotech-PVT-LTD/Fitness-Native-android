@@ -29,15 +29,12 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
-import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
-import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.C_HomeFragment;
-import com.netscape.utrain.fragments.O_EditorFragment;
+import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
-import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
@@ -229,7 +226,7 @@ public class CoachDashboard extends AppCompatActivity {
                     return true;
                 case R.id.navigation_reqimage:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_EditorFragment();
+                    fragment = new O_RegistrationProfile();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:

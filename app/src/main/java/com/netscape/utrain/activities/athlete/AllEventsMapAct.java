@@ -163,10 +163,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getAthleteEventApi("distance", search,"");
                     } else if (getIntent().getStringExtra("from").equalsIgnoreCase("2")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_skyblue_bottom_round));
-                        getAthleteSessionApi("distance", search,sCoach_Id);
+                        getAthleteSessionApi("distance", search,"");
                     } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
-                        getAthletePlaceApi("distance", search,sCoach_Id);
+                        getAthletePlaceApi("distance", search,"");
                     }
                     return true;
                 }

@@ -48,6 +48,8 @@ public class EventBookingActivity extends AppCompatActivity {
         activity = this;
         binding = DataBindingUtil.setContentView(activity, R.layout.activity_event_booking);
 
+        final String seatNo = getIntent().getStringExtra("seatLeft");
+
         if (getIntent().hasExtra("eventName"))
             binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
         else
@@ -101,12 +103,20 @@ public class EventBookingActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+
                 if (countVAlue < 5) {
-                    countVAlue += 1;
-                    totalPrice = ticketPrice * countVAlue;
-                    binding.text1.setText((ticket + " * " + countVAlue) + "");
-                    binding.eventPrice.setText("$" + totalPrice + "");
-                    binding.countDisplay.setText(countVAlue + "");
+                    if (countVAlue<Integer.parseInt(seatNo)){
+                        countVAlue += 1;
+                        totalPrice = ticketPrice * countVAlue;
+                        binding.text1.setText((ticket + " * " + countVAlue) + "");
+                        binding.eventPrice.setText("$" + totalPrice + "");
+                        binding.countDisplay.setText(countVAlue + "");
+                    } else {
+                        Toast.makeText(EventBookingActivity.this, "Only "+seatNo+" Seat left", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
                 } else {
                     Snackbar.make(binding.maineventBooking, getResources().getString(R.string.cannotExceed), BaseTransientBottomBar.LENGTH_LONG).show();
                 }

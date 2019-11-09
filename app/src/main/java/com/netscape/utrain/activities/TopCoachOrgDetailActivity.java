@@ -67,7 +67,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private RecyclerView serviceRecycler;
     private ImageView profImage, backArrow;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
-    private ArrayList<String> portfolioImageList= new ArrayList<>();
+    private ArrayList<String> portfolioImageList = new ArrayList<>();
     private TextView name, typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
 
     @Override
@@ -99,6 +99,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 binding.viewEvents.setVisibility(View.VISIBLE);
                 binding.viewSession.setVisibility(View.VISIBLE);
                 binding.viewSpaces.setVisibility(View.GONE);
+                binding.layoutBtnConstraint.setVisibility(View.GONE);
             }
             if (saveIntent.equalsIgnoreCase("org")) {
                 binding.viewEvents.setVisibility(View.VISIBLE);
@@ -143,7 +144,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     }
 
     private void setPortFolidImages() {
-        if (portfolioImageList.size()>0 ) {
+        if (portfolioImageList.size() > 0) {
             binding.portfolioText.setVisibility(View.VISIBLE);
             for (int i = 0; i < portfolioImageList.size(); i++) {
                 if (i == 0) {
@@ -348,7 +349,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     }
 
     private void getSportsIds() {
-        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        String sportName = coachListModel.getSport_id();
         Gson gson = new Gson();
 
         if (sportName != null) {

@@ -396,4 +396,9 @@
     <string name="view_spaces">View Spaces</string>
     <string name="bio_colon">Bio:</string>
     <string name="experience_text_colon">Experience:</string>
+    <string name="book_date_from">Book date from</string>
+    <string name="book_date_to">Book date to</string>
+    <string name="view_coach_staff">View Coach Staff</string>
+    <string name="rent_our_space">Rent Our Space</string>
+    <string name="registration">Registration</string>
 </resources>

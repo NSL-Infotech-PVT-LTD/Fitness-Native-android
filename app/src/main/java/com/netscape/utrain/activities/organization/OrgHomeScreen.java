@@ -28,23 +28,16 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
-import com.netscape.utrain.activities.HistoryActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
-import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
-import com.netscape.utrain.fragments.A_EditorFragment;
-import com.netscape.utrain.fragments.A_NotificationFragment;
-import com.netscape.utrain.fragments.A_StardFragment;
-import com.netscape.utrain.fragments.O_ChatsFragment;
-import com.netscape.utrain.fragments.O_EditorFragment;
+import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
-import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -228,7 +221,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_reqimage:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_EditorFragment();
+                    fragment = new O_RegistrationProfile();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
