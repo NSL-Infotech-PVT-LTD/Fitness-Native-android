@@ -67,6 +67,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     ChipGroup cChipGroup;
+    String cExp = null, cAchievement = null, cBio = null;
     private Context context;
     private View view;
     private ProgressDialog progressDialog;
@@ -78,7 +79,6 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     private CoachListModel coachListModel;
-    String cExp = null;
 
 
     public C_HomeFragment() {
@@ -110,11 +110,20 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
         cExp = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context);
         if (cExp != null)
-        binding.cExpDetailTv.setText(cExp);
+            binding.cExpDetailTv.setText(cExp);
         else
-        binding.cExpDetailTv.setVisibility(View.GONE);
-        binding.cAchieveDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
-        binding.coachBioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, context));
+            binding.cExpDetailTv.setVisibility(View.GONE);
+        cAchievement = CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, context);
+        if (cAchievement != null)
+            binding.cAchieveDetailTv.setText(cAchievement);
+        else
+            binding.cAchieveDetailTv.setVisibility(View.GONE);
+        cBio = CommonMethods.getPrefData(PrefrenceConstant.BIO, context);
+        if (cBio != null)
+            binding.coachBioTv.setText(cBio);
+        else
+            binding.coachBioTv.setVisibility(View.GONE);
+
 
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);

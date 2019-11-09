@@ -226,7 +226,7 @@ public class CoachDashboard extends AppCompatActivity {
                     return true;
                 case R.id.navigation_reqimage:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_RegistrationProfile();
+                    fragment = new O_NotificationFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:

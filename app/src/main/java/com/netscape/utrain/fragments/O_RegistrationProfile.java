@@ -137,6 +137,10 @@ public class O_RegistrationProfile extends Fragment {
             }
         });
 
+        String oSports = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context);
+        binding.oExpDetailTv.setText(oSports);
+        String oAchievement = CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context);
+        binding.oAchieveDetailTv.setText(oAchievement);
 
         return view;
     }
