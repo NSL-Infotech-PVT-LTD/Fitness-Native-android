@@ -1,6 +1,7 @@
 package com.netscape.utrain.model;
 
-public class OrgCreateSpaceModel {
+public class
+OrgCreateSpaceModel {
 
     /**
      * name : City gym

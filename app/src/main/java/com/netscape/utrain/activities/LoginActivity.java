@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.AthleteLoginActivity;
@@ -30,6 +31,7 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -188,8 +190,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.loginLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+                        String errorMsg=errorMessage.getJSONObject(0).getString("message");
+                        Snackbar.make(binding.loginLayout, errorMsg, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
                         Snackbar.make(binding.loginLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();

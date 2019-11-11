@@ -2,13 +2,19 @@ package com.netscape.utrain.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.model.ServiceListDataModel;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -94,5 +100,12 @@ public class CommonMethods {
         }
         return datesInRange;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static long betweenDates(Date firstDate, Date secondDate) throws IOException
+    {
+        return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
+    }
+
 
 }

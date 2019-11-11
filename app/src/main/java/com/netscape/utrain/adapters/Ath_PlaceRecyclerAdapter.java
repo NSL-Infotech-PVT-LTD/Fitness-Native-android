@@ -55,7 +55,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
 
         holder.eventName.setText(data.getName());
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_hourly() + "/hr");
+        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
 //        holder.placenameTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.get());
         holder.placenameTv.setText(data.getLocation());
@@ -78,11 +78,11 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
-//                intent.putExtra("evenStartDateTime", data.get);
+                intent.putExtra("eventTime", data.getOpen_hours_from()+"");
                 intent.putExtra("eventALLImages", data.getImages());
                 intent.putExtra("eventDate", data.getAvailability_week());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
-                intent.putExtra("event_id", data.getId());
+                intent.putExtra("event_id", data.getId()+"");
                 intent.putExtra("from", "places");
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
