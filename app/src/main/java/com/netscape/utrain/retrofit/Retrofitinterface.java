@@ -8,6 +8,7 @@ import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.model.OrgCoachStoreModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.A_BookedEventResponse;
 import com.netscape.utrain.response.A_EventListResponse;
@@ -419,6 +420,10 @@ public interface Retrofitinterface {
     Call<AthleteSignUpResponse> updateProfile(@Part MultipartBody.Part file,
                                               @PartMap Map<String, RequestBody> fields
     );
+
+
+    @POST(Constants.ORGANIZER_COACH_STORE)
+    Call<OrgCoachStoreModel> orgCoachStore(@Query("name") String name);
 
 
 }

@@ -23,13 +23,15 @@ import java.util.List;
 public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.CustomTopCoachesHolder> {
 
     private Context context;
-    private int previusPos=-1;
+    private int previusPos = -1;
     private List<CoachListModel> supplierData;
-    public TopCoachesAdapter(Context context, List supplierData){
+
+    public TopCoachesAdapter(Context context, List supplierData) {
         this.context = context;
         this.supplierData = supplierData;
 
     }
+
     @NonNull
     @Override
     public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,20 +39,21 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_coaches_recycler_design, parent, false);
         return new CustomTopCoachesHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull final CustomTopCoachesHolder holder, int position) {
-                    final CoachListModel data=supplierData.get(position);
-        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getProfile_image()).thumbnail( Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+Constants.THUMBNAILS+data.getProfile_image())).into(holder.imageView);
+        final CoachListModel data = supplierData.get(position);
+        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.imageView);
         holder.name.setText(data.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent topCoachesDetails=new Intent(context, TopCoachOrgDetailActivity.class);
+                Intent topCoachesDetails = new Intent(context, TopCoachOrgDetailActivity.class);
                 topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                topCoachesDetails.putExtra("intentFrom","coach");
-                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT,data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT,"1");
+                topCoachesDetails.putExtra("intentFrom", "coach");
+                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
+                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
                 context.startActivity(topCoachesDetails);
 
             }
@@ -66,7 +69,6 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
 
         AppCompatImageView imageView;
         MaterialTextView name;
-
 
 
         public CustomTopCoachesHolder(@NonNull View itemView) {

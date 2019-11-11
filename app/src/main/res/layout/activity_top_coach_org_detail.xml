@@ -88,7 +88,7 @@
                         android:id="@+id/discoverCardImg"
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:cardCornerRadius="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,145 +103,253 @@
                     </com.google.android.material.card.MaterialCardView>
 
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/detailUserName"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/userDetailLayout"
                         android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/discoverCardImg"
+                        app:layout_constraintLeft_toRightOf="@+id/discoverCardImg"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/discoverCardImg">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/detailUserName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:singleLine="true"
+                            android:text="@string/discoverRecylerName"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/cYearsOfExpText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/years_of_experience"
+                            android:textSize="@dimen/_8sdp"
+                            android:visibility="visible"
+                            app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
+                            app:layout_constraintTop_toBottomOf="@id/detailUserName" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/cYearsOfExpTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textColor="@color/themeColor"
+                            android:textSize="@dimen/_8sdp"
+                            android:visibility="visible"
+                            app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
+                            app:layout_constraintTop_toBottomOf="@id/cYearsOfExpText" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/ratingText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rating"
+                            android:textSize="@dimen/_8sdp"
+                            app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
+                            app:layout_constraintTop_toBottomOf="@+id/cYearsOfExpTv" />
+
+                        <!--                        <com.google.android.material.textview.MaterialTextView>-->
+                        <!--                        android:id="@+id/viewBookings"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:fontFamily="@font/poppins_regular"-->
+                        <!--                        android:text="View Schedule"-->
+                        <!--                        android:textColor="@color/colorGreen"-->
+                        <!--                        android:textSize="@dimen/_12sdp"-->
+                        <!--                        android:visibility="gone"-->
+                        <!--                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"-->
+                        <!--                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />-->
+
+                        <RatingBar
+                            android:id="@+id/discoverRating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:numStars="5"
+                            android:progressBackgroundTint="@color/colorLightGray"
+                            android:progressTint="@color/themeColor"
+                            android:rating="4"
+                            android:stepSize="1"
+                            app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingText" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dCoachingStaffBtn"
+                        android:drawableStart="@drawable/ic_rentspace"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:backgroundTint="@color/themeColor"
+                        app:icon="@drawable/ic_coachingstaff"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/discoverRecylerName"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintLeft_toRightOf="@id/discoverCardImg"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/discoverCardImg" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/detailUserType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="@string/coach"
-                        android:textSize="@dimen/_8sdp"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="@id/detailUserName"
-                        app:layout_constraintTop_toBottomOf="@+id/detailUserName" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/detailUserService"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:maxLength="20"
-                        android:singleLine="true"
-                        android:text="@string/years_of_experience"
+                        android:text="@string/coaching_staff"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"
-                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />
+                        app:cornerRadius="@dimen/_5sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/discoverCardImg"
+                        app:layout_constraintRight_toLeftOf="@+id/dRentOurSpaceBtn"
+                        app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
 
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/sportsName"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dRentOurSpaceBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:maxLength="20"
-                        android:singleLine="true"
-                        android:text="@string/sports"
-                        android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toRightOf="@+id/detailUserType"
-                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/sportsDetail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_14sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:maxLines="2"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toRightOf="@+id/sportsName"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/sportsName" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/locationText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:maxLength="20"
-                        android:singleLine="true"
-                        android:text="@string/location"
-                        android:textSize="@dimen/_8sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"
-                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/location"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/poppins_regular"
-                        android:maxLength="20"
-                        android:maxLines="2"
-                        android:singleLine="true"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/sportsDetail"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="More +"
-                        android:textColor="@color/colorGreen"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toRightOf="@+id/location"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/location" />
-
-
-                    <RatingBar
-                        android:id="@+id/discoverRating"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:backgroundTint="@color/rentOurSpaceBtnColor"
                         android:fontFamily="@font/poppins_semibold"
-                        android:numStars="5"
-                        android:progressBackgroundTint="@color/colorLightGray"
-                        android:progressTint="@color/colorGreen"
-                        android:rating="3"
-                        android:stepSize="1"
-                        app:layout_constraintLeft_toLeftOf="@id/sportsName"
-                        app:layout_constraintTop_toBottomOf="@+id/location" />
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/viewBookings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="View Schedule"
-                        android:textColor="@color/colorGreen"
-                        android:textSize="@dimen/_12sdp"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"
-                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />
+                        android:text="@string/coaching_staff"
+                        app:icon="@drawable/ic_rentspace"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintHorizontal_bias="1"
+                        android:textSize="@dimen/_10sdp"
+                        app:cornerRadius="@dimen/_5sdp"
+                        app:layout_constraintLeft_toRightOf="@+id/dCoachingStaffBtn"
+                        app:layout_constraintRight_toRightOf="@+id/userDetailLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
 
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/detailUserType"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_6sdp"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:text="@string/coach"-->
+                    <!--                        android:textSize="@dimen/_8sdp"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@id/detailUserName"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/detailUserName" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/detailUserService"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:maxLength="20"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="@string/years_of_experience"-->
+                    <!--                        android:textSize="@dimen/_10sdp"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />-->
+
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/sportsName"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:maxLength="20"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="@string/sports"-->
+                    <!--                        android:textSize="@dimen/_8sdp"-->
+                    <!--                        app:layout_constraintLeft_toRightOf="@+id/detailUserType"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/sportsDetail"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginLeft="@dimen/_14sdp"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:maxLines="2"-->
+                    <!--                        android:textColor="@color/colorBlack"-->
+                    <!--                        android:textSize="@dimen/_10sdp"-->
+                    <!--                        app:layout_constraintLeft_toRightOf="@+id/sportsName"-->
+                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/sportsName" />-->
+
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/locationText"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:maxLength="20"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="@string/location"-->
+                    <!--                        android:textSize="@dimen/_8sdp"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />-->
+
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/location"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
+                    <!--                        android:ellipsize="end"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:maxLength="20"-->
+                    <!--                        android:maxLines="2"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:textColor="@color/colorBlack"-->
+                    <!--                        android:textSize="@dimen/_10sdp"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/sportsDetail"-->
+                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />-->
+
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:text="More +"-->
+                    <!--                        android:textColor="@color/colorGreen"-->
+                    <!--                        android:textSize="@dimen/_12sdp"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        app:layout_constraintLeft_toRightOf="@+id/location"-->
+                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@+id/location" />-->
+
+
+                    <!--                    <RatingBar-->
+                    <!--                        android:id="@+id/discoverRating"-->
+                    <!--                        style="?android:attr/ratingBarStyleSmall"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
+                    <!--                        android:fontFamily="@font/poppins_semibold"-->
+                    <!--                        android:numStars="5"-->
+                    <!--                        android:progressBackgroundTint="@color/colorLightGray"-->
+                    <!--                        android:progressTint="@color/colorGreen"-->
+                    <!--                        android:rating="3"-->
+                    <!--                        android:stepSize="1"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@id/sportsName"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/location" />-->
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/viewBookings"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:fontFamily="@font/poppins_regular"-->
+                    <!--                        android:text="View Schedule"-->
+                    <!--                        android:textColor="@color/colorGreen"-->
+                    <!--                        android:textSize="@dimen/_12sdp"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />-->
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -249,14 +357,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/bio_discover"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/themeColor"
                         android:textSize="@dimen/_12sdp"
                         android:visibility="visible"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/discoverCardImg" />
+                        app:layout_constraintTop_toBottomOf="@id/dCoachingStaffBtn" />
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -318,11 +426,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
                             android:background="@drawable/round_background_colord"
                             android:backgroundTint="@color/themeColor"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="@dimen/_5sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
 
                             android:text="@string/view_session"
                             android:textColor="@color/colorWhite"
@@ -332,21 +440,21 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-<!--                        <com.google.android.material.textview.MaterialTextView-->
-<!--                            android:id="@+id/viewSpaces"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="@dimen/_10sdp"-->
-<!--                            android:background="@drawable/round_background_colord"-->
-<!--                            android:backgroundTint="@color/themeColor"-->
-<!--                            android:fontFamily="@font/poppins_regular"-->
-<!--                            android:padding="@dimen/_5sdp"-->
-<!--                            android:text="@string/view_spaces"-->
-<!--                            android:textColor="@color/colorWhite"-->
-<!--                            android:textSize="@dimen/_10sdp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintRight_toRightOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+                        <!--                        <com.google.android.material.textview.MaterialTextView-->
+                        <!--                            android:id="@+id/viewSpaces"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginRight="@dimen/_10sdp"-->
+                        <!--                            android:background="@drawable/round_background_colord"-->
+                        <!--                            android:backgroundTint="@color/themeColor"-->
+                        <!--                            android:fontFamily="@font/poppins_regular"-->
+                        <!--                            android:padding="@dimen/_5sdp"-->
+                        <!--                            android:text="@string/view_spaces"-->
+                        <!--                            android:textColor="@color/colorWhite"-->
+                        <!--                            android:textSize="@dimen/_10sdp"-->
+                        <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                            app:layout_constraintRight_toRightOf="parent"-->
+                        <!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_35sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:maxLines="2"
+                        android:maxLines="3"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toTopOf="@id/cExperienceDBoard"
@@ -156,7 +156,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:maxLines="2"
+                        android:maxLines="3"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -211,8 +211,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/RightGuideLine"
@@ -256,6 +256,13 @@
                     app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/constraintChipGroup" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/ic_common_background"
+                    app:layout_constraintLeft_toRightOf="@+id/organizationCard"
+                    app:layout_constraintTop_toBottomOf="@id/orgCreateTv" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"
@@ -374,6 +381,21 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@+id/organizationCard" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_40sdp"
+                    android:src="@drawable/ic_common_background"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/coachFindText" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="@drawable/ic_common_background"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardFind" />
 
 
                 <com.google.android.material.card.MaterialCardView
