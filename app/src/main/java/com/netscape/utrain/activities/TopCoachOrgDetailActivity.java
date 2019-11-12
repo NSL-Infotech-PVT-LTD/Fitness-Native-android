@@ -68,7 +68,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ImageView profImage, backArrow;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private ArrayList<String> portfolioImageList = new ArrayList<>();
-    private TextView typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
+    private TextView service, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,26 +86,34 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
             }
         });
-
         init();
+//        getSportsIds();
 
-        getSportsIds();
-
+        if (getIntent().getExtras() != null) {
+            coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
+            type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
+            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + "+ Years ");
+            binding.detailUserBioTv.setText(coachListModel.getBio());
+            binding.detailPriceTv.setText(coachListModel.getHourly_rate() + "");
+            binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+            binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
+            binding.detailUserName.setText(coachListModel.getName());
+        }
 
         String saveIntent = getIntent().getStringExtra("intentFrom");
         if (!TextUtils.isEmpty(saveIntent)) {
 
             if (saveIntent.equalsIgnoreCase("coach")) {
-                binding.viewEvents.setVisibility(View.VISIBLE);
-                binding.viewSession.setVisibility(View.VISIBLE);
-                binding.viewSpaces.setVisibility(View.GONE);
+
+                binding.viewEventSessionLayout.setVisibility(View.VISIBLE);
+                binding.viewOrgBtnLayout.setVisibility(View.GONE);
                 binding.layoutBtnConstraint.setVisibility(View.GONE);
                 binding.view2.setVisibility(View.GONE);
             }
             if (saveIntent.equalsIgnoreCase("org")) {
-                binding.viewEvents.setVisibility(View.VISIBLE);
-                binding.viewSession.setVisibility(View.VISIBLE);
-                binding.viewSpaces.setVisibility(View.VISIBLE);
+
+                binding.viewOrgBtnLayout.setVisibility(View.VISIBLE);
+                binding.viewEventSessionLayout.setVisibility(View.GONE);
                 getPortfolioImages();
                 setPortFolidImages();
             }
@@ -173,16 +181,15 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     }
 
     private void init() {
-        typeUser = findViewById(R.id.detailUserType);
-        service = findViewById(R.id.detailUserService);
-        bio = findViewById(R.id.detailUserBioTv);
-        price = findViewById(R.id.detailPriceTv);
+//        typeUser = findViewById(R.id.topDetailsTitleTv);
+//        service = findViewById(R.id.detailUserService); // Using top_coaches_detail_activity.....
+//        bio = findViewById(R.id.detailUserBioTv);
         moreServices = findViewById(R.id.moreServices);
         training = findViewById(R.id.detailNumTraineTv);
         training = findViewById(R.id.detailNumTraineTv);
         title = findViewById(R.id.topDetailsTitleTv);
         backArrow = findViewById(R.id.detailBackArrow);
-        profImage = findViewById(R.id.detailImage);
+//        profImage = findViewById(R.id.detailImage);
         eventTimeDetailTv = findViewById(R.id.eventTimeDetailTv);
         eventDateDetailTv = findViewById(R.id.eventDateDetailTv);
 //        experienceTv = findViewById(R.id.experienceTv);
@@ -196,11 +203,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         sheetBehavior = BottomSheetBehavior.from(liearLayout);
         bottomSheetBehavior_sort();
         layoutManager = new LinearLayoutManager(this);
-        if (getIntent().getExtras() != null) {
-            coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
-            type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
-            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years()+ "+ Years ");
-        }
+
         setData();
         backArrow.setOnClickListener(this);
         moreServices.setOnClickListener(this);
@@ -212,7 +215,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (coachListModel != null) {
             if (type == 1) {
                 title.setText("Coach");
-                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.detailImage);
 //                Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.port1);
 
 
@@ -232,8 +235,9 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         }
         if (type == 2) {
             title.setText("Organization");
-            Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(profImage);
+            Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.detailImage);
 //            Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.port1);
+
             for (int i = 0; i < coachListModel.getService_ids().size(); i++) {
                 final Chip chip = new Chip(this);
                 chip.setEnabled(false);
@@ -253,29 +257,26 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
             add_service.addView(chipGroup);
         }
-        binding.detailUserName.setText(coachListModel.getName());
-//        binding.location.setText(coachListModel.getLocation());
 
 
-//        if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
+////        if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
 ////            typeUser.setText(coachListModel.getRoles().get(0).getName());
-//        }
+////        }
 ////        if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
-//////            for (int i=0;i<data.getService_ids().size();i++){
-////            service.setText(coachListModel.getService_ids().get(0).getName());
-////            }
+////            for (int i=0;i<data.getService_ids().size();i++){
+////            service.setText(coachListModel.getService_ids().get(0).getName()); id using in top_coach_details_activity.....
 //
 //
-//        }
+//    }
 ////            binding.detailUserType.setText(coachListModel.getName());
 ////            binding.detailUserService.setText(coachListModel.getName());
-////            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
-//        bio.setText(coachListModel.getBio());
-////            binding.detailNumTraineTv.setText("");
-//        price.setText("$ " + coachListModel.getHourly_rate());
-//        eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-////        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
-//        eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
+////            binding.discoverRating.setText(coachListModel.getName());
+////        bio.setText(coachListModel.getBio());
+//////            binding.detailNumTraineTv.setText("");
+////        price.setText("$ " + coachListModel.getHourly_rate());
+////        eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+//////        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
+////        eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
     }
 
 
