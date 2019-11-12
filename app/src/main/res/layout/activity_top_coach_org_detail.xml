@@ -190,18 +190,18 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/dCoachingStaffBtn"
-                        android:drawableStart="@drawable/ic_rentspace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:backgroundTint="@color/themeColor"
-                        app:icon="@drawable/ic_coachingstaff"
+                        android:drawableStart="@drawable/ic_rentspace"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/coaching_staff"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_10sdp"
                         app:cornerRadius="@dimen/_5sdp"
+                        app:icon="@drawable/ic_coachingstaff"
                         app:layout_constraintLeft_toLeftOf="@+id/discoverCardImg"
                         app:layout_constraintRight_toLeftOf="@+id/dRentOurSpaceBtn"
                         app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
@@ -214,13 +214,13 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:backgroundTint="@color/rentOurSpaceBtnColor"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/coaching_staff"
-                        app:icon="@drawable/ic_rentspace"
+                        android:text="@string/rent_our_space"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
-                        app:layout_constraintHorizontal_bias="1"
                         android:textSize="@dimen/_10sdp"
                         app:cornerRadius="@dimen/_5sdp"
+                        app:icon="@drawable/ic_rentspace"
+                        app:layout_constraintHorizontal_bias="1"
                         app:layout_constraintLeft_toRightOf="@+id/dCoachingStaffBtn"
                         app:layout_constraintRight_toRightOf="@+id/userDetailLayout"
                         app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
@@ -397,10 +397,9 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toTopOf="@id/view2"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/view1">
+                        app:layout_constraintTop_toTopOf="@id/view4">
 
 
                         <com.google.android.material.textview.MaterialTextView
@@ -431,7 +430,6 @@
                             android:backgroundTint="@color/themeColor"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="@dimen/_5sdp"
-
                             android:text="@string/view_session"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
@@ -542,7 +540,7 @@
                         android:textColor="@color/themeColor"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/view4" />
+                        app:layout_constraintTop_toBottomOf="@id/view1" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/moreServices"
@@ -559,7 +557,7 @@
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view4" />
+                        app:layout_constraintTop_toBottomOf="@+id/view1" />
 
 
                     <RelativeLayout
