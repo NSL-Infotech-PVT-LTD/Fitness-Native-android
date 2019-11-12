@@ -68,7 +68,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     private ImageView profImage, backArrow;
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private ArrayList<String> portfolioImageList = new ArrayList<>();
-    private TextView name, typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
+    private TextView typeUser, service, bio, price, experienceTv, training, eventDateDetailTv, eventTimeDetailTv, title, moreServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +173,6 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
     }
 
     private void init() {
-        name = findViewById(R.id.detailUserName);
         typeUser = findViewById(R.id.detailUserType);
         service = findViewById(R.id.detailUserService);
         bio = findViewById(R.id.detailUserBioTv);
@@ -200,12 +199,13 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (getIntent().getExtras() != null) {
             coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
             type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
+            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years()+ "+ Years ");
         }
         setData();
         backArrow.setOnClickListener(this);
         moreServices.setOnClickListener(this);
         liearLayout.setOnClickListener(this);
-        binding.viewBookings.setOnClickListener(this);
+//        binding.viewBookings.setOnClickListener(this);
     }
 
     private void setData() {
@@ -253,29 +253,29 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
             add_service.addView(chipGroup);
         }
-        name.setText(coachListModel.getName());
-        binding.location.setText(coachListModel.getLocation());
+        binding.detailUserName.setText(coachListModel.getName());
+//        binding.location.setText(coachListModel.getLocation());
 
 
-        if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
-            typeUser.setText(coachListModel.getRoles().get(0).getName());
-        }
-        if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
-//            for (int i=0;i<data.getService_ids().size();i++){
-            service.setText(coachListModel.getService_ids().get(0).getName());
-//            }
-
-
-        }
-//            binding.detailUserType.setText(coachListModel.getName());
-//            binding.detailUserService.setText(coachListModel.getName());
-//            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
-        bio.setText(coachListModel.getBio());
-//            binding.detailNumTraineTv.setText("");
-        price.setText("$ " + coachListModel.getHourly_rate());
-        eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-//        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
-        eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
+//        if (coachListModel.getRoles() != null && coachListModel.getRoles().size() > 0) {
+////            typeUser.setText(coachListModel.getRoles().get(0).getName());
+//        }
+////        if (coachListModel.getService_ids() != null && coachListModel.getService_ids().size() > 0) {
+//////            for (int i=0;i<data.getService_ids().size();i++){
+////            service.setText(coachListModel.getService_ids().get(0).getName());
+////            }
+//
+//
+//        }
+////            binding.detailUserType.setText(coachListModel.getName());
+////            binding.detailUserService.setText(coachListModel.getName());
+////            binding.discoverRating.setText(coachListModel.getName());TopDetailActivity
+//        bio.setText(coachListModel.getBio());
+////            binding.detailNumTraineTv.setText("");
+//        price.setText("$ " + coachListModel.getHourly_rate());
+//        eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+////        experienceTv.setText(coachListModel.getExpertise_years()+"+ Years");
+//        eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
     }
 
 
@@ -293,11 +293,11 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             case R.id.bottomsheet_services:
                 bottomSheetUpDown_address();
                 break;
-            case R.id.viewBookings:
-                Intent intent=new Intent(TopCoachOrgDetailActivity.this,CalendarViewWithNotesActivity.class);
-                intent.putExtra("fromCalendar",title.getText().toString());
-                startActivity(intent);
-                break;
+//            case R.id.viewBookings:
+//                Intent intent=new Intent(TopCoachOrgDetailActivity.this,CalendarViewWithNotesActivity.class);
+//                intent.putExtra("fromCalendar",title.getText().toString());
+//                startActivity(intent);
+//                break;
         }
 
     }
@@ -363,12 +363,12 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
                     builder.append(details.getName() + "\n");
                 }
-                binding.sportsDetail.setText(builder.toString());
+//                binding.sportsDetail.setText(builder.toString());
             }
-        } else {
-            binding.sportsDetail.setVisibility(View.GONE);
-            binding.sportsName.setVisibility(View.GONE);
-
+//        } else {
+//            binding.sportsDetail.setVisibility(View.GONE);
+//            binding.sportsName.setVisibility(View.GONE);
+//
         }
     }
 

@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_semibold"
+            android:singleLine="true"
+            android:maxLength="25"
             android:text="@string/welcome_org_name"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
@@ -145,6 +147,15 @@
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintTop_toTopOf="parent"
                      />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_common_background"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/_17sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    app:layout_constraintTop_toTopOf="@id/orgCreateTv" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"
@@ -323,6 +334,16 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/ic_common_background"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@id/orgRequestsCard"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    />
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -361,9 +382,9 @@
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/yourSpacesTv"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/yourSpacesTv">
+                        app:layout_constraintTop_toTopOf="@+id/yourSpacesTv"/>
 
-                    </com.google.android.material.textview.MaterialTextView>
+
 
                     <ImageView
                         android:id="@+id/noSpaceOrgImg"

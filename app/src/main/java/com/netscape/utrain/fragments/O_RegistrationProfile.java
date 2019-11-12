@@ -2,6 +2,7 @@ package com.netscape.utrain.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -23,7 +26,9 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.databinding.OFragmentRegistrationProfileBinding;
 import com.netscape.utrain.model.ServiceListDataModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.lang.reflect.Type;
@@ -101,11 +106,21 @@ public class O_RegistrationProfile extends Fragment {
         View view = binding.getRoot();
         // Inflate the layout for this fragment
 
-        Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.oDashProImage);
+        // Setting values to the  views on Organizatio profile.
+        String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
+        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.oDashProImage); // working code line to display image
+        Glide.with(context).load(path).into(binding.oDashProImage);
+
+
+        binding.oNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        binding.oTrainingDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, context));
+        binding.oExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+        binding.orgBioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, context));
 
         getService();
         cChipGroup = new ChipGroup(context);
         cChipGroup.setSingleSelection(false);
+
 
         for (int i = 0; i < sList.size(); i++) {
             final Chip chip = new Chip(context);
@@ -115,8 +130,12 @@ public class O_RegistrationProfile extends Fragment {
             chip.setTextColor(getResources().getColor(R.color.colorBlack));
 
             chip.setText(sList.get(i).getName());
-
+            chip.setTextSize(12);
+            chip.setElevation(15);
             cChipGroup.addView(chip);
+            cChipGroup.setChipSpacingVertical(30);
+            chip.setPadding(5,5,5,5);
+
         }
         cChipGroup.setEnabled(false);
         binding.constraintChipGroup.addView(cChipGroup);
@@ -136,11 +155,6 @@ public class O_RegistrationProfile extends Fragment {
                 view.getContext().startActivity(createSpace);
             }
         });
-
-        String oSports = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,context);
-        binding.oExpDetailTv.setText(oSports);
-        String oAchievement = CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context);
-        binding.oAchieveDetailTv.setText(oAchievement);
 
         return view;
     }
@@ -190,6 +204,7 @@ public class O_RegistrationProfile extends Fragment {
             }
         }
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -97,6 +97,7 @@ public class Constants {
     public static final String DEVICE_TYPE = "ANDROID";
     public static final String DEVICE_TOKEN = "KFGLKFSDFJKJSDF";
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    public static final String ORGANIZER_COACH_STORE = "organiser/coach/store" ;
     public static String ROLE_PLAY = "";
     public static int CHECKBOX_IS_CHECKED = 0;
     public static String SocialProfile = "";
