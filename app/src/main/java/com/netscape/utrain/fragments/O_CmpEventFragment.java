@@ -597,11 +597,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            spaceData.addAll(response.body().getData());
+                            spaceData.addAll(response.body().getData().getData());
                             currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, completed);
                             binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
 

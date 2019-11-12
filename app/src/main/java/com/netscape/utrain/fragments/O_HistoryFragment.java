@@ -195,7 +195,7 @@ public class O_HistoryFragment extends Fragment {
 
                 upcoming = "Booking";
                 completed = "Post Bookings";
-                setupViewPager(binding.historyViewPager);
+                setupSpacePager(binding.historyViewPager);
                 bottomSheetUpDown_address();
             }
         });
@@ -203,12 +203,8 @@ public class O_HistoryFragment extends Fragment {
         doneSel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 selectedTExt();
-
-
                 if (sort_count == 1) {
-
 
                 } else if (sort_count == 2) {
                     O_UpcEventFragment.count = 2;
@@ -322,6 +318,11 @@ public class O_HistoryFragment extends Fragment {
         adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new O_UpcEventFragment(), upcoming);
         adapter.addFragment(new O_CmpEventFragment(), completed);
+        viewPager.setAdapter(adapter);
+    }
+    private void setupSpacePager(final ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new O_UpcEventFragment(), "Space Bookings");
         viewPager.setAdapter(adapter);
     }
 

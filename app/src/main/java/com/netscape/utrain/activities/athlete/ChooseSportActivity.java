@@ -112,11 +112,11 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         athAchieve = CommonMethods.getPrefData("athleteAchievement", ChooseSportActivity.this);
 
 
-        binding.addSportsBtn.setOnClickListener(new View.OnClickListener() {
+        binding.athSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (jsonArray == null && sportsList.size() == 0) {
+                if (sportsList !=null && sportsList.size() == 0) {
 
                     Toast.makeText(ChooseSportActivity.this, "Please Select sport", Toast.LENGTH_SHORT).show();
 
@@ -171,7 +171,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
                 activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
                 if (activeUserType.equals(Constants.TypeCoach)) {
-                    binding.addSportsBtn.setText(getResources().getString(R.string.one_more_step));
+                    binding.athSignUp.setText(getResources().getString(R.string.one_more_step));
                 }
             }
         }
@@ -312,12 +312,12 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 }
             }
         }
-        if (sportsList != null && sportsList.size() > 0) {
+//        if (sportsList != null && sportsList.size() > 0) {
             jsonArray = (JsonArray) new Gson().toJsonTree(sportsList);
 
 
 //            Toast.makeText(this, ""+jsonArray, Toast.LENGTH_SHORT).show();\
-        }
+//        }
     }
     //if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
     //                    jsonArray = (JsonArray) new Gson().toJsonTree(SelectedServiceList.getInstance().getList());

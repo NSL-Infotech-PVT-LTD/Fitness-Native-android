@@ -69,7 +69,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private String searchText = "";
 
     private AutoCompleteTextView search;
-    private ImageView customerImage, noDataImageView;
+    private ImageView customerImage, noDataImageView,ti_tickets;
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
 
@@ -97,6 +97,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         bookingDateText = findViewById(R.id.bookingDateText);
         ti_locationText = findViewById(R.id.ti_locationText);
         ti_Booking_Ticket = findViewById(R.id.ti_Booking_Ticket);
+        ti_tickets = findViewById(R.id.ti_tickets);
         ti_TotalTicketPrice = findViewById(R.id.ti_TotalTicketPrice);
         ti_TotalPrice = findViewById(R.id.ti_TotalPrice);
         ti_tax = findViewById(R.id.ti_tax);
@@ -662,9 +663,11 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
 
             ti_locationText.setText(spaceData.get(position).getSpace().getLocation());
+            ti_Booking_Ticket.setVisibility(View.GONE);
+            ti_tickets.setVisibility(View.GONE);
 
-            ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendies & Tickets (1 per person)");
-            ti_TotalTicketPrice.setText(spaceData.get(position).getTickets() + " Tickets @ $" + spaceData.get(position).getSpace().getPrice_hourly() + " each");
+//            ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendies & Tickets (1 per person)");
+            ti_TotalTicketPrice.setText("Space @ $" + spaceData.get(position).getSpace().getPrice_daily() + " /day");
             ti_TotalPrice.setText("$" + spaceData.get(position).getPrice() + ".00");
             ti_tax.setText("$0.00");
             totalAmount.setText("$" + spaceData.get(position).getPrice() + ".00");
@@ -676,7 +679,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             bookingIdText.setText("Booking ID : " + sessionData.get(position).getId());
             bookingPlaceName.setText(sessionData.get(position).getSession().getName());
             eventText.setText("Session");
-            String currentStringEnd = sessionData.get(position).getSession().getDate();
+            String currentStringEnd = sessionData.get(position).getSession().getStart_date();
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
             final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
             Date dt = null, dtEnd;
@@ -684,7 +687,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
             try {
 
-                dt = sdf.parse(sessionData.get(position).getSession().getDate());
+                dt = sdf.parse(sessionData.get(position).getSession().getStart_date());
 
 
                 String value = null;

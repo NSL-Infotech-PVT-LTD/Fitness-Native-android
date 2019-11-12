@@ -104,7 +104,8 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
-    private ImageView customerImage;
+    private ImageView customerImage,ti_tickets;
+
     public O_UpcEventFragment() {
         // Required empty public constructor
     }
@@ -142,6 +143,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         eventText = view.findViewById(R.id.eventText);
         bookingDateText = view.findViewById(R.id.bookingDateText);
         ti_locationText = view.findViewById(R.id.ti_locationText);
+        ti_tickets = view.findViewById(R.id.ti_tickets);
         ti_Booking_Ticket = view.findViewById(R.id.ti_Booking_Ticket);
         ti_TotalTicketPrice = view.findViewById(R.id.ti_TotalTicketPrice);
         ti_TotalPrice = view.findViewById(R.id.ti_TotalPrice);
@@ -292,7 +294,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     public void getUpcommingSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -300,11 +302,11 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     spaceData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData().size() > 0) {
+                        if (response.body().getData().getData().size() > 0) {
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            spaceData.addAll(response.body().getData());
+                            spaceData.addAll(response.body().getData().getData());
                             currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, upcomg);
                             binding.eventListRecycler.setAdapter(currentSpaceAdapter);
 
@@ -655,7 +657,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     }
 
 
-
     @Override
     public void eventAmount(AthleteBookListModel.DataBeanX.DataBean list) {
         Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
@@ -692,7 +693,8 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + list.getPrice() + ".00");
 
-        bottomSheetUpDown_address();}
+        bottomSheetUpDown_address();
+    }
 
 
     @Override
@@ -704,14 +706,16 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         eventText.setText("Space");
 
 //        ti_locationText.setText(spaceData.getSpace().getLocation());
+        ti_Booking_Ticket.setVisibility(View.GONE);
+        ti_tickets.setVisibility(View.GONE);
 
-        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
-        ti_TotalTicketPrice.setText(spaceData.getTickets() + " Tickets @ $" + spaceData.getSpace().getPrice_hourly() + " each")
-        ;
+//        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
+        ti_TotalTicketPrice.setText("Space @ $" + spaceData.getSpace().getPrice_daily() + " /day");
         ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + spaceData.getPrice() + ".00");
-        bottomSheetUpDown_address();  }
+        bottomSheetUpDown_address();
+    }
 
     @Override
     public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean sessionData) {
@@ -744,7 +748,8 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         ti_TotalPrice.setText("$" + sessionData.getPrice() + ".00");
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + sessionData.getPrice() + ".00");
-        bottomSheetUpDown_address(); }
+        bottomSheetUpDown_address();
+    }
 
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";

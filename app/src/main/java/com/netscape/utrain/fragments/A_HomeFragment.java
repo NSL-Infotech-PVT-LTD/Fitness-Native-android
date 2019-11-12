@@ -444,8 +444,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intentsss = new Intent(getContext(), AllEventsMapAct.class);
                 intentsss.putExtra("from", "3");
                 getContext().startActivity(intentsss);
-
-
                 break;
         }
     }

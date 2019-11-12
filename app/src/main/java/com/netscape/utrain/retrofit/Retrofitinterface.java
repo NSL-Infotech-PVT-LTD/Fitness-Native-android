@@ -171,14 +171,14 @@ public interface Retrofitinterface {
     Call<CoachSignUpResponse> registerCoach(@PartMap Map<String, RequestBody> fields,
                                             @Part MultipartBody.Part image);
 
-    @Multipart
-    @POST(Constants.ORG_SIGNUP)
-    Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
-                                                 @Part MultipartBody.Part profileImage,
-                                                 @Part MultipartBody.Part imageOne,
-                                                 @Part MultipartBody.Part imageTwo,
-                                                 @Part MultipartBody.Part imageThree,
-                                                 @Part MultipartBody.Part imageFour);
+//    @Multipart
+//    @POST(Constants.ORG_SIGNUP)
+//    Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
+//                                                 @Part MultipartBody.Part profileImage,
+//                                                 @Part MultipartBody.Part imageOne,
+//                                                 @Part MultipartBody.Part imageTwo,
+//                                                 @Part MultipartBody.Part imageThree,
+//                                                 @Part MultipartBody.Part imageFour);
 
     @POST(Constants.TOP_COACH_LIST)
     Call<CoachListResponse> getCoachList(@Header("Authorization") String Authorization,
@@ -234,6 +234,12 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
                                              @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.ORG_SIGNUP)
+    Call<OrgSignUpResponse> registerOrganization(@Header("Authorization") String auth,
+                                                 @PartMap Map<String, RequestBody> fields,
+                                                 @Part List<MultipartBody.Part> files);
+
 
 
     @Multipart
@@ -312,7 +318,7 @@ public interface Retrofitinterface {
                                              @Header("Content-Type") String contentType,
                                              @Query("order_by") String order_by);
 
-    @GET(Constants.ORG_SPACE_LIST)
+    @POST(Constants.ORG_SPACE_LIST)
     Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
                                               @Query("order_by") String order_by);

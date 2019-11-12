@@ -110,13 +110,13 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:layout_constraintBottom_toTopOf="@+id/addSportsBtn"
+                app:layout_constraintBottom_toTopOf="@+id/athSignUp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sportsTv" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addSportsBtn"
+                android:id="@+id/athSignUp"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginBottom="@dimen/_20sdp"

@@ -75,7 +75,7 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
         holder.eventName.setText(data.getName());
         holder.eventVenue.setText(data.getLocation());
         holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
-        holder.eventDate.setText(data.getDate());
+        holder.eventDate.setText(data.getStart_date() +" "+data.getStart_time());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

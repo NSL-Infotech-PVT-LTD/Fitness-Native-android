@@ -3,45 +3,40 @@ package com.netscape.utrain.model;
 public class O_SessionDataModel {
 
     /**
-     * id : 15
-     * name : yoga
-     * description : fkfkf kfkfkf fjgjsudu g fifidididussi
-     * business_hour : 12:20:00
-     * date : 0000-00-00
-     * hourly_rate : 1234
-     * images : ["1570690275617.jpg"]
-     * phone : 9625632563
-     * max_occupancy : 134
-     * created_by : 125
+     * id : 18
+     * name : Snow sesion
+     * description : snow session
+     * start_date : 2019-11-09
+     * end_date : 2019-11-11
+     * start_time : null
+     * end_time : null
+     * hourly_rate : 90
+     * location : 8B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160071, India
+     * latitude : 30.707881269023268
+     * longitude : 76.69546611607075
+     * images : ["1573222826870.jpg"]
+     * phone : 8568568545
+     * guest_allowed : 20
+     * guest_allowed_left : 18
+     * created_by : 297
      */
 
     private int id;
     private String name;
     private String description;
-    private String business_hour;
-    private String date;
+    private String start_date;
+    private String end_date;
+    private Object start_time;
+    private Object end_time;
     private int hourly_rate;
+    private String location;
+    private String latitude;
+    private String longitude;
     private String images;
     private String phone;
-    private String location;
     private int guest_allowed;
+    private int guest_allowed_left;
     private int created_by;
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getGuest_allowed() {
-        return guest_allowed;
-    }
-
-    public void setGuest_allowed(int guest_allowed) {
-        this.guest_allowed = guest_allowed;
-    }
 
     public int getId() {
         return id;
@@ -67,20 +62,36 @@ public class O_SessionDataModel {
         this.description = description;
     }
 
-    public String getBusiness_hour() {
-        return business_hour;
+    public String getStart_date() {
+        return start_date;
     }
 
-    public void setBusiness_hour(String business_hour) {
-        this.business_hour = business_hour;
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
     }
 
-    public String getDate() {
-        return date;
+    public String getEnd_date() {
+        return end_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public Object getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Object start_time) {
+        this.start_time = start_time;
+    }
+
+    public Object getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Object end_time) {
+        this.end_time = end_time;
     }
 
     public int getHourly_rate() {
@@ -89,6 +100,30 @@ public class O_SessionDataModel {
 
     public void setHourly_rate(int hourly_rate) {
         this.hourly_rate = hourly_rate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getImages() {
@@ -107,6 +142,21 @@ public class O_SessionDataModel {
         this.phone = phone;
     }
 
+    public int getGuest_allowed() {
+        return guest_allowed;
+    }
+
+    public void setGuest_allowed(int guest_allowed) {
+        this.guest_allowed = guest_allowed;
+    }
+
+    public int getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(int guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
+    }
 
     public int getCreated_by() {
         return created_by;

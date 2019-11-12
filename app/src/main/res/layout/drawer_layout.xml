@@ -40,7 +40,6 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@+id/naviProfileImage"
-            app:layout_constraintRight_toRightOf="@+id/naviProfileImage"
             app:layout_constraintTop_toBottomOf="@id/naviProfileImage"
             app:layout_constraintBottom_toBottomOf="@+id/textviewBackground"/>
 

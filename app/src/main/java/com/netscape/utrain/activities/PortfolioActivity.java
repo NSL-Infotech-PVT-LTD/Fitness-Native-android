@@ -432,9 +432,17 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+//        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
 //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, userImg, portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(portFolioImage1);
+        parts.add(portFolioImage2);
+        parts.add(portFolioImage3);
+        parts.add(portFolioImage4);
+
+
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , parts);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -492,6 +500,89 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+//    private void OrgSignUpApi() {
+//        progressDialog.show();
+//        MultipartBody.Part userImg = null;
+//        if (orgDataModel.getProfile_img() != null) {
+//            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+//        }
+//        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+//        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
+//        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getEmail()));
+//        requestBodyMap.put("password", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPassword()));
+//        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPhone()));
+//        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLocation()));
+//        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
+//        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
+//        requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_starts()));
+//        requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_ends()));
+//        requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
+//        requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSelectedServices()));
+//        requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
+//        requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExperienceDetail()));
+//        requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
+//        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
+//        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+//        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+////        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+//        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, userImg, portFolioImage1, portFolioImage2, portFolioImage3, portFolioImage4);
+//        signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
+//            @Override
+//            public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
+//                if (response.isSuccessful()) {
+//                    progressDialog.dismiss();
+//                    if (response.body().isStatus()) {
+//                        if (response.body().getData() != null) {
+//
+//                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+//                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+//                                if (Constants.Organizer.equalsIgnoreCase(role)) {
+//                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
+//                                    clearFromConstants();
+//                                    Constants.CHECKBOX_IS_CHECKED = 0;
+//                                    SelectedServiceList.getInstance().getList().clear();
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);
+//                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+//                                    storeServiceIds(servicesList);
+//                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+//                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                    startActivity(homeScreen);
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    progressDialog.dismiss();
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.portFolioLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        Snackbar.make(binding.portFolioLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//                Snackbar.make(binding.portFolioLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void orginizationSignUpApi() {
         //        CommonMethods.hideKeyboard(this);

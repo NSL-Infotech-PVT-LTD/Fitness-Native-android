@@ -72,6 +72,8 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
         holder.eventName.setText(data.getSpace().getName());
         holder.eventVenue.setText(data.getSpace().getLocation());
+        holder.bookingTicketTv.setVisibility(View.GONE);
+        holder.ti_tickets.setVisibility(View.GONE);
 //        holder.findPlaceDistanceTv.setText("Availability");
         holder.eventDate.setText(data.getSpace().getAvailability_week());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -109,16 +111,17 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
-        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate;
+        AppCompatImageView eventImage,ti_tickets;
+        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
-
+            ti_tickets = itemView.findViewById(R.id.ti_tickets);
             eventImage = itemView.findViewById(R.id.bookingEventImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
 //            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
         }
     }
