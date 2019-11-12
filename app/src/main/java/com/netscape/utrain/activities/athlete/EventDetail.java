@@ -17,6 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventBookingActivity;
+import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
@@ -48,6 +49,7 @@ public class EventDetail extends AppCompatActivity {
     MyCustomPagerAdapter pagerAdapter;
     private ActivityEventDetailBinding binding;
     private AthletePlaceModel placeModel;
+    private String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class EventDetail extends AppCompatActivity {
         binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
         binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
         binding.seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
+        eventId=getIntent().getStringExtra("event_id");
 
 
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +122,7 @@ public class EventDetail extends AppCompatActivity {
                 binding.noOfSeatText.setVisibility(View.GONE);
                 binding.seatNo.setVisibility(View.GONE);
                 binding.totalAvailableSeat.setVisibility(View.GONE);
-                binding.evntJoinNow.setEnabled(false);
+//                binding.evntJoinNow.setEnabled(false);
                 eventType = "space";
             }
 
@@ -160,8 +163,6 @@ public class EventDetail extends AppCompatActivity {
             } catch (JSONException e) {
                 Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-
             imgBackArrowImage = findViewById(R.id.eventBookingBackImg);
             imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,18 +180,29 @@ public class EventDetail extends AppCompatActivity {
             binding.evntJoinNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (eventType.equalsIgnoreCase("space")){
+                        Intent intent = new Intent(EventDetail.this, SpaceBookingActivity.class);
+                        intent.putExtra("event_id",eventId );
+                        intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
+                        intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());
+                        intent.putExtra("eventTime", binding.eventTimeDetailTv.getText());
+                        intent.putExtra("eventDate", binding.eventDateDetailTv.getText());
+                        intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
+                        intent.putExtra("type", eventType);
+                        startActivity(intent);
 
-                    Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
-                    intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
-                    intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
-                    intent.putExtra("seatLeft", binding.seatNo.getText());
-                    intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());
-                    intent.putExtra("eventTime", binding.eventTimeDetailTv.getText());
-                    intent.putExtra("eventDate", binding.eventDateDetailTv.getText());
-                    intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
-                    intent.putExtra("type", eventType);
-                    startActivity(intent);
-
+                    }else {
+                        Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
+                        intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
+                        intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
+                        intent.putExtra("seatLeft", binding.seatNo.getText());
+                        intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());
+                        intent.putExtra("eventTime", binding.eventTimeDetailTv.getText());
+                        intent.putExtra("eventDate", binding.eventDateDetailTv.getText());
+                        intent.putExtra("Array", getIntent().getIntExtra("image_url", 0));
+                        intent.putExtra("type", eventType);
+                        startActivity(intent);
+                    }
                 }
             });
             if (eventType.equalsIgnoreCase("space")) {

@@ -3,18 +3,24 @@ package com.netscape.utrain.model;
 public class A_SpaceListModel {
 
     /**
-     * id : 14
-     * name : jfjfjfud
-     * images : ["1570627842488.png"]
-     * description : kvkfkfkcjf
-     * price_hourly : 0
-     * availability_week : Thursday-Thursday
-     * created_by : 125
-     * price_daily : 0
-     * location : null
-     * latitude : null
-     * longitude : null
-     * distance : 0
+     * id : 12
+     * name : Boxing
+     * images : ["1573300983663.jpeg"]
+     * description : gold medalist only
+     * price_hourly : 48
+     * price_daily : 50
+     * availability_week : Friday-Thursday
+     * open_hours_from : 17:32:00
+     * open_hours_to : 22:32:00
+     * location : A-40 phase 8B, Industrial Area, Sahibzada Ajit Singh Nagar, Punjab, India
+     * latitude : 30.707549476138578
+     * longitude : 76.69786602258682
+     * created_by : 297
+     * params : null
+     * state : 0
+     * created_at : 2019-11-09 12:03:03
+     * updated_at : 2019-11-09 12:03:03
+     * deleted_at : null
      */
 
     private int id;
@@ -22,13 +28,19 @@ public class A_SpaceListModel {
     private String images;
     private String description;
     private int price_hourly;
-    private String availability_week;
-    private int created_by;
     private int price_daily;
-    private Object location;
-    private Object latitude;
-    private Object longitude;
-    private String distance;
+    private String availability_week;
+    private String open_hours_from;
+    private String open_hours_to;
+    private String location;
+    private String latitude;
+    private String longitude;
+    private int created_by;
+    private Object params;
+    private String state;
+    private String created_at;
+    private String updated_at;
+    private Object deleted_at;
 
     public int getId() {
         return id;
@@ -70,12 +82,60 @@ public class A_SpaceListModel {
         this.price_hourly = price_hourly;
     }
 
+    public int getPrice_daily() {
+        return price_daily;
+    }
+
+    public void setPrice_daily(int price_daily) {
+        this.price_daily = price_daily;
+    }
+
     public String getAvailability_week() {
         return availability_week;
     }
 
     public void setAvailability_week(String availability_week) {
         this.availability_week = availability_week;
+    }
+
+    public String getOpen_hours_from() {
+        return open_hours_from;
+    }
+
+    public void setOpen_hours_from(String open_hours_from) {
+        this.open_hours_from = open_hours_from;
+    }
+
+    public String getOpen_hours_to() {
+        return open_hours_to;
+    }
+
+    public void setOpen_hours_to(String open_hours_to) {
+        this.open_hours_to = open_hours_to;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public int getCreated_by() {
@@ -86,43 +146,43 @@ public class A_SpaceListModel {
         this.created_by = created_by;
     }
 
-    public int getPrice_daily() {
-        return price_daily;
+    public Object getParams() {
+        return params;
     }
 
-    public void setPrice_daily(int price_daily) {
-        this.price_daily = price_daily;
+    public void setParams(Object params) {
+        this.params = params;
     }
 
-    public Object getLocation() {
-        return location;
+    public String getState() {
+        return state;
     }
 
-    public void setLocation(Object location) {
-        this.location = location;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public Object getLatitude() {
-        return latitude;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setLatitude(Object latitude) {
-        this.latitude = latitude;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
-    public Object getLongitude() {
-        return longitude;
+    public String getUpdated_at() {
+        return updated_at;
     }
 
-    public void setLongitude(Object longitude) {
-        this.longitude = longitude;
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 
-    public String getDistance() {
-        return distance;
+    public Object getDeleted_at() {
+        return deleted_at;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setDeleted_at(Object deleted_at) {
+        this.deleted_at = deleted_at;
     }
 }

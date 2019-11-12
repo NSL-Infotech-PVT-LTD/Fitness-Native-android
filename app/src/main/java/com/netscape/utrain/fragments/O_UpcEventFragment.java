@@ -186,8 +186,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
-
-
     }
 
     private void bottomSheetBehavior_sort() {

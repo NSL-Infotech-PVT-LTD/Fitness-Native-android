@@ -24,6 +24,7 @@ import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityPaymentBinding;
 import com.netscape.utrain.model.BookingConfirmModel;
+import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
@@ -34,6 +35,7 @@ import com.stripe.android.TokenCallback;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -214,8 +216,22 @@ public class PaymentActivity extends AppCompatActivity {
 
                             progressDoalog.dismiss();
 
+                            if (getIntent().getExtras() != null) {
+                                String type = getIntent().getStringExtra("type");
+                                if (type.equalsIgnoreCase("space")) {
+                                    hitSpaceBookingApi(getIntent().getStringExtra("totalPrice"), getIntent().getStringExtra("type"), token.getId());
+                                }
+                                if (type.equalsIgnoreCase("session")) {
+                                    hitConfirmBookingAPI(getIntent().getIntExtra("tickets", 0) + "", getIntent().getIntExtra("totalPrice", 0) + "", getIntent().getStringExtra("type"), token.getId());
+                                }
+                                if (type.equalsIgnoreCase("event")) {
+                                    hitConfirmBookingAPI(getIntent().getIntExtra("tickets", 0) + "", getIntent().getIntExtra("totalPrice", 0) + "", getIntent().getStringExtra("type"), token.getId());
+
+                                }
+                            }
+
+
 //                            bookingConfirm(getIntent().getIntExtra("appo_id", 0), getIntent().getStringExtra("dateTime"), token.getId());
-                            hitConfirmBookingAPI(getIntent().getIntExtra("tickets", 0) + "", getIntent().getIntExtra("totalPrice", 0) + "", getIntent().getStringExtra("type"), token.getId());
 
                         }
                     });
@@ -237,7 +253,6 @@ public class PaymentActivity extends AppCompatActivity {
             progressDoalog.dismiss();
         }
     }
-
 
     private void checkCard(EditText cardNumberEditText) {
         cardNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -425,6 +440,62 @@ public class PaymentActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BookingConfirmModel> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+        });
+    }
+
+    private void hitSpaceBookingApi(String price, String type, String token) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") + "", price, "pending", token, getIntent().getStringExtra("startDate"), getIntent().getStringExtra("endDate"));
+        signUpAthlete.enqueue(new Callback<SpaceBookingResponse>() {
+            @Override
+            public void onResponse(Call<SpaceBookingResponse> call, Response<SpaceBookingResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = null;
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase(Constants.Athlete)) {
+                                intent = new Intent(activity, AthleteHomeScreen.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase("orgnizer")) {
+                                intent = new Intent(activity, OrgHomeScreen.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                            Toast.makeText(activity, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+                        String errorMsg=errorMessage.getJSONObject(0).getString("message");
+                        Toast.makeText(activity, "" + errorMsg, Toast.LENGTH_SHORT).show();
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SpaceBookingResponse> call, Throwable t) {
                 progressDialog.dismiss();
 
             }

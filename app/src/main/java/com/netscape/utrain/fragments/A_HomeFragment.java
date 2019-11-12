@@ -185,8 +185,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_fragment_home, container, false);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        logOut = (TextView) view.findViewById(R.id.logOutTv);
+        viewPager = view.findViewById(R.id.viewpager);
+        logOut = view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
         btnTopCoaches = view.findViewById(R.id.topCoachesViewAllBtn);
         sessionIconImg = view.findViewById(R.id.sessionIconImg);
@@ -234,7 +234,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         athleteNameTvDBoard.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
 
 
-        tabLayout = (TabLayoutEx) view.findViewById(R.id.tabs);
+        tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
@@ -289,7 +289,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private void getSportsIds() {
         String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
         Gson gson = new Gson();
-
         if (sportName != null) {
             if (sportName.isEmpty()) {
                 Toast.makeText(context, "Service Not Found", Toast.LENGTH_SHORT).show();
@@ -299,12 +298,12 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 sportList = gson.fromJson(sportName, type);
 
                 StringBuilder builder = new StringBuilder();
-                for (SportListModel.DataBeanX.DataBean details : sportList) {
-                    builder.append(details.getName() + "\n");
-
+                if (sportList != null && sportList.size() > 0) {
+                    for (SportListModel.DataBeanX.DataBean details : sportList) {
+                        builder.append(details.getName() + "\n");
+                    }
+                    aSportsNameTv.setText(builder.toString());
                 }
-
-                aSportsNameTv.setText(builder.toString());
             }
         } else {
             aSportsText.setVisibility(View.GONE);

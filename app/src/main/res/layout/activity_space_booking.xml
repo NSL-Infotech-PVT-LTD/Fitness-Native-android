@@ -228,125 +228,125 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/spaceTypeDropdownTv"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/_15sdp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spaceTypeSpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:padding="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@id/spaceTypeDropdownTv"
-                    app:layout_constraintLeft_toLeftOf="@id/spaceTypeDropdownTv"
-                    app:layout_constraintRight_toRightOf="@id/spaceTypeDropdownTv"
-                    app:layout_constraintTop_toTopOf="@id/spaceTypeDropdownTv" />
 
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/ticket"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:drawableRight="@drawable/ic_calendar"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="center_vertical"
-                    android:text="Hours of booking"
+                    android:text="Start date of booking"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEvent_endbsnshourTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="End date of booking"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndDatetv"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEventStartDateTv"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableLeft="@drawable/ic_date"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:hint="@string/start_date"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_20sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ticket" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEventEndDatetv"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableLeft="@drawable/ic_date"
+                    android:gravity="center"
+                    android:hint="@string/end_date"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spaceTypeDropdownTv" />
+                    app:layout_constraintTop_toBottomOf="@id/createEvent_endbsnshourTv" />
 
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@color/lightGrayFont"
-                    app:layout_constraintTop_toBottomOf="@+id/ticket" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/selectDateConstraint"
-                    android:layout_width="0sp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEventStartTimeTv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Start hour of Booking"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEventEndTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="End hour of bookings"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
+                    app:layout_constraintTop_toBottomOf="@id/createEventEndDatetv" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEvtnStartTimeTv"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableLeft="@drawable/ic_time"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:gravity="left|center_vertical"
+                    android:hint="@string/start_time"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/createEventEndTime"
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    android:drawableLeft="@drawable/ic_time"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:gravity="left|center_vertical"
+                    android:hint="@string/end_time"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:textSize="@dimen/_10sdp"
+                    app:fontFamily="@font/poppins_regular"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view1">
+                    app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/startdateText"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center_vertical"
-                        android:maxLength="15"
-                        android:singleLine="true"
-                        android:text="@string/book_date_from"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/startDateImg" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/startDateImg"
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:src="@drawable/ic_calendar"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/endDateText"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center_vertical"
-                        android:maxLength="15"
-                        android:singleLine="true"
-                        android:text="@string/book_date_to"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/endDateImg"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/startdateText" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/endDateImg"
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:src="@drawable/ic_calendar"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/startDateImg" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/countDisplayConstraint"
@@ -417,19 +417,19 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text1"
+                android:id="@+id/totlaPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Total Price * 1"
+                android:text="Total Price "
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text2"
+                android:id="@+id/pricePerdayTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -437,8 +437,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/text1"
-                app:layout_constraintTop_toBottomOf="@+id/text1" />
+                app:layout_constraintTop_toBottomOf="@+id/totlaPriceTv" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textContinueToPay"
@@ -448,6 +447,7 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:text="Continue to pay >>"
                 android:textColor="@color/colorWhite"
+                android:fontFamily="@font/poppins_semibold"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -459,7 +459,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_20sdp"
-                android:text="$44"
+                android:text="$ 00"
                 android:textColor="@color/colorWhite"
 
                 android:textSize="@dimen/_15sdp"

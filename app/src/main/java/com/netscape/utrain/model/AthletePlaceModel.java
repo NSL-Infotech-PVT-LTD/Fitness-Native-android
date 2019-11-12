@@ -4,60 +4,38 @@ import java.io.Serializable;
 
 public class AthletePlaceModel implements Serializable {
 
+
     /**
-     * id : 11
-     * name : City gym
-     * images : ["1570112173882.jpg","1570112173313.png","1570112173146.jpg"]
-     * description : Urban gym
-     * price_hourly : 400
-     * availability_week : mon-fri
-     * organizer_id : 95
-     * price_daily : 800
+     * id : 9
+     * name : vista tower
+     * images : ["1571832287955.jpg"]
+     * description : Book for your events
+     * price_hourly : 30
+     * availability_week : Monday-Friday
+     * open_hours_from : 11:20:00
+     * open_hours_to : 17:42:00
+     * created_by : 239
+     * price_daily : 200
+     * location : Lakhnaur Pind Rd, Industrial Area, Sector 76, Sahibzada Ajit Singh Nagar, Punjab 140308, India
+     * latitude : 30.70021169005451
+     * longitude : 76.69969227164985
+     * distance : 0.48
      */
+
     private int id;
     private String name;
     private String images;
     private String description;
     private int price_hourly;
     private String availability_week;
-    private int organizer_id;
+    private String open_hours_from;
+    private String open_hours_to;
+    private int created_by;
     private int price_daily;
+    private String location;
     private String latitude;
     private String longitude;
-    private String location;
     private String distance;
-
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
 
     public int getId() {
         return id;
@@ -107,12 +85,28 @@ public class AthletePlaceModel implements Serializable {
         this.availability_week = availability_week;
     }
 
-    public int getOrganizer_id() {
-        return organizer_id;
+    public String getOpen_hours_from() {
+        return open_hours_from;
     }
 
-    public void setOrganizer_id(int organizer_id) {
-        this.organizer_id = organizer_id;
+    public void setOpen_hours_from(String open_hours_from) {
+        this.open_hours_from = open_hours_from;
+    }
+
+    public String getOpen_hours_to() {
+        return open_hours_to;
+    }
+
+    public void setOpen_hours_to(String open_hours_to) {
+        this.open_hours_to = open_hours_to;
+    }
+
+    public int getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(int created_by) {
+        this.created_by = created_by;
     }
 
     public int getPrice_daily() {
@@ -121,5 +115,37 @@ public class AthletePlaceModel implements Serializable {
 
     public void setPrice_daily(int price_daily) {
         this.price_daily = price_daily;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }
