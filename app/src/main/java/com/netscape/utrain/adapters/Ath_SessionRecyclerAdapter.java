@@ -67,9 +67,8 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.trainingSessionPlaceImage);
-
+            if (jsonArray !=null && jsonArray.length()>0){
+                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.trainingSessionPlaceImage);
             }
         } catch (JSONException e) {
 

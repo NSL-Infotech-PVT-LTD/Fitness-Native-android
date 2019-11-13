@@ -38,6 +38,7 @@ import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -63,7 +64,8 @@ public class OrgHomeScreen extends AppCompatActivity {
         navImageView=binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         navNameTv=binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
         String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,OrgHomeScreen.this);
-        Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
+        Glide.with(OrgHomeScreen.this).load(Constants.ORG_IMAGE_BASE_URL+path).into(navImageView);
+//        Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
         navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrgHomeScreen.this));
 
 //        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {

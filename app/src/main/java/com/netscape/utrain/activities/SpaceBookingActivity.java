@@ -331,10 +331,10 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.eventBookingImage);
-
+                                    if (jsonArray !=null && jsonArray.length()>0){
+                                        Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(binding.eventBookingImage);
                                     }
+
                                 }
 
                             } catch (JSONException e) {

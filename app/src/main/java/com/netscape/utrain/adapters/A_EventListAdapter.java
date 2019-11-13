@@ -59,10 +59,17 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         try {
             if (data.getEvent().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getEvent().getImages());
-                for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
-
+                if (jsonArray !=null && jsonArray.length()>0){
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
                 }
+
+
+//                for (int i = position; i < jsonArray.length(); i++) {
+////                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
+//                    String image=Constants.IMAGE_BASE_EVENT+jsonArray.get(0);
+//                    Glide.with(context).load(image).into(holder.eventImage);
+//                        break;
+//                }
             }
 
         } catch (JSONException e) {

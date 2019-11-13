@@ -107,7 +107,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 binding.viewSession.setVisibility(View.VISIBLE);
                 binding.viewSpaces.setVisibility(View.VISIBLE);
                 getPortfolioImages();
-                setPortFolidImages();
+                setPortFolioImages();
             }
         }
         binding.viewEvents.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
     }
 
-    private void setPortFolidImages() {
+    private void setPortFolioImages() {
         if (portfolioImageList.size() > 0) {
             binding.portfolioText.setVisibility(View.VISIBLE);
             for (int i = 0; i < portfolioImageList.size(); i++) {

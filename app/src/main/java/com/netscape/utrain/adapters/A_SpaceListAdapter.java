@@ -21,7 +21,9 @@ import com.netscape.utrain.model.A_SpaceDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.O_SpaceDataModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
     private Context context;
     private int previusPos = -1;
     private List<AthleteSpaceBookList.DataBeanX.DataBean> supplierData;
+    private JSONArray jsonArray;
 
     public A_SpaceListAdapter(Context context, List supplierData, onSpaceClick onSpaceClick) {
         this.context = context;
@@ -53,16 +56,34 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull A_SpaceListAdapter.CustomTopCoachesHolder holder, int position) {
-        final AthleteSpaceBookList.DataBeanX.DataBean data = supplierData.get(position);
+                final AthleteSpaceBookList.DataBeanX.DataBean data = supplierData.get(position);
+
 
         try {
-            if (data.getSpace().getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getSpace().getImages());
-                for (int i = position; i < jsonArray.length(); i++) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
-
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer))
+                {
+                    if (data.getTarget_data().getImages() != null) {
+                        jsonArray = new JSONArray(data.getTarget_data().getImages());
+                        holder.eventName.setText(data.getTarget_data().getName());
+                        holder.eventVenue.setText(data.getTarget_data().getLocation());
+                        holder.bookingTicketTv.setVisibility(View.GONE);
+                        holder.ti_tickets.setVisibility(View.GONE);
+                        holder.eventDate.setText(data.getTarget_data().getAvailability_week());
+                    }
+                }else {
+                    if (data.getSpace().getImages() != null) {
+                        jsonArray = new JSONArray(data.getSpace().getImages());
+                        holder.eventName.setText(data.getSpace().getName());
+                        holder.eventVenue.setText(data.getSpace().getLocation());
+                        holder.bookingTicketTv.setVisibility(View.GONE);
+                        holder.ti_tickets.setVisibility(View.GONE);
+                        holder.eventDate.setText(data.getSpace().getAvailability_week());
+                    }
                 }
-            }
+                if (jsonArray !=null && jsonArray.length()>0){
+                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
+                }
+
 
         } catch (JSONException e) {
 
@@ -70,15 +91,11 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
         }
         //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
-        holder.eventName.setText(data.getSpace().getName());
-        holder.eventVenue.setText(data.getSpace().getLocation());
-        holder.bookingTicketTv.setVisibility(View.GONE);
-        holder.ti_tickets.setVisibility(View.GONE);
-//        holder.findPlaceDistanceTv.setText("Availability");
-        holder.eventDate.setText(data.getSpace().getAvailability_week());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 onSpaceClick.getSpaceAmount(data);
 //                Intent intent = new Intent(context, EventDetail.class);
 //                intent.putExtra("eventName", data.getSpace().getName());
@@ -94,8 +111,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 //                intent.putExtras(b);
 //
 //                context.startActivity(intent);
-
-
+                
             }
         });
     }

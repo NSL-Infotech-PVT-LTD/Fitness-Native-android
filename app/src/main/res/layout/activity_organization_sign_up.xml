@@ -329,6 +329,7 @@
                             android:fontFamily="@font/poppins_regular"
                             android:gravity="center"
                             android:hint="@string/time_format"
+                            android:textColor="@color/colorBlack"
                             android:inputType="date"
                             android:paddingLeft="@dimen/_10sdp"
                             android:paddingRight="@dimen/_20sdp"
@@ -348,6 +349,7 @@
                             android:inputType="date"
                             android:paddingLeft="@dimen/_10sdp"
                             android:paddingRight="@dimen/_20sdp"
+                            android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/organization_BusinessHourendTv" />

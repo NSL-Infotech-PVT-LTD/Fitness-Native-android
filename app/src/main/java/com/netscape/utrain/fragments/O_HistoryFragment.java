@@ -146,12 +146,12 @@ public class O_HistoryFragment extends Fragment {
 
     private void bottomOnClickSort() {
 
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach)) {
-            spaceSel.setVisibility(View.GONE);
-        } else {
-            spaceSel.setVisibility(View.VISIBLE);
-
-        }
+//        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach)) {
+//            spaceSel.setVisibility(View.GONE);
+//        } else {
+//            spaceSel.setVisibility(View.VISIBLE);
+//
+//        }
         selectedTExt();
 
         eventSel.setOnClickListener(new View.OnClickListener() {
@@ -193,10 +193,15 @@ public class O_HistoryFragment extends Fragment {
                 O_UpcEventFragment.count = sort_count;
                 O_CmpEventFragment.count = sort_count;
 
-                upcoming = "Booking";
-                completed = "Post Bookings";
-                setupSpacePager(binding.historyViewPager);
-                bottomSheetUpDown_address();
+                upcoming = "My Booking";
+                completed = "Space Bookings";
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                {
+                    setupViewPager(binding.historyViewPager);
+                }else {
+                    setupSpacePager(binding.historyViewPager);
+                }
+                    bottomSheetUpDown_address();
             }
         });
         doneSel.setVisibility(View.GONE);

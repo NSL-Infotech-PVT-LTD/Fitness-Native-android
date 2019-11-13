@@ -432,7 +432,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
-//        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
 //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
 
         List<MultipartBody.Part> parts = new ArrayList<>();
@@ -440,9 +440,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         parts.add(portFolioImage2);
         parts.add(portFolioImage3);
         parts.add(portFolioImage4);
+        parts.add(userImg);
 
 
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , parts);
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap , parts);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {

@@ -103,16 +103,15 @@ public class EventBookingActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
                 if (countVAlue < 5) {
-                    if (countVAlue<Integer.parseInt(seatNo)){
+                    if (countVAlue < Integer.parseInt(seatNo)) {
                         countVAlue += 1;
                         totalPrice = ticketPrice * countVAlue;
                         binding.text1.setText((ticket + " * " + countVAlue) + "");
                         binding.eventPrice.setText("$" + totalPrice + "");
                         binding.countDisplay.setText(countVAlue + "");
                     } else {
-                        Toast.makeText(EventBookingActivity.this, "Only "+seatNo+" Seat left", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventBookingActivity.this, "Only " + seatNo + " Seat left", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -200,7 +199,7 @@ public class EventBookingActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
 
                     } catch (Exception e) {
@@ -244,9 +243,8 @@ public class EventBookingActivity extends AppCompatActivity {
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(activity).load(Constants.IMAGE_BASE_SESSION+Constants.THUMBNAILS + jsonArray.get(i))).into(binding.eventBookingImage);
-
+                                    if (jsonArray != null && jsonArray.length() > 0) {
+                                        Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(activity).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(binding.eventBookingImage);
                                     }
                                 }
 
@@ -264,7 +262,7 @@ public class EventBookingActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
 
                     } catch (Exception e) {

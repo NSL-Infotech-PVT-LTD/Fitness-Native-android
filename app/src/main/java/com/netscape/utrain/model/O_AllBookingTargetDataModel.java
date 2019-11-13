@@ -28,6 +28,8 @@ public class O_AllBookingTargetDataModel {
     private String end_date;
     private String start_time;
     private String end_time;
+    private String availability_week;
+    private String price_daily;
     private int price;
     private String images;
     private String location;
@@ -38,6 +40,21 @@ public class O_AllBookingTargetDataModel {
     private int guest_allowed_left;
     private String equipment_required;
 
+    public String getAvailability_week() {
+        return availability_week;
+    }
+
+    public void setAvailability_week(String availability_week) {
+        this.availability_week = availability_week;
+    }
+
+    public String getPrice_daily() {
+        return price_daily;
+    }
+
+    public void setPrice_daily(String price_daily) {
+        this.price_daily = price_daily;
+    }
 
     public int getId() {
         return id;

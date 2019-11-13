@@ -174,9 +174,11 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         } else if (count == 3) {
 
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                getUpcommingSpaces();
+                getCoachSpaceBookings();
             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                 a_getUpcommingSpaces();
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                getCoachSpaceBookings();
         }
 
         return view;
@@ -497,6 +499,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         });
     }
 
+
     public void a_getUpcommingSession() {
         progressDialog.show();
         Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", upcomg, "session");
@@ -655,7 +658,55 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             }
         });
     }
+    public void getCoachSpaceBookings() {
+        progressDialog.show();
+        Call<AthleteSpaceBookList> call = retrofitinterface.getCoachSpaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
+        call.enqueue(new Callback<AthleteSpaceBookList>() {
+            @Override
+            public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
+                if (response.body() != null) {
+                    a_spaceData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noBookingImg.setVisibility(View.GONE);
 
+//                            data.addAll(response.body().getData());
+                            a_spaceData.addAll(response.body().getData().getData());
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this);
+                            binding.eventListRecycler.setAdapter(a_SpaceAdapter);
+
+                        } else {
+                            binding.noBookingImg.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    binding.noBookingImg.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSpaceBookList> call, Throwable t) {
+                binding.noBookingImg.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     public void eventAmount(AthleteBookListModel.DataBeanX.DataBean list) {
@@ -699,13 +750,32 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     @Override
     public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean spaceData) {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+        {
+            Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+            userName.setText(spaceData.getUser_details().getName());
+            bookingIdText.setText("Booking ID : " + spaceData.getId());
+            bookingPlaceName.setText(spaceData.getTarget_data().getName());
+            eventText.setText("Space");
+
+        ti_locationText.setText(spaceData.getTarget_data().getLocation());
+            ti_Booking_Ticket.setVisibility(View.GONE);
+            ti_tickets.setVisibility(View.GONE);
+
+//        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
+            ti_TotalTicketPrice.setText("Space @ $" + spaceData.getTarget_data().getPrice_daily() + " /day");
+            ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
+            ti_tax.setText("$0.00");
+            totalAmount.setText("$" + spaceData.getPrice() + ".00");
+            bottomSheetUpDown_address();
+        }else {
         Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
         userName.setText(spaceData.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + spaceData.getId());
         bookingPlaceName.setText(spaceData.getSpace().getName());
         eventText.setText("Space");
 
-//        ti_locationText.setText(spaceData.getSpace().getLocation());
+        ti_locationText.setText(spaceData.getSpace().getLocation());
         ti_Booking_Ticket.setVisibility(View.GONE);
         ti_tickets.setVisibility(View.GONE);
 
@@ -715,6 +785,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + spaceData.getPrice() + ".00");
         bottomSheetUpDown_address();
+        }
     }
 
     @Override

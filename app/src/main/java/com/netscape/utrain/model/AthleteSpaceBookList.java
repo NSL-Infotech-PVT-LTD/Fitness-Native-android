@@ -8,7 +8,7 @@ public class AthleteSpaceBookList {
     /**
      * status : true
      * code : 200
-     * data : {"current_page":1,"data":[{"id":12,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":13,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":14,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":15,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}}],"first_page_url":"https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list?page=1","from":1,"last_page":1,"last_page_url":"https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list?page=1","next_page_url":null,"path":"https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list","per_page":20,"prev_page_url":null,"to":4,"total":4}
+     * data : {"current_page":1,"data":[{"id":23,"type":"space","target_id":6,"user_id":283,"tickets":1,"price":204,"target_data":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68},"booking_date":{"start":null,"end":null},"user_details":{"name":"adam","email":"adam@gmail.com","phone":"3215642864","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1572869556500.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989543","longitude":"76.6917761","id":283,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":24,"type":"space","target_id":16,"user_id":283,"tickets":1,"price":276,"target_data":{"id":16,"name":"Cricket pitch","images":"[\"1573478076599.jpeg\",\"1573478076461.jpeg\",\"1573478076853.jpg\"]","description":"cricket training pitch","price_hourly":58,"availability_week":"Saturday-Sunday","location":"A-40 phase 8B, Industrial Area, Sahibzada Ajit Singh Nagar, Punjab, India","latitude":"30.706162044875605","longitude":"76.69611185789108","created_by":297,"price_daily":69},"booking_date":{"start":null,"end":null},"user_details":{"name":"adam","email":"adam@gmail.com","phone":"3215642864","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1572869556500.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989543","longitude":"76.6917761","id":283,"roles":[{"name":"athlete"}]},"space":{"id":16,"name":"Cricket pitch","images":"[\"1573478076599.jpeg\",\"1573478076461.jpeg\",\"1573478076853.jpg\"]","description":"cricket training pitch","price_hourly":58,"availability_week":"Saturday-Sunday","location":"A-40 phase 8B, Industrial Area, Sahibzada Ajit Singh Nagar, Punjab, India","latitude":"30.706162044875605","longitude":"76.69611185789108","created_by":297,"price_daily":69}}],"first_page_url":"https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list?page=1","from":1,"last_page":1,"last_page_url":"https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list?page=1","next_page_url":null,"path":"https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list","per_page":20,"prev_page_url":null,"to":2,"total":2}
      */
 
     private boolean status;
@@ -42,17 +42,17 @@ public class AthleteSpaceBookList {
     public static class DataBeanX {
         /**
          * current_page : 1
-         * data : [{"id":12,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":13,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":14,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":15,"type":"space","target_id":6,"user_id":213,"tickets":3,"price":267,"user_details":{"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}}]
-         * first_page_url : https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list?page=1
+         * data : [{"id":23,"type":"space","target_id":6,"user_id":283,"tickets":1,"price":204,"target_data":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68},"booking_date":{"start":null,"end":null},"user_details":{"name":"adam","email":"adam@gmail.com","phone":"3215642864","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1572869556500.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989543","longitude":"76.6917761","id":283,"roles":[{"name":"athlete"}]},"space":{"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}},{"id":24,"type":"space","target_id":16,"user_id":283,"tickets":1,"price":276,"target_data":{"id":16,"name":"Cricket pitch","images":"[\"1573478076599.jpeg\",\"1573478076461.jpeg\",\"1573478076853.jpg\"]","description":"cricket training pitch","price_hourly":58,"availability_week":"Saturday-Sunday","location":"A-40 phase 8B, Industrial Area, Sahibzada Ajit Singh Nagar, Punjab, India","latitude":"30.706162044875605","longitude":"76.69611185789108","created_by":297,"price_daily":69},"booking_date":{"start":null,"end":null},"user_details":{"name":"adam","email":"adam@gmail.com","phone":"3215642864","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1572869556500.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989543","longitude":"76.6917761","id":283,"roles":[{"name":"athlete"}]},"space":{"id":16,"name":"Cricket pitch","images":"[\"1573478076599.jpeg\",\"1573478076461.jpeg\",\"1573478076853.jpg\"]","description":"cricket training pitch","price_hourly":58,"availability_week":"Saturday-Sunday","location":"A-40 phase 8B, Industrial Area, Sahibzada Ajit Singh Nagar, Punjab, India","latitude":"30.706162044875605","longitude":"76.69611185789108","created_by":297,"price_daily":69}}]
+         * first_page_url : https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list?page=1
          * from : 1
          * last_page : 1
-         * last_page_url : https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list?page=1
+         * last_page_url : https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list?page=1
          * next_page_url : null
-         * path : https://dev.netscapelabs.com/utrain/public/api/booking/organiser/list
+         * path : https://dev.netscapelabs.com/utrain/public/api/booking/athlete/list
          * per_page : 20
          * prev_page_url : null
-         * to : 4
-         * total : 4
+         * to : 2
+         * total : 2
          */
 
         private int current_page;
@@ -166,13 +166,15 @@ public class AthleteSpaceBookList {
 
         public static class DataBean {
             /**
-             * id : 12
+             * id : 23
              * type : space
              * target_id : 6
-             * user_id : 213
-             * tickets : 3
-             * price : 267
-             * user_details : {"name":"Ravi Sangelia","email":"ravi.singla06@gmail.com","phone":"7696669697","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1571489574156.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989534","longitude":"76.6917417","id":213,"roles":[{"name":"athlete"}]}
+             * user_id : 283
+             * tickets : 1
+             * price : 204
+             * target_data : {"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}
+             * booking_date : {"start":null,"end":null}
+             * user_details : {"name":"adam","email":"adam@gmail.com","phone":"3215642864","address":"304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India","profile_image":"1572869556500.jpg","location":null,"business_hour_starts":null,"business_hour_ends":null,"bio":null,"expertise_years":null,"hourly_rate":null,"portfolio_image":null,"latitude":"30.6989543","longitude":"76.6917761","id":283,"roles":[{"name":"athlete"}]}
              * space : {"id":6,"name":"Jakhu shimla","images":"[\"1571655545835.jpeg\",\"1571655545795.jpeg\",\"1571655545195.jpeg\",\"1571655545629.jpeg\"]","description":"djdjdjffj got back in town tomorrow so I can come to your","price_hourly":45,"availability_week":"Saturday-Thursday","location":"Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India","latitude":"30.706599060490753","longitude":"76.69311784207821","created_by":215,"price_daily":68}
              */
 
@@ -182,6 +184,8 @@ public class AthleteSpaceBookList {
             private int user_id;
             private int tickets;
             private int price;
+            private TargetDataBean target_data;
+            private BookingDateBean booking_date;
             private UserDetailsBean user_details;
             private SpaceBean space;
 
@@ -233,6 +237,22 @@ public class AthleteSpaceBookList {
                 this.price = price;
             }
 
+            public TargetDataBean getTarget_data() {
+                return target_data;
+            }
+
+            public void setTarget_data(TargetDataBean target_data) {
+                this.target_data = target_data;
+            }
+
+            public BookingDateBean getBooking_date() {
+                return booking_date;
+            }
+
+            public void setBooking_date(BookingDateBean booking_date) {
+                this.booking_date = booking_date;
+            }
+
             public UserDetailsBean getUser_details() {
                 return user_details;
             }
@@ -249,13 +269,155 @@ public class AthleteSpaceBookList {
                 this.space = space;
             }
 
+            public static class TargetDataBean {
+                /**
+                 * id : 6
+                 * name : Jakhu shimla
+                 * images : ["1571655545835.jpeg","1571655545795.jpeg","1571655545195.jpeg","1571655545629.jpeg"]
+                 * description : djdjdjffj got back in town tomorrow so I can come to your
+                 * price_hourly : 45
+                 * availability_week : Saturday-Thursday
+                 * location : Unnamed Road, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 140308, India
+                 * latitude : 30.706599060490753
+                 * longitude : 76.69311784207821
+                 * created_by : 215
+                 * price_daily : 68
+                 */
+
+                private int id;
+                private String name;
+                private String images;
+                private String description;
+                private int price_hourly;
+                private String availability_week;
+                private String location;
+                private String latitude;
+                private String longitude;
+                private int created_by;
+                private int price_daily;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getImages() {
+                    return images;
+                }
+
+                public void setImages(String images) {
+                    this.images = images;
+                }
+
+                public String getDescription() {
+                    return description;
+                }
+
+                public void setDescription(String description) {
+                    this.description = description;
+                }
+
+                public int getPrice_hourly() {
+                    return price_hourly;
+                }
+
+                public void setPrice_hourly(int price_hourly) {
+                    this.price_hourly = price_hourly;
+                }
+
+                public String getAvailability_week() {
+                    return availability_week;
+                }
+
+                public void setAvailability_week(String availability_week) {
+                    this.availability_week = availability_week;
+                }
+
+                public String getLocation() {
+                    return location;
+                }
+
+                public void setLocation(String location) {
+                    this.location = location;
+                }
+
+                public String getLatitude() {
+                    return latitude;
+                }
+
+                public void setLatitude(String latitude) {
+                    this.latitude = latitude;
+                }
+
+                public String getLongitude() {
+                    return longitude;
+                }
+
+                public void setLongitude(String longitude) {
+                    this.longitude = longitude;
+                }
+
+                public int getCreated_by() {
+                    return created_by;
+                }
+
+                public void setCreated_by(int created_by) {
+                    this.created_by = created_by;
+                }
+
+                public int getPrice_daily() {
+                    return price_daily;
+                }
+
+                public void setPrice_daily(int price_daily) {
+                    this.price_daily = price_daily;
+                }
+            }
+
+            public static class BookingDateBean {
+                /**
+                 * start : null
+                 * end : null
+                 */
+
+                private Object start;
+                private Object end;
+
+                public Object getStart() {
+                    return start;
+                }
+
+                public void setStart(Object start) {
+                    this.start = start;
+                }
+
+                public Object getEnd() {
+                    return end;
+                }
+
+                public void setEnd(Object end) {
+                    this.end = end;
+                }
+            }
+
             public static class UserDetailsBean {
                 /**
-                 * name : Ravi Sangelia
-                 * email : ravi.singla06@gmail.com
-                 * phone : 7696669697
+                 * name : adam
+                 * email : adam@gmail.com
+                 * phone : 3215642864
                  * address : 304, Industrial Area, Sector 75, Sahibzada Ajit Singh Nagar, Punjab 160075, India
-                 * profile_image : 1571489574156.jpg
+                 * profile_image : 1572869556500.jpg
                  * location : null
                  * business_hour_starts : null
                  * business_hour_ends : null
@@ -263,9 +425,9 @@ public class AthleteSpaceBookList {
                  * expertise_years : null
                  * hourly_rate : null
                  * portfolio_image : null
-                 * latitude : 30.6989534
-                 * longitude : 76.6917417
-                 * id : 213
+                 * latitude : 30.6989543
+                 * longitude : 76.6917761
+                 * id : 283
                  * roles : [{"name":"athlete"}]
                  */
 

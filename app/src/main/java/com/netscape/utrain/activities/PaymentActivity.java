@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityPaymentBinding;
 import com.netscape.utrain.model.BookingConfirmModel;
@@ -226,13 +227,10 @@ public class PaymentActivity extends AppCompatActivity {
                                 }
                                 if (type.equalsIgnoreCase("event")) {
                                     hitConfirmBookingAPI(getIntent().getIntExtra("tickets", 0) + "", getIntent().getIntExtra("totalPrice", 0) + "", getIntent().getStringExtra("type"), token.getId());
-
                                 }
                             }
 
-
 //                            bookingConfirm(getIntent().getIntExtra("appo_id", 0), getIntent().getStringExtra("dateTime"), token.getId());
-
                         }
                     });
         } else if (!cardToSave.validateNumber()) {
@@ -466,8 +464,13 @@ public class PaymentActivity extends AppCompatActivity {
                                 intent = new Intent(activity, AthleteHomeScreen.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-                            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase("orgnizer")) {
+                            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase(Constants.Organizer)) {
                                 intent = new Intent(activity, OrgHomeScreen.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase(Constants.Coach)) {
+                                intent = new Intent(activity, CoachDashboard.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
