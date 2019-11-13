@@ -25,10 +25,33 @@ public class LoginChildModel {
     private String updated_at;
     private String deleted_at;
     private String token;
+    private String business_hour_starts;
+    private String business_hour_ends;
+
+    public String getBusiness_hour_starts() {
+        return business_hour_starts;
+    }
+
+    public void setBusiness_hour_starts(String business_hour_starts) {
+        this.business_hour_starts = business_hour_starts;
+    }
+
+    public String getBusiness_hour_ends() {
+        return business_hour_ends;
+    }
+
+    public void setBusiness_hour_ends(String business_hour_ends) {
+        this.business_hour_ends = business_hour_ends;
+    }
+
     private List<RolesModel> roles;
+
 
     private String experience_detail;
     private String training_service_detail;
+    private String achievements;
+    private String sport_id;
+    private List<ServiceIdModel> service_ids;
 
     public String getTraining_service_detail() {
         return training_service_detail;
@@ -37,10 +60,6 @@ public class LoginChildModel {
     public void setTraining_service_detail(String training_service_detail) {
         this.training_service_detail = training_service_detail;
     }
-
-    private String achievements;
-    private String sport_id;
-    private List<ServiceIdModel> service_ids;
 
     public String getSport_id() {
         return sport_id;

@@ -293,7 +293,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this, getResources().getString(R.string.selecte_availability_to), Toast.LENGTH_SHORT).show();
 
         } else if (spaceDescription.isEmpty()) {
-            binding.offerSpaceDescriptionEnterTv.setError(getResources().getString(R.string.enter_space_name));
+            binding.offerSpaceDescriptionEnterTv.setError(getResources().getString(R.string.enter_description));
             binding.offerSpaceDescriptionEnterTv.requestFocus();
         } else {
             availValue = availStart + "-" + availEnd;

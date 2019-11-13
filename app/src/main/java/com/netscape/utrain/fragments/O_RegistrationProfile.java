@@ -108,14 +108,16 @@ public class O_RegistrationProfile extends Fragment {
 
         // Setting values to the  views on Organizatio profile.
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.oDashProImage); // working code line to display image
+        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.oDashProImage);
         Glide.with(context).load(path).into(binding.oDashProImage);
 
 
         binding.oNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
-        binding.oTrainingDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, context));
-        binding.oExpDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
+        binding.cYearsOfExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR,context) + "+ Years");
         binding.orgBioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, context));
+        binding.detailPriceTv.setText(CommonMethods.getPrefData(PrefrenceConstant.PRICE,context));
+        binding.eventTimeDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_START,context));
+        binding.oExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR,context) + "+ Years");
 
         getService();
         cChipGroup = new ChipGroup(context);
@@ -131,10 +133,8 @@ public class O_RegistrationProfile extends Fragment {
 
             chip.setText(sList.get(i).getName());
             chip.setTextSize(12);
-            chip.setElevation(15);
             cChipGroup.addView(chip);
             cChipGroup.setChipSpacingVertical(30);
-            chip.setPadding(5,5,5,5);
 
         }
         cChipGroup.setEnabled(false);
@@ -146,13 +146,6 @@ public class O_RegistrationProfile extends Fragment {
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("geo:19.076,72.8777"));
                 startActivity(intent);
-            }
-        });
-        binding.rentOutSpaceTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
-                view.getContext().startActivity(createSpace);
             }
         });
 

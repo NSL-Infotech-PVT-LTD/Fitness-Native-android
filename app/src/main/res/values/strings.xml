@@ -406,5 +406,6 @@
     <string name="organizer_profile">Organizer Profile</string>
     <string name="training_detail">Training Detail</string>
     <string name="coaching_staff">Coaching Staff</string>
+    <string name="enter_description">Enter Description</string>
     >>>>>>> dc88a50546ce5fcae696b65cbccf8623e62190ae
 </resources>

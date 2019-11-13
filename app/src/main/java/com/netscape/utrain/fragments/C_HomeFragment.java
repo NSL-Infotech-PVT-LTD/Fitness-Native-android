@@ -146,12 +146,11 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
             ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(context, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
             chip.setChipDrawable(chipDrawable);
             chip.setTextColor(getResources().getColor(R.color.colorBlack));
-
             chip.setText(sList.get(i).getName());
-
             cChipGroup.addView(chip);
         }
         cChipGroup.setEnabled(false);
+        cChipGroup.setChipSpacingVertical(20);
         binding.constraintChipGroup.addView(cChipGroup);
         return view;
     }
