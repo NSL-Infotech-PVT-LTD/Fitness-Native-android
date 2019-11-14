@@ -57,7 +57,7 @@ public class ViewCoachStaffListAdapter extends RecyclerView.Adapter<ViewCoachSta
 
         CircleImageView coachStaffImg;
         MaterialTextView coachStaffName;
-        MaterialButton coachStaffProfession;
+        MaterialTextView coachStaffProfession;
 
         public ViewCoachStaffListHolder(@NonNull View itemView) {
             super(itemView);

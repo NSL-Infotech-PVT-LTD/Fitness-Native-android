@@ -1,5 +1,6 @@
 package com.netscape.utrain.response;
 
+import com.netscape.utrain.model.ErrorModel;
 import com.netscape.utrain.model.ViewCoachPageModel;
 
 public class ViewCoachListResponse {
@@ -8,6 +9,15 @@ public class ViewCoachListResponse {
     private boolean status;
     private int code;
     private ViewCoachPageModel data;
+    private ErrorModel error;
+
+    public ErrorModel getError() {
+        return error;
+    }
+
+    public void setError(ErrorModel error) {
+        this.error = error;
+    }
 
     public boolean isStatus() {
         return status;

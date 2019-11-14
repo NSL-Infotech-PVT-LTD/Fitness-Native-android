@@ -536,7 +536,6 @@
                     android:backgroundTint="@color/colorGreen"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardUseCompatPadding="true"
-
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

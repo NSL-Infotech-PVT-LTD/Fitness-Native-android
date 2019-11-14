@@ -32,23 +32,24 @@ public class Constants {
     public static final String BOOKING_LIST_EVENT = "bookings";
     public static final String BOOK_SPACE = "booking/space/store";
     public static final String ORG_EVENT_LIST = "events/organiser/list";
+    public static final String ORG_COACH_ATH_List = "organiser/coach/athlete/list";
+    public static final String organiser_coach_store = "organiser/coach/store";
 
-    public static final String ORG_SESSION_LIST= "session/organiser/list";
-    public static final String CO_EVENT_LIST= "events/coach/list";
-    public static final String CO_SESSION_LIST= "session/coach/list";
-    public static final String A_EVENT_LIST= "events/athlete/list";
-    public static final String A_SPACE_LIST= "spaces/athlete/list";
-    public static final String A_SESSION_LIST= "session/athlete/list";
-    public static final String A_EVENT_BOOKING_LIST= "booking/athlete/list";
-//    public static final String A_EVENT_LIST= "event/athlete/list";
-    public static final String O_EVENT_BOOKING_LIST= "booking/organiser/list";
-    public static final String COACH_EVENT_BOOKING_LIST= "booking/coach/list";
+    public static final String ORG_SESSION_LIST = "session/organiser/list";
+    public static final String CO_EVENT_LIST = "events/coach/list";
+    public static final String CO_SESSION_LIST = "session/coach/list";
+    public static final String A_EVENT_LIST = "events/athlete/list";
+    public static final String A_SPACE_LIST = "spaces/athlete/list";
+    public static final String A_SESSION_LIST = "session/athlete/list";
+    public static final String A_EVENT_BOOKING_LIST = "booking/athlete/list";
+    //    public static final String A_EVENT_LIST= "event/athlete/list";
+    public static final String O_EVENT_BOOKING_LIST = "booking/organiser/list";
+    public static final String COACH_EVENT_BOOKING_LIST = "booking/coach/list";
 
     public static final String ALL_BOOKING_ATHLETE = "booking/athlete/list/all";
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
-    public static final String SPORTS_LIST ="sports";
-
+    public static final String SPORTS_LIST = "sports";
 
 
     public static final String ORG_SPACE_LIST = "spaces/organiser/list";
@@ -98,9 +99,10 @@ public class Constants {
     public static final String DEVICE_TYPE = "ANDROID";
     public static final String DEVICE_TOKEN = "KFGLKFSDFJKJSDF";
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
-    public static final String ORGANIZER_COACH_STORE = "organiser/coach/store" ;
-    public static final String  ORG_COACH_ATH_List = "organiser/coach/athlete/list" ;
+    public static final String ORGANIZER_COACH_STORE = "organiser/coach/store";
+    public static final String TypeOrgCoach = "OrgCoachActive";
     public static String ROLE_PLAY = "";
     public static int CHECKBOX_IS_CHECKED = 0;
     public static String SocialProfile = "";
+
 }

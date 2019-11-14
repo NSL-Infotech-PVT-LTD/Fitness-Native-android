@@ -65,7 +65,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/bottom_nav_round_design"
         android:elevation="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -76,12 +76,31 @@
             android:id="@+id/coachListRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/createCoach"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/createCoach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/coachListRecycler"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:backgroundTint="@color/colorWhite"
+            app:strokeWidth="@dimen/_1sdp"
+            app:strokeColor="@color/themeColor"
+            android:text="@string/create_coach"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/colorBlack"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_10sdp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

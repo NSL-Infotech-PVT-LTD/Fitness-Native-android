@@ -476,4 +476,12 @@ public interface Retrofitinterface {
     );
 
 
+    @Multipart
+    @POST(Constants.organiser_coach_store)
+    Call<ViewCoachListResponse> getOrgCoachRegister(@Part MultipartBody.Part file,
+                                                    @Header("Authorization")  String auth,
+                                                    @PartMap Map<String, RequestBody> fields
+    );
+
+
 }
