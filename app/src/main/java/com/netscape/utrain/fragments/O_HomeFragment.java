@@ -151,8 +151,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         getSpaceList();
 
         String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,context);
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
-//        Glide.with(context).load(path).into(binding.orgProfileImage);
+//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL+path).into(binding.orgProfileImage);
+        Glide.with(context).load(path).into(binding.orgProfileImage);
 
 //        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.orgProfileImage); // working code line to display image
 //        Glide.with(context).load(path).into(binding.orgProfileImage);

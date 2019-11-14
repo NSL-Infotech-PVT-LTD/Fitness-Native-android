@@ -25,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
+import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.databinding.OFragmentRegistrationProfileBinding;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.SportListModel;
@@ -36,6 +37,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.facebook.FacebookSdk.fullyInitialize;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -109,8 +111,9 @@ public class O_RegistrationProfile extends Fragment {
 
         // Setting values to the  views on Organizatio profile.
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
-        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.oDashProImage);
+//        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.oDashProImage); // code line not working.....
         Glide.with(context).load(path).into(binding.oDashProImage);
+
         binding.viewCoachStaffBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +121,14 @@ public class O_RegistrationProfile extends Fragment {
                 Intent oRegistrationIntent = new Intent(context, ViewCoachStaffListActivity.class);
                 oRegistrationIntent.putExtra("oRegisterIntent","");
                 startActivity(oRegistrationIntent);
+            }
+        });
+        binding.viewSpacesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent viewSpaceIntent = new Intent(context, AllEventsMapAct.class);
+                startActivity(viewSpaceIntent);
             }
         });
 

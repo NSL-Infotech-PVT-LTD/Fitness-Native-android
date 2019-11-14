@@ -260,7 +260,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 binding.cSportsNameTv.setText(builder.toString());
             }
         } else {
-            binding.cSportsNameTv.setVisibility(View.GONE);
+
             binding.cSportsNameTv.setVisibility(View.GONE);
 
         }

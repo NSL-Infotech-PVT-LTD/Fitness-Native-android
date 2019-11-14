@@ -11,7 +11,7 @@
     tools:context=".activities.ViewCoachStaffListActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ceBackArrowImg"
+        android:id="@+id/vCoachBackImg"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_10sdp"
@@ -30,7 +30,7 @@
         android:text="@string/coaching_staff"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_16sdp"
-        app:layout_constraintLeft_toRightOf="@+id/ceBackArrowImg"
+        app:layout_constraintLeft_toRightOf="@+id/vCoachBackImg"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -82,6 +82,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/viewCoachNodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_data_png"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/createCoach"
             android:layout_width="match_parent"
