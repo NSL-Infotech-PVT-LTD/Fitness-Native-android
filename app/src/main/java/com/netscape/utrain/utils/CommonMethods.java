@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.model.ServiceListDataModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -107,5 +108,16 @@ public class CommonMethods {
         return ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
     }
 
+    public static void deleteDirectory(File dir){
+
+            if (dir.exists()) {
+                String deleteCmd = "rm -r " + dir;
+                Runtime runtime = Runtime.getRuntime();
+                try {
+                    runtime.exec(deleteCmd);
+                } catch (IOException e) { }
+            }
+
+    }
 
 }

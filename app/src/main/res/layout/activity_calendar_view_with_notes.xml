@@ -19,8 +19,14 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
+    <com.marcohc.robotocalendar.RobotoCalendarView
+        android:id="@+id/robotoCalendarPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <com.netscape.utrain.utils.CalendarView
+        android:visibility="gone"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

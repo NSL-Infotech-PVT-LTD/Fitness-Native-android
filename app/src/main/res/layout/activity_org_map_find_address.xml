@@ -52,7 +52,9 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
                     android:hint="Search place"
+                    android:focusable="false"
                     android:singleLine="true"
+                    android:clickable="false"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>

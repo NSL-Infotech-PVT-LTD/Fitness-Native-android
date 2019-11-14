@@ -26,7 +26,9 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,6 +52,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.material.textview.MaterialTextView;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
@@ -105,6 +108,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private Location mylocation;
     private OrgUserDataModel orgDataModel;
     private String activeUserType = "";
+    private File mediaStorageDir;
+
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -126,6 +131,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         init();
         PortfolioActivity.clearFromConstants();
 
+        mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
 
     }
 
@@ -601,7 +613,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
 //                AppDelegate.Log("imageCaptured ", "result ok");
-                photoFile = new File(currentPhotoFilePath);
+                String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
+
+                photoFile = new File(filePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
 //                    plus.setVisibility(View.GONE);
@@ -617,8 +631,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            if (realPath != null) {
-                photoFile = new File(realPath);
+            String filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+
+            if (filePath != null) {
+                photoFile = new File(filePath);
             }
             if (photoFile != null)
 //                plus.setVisibility(View.GONE);

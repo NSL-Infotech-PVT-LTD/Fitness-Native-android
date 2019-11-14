@@ -64,9 +64,11 @@ dependencies {
 
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'com.stripe:stripe-android:6.1.2'
-
+//    implementation 'com.github.marcohc:robotocalendarview:3.6.1'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation 'com.iceteck.silicompressorr:silicompressor:2.2.2'
+
 //    implementation project(":CalendarViewLib")
 }
 apply plugin: 'com.google.gms.google-services'

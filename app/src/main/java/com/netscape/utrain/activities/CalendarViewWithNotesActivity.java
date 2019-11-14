@@ -43,6 +43,7 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.Event;
 import com.netscape.utrain.utils.PrefrenceConstant;
+import com.netscape.utrain.views.RobotoCalendarView;
 
 import org.json.JSONObject;
 
@@ -53,6 +54,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -63,7 +65,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CalendarViewWithNotesActivity extends AppCompatActivity {
-
+    private RobotoCalendarView robotoCalendarView;
     private final static int CREATE_EVENT_REQUEST_CODE = 100;
     List<AllBookingListModel.DataBeanX.DataBean> mEventList = new ArrayList<>();
     List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
@@ -75,7 +77,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
     private int colour2;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-
+    HashMap<String,ArrayList<O_AllBookingDataListModel>> eventsMap = new HashMap<>();
     public static Intent makeIntent(Context context) {
         return new Intent(context, CalendarViewWithNotesActivity.class);
     }
@@ -142,6 +144,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
     private void initializeUI() {
 
         setContentView(R.layout.activity_calendar_view_with_notes);
+        robotoCalendarView = findViewById(R.id.robotoCalendarPicker);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.....");
@@ -263,6 +266,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                     colour1 = Color.BLUE;
                                     colour2 = Color.BLACK;
                                 }
+
                                 String startDate = e.getBooking_date().getStart();
                                 String endDate = e.getBooking_date().getEnd();
                                 try {
@@ -281,10 +285,11 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                         for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
-                                            calendarObjectArrayList.add((new CalendarView.CalendarObject(
-                                                    e.getId() + "",
-                                                    calendar,
-                                                    colour1, colour2, e.getTarget_data().getName(), type)));
+                                            robotoCalendarView.markCircleImage1(calendar.getTime());
+//                                            calendarObjectArrayList.add((new CalendarView.CalendarObject(
+//                                                    e.getId() + "",
+//                                                    calendar,
+//                                                    colour1, colour2, e.getTarget_data().getName(), type)));
 //                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
 //                                                    e.getId() + "",
 //                                                    calendar,
@@ -292,10 +297,11 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type)));
+                                        robotoCalendarView.markCircleImage1(calendar.getTime());
+//                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type)));
 //                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
 //                                                e.getId() + "",
 //                                                calendar,
@@ -304,10 +310,11 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type)));
+//                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type)));
+                                        robotoCalendarView.markCircleImage1(calendar.getTime());
 //                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
 //                                                e.getId() + "",
 //                                                calendar,

@@ -8,7 +8,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.FileUtils;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -66,6 +69,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     private String activeUserType = "";
     private OrgUserDataModel orgDataModel;
     public static boolean coachActive=false;
+    private File mediaStorageDir;
+
     String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
     //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
     JsonArray jsonArray;
@@ -175,6 +180,16 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 }
             }
         }
+
+         mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+
+
     }
 
     private void sportsListApi() {
@@ -234,6 +249,9 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+                            CommonMethods.deleteDirectory(mediaStorageDir);
+
                             CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                             CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ChooseSportActivity.this);

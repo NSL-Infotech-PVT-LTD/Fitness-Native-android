@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
@@ -124,7 +125,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //        setupToolBar(OrgMapFindAddressActivity.this.getResources().getString(R.string.find_address));
 
 //        binding.searchImgBtn.setOnClickListener(this);
-//        binding.searchEdt.setOnClickListener(this);
+        searchEdt.setOnClickListener(this);
 
         confirmLocRel.setOnClickListener(this);
         searchLin.setOnClickListener(this);
@@ -291,15 +292,16 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.searchImgBtn:
-                if (!searchEdt.getText().toString().trim().isEmpty()) {
-                    LatLng latLng = getLocationFromAddress(OrgMapFindAddressActivity.this,
-                            searchEdt.getText().toString().trim());
-                    if (latLng != null) {
-                        selectedLatLng = latLng;
-                        if (mGoogleMap != null)
-                            setMarkerOnMap(latLng);
-                    }
-                }
+                placeSearch();
+//                if (!searchEdt.getText().toString().trim().isEmpty()) {
+//                    LatLng latLng = getLocationFromAddress(OrgMapFindAddressActivity.this,
+//                            searchEdt.getText().toString().trim());
+//                    if (latLng != null) {
+//                        selectedLatLng = latLng;
+//                        if (mGoogleMap != null)
+//                            setMarkerOnMap(latLng);
+//                    }
+//                }
                 break;
             case R.id.confirmLocRel:
 //                AppDelegate.Log(TAG,"confirm Loc Rel calling ");
@@ -326,12 +328,13 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 }
                 break;
             case R.id.searchLin:
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
-                // Start the autocomplete intent.
-                Intent intent = new Autocomplete.IntentBuilder(
-                        AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IN") //NIGERIA
-                        .build(this);
-                startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
+                placeSearch();
+//                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
+//                // Start the autocomplete intent.
+//                Intent intent = new Autocomplete.IntentBuilder(
+//                        AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IN") //NIGERIA
+//                        .build(this);
+//                startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
 //                try {
 //                    AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
 //                            .setTypeFilter(Place.TYPE_COUNTRY)
@@ -353,7 +356,26 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //                }
 
                 break;
+            case R.id.searchEdt:
+                placeSearch();
+                break;
         }
+    }
+
+    private void placeSearch() {
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.FULLSCREEN, fields) //NIGERIA
+                .build(this);
+        startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
+//                try {
+
+//        Intent intent = new Autocomplete.IntentBuilder(
+//                AutocompleteActivityMode.FULLSCREEN, fields)
+//                .setTypeFilter(TypeFilter.ADDRESS)
+//                .build(this);
+//        startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
     }
 
 
@@ -366,7 +388,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress());
-                Toast.makeText(OrgMapFindAddressActivity.this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(OrgMapFindAddressActivity.this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
                 String address = place.getAddress();
 
 

@@ -31,8 +31,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,6 +59,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
@@ -116,6 +119,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private double latitude = 0.0, longitude = 0.0;
     private Uri selected;
     private String IMAGE_DIRECTORY = "/Utrain/";
+    private File mediaStorageDir;
+
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -183,6 +188,16 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             binding.athleteEmailEdt.setText(getIntent().getStringExtra("email"));
         }
         if (getIntent().hasExtra("fb_id")) ;
+
+
+        mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+
     }
 
     private void init() {
@@ -461,7 +476,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
 //                AppDelegate.Log("imageCaptured ", "result ok");
-                photoFile = new File(currentPhotoFilePath);
+                String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
+
+                photoFile = new File(filePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
 //                    plus.setVisibility(View.GONE);
@@ -478,7 +495,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
             if (realPath != null) {
-                photoFile = new File(realPath);
+                String filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+
+                photoFile = new File(filePath);
             }
             if (photoFile != null)
 //                plus.setVisibility(View.GONE);

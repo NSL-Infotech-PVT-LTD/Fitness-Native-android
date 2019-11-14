@@ -17,7 +17,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
@@ -83,6 +86,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<MultipartBody.Part> imgPortfolio;
     private JSONArray selectedServices;
     private List<ServiceIdModel> servicesList = new ArrayList<>();
+    private File mediaStorageDir;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -148,6 +152,15 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         progressDialog.setCancelable(false);
         askPermObj = new AskPermission(getApplicationContext(), this);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
+        mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("App", "failed to create directory");
+            }
+        }
+
     }
 
     @Override
@@ -364,7 +377,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
 //                AppDelegate.Log("imageCaptured ", "result ok");
-                photoFile = new File(currentPhotoFilePath);
+                String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
+
+                photoFile = new File(filePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
                     imageUrl = photoFile.getPath();
@@ -378,7 +393,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                         setImages = photoFile.getPath();
                     }
                     setPortfolioImages();
-
                 } /*else {
 //                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }*/
@@ -388,9 +402,11 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             String realPath = ImageFilePath.getPath(this, data.getData());
-            if (realPath != null) {
-                currentPhotoFilePath = realPath;
-                photoFile = new File(realPath);
+            String filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+
+            if (filePath != null) {
+                currentPhotoFilePath = filePath;
+                photoFile = new File(filePath);
             }
 
             if (photoFile != null)
