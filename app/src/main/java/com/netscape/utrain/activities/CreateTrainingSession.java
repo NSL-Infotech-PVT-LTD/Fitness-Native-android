@@ -345,13 +345,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 if (strDate != null && sEndDate!= null) {
                     if (sEndDate.compareTo(strDate) == 0) {
                         if (!startTime.isEmpty()) {
-                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+//                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
                                 binding.createEventEndTime.setText(endTime);
-                            } else {
-                                binding.createEventEndTime.setText("");
-                                binding.createEventEndTime.setHint("End time");
-                                Toast.makeText(CreateTrainingSession.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
-                            }
+//                            } else {
+//                                binding.createEventEndTime.setText("");
+//                                binding.createEventEndTime.setHint("End time");
+//                                Toast.makeText(CreateTrainingSession.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+//                            }
                         } else {
                             Toast.makeText(CreateTrainingSession.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
                         }

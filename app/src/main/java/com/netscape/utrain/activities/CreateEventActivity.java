@@ -247,13 +247,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 if (stDate != null && endDate != null) {
                     if (endDate.compareTo(stDate) == 0) {
                         if (!startTime.isEmpty()) {
-                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+//                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
                                 binding.createEventEndTime.setText(endTime);
-                            } else {
-                                binding.createEventEndTime.setText("");
-                                binding.createEventEndTime.setHint("End time");
-                                Toast.makeText(CreateEventActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
-                            }
+//                            } else {
+//                                binding.createEventEndTime.setText("");
+//                                binding.createEventEndTime.setHint("End time");
+//                                Toast.makeText(CreateEventActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+//                            }
                         } else {
                             Toast.makeText(CreateEventActivity.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
                         }

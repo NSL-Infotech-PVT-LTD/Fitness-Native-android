@@ -125,14 +125,13 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/cSportsNameTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_35sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toTopOf="@id/cExperienceDBoard"
@@ -156,7 +155,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
@@ -183,7 +182,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:inputType="textMultiLine"
                         android:maxLength="50"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"

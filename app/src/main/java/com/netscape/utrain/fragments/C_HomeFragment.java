@@ -106,7 +106,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
             }
         };
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
-        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
+//        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
 
         cExp = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context);
         if (cExp != null)
@@ -252,15 +252,19 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 sportList = gson.fromJson(sportName, type);
 
                 StringBuilder builder = new StringBuilder();
+                int i=1;
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
-                    builder.append(details.getName() + "\n");
-
+                    i=i+1;
+                    if (i< sportList.size()){
+                        builder.append(details.getName() + ",");
+                    }
+                    if (i == sportList.size()){
+                        builder.append(details.getName());
+                    }
                 }
-
                 binding.cSportsNameTv.setText(builder.toString());
             }
         } else {
-            binding.cSportsNameTv.setVisibility(View.GONE);
             binding.cSportsNameTv.setVisibility(View.GONE);
 
         }
