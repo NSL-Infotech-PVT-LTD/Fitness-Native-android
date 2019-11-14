@@ -107,7 +107,7 @@ public class EventDetail extends AppCompatActivity {
             binding.view4.setVisibility(View.GONE);
         }
 
-        binding.eventInstructionsDetailTv.setText(getIntent().getStringExtra("eventDescription"));
+        binding.descriptionTv.setText(getIntent().getStringExtra("eventDescription"));
 
 
         if (getIntent().getStringExtra("from") != null)

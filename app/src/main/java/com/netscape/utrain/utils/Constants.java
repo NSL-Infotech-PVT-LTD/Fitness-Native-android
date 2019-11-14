@@ -9,6 +9,7 @@ public class Constants {
     public static final String COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/coach/profile_image/";
     public static final String ORG_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/profile_image/";
     public static final String ORG_PORTFOLIO_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/portfolio_image/";
+    public static final String ORG_COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiserCoach/profile_image/";
 
     public static final String ATHLETE_SIGNUP = "athlete/register";
     public static final String LOGIN_METHOD = "login";
@@ -98,6 +99,7 @@ public class Constants {
     public static final String DEVICE_TOKEN = "KFGLKFSDFJKJSDF";
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     public static final String ORGANIZER_COACH_STORE = "organiser/coach/store" ;
+    public static final String  ORG_COACH_ATH_List = "organiser/coach/athlete/list" ;
     public static String ROLE_PLAY = "";
     public static int CHECKBOX_IS_CHECKED = 0;
     public static String SocialProfile = "";

@@ -31,6 +31,8 @@ public class PrefrenceConstant {
     public static final String ADDRESS = "address";
     public static final String BIO = "bio";
     public static final String USER_TRAINING_DETAIL = "userTrainingDetail";
+    public static final String EXPERTISE_YEAR = "expertise_years" ;
+    public static final String BUSINESS_HOUR_START = "business_hour_starts" ;
 
     public static String USER_ACHIEVE = "acheive";
 }

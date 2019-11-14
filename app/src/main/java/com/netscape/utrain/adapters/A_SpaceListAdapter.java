@@ -111,7 +111,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 //                intent.putExtras(b);
 //
 //                context.startActivity(intent);
-                
+
             }
         });
     }

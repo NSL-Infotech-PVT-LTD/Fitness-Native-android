@@ -465,8 +465,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);

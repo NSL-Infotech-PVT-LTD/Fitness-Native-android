@@ -145,8 +145,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
@@ -163,11 +165,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
@@ -191,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
-                        String errorMsg=errorMessage.getJSONObject(0).getString("message");
+                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
                         Snackbar.make(binding.loginLayout, errorMsg, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {

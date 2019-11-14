@@ -38,6 +38,7 @@ import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.response.SpaceDetailResponse;
+import com.netscape.utrain.response.ViewCoachListResponse;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -329,10 +330,13 @@ public interface Retrofitinterface {
                                              @Header("Content-Type") String contentType,
                                              @Query("limit") String limit);
 
+
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<AthleteSpaceBookList> getCoachSpaceBooking(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
                                              @Query("limit") String limit);
+
+
 
     @POST(Constants.ALL_BOOKING_ORG)
     Call<O_AllBookingResponse> getAllBookingOrg(@Header("Authorization") String Authorization,
@@ -463,8 +467,13 @@ public interface Retrofitinterface {
     );
 
 
-    @POST(Constants.ORGANIZER_COACH_STORE)
-    Call<OrgCoachStoreModel> orgCoachStore(@Query("name") String name);
+    @POST(Constants.ORG_COACH_ATH_List)
+    Call<ViewCoachListResponse> getViewCoachList(@Header("Authorization") String Authorization,
+                                                 @Query("search") String search,
+                                                 @Query("order_by") String order_by,
+                                                 @Query("limit") String limit,
+                                                 @Query("organiser_id") String organiser_id
+    );
 
 
 }

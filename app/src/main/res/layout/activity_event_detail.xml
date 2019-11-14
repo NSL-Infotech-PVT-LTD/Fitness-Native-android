@@ -122,15 +122,15 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/eventMarathonHeaderTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_40sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/marathon_run_for_fun"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_16sdp"
-
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
                     app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
 
 
@@ -151,7 +151,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_weight="1"
-
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="@string/venue"
@@ -194,7 +193,7 @@
                     android:id="@+id/linear"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:weightSum="3"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
@@ -210,7 +209,7 @@
                         android:gravity="center"
                         android:text="@string/vanue_address_nline"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
 
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
@@ -227,7 +226,7 @@
                         android:text="@string/time_format"
                         android:textColor="@color/colorBlack"
 
-                        android:textSize="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
                         app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
@@ -242,7 +241,7 @@
                         android:gravity="center"
                         android:text="@string/date_format"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
                         app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
                 </LinearLayout>
@@ -252,36 +251,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@color/colorLightGray"
                     app:layout_constraintTop_toBottomOf="@id/linear" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventInstructionsTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/instruction"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/view1" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/eventInstructionsDetailTv"
+                    android:id="@+id/inviteAthlete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/invite_other_athlete"
+                    android:textColor="@color/colorBlack"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/instruction_detail"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/eventInstructionsTv"
-                    app:layout_goneMarginBottom="@dimen/_80sdp" />
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
 
 
                 <View
@@ -289,40 +276,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@color/colorLightGray"
-                    app:layout_constraintTop_toBottomOf="@id/eventInstructionsDetailTv" />
+                    app:layout_constraintTop_toBottomOf="@id/inviteAthlete" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/inviteAthlete"
-                    android:layout_width="0dp"
+                    android:id="@+id/descriptionText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:gravity="center_vertical"
-                    android:text="@string/invite_other_athlete"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/description_tv"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
                     app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/descriptionTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                    app:layout_goneMarginBottom="@dimen/_80sdp" />
 
                 <View
                     android:id="@+id/view4"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@color/colorLightGray"
-                    app:layout_constraintTop_toBottomOf="@id/inviteAthlete" />
+                    app:layout_constraintTop_toBottomOf="@id/descriptionTv" />
 
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/eventNumOfCandidateAttendingTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/number_of_candidate_attending"
                     android:textColor="@color/colorBlack"
@@ -335,8 +333,7 @@
                     android:id="@+id/eventNumOfCandidateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/number_of_candidate"
                     android:textColor="@color/colorBlack"
@@ -363,7 +360,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:background="@color/colorLightGray"
                     app:layout_constraintTop_toBottomOf="@id/eventNumOfCandidateAttendingTv" />
@@ -373,9 +370,8 @@
                     android:id="@+id/noOfSeatText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:paddingBottom="@dimen/_100sdp"
                     android:textColor="@color/colorBlack"
                     android:text="@string/no_of_seat_left"
                     android:textSize="@dimen/_10sdp"
@@ -387,8 +383,7 @@
                     android:id="@+id/seatNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/number_of_candidate"
                     android:textColor="@color/notificationRedIcon"
@@ -402,14 +397,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_19sdp"
-                    android:layout_marginRight="@dimen/_13sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/seat"
                     android:textColor="@color/notificationRedIcon"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_70sdp"
                     app:layout_constraintTop_toTopOf="@id/seatNo" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -421,7 +416,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:backgroundTint="@color/gradientDarkColor"

@@ -99,7 +99,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/sophie" />
+                            android:src="@drawable/ic_place_holder" />
                     </com.google.android.material.card.MaterialCardView>
 
 
@@ -119,7 +119,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/poppins_semibold"
-                            android:singleLine="true"
                             android:text="@string/discoverRecylerName"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_12sdp"
@@ -142,10 +141,9 @@
                             android:id="@+id/cYearsOfExpTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
+                            android:fontFamily="@font/poppins_semibold"
                             android:textColor="@color/themeColor"
-                            android:textSize="@dimen/_8sdp"
-                            android:visibility="visible"
+                            android:textSize="@dimen/_10sdp"
                             app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
                             app:layout_constraintTop_toBottomOf="@id/cYearsOfExpText" />
 
@@ -159,17 +157,6 @@
                             app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
                             app:layout_constraintTop_toBottomOf="@+id/cYearsOfExpTv" />
 
-                        <!--                        <com.google.android.material.textview.MaterialTextView>-->
-                        <!--                        android:id="@+id/viewBookings"-->
-                        <!--                        android:layout_width="wrap_content"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:fontFamily="@font/poppins_regular"-->
-                        <!--                        android:text="View Schedule"-->
-                        <!--                        android:textColor="@color/colorGreen"-->
-                        <!--                        android:textSize="@dimen/_12sdp"-->
-                        <!--                        android:visibility="gone"-->
-                        <!--                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"-->
-                        <!--                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />-->
 
                         <RatingBar
                             android:id="@+id/discoverRating"
@@ -188,194 +175,88 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/dCoachingStaffBtn"
-                        android:drawableStart="@drawable/ic_rentspace"
-                        android:layout_width="wrap_content"
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/viewOrgBtnLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:backgroundTint="@color/themeColor"
-                        app:icon="@drawable/ic_coachingstaff"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/coaching_staff"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
-                        app:cornerRadius="@dimen/_5sdp"
-                        app:layout_constraintLeft_toLeftOf="@+id/discoverCardImg"
-                        app:layout_constraintRight_toLeftOf="@+id/dRentOurSpaceBtn"
-                        app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
+                        android:layout_marginRight="@dimen/_20sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/discoverCardImg">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/viewCoachStaffBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/themeColor"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/view_coach_staff"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_8sdp"
+                            app:cornerRadius="@dimen/_5sdp"
+                            app:icon="@drawable/ic_coachingstaff"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/dRentOurSpaceBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:backgroundTint="@color/rentOurSpaceBtnColor"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/coaching_staff"
-                        app:icon="@drawable/ic_rentspace"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        app:layout_constraintHorizontal_bias="1"
-                        android:textSize="@dimen/_10sdp"
-                        app:cornerRadius="@dimen/_5sdp"
-                        app:layout_constraintLeft_toRightOf="@+id/dCoachingStaffBtn"
-                        app:layout_constraintRight_toRightOf="@+id/userDetailLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/discoverCardImg" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/viewSpacesBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/rentOurSpaceBtnColor"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/rent_our_space"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_8sdp"
+                            app:cornerRadius="@dimen/_5sdp"
+                            app:icon="@drawable/ic_rentspace"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/detailUserType"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/_6sdp"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:text="@string/coach"-->
-                    <!--                        android:textSize="@dimen/_8sdp"-->
-                    <!--                        android:visibility="gone"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@id/detailUserName"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@+id/detailUserName" />-->
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/detailUserService"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:maxLength="20"-->
-                    <!--                        android:singleLine="true"-->
-                    <!--                        android:text="@string/years_of_experience"-->
-                    <!--                        android:textSize="@dimen/_10sdp"-->
-                    <!--                        android:visibility="gone"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />-->
-
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/sportsName"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:maxLength="20"-->
-                    <!--                        android:singleLine="true"-->
-                    <!--                        android:text="@string/sports"-->
-                    <!--                        android:textSize="@dimen/_8sdp"-->
-                    <!--                        app:layout_constraintLeft_toRightOf="@+id/detailUserType"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@id/detailUserType" />-->
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/sportsDetail"-->
-                    <!--                        android:layout_width="0dp"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginLeft="@dimen/_14sdp"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:maxLines="2"-->
-                    <!--                        android:textColor="@color/colorBlack"-->
-                    <!--                        android:textSize="@dimen/_10sdp"-->
-                    <!--                        app:layout_constraintLeft_toRightOf="@+id/sportsName"-->
-                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="@id/sportsName" />-->
-
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/locationText"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:maxLength="20"-->
-                    <!--                        android:singleLine="true"-->
-                    <!--                        android:text="@string/location"-->
-                    <!--                        android:textSize="@dimen/_8sdp"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/detailUserType"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />-->
-
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/location"-->
-                    <!--                        android:layout_width="0dp"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
-                    <!--                        android:ellipsize="end"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:maxLength="20"-->
-                    <!--                        android:maxLines="2"-->
-                    <!--                        android:singleLine="true"-->
-                    <!--                        android:textColor="@color/colorBlack"-->
-                    <!--                        android:textSize="@dimen/_10sdp"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/sportsDetail"-->
-                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@id/sportsDetail" />-->
-
-
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:text="More +"-->
-                    <!--                        android:textColor="@color/colorGreen"-->
-                    <!--                        android:textSize="@dimen/_12sdp"-->
-                    <!--                        android:visibility="gone"-->
-                    <!--                        app:layout_constraintLeft_toRightOf="@+id/location"-->
-                    <!--                        app:layout_constraintRight_toRightOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="@+id/location" />-->
-
-
-                    <!--                    <RatingBar-->
-                    <!--                        android:id="@+id/discoverRating"-->
-                    <!--                        style="?android:attr/ratingBarStyleSmall"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
-                    <!--                        android:fontFamily="@font/poppins_semibold"-->
-                    <!--                        android:numStars="5"-->
-                    <!--                        android:progressBackgroundTint="@color/colorLightGray"-->
-                    <!--                        android:progressTint="@color/colorGreen"-->
-                    <!--                        android:rating="3"-->
-                    <!--                        android:stepSize="1"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@id/sportsName"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@+id/location" />-->
-                    <!--                    <com.google.android.material.textview.MaterialTextView-->
-                    <!--                        android:id="@+id/viewBookings"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:fontFamily="@font/poppins_regular"-->
-                    <!--                        android:text="View Schedule"-->
-                    <!--                        android:textColor="@color/colorGreen"-->
-                    <!--                        android:textSize="@dimen/_12sdp"-->
-                    <!--                        android:visibility="gone"-->
-                    <!--                        app:layout_constraintLeft_toLeftOf="@+id/discoverRating"-->
-                    <!--                        app:layout_constraintTop_toBottomOf="@id/discoverRating" />-->
+                    <View
+                        android:id="@+id/btnView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_60sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@color/colorLightGray"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/discoverCardImg" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/discoverBioTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="@string/bio_discover"
                         android:textColor="@color/themeColor"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:visibility="visible"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/dCoachingStaffBtn" />
+                        app:layout_constraintTop_toBottomOf="@id/btnView" />
 
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/detailUserBioTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="left"
-                        android:textSize="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintTop_toBottomOf="@id/discoverBioTv" />
 
                     <View
@@ -390,74 +271,49 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/detailUserBioTv" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btnCoachContainer"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/eventNumOfCandidateAttendingTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/services"
+                        android:textColor="@color/themeColor"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/moreServices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:background="@drawable/round_background_colord"
+                        android:backgroundTint="@color/themeColor"
+                        android:fontFamily="@font/poppins_regular"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/view_more"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/constraintChipGroup"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toTopOf="@id/view2"
+                        android:theme="@style/ChipTheme"
+                        app:chipIconEnabled="false"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/view1">
-
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/viewEvents"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_30sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@drawable/round_background_colord"
-                            android:backgroundTint="@color/themeColor"
-                            android:fontFamily="@font/poppins_regular"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/view_events"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/viewSession"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_15sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@drawable/round_background_colord"
-                            android:backgroundTint="@color/themeColor"
-                            android:fontFamily="@font/poppins_regular"
-                            android:padding="@dimen/_5sdp"
-
-                            android:text="@string/view_session"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <!--                        <com.google.android.material.textview.MaterialTextView-->
-                        <!--                            android:id="@+id/viewSpaces"-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:layout_marginRight="@dimen/_10sdp"-->
-                        <!--                            android:background="@drawable/round_background_colord"-->
-                        <!--                            android:backgroundTint="@color/themeColor"-->
-                        <!--                            android:fontFamily="@font/poppins_regular"-->
-                        <!--                            android:padding="@dimen/_5sdp"-->
-                        <!--                            android:text="@string/view_spaces"-->
-                        <!--                            android:textColor="@color/colorWhite"-->
-                        <!--                            android:textSize="@dimen/_10sdp"-->
-                        <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--                            app:layout_constraintRight_toRightOf="parent"-->
-                        <!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
 
                     <View
                         android:id="@+id/view2"
@@ -469,110 +325,51 @@
                         android:background="@color/colorLightGray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/btnCoachContainer" />
+                        app:layout_constraintTop_toBottomOf="@id/constraintChipGroup" />
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layoutBtnConstraint"
+                        android:id="@+id/viewEventSessionLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view2">
+                        app:layout_constraintTop_toBottomOf="@id/view2">
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/viewCoachStaffTv"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/viewEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_30sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@drawable/round_background_colord"
                             android:backgroundTint="@color/themeColor"
-                            android:fontFamily="@font/poppins_regular"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/view_coach_staff"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/view_events"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:cornerRadius="@dimen/_5sdp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/viewSpaces"
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/viewSession"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_30sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@drawable/round_background_colord"
-                            android:backgroundTint="@color/themeColor"
-                            android:fontFamily="@font/poppins_regular"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/rent_our_space"
+                            android:backgroundTint="@color/rentOurSpaceBtnColor"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/view_session"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-
+                            app:cornerRadius="@dimen/_5sdp"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <View
-                        android:id="@+id/view4"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:background="@color/colorLightGray"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layoutBtnConstraint" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/eventNumOfCandidateAttendingTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="@string/services"
-                        android:textColor="@color/themeColor"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/view4" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/moreServices"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:background="@drawable/round_background_colord"
-                        android:backgroundTint="@color/themeColor"
-                        android:fontFamily="@font/poppins_regular"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/view_more"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-
-                    <RelativeLayout
-                        android:id="@+id/add_service"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
-                        android:theme="@style/ChipTheme"
-                        app:chipIconEnabled="false"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
 
                     <View
                         android:id="@+id/view3"
@@ -584,7 +381,7 @@
                         android:background="@color/colorLightGray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/add_service" />
+                        app:layout_constraintTop_toBottomOf="@id/viewEventSessionLayout" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -592,19 +389,19 @@
                         android:id="@+id/linear1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/view3">
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/eventVenueTv"
+                            android:id="@+id/priceText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/price"
                             android:textColor="@color/themeColor"
                             android:textSize="@dimen/_8sdp"
@@ -624,7 +421,7 @@
                             android:textColor="@color/themeColor"
                             android:textSize="@dimen/_8sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/eventVenueTv"
+                            app:layout_constraintLeft_toRightOf="@id/priceText"
                             app:layout_constraintRight_toLeftOf="@+id/experienceText"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -636,7 +433,7 @@
 
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:text="@string/experience_text"
                             android:textColor="@color/themeColor"
                             android:textSize="@dimen/_8sdp"
@@ -649,13 +446,12 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-
                         android:id="@+id/linear"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         android:orientation="horizontal"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -666,7 +462,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -694,7 +490,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_semibold"
-                            android:gravity="center"
+                            android:gravity="right"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -703,30 +499,45 @@
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <View
+                        android:id="@+id/viewPriceBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@color/colorLightGray"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/linear" />
+
+
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/portfolioText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@string/portfolio"
                         android:textColor="@color/themeColor"
                         android:textSize="@dimen/_12sdp"
-
                         android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear" />
+                        app:layout_constraintTop_toBottomOf="@id/viewPriceBottom" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/portfolioImagesConstraint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_20sdp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
