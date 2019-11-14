@@ -95,6 +95,7 @@
     <string name="hourly_price">Hourly Price</string>
     <string name="dollar_sign_value">$</string>
     <string name="enter_hourly_rate">4</string>
+    <string name="enter_hourly_rate_text">Enter Price</string>
     <string name="rihana">Rihana</string>
     <string name="description">I like the caption @robin.</string>
     <string name="just_now">Just Now</string>
@@ -407,5 +408,6 @@
     <string name="training_detail">Training Detail</string>
     <string name="coaching_staff">Coaching Staff</string>
     <string name="enter_description">Enter Description</string>
+    <string name="create_coach">Create Coach</string>
     >>>>>>> dc88a50546ce5fcae696b65cbccf8623e62190ae
 </resources>

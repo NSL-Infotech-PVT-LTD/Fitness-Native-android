@@ -5,9 +5,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.adapters.ViewCoachStaffListAdapter;
 import com.netscape.utrain.databinding.ActivityViewCoachStaffListBinding;
 import com.netscape.utrain.model.CoachListModel;
@@ -17,6 +20,7 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +46,29 @@ public class ViewCoachStaffListActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_view_coach_staff_list);
         binding = DataBindingUtil.setContentView(ViewCoachStaffListActivity.this, R.layout.activity_view_coach_staff_list);
         layoutManager = new LinearLayoutManager(this);
+
+        if (getIntent().hasExtra("fromTopOrgAct"))
+            binding.createCoach.setVisibility(View.GONE);
+
         hitViewCoachStaffListApi();
+        binding.createCoach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // createViewCoachStaff Activity....
+
+                Intent orgCoachSignUp = new Intent(ViewCoachStaffListActivity.this, OrganizationSignUpActivity.class);
+                orgCoachSignUp.putExtra(Constants.ActiveUserType, Constants.TypeOrgCoach);
+                startActivity(orgCoachSignUp);
+
+
+            }
+        });
     }
 
     private void hitViewCoachStaffListApi() {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<ViewCoachListResponse> coachStaffList = retrofitinterface.getViewCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, ViewCoachStaffListActivity.this), "", "latest", "", getIntent().getStringExtra("coachList"));
+        Call<ViewCoachListResponse> coachStaffList = retrofitinterface.getViewCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, ViewCoachStaffListActivity.this), "", "latest", "", CommonMethods.getPrefData(PrefrenceConstant.USER_ID, ViewCoachStaffListActivity.this));
         coachStaffList.enqueue(new Callback<ViewCoachListResponse>() {
             @Override
             public void onResponse(Call<ViewCoachListResponse> call, Response<ViewCoachListResponse> response) {

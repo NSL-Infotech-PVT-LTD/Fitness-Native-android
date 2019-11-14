@@ -1,6 +1,9 @@
 package com.netscape.utrain.model;
 
-public class ViewCoachListDataModel {
+import java.io.File;
+import java.io.Serializable;
+
+public class ViewCoachListDataModel implements Serializable {
 
 
     /**
@@ -23,11 +26,56 @@ public class ViewCoachListDataModel {
     private String bio;
     private String sport_id;
     private int organisation_id;
-    private int hourly_rate;
+    private String hourly_rate;
     private String experience_detail;
-    private int expertise_years;
+    private String expertise_years;
     private String profession;
     private String training_service_detail;
+    private String updated_at;
+    private String created_at;
+    private File oCoachProfileImg;
+    private String latitude;
+    private String longitude;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public File getoCoachProfileImg() {
+        return oCoachProfileImg;
+    }
+
+    public void setoCoachProfileImg(File oCoachProfileImg) {
+        this.oCoachProfileImg = oCoachProfileImg;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
 
     public int getId() {
         return id;
@@ -77,11 +125,11 @@ public class ViewCoachListDataModel {
         this.organisation_id = organisation_id;
     }
 
-    public int getHourly_rate() {
+    public String getHourly_rate() {
         return hourly_rate;
     }
 
-    public void setHourly_rate(int hourly_rate) {
+    public void setHourly_rate(String hourly_rate) {
         this.hourly_rate = hourly_rate;
     }
 
@@ -93,11 +141,11 @@ public class ViewCoachListDataModel {
         this.experience_detail = experience_detail;
     }
 
-    public int getExpertise_years() {
+    public String getExpertise_years() {
         return expertise_years;
     }
 
-    public void setExpertise_years(int expertise_years) {
+    public void setExpertise_years(String expertise_years) {
         this.expertise_years = expertise_years;
     }
 

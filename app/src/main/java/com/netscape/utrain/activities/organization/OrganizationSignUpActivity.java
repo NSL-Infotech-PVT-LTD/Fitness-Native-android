@@ -56,6 +56,7 @@ import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.ServicePriceActivity;
+import com.netscape.utrain.activities.ViewCoachStaffListActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.activities.coach.CoachSignupActivity;
@@ -63,11 +64,13 @@ import com.netscape.utrain.adapters.SelectServiceSpinnerAdapter;
 import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
 import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
 import com.netscape.utrain.model.OrgUserDataModel;
+import com.netscape.utrain.model.ViewCoachListDataModel;
 import com.netscape.utrain.utils.AppController;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.FileUtil;
 import com.netscape.utrain.utils.ImageFilePath;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +107,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private OrganizationSignUpActivity activity;
     private Location mylocation;
     private OrgUserDataModel orgDataModel;
+    private ViewCoachListDataModel viewCoachListDataModel;
     private String activeUserType = "";
 
 
@@ -122,12 +126,98 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_organization_sign_up);
         init();
         PortfolioActivity.clearFromConstants();
 
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
+            orgViewCoachStaffView();
+        }
+
 
     }
+
+    private void orgViewCoachStaffView() {
+
+        binding.organizationEmailTv.setVisibility(View.GONE);
+        binding.orgEmailEdt.setVisibility(View.GONE);
+        binding.organizationPhoneNoTv.setVisibility(View.GONE);
+        binding.orgPhoneEdt.setVisibility(View.GONE);
+        binding.organizationLocationTv.setVisibility(View.GONE);
+        binding.orgAddressEdt.setVisibility(View.GONE);
+        binding.organizationPassTv.setVisibility(View.GONE);
+        binding.orgPasswordEdtLayout.setVisibility(View.GONE);
+        binding.organizationBusinessHourstartTv.setVisibility(View.GONE);
+        binding.organizationBusinessHourendTv.setVisibility(View.GONE);
+        binding.orgStartTimeTv.setVisibility(View.GONE);
+        binding.orgEndTimeTv.setVisibility(View.GONE);
+
+
+    }
+
+    private void validateViewCoachFields() {
+
+        // ViewCoachStaff Validations with api
+
+        viewCoachListDataModel = new ViewCoachListDataModel();
+        orgName = binding.orgNameEdt.getText().toString();
+        viewCoachListDataModel.setName(orgName);
+        orgBio = binding.orgBioEdt.getText().toString();
+        viewCoachListDataModel.setBio(orgBio);
+        orgProfessionType = binding.orgProfessionType.getText().toString();
+        viewCoachListDataModel.setProfession(orgProfessionType);
+        orgExpertise = binding.orgExperienceEdt.getText().toString();
+        viewCoachListDataModel.setExpertise_years(orgExpertise);
+        orgExpDetail = binding.orgExperienceDetailEdt.getText().toString();
+        viewCoachListDataModel.setExperience_detail(orgExpDetail);
+        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString();
+        viewCoachListDataModel.setTraining_service_detail(orgTrainingDetail);
+        orgHourlyRate = binding.orgHourlyRateEdt.getText().toString();
+        viewCoachListDataModel.setHourly_rate(orgHourlyRate);
+
+        if (orgName.isEmpty()) {
+            binding.orgNameEdt.setError(getResources().getString(R.string.enter_name));
+            binding.orgNameEdt.requestFocus();
+        } else if (orgBio.isEmpty()) {
+            binding.orgBioEdt.setError(getResources().getString(R.string.enter_your_bio));
+            binding.orgBioEdt.requestFocus();
+        } else if (orgProfessionType.isEmpty()) {
+            binding.orgProfessionType.setError(getResources().getString(R.string.enter_profession_type));
+            binding.orgProfessionType.requestFocus();
+        } else if (orgExpertise.isEmpty()) {
+            binding.orgExperienceEdt.setError(getResources().getString(R.string.enter_your_experites));
+            binding.orgExperienceEdt.requestFocus();
+//            String expertise = binding.orgExperienceEdt.getText().toString();
+//            Double number = Double.parseDouble(expertise);
+        } else if (orgExpDetail.isEmpty()) {
+            binding.orgExperienceDetailEdt.setError(getResources().getString(R.string.enter_your_experience_details));
+            binding.orgExperienceDetailEdt.requestFocus();
+        } else if (orgTrainingDetail.isEmpty()) {
+            binding.orgTrainingDetailEdt.setError(getResources().getString(R.string.enter_org_service_details));
+            binding.orgTrainingDetailEdt.requestFocus();
+        } else if (orgHourlyRate.isEmpty()) {
+            binding.orgHourlyRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_text));
+            binding.orgHourlyRateEdt.requestFocus();
+        } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) < 4) {
+            binding.orgHourlyRateEdt.setError("Hourly rate should not less than 4");
+
+        } else if (photoFile == null) {
+            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
+        } else {
+            viewCoachListDataModel.setoCoachProfileImg(photoFile);
+//            viewCoachListDataModel.setLatitude(String.valueOf(latitude));
+//            viewCoachListDataModel.setLongitude(String.valueOf(longitude));
+            Intent viewCoachAct = new Intent(OrganizationSignUpActivity.this, ChooseSportActivity.class);
+            viewCoachAct .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            viewCoachAct .putExtra("orgCoachStaff", viewCoachListDataModel);
+            viewCoachAct .putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+            viewCoachAct.putExtra("createStaffType","orgstaffCreate");
+            startActivity(viewCoachAct );
+        }
+
+    }
+
 
     private void init() {
         clearPrefrences();
@@ -140,14 +230,20 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding.orgAddressEdt.setOnClickListener(this);
         if (getIntent().getExtras() != null) {
             activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
-            if (activeUserType.equals(Constants.TypeCoach)) {
-                binding.signUpType.setText(getResources().getString(R.string.coach));
-                binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
-            }
-            if (activeUserType.equals(Constants.TypeOrganization)) {
-                binding.signUpType.setText(getResources().getString(R.string.organization));
-                binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
-            }
+            if (activeUserType != null)
+                if (activeUserType.equals(Constants.TypeCoach)) {
+                    binding.signUpType.setText(getResources().getString(R.string.coach));
+                    binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
+                }
+            if (activeUserType != null)
+                if (activeUserType.equals(Constants.TypeOrganization)) {
+                    binding.signUpType.setText(getResources().getString(R.string.organization));
+                    binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
+                }
+            if (activeUserType != null)
+                if (activeUserType.equals((Constants.TypeOrgCoach)))
+                    binding.signUpType.setText(getResources().getString(R.string.coach));
+            binding.orgNextBtn.setText(getResources().getString(R.string.one_more_step));
 
         }
 
@@ -204,7 +300,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             case R.id.orgNextBtn:
 //                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
 //                startActivity(in);
-                validateEditTextData();
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
+                    validateViewCoachFields();
+                } else {
+                    validateEditTextData();
+                }
+
+
                 break;
             case R.id.orgAddressEdt:
                 break;
@@ -432,7 +534,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
             intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
-            ChooseSportActivity.coachActive=true;
+            ChooseSportActivity.coachActive = true;
             startActivity(intent);
         }
 
@@ -638,4 +740,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         CommonMethods.clearKeyPrefData(Constants.SERVICE_LIST, OrganizationSignUpActivity.this);
 
     }
+    // Organization viewCoachStaff Activity code below....
+
+
 }

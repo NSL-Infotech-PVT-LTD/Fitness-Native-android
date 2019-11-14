@@ -149,6 +149,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
                 // Redirecting to ViewCoachListActivity....
                 Intent intent = new Intent(TopCoachOrgDetailActivity.this, ViewCoachStaffListActivity.class);
+                intent.putExtra("fromTopOrgAct","");
                 intent.putExtra("coachList",coachListModel.getId()+"");
                 startActivity(intent);
 
