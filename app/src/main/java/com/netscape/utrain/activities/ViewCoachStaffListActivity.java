@@ -94,6 +94,7 @@ public class ViewCoachStaffListActivity extends AppCompatActivity {
 
 
                 if (response.body() != null) {
+                    if (response.body().isStatus())
                     binding.viewCoachNodata.setVisibility(View.GONE);
                     viewCoachList = response.body().getData().getData();
                     adapter = new ViewCoachStaffListAdapter(ViewCoachStaffListActivity.this, viewCoachList);
@@ -101,9 +102,6 @@ public class ViewCoachStaffListActivity extends AppCompatActivity {
                     binding.coachListRecycler.setAdapter(adapter);
                 } else
                     binding.viewCoachNodata.setVisibility(View.VISIBLE);
-                Toast.makeText(ViewCoachStaffListActivity.this, "No data to view", Toast.LENGTH_SHORT).show();
-
-
             }
 
             @Override

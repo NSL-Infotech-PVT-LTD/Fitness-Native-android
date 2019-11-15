@@ -71,6 +71,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     Retrofitinterface api;
     int mPosition;
     private String activeUserType = "";
+    private String createCoachStaff = "";
     private OrgUserDataModel orgDataModel;
     private File mediaStorageDir;
 
@@ -137,12 +138,15 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
                     intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
                     startActivity(intent);
-                } else if (activeUserType.equals("orgstaffCreate")) {
+                }  else {
+                     if (createCoachStaff!=null && createCoachStaff.equalsIgnoreCase("orgstaffCreate")) {
 
-                    orgCoachRegisterApi();
+                        orgCoachRegisterApi();
 
-                } else {
-                    athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
+                    }
+                     else {
+                         athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
+                     }
                 }
             }
         });
@@ -199,11 +203,11 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
         if (getIntent().getExtras() != null) {
             viewCoachListDataModel = (ViewCoachListDataModel) getIntent().getSerializableExtra("orgCoachStaff");
-            activeUserType = getIntent().getStringExtra("createStaffType");
+            createCoachStaff = getIntent().getStringExtra("createStaffType");
 
 
-            if (activeUserType != null)
-            if (activeUserType.equals("orgstaffCreate")) {
+            if (createCoachStaff != null)
+            if (createCoachStaff.equals("orgstaffCreate")) {
                 binding.athSignUp.setText(getResources().getString(R.string.create_coach));
             }
         }

@@ -409,4 +409,5 @@
     <string name="coaching_staff">Coaching Staff</string>
     <string name="enter_description">Enter Description</string>
     <string name="create_coach">Create Coach</string>
+    <string name="welcome">Welcome</string>
 </resources>

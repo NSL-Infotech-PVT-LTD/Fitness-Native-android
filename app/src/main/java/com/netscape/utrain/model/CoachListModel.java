@@ -28,6 +28,15 @@ public class CoachListModel implements Serializable {
     private String portfolio_image;
     private List<RolesModel> roles;
     private List<ServiceIdModel> service_ids;
+    private String rating;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 
     public String getProfession() {
         return profession;

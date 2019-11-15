@@ -264,7 +264,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "5", "");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "5", "","latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -274,6 +274,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                         if (response.body().getData().getData().size() > 0) {
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
+
                             coachAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, response.body().getData().getData(), 1);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(coachAdapter);
@@ -308,6 +309,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 } else {
                     binding.topRateRecycler.setVisibility(View.GONE);
                     binding.noDataImageView.setVisibility(View.VISIBLE);
+
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());

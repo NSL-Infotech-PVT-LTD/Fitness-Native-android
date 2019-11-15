@@ -53,6 +53,7 @@ public class OrgHomeScreen extends AppCompatActivity {
     private CircleImageView navImageView;
     private MaterialTextView navNameTv;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,19 @@ public class OrgHomeScreen extends AppCompatActivity {
         String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,OrgHomeScreen.this);
 //        Glide.with(OrgHomeScreen.this).load(Constants.ORG_IMAGE_BASE_URL+path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
+        Glide.with(OrgHomeScreen.this).load(path).into(binding.orgProfileImg);
         navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrgHomeScreen.this));
+
+
+        binding.orgProfileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Fragment fragment = new O_RegistrationProfile();
+                loadFragment(fragment);
+            }
+        });
 
 //        orgDrawerImageNew.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -194,10 +207,12 @@ public class OrgHomeScreen extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(Gravity.LEFT);
             orgNavView.setVisibility(View.VISIBLE);
+            binding.orgProfileImg.setVisibility(View.VISIBLE);
             //CLOSE Nav Drawer!
         } else {
             drawer.openDrawer(Gravity.LEFT); //OPEN Nav Drawer!
             orgNavView.setVisibility(View.GONE);
+            binding.orgProfileImg.setVisibility(View.GONE);
 
         }
 

@@ -81,7 +81,8 @@
                         android:background="@drawable/cards_shape"
                         android:elevation="@dimen/_10sdp"
                         app:cardUseCompatPadding="true"
-                        app:layout_constraintTop_toTopOf="@id/organization_Guideline">
+                        android:layout_marginTop="@dimen/_90sdp"
+                        app:layout_constraintTop_toBottomOf="@id/completeProfileTv">
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/organization_left_Guideline"

@@ -122,9 +122,11 @@ public class EventDetail extends AppCompatActivity {
                 binding.noOfSeatText.setVisibility(View.GONE);
                 binding.seatNo.setVisibility(View.GONE);
                 binding.totalAvailableSeat.setVisibility(View.GONE);
+                binding.view3.setVisibility(View.GONE);
 //                binding.evntJoinNow.setEnabled(false);
                 eventType = "space";
             }
+        binding.descriptionTv.setText(getIntent().getStringExtra(""));
 
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("events")) {

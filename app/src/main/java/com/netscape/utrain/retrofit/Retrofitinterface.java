@@ -184,8 +184,10 @@ public interface Retrofitinterface {
     @POST(Constants.TOP_COACH_LIST)
     Call<CoachListResponse> getCoachList(@Header("Authorization") String Authorization,
                                          @Query("search") String search,
-                                         @Query("limit") String Limit,
-                                         @Query("page") String page);
+                                         @Query("limit") String limit,
+                                         @Query("page") String page,
+                                         @Query("order_by") String order_by
+    );
 
 
     @POST(Constants.TOP_ORG_LIST)
@@ -333,9 +335,8 @@ public interface Retrofitinterface {
 
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<AthleteSpaceBookList> getCoachSpaceBooking(@Header("Authorization") String Authorization,
-                                             @Header("Content-Type") String contentType,
-                                             @Query("limit") String limit);
-
+                                                    @Header("Content-Type") String contentType,
+                                                    @Query("limit") String limit);
 
 
     @POST(Constants.ALL_BOOKING_ORG)
@@ -479,7 +480,7 @@ public interface Retrofitinterface {
     @Multipart
     @POST(Constants.organiser_coach_store)
     Call<ViewCoachListResponse> getOrgCoachRegister(@Part MultipartBody.Part file,
-                                                    @Header("Authorization")  String auth,
+                                                    @Header("Authorization") String auth,
                                                     @PartMap Map<String, RequestBody> fields
     );
 
