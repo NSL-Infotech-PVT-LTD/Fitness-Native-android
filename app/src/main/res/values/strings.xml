@@ -409,5 +409,5 @@
     <string name="enter_description">Enter Description</string>
     <string name="create_coach">Create Coach</string>
     <string name="enter_hourly_rate_text">Enter Price</string>
-
+    <string name="welcome">Welcome</string>
 </resources>

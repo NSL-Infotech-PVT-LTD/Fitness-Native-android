@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(forgetActivity);
                 break;
             case R.id.loginSignUpTv:
+                PortfolioActivity.clearFromConstants();
                 SelectedServiceList.getInstance().getList().clear();
                 Constants.CHECKBOX_IS_CHECKED = 0;
                 if (activeUserType.equals(Constants.TypeCoach)) {
@@ -96,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     startActivity(signUpActivity);
                 }
                 if (activeUserType.equals(Constants.TypeOrganization)) {
+
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);

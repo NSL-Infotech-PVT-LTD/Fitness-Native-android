@@ -94,7 +94,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private AllEventsMapAct activity;
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
-    private AppCompatImageView filterIcon;
+    private AppCompatImageView filterIcon, imageLeftArrow;
     private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;
@@ -137,6 +137,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         recyclerViewFindPlace.setLayoutManager(layoutManager);
         sCoach_Id = getIntent().getStringExtra("coach_id");
 
+        imageLeftArrow = findViewById(R.id.imageLeftArrow);
+        imageLeftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         layoutBottomSheet.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +180,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 return false;
             }
         });
+
+
 
 
 //        pagination(adapter, listModels);

@@ -182,9 +182,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.athlete_fragment_home, container, false);
+
         viewPager = view.findViewById(R.id.viewpager);
         logOut = view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
@@ -227,11 +227,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         }
 
         getSportsIds();
-
         Glide.with(context).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(aProfileImgDBoard);
-
         athleteNameTvDBoard = view.findViewById(R.id.athleteNameTvDBoard);
-        athleteNameTvDBoard.setText("Welcome " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        athleteNameTvDBoard.setText(getResources().getString(R.string.welcome)+" " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
 
 
         tabLayout = view.findViewById(R.id.tabs);
@@ -248,7 +246,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         sessionIconImg.setOnClickListener(this);
         eventIconImg.setOnClickListener(this);
         findSpacesIconImg.setOnClickListener(this);
-
 
         getCoachListApi();
         getTopOrgaNization();
@@ -314,7 +311,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getCoachListApi() {
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<CoachListResponse> call = api.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), "", "5", "");
+        Call<CoachListResponse> call = api.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), "", "5", "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -323,19 +320,20 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                         coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData().getData());
                         topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
                         topCoachesRecycler.setAdapter(coachAdapter);
-
                     }
                 } else {
+
                     try {
+
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
+
                     } catch (Exception e) {
 
                     }
+
                 }
-
-
             }
 
             @Override

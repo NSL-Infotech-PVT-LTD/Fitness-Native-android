@@ -20,6 +20,16 @@ public class ViewCoachListDataModel implements Serializable {
      * training_service_detail : cardio specialist
      */
 
+
+
+    // below fields are in organizerCoachUpdate Api, We can add these parameters to below mention model for reusability.
+//    "remember_token": null,
+//            "params": null,
+//            "state": "0",
+//            "deleted_at": null
+
+
+
     private int id;
     private String name;
     private String profile_image;
@@ -36,6 +46,7 @@ public class ViewCoachListDataModel implements Serializable {
     private File oCoachProfileImg;
     private String latitude;
     private String longitude;
+
 
     public String getLatitude() {
         return latitude;

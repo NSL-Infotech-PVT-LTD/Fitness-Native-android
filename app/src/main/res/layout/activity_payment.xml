@@ -49,7 +49,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/payment_demo"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
                     app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
 
@@ -58,7 +58,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/card"
-                    app:layout_constraintTop_toBottomOf="@id/paymentDemo" />
+                    app:layout_constraintTop_toBottomOf="@id/paymentDemo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,7 +159,7 @@
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/lightGrayFont"
+                                android:textColorHint="@color/offwhiteContrast"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +192,7 @@
                                 android:inputType="number"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/lightGrayFont"
+                                android:textColorHint="@color/offwhiteContrast"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="@id/mmyyText"
                                 app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
@@ -207,6 +209,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:text="@string/cvv"
+
                                 android:textColor="@color/offwhite"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
@@ -227,7 +230,7 @@
                                 android:maxLength="3"
                                 android:singleLine="true"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/lightGrayFont"
+                                android:textColorHint="@color/offwhiteContrast"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/cardNumberTV" />
@@ -264,7 +267,7 @@
                                 android:singleLine="true"
                                 android:maxLength="20"
                                 android:textColor="@color/colorWhite"
-                                android:textColorHint="@color/lightGrayFont"
+                                android:textColorHint="@color/offwhiteContrast"
                                 android:textSize="@dimen/_10sdp"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/mmyyText" />

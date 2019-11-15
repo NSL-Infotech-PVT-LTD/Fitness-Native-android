@@ -115,7 +115,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private File mediaStorageDir;
 
 
-
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -149,6 +148,19 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             orgViewCoachStaffView();
         }
 
+        // For update to CoachStaff receive intent below....
+
+        viewCoachListDataModel = (ViewCoachListDataModel) getIntent().getSerializableExtra("updateCoach");
+        if (viewCoachListDataModel != null) {
+            binding.orgNameEdt.setText(viewCoachListDataModel.getName());
+            binding.orgBioEdt.setText(viewCoachListDataModel.getBio());
+            binding.orgProfessionType.setText(viewCoachListDataModel.getProfession());
+            binding.orgExperienceEdt.setText(viewCoachListDataModel.getExpertise_years());
+            binding.orgExperienceDetailEdt.setText(viewCoachListDataModel.getExperience_detail());
+            binding.orgTrainingDetailEdt.setText(viewCoachListDataModel.getTraining_service_detail());
+            binding.orgHourlyRateEdt.setText(viewCoachListDataModel.getHourly_rate());
+        }
+
 
     }
 
@@ -166,7 +178,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding.organizationBusinessHourendTv.setVisibility(View.GONE);
         binding.orgStartTimeTv.setVisibility(View.GONE);
         binding.orgEndTimeTv.setVisibility(View.GONE);
-
 
 
     }
@@ -224,11 +235,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 //            viewCoachListDataModel.setLatitude(String.valueOf(latitude));
 //            viewCoachListDataModel.setLongitude(String.valueOf(longitude));
             Intent viewCoachAct = new Intent(OrganizationSignUpActivity.this, ChooseSportActivity.class);
-            viewCoachAct .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            viewCoachAct .putExtra("orgCoachStaff", viewCoachListDataModel);
-            viewCoachAct .putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
-            viewCoachAct.putExtra("createStaffType","orgstaffCreate");
-            startActivity(viewCoachAct );
+            viewCoachAct.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            viewCoachAct.putExtra("orgCoachStaff", viewCoachListDataModel);
+            viewCoachAct.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+            viewCoachAct.putExtra("createStaffType", "orgstaffCreate");
+            startActivity(viewCoachAct);
         }
 
     }

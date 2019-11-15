@@ -78,7 +78,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 Intent intent = new Intent(context, EventDetail.class);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
-                intent.putExtra("eventTime", data.getOpen_hours_from()+"");
+                intent.putExtra("eventTime", data.getOpen_hours_from());
                 intent.putExtra("eventALLImages", data.getImages());
                 intent.putExtra("eventDate", data.getAvailability_week());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
