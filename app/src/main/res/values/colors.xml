@@ -43,7 +43,11 @@
     <color name="roboto_calendar_day_of_the_month_font">#4F4F4F</color>
     <color name="roboto_calendar_circle_1">#EB5757</color>
     <color name="roboto_calendar_circle_2">#55c6da</color>
+<!--    <color name="roboto_calendar_circle_2">#55c6da</color>-->
     <color name="roboto_calendar_month_arrow">#55c6da</color>
+    <color name="sessionColor">#FFA700</color>
+    <color name="eventColor">#B100FF</color>
+    <color name="spaceColor">#50FFD7</color>
 
 
 

@@ -1,45 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_108sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:id="@+id/container"
-        android:paddingBottom="@dimen/_14sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/eventName"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_4sdp"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/name"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            android:background="@color/eventCardBgColor">
+            <View
+                android:layout_width="3dp"
+                android:id="@+id/typeView"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="@color/colorGreen"></View>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/type"
-            app:layout_constraintTop_toBottomOf="@+id/eventName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/event_type"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/discoverImageCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/colorBlack"
-            app:layout_constraintTop_toBottomOf="@+id/type"></View>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/calImageView"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sophie"
+                    app:layout_constraintLeft_toLeftOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/calNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/discoverRecylerName"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintLeft_toRightOf="@id/discoverImageCard"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/placenamesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Venue"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="@id/calNameTv"
+                app:layout_constraintTop_toBottomOf="@+id/calNameTv" />
+
+
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/findPlaceCandidateTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="@string/occupancy"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
+
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/findPlaceCandidateDetailTv"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="@string/number_of_candidate_on_place"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@id/placenameTv"-->
+            <!--                app:layout_constraintRight_toRightOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/calLocationTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/poppins_regular"
+                android:text="Sukhna lake"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/calNameTv"
+                app:layout_constraintTop_toBottomOf="@id/placenamesTv" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/findPlacePriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:fontFamily="@font/poppins_regular"
+                android:text="Date "
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/calNameTv"
+                app:layout_constraintTop_toBottomOf="@id/calLocationTV" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/calDateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Date "
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/calNameTv"
+                app:layout_constraintTop_toBottomOf="@id/findPlacePriceTv" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

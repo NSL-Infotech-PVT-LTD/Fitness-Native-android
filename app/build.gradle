@@ -21,6 +21,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -51,7 +56,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-
+    implementation 'com.android.support:appcompat-v7:29.0.0'
     //
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
@@ -68,7 +73,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.iceteck.silicompressorr:silicompressor:2.2.2'
-
+    implementation 'io.github.inflationx:calligraphy3:3.0.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'io.github.inflationx:viewpump:1.0.0'
 //    implementation project(":CalendarViewLib")
 }
 apply plugin: 'com.google.gms.google-services'

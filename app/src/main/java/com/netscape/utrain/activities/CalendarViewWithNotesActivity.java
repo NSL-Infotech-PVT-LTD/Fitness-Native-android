@@ -15,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -63,21 +66,28 @@ import java.util.stream.Stream;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CalendarViewWithNotesActivity extends AppCompatActivity {
-    private RobotoCalendarView robotoCalendarView;
+public class CalendarViewWithNotesActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener {
     private final static int CREATE_EVENT_REQUEST_CODE = 100;
     List<AllBookingListModel.DataBeanX.DataBean> mEventList = new ArrayList<>();
     List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
     ArrayList<CalendarView.CalendarObject> calendarObjectArrayList = new ArrayList();
+    HashMap<String, ArrayList<O_AllBookingDataListModel>> eventsMap = new HashMap<>();
+    private RobotoCalendarView robotoCalendarView;
     private String[] mShortMonths;
     private CalendarView mCalendarView;
     private CalendarDialog mCalendarDialog;
     private int colour1;
     private int colour2;
     private ProgressDialog progressDialog;
+    private RecyclerView mRecyclerView;
+    private AppCompatImageView calNoDataImage;
+    private ImageView backArrow;
     private Retrofitinterface retrofitinterface;
-    HashMap<String,ArrayList<O_AllBookingDataListModel>> eventsMap = new HashMap<>();
+    private ArrayList<O_AllBookingDataListModel> selectedDateEvents;
+    private RecyclerView.LayoutManager layoutManager;
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, CalendarViewWithNotesActivity.class);
     }
@@ -131,19 +141,32 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //            }
 //        }else {
 
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
-            getOrgBooking();
-        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
-            getBookingList();
-        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
-            getCoachBooking();
-        }
+        getDataFromApi();
+
+//        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
+//            getOrgBooking();
+//        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
+//            getBookingList();
+//        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
+//            getCoachBooking();
+//        }
 //        }
     }
 
     private void initializeUI() {
 
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//        final View content = inflater.inflate(R.layout.calander_item_list_dialog_view, null);
+//        builder.setView(content);
         setContentView(R.layout.activity_calendar_view_with_notes);
+        backArrow = findViewById(R.id.backArrowCal);
+        calNoDataImage = findViewById(R.id.noCalendarImg);
+        mRecyclerView = findViewById(R.id.calendarItem);
+        calNoDataImage.setVisibility(View.VISIBLE);
+        layoutManager = new LinearLayoutManager(CalendarViewWithNotesActivity.this);
         robotoCalendarView = findViewById(R.id.robotoCalendarPicker);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -172,13 +195,19 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //                if (calendarObjects.size() != 0) {
                 mCalendarDialog.setSelectedDate(selectedDate);
 //                mCalendarDialog.show();
-                displaySupplierList(calendarObjects);
+//                displaySupplierList(calendarObjects);
             }
 //                else {
 //                    if (diffYMD(previousDate, selectedDate) == 0)
 //                        createEvent(selectedDate);
 //                }
 //            }
+        });
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
         });
 
 
@@ -204,6 +233,14 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                     }
                 })
                 .create();
+        // Set listener, in this case, the same activity
+        robotoCalendarView.setRobotoCalendarListener(this);
+
+        robotoCalendarView.setShortWeekDays(false);
+
+        robotoCalendarView.showDateTitle(true);
+
+        robotoCalendarView.setDate(new Date());
     }
 
     @Override
@@ -213,29 +250,28 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
         return true;
     }
 
-    public void displaySupplierList(List<CalendarView.CalendarObject> calendarObjects) {
-        RecyclerView mRecyclerView;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
+    public void displaySupplierList() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = LayoutInflater.from(this);
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        final View content = inflater.inflate(R.layout.calander_item_list_dialog_view, null);
-        builder.setView(content);
-        mRecyclerView = content.findViewById(R.id.customeDialogRecycler);
-        MaterialButton noBtn = content.findViewById(R.id.closeBtn);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final CalendarEventListAdapter adapter = new CalendarEventListAdapter(this, calendarObjects);
+//        final View content = inflater.inflate(R.layout.calander_item_list_dialog_view, null);
+//        builder.setView(content);
+//        mRecyclerView = content.findViewById(R.id.customeDialogRecycler);
+//        MaterialButton noBtn = content.findViewById(R.id.closeBtn);
+        mRecyclerView.setLayoutManager(layoutManager);
+        CalendarEventListAdapter adapter = new CalendarEventListAdapter(this, selectedDateEvents);
         mRecyclerView.setAdapter(adapter);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-        // Change the alert dialog background color
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        noBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+//        final AlertDialog dialog = builder.create();
+//        dialog.show();
+//         Change the alert dialog background color
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        noBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
 //        dialog.show();
     }
 
@@ -253,19 +289,6 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                         if (orgEventList.size() > 0) {
 
                             for (O_AllBookingDataListModel e : orgEventList) {
-                                String type = e.getType();
-                                if (e.getType().equalsIgnoreCase("event")) {
-                                    colour1 = Color.GREEN;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("session")) {
-                                    colour1 = Color.RED;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("space")) {
-                                    colour1 = Color.BLUE;
-                                    colour2 = Color.BLACK;
-                                }
 
                                 String startDate = e.getBooking_date().getStart();
                                 String endDate = e.getBooking_date().getEnd();
@@ -281,11 +304,23 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
                                     List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
                                     Log.e("", "list" + list);
+
+
                                     if (list != null & list.size() > 0) {
                                         for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
-                                            robotoCalendarView.markCircleImage1(calendar.getTime());
+                                            CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date);
+//                                            robotoCalendarView.markCircleImage1(calendar.getTime());
+                                            setCircle(e, calendar);
+                                            if (eventsMap.get(s) != null) {
+                                                eventsMap.get(s).add(e);
+                                            } else {
+                                                ArrayList eventList = new ArrayList();
+                                                eventList.add(e);
+                                                eventsMap.put(s.toString(), eventList);
+                                            }
+
 //                                            calendarObjectArrayList.add((new CalendarView.CalendarObject(
 //                                                    e.getId() + "",
 //                                                    calendar,
@@ -297,7 +332,19 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        robotoCalendarView.markCircleImage1(calendar.getTime());
+//                                        robotoCalendarView.markCircleImage1(calendar.getTime());
+                                        setCircle(e, calendar);
+
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(s.toString(), eventList);
+                                        }
+
 //                                        calendarObjectArrayList.add((new CalendarView.CalendarObject(
 //                                                e.getId() + "",
 //                                                calendar,
@@ -314,7 +361,18 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 //                                                e.getId() + "",
 //                                                calendar,
 //                                                colour1, colour2, e.getTarget_data().getName(), type)));
-                                        robotoCalendarView.markCircleImage1(calendar.getTime());
+//                                        robotoCalendarView.markCircleImage1(calendar.getTime());
+                                        setCircle(e, calendar);
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(endDate, eventList);
+                                        }
+
 //                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
 //                                                e.getId() + "",
 //                                                calendar,
@@ -355,6 +413,19 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
 
     }
 
+    private void setCircle(O_AllBookingDataListModel e, Calendar calendar) {
+        String type = e.getType();
+        if (e.getType().equalsIgnoreCase("event")) {
+            robotoCalendarView.markCircleImage1(calendar.getTime());
+        }
+        if (e.getType().equalsIgnoreCase("session")) {
+            robotoCalendarView.markCircleImage2(calendar.getTime());
+        }
+        if (e.getType().equalsIgnoreCase("space")) {
+            robotoCalendarView.markCircleImage3(calendar.getTime());
+        }
+    }
+
     private void getOrgBooking() {
         progressDialog.show();
         Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
@@ -369,49 +440,80 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                         if (orgEventList.size() > 0) {
 
                             for (O_AllBookingDataListModel e : orgEventList) {
-                                String type = e.getType();
-                                if (e.getType().equalsIgnoreCase("event")) {
-                                    colour1 = Color.GREEN;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("session")) {
-                                    colour1 = Color.RED;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("space")) {
-                                    colour1 = Color.BLUE;
-                                    colour2 = Color.BLACK;
-                                }
+
                                 String startDate = e.getBooking_date().getStart();
                                 String endDate = e.getBooking_date().getEnd();
                                 try {
+                                    Date date1 = null;
+                                    Date date2 = null;
+                                    if (startDate != null) {
+                                        date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    }
+                                    if (endDate != null) {
+                                        date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    }
 
-                                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-                                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
                                     List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
                                     Log.e("", "list" + list);
                                     if (list != null & list.size() > 0) {
                                         for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
-                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                    e.getId() + "",
-                                                    calendar,
-                                                    colour1, colour2, e.getTarget_data().getName(), type));
+                                            CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date);
+//                                            robotoCalendarView.markCircleImage1(calendar.getTime());
+                                            setCircle(e, calendar);
+                                            if (eventsMap.get(s) != null) {
+                                                eventsMap.get(s).add(e);
+                                            } else {
+                                                ArrayList eventList = new ArrayList();
+                                                eventList.add(e);
+                                                eventsMap.put(s.toString(), eventList);
+                                            }
+
+
+//                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                    e.getId() + "",
+//                                                    calendar,
+//                                                    colour1, colour2, e.getTarget_data().getName(), type));
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                        setCircle(e, calendar);
+
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(s.toString(), eventList);
+                                        }
+
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     } else {
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+
+
+                                        setCircle(e, calendar);
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(endDate, eventList);
+                                        }
+
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     }
                                 } catch (ParseException ex) {
                                     ex.printStackTrace();
@@ -456,49 +558,79 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
                         if (orgEventList.size() > 0) {
 
                             for (O_AllBookingDataListModel e : orgEventList) {
-                                String type = e.getType();
-                                if (e.getType().equalsIgnoreCase("event")) {
-                                    colour1 = Color.GREEN;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("session")) {
-                                    colour1 = Color.RED;
-                                    colour2 = Color.BLACK;
-                                }
-                                if (e.getType().equalsIgnoreCase("space")) {
-                                    colour1 = Color.BLUE;
-                                    colour2 = Color.BLACK;
-                                }
                                 String startDate = e.getBooking_date().getStart();
                                 String endDate = e.getBooking_date().getEnd();
                                 try {
 
-                                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-                                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    Date date1 = null;
+                                    Date date2 = null;
+                                    if (startDate != null) {
+                                        date1 = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                                    }
+                                    if (endDate != null) {
+                                        date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+                                    }
                                     List<Date> list = CommonMethods.getDatesBetweenUsingJava7(date1, date2);
                                     Log.e("", "list" + list);
+
                                     if (list != null & list.size() > 0) {
                                         for (Date date : list) {
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(date);
-                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                    e.getId() + "",
-                                                    calendar,
-                                                    colour1, colour2, e.getTarget_data().getName(), type));
+                                            CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date);
+//                                            robotoCalendarView.markCircleImage1(calendar.getTime());
+                                            setCircle(e, calendar);
+                                            if (eventsMap.get(s) != null) {
+                                                eventsMap.get(s).add(e);
+                                            } else {
+                                                ArrayList eventList = new ArrayList();
+                                                eventList.add(e);
+                                                eventsMap.put(s.toString(), eventList);
+                                            }
+
+
+//                                            mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                    e.getId() + "",
+//                                                    calendar,
+//                                                    colour1, colour2, e.getTarget_data().getName(), type));
                                         }
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                        setCircle(e, calendar);
+
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(s.toString(), eventList);
+                                        }
+
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     } else {
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTime(date2);
-                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
-                                                e.getId() + "",
-                                                calendar,
-                                                colour1, colour2, e.getTarget_data().getName(), type));
+                                        setCircle(e, calendar);
+                                        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date2);
+
+                                        if (eventsMap.get(s) != null) {
+                                            eventsMap.get(s).add(e);
+                                        } else {
+                                            ArrayList eventList = new ArrayList();
+                                            eventList.add(e);
+                                            eventsMap.put(endDate, eventList);
+                                        }
+
+
+//                                        mCalendarView.addCalendarObject(new CalendarView.CalendarObject(
+//                                                e.getId() + "",
+//                                                calendar,
+//                                                colour1, colour2, e.getTarget_data().getName(), type));
                                     }
                                 } catch (ParseException ex) {
                                     ex.printStackTrace();
@@ -608,6 +740,84 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onDayClick(Date date) {
+//        Toast.makeText(this, "onDayClick: " + date, Toast.LENGTH_SHORT).show();
+        CharSequence s = android.text.format.DateFormat.format("yyyy-MM-dd", date);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        selectedDateEvents = new ArrayList<>();
+        Iterator myVeryOwnIterator = eventsMap.keySet().iterator();
+        while (myVeryOwnIterator.hasNext()) {
+            String key = (String) myVeryOwnIterator.next();
+            if (s.toString().equalsIgnoreCase(key)) {
+                selectedDateEvents = (eventsMap.get(s.toString()));
+            }
+        }
+        if (selectedDateEvents != null && selectedDateEvents.size() > 0) {
+            calNoDataImage.setVisibility(View.GONE);
+            displaySupplierList();
+        } else {
+            calNoDataImage.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+//            Toast.makeText(this, "No Schedule for "+date, Toast.LENGTH_SHORT).show();
+        }
+
+
+//        selectedDateEvents=new ArrayList<>();
+//        if (eventsMap != null && eventsMap.size() > 0) {
+//            for (int i = 0; i<eventsMap.size(); i++) {
+//                if (s.toString().equalsIgnoreCase(eventsMap.get(s.toString()).get(i).toString())){
+//                    for (int j=0;j<eventsMap.get(i).size();j++){
+//                        selectedDateEvents.add(eventsMap.get(s.toString()).get(j));
+//
+//                    }
+//                }
+//
+//            }
+//            if (selectedDateEvents !=null && selectedDateEvents.size()>0){
+//                displaySupplierList();
+//            }else {
+//                Toast.makeText(this, "No Schedule for "+date, Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
+
+    }
+
+    @Override
+    public void onDayLongClick(Date date) {
+        Toast.makeText(this, "onDayLongClick: " + date, Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    public void onRightButtonClick() {
+        getDataFromApi();
+//        Toast.makeText(this, "onRightButtonClick!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLeftButtonClick() {
+//        Toast.makeText(this, "onLeftButtonClick!", Toast.LENGTH_SHORT).show();
+        getDataFromApi();
+    }
+
+    private void getDataFromApi() {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
+            getOrgBooking();
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
+            getBookingList();
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
+            getCoachBooking();
+        }
     }
 
 }
