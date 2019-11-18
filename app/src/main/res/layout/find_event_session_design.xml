@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
+                android:maxLength="25"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="@string/number_of_candidate_on_place"
                 android:textSize="@dimen/_8sdp"

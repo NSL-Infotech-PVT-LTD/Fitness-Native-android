@@ -11,34 +11,42 @@
         android:id="@+id/tv_LogIn_TenthScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textStyle="bold"
-        android:textColor="#000"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/settings"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        app:fontFamily="@font/poppins_semibold"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/_50sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_15sdp"
-        />
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_45sdp"
-        android:layout_marginRight="@dimen/_30sdp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginRight="@dimen/_20sdp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user"/>
+        android:src="@drawable/ic_user"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:background="@drawable/cards_shape"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/innerLeftGuideLine"
@@ -59,56 +67,59 @@
             android:id="@+id/ChangePassword_Img"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:src="@drawable/ic_lock"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/changePassword_Tv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_vertical"
             android:text="@string/change_password"
-            android:textColor="#000"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toRightOf="@id/ChangePassword_Img"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <View
             android:id="@+id/view1"
-            android:layout_width="@dimen/_180sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:background="#e9e9e9"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/lightGrayFont"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/changePassword_Tv"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/changePassword_Tv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/notification_Img"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:src="@drawable/notification"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/notification_Tv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_vertical"
             android:text="@string/notification"
-            android:textColor="#000"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/view1"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view1" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -116,9 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:thumb="@drawable/switch_settingsscreen_thumb"
-            app:layout_constraintBottom_toTopOf="@id/view2"
+            app:layout_constraintBottom_toBottomOf="@id/notification_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/view1"
+            app:layout_constraintTop_toTopOf="@id/notification_Tv"
             app:track="@drawable/switch_settingscreen_track" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -126,9 +137,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_5sdp"
-            android:text="ON"
+            android:text="@string/on"
+            android:textColor="@color/colorBlack"
             android:visibility="gone"
-            android:textColor="#000"
             app:layout_constraintBottom_toBottomOf="@id/settings_Switch"
             app:layout_constraintLeft_toLeftOf="@id/settings_Switch"
             app:layout_constraintTop_toTopOf="@id/settings_Switch" />
@@ -138,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_5sdp"
-            android:text="OFF"
+            android:text="@string/off"
             android:textColor="#000"
             app:layout_constraintBottom_toBottomOf="@id/settings_Switch"
             app:layout_constraintRight_toRightOf="@id/settings_Switch"
@@ -147,138 +158,140 @@
 
         <View
             android:id="@+id/view2"
-            android:layout_width="@dimen/_180sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
-            android:layout_marginTop="10dp"
-            android:background="#e9e9e9"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/lightGrayFont"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/notification_Tv"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/notification_Tv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/contactUs_Img"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:src="@drawable/notification"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:src="@drawable/ic_phone"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view2" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/contactUs_Tv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_vertical"
             android:text="@string/contact_us"
-            android:textColor="#000"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@id/view2"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view2" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_lock"
-            app:layout_constraintBottom_toTopOf="@id/view3"
+            app:layout_constraintBottom_toBottomOf="@id/contactUs_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/view2" />
+            app:layout_constraintTop_toTopOf="@id/contactUs_Tv" />
 
         <View
             android:id="@+id/view3"
-            android:layout_width="@dimen/_180sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
-            android:layout_marginTop="10dp"
-            android:background="#e9e9e9"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/lightGrayFont"
+            app:layout_constraintLeft_toLeftOf="@id/contactUs_Tv"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/contactUs_Tv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/termAndConditions_Img"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:src="@drawable/notification"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:src="@drawable/expicon"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view3" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/termAndConditions_Tv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_vertical"
             android:text="@string/terms_and_conditions"
-            android:textColor="#000"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@id/view3"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view3" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_lock"
-            app:layout_constraintBottom_toTopOf="@id/view4"
+            app:layout_constraintBottom_toBottomOf="@id/termAndConditions_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/view3" />
+            app:layout_constraintTop_toTopOf="@id/termAndConditions_Tv" />
 
         <View
             android:id="@+id/view4"
-            android:layout_width="@dimen/_180sdp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_2sdp"
-            android:layout_marginTop="10dp"
-            android:background="#e9e9e9"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/lightGrayFont"
+            app:layout_constraintLeft_toLeftOf="@id/termAndConditions_Tv"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/termAndConditions_Tv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/helpAndSupport_Img"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:src="@drawable/help"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view4" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/helpAndSupport_Tv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="@string/help_and_support"
-            android:textColor="#000"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorBlack"
+            app:fontFamily="@font/poppins_semibold"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="@id/view4"
+            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@id/view4" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_lock"
             app:layout_constraintBottom_toBottomOf="@id/helpAndSupport_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/view4" />
+            app:layout_constraintTop_toTopOf="@id/helpAndSupport_Tv" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="@dimen/_240sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:text="@string/logout"
-            android:textColor="#000"
-            app:cornerRadius="@dimen/_5sdp"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/helpAndSupport_Tv" />
-
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_50sdp"-->
+<!--            android:layout_marginTop="@dimen/_30sdp"-->
+<!--            android:text="@string/logout"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            app:cornerRadius="@dimen/_5sdp"-->
+<!--            android:backgroundTint="@color/themeColor"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--            app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/helpAndSupport_Tv" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

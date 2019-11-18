@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/layout_bg_design"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/themeColor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ratingImgCard"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/_4sdp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/ratingImgProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/_20sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sophie" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ratingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/offwhitebg"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Christin Lawn"
+                android:textColor="@color/themeColor"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/professionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="@string/coach"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/ratingImgCard"
+            app:layout_constraintRight_toRightOf="@+id/ratingImgCard"
+            app:layout_constraintTop_toBottomOf="@+id/ratingImgCard" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/servicesTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:maxLength="20"
+            android:paddingBottom="@dimen/_10sdp"
+            android:singleLine="true"
+            android:text="@string/coach"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_8sdp"
+            app:fontFamily="@font/poppins_semibold"
+            app:layout_constraintLeft_toLeftOf="@+id/ratingImgCard"
+            app:layout_constraintRight_toRightOf="@+id/ratingImgCard"
+            app:layout_constraintTop_toBottomOf="@+id/professionTv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_crossicon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rateHeadingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="@string/rating_dummy_text"
+        android:textColor="@color/lightGrayFont"
+        android:textSize="@dimen/_8sdp"
+        app:fontFamily="@font/poppins_semibold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/howWasEverythingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_10sdp"
+        android:text="@string/how_was_everything"
+        android:textColor="@color/themeColor"
+        android:textSize="@dimen/_12sdp"
+        app:fontFamily="@font/poppins_semibold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateHeadingTv" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/howWasEverythingTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:stepSize="1"
+        android:rating="4"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:theme="@style/RatingBar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

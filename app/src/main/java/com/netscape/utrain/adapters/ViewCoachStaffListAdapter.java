@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,9 @@ public class ViewCoachStaffListAdapter extends RecyclerView.Adapter<ViewCoachSta
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(context, O_RegistrationProfile.class);
+                context.startActivity(intent);
+
             }
         });
     }
@@ -84,5 +88,4 @@ public class ViewCoachStaffListAdapter extends RecyclerView.Adapter<ViewCoachSta
             coachStaffAdpLayout = itemView.findViewById(R.id.coachStaffAdpLayout);
         }
     }
-
 }
