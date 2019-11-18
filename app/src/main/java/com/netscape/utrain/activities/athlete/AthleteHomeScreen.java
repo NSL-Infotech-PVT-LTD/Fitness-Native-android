@@ -21,7 +21,9 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.MyProfile;
+import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.databinding.AActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
@@ -223,7 +225,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onClick(View view) {
                 openCloseDrawer();
 
-                loadFragment(new A_ChatsFragment());
+                Intent transactionActivity = new Intent(AthleteHomeScreen.this, TransactionActivity.class);
+                startActivity(transactionActivity);
 
             }
         });
@@ -274,6 +277,18 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
             }
         });
+
+        MaterialTextView settingsTv = header.findViewById(R.id.settingsTv);
+        settingsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openCloseDrawer();
+                Intent settingsTv = new Intent(AthleteHomeScreen.this, SettingsActivity.class);
+                startActivity(settingsTv);
+            }
+        });
+
     }
 //
 //    @Override

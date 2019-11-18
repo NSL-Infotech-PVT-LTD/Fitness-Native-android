@@ -162,7 +162,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_10sdp"
-
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center_vertical"
             android:text="@string/transaction"

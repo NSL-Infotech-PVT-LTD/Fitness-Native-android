@@ -263,9 +263,11 @@
     <string name="dashboards">Dashboard</string>
     <string name="booking">Bookings</string>
     <string name="transaction">Transaction</string>
+    <string name="transactions">Transactions</string>
     <string name="about_us">About us</string>
     <string name="rate_us">Rate us</string>
     <string name="settings">Setting</string>
+    <string name="settings_text">Settings</string>
     <string name="distance">Distance</string>
     <string name="bio_discover">Bio:</string>
     <string name="number_of_trainee">Number of Trainees</string>
@@ -410,4 +412,7 @@
     <string name="create_coach">Create Coach</string>
     <string name="enter_hourly_rate_text">Enter Price</string>
     <string name="welcome">Welcome</string>
+    <string name="rating_dummy_text">To improve the User Experience and Services, Help us by Rating your Coach, Organization or Athlete</string>
+    <string name="how_was_everything">How was Everything?</string>
+    <string name="transaction_id">Transaction ID :</string>
 </resources>
