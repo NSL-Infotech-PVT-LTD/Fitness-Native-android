@@ -293,7 +293,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (binding.athleteEmailEdt.getText().toString().isEmpty()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_your_email));
             binding.athleteEmailEdt.requestFocus();
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
+        } else if (! Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_valid_email));
             binding.athleteEmailEdt.requestFocus();
         } else if (binding.athletePhoneEdt.getText().toString().isEmpty()) {

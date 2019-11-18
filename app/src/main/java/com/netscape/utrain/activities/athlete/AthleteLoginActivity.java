@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -123,7 +124,6 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Snackbar.make(binding.athleteLoginLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
                 progressDialog.dismiss();
-
             }
         });
     }
@@ -133,17 +133,6 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
         String listData = gson.toJson(list);
         CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, listData, getApplicationContext());
     }
-
-    private boolean isValidEmailId(String email) {
-
-        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -170,7 +159,8 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
 //            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_email), BaseTransientBottomBar.LENGTH_LONG).show();
             binding.athleteEmailEdt.setError(getResources().getString(R.string.enter_email));
             binding.athleteEmailEdt.requestFocus();
-        } else if (!isValidEmailId(email)) {     // Email Validation
+        } else if (! Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+     // Email Validation
 //            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_valid_email), BaseTransientBottomBar.LENGTH_LONG).show();
             binding.athleteEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
             binding.athleteEmailEdt.requestFocus();

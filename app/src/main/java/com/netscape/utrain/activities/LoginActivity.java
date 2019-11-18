@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (binding.loginEmailEdt.getText().toString().isEmpty()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.loginEmailEdt.requestFocus();
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
+        } else if (! Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
             binding.loginEmailEdt.requestFocus();
         } else if (binding.loginPasswordEdt.getText().toString().isEmpty()) {
