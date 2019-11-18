@@ -415,4 +415,6 @@
     <string name="rating_dummy_text">To improve the User Experience and Services, Help us by Rating your Coach, Organization or Athlete</string>
     <string name="how_was_everything">How was Everything?</string>
     <string name="transaction_id">Transaction ID :</string>
+    <string name="utrain_text">Utrain</string>
+    <string name="about_us_dummy">Welcome to Utain, Here athlete can find his best coach to train best, Coach can create event, create session or book spaces, organizer can provide them best solutions so that athlete or coach could not face any issue.</string>
 </resources>

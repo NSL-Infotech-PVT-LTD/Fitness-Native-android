@@ -50,6 +50,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.databinding.ActivityUpdateProfileBinding;
 import com.netscape.utrain.model.AthleteUserModel;
 import com.netscape.utrain.model.SportListModel;
@@ -142,6 +143,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         binding.uAchievementEdt.setText(uAchievementEdt);
         Glide.with(UpdateProfileActivity.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, this)).into(binding.uProfileImg);
         setProfileImage();
+        getSportsIds();
         binding.uBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +178,9 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                 } else {
 
                     // update profile api hit here....
-                    hitUpdateAthleteDetailApi(email, name, phoneNo, address, expDetail, achievementDetail);
+                    Intent chooseSport = new Intent(UpdateProfileActivity.this, ChooseSportActivity.class);
+                    chooseSport.putExtra("update","updateProfile");
+                    startActivity(chooseSport);
                 }
 
             }
@@ -198,8 +202,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                 return false;
             }
         });
-
-        getSportsIds();
 
 
     }
@@ -250,7 +252,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
                 progressDialog.dismiss();
-
 
                 if (response.isSuccessful())
                     if (response.body().isStatus()) {

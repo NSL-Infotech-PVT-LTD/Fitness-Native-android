@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SettingsActivity;
@@ -130,8 +131,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         drawerImage = findViewById(R.id.drawerImageNew);
-        navNameTv=binding.slider.getHeaderView(0).findViewById(R.id.navNameTv);
-        headerImage=binding.slider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv = binding.slider.getHeaderView(0).findViewById(R.id.navNameTv);
+        headerImage = binding.slider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -243,13 +244,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
-                loadFragment(new A_ChatsFragment());
+                Intent aboutUs = new Intent(AthleteHomeScreen.this, AboutUs.class);
+                startActivity(aboutUs);
 
             }
         });
-
-
 
 
 //        // Passing each menu ID as a set of Ids because each
