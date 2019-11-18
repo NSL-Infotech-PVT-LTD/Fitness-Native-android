@@ -104,10 +104,9 @@
 <!--        <item name="fontPath">fonts/OverrideThisWithYourFontPath</item>-->
         <item name="android:textSize">@dimen/roboto_calendar_day_of_the_month_font</item>
         <item name="android:textColor">@color/roboto_calendar_day_of_the_month_font</item>
-
-        <style name="RatingBar" parent="Theme.AppCompat">
-            <item name="colorControlNormal">@color/duskYellow</item>
-            <item name="colorControlActivated">@color/lightGrey</item>
-        </style>
+    </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/yelloBackground</item>
+        <item name="colorControlActivated">@color/lightGrayFont</item>
     </style>
 </resources>

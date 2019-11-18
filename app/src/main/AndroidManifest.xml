@@ -16,7 +16,9 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ViewCoachStaffListActivity"></activity>
+        <activity android:name=".activities.AboutUs"></activity>
+        <activity android:name=".activities.TransactionActivity" />
+        <activity android:name=".activities.ViewCoachStaffListActivity" />
         <activity android:name=".activities.SpaceBookingActivity" />
         <activity android:name=".activities.UpdateProfileActivity" />
         <activity android:name=".activities.athlete.ChooseSportActivity" />

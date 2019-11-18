@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/settingsContainer"
     android:layout_height="match_parent"
     android:background="#f2f5df">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/settingsBackImg"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/ic_backblack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_LogIn_TenthScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:text="@string/settings"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:text="@string/settings_text"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"
         app:fontFamily="@font/poppins_semibold"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/settingsBackImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settingsProfileImg"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_user"
@@ -91,7 +107,7 @@
         <View
             android:id="@+id/view1"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_2sdp"
+            android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/lightGrayFont"
             app:layout_constraintHorizontal_bias="0.5"
@@ -159,7 +175,7 @@
         <View
             android:id="@+id/view2"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_2sdp"
+            android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/lightGrayFont"
             app:layout_constraintHorizontal_bias="0.5"
@@ -201,7 +217,7 @@
         <View
             android:id="@+id/view3"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_2sdp"
+            android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/lightGrayFont"
             app:layout_constraintLeft_toLeftOf="@id/contactUs_Tv"
@@ -242,7 +258,7 @@
         <View
             android:id="@+id/view4"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_2sdp"
+            android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/lightGrayFont"
             app:layout_constraintLeft_toLeftOf="@id/termAndConditions_Tv"
@@ -297,3 +313,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
