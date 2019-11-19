@@ -29,6 +29,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
@@ -163,9 +164,8 @@ public class CoachDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
-                loadFragment(new A_ChatsFragment());
-
+                Intent transaction=new Intent(getApplicationContext(), TransactionActivity.class);
+                startActivity(transaction);
             }
         });
         binding.coachSlider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {

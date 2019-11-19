@@ -414,6 +414,7 @@ public class O_HistoryFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             return mFragmentTitleList.get(position);
         }
     }

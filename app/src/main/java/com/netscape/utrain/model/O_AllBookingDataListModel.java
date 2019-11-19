@@ -17,9 +17,18 @@ public class O_AllBookingDataListModel {
     private int user_id;
     private int tickets;
     private int price;
+    private String payment_id;
     private O_AllBookingTargetDataModel target_data;
     private O_AllBookingUserDetailsModel user_details;
     private BookingDateModel booking_date;
+
+    public String getPayment_id() {
+        return payment_id;
+    }
+
+    public void setPayment_id(String payment_id) {
+        this.payment_id = payment_id;
+    }
 
     public BookingDateModel getBooking_date() {
         return booking_date;

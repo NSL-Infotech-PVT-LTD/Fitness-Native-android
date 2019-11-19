@@ -29,6 +29,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
+import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
@@ -165,19 +166,15 @@ public class OrgHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
                 loadFragment(new A_ChatsFragment());
-
-
             }
         });
         binding.orgSlider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
-                loadFragment(new A_ChatsFragment());
-
+                Intent transaction=new Intent(getApplicationContext(), TransactionActivity.class);
+                startActivity(transaction);
             }
         });
         binding.orgSlider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {
