@@ -33,6 +33,7 @@ import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
+import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
@@ -246,7 +247,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_NotificationFragment();
+                    fragment = new A_NotificationFragment();
                     loadFragment(fragment);
                     return true;
             }

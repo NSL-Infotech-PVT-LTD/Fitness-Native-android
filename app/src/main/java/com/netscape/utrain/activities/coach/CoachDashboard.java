@@ -33,6 +33,7 @@ import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_HomeFragment;
+import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.C_HomeFragment;
 import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
@@ -44,23 +45,62 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CoachDashboard extends AppCompatActivity {
-    private TextView mTextMessage;
     public DrawerLayout drawer;
+    BottomNavigationView orgNavView;
+    CoachDashboard activity;
+    private TextView mTextMessage;
     private ActivityCoachDashboardBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView coachDrawer;
-    BottomNavigationView orgNavView;
     private CircleImageView navImageView;
     private MaterialTextView navNameTv;
-    
-    CoachDashboard activity;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+//                    mTextMessage.setText(R.string.title_home);
+
+                    fragment = new C_HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_chat:
+//                    mTextMessage.setText(R.string.title_dashboard);
+                    fragment = new O_StardFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_reqimage:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new O_NotificationFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_running:
+
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new O_HistoryFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_notifications:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new A_NotificationFragment();
+                    loadFragment(fragment);
+                    return true;
+            }
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(CoachDashboard.this, R.layout.activity_coach_dashboard);
-       activity = this ;
-       navImageView=binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
-        navNameTv=binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
+        activity = this;
+        navImageView = binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv = binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
 
         Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(navImageView);
         navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, CoachDashboard.this));
@@ -164,7 +204,7 @@ public class CoachDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-                Intent transaction=new Intent(getApplicationContext(), TransactionActivity.class);
+                Intent transaction = new Intent(getApplicationContext(), TransactionActivity.class);
                 startActivity(transaction);
             }
         });
@@ -204,46 +244,6 @@ public class CoachDashboard extends AppCompatActivity {
 
 
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-
-                    fragment = new C_HomeFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_chat:
-//                    mTextMessage.setText(R.string.title_dashboard);
-                    fragment = new O_StardFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_reqimage:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_NotificationFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_running:
-
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_HistoryFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_NotificationFragment();
-                    loadFragment(fragment);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     private void loadFragment(Fragment fragment) {
         // load fragment

@@ -77,7 +77,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private AppCompatImageView drawerImage;
     private CircleImageView headerImage;
-    private MaterialTextView navNameTv;
+    private MaterialTextView navNameTv, notificationTv;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -87,27 +87,27 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
+                    notificationTv.setText("");
                     fragment = new A_HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                    notificationTv.setText("");
                     fragment = new A_StardFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    notificationTv.setText("");
                     fragment = new A_EditorFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    notificationTv.setText("");
                     fragment = new O_HistoryFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    notificationTv.setText(R.string.title_notifications);
                     fragment = new A_NotificationFragment();
                     loadFragment(fragment);
                     return true;
@@ -131,6 +131,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         drawerImage = findViewById(R.id.drawerImageNew);
+        notificationTv = findViewById(R.id.notificationHeader);
         navNameTv = binding.slider.getHeaderView(0).findViewById(R.id.navNameTv);
         headerImage = binding.slider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
