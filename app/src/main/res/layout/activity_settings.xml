@@ -209,7 +209,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_lock"
+            android:src="@drawable/ic_settingsarrow"
             app:layout_constraintBottom_toBottomOf="@id/contactUs_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toTopOf="@id/contactUs_Tv" />
@@ -250,7 +250,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_lock"
+            android:src="@drawable/ic_settingsarrow"
             app:layout_constraintBottom_toBottomOf="@id/termAndConditions_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toTopOf="@id/termAndConditions_Tv" />
@@ -291,7 +291,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/ic_lock"
+            android:src="@drawable/ic_settingsarrow"
             app:layout_constraintBottom_toBottomOf="@id/helpAndSupport_Tv"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toTopOf="@id/helpAndSupport_Tv" />

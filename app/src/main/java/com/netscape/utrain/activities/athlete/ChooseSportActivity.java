@@ -150,9 +150,24 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 }
             }
         });
+        athleteUpdate();
 
 
     }
+    private void athleteUpdate(){
+
+        if (getIntent().hasExtra("update"))
+        binding.athSignUp.setText(getResources().getString(R.string.update));
+        String name = getIntent().getStringExtra("name");
+        String email = getIntent().getStringExtra("email");
+        String phone = getIntent().getStringExtra("phone");
+        String address = getIntent().getStringExtra("address");
+        String experience = getIntent().getStringExtra("experience");
+        String achievement = getIntent().getStringExtra("achievement");
+//        File photo = getIntent().getSerializableExtra("photo"); // pending....... 19-11-19....
+
+    }
+
 
     private void init() {
 

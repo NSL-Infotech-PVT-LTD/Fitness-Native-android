@@ -180,6 +180,13 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
                     // update profile api hit here....
                     Intent chooseSport = new Intent(UpdateProfileActivity.this, ChooseSportActivity.class);
                     chooseSport.putExtra("update","updateProfile");
+                    chooseSport.putExtra("name",name);
+                    chooseSport.putExtra("email", email);
+                    chooseSport.putExtra("phone", phoneNo);
+                    chooseSport.putExtra("address", address);
+                    chooseSport.putExtra("experience", uExperienceEdt);
+                    chooseSport.putExtra("achievement", achievementDetail);
+                    chooseSport.putExtra("photo", photoFile);
                     startActivity(chooseSport);
                 }
 
