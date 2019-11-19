@@ -94,7 +94,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
 
-                <com.google.android.material.tabs.TabLayout
+                <com.netscape.utrain.utils.TabLayoutEx
                     android:id="@+id/layoutTransactionTab"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"

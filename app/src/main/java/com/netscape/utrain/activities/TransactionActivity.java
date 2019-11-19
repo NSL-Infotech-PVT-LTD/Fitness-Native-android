@@ -19,6 +19,9 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityTransactionBinding;
 import com.netscape.utrain.fragments.PaymentReceiveFragment;
 import com.netscape.utrain.fragments.PaymentSentFragment;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +37,21 @@ public class TransactionActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(TransactionActivity.this, R.layout.activity_transaction);
         binding.layoutTransactionTab.setTabTextColors(Color.parseColor("#D6D6D6"), Color.parseColor("#ffffff"));
         binding.layoutTransactionTab.setupWithViewPager(binding.transactionViewPager);
-        setupViewPager(binding.transactionViewPager);
         transactionBackImageClick();
-        wrapTabIndicatorToTitle(binding.layoutTransactionTab, 100, 50);
+
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete)){
+            setupAthViewPager(binding.transactionViewPager);
+            wrapTabIndicatorToTitle(binding.layoutTransactionTab, 200, 200);
+
+        }else {
+            setupViewPager(binding.transactionViewPager);
+            wrapTabIndicatorToTitle(binding.layoutTransactionTab, 100, 50);
+
+        }
+
+
+
+
 //        setupTabIcons();
 
     }
@@ -57,6 +72,11 @@ public class TransactionActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PaymentSentFragment(), "Sent");
         adapter.addFragment(new PaymentReceiveFragment(), "Receive");
+        viewPager.setAdapter(adapter);
+    }
+    private void setupAthViewPager(final ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new PaymentSentFragment(), "Sent");
         viewPager.setAdapter(adapter);
     }
 

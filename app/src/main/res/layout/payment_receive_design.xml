@@ -36,8 +36,10 @@
             android:text="@string/name"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintLeft_toRightOf="@+id/coachStaffImg"
-            app:layout_constraintTop_toTopOf="@+id/coachStaffImg" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/coachStaffProfession"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/coachStaffProfession"
@@ -50,7 +52,8 @@
             android:text="Place Holder"
             android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/coachStaffName"
-            app:layout_constraintTop_toBottomOf="@+id/coachStaffName" />
+            app:layout_constraintTop_toBottomOf="@+id/coachStaffName"
+            app:layout_constraintBottom_toTopOf="@+id/transactionId"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/transactionId"
@@ -62,7 +65,8 @@
             android:text="@string/transaction_id"
             android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/coachStaffName"
-            app:layout_constraintTop_toBottomOf="@+id/coachStaffProfession" />
+            app:layout_constraintTop_toBottomOf="@+id/coachStaffProfession"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
