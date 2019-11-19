@@ -37,7 +37,14 @@
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintLeft_toRightOf="@+id/transactionBackImg"
                 app:layout_constraintTop_toTopOf="parent" />
-
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/layoutTitleText"
+                    app:layout_constraintBottom_toBottomOf="@+id/layoutTitleText"
+                    android:src="@drawable/card"></androidx.appcompat.widget.AppCompatImageView>
 <!--            <com.google.android.material.textview.MaterialTextView-->
 <!--                android:id="@+id/filterSelection"-->
 <!--                android:layout_width="@dimen/_70sdp"-->
@@ -63,7 +70,7 @@
                 android:paddingRight="@dimen/_10sdp"
                 android:text="@string/athlete"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/layoutTitleText"
                 app:layout_constraintTop_toBottomOf="@id/layoutTitleText" />
 
@@ -87,8 +94,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
 
-                <com.netscape.utrain.utils.TabLayoutEx
-                    android:id="@+id/transactionTabLayou"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/layoutTransactionTab"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_15sdp"
@@ -104,6 +111,16 @@
                     app:tabSelectedTextColor="@color/colorBlack"
                     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                     app:tabTextColor="@color/lightGrayFont" />
+                <View
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/viewOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lightGrayFont"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTransactionTab"
+                    >
+
+                </View>
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/transactionViewPager"
@@ -114,7 +131,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/historyTabLayou" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewOne" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
