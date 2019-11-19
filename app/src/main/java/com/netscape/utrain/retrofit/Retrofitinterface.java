@@ -25,6 +25,7 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.NotificationResponse;
 import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.response.O_BookedSpaceListResponse;
 import com.netscape.utrain.response.O_EventBookedListResponse;
@@ -483,6 +484,14 @@ public interface Retrofitinterface {
                                                     @Header("Authorization") String auth,
                                                     @PartMap Map<String, RequestBody> fields
     );
+
+
+    @POST(Constants.BOOKING_NOTIFICATIONS)
+    Call<NotificationResponse> notifications(@Header("Content-Type") String Content_type,
+                                             @Header("Authorization") String Authorization
+    );
+
+
 
 
 }

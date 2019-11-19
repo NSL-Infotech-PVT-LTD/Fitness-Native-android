@@ -3,13 +3,26 @@ package com.netscape.utrain.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.coremedia.iso.boxes.Container;
 import com.netscape.utrain.R;
+import com.netscape.utrain.databinding.FragmentNotificationBinding;
+import com.netscape.utrain.response.NotificationResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +35,13 @@ import com.netscape.utrain.R;
 public class A_NotificationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    FragmentNotificationBinding binding;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    Retrofitinterface retrofitinterface;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,7 +84,41 @@ public class A_NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.o_fragment_notification, container,false);
+        View view = binding.getRoot();
+
+
+
+
+
+
+//        return inflater.inflate(R.layout.fragment_notification, container, false);
+        return  view;
+    }
+
+    private void getNotifications(){
+
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<NotificationResponse> getNotifications =
+                retrofitinterface.notifications(Constants.CONTENT_TYPE, "Bearer" + CommonMethods.getPrefData(Constants.AUTH_TOKEN,getContext()));
+        getNotifications.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if (response.isSuccessful())
+                if (response.body().isStatus())
+                    if (response.body() !=null){
+
+
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
