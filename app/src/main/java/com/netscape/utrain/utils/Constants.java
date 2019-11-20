@@ -12,6 +12,7 @@ public class Constants {
     public static final String ORG_COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiserCoach/profile_image/";
 
     public static final String ATHLETE_SIGNUP = "athlete/register";
+    public static final String ATHLETE_UPDATE = "athlete/update";
     public static final String LOGIN_METHOD = "login";
     public static final String ORG_SIGNUP = "organiser/register";
     public static final String SERVICES = "services";

@@ -463,10 +463,10 @@ public interface Retrofitinterface {
 
 
     @Multipart
-    @POST(Constants.ATHLETE_SIGNUP)
-    Call<AthleteSignUpResponse> updateProfile(@Part MultipartBody.Part file,
-                                              @PartMap Map<String, RequestBody> fields
-    );
+    @POST(Constants.ATHLETE_UPDATE)
+    Call<AthleteSignUpResponse> updateProfile(@Header("Authorization") String Authorization,
+                                              @Part MultipartBody.Part file,
+                                              @PartMap Map<String, RequestBody> fields);
 
 
     @POST(Constants.ORG_COACH_ATH_List)

@@ -14,7 +14,7 @@ public class PrefrenceConstant {
     public static final String USER_NAME = "userName";
     public static final String USER_EXPERIENCE = "experience_detail";
     public static final String USER_ID = "userId";
-    public static final String SPORTS_NAME = "sportName";
+    public static final String SPORTS_NAME = "sportsName";
     public static final String HOURLY_RATE = "hourlyRate";
     public static final String USER_PHONE = "userPhone";
     public static final String USER_EMAIL = "userEmail";
@@ -35,4 +35,6 @@ public class PrefrenceConstant {
     public static final String BUSINESS_HOUR_START = "business_hour_starts" ;
 
     public static String USER_ACHIEVE = "acheive";
+    public static String USER_LATITUDE = "ulat";
+    public static String USER_LONGITUDE = "ulong";
 }

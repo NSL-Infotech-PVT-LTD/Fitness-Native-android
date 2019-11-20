@@ -89,6 +89,8 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LATITUDE, response.body().getData().getUser().getLatitude()+"", AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONGITUDE, response.body().getData().getUser().getLongitude()+ "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);

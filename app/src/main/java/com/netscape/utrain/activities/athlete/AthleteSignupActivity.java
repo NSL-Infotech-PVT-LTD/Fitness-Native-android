@@ -64,6 +64,7 @@ import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.activities.ServicePriceActivity;
+import com.netscape.utrain.activities.UpdateProfileActivity;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
 import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -101,10 +102,11 @@ import retrofit2.Response;
 public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
+    public static boolean Update;
     private ActivityAthleteSignupBinding binding;
     private GoogleApiClient googleApiClient;
     private AlertDialog dialogMultiOrder;
-    private String currentPhotoFilePath = "", imageUrl = "";
+    private String currentPhotoFilePath = "", latUpdate, longUpdate, imageUrl = "";
     //    private String phone,address,experience,achievement; // Sending value as Intent....
     private File photoFile = null;
     private AskPermission askPermObj;
@@ -120,7 +122,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private Uri selected;
     private String IMAGE_DIRECTORY = "/Utrain/";
     private File mediaStorageDir;
-
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -141,6 +142,22 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         binding = DataBindingUtil.setContentView(this, R.layout.activity_athlete_signup);
 
         init();
+        if (Update) {
+            setDataFromSharedPref();
+            binding.athleteNameEdt.setClickable(false);
+            binding.athleteNameEdt.setEnabled(false);
+            binding.athleteEmailEdt.setClickable(false);
+            binding.athleteEmailEdt.setEnabled(false);
+            binding.athletePasswordEdt.setVisibility(View.GONE);
+            binding.athletePasswordEdtLayout.setVisibility(View.GONE);
+            binding.viewOne.setVisibility(View.GONE);
+            binding.tvHeaderFifthScreen.setVisibility(View.GONE);
+            binding.athleteSignUpTv.setVisibility(View.GONE);
+            binding.alreadyAccountText.setVisibility(View.GONE);
+            binding.athleteSignInTv.setVisibility(View.GONE);
+            binding.underLineView.setVisibility(View.GONE);
+
+        }
         binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -200,6 +217,26 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private void setDataFromSharedPref() {
+        binding.athleteNameEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, AthleteSignupActivity.this));
+        binding.athleteEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, AthleteSignupActivity.this));
+        binding.athletePhoneEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, AthleteSignupActivity.this));
+        binding.athleteAddressEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.ADDRESS, AthleteSignupActivity.this));
+        binding.athleteExperienceEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, AthleteSignupActivity.this));
+        binding.athleteAchievementEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, AthleteSignupActivity.this));
+        binding.athletePasswordEdt.setText("123456");
+        latUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LATITUDE, AthleteSignupActivity.this);
+        longUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LONGITUDE, AthleteSignupActivity.this);
+        if (!TextUtils.isEmpty(latUpdate)) {
+            latitude = Double.parseDouble(latUpdate);
+        }
+        if (!TextUtils.isEmpty(longUpdate)) {
+            longitude = Double.parseDouble(longUpdate);
+        }
+        Glide.with(AthleteSignupActivity.this).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, this)).into(binding.athleProfileImg);
+
+    }
+
     private void init() {
         activity = this;
         binding.athleteSignUpBtn.setOnClickListener(this);
@@ -242,7 +279,6 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 startActivity(signInActivity);
                 break;
             case R.id.athleteSignUpBtnTwo:
-
                 if (binding.athletePhoneEdtTwo.getText().toString().isEmpty()) {
                     binding.athletePhoneEdtTwo.setError(getString(R.string.enter_phone_number));
                     binding.athletePhoneEdtTwo.requestFocus();
@@ -285,6 +321,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+
     private void getSignUpData() {
 
         if (binding.athleteNameEdt.getText().toString().isEmpty()) {
@@ -293,7 +330,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (binding.athleteEmailEdt.getText().toString().isEmpty()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_your_email));
             binding.athleteEmailEdt.requestFocus();
-        } else if (! Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_valid_email));
             binding.athleteEmailEdt.requestFocus();
         } else if (binding.athletePhoneEdt.getText().toString().isEmpty()) {
@@ -309,38 +346,39 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             binding.athletePasswordEdt.setError(getString(R.string.enter_password));
             binding.athletePasswordEdt.requestFocus();
         } else if (binding.athleteExperienceEdt.getText().toString().isEmpty()) {
-            binding.athleteExperienceEdt.setError(getString(R.string.enter_name));
+            binding.athleteExperienceEdt.setError(getString(R.string.enter_experience));
             binding.athleteExperienceEdt.requestFocus();
         } else if (binding.athleteAchievementEdt.getText().toString().isEmpty()) {
-            binding.athleteAchievementEdt.setError(getString(R.string.enter_name));
+            binding.athleteAchievementEdt.setError(getString(R.string.enter_your_achievements_details));
             binding.athleteAchievementEdt.requestFocus();
         } else if (photoFile == null) {
-            Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
+            if (Update) {
+                hitAthleteSignUpApi();
+            } else {
+                Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
+            }
         } else {
-//            athleteSignUpApi(binding.athleteEmailEdt.getText().toString(),
-//                    binding.athletePasswordEdt.getText().toString(),
-//                    binding.athleteNameEdt.getText().toString(),
-//                    binding.athletePhoneEdt.getText().toString(),
-//                    binding.athleteAddressEdt.getText().toString());
-
-
-            CommonMethods.setPrefData("athleteName", binding.athleteNameEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athleteEmail", binding.athleteEmailEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athletePhone", binding.athletePhoneEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athleteAddress", binding.athleteAddressEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("latitude", String.valueOf(latitude), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("longitude", String.valueOf(longitude), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athletePassword", binding.athletePasswordEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athleteExperience", binding.athleteExperienceEdt.getText().toString(), AthleteSignupActivity.this);
-            CommonMethods.setPrefData("athleteAchievement", binding.athleteAchievementEdt.getText().toString(), AthleteSignupActivity.this);
-
-            Intent intent = new Intent(AthleteSignupActivity.this, ChooseSportActivity.class);
-            intent.putExtra("image", photoFile);
-            startActivity(intent);
+            hitAthleteSignUpApi();
         }
     }
 
     private void hitAthleteSignUpApi() {
+        CommonMethods.setPrefData("athleteName", binding.athleteNameEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athleteEmail", binding.athleteEmailEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athletePhone", binding.athletePhoneEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athleteAddress", binding.athleteAddressEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("latitude", String.valueOf(latitude), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("longitude", String.valueOf(longitude), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athletePassword", binding.athletePasswordEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athleteExperience", binding.athleteExperienceEdt.getText().toString(), AthleteSignupActivity.this);
+        CommonMethods.setPrefData("athleteAchievement", binding.athleteAchievementEdt.getText().toString(), AthleteSignupActivity.this);
+
+        Intent intent = new Intent(AthleteSignupActivity.this, ChooseSportActivity.class);
+        intent.putExtra("image", photoFile);
+        if (Update) {
+            ChooseSportActivity.athUpdate = true;
+        }
+        startActivity(intent);
     }
 
     /*asking for the required permission*/
@@ -369,9 +407,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         LayoutInflater inflater = LayoutInflater.from(this);
         View content = inflater.inflate(R.layout.get_image_dialog, null);
         builder.setView(content);
-        TextView gallery = (TextView) content.findViewById(R.id.gallerySellectionBtn);
-        TextView camera = (TextView) content.findViewById(R.id.cameraSelectionBtn);
-        ImageView cancel = (ImageView) content.findViewById(R.id.closeDialogImg);
+        TextView gallery = content.findViewById(R.id.gallerySellectionBtn);
+        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+        ImageView cancel = content.findViewById(R.id.closeDialogImg);
         dialogMultiOrder = builder.create();
         dialogMultiOrder.setCancelable(false);
 //        dialogMultiOrder.setCanceledOnTouchOutside(false);
@@ -451,7 +489,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             // Create the File where the photo should go
             FileUtil fileUtil = new FileUtil();
             String fileName = "img_" + System.currentTimeMillis() + ".jpg";
-            photoFile = fileUtil.createFile(getApplicationContext(), null, fileName);
+            photoFile = FileUtil.createFile(getApplicationContext(), null, fileName);
             // Continue only if the File was successfully created
             Uri photoURI;
             if (photoFile != null) {
@@ -805,6 +843,12 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         return null;
     }
 
+    @Override
+    protected void onDestroy() {
+        Update = false;
+        super.onDestroy();
+    }
+
     public class MyAsync extends AsyncTask<String, Void, Void> {
         Bitmap bm = null;
 
@@ -832,7 +876,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     photoFile.mkdirs();
                 }
 
-                File imageFile = new File(photoFile, String.valueOf(System.currentTimeMillis()) + ".png"); // Imagename.png
+                File imageFile = new File(photoFile, System.currentTimeMillis() + ".png"); // Imagename.png
                 FileOutputStream out = null;
                 try {
                     out = new FileOutputStream(imageFile);

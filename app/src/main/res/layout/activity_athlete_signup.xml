@@ -43,7 +43,7 @@
 
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_header_FifthScreen"
+                    android:id="@+id/tvHeaderFifthScreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -57,7 +57,7 @@
                     />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/athlete_SignUpTv"
+                    android:id="@+id/athleteSignUpTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
@@ -65,7 +65,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_20sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintTop_toBottomOf="@id/tv_header_FifthScreen" />
+                    app:layout_constraintTop_toBottomOf="@id/tvHeaderFifthScreen" />
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -100,7 +100,7 @@
                     app:cardUseCompatPadding="true"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/athlete_SignUpTv">
+                    app:layout_constraintTop_toBottomOf="@+id/athleteSignUpTv">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/athleProfileImg"
@@ -211,6 +211,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
+                    android:id="@+id/viewOne"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_2sdp"
                     android:background="@drawable/view_bottom_round_design"
