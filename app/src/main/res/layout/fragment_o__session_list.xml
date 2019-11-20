@@ -34,7 +34,7 @@
                 android:src="@drawable/no_data_png"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"></androidx.appcompat.widget.AppCompatImageView>
+                app:layout_constraintBottom_toBottomOf="parent"/>
 <!--            <com.google.android.material.textview.MaterialTextView-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->

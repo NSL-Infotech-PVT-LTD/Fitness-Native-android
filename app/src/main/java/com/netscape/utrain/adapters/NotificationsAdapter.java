@@ -47,6 +47,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
 
         NotificationDatamodel datamodel = list.get(position);
+        holder.notificationDatTimeTv.setText(datamodel.getCreated_at());
         holder.notificationBody.setText(datamodel.getBody());
 
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
@@ -64,14 +65,15 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView notificationImg;
-        MaterialTextView notificationBody, justNowText;
+        MaterialTextView notificationBody, notificationDatTimeTv;
 
         public NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
 
             notificationImg = itemView.findViewById(R.id.notificationImg);
             notificationBody = itemView.findViewById(R.id.notificationBody);
-            justNowText = itemView.findViewById(R.id.justNowText);
+            notificationDatTimeTv = itemView.findViewById(R.id.notificationDatTimeTv);
+
         }
     }
 }

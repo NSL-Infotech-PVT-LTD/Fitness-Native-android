@@ -31,9 +31,9 @@ public class SettingsActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_settings);
         binding = DataBindingUtil.setContentView(SettingsActivity.this, R.layout.activity_settings);
 
-        switchMaterial = findViewById(R.id.settings_Switch);
-        textViewOn = findViewById(R.id.switchOn_ON);
-        textViewOff = findViewById(R.id.switchOff_OFF);
+        switchMaterial = findViewById(R.id.settingsSwitch);
+        textViewOn = findViewById(R.id.switchOnON);
+        textViewOff = findViewById(R.id.switchOffOFF);
         setProfileImage();
         switchMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,8 +56,13 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+        binding.changePasswordTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
+                // change password api hit here....
+            }
+        });
     }
 
     private void setProfileImage() {

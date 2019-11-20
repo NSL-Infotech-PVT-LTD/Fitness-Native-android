@@ -86,6 +86,8 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
                 context.startActivity(topCoachesDetails);
             }
         });
+
+
     }
 
     @Override
@@ -96,7 +98,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage, statusImage;
-        MaterialTextView eventName, eventVenue, eventDate,bookingTicketTv;
+        MaterialTextView eventName, eventVenue, eventDate,bookingTicketTv, completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);

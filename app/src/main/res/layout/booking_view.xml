@@ -60,13 +60,14 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/_10sdp"
                 android:paddingLeft="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@id/statusImage"
+                android:paddingRight="@dimen/_10sdp"
                 app:layout_constraintLeft_toRightOf="@+id/discoverImageCard"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/statusImage">
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -74,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
+                    android:maxLength="16"
                     android:singleLine="true"
                     android:text="@string/discoverRecylerName"
                     android:textColor="@color/colorBlack"
@@ -96,10 +98,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    app:fontFamily="@font/poppins_regular"
                     android:fontFamily="@font/poppins_regular"
                     android:singleLine="true"
-                    android:text="WED,9OCT| 5:00PM"
+                    android:text="@string/date_format"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@+id/ti_date"
                     app:layout_constraintRight_toRightOf="parent"
@@ -121,9 +122,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Sukhna Lake, Mall Road, California"
-                    android:textSize="@dimen/_8sdp"
                     android:singleLine="true"
+                    android:text="@string/vanue_address"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@+id/ti_location"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/ti_location" />
@@ -145,11 +146,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="3 Attandees and Ticket(1 person per ticket)"
+                    android:maxLines="2"
+                    android:text="@string/number_of_candidate_attending"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@+id/ti_tickets"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/ti_tickets" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completedRatingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_background_colord"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="@string/rate_us"
+                    android:textColor="@color/colorWhite"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bookingTicketTv" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
