@@ -59,26 +59,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/Guideline">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_30sdp" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_30sdp" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/allCreatedTab"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
@@ -95,11 +83,12 @@
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/allCreatedViewPager"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/allCreatedTab" />
 
 
