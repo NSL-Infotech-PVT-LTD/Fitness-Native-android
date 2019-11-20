@@ -57,6 +57,8 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -695,8 +697,20 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     @Override
     public void eventAmount(AthleteBookListModel.DataBeanX.DataBean list) {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
+        try {
+            if (list.getEvent().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(list.getEvent().getImages());
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(getContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                }
+            }
 
+        } catch (JSONException e) {
+
+            Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
         userName.setText(list.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + list.getId());
         bookingPlaceName.setText(list.getEvent().getName());
@@ -736,7 +750,20 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     @Override
     public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean spaceData) {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+        try {
+            if (spaceData.getSpace().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(spaceData.getSpace().getImages());
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                }
+            }
+
+        } catch (JSONException e) {
+
+            Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
         userName.setText(spaceData.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + spaceData.getId());
         bookingPlaceName.setText(spaceData.getSpace().getName());
@@ -754,7 +781,21 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     @Override
     public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean sessionData) {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
+
+        try {
+            if (sessionData.getSession().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(sessionData.getSession().getImages());
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(getContext()).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                }
+            }
+
+        } catch (JSONException e) {
+
+            Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
         userName.setText(sessionData.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + sessionData.getId());
         bookingPlaceName.setText(sessionData.getSession().getName());

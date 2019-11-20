@@ -142,6 +142,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
         final NavigationView navigationView = findViewById(R.id.slider);
         View header = navigationView.getHeaderView(0);
         MaterialTextView dashboardTv = header.findViewById(R.id.coachDashboardTv);
+
+        binding.slider.getHeaderView(0).findViewById(R.id.allCreatedTv).setVisibility(View.GONE);
+        binding.slider.getHeaderView(0).findViewById(R.id.allCreatedIcon).setVisibility(View.GONE);
+        binding.slider.getHeaderView(0).findViewById(R.id.view7).setVisibility(View.GONE);
         navigationView.findViewById(R.id.logOutTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

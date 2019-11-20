@@ -4,9 +4,9 @@
     android:id="@+id/bottomsheet_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_10sdp"
     android:background="@drawable/drawer_right_corner_laydesign_white"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/_10sdp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             android:src="@drawable/ic_place_holder"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/navNameTv"
             android:layout_width="wrap_content"
@@ -39,9 +40,9 @@
             android:text="John Right"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/textviewBackground"
             app:layout_constraintLeft_toLeftOf="@+id/naviProfileImage"
-            app:layout_constraintTop_toBottomOf="@id/naviProfileImage"
-            app:layout_constraintBottom_toBottomOf="@+id/textviewBackground"/>
+            app:layout_constraintTop_toBottomOf="@id/naviProfileImage" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -130,9 +131,9 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center_vertical"
             android:text="@string/booking"
-            android:visibility="gone"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/view2"
             app:layout_constraintLeft_toRightOf="@id/icBookingIcon"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
@@ -143,9 +144,9 @@
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/colorLightGray"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/icBookingIcon" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -155,7 +156,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_transaction"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/view2" />
+            app:layout_constraintTop_toBottomOf="@id/view1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/transactionTv"
@@ -215,6 +216,39 @@
             android:background="@color/colorLightGray"
             app:layout_constraintTop_toBottomOf="@id/icNotificationIcon" />
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/allCreatedIcon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_menu_calendar"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            app:layout_constraintTop_toBottomOf="@id/view4" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/allCreatedTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center_vertical"
+            android:text="@string/all_event_session_space"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@id/view7"
+            app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
+            app:layout_constraintRight_toRightOf="@id/rightGuideline"
+            app:layout_constraintTop_toTopOf="@id/view4" />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/allCreatedIcon" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icAboutUsIcon"
             android:layout_width="@dimen/_20sdp"
@@ -222,7 +256,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_about_us"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/view4" />
+            app:layout_constraintTop_toBottomOf="@id/view7" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/aboutUsTv"
@@ -237,8 +271,7 @@
             app:layout_constraintBottom_toBottomOf="@id/view5"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"
             app:layout_constraintRight_toRightOf="@id/rightGuideline"
-            app:layout_constraintTop_toBottomOf="@id/view4"
-            app:layout_constraintTop_toTopOf="@id/view4" />
+            app:layout_constraintTop_toTopOf="@id/view7" />
 
         <View
             android:id="@+id/view5"

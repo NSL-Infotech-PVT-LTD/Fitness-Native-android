@@ -27,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AllCreatedActivity;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
@@ -46,15 +47,52 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OrgHomeScreen extends AppCompatActivity {
-    private TextView mTextMessage;
     public DrawerLayout drawer;
+    BottomNavigationView orgNavView;
+    private TextView mTextMessage;
     private OActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView orgDrawerImageNew;
-    BottomNavigationView orgNavView;
     private CircleImageView navImageView;
     private MaterialTextView navNameTv;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+//                    mTextMessage.setText(R.string.title_home);
+                    fragment = new O_HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_chat:
+//                    mTextMessage.setText(R.string.title_dashboard);
+                    fragment = new O_StardFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_reqimage:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new O_RegistrationProfile();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_running:
+
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new O_HistoryFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_notifications:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new A_NotificationFragment();
+                    loadFragment(fragment);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +102,13 @@ public class OrgHomeScreen extends AppCompatActivity {
         orgDrawerImageNew = findViewById(R.id.orgDrawerImageNew);
         orgNavView = findViewById(R.id.orgNavView);
         drawer = findViewById(R.id.orgdrawer_layout);
-        navImageView=binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
-        navNameTv=binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
-        String path=CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE,OrgHomeScreen.this);
+        navImageView = binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
+        navNameTv = binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
+        String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, OrgHomeScreen.this);
 //        Glide.with(OrgHomeScreen.this).load(Constants.ORG_IMAGE_BASE_URL+path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(binding.orgProfileImg);
-        navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrgHomeScreen.this));
+        navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, OrgHomeScreen.this));
 
 
         binding.orgProfileImg.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +168,7 @@ public class OrgHomeScreen extends AppCompatActivity {
 
                 openCloseDrawer();
             }
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -174,7 +213,7 @@ public class OrgHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-                Intent transaction=new Intent(getApplicationContext(), TransactionActivity.class);
+                Intent transaction = new Intent(getApplicationContext(), TransactionActivity.class);
                 startActivity(transaction);
             }
         });
@@ -187,6 +226,15 @@ public class OrgHomeScreen extends AppCompatActivity {
 
             }
         });
+
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.allCreatedTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+                startActivity(new Intent(OrgHomeScreen.this, AllCreatedActivity.class));
+            }
+        });
+
         binding.orgSlider.getHeaderView(0).findViewById(R.id.aboutUsTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,45 +263,6 @@ public class OrgHomeScreen extends AppCompatActivity {
         }
 
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-                    fragment = new O_HomeFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_chat:
-//                    mTextMessage.setText(R.string.title_dashboard);
-                    fragment = new O_StardFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_reqimage:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_RegistrationProfile();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_running:
-
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new O_HistoryFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    fragment = new A_NotificationFragment();
-                    loadFragment(fragment);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     private void loadFragment(Fragment fragment) {
         // load fragment

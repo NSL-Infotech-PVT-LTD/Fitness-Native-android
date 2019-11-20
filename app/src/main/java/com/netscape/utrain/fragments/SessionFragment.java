@@ -1,7 +1,6 @@
 package com.netscape.utrain.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
-import com.netscape.utrain.activities.HistoryActivity;
 import com.netscape.utrain.adapters.SessionFragmentAdapter;
 import com.netscape.utrain.adapters.SessionFragmentModel;
 
@@ -44,17 +42,17 @@ public class SessionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view =inflater.inflate(R.layout.session_fragment, container, false);
-        viewPager = (ViewPager)view.findViewById(R.id.historyViewPager);
+        View view = inflater.inflate(R.layout.session_fragment, container, false);
+        viewPager = (ViewPager) view.findViewById(R.id.historyViewPager);
 //        setUpViewPager(viewPager);
 
-        sessionRecyclerView = (RecyclerView)view.findViewById(R.id.session_recyclerView);
+        sessionRecyclerView = (RecyclerView) view.findViewById(R.id.session_recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         sessionRecyclerView.setLayoutManager(layoutManager);
-        SessionFragmentAdapter sessionFragmentAdapter = new SessionFragmentAdapter(getActivity(),list);
+        SessionFragmentAdapter sessionFragmentAdapter = new SessionFragmentAdapter(getActivity(), list);
         sessionRecyclerView.setAdapter(sessionFragmentAdapter);
 
-        tabLayout = (TabLayout)view.findViewById(R.id.historyTabLayout);
+        tabLayout = (TabLayout) view.findViewById(R.id.allCreatedTab);
 //        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorGreen));
 //        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
 //        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
@@ -78,10 +76,10 @@ public class SessionFragment extends Fragment {
     class ViewpagerAdapter extends FragmentPagerAdapter {
 
         Context context;
-//        private final List<Fragment> mFragmentList = new ArrayList<>();
+
+        //        private final List<Fragment> mFragmentList = new ArrayList<>();
 //        private final List<String> mFragmentTitleList = new ArrayList<>();
-        public ViewpagerAdapter(@NonNull FragmentManager fm, Context context)
-        {
+        public ViewpagerAdapter(@NonNull FragmentManager fm, Context context) {
             super(fm);
             this.context = context;
         }
@@ -114,8 +112,7 @@ public class SessionFragment extends Fragment {
 
         @Nullable
         @Override
-        public CharSequence getPageTitle(int position)
-        {
+        public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
                     return context.getString(R.string.session_fragment);
@@ -123,8 +120,8 @@ public class SessionFragment extends Fragment {
                     return context.getString(R.string.payment_fragment);
                 case 2:
                     return context.getString(R.string.review_fragment);
-                    default:
-                        return null;
+                default:
+                    return null;
             }
         }
     }

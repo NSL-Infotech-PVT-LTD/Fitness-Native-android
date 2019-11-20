@@ -87,7 +87,7 @@
             android:name=".activities.CoachBottomNavigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.HistoryActivity"
+            android:name=".activities.AllCreatedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FindSpaceActivity"

@@ -106,7 +106,7 @@
         <item name="android:textColor">@color/roboto_calendar_day_of_the_month_font</item>
     </style>
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/yelloBackground</item>
-        <item name="colorControlActivated">@color/lightGrayFont</item>
+        <item name="colorControlNormal">@color/lightGrayFont</item>
+        <item name="colorControlActivated">@color/coloryellow</item>
     </style>
 </resources>
