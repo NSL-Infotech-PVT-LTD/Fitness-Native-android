@@ -254,7 +254,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements View.OnC
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
-        Call<AthleteSignUpResponse> updateDetail = retrofitinterface.updateProfile(userImg, requestBodyMap);
+        Call<AthleteSignUpResponse> updateDetail = retrofitinterface.updateProfile("",userImg, requestBodyMap);
         updateDetail.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {

@@ -21,10 +21,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.SelectServices;
 import com.netscape.utrain.activities.SelectedServiceList;
 import com.netscape.utrain.activities.ServicePriceActivity;
+import com.netscape.utrain.activities.UpdateProfileActivity;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.adapters.DialogAdapter;
@@ -66,20 +68,21 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class ChooseSportActivity extends AppCompatActivity implements SportsAdapter.RecyclePosition {
 
     public static boolean coachActive = false;
+    public static boolean athUpdate = false;
     ActivityChooseSportBinding binding;
     SportsAdapter adapter;
     Retrofitinterface api;
     int mPosition;
+    String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
+    //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
+    JsonArray jsonArray;
     private String activeUserType = "";
     private String createCoachStaff = "";
     private OrgUserDataModel orgDataModel;
     private File mediaStorageDir;
-
-    String mSport, athName, athEmail, athPhone, athAddress, athPwd, athExperience, athAchieve, latitude, longitude;
-    //    String phone, address, experience, achievement,fbImage;       // Used to take intent from last page....
-    JsonArray jsonArray;
     private List<SportListModel.DataBeanX.DataBean> sportsList = new ArrayList<>();
     private List<SportListModel.DataBeanX.DataBean> sportsListAll = new ArrayList<>();
+    private List<SportListModel.DataBeanX.DataBean> selecteSports;
     private AthleteUserModel athModel;
     private ProgressDialog progressDialog;
 
@@ -105,10 +108,20 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         progressDialog.setMessage("Loading....");
         sportsListAll.clear();
         init();
+        if (athUpdate) {
 
-        if (sportsListAll != null && sportsListAll.size() > 0) {
+            binding.athSignUp.setText("Update");
+            if (sportsListAll != null && sportsListAll.size() > 0) {
+            } else {
+                sportsListApi();
+            }
         } else {
-            sportsListApi();
+
+
+            if (sportsListAll != null && sportsListAll.size() > 0) {
+            } else {
+                sportsListApi();
+            }
         }
 
 
@@ -138,15 +151,20 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
                     intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
                     startActivity(intent);
-                }  else {
-                     if (createCoachStaff!=null && createCoachStaff.equalsIgnoreCase("orgstaffCreate")) {
+                } else if (athUpdate) {
+                    if (sportsList != null && sportsList.size() > 0) {
+                        hitUpdateAthleteDetailApi();
+                    } else {
+                        Toast.makeText(ChooseSportActivity.this, "Choose At least one sport", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (createCoachStaff != null && createCoachStaff.equalsIgnoreCase("orgstaffCreate")) {
 
                         orgCoachRegisterApi();
 
+                    } else {
+                        athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
                     }
-                     else {
-                         athleteSignUpApi(athEmail, athPwd, athName, athPhone, athAddress, athExperience, athAchieve);
-                     }
                 }
             }
         });
@@ -154,10 +172,11 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
 
     }
-    private void athleteUpdate(){
+
+    private void athleteUpdate() {
 
         if (getIntent().hasExtra("update"))
-        binding.athSignUp.setText(getResources().getString(R.string.update));
+            binding.athSignUp.setText(getResources().getString(R.string.update));
         String name = getIntent().getStringExtra("name");
         String email = getIntent().getStringExtra("email");
         String phone = getIntent().getStringExtra("phone");
@@ -170,24 +189,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
 
     private void init() {
+        getSelectedList();
 
-        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORT_NAME, getApplicationContext());
-        Gson gson = new Gson();
-        if (sportName != null) {
-            if (sportName.isEmpty()) {
-            } else {
-                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
-                }.getType();
-                sportsListAll = gson.fromJson(sportName, type);
-
-                StringBuilder builder = new StringBuilder();
-                for (SportListModel.DataBeanX.DataBean details : sportsListAll) {
-                    builder.append(details.getName() + "\n");
-
-                }
-
-            }
-        }
         if (sportsListAll != null && sportsListAll.size() > 0) {
             binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
             adapter = new SportsAdapter(sportsListAll, ChooseSportActivity.this, ChooseSportActivity.this);
@@ -195,6 +198,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             for (int i = 0; i < sportsListAll.size(); i++) {
                 if (sportsListAll.get(i).isCheckekd()) {
                     sportsList.add(sportsListAll.get(i));
+                    jsonArray = (JsonArray) new Gson().toJsonTree(sportsList);
+
                 }
             }
         }
@@ -209,7 +214,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             }
         }
 
-         mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+        mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
                 Log.d("App", "failed to create directory");
@@ -222,11 +227,91 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
 
             if (createCoachStaff != null)
-            if (createCoachStaff.equals("orgstaffCreate")) {
-                binding.athSignUp.setText(getResources().getString(R.string.create_coach));
-            }
+                if (createCoachStaff.equals("orgstaffCreate")) {
+                    binding.athSignUp.setText(getResources().getString(R.string.create_coach));
+                }
         }
 
+    }
+
+    private void getSelectedList() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORT_NAME, getApplicationContext());
+        Gson gson = new Gson();
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+//                if (athUpdate) {
+//                    selecteSports = new ArrayList<>();
+//                    selecteSports= gson.fromJson(sportName, type);
+//                    sportsList=selecteSports;
+//                    jsonArray = (JsonArray) new Gson().toJsonTree(sportsList);
+//                    if (selecteSports !=null && selecteSports.size()>0){
+//                        if (sportsListAll != null && sportsListAll.size() > 0) {
+//                            for (int i = 0; i < selecteSports.size(); i++) {
+//                                for (int j=0;j<sportsListAll.size();j++){
+//                                    if (sportsListAll.get(j).getId()==sportsList.get(i).getId()) {
+//                                        sportsListAll.get(j).setCheckekd(true);
+//                                    }
+//                                }
+//                            }
+//                            binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
+//                            adapter = new SportsAdapter(sportsListAll, ChooseSportActivity.this, ChooseSportActivity.this);
+//                            binding.csRecyclerView.setAdapter(adapter);
+//                        }
+//                    }
+//                }else {
+                sportsListAll = gson.fromJson(sportName, type);
+//                }
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportsListAll) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+            }
+        }
+    }
+
+    private void getAthSelectedSports() {
+        String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+        if (sportName != null) {
+            if (sportName.isEmpty()) {
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                if (athUpdate) {
+                    selecteSports = new ArrayList<>();
+                    selecteSports = gson.fromJson(sportName, type);
+                    if (selecteSports != null && selecteSports.size() > 0) {
+                        sportsList = selecteSports;
+                        jsonArray = (JsonArray) new Gson().toJsonTree(sportsList);
+                        if (sportsListAll != null && sportsListAll.size() > 0) {
+                            for (int i = 0; i < selecteSports.size(); i++) {
+                                for (int j = 0; j < sportsListAll.size(); j++) {
+                                    if (sportsListAll.get(j).getId() == sportsList.get(i).getId()) {
+                                        sportsListAll.get(j).setCheckekd(true);
+                                    }
+                                }
+                            }
+                            binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
+                            adapter = new SportsAdapter(sportsListAll, ChooseSportActivity.this, ChooseSportActivity.this);
+                            binding.csRecyclerView.setAdapter(adapter);
+                        }
+                    }
+                } else {
+                    sportsListAll = gson.fromJson(sportName, type);
+                }
+                StringBuilder builder = new StringBuilder();
+                for (SportListModel.DataBeanX.DataBean details : sportsListAll) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+            }
+        }
     }
 
     private void sportsListApi() {
@@ -242,6 +327,9 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                         adapter = new SportsAdapter(response.body().getData().getData(), ChooseSportActivity.this, ChooseSportActivity.this);
                         binding.csRecyclerView.setAdapter(adapter);
                         sportsListAll.addAll(response.body().getData().getData());
+                        if (athUpdate) {
+                            getAthSelectedSports();
+                        }
                     }
                 }
             }
@@ -296,6 +384,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LATITUDE, response.body().getData().getUser().getLatitude() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LONGITUDE, response.body().getData().getUser().getLongitude() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", ChooseSportActivity.this);
@@ -351,7 +441,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(jsonArray)));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
-        Call<ViewCoachListResponse> orgCoachSignUp = api.getOrgCoachRegister(userImg, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, ChooseSportActivity.this),requestBodyMap);
+        Call<ViewCoachListResponse> orgCoachSignUp = api.getOrgCoachRegister(userImg, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, ChooseSportActivity.this), requestBodyMap);
         orgCoachSignUp.enqueue(new Callback<ViewCoachListResponse>() {
             @Override
             public void onResponse(Call<ViewCoachListResponse> call, Response<ViewCoachListResponse> response) {
@@ -444,8 +534,87 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
     @Override
     protected void onDestroy() {
+        athUpdate = false;
         storeServiceIds(sportsListAll);
         super.onDestroy();
+    }
+
+    private void hitUpdateAthleteDetailApi() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading....");
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+        File myFile = (File) getIntent().getSerializableExtra("image");
+        if (myFile != null) {
+            userImg = prepareFilePart("profile_image", myFile.getName(), myFile);
+//            userImg = MultipartBody.Part.createFormData( "profile_image",photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+        }
+        Map<String, RequestBody> requestBodyMap = getDefaultParamsBody(this);
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), athName));
+        requestBodyMap.put("email", RequestBody.create(MediaType.parse("multipart/form-data"), athEmail));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), athPhone));
+        requestBodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), athAddress));
+        requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), athExperience));
+        requestBodyMap.put("achievements", RequestBody.create(MediaType.parse("multipart/form-data"), athAchieve));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(jsonArray)));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), latitude));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), longitude));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+        Call<AthleteSignUpResponse> updateDetail = api.updateProfile("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), userImg, requestBodyMap);
+        updateDetail.enqueue(new Callback<AthleteSignUpResponse>() {
+            @Override
+            public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful())
+                    if (response.body().isStatus()) {
+                        if (response.body() != null) {
+                            Toast.makeText(ChooseSportActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
+                            File mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
+                            CommonMethods.deleteDirectory(mediaStorageDir);
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
+                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Athlete, ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LATITUDE, response.body().getData().getUser().getLatitude() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LONGITUDE, response.body().getData().getUser().getLongitude() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_ACHIEVE, response.body().getData().getUser().getAchievements() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", ChooseSportActivity.this);
+//                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), ChooseSportActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
+
+                            Intent updatedDetail = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
+                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(updatedDetail);
+                        } else {
+                            Toast.makeText(ChooseSportActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(ChooseSportActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                // isStatus error message here....
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(ChooseSportActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
     }
 
 

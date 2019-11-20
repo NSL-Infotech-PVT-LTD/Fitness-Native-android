@@ -11,6 +11,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.facebook.common.Common;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.databinding.ActivityMyProfileBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
@@ -63,7 +64,9 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent editProfileActivity = new Intent(MyProfile.this, UpdateProfileActivity.class);
+                Intent editProfileActivity = new Intent(MyProfile.this, AthleteSignupActivity.class);
+                AthleteSignupActivity.Update=true;
+                CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                 startActivity(editProfileActivity);
             }
         });
