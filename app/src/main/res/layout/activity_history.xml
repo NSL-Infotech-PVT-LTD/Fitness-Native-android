@@ -60,24 +60,23 @@
             app:layout_constraintTop_toTopOf="@id/Guideline">
 
 
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/allCreatedTab"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
                 app:tabBackground="@drawable/selctor_tab"
                 app:tabGravity="fill"
                 app:tabIndicator="@color/colorTransparent"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorBlack"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabMode="fixed"
                 app:tabTextColor="@color/lightGrayFont" />
 
 
@@ -90,8 +89,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/allCreatedTab" />
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

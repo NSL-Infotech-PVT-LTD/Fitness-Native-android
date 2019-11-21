@@ -46,13 +46,14 @@ public class AllCreatedActivity extends AppCompatActivity {
         binding.allCreatedTab.setTabTextColors(Color.parseColor("#D6D6D6"), Color.parseColor("#ffffff"));
         binding.allCreatedTab.setupWithViewPager(binding.allCreatedViewPager);
 
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete)){
-            setupAthViewPager(binding.allCreatedViewPager);
-            wrapTabIndicatorToTitle(binding.allCreatedTab, 200, 200);
-
-        }else {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+//            setupAthViewPager(binding.allCreatedViewPager);
             setupViewPager(binding.allCreatedViewPager);
-//            wrapTabIndicatorToTitle(binding.allCreatedTab, 100, 50);
+            wrapTabIndicatorToTitle(binding.allCreatedTab, 120, 60);
+
+        } else {
+            setupViewPager(binding.allCreatedViewPager);
+            wrapTabIndicatorToTitle(binding.allCreatedTab, 100, 50);
 
         }
     }
@@ -65,15 +66,19 @@ public class AllCreatedActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setupTabIcons() {
         binding.allCreatedTab.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
         binding.allCreatedTab.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
     }
+
     private void setupViewPager(final ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllEventsFragment(), getResources().getString(R.string.events));
         adapter.addFragment(new AllSessionsFragment(), getResources().getString(R.string.sessions));
-        adapter.addFragment(new AllSpacesFragment(), getResources().getString(R.string.spaces));
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
+            adapter.addFragment(new AllSpacesFragment(), getResources().getString(R.string.spaces));
+        }
         viewPager.setAdapter(adapter);
     }
 
@@ -81,36 +86,6 @@ public class AllCreatedActivity extends AppCompatActivity {
         AllCreatedActivity.ViewPagerAdapter adapter = new AllCreatedActivity.ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PaymentSentFragment(), "Sent");
         viewPager.setAdapter(adapter);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            return mFragmentTitleList.get(position);
-        }
     }
 
     public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
@@ -150,6 +125,36 @@ public class AllCreatedActivity extends AppCompatActivity {
         } else {
             layoutParams.leftMargin = start;
             layoutParams.rightMargin = end;
+        }
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            return mFragmentTitleList.get(position);
         }
     }
 }

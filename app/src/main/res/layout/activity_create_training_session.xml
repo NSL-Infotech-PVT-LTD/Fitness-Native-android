@@ -31,7 +31,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_training_session"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toRightOf="@+id/ctsBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,11 +48,12 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/createTrainingSessionTv"
-            app:layout_constraintRight_toRightOf="@+id/createTrainingSessionTv"
+            app:layout_constraintRight_toLeftOf="@+id/createEventImg"
             app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -68,6 +69,8 @@
             android:background="@drawable/card_shape_outline"
             android:elevation="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/Guideline">
 
             <ScrollView
@@ -323,10 +326,6 @@
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
                         app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
-
-
-
-
 
 
                     <com.google.android.material.textview.MaterialTextView

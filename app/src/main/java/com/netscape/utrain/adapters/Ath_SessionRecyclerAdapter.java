@@ -56,18 +56,21 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
         final AthleteSessionModel data = supplierData.get(position);
 
-
+        holder.trainingSessionVenueDetailTv.setText(data.getLocation());
         holder.eventName.setText(data.getName());
+        holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
+        holder.trainingSessionTimeEnterTv.setText(data.getStart_time()+" To "+data.getEnd_time());
+
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
 //        holder.athleteEventAddressTv.setText(data.getLocation());
 //        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
 
-        holder.eventStartDateTimeEnterTv.setText(data.getStart_date() + " " + data.getStart_time()+ " ");
+        holder.eventStartDateTimeEnterTv.setText(data.getStart_date() + " " + data.getStart_time() + " ");
         holder.findPlaceActualPriceTv.setText("$" + data.getHourly_rate() + "/hr");
 
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
-            if (jsonArray !=null && jsonArray.length()>0){
+            if (jsonArray != null && jsonArray.length() > 0) {
                 Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.trainingSessionPlaceImage);
             }
         } catch (JSONException e) {
@@ -135,8 +138,8 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, findPlaceDistanceDetailTv, findPlaceActualPriceTv;
-        private MaterialTextView eventStartDateTimeEnterTv;
+        private AppCompatTextView eventName, findPlaceDistanceDetailTv, findPlaceActualPriceTv,trainingSessionEndDateEnterTv,trainingSessionTimeEnterTv;
+        private MaterialTextView eventStartDateTimeEnterTv, trainingSessionVenueDetailTv;
         private AppCompatImageView trainingSessionPlaceImage;
         private MaterialButton viewPlacesBtn;
 
@@ -147,12 +150,15 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            trainingSessionVenueDetailTv = itemView.findViewById(R.id.trainingSessionVenueDetailTv);
             findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
             eventName = itemView.findViewById(R.id.trainingSessionProfessionDesc);
             trainingSessionPlaceImage = itemView.findViewById(R.id.trainingSessionPlaceImage);
             viewPlacesBtn = itemView.findViewById(R.id.viewPlacesBtn);
             eventStartDateTimeEnterTv = itemView.findViewById(R.id.trainingSessionStrtDateEnterTv);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
+            trainingSessionEndDateEnterTv = itemView.findViewById(R.id.trainingSessionEndDateEnterTv);
+            trainingSessionTimeEnterTv = itemView.findViewById(R.id.trainingSessionTimeEnterTv);
 //
 //            container = itemView.findViewById(R.id.container);
 //            ratingBar = itemView.findViewById(R.id.supplierRating);

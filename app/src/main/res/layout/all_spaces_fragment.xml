@@ -8,12 +8,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orgSpaceRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="All Spaces"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_30sdp" />
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
