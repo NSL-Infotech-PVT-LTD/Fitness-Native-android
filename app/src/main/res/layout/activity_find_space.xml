@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/find_space"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_20sdp"
         android:src="@drawable/ic_date"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,10 +34,9 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="@dimen/_240sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/create_event_dummytxt"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="@+id/findSpaceHeaderTv"
         app:layout_constraintTop_toBottomOf="@id/findSpaceHeaderTv" />
 
@@ -47,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

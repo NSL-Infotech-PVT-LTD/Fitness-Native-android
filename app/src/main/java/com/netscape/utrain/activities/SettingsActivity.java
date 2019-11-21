@@ -13,12 +13,14 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.ChooseSportActivity;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivitySettingsBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivitySettingsBinding binding;
 
@@ -35,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
         textViewOn = findViewById(R.id.switchOnON);
         textViewOff = findViewById(R.id.switchOffOFF);
         setProfileImage();
+        inIt();
         switchMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +68,14 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    private void inIt() {
+
+        binding.basicProfileClickImg.setOnClickListener(this);
+        binding.chooseSportsClickImg.setOnClickListener(this);
+        binding.chooseServicesClickimg.setOnClickListener(this);
+
+    }
+
     private void setProfileImage() {
 
         String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, SettingsActivity.this);
@@ -73,5 +84,22 @@ public class SettingsActivity extends AppCompatActivity {
 //            Glide.with(SettingsActivity.this).load(Constants.IMAGE_BASE_URL + img).thumbnail(Glide.with(SettingsActivity.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + img)).into(headerImage);
 //            navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, SettingsActivity.this));
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.basicProfileClickImg:
+                startActivity(new Intent(SettingsActivity.this, OrganizationSignUpActivity.class));
+                break;
+            case R.id.chooseSportsClickImg:
+                startActivity(new Intent(SettingsActivity.this, ChooseSportActivity.class));
+                break;
+            case R.id.chooseServicesClickimg:
+                startActivity(new Intent(SettingsActivity.this, ServicePriceActivity.class));
+                break;
+        }
+
+
     }
 }

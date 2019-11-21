@@ -23,30 +23,30 @@
             android:layout_height="@dimen/_50sdp"
             android:background="@drawable/gradiant_design_bottom_square"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></View>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Attendies List"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintLeft_toLeftOf="@+id/view"
-            app:layout_constraintTop_toTopOf="@+id/view"></com.google.android.material.textview.MaterialTextView>
+            app:layout_constraintLeft_toRightOf="@+id/backArrow"
+            app:layout_constraintTop_toTopOf="@+id/view"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/backArrow"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:background="@drawable/lefticonarrowwhite"
             app:layout_constraintBottom_toBottomOf="@+id/titleTv"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/titleTv"></androidx.appcompat.widget.AppCompatImageView>
+            app:layout_constraintTop_toTopOf="@+id/titleTv"/>
 
         <AutoCompleteTextView
             android:id="@+id/search"

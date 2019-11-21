@@ -29,8 +29,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/sportsBackArrowImg"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_backblack"
@@ -42,13 +42,13 @@
             android:id="@+id/summaryOfSports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/sevice_summary_of_sports"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@+id/sportsBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--        <com.google.android.material.textview.MaterialTextView-->

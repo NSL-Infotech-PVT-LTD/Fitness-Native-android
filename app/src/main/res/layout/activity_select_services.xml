@@ -30,8 +30,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/selectServiceBackArrowImg"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_backblack"
@@ -42,13 +42,13 @@
             android:id="@+id/selectServiceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/select_service_text"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@+id/selectServiceBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -121,7 +121,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorLightGray"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_regular"
                 android:text="@string/add"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
