@@ -79,6 +79,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             binding.cAddedFieldLayout.setVisibility(View.GONE);
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
             binding.chooseSportsTv.setText("Portfolio");
+            binding.chooseSportsClickImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SettingsActivity.this, PortfolioActivity.class));
+                }
+            });
+
         }
 
 
