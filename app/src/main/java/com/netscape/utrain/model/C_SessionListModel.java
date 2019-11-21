@@ -25,6 +25,87 @@ public class C_SessionListModel {
     private String phone;
     private int max_occupancy;
     private int created_by;
+    private String start_date;
+    private String end_date;
+    private String start_time;
+    private String end_time;
+    private String location;
+    private String latitude;
+    private String longitude;
+    private String guest_allowed;
+    private String guest_allowed_left;
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getGuest_allowed() {
+        return guest_allowed;
+    }
+
+    public void setGuest_allowed(String guest_allowed) {
+        this.guest_allowed = guest_allowed;
+    }
+
+    public String getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(String guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
+    }
 
     public int getId() {
         return id;

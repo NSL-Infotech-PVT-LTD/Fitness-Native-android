@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.AthletePlaceModel;
@@ -51,25 +52,21 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
     @Override
     public void onBindViewHolder(@NonNull Ath_PlaceRecyclerAdapter.ViewHolder holder, final int position) {
 
-        final AthletePlaceModel data = supplierData.get(position);
-
-
+        AthletePlaceModel data = supplierData.get(position);
         holder.eventName.setText(data.getName());
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
-//        holder.placenameTv.setText(data.getLocation());
-//        holder.eventEndDateTimeEnterTv.setText(data.get());
         holder.placenameTv.setText(data.getLocation());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " miles");
+        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
+
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());
-            if (jsonArray!=null && jsonArray.length()>0){
+            if (jsonArray != null && jsonArray.length() > 0) {
                 Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventProfileImg);
             }
 
         } catch (JSONException e) {
 
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +79,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 intent.putExtra("eventALLImages", data.getImages());
                 intent.putExtra("eventDate", data.getAvailability_week());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
-                intent.putExtra("event_id", data.getId()+"");
+                intent.putExtra("event_id", data.getId() + "");
                 intent.putExtra("from", "places");
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
@@ -124,7 +121,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private AppCompatTextView eventName, placenameTv, findPlaceDistanceDetailTv, findPlaceActualPriceTv;
+        private MaterialTextView eventName, placenameTv, findPlaceDistanceDetailTv, findPlaceActualPriceTv;
         private AppCompatImageView eventProfileImg;
         private MaterialButton viewPlacesBtn;
 

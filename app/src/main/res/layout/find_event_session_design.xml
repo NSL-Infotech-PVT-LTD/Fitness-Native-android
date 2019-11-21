@@ -52,40 +52,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:singleLine="true"
                 android:maxLength="16"
+                android:singleLine="true"
                 android:text="@string/discoverRecylerName"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@id/discoverImageCard"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/trainingSessionPlaceTypeTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/address"-->
-<!--                android:textSize="@dimen/_8sdp"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/trainingSessionProfessionDesc"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/trainingSessionProfessionDesc" />-->
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/trainingSessionPlaceTypeTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="@string/address"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@id/trainingSessionProfessionDesc"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/trainingSessionProfessionDesc" />-->
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/trainingSessionPlacenameTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="@dimen/_13sdp"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:paddingRight="@dimen/_10sdp"-->
-<!--                android:singleLine="true"-->
-<!--                android:text="@string/park"-->
-<!--                android:textSize="@dimen/_8sdp"-->
-<!--                app:layout_constraintHorizontal_bias="0"-->
-<!--                app:layout_constraintLeft_toRightOf="@+id/trainingSessionPlaceTypeTv"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/trainingSessionProfessionDesc"-->
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/trainingSessionPlacenameTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="@dimen/_13sdp"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:paddingRight="@dimen/_10sdp"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="@string/park"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintHorizontal_bias="0"-->
+            <!--                app:layout_constraintLeft_toRightOf="@+id/trainingSessionPlaceTypeTv"-->
+            <!--                app:layout_constraintRight_toRightOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/trainingSessionProfessionDesc"-->
 
-<!--                />-->
+            <!--                />-->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/findPlaceCandidateTv"
@@ -101,14 +101,14 @@
                 android:id="@+id/trainingSessionVenueDetailTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:singleLine="true"
-                android:maxLength="18"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="@string/number_of_candidate_on_place"
+                android:fontFamily="@font/poppins_regular"
+                android:maxLength="18"
+                android:singleLine="true"
+
                 android:textSize="@dimen/_8sdp"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/findPlaceCandidateTv"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionProfessionDesc" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
-                android:text="@string/date_time_format"
+
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionVenueDetailTv" />
@@ -149,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
-                android:text="@string/date_time_format"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionStrtDateEnterTv" />
@@ -170,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
-                android:text="@string/time_format"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@id/trainingSessionVenueDetailTv"
                 app:layout_constraintTop_toBottomOf="@id/trainingSessionEndDateEnterTv" />
@@ -192,7 +190,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
-                android:text="@string/distance"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_8sdp"
                 android:textStyle="bold"
@@ -217,7 +214,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:singleLine="true"
-                android:text="@string/price_display"
                 android:textColor="@color/notificationRedIcon"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/trainingSessionVenueDetailTv"

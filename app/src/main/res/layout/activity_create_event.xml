@@ -31,7 +31,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_event"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintLeft_toRightOf="@+id/ceBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,8 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
             app:layout_constraintRight_toLeftOf="@+id/ceEventImg"
             app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />

@@ -21,12 +21,27 @@ public class LoginChildModel {
     private String portfolio_image;
     private String params;
     private String state;
+    private String profession;
     private String created_at;
     private String updated_at;
     private String deleted_at;
     private String token;
     private String business_hour_starts;
     private String business_hour_ends;
+    private List<RolesModel> roles;
+    private String experience_detail;
+    private String training_service_detail;
+    private String achievements;
+    private String sport_id;
+    private List<ServiceIdModel> service_ids;
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
     public String getBusiness_hour_starts() {
         return business_hour_starts;
@@ -43,15 +58,6 @@ public class LoginChildModel {
     public void setBusiness_hour_ends(String business_hour_ends) {
         this.business_hour_ends = business_hour_ends;
     }
-
-    private List<RolesModel> roles;
-
-
-    private String experience_detail;
-    private String training_service_detail;
-    private String achievements;
-    private String sport_id;
-    private List<ServiceIdModel> service_ids;
 
     public String getTraining_service_detail() {
         return training_service_detail;

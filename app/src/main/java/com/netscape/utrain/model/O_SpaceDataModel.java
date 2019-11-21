@@ -20,8 +20,44 @@ public class O_SpaceDataModel {
     private int price_hourly;
     private String availability_week;
     private String location;
+    private String latitude;
+    private String longitude;
+    private String open_hours_from;
+    private String open_hours_to;
     private int created_by;
     private int price_daily;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getOpen_hours_from() {
+        return open_hours_from;
+    }
+
+    public void setOpen_hours_from(String open_hours_from) {
+        this.open_hours_from = open_hours_from;
+    }
+
+    public String getOpen_hours_to() {
+        return open_hours_to;
+    }
+
+    public void setOpen_hours_to(String open_hours_to) {
+        this.open_hours_to = open_hours_to;
+    }
 
     public String getLocation() {
         return location;

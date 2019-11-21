@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_108sdp"
-    android:layout_marginTop="@dimen/_5sdp" >
+    android:layout_marginTop="@dimen/_5sdp">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -71,8 +71,8 @@
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:paddingRight="@dimen/_10sdp"
-                android:text="@string/park"
                 android:singleLine="true"
+                android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toRightOf="@+id/placenamesTv"
@@ -81,27 +81,27 @@
 
                 />
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/findPlaceCandidateTv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/occupancy"-->
-<!--                android:textSize="@dimen/_8sdp"-->
-<!--                app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/findPlaceCandidateTv"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="@string/occupancy"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@+id/placenamesTv"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
 
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/findPlaceCandidateDetailTv"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
+            <!--            <com.google.android.material.textview.MaterialTextView-->
+            <!--                android:id="@+id/findPlaceCandidateDetailTv"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
 
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="@string/number_of_candidate_on_place"-->
-<!--                android:textSize="@dimen/_8sdp"-->
-<!--                app:layout_constraintLeft_toLeftOf="@id/placenameTv"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="@string/number_of_candidate_on_place"-->
+            <!--                android:textSize="@dimen/_8sdp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@id/placenameTv"-->
+            <!--                app:layout_constraintRight_toRightOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/placenameTv" />-->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/findPlaceDistanceTv"
@@ -116,15 +116,15 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/findPlaceDistanceDetailTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:text="@string/distance"
-                android:textSize="@dimen/_8sdp"
-
-                android:textStyle="bold"
+                android:maxLines="2"
                 android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="@id/placenameTv"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/placenameTv" />
 
 
