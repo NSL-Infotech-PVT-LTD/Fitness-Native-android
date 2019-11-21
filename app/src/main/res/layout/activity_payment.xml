@@ -28,14 +28,14 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/select_payment"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_16sdp"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintLeft_toLeftOf="@id/paymentBackImg"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/paymentBackImg"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:src="@drawable/ic_backblack"
@@ -46,7 +46,6 @@
                     android:id="@+id/paymentDemo"
                     android:layout_width="@dimen/_240sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/payment_demo"
                     android:textSize="@dimen/_10sdp"

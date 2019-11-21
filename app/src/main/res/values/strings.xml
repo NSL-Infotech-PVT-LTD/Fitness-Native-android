@@ -424,4 +424,6 @@
     <string name="sessions">Sessions</string>
     <string name="spaces">Spaces</string>
     <string name="my_services">My Services</string>
+    <string name="basic_profile">Basic Profile</string>
+    <string name="choose_sports">Choose Sports</string>
 </resources>

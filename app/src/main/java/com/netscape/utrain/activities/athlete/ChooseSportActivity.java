@@ -65,7 +65,7 @@ import retrofit2.Retrofit;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class ChooseSportActivity extends AppCompatActivity implements SportsAdapter.RecyclePosition {
+public class ChooseSportActivity extends AppCompatActivity implements SportsAdapter.RecyclePosition, View.OnClickListener {
 
     public static boolean coachActive = false;
     public static boolean athUpdate = false;
@@ -96,6 +96,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         binding = DataBindingUtil.setContentView(ChooseSportActivity.this, R.layout.activity_choose_sport);
         binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        inIt();
 
 
 //        phone = getIntent().getStringExtra("phone");
@@ -617,5 +618,18 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
     }
 
+    private void inIt() {
 
+        binding.csBackArrowImg.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.csBackArrowImg:
+                finish();
+        }
+    }
 }
