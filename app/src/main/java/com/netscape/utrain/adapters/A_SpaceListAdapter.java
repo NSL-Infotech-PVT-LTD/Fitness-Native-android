@@ -2,13 +2,18 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +24,13 @@ import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.model.A_SpaceDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
+import com.netscape.utrain.utils.RatingInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,14 +41,19 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     onSpaceClick onSpaceClick;
     private Context context;
+    private RatingInterface onRatingClick;
     private int previusPos = -1;
     private List<AthleteSpaceBookList.DataBeanX.DataBean> supplierData;
     private JSONArray jsonArray;
+    private int type;
+    private AlertDialog dialogMultiOrder;
 
-    public A_SpaceListAdapter(Context context, List supplierData, onSpaceClick onSpaceClick) {
+    public A_SpaceListAdapter(Context context, List supplierData, onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
         this.context = context;
         this.onSpaceClick = onSpaceClick;
         this.supplierData = supplierData;
+        this.type=typ;
+        this.onRatingClick=onRateClick;
 
     }
 
@@ -97,24 +109,96 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             public void onClick(View view) {
 
                 onSpaceClick.getSpaceAmount(data);
-//                Intent intent = new Intent(context, EventDetail.class);
-//                intent.putExtra("eventName", data.getSpace().getName());
-////                intent.putExtra("eventVenue", data.getSpace().getLocation());
-////                intent.putExtra("evenStartDateTime", data.get);
-//                intent.putExtra("eventALLImages", data.getSpace().getImages());
-//                intent.putExtra("eventDate", data.getSpace().getAvailability_week());
-//                intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
-//                intent.putExtra("event_id", data.getSpace().getId());
-//                intent.putExtra("from", "places");
-//                Bundle b = new Bundle();
-//                b.putString("Array", data.getSpace().getImages());
-//                intent.putExtras(b);
-//
-//                context.startActivity(intent);
+
+            }
+        });
+
+        if (type==1) {
+            holder.completedRatingText.setVisibility(View.VISIBLE);
+        }
+        holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleImageSelection(data);
 
             }
         });
     }
+    public void handleImageSelection(AthleteSpaceBookList.DataBeanX.DataBean data) {
+
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View content = inflater.inflate(R.layout.rating_design, null);
+        builder.setView(content);
+        ImageView cancel = (ImageView) content.findViewById(R.id.cancelDialog);
+        AppCompatImageView ratingProfileImg = (AppCompatImageView) content.findViewById(R.id.ratingProfileImg);
+        MaterialTextView ratingNnameTv = (MaterialTextView) content.findViewById(R.id.ratingNnameTv);
+        MaterialTextView servicesTv = (MaterialTextView) content.findViewById(R.id.servicesTv);
+        RatingBar ratingBar = (RatingBar) content.findViewById(R.id.ratingBooking);
+        dialogMultiOrder = builder.create();
+        dialogMultiOrder.setCancelable(false);
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
+            ratingNnameTv.setText(data.getTarget_data().getName());
+            try {
+                if (data.getTarget_data().getImages() != null) {
+
+                    JSONArray jsonArray = new JSONArray(data.getTarget_data().getImages());
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(ratingProfileImg);
+                    }
+                }
+
+            } catch (JSONException e) {
+
+                Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }else {
+            ratingNnameTv.setText(data.getSpace().getName());
+            try {
+                if (data.getSpace().getImages() != null) {
+
+                    JSONArray jsonArray = new JSONArray(data.getSpace().getImages());
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(ratingProfileImg);
+                    }
+                }
+
+            } catch (JSONException e) {
+
+                Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+
+
+
+
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                dialogMultiOrder.dismiss();
+                onRatingClick.ratingVallue(data.getId(),v,data.getType());
+
+//               rateService(data.getId(),v,rateMaterialTv);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogMultiOrder.dismiss();
+            }
+        });
+
+        dialogMultiOrder.show();
+        dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
 
     @Override
     public int getItemCount() {
@@ -128,7 +212,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage,ti_tickets;
-        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv;
+        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv,completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -138,6 +222,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
+            completedRatingText = itemView.findViewById(R.id.completedRatingText);
 //            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
         }
     }

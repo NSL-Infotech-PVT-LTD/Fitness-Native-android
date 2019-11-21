@@ -1,5 +1,6 @@
 package com.netscape.utrain.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,26 +30,41 @@ import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_EventDataModel;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.O_EventDataModel;
+import com.netscape.utrain.response.RatingResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.RatingInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.CustomTopCoachesHolder> {
 
-    onEventClick onEventClick;
-
+    private onEventClick onEventClick;
+    private RatingInterface onRatingClick;
+    private ProgressDialog progressDialog;
     private Context context;
+    private Retrofitinterface retrofitinterface;
     private int previusPos = -1;
     private List<AthleteBookListModel.DataBeanX.DataBean> a_eventList;
-    private AlertDialog dialogMultiOrder;
-
-    public A_EventListAdapter(Context context, List supplierData, onEventClick onEventClick) {
+        private AlertDialog dialogMultiOrder;
+    private int type;
+    public A_EventListAdapter(Context context, List supplierData, onEventClick onEventClick, int typ, RatingInterface rating) {
         this.context = context;
         this.a_eventList = supplierData;
         this.onEventClick = onEventClick;
+        this.type=typ;
+        this.onRatingClick=rating;
 
     }
 
@@ -93,16 +110,16 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 onEventClick.eventAmount(data);
             }
         });
-
-        holder.completedRatingText.setVisibility(View.VISIBLE);
+        if (type==1) {
+            holder.completedRatingText.setVisibility(View.VISIBLE);
+        }
         holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                handleImageSelection(data);
+                handleImageSelection(data,holder.completedRatingText);
 
             }
         });
@@ -113,7 +130,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         return a_eventList.size();
     }
 
-    public void handleImageSelection(AthleteBookListModel.DataBeanX.DataBean data) {
+    public void handleImageSelection(AthleteBookListModel.DataBeanX.DataBean data,MaterialTextView rateMaterialTv) {
 
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -122,8 +139,12 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         builder.setView(content);
         ImageView cancel = (ImageView) content.findViewById(R.id.cancelDialog);
         AppCompatImageView ratingProfileImg = (AppCompatImageView) content.findViewById(R.id.ratingProfileImg);
+        MaterialTextView ratingNnameTv = (MaterialTextView) content.findViewById(R.id.ratingNnameTv);
+        MaterialTextView servicesTv = (MaterialTextView) content.findViewById(R.id.servicesTv);
+        RatingBar ratingBar = (RatingBar) content.findViewById(R.id.ratingBooking);
         dialogMultiOrder = builder.create();
         dialogMultiOrder.setCancelable(false);
+        ratingNnameTv.setText(data.getEvent().getName());
 //        dialogMultiOrder.setCanceledOnTouchOutside(false);
         try {
             if (data.getEvent().getImages() != null) {
@@ -147,7 +168,15 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+       ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+           @Override
+           public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+               dialogMultiOrder.dismiss();
+               onRatingClick.ratingVallue(data.getId(),v,data.getType());
 
+//               rateService(data.getId(),v,rateMaterialTv);
+           }
+       });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +192,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
     public interface onEventClick {
         public void eventAmount(AthleteBookListModel.DataBeanX.DataBean dataBean);
     }
+
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
@@ -182,6 +212,48 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 
         }
     }
+//    public void rateService(int id,float rating,MaterialTextView rateTv) {
+//        progressDialog=new ProgressDialog(context);
+//        progressDialog.setMessage("Loading..");
+//        progressDialog.show();
+//        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+//        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),  id+"", rating+"");
+//        call.enqueue(new Callback<RatingResponse>() {
+//            @Override
+//            public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
+//                if (response.body() != null) {
+//                    progressDialog.dismiss();
+//                    if (response.body().isStatus()) {
+//                        rateTv.setVisibility(View.GONE);
+//                        Toast.makeText(context, ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                    }else {
+//                        Toast.makeText(context, ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } else {
+//
+//                    progressDialog.dismiss();
+//                    try {
+//                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//
+//                        Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//
+//                    }
+//
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<RatingResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
 
 }

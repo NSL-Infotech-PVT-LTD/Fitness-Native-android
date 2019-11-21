@@ -267,10 +267,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
                 }
             if (activeUserType != null)
-                if (activeUserType.equals((Constants.TypeOrgCoach)))
+                if (activeUserType.equals((Constants.TypeOrgCoach))) {
                     binding.signUpType.setText(getResources().getString(R.string.coach));
-            binding.orgNextBtn.setText(getResources().getString(R.string.one_more_step));
-
+                    binding.orgNextBtn.setText(getResources().getString(R.string.one_more_step));
+                }
         }
 
         setUpGClient();

@@ -35,6 +35,7 @@ import com.netscape.utrain.response.O_SessionListResponse;
 import com.netscape.utrain.response.O_SpaceListResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
+import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.response.SpaceBookingResponse;
@@ -488,10 +489,13 @@ public interface Retrofitinterface {
 
     @POST(Constants.BOOKING_NOTIFICATIONS)
     Call<NotificationResponse> notifications(@Header("Content-Type") String Content_type,
-                                             @Header("Authorization") String Authorization
-    );
+                                             @Header("Authorization") String Authorization);
 
 
-
+    @POST(Constants.BOOKING_RATING)
+    Call<RatingResponse> setbookingRating(@Header("Content-Type") String Content_type,
+                                          @Header("Authorization") String Authorization,
+                                          @Query("booking_id") String booking_id,
+                                          @Query("rating") String rating );
 
 }
