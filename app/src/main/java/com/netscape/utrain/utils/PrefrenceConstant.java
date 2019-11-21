@@ -30,9 +30,16 @@ public class PrefrenceConstant {
     public static final String DEVICE_TOKEN = "deviceToken";
     public static final String ADDRESS = "address";
     public static final String BIO = "bio";
+    public static final String USER_LONG = "loginLat";
+    public static final String USER_LAT = "loginLong";
     public static final String USER_TRAINING_DETAIL = "userTrainingDetail";
     public static final String EXPERTISE_YEAR = "expertise_years" ;
     public static final String BUSINESS_HOUR_START = "business_hour_starts" ;
+    public static final String BUSINESS_HOUR_ENDS = "business_hour_ends" ;
+    public static final String PORT_FOLIO_IMAGES = "portFoliImages" ;
+    public static final String ACHIVEMENTS = "achiveMents" ;
+    public static final String PROFESSION = "userProfession" ;
+    public static final String EXPERIENCE_DETAILS = "userExperienceDetails" ;
 
     public static String USER_ACHIEVE = "acheive";
     public static String USER_LATITUDE = "ulat";

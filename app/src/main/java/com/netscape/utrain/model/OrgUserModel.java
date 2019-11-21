@@ -40,11 +40,29 @@ public class OrgUserModel {
     private String portfolio_image;
     private String updated_at;
     private String created_at;
+    private String achievements;
+    private String profession;
     private String experience_detail;
     private String training_service_detail;
     private int id;
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
     public String getExperience_detail() {
         return experience_detail;

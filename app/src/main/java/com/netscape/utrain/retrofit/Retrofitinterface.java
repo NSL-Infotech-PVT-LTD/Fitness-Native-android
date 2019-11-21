@@ -244,6 +244,11 @@ public interface Retrofitinterface {
     @POST(Constants.ORG_SIGNUP)
     Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
                                                  @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.ORG_SIGNUP)
+    Call<OrgSignUpResponse> updateOrgBasicInfo(@Header("Authorization") String auth,
+                                               @PartMap Map<String, RequestBody> fields,
+                                               @Part MultipartBody.Part image);
 
 
     @Multipart
