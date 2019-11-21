@@ -51,11 +51,13 @@ import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_SessionListResponse;
 import com.netscape.utrain.response.O_SpaceListResponse;
+import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
+import com.netscape.utrain.utils.RatingInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,7 +81,7 @@ import retrofit2.Response;
  * Use the {@link O_CmpEventFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.onEventClick, A_SessionListAdapter.onSessionClick, A_SpaceListAdapter.onSpaceClick {
+public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.onEventClick, A_SessionListAdapter.onSessionClick, A_SpaceListAdapter.onSpaceClick, RatingInterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -179,23 +181,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
         bottomSheetBehavior_sort();
         if (count == 1) {
-            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                getCompletedEvents();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
-                getCoachUpcommingEvents();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
-                a_getUpcommingEvents();
-
+            getUserTypeForEvent();
         } else if (count == 2) {
+            getUserTypeForSession();
 
-            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                getCompletedSession();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
-                getCoachUpcommingSession();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
-                a_getUpcommingSession();
         } else if (count == 3) {
-
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                 getCompletedSpaces();
 
@@ -211,6 +201,24 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //        binding.sessionCompletedRecycler.setAdapter(completedEventAdapter);
 //        binding.sessionRejectedRecycler.setAdapter(rejectedEventAdapter);
         return view;
+    }
+
+    private void getUserTypeForSession() {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+            getCompletedSession();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+            getCoachUpcommingSession();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+            a_getUpcommingSession();
+    }
+
+    private void getUserTypeForEvent() {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+            getCompletedEvents();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+            getCoachUpcommingEvents();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+            a_getUpcommingEvents();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -377,7 +385,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_sessionData.addAll(response.body().getData().getData());
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_SessionAdapter);
 
                         } else {
@@ -430,7 +438,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_eventData.addAll(response.body().getData().getData());
-                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this);
+                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
                         } else {
@@ -483,7 +491,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
                             binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -819,8 +827,6 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         ti_locationText.setText(sessionData.getSession().getLocation());
         ti_Booking_Ticket.setText(sessionData.getTickets() + " Attendies & Tickets (1 per person)");
         ti_TotalTicketPrice.setText(sessionData.getTickets() + " Tickets @ $" + sessionData.getSession().getHourly_rate() + " each");
@@ -846,6 +852,61 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         }
         return str;
     }
+
+    @Override
+    public void ratingVallue(int id, float rating,String type) {
+        rateService(id,rating, type);
+    }
+    public void rateService(int id,float rating,String type) {
+        progressDialog.show();
+        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()),  id+"", rating+"");
+        call.enqueue(new Callback<RatingResponse>() {
+            @Override
+            public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
+                if (response.body() != null) {
+                    a_eventData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (type.equalsIgnoreCase("event")){
+                           getUserTypeForEvent();
+                        }
+                        if (type.equalsIgnoreCase("session")){
+                            getUserTypeForSession();
+                        }
+                        if (type.equalsIgnoreCase("space")){
+                            a_getUpcommingSpaces();
+                        }
+
+
+                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RatingResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+            }
 
     /**
      * This interface must be implemented by activities that contain this

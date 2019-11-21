@@ -44,12 +44,16 @@ import com.netscape.utrain.response.C_SessionListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_SessionListResponse;
 import com.netscape.utrain.response.O_SpaceListResponse;
+import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
+import com.netscape.utrain.utils.RatingInterface;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -62,7 +66,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.onSpaceClick, A_SessionListAdapter.onSessionClick, A_EventListAdapter.onEventClick {
+public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.onSpaceClick, A_SessionListAdapter.onSessionClick, A_EventListAdapter.onEventClick, RatingInterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -104,7 +108,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
-    private ImageView customerImage,ti_tickets;
+    private ImageView customerImage, ti_tickets;
 
     public O_UpcEventFragment() {
         // Required empty public constructor
@@ -172,16 +176,20 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                 a_getUpcommingSession();
         } else if (count == 3) {
+            getRoleSpace();
 
-            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                getCoachSpaceBookings();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
-                a_getUpcommingSpaces();
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
-                getCoachSpaceBookings();
         }
 
         return view;
+    }
+
+    private void getRoleSpace() {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+            getCoachSpaceBookings();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+            a_getUpcommingSpaces();
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+            getCoachSpaceBookings();
     }
 
     private void bottomSheetUpDown_address() {
@@ -411,7 +419,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_eventData.addAll(response.body().getData().getData());
-                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_UpcEventFragment.this);
+                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_UpcEventFragment.this,0,O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_EventAdapter);
 
                         } else {
@@ -464,7 +472,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this,1,O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -515,7 +523,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_sessionData.addAll(response.body().getData().getData());
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_UpcEventFragment.this);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_UpcEventFragment.this,0,O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SessionAdapter);
 
                         } else {
@@ -658,6 +666,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             }
         });
     }
+
     public void getCoachSpaceBookings() {
         progressDialog.show();
         Call<AthleteSpaceBookList> call = retrofitinterface.getCoachSpaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
@@ -673,7 +682,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this,1,O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -710,7 +719,21 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     @Override
     public void eventAmount(AthleteBookListModel.DataBeanX.DataBean list) {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
+
+        try {
+            if (list.getEvent().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(list.getEvent().getImages());
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(getContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                }
+            }
+
+        } catch (JSONException e) {
+
+            Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
 
         userName.setText(list.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + list.getId());
@@ -750,15 +773,28 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     @Override
     public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean spaceData) {
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-        {
-            Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer)) {
+//            Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
+            try {
+                if (spaceData.getTarget_data().getImages() != null) {
+                    JSONArray jsonArray = new JSONArray(spaceData.getTarget_data().getImages());
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                    }
+                }
+
+            } catch (JSONException e) {
+
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
             userName.setText(spaceData.getUser_details().getName());
             bookingIdText.setText("Booking ID : " + spaceData.getId());
             bookingPlaceName.setText(spaceData.getTarget_data().getName());
             eventText.setText("Space");
 
-        ti_locationText.setText(spaceData.getTarget_data().getLocation());
+            ti_locationText.setText(spaceData.getTarget_data().getLocation());
             ti_Booking_Ticket.setVisibility(View.GONE);
             ti_tickets.setVisibility(View.GONE);
 
@@ -768,29 +804,58 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             ti_tax.setText("$0.00");
             totalAmount.setText("$" + spaceData.getPrice() + ".00");
             bottomSheetUpDown_address();
-        }else {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
-        userName.setText(spaceData.getUser_details().getName());
-        bookingIdText.setText("Booking ID : " + spaceData.getId());
-        bookingPlaceName.setText(spaceData.getSpace().getName());
-        eventText.setText("Space");
+        } else {
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
 
-        ti_locationText.setText(spaceData.getSpace().getLocation());
-        ti_Booking_Ticket.setVisibility(View.GONE);
-        ti_tickets.setVisibility(View.GONE);
+            try {
+                if (spaceData.getSpace().getImages() != null) {
+                    JSONArray jsonArray = new JSONArray(spaceData.getSpace().getImages());
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                    }
+                }
+
+            } catch (JSONException e) {
+
+                Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            userName.setText(spaceData.getUser_details().getName());
+            bookingIdText.setText("Booking ID : " + spaceData.getId());
+            bookingPlaceName.setText(spaceData.getSpace().getName());
+            eventText.setText("Space");
+
+            ti_locationText.setText(spaceData.getSpace().getLocation());
+            ti_Booking_Ticket.setVisibility(View.GONE);
+            ti_tickets.setVisibility(View.GONE);
 
 //        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
-        ti_TotalTicketPrice.setText("Space @ $" + spaceData.getSpace().getPrice_daily() + " /day");
-        ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
-        ti_tax.setText("$0.00");
-        totalAmount.setText("$" + spaceData.getPrice() + ".00");
-        bottomSheetUpDown_address();
+            ti_TotalTicketPrice.setText("Space @ $" + spaceData.getSpace().getPrice_daily() + " /day");
+            ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
+            ti_tax.setText("$0.00");
+            totalAmount.setText("$" + spaceData.getPrice() + ".00");
+            bottomSheetUpDown_address();
         }
     }
 
     @Override
     public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean sessionData) {
-        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
+//        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
+        try {
+            if (sessionData.getSession().getImages() != null) {
+                JSONArray jsonArray = new JSONArray(sessionData.getSession().getImages());
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(getContext()).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(customerImage);
+                }
+            }
+
+        } catch (JSONException e) {
+
+            Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
         userName.setText(sessionData.getUser_details().getName());
         bookingIdText.setText("Booking ID : " + sessionData.getId());
         bookingPlaceName.setText(sessionData.getSession().getName());
@@ -840,6 +905,53 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         return str;
     }
 
+    @Override
+    public void ratingVallue(int id, float rating,String type) {
+        rateService(id,rating, type);
+    }
+    public void rateService(int id,float rating,String type) {
+        progressDialog.show();
+        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()),  id+"", rating+"");
+        call.enqueue(new Callback<RatingResponse>() {
+            @Override
+            public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
+                if (response.body() != null) {
+                    a_eventData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+
+                        if (type.equalsIgnoreCase("space")){
+                            getRoleSpace();
+                        }
+
+
+                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RatingResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
     /**
      * This interface must be implemented by activities that contain this

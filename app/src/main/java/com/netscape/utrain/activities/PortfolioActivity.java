@@ -496,6 +496,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     startActivity(homeScreen);
                                 }
                             }
+                        }else {
+                            Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+
                         }
                     } else {
                         Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -725,5 +728,11 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         Gson gson = new Gson();
         String listData = gson.toJson(list);
         CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
+    }
+
+    @Override
+    protected void onDestroy() {
+        getImages=false;
+        super.onDestroy();
     }
 }
