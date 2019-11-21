@@ -54,15 +54,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/portfolioTitleTv"
-            android:layout_width="@dimen/_200sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="left"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:text="@string/add_portforlio_text"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
-            app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toRightOf="@id/portfolioBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
