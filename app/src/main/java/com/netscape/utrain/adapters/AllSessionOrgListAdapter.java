@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CreateEventActivity;
+import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.utils.Constants;
@@ -51,6 +54,7 @@ public class AllSessionOrgListAdapter extends RecyclerView.Adapter<AllSessionOrg
         holder.bookingVenueTv.setText(data.getLocation());
         holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
         holder.statusImage.setVisibility(View.GONE);
+        holder.editImage.setVisibility(View.VISIBLE);
 
         try {
             if (data.getImages() != null) {
@@ -65,6 +69,15 @@ public class AllSessionOrgListAdapter extends RecyclerView.Adapter<AllSessionOrg
 
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sessionEdit=new Intent(context, CreateTrainingSession.class);
+                sessionEdit.putExtra("sessionEdit",data);
+                CreateTrainingSession.editSession=true;
+                context.startActivity(sessionEdit);
+            }
+        });
     }
 
     @Override
@@ -75,7 +88,7 @@ public class AllSessionOrgListAdapter extends RecyclerView.Adapter<AllSessionOrg
     public class AllSessionsOrgHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView bookingEventName, bookingEventDate, bookingVenueTv, bookingTicketTv;
-        AppCompatImageView bookingEventImage, statusImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView bookingEventImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
 
         public AllSessionsOrgHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +99,7 @@ public class AllSessionOrgListAdapter extends RecyclerView.Adapter<AllSessionOrg
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             bookingEventImage = itemView.findViewById(R.id.bookingEventImage);
             statusImage = itemView.findViewById(R.id.statusImage);
+            editImage = itemView.findViewById(R.id.editImage);
 
         }
     }

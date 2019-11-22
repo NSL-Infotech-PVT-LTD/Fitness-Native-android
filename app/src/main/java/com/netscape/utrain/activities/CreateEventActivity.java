@@ -33,6 +33,7 @@ import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateEventBinding;
 
+import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
@@ -72,6 +73,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     AppCompatSpinner spinnerLocation;
     MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate, createEventStartDateTv, createEventEndDatetv;
     AppCompatSpinner createEventServiceSpinner;
+    public static boolean editEvent=false;
 
     TextInputEditText tvEnterCapicity;
     private ProgressDialog progressDialog;
@@ -95,6 +97,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private Date strDate = null;
     private Date stDate = null;
     private Date endDate = null;
+    private O_EventDataModel data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,50 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
 
         init();
+        if (editEvent){
+            if (getIntent().getExtras()!=null){
+            data= (O_EventDataModel) getIntent().getSerializableExtra("eventEdit");
+            if (data !=null){
+                prepareDataSet();
+            }
+            }
+        }
+    }
+
+    private void prepareDataSet() {
+        binding.createEventTitleTv.setText("Update Event");
+        binding.createEventNameEnterTv.setText(data.getName());
+        binding.createEventDescriptionEnterTv.setText(data.getDescription());
+        binding.getAddressTv.setText(data.getLocation());
+        binding.createEventStartDateTv.setText(data.getStart_date());
+        sDate=data.getStart_date();
+        binding.createEventEndDatetv.setText(data.getEnd_date());
+        enDate=data.getEnd_date();
+        binding.createEvtnStartTimeTv.setText(data.getStart_time());
+        binding.createEventEndTime.setText(data.getEnd_time());
+        binding.createEventCapicityEdt.setText(data.getGuest_allowed()+"");
+        binding.createEventEquipmentEdt.setText(data.getEquipment_required());
+
+        locationLat=data.getLatitude()+"";
+        locationLong=data.getLongitude()+"";
+
+        binding.createEventBtn.setText("Update");
+
+        if (selectedServices!=null && selectedServices.size()>0){
+            for (int i=0;i<selectedServices.size();i++){
+                if (data.getService_id()==selectedServices.get(i).getId()){
+                    createEventServiceSpinner.setSelection(i);
+                    serviIds = String.valueOf(selectedServices.get(i).getId());
+                    servicePrice = String.valueOf(selectedServices.get(i).getPrice());
+
+                }
+            }
+        }
+
+
+
+
+
     }
 
     private void getServiceIds() {
@@ -170,6 +217,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 startActivityForResult(getAddress, ADDRESS_EVENT);
                 break;
             case R.id.createEventImages:
+                if (editEvent){
+                    Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
+                    getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    PortfolioActivity.updateImages = true;
+                    getImages.putExtra("updateEventImg",data.getImages());
+                    getImages.putExtra("updateImgType","eventImgUpdate");
+                    startActivityForResult(getImages, IMAGE_GET);
+                }
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
                 getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 PortfolioActivity.getImages = true;
@@ -386,7 +441,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         } else if (eventCapacity.equalsIgnoreCase("0") || eventCapacity.equalsIgnoreCase("00")) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
-            hitCreateEventApi();
+            if (editEvent){
+                updateEvent();
+            }else {
+
+                hitCreateEventApi();
+            }
 
         }
 
@@ -410,7 +470,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 //                }
             }
         } else {
-            Toast.makeText(CreateEventActivity.this, "Unable to get Address", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(CreateEventActivity.this, "Unable to get Address", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -485,5 +545,89 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         } else {
             return "0" + String.valueOf(input);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        editEvent=false;
+        super.onDestroy();
+    }
+
+    private void updateEvent(){
+        progressDialog.show();
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), eventName));
+        requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), eventDescription));
+        requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), sDate));
+        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"), enDate));
+        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndtime));
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
+        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
+        requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), eventCapacity));
+        requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        requestBodyMap.put("price", RequestBody.create(MediaType.parse("multipart/form-data"), servicePrice));
+        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId()+""));
+//        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("text/plain"),));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        if (PortfolioImagesConstants.partOne !=null){
+            parts.add(PortfolioImagesConstants.partOne);
+        }
+        if (PortfolioImagesConstants.partTwo !=null){
+            parts.add(PortfolioImagesConstants.partTwo);
+        }
+        if (PortfolioImagesConstants.partThree !=null){
+            parts.add(PortfolioImagesConstants.partThree);
+        }
+        if (PortfolioImagesConstants.partFour !=null){
+            parts.add(PortfolioImagesConstants.partFour);
+        }
+
+
+
+
+
+        //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.updateEvents("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts);
+        signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
+            @Override
+            public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            PortfolioActivity.clearFromConstants();
+                            Constants.CHECKBOX_IS_CHECKED = 0;
+                            Toast.makeText(CreateEventActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.createEventLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.createEventLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.createEventLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgCreateEventResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.createEventLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

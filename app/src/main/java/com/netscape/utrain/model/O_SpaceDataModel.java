@@ -1,6 +1,10 @@
 package com.netscape.utrain.model;
 
-public class O_SpaceDataModel {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class O_SpaceDataModel implements Serializable{
 
     /**
      * id : 14

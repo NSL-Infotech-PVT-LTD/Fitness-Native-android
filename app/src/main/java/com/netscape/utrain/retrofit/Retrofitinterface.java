@@ -8,6 +8,7 @@ import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.OrgCoachStoreModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.A_BookedEventResponse;
@@ -239,6 +240,11 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
                                              @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.UPDATE_EVENTS)
+    Call<OrgCreateEventResponse> updateEvents(@Header("Authorization") String auth,
+                                             @PartMap Map<String, RequestBody> fields,
+                                             @Part List<MultipartBody.Part> files);
 
     @Multipart
     @POST(Constants.ORG_SIGNUP)
@@ -256,6 +262,11 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createSpace(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
                                              @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.UPDATE_SPACE)
+    Call<OrgCreateEventResponse> updateSpace(@Header("Authorization") String auth,
+                                             @PartMap Map<String, RequestBody> fields,
+                                             @Part List<MultipartBody.Part> files);
 
 //    @Multipart
 //    @POST(Constants.CREATE_SPACE)
@@ -269,6 +280,11 @@ public interface Retrofitinterface {
     @Multipart
     @POST(Constants.CREATE_SESSION)
     Call<OrgCreateEventResponse> createSession(@Header("Authorization") String auth,
+                                               @PartMap Map<String, RequestBody> fields,
+                                               @Part List<MultipartBody.Part> files);
+    @Multipart
+    @POST(Constants.UPDATE_SESSION)
+    Call<OrgCreateEventResponse> updateSession(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part List<MultipartBody.Part> files);
 
@@ -361,6 +377,7 @@ public interface Retrofitinterface {
                                                   @Header("Content-Type") String contentType,
                                                   @Query("order_by") String order_by);
 
+
     @POST(Constants.A_EVENT_LIST)
     Call<A_EventListResponse> getAthEventList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
@@ -390,6 +407,10 @@ public interface Retrofitinterface {
 
     @POST(Constants.CO_SESSION_LIST)
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String contentType,
+                                                    @Query("order_by") String order_by);
+    @POST(Constants.CO_SESSION_LIST)
+    Call<O_SessionListResponse> getCoachSessions(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
                                                     @Query("order_by") String order_by);
 

@@ -23,7 +23,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/createEvent_createEventTv"
+            android:id="@+id/createEventTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -51,9 +51,9 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/createEvent_createEventTv"
+            app:layout_constraintLeft_toLeftOf="@+id/createEventTitleTv"
             app:layout_constraintRight_toLeftOf="@+id/ceEventImg"
-            app:layout_constraintTop_toBottomOf="@id/createEvent_createEventTv" />
+            app:layout_constraintTop_toBottomOf="@id/createEventTitleTv" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/Guideline"

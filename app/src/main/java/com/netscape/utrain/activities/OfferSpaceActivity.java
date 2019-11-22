@@ -27,6 +27,8 @@ import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityOfferSpaceBinding;
+import com.netscape.utrain.model.O_SessionDataModel;
+import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -55,6 +57,7 @@ import retrofit2.Response;
 public class OfferSpaceActivity extends AppCompatActivity implements View.OnClickListener {
     private Retrofitinterface retrofitinterface;
     private ProgressDialog progressDialog;
+    public static boolean spaceEdit=false;
     private ActivityOfferSpaceBinding binding;
     private int OFFER_IMAGE = 333;
     private List<String> startWeekList = new ArrayList<String>();
@@ -71,6 +74,10 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     private String endTime = "";
     private Date stDate = null;
     private Date endDate = null;
+    private O_SpaceDataModel data;
+    private String startWeek;
+    private String endWeek;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +126,56 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+
+        if (spaceEdit){
+            if (getIntent().getExtras()!=null){
+                data= (O_SpaceDataModel) getIntent().getSerializableExtra("spaceEdit");
+                if (data !=null){
+                    prepareDataSet();
+                }
+            }
+        }
+    }
+
+    private void prepareDataSet() {
+        binding.createTrainingSessionTv.setText("Update Space");
+        binding.offerSpaceNameEdt.setText(data.getName());
+        binding.getAddressTv.setText(data.getLocation());
+        binding.createEvtnStartTimeTv.setText(data.getOpen_hours_from());
+        binding.createEventEndTime.setText(data.getOpen_hours_to());
+        binding.offerSpaceHourlyPrice.setText(data.getPrice_hourly()+"");
+        binding.offerSpaceWeeklyPrice.setText(data.getPrice_daily()+"");
+
+//        binding.offerSpaceSelectStrtWeek.setText(data.getName());
+//        binding.offerSpaceSelectEndWeek.setText(data.getName());
+        binding.offerSpaceDescriptionEnterTv.setText(data.getDescription());
+        binding.offerSpaceBtnPost.setText("Update");
+
+        locationLat=data.getLatitude()+"";
+        locationLong=data.getLongitude()+"";
+
+        String currentString = data.getAvailability_week();
+        String[] separated = currentString.split("-");
+        if (separated.length>=2) {
+             startWeek = separated[0];
+             endWeek = separated[1];
+        }
+        if (! startWeek.isEmpty()) {
+            for (int i = 0; i < startWeekList.size(); i++) {
+                if (startWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
+                    binding.offerSpaceSelectStrtWeek.setSelection(i);
+                    availStart = startWeekList.get(i);
+                }
+            }
+        }
+        if (! endWeek.isEmpty()) {
+            for (int i = 0; i < startWeekList.size(); i++) {
+                if (endWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
+                    binding.offerSpaceSelectEndWeek.setSelection(i);
+                    availEnd = startWeekList.get(i);
+                }
+            }
+        }
     }
 
     private void addDataToList() {
@@ -215,8 +272,16 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
                 getData();
                 break;
             case R.id.offerSpaceUploadTv:
+                if (spaceEdit){
+                    Intent getImages = new Intent(OfferSpaceActivity.this, PortfolioActivity.class);
+                    getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    PortfolioActivity.updateImages = true;
+                    getImages.putExtra("updateEventImg",data.getImages());
+                    getImages.putExtra("updateImgType","spaceImgUpdate");
+                    startActivityForResult(getImages, OFFER_IMAGE);
+                }
                 Intent getImages = new Intent(OfferSpaceActivity.this, PortfolioActivity.class);
-                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 PortfolioActivity.getImages = true;
                 startActivityForResult(getImages, OFFER_IMAGE);
                 break;
@@ -296,8 +361,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             binding.offerSpaceDescriptionEnterTv.setError(getResources().getString(R.string.enter_description));
             binding.offerSpaceDescriptionEnterTv.requestFocus();
         } else {
-            availValue = availStart + "-" + availEnd;
-            createSpace();
+            if (spaceEdit){
+                availValue=data.getAvailability_week();
+            updateSpace();
+            }else {
+                availValue = availStart + "-" + availEnd;
+                createSpace();
+            }
         }
 
     }
@@ -316,10 +386,88 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             }
 
             else if (requestCode == OFFER_IMAGE && data != null) {
-                binding.offerSpaceUploadTv.setText(PortfolioImagesConstants.numImages.toString());
+//                binding.offerSpaceUploadTv.setText(PortfolioImagesConstants.numImages.toString());
             }
         } else {
             Toast.makeText(this, "Unable to get images", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        spaceEdit=false;
+        super.onDestroy();
+    }
+
+    private void updateSpace() {
+        progressDialog.show();
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), spaceName));
+        requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), spaceDescription));
+        requestBodyMap.put("price_hourly", RequestBody.create(MediaType.parse("multipart/form-data"), spaceHourlyPrice));
+        requestBodyMap.put("availability_week", RequestBody.create(MediaType.parse("multipart/form-data"),availValue));
+        requestBodyMap.put("price_daily", RequestBody.create(MediaType.parse("multipart/form-data"), spaceWeeklyPrice));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
+
+
+        requestBodyMap.put("open_hours_from", RequestBody.create(MediaType.parse("multipart/form-data"), eventStartTime));
+        requestBodyMap.put("open_hours_to", RequestBody.create(MediaType.parse("multipart/form-data"), eventEndtime));
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
+        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId()+""));
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        if (PortfolioImagesConstants.partOne !=null){
+            parts.add(PortfolioImagesConstants.partOne);
+        }
+        if (PortfolioImagesConstants.partTwo !=null){
+        parts.add(PortfolioImagesConstants.partTwo);
+    }
+        if (PortfolioImagesConstants.partThree !=null){
+        parts.add(PortfolioImagesConstants.partThree);
+    }
+        if (PortfolioImagesConstants.partFour !=null){
+        parts.add(PortfolioImagesConstants.partFour);
+    }
+
+        //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.updateSpace("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap, parts) ;
+        signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
+            @Override
+            public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            PortfolioActivity.clearFromConstants();
+                            Constants.CHECKBOX_IS_CHECKED = 0;
+                            Toast.makeText(OfferSpaceActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.offerSpaceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.offerSpaceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.offerSpaceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgCreateEventResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.offerSpaceLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 }

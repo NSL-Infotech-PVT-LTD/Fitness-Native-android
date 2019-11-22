@@ -27,6 +27,8 @@ import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateTrainingSessionBinding;
+import com.netscape.utrain.model.O_EventDataModel;
+import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -56,6 +58,7 @@ import retrofit2.Response;
 public class CreateTrainingSession extends AppCompatActivity implements View.OnClickListener {
     AppCompatSpinner spinnerLocation;
     MaterialTextView createTrainingDateTv;
+    public static boolean editSession=false;
     int mYear, mMonth, mDay, mHour, mMinute;
     DatePickerDialog datePickerDialog = null;
     private ActivityCreateTrainingSessionBinding binding;
@@ -76,6 +79,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private int ADDRESS_EVENT = 132;
     String eventAddress = "";
     private String locationLat = "", locationLong = "";
+    private O_SessionDataModel data;
 
     @Override
 
@@ -91,6 +95,38 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         });
 
         init();
+        if (editSession){
+            if (getIntent().getExtras()!=null){
+                data= (O_SessionDataModel) getIntent().getSerializableExtra("sessionEdit");
+                if (data !=null){
+                    prepareDataSet();
+                }
+            }
+        }
+
+    }
+
+    private void prepareDataSet() {
+        binding.createTrainingSessionTv.setText("Update Training Session");
+        binding.createTrainingSessionNameEdt.setText(data.getName());
+        binding.createTrainingSessionDescEdt.setText(data.getDescription());
+        binding.createTrainingSessionPhoneEdt.setText(data.getPhone());
+        binding.getAddressTv.setText(data.getLocation());
+        enDate=data.getEnd_date();
+        dateSend=data.getStart_date();
+        binding.createTrainingDateTv.setText(data.getStart_date());
+
+        binding.EndDateTv.setText(data.getEnd_date());
+        binding.createEvtnStartTimeTv.setText(data.getStart_time());
+        binding.createEventEndTime.setText(data.getEnd_time());
+        binding.createTrainingSessionHourRateEdt.setText(data.getHourly_rate()+"");
+        binding.createTrainingSessionMaxOccuEdt.setText(data.getGuest_allowed()+"");
+
+        locationLat=data.getLatitude()+"";
+        locationLong=data.getLongitude()+"";
+
+        binding.createSessionBtn.setText("Update");
+
 
     }
 
@@ -181,8 +217,16 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 getEndDate();
                 break;
             case R.id.createTrainingSessionUploadTv:
+                if (editSession){
+                    Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
+                    getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    PortfolioActivity.updateImages = true;
+                    getImages.putExtra("updateEventImg",data.getImages());
+                    getImages.putExtra("updateImgType","sessionImgUpdate");
+                    startActivityForResult(getImages, SESSIOM_IMAGE);
+                }
                 Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
-                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 PortfolioActivity.getImages = true;
                 startActivityForResult(getImages, SESSIOM_IMAGE);
                 break;
@@ -413,7 +457,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionMaxOccupancy.equalsIgnoreCase("0") || sessionMaxOccupancy.equalsIgnoreCase("00")) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
-            hitCreateSessionApi();
+            if (editSession){
+                startTime=data.getStart_time();
+                endTime=data.getEnd_time();
+                updateTrainingSession();
+            }else {
+                hitCreateSessionApi();
+            }
         }
 
     }
@@ -437,7 +487,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 }
             }
         } else {
-            Toast.makeText(this, "Unable to import Images", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Unable to import Images", Toast.LENGTH_SHORT).show();
         }
     }
     public String convertDate(int input) {
@@ -446,5 +496,79 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else {
             return "0" + String.valueOf(input);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        editSession=false;
+        super.onDestroy();
+    }
+    private void updateTrainingSession() {
+        progressDialog.show();
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
+        requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"),(enDate)));
+        requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
+        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"),startTime ));
+        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"),endTime ));
+        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
+        requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
+
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
+        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId()+""));
+        requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        if (PortfolioImagesConstants.partOne !=null){
+            parts.add(PortfolioImagesConstants.partOne);
+        }
+        if (PortfolioImagesConstants.partTwo !=null){
+            parts.add(PortfolioImagesConstants.partTwo);
+        }
+        if (PortfolioImagesConstants.partThree !=null){
+            parts.add(PortfolioImagesConstants.partThree);
+        }
+        if (PortfolioImagesConstants.partFour !=null){
+            parts.add(PortfolioImagesConstants.partFour);
+        }
+        //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.updateSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts );
+        signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
+            @Override
+            public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            PortfolioActivity.clearFromConstants();
+                            Constants.CHECKBOX_IS_CHECKED = 0;
+                            Toast.makeText(CreateTrainingSession.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.createTrainingSessionLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.createTrainingSessionLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.createTrainingSessionLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgCreateEventResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.createTrainingSessionLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

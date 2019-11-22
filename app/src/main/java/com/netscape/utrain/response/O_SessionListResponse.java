@@ -10,13 +10,12 @@ import java.util.List;
 public class O_SessionListResponse {
     private boolean status;
     private int code;
+    private O_SessionPageDataModel data;
+    private ErrorModel error;
 
     public O_SessionPageDataModel getData() {
         return data;
     }
-
-    private O_SessionPageDataModel data;
-    private ErrorModel error;
 
     public void setData(O_SessionPageDataModel data) {
         this.data = data;

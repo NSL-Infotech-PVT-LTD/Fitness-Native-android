@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -51,6 +52,7 @@ import com.netscape.utrain.utils.ImageFilePath;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -68,6 +70,7 @@ import retrofit2.Response;
 
 public class PortfolioActivity extends AppCompatActivity implements View.OnClickListener {
     public static boolean getImages = false;
+    public static boolean updateImages = false;
     MultipartBody.Part userImg = null;
     MultipartBody.Part portFolioImage1 = null, portFolioImage2 = null, portFolioImage3 = null, portFolioImage4 = null;
     private ActivityPortfolioBinding binding;
@@ -124,6 +127,69 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         });
 
         init();
+        if (updateImages){
+            if (getIntent().getExtras()!=null){
+                String images=getIntent().getStringExtra("updateEventImg");
+                String type=getIntent().getStringExtra("updateImgType");
+                try {
+                    if (images != null) {
+                        JSONArray jsonArray = new JSONArray(images);
+                        if (jsonArray !=null && jsonArray.length()>0){
+                            for (int i=0;i<jsonArray.length();i++){
+                                if (i==0){
+                                    position=i;
+//                                    setPortfolioImages();
+                                    if (type.equalsIgnoreCase("eventImgUpdate"))
+                                    Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageOne);
+                                    if (type.equalsIgnoreCase("sessionImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_SESSION  + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageOne);
+                                    if (type.equalsIgnoreCase("spaceImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageOne);
+
+                                }
+                                if (i==1){
+                                    position=i;
+//                                    setPortfolioImages();
+                                    if (type.equalsIgnoreCase("eventImgUpdate"))
+                                         Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageTwo);
+                                    if (type.equalsIgnoreCase("sessionImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageTwo);
+                                    if (type.equalsIgnoreCase("spaceImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageTwo);
+                                }
+                                if (i == 2) {
+                                    position=i;
+//                                    setPortfolioImages();
+                                    if (type.equalsIgnoreCase("eventImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageThree);
+                                    if (type.equalsIgnoreCase("sessionImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageThree);
+                                    if (type.equalsIgnoreCase("spaceImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageThree);
+                                }
+                                if (i==3){
+                                    position=i;
+//                                    setPortfolioImages();
+                                    if (type.equalsIgnoreCase("eventImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
+                                    if (type.equalsIgnoreCase("sessionImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
+                                    if (type.equalsIgnoreCase("spaceImgUpdate"))
+                                        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
+                                }
+                            }
+                            setImagesFromConstant();
+                        }
+                    }
+
+                } catch (JSONException e) {
+
+                    Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
     }
 
     private void init() {
@@ -191,30 +257,36 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 addFourthImage();
                 break;
             case R.id.addImageSubmitBtn:
-                imgPortfolio = new ArrayList<>();
-                if (portFolioImage1 != null) {
-                    imgPortfolio.add(portFolioImage1);
-                }
-                if (portFolioImage2 != null) {
-                    imgPortfolio.add(portFolioImage2);
-                }
-                if (portFolioImage3 != null) {
-                    imgPortfolio.add(portFolioImage3);
-                }
-                if (portFolioImage4 != null) {
-                    imgPortfolio.add(portFolioImage4);
-                }
+                if (updateImages){
+                    sendDataToIntent();
+                }else {
 
-                if (imgPortfolio != null && imgPortfolio.size() >= 1) {
-                    if (getImages) {
-                        PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
-                        sendDataToIntent();
-                    } else {
 
-                        OrgSignUpApi();
+                    imgPortfolio = new ArrayList<>();
+                    if (portFolioImage1 != null) {
+                        imgPortfolio.add(portFolioImage1);
                     }
-                } else {
-                    Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    if (portFolioImage2 != null) {
+                        imgPortfolio.add(portFolioImage2);
+                    }
+                    if (portFolioImage3 != null) {
+                        imgPortfolio.add(portFolioImage3);
+                    }
+                    if (portFolioImage4 != null) {
+                        imgPortfolio.add(portFolioImage4);
+                    }
+
+                    if (imgPortfolio != null && imgPortfolio.size() >= 1) {
+                        if (getImages) {
+                            PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
+                            sendDataToIntent();
+                        } else {
+
+                            OrgSignUpApi();
+                        }
+                    } else {
+                        Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
                 }
                 break;
 

@@ -41,7 +41,7 @@ public class AllSessionsFragment extends Fragment {
     private AllSessionsFragmentBinding binding;
     private Retrofitinterface retrofitinterface;
 
-    private List<C_SessionListModel> coachSessionList = new ArrayList<>();
+    private List<O_SessionDataModel> coachSessionList = new ArrayList<>();
     private AllSessionCoachistAdapter coachSessionAdapter;
     private RecyclerView allSessionCoachListRecycler;
     private RecyclerView.LayoutManager layoutManager;
@@ -88,12 +88,12 @@ public class AllSessionsFragment extends Fragment {
         progressDialog.show();
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<C_SessionListResponse> coachSession =
-                retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
+        Call<O_SessionListResponse> coachSession =
+                retrofitinterface.getCoachSessions("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
                         , Constants.CONTENT_TYPE, "");
-        coachSession.enqueue(new Callback<C_SessionListResponse>() {
+        coachSession.enqueue(new Callback<O_SessionListResponse>() {
             @Override
-            public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
+            public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful())
                     if (response.body().isStatus())
@@ -109,7 +109,7 @@ public class AllSessionsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
+            public void onFailure(Call<O_SessionListResponse> call, Throwable t) {
                 progressDialog.dismiss();
             }
         });

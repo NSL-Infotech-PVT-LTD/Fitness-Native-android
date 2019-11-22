@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class C_EventDataListModel {
+import java.io.Serializable;
+
+public class C_EventDataListModel implements Serializable {
 
     /**
      * id : 7
