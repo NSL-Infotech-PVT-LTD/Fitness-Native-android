@@ -18,6 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/eventCardBgColor">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/editImage"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@drawable/edit"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_10sdp"></androidx.appcompat.widget.AppCompatImageView>
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/discoverImageCard"

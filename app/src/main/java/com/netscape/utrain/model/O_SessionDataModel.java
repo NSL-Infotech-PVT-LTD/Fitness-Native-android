@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class O_SessionDataModel {
+import java.io.Serializable;
+
+public class O_SessionDataModel implements Serializable {
 
     /**
      * id : 18
@@ -26,8 +28,8 @@ public class O_SessionDataModel {
     private String description;
     private String start_date;
     private String end_date;
-    private Object start_time;
-    private Object end_time;
+    private String start_time;
+    private String end_time;
     private int hourly_rate;
     private String location;
     private String latitude;
@@ -37,6 +39,76 @@ public class O_SessionDataModel {
     private int guest_allowed;
     private int guest_allowed_left;
     private int created_by;
+    private String business_hour;
+    private String date;
+    private int max_occupancy;
+    private String equipment_required;
+    private int service_id;
+    private int price;
+
+    public String getBusiness_hour() {
+        return business_hour;
+    }
+
+    public void setBusiness_hour(String business_hour) {
+        this.business_hour = business_hour;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getMax_occupancy() {
+        return max_occupancy;
+    }
+
+    public void setMax_occupancy(int max_occupancy) {
+        this.max_occupancy = max_occupancy;
+    }
+
+    public String getEquipment_required() {
+        return equipment_required;
+    }
+
+    public void setEquipment_required(String equipment_required) {
+        this.equipment_required = equipment_required;
+    }
+
+    public int getService_id() {
+        return service_id;
+    }
+
+    public void setService_id(int service_id) {
+        this.service_id = service_id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
 
     public int getId() {
         return id;
@@ -76,22 +148,6 @@ public class O_SessionDataModel {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
-    }
-
-    public Object getStart_time() {
-        return start_time;
-    }
-
-    public void setStart_time(Object start_time) {
-        this.start_time = start_time;
-    }
-
-    public Object getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(Object end_time) {
-        this.end_time = end_time;
     }
 
     public int getHourly_rate() {

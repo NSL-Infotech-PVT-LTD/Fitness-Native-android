@@ -192,7 +192,7 @@
     <string name="view_all">view All</string>
     <string name="ongoing_session">Ongoing Sessions</string>
     <string name="select_services">Select services</string>
-    <string name="select_portfolio_images">Pleas select four images frst</string>
+    <string name="select_portfolio_images">Please select images</string>
     <string name="one_more_step">One more step</string>
     <string name="two_more_step">Two more steps</string>
     <string name="register">Register</string>

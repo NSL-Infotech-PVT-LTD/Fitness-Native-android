@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CreateEventActivity;
+import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
 import com.netscape.utrain.utils.Constants;
@@ -54,6 +57,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
         holder.findPlaceDistanceDetailTv.setTextColor(Color.LTGRAY);
         holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
 //        holder.statusImage.setVisibility(View.GONE);
+        holder.editImage.setVisibility(View.VISIBLE);
 
         try {
             if (data.getImages() != null) {
@@ -63,11 +67,19 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
                             load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.findPlaceImage);
                 }
             }
-
         } catch (JSONException e) {
 
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent spaceEdit=new Intent(context, OfferSpaceActivity.class);
+                spaceEdit.putExtra("spaceEdit",data);
+                OfferSpaceActivity.spaceEdit=true;
+                context.startActivity(spaceEdit);
+            }
+        });
     }
 
     @Override
@@ -78,7 +90,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
     public class AllSpaceOrgHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView placeNameInfoTv, placenameTv, findPlaceDistanceDetailTv, bookingTicketTv, findPlaceDistanceTv, findPlaceActualPriceTv;
-        AppCompatImageView findPlaceImage, statusImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView findPlaceImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
 
         public AllSpaceOrgHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +100,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
             findPlaceDistanceDetailTv = itemView.findViewById(R.id.findPlaceDistanceDetailTv);
             findPlaceActualPriceTv = itemView.findViewById(R.id.findPlaceActualPriceTv);
             findPlaceImage = itemView.findViewById(R.id.findPlaceImage);
+            editImage = itemView.findViewById(R.id.editImage);
 
         }
     }

@@ -593,14 +593,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
         } else if (photoFile == null) {
             if (update) {
-                updateOrgBasicProfile();
+                OrgUpdateApi();
             }else {
                 Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
 
             }
         } else {
             if (update) {
-                updateOrgBasicProfile();
+                OrgUpdateApi();
             }else {
                 orgDataModel.setProfile_img(photoFile);
                 orgDataModel.setLatitude(String.valueOf(latitude));
@@ -847,7 +847,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     }
     // Organization viewCoachStaff Activity code below....
-    private void OrgSignUpApi() {
+    private void OrgUpdateApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
         if (orgDataModel.getProfile_img() != null) {

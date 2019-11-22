@@ -105,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.basicProfileClickImg:
+                OrganizationSignUpActivity.update=true;
                 startActivity(new Intent(SettingsActivity.this, OrganizationSignUpActivity.class));
                 break;
             case R.id.chooseSportsClickImg:

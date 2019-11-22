@@ -1,6 +1,8 @@
 package com.netscape.utrain.model;
 
-public class C_SessionListModel {
+import java.io.Serializable;
+
+public class C_SessionListModel implements Serializable {
 
     /**
      * id : 20
@@ -13,7 +15,10 @@ public class C_SessionListModel {
      * phone : 34556778678678
      * max_occupancy : 50
      * created_by : 189
+     * changes for fields
+     *
      */
+
 
     private int id;
     private String name;
@@ -34,6 +39,33 @@ public class C_SessionListModel {
     private String longitude;
     private String guest_allowed;
     private String guest_allowed_left;
+    private String equipment_required;
+    private int service_id;
+    private int price;
+
+    public String getEquipment_required() {
+        return equipment_required;
+    }
+
+    public void setEquipment_required(String equipment_required) {
+        this.equipment_required = equipment_required;
+    }
+
+    public int getService_id() {
+        return service_id;
+    }
+
+    public void setService_id(int service_id) {
+        this.service_id = service_id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public String getStart_date() {
         return start_date;

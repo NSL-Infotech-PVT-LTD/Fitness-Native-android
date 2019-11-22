@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -50,6 +52,8 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
         holder.bookingVenueTv.setText(data.getLocation());
         holder.bookingTicketTv.setText(data.getGuest_allowed()+" Attandees and Ticket(1 person per ticket)");
         holder.statusImage.setVisibility(View.GONE);
+        holder.editImage.setVisibility(View.VISIBLE);
+
 
         try {
             if (data.getImages() != null) {
@@ -65,6 +69,15 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent eventEdit=new Intent(context, CreateEventActivity.class);
+                eventEdit.putExtra("eventEdit",data);
+                CreateEventActivity.editEvent=true;
+                context.startActivity(eventEdit);
+            }
+        });
 
     }
 
@@ -76,7 +89,7 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
     public class AllEventsListHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView bookingEventName, bookingEventDate, bookingVenueTv, bookingTicketTv;
-        AppCompatImageView bookingEventImage, statusImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView bookingEventImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
 
         public AllEventsListHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +100,7 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             bookingEventImage = itemView.findViewById(R.id.bookingEventImage);
             statusImage = itemView.findViewById(R.id.statusImage);
+            editImage = itemView.findViewById(R.id.editImage);
 
         }
     }

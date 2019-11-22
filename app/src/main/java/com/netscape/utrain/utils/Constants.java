@@ -24,8 +24,11 @@ public class Constants {
     public static final String ATHLETE_SESSION_LIST = "session/athlete/list";
     public static final String ATHLETE_PLACE_LIST = "spaces/athlete/list";
     public static final String EVENTS_STORE = "events/store";
+    public static final String UPDATE_EVENTS = "events/update";
     public static final String CREATE_SPACE = "spaces/create";
+    public static final String UPDATE_SPACE = "spaces/update";
     public static final String CREATE_SESSION = "session/store";
+    public static final String UPDATE_SESSION = "session/update";
     public static final String EVENT_DETAIL = "event/details";
     public static final String SESSION_DETAIL = "session/details";
     public static final String SPACE_DETAIL = "space/details";

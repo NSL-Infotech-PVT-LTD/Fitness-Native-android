@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.model.C_SessionListModel;
+import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -24,9 +27,9 @@ import java.util.List;
 public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCoachistAdapter.AllSessionsCoachHolder> {
 
     private Context context;
-    private List<C_SessionListModel> list;
+    private List<O_SessionDataModel> list;
 
-    public AllSessionCoachistAdapter(Context context, List<C_SessionListModel> list) {
+    public AllSessionCoachistAdapter(Context context, List<O_SessionDataModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -43,13 +46,14 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
     @Override
     public void onBindViewHolder(@NonNull AllSessionsCoachHolder holder, int position) {
 
-        C_SessionListModel data = list.get(position);
+        O_SessionDataModel data = list.get(position);
 
         holder.bookingEventName.setText(data.getName());
         holder.bookingEventDate.setText(data.getStart_date() + " " + data.getStart_time());
         holder.bookingVenueTv.setText(data.getLocation());
         holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
         holder.statusImage.setVisibility(View.GONE);
+        holder.editImage.setVisibility(View.VISIBLE);
 
         try {
             if (data.getImages() != null) {
@@ -65,6 +69,15 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sessionEdit=new Intent(context, CreateTrainingSession.class);
+                sessionEdit.putExtra("sessionEdit",data);
+                CreateTrainingSession.editSession=true;
+                context.startActivity(sessionEdit);
+            }
+        });
 
     }
 
@@ -76,7 +89,7 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
     public class AllSessionsCoachHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView bookingEventName, bookingEventDate, bookingVenueTv, bookingTicketTv;
-        AppCompatImageView bookingEventImage, statusImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView bookingEventImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
 
         public AllSessionsCoachHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +100,7 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             bookingEventImage = itemView.findViewById(R.id.bookingEventImage);
             statusImage = itemView.findViewById(R.id.statusImage);
+            editImage = itemView.findViewById(R.id.editImage);
 
         }
     }

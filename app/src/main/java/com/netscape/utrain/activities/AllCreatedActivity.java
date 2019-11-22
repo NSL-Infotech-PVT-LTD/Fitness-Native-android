@@ -46,10 +46,10 @@ public class AllCreatedActivity extends AppCompatActivity {
         binding.allCreatedTab.setTabTextColors(Color.parseColor("#D6D6D6"), Color.parseColor("#ffffff"));
         binding.allCreatedTab.setupWithViewPager(binding.allCreatedViewPager);
 
-        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
 //            setupAthViewPager(binding.allCreatedViewPager);
             setupViewPager(binding.allCreatedViewPager);
-            wrapTabIndicatorToTitle(binding.allCreatedTab, 120, 60);
+            wrapTabIndicatorToTitle(binding.allCreatedTab, 80, 30);
 
         } else {
             setupViewPager(binding.allCreatedViewPager);
