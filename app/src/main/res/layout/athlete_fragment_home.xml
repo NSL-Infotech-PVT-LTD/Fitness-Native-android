@@ -158,13 +158,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:drawableLeft="@drawable/magnifier"
-            android:drawablePadding="@dimen/_5sdp"
+            android:drawableLeft="@drawable/ic_search"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/find"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_10sdp"
             android:visibility="visible"
             app:fontFamily="@font/poppins_regular"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
@@ -174,16 +172,48 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_17sdp"
             android:src="@drawable/ic_common_background"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/findTv"
-            android:layout_marginRight="@dimen/_20sdp"/>
+            app:layout_constraintTop_toTopOf="@id/findTv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cViewAllDImage"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_18sdp"
+            android:src="@drawable/ic_common_background"
+            android:visibility="gone"
+            app:layout_constraintLeft_toRightOf="@+id/topCoachesViewAllBtn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/athleteTopCoachesTv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/oViewAllDImage"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_common_background"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@+id/cViewAllDImage"
+            app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/essDImg"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:src="@drawable/ic_common_background"
+            android:visibility="gone"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/athleteCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
@@ -221,7 +251,6 @@
                     android:id="@+id/findSpacesIconImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="@dimen/_16sdp"
                     android:src="@drawable/ic_find_spaces_icon"
                     app:layout_constraintLeft_toRightOf="@id/eventIconImg"
@@ -318,7 +347,6 @@
             tools:layout_editor_absoluteY="153dp">
 
 
-
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/searchAtuoCompleteEdt"
                 android:layout_width="match_parent"
@@ -347,6 +375,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="@string/top_coaches"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/searchEdt" />
@@ -360,19 +389,13 @@
             android:gravity="center"
             android:text="@string/view_all"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/themeColor"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/athleteTopCoachesTv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/athleteTopCoachesTv" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_common_background"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/topCoachesViewAllBtn" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
@@ -404,6 +427,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:hint="@string/top_organization"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintTop_toBottomOf="@id/athleteTopCoachesRecycler" />
@@ -417,19 +441,13 @@
             android:gravity="center"
             android:text="@string/view_all"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/themeColor"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/athleteTopOrganizationTv"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/athleteTopOrganizationTv" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_common_background"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/topOrgViewAllBtn" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
@@ -454,13 +472,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationTv" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:src="@drawable/ic_common_background"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/parentTwo"
@@ -474,7 +485,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/athleteTopOrganizationRecycler">
-
 
 
             <com.netscape.utrain.utils.TabLayoutEx

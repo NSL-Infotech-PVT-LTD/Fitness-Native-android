@@ -436,6 +436,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
+                        orgEventList.clear();
                         orgEventList.addAll(response.body().getData().getData());
                         if (orgEventList.size() > 0) {
 

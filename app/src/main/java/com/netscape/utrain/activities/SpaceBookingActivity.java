@@ -57,7 +57,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     private Date stDate = null;
     private Date endDate = null;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private String eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "",totalPrice="" ;
+    private String eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", totalPrice = "";
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private int pricePerday;
@@ -70,15 +70,16 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         hitEventDetailAPI();
-        if (getIntent().getExtras()!=null){
+        if (getIntent().getExtras() != null) {
             binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
             binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
             binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
             binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
 
         }
+        binding.eventBookingBackImg.setOnClickListener(this);
         binding.textContinueToPay.setOnClickListener(this);
         binding.createEventEndDatetv.setOnClickListener(this);
         binding.createEventStartDateTv.setOnClickListener(this);
@@ -209,7 +210,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                         Log.i("app", "Date1 is after Date2");
                         binding.createEventEndDatetv.setText(eDate);
                         try {
-                            Long days=CommonMethods.betweenDates(stDate,endDate);
+                            Long days = CommonMethods.betweenDates(stDate, endDate);
                             setTotalPrice(days);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -229,10 +230,10 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setTotalPrice(Long days) {
-        days=days+1;
-        totalPrice=String.valueOf((days*pricePerday));
-        binding.totlaPriceTv.setText("Price per day * "+days +" days");
-        binding.eventPrice.setText("$ "+String.valueOf((days*pricePerday)));
+        days = days + 1;
+        totalPrice = String.valueOf((days * pricePerday));
+        binding.totlaPriceTv.setText("Price per day * " + days + " days");
+        binding.eventPrice.setText("$ " + String.valueOf((days * pricePerday)));
     }
 
     public String convertDate(int input) {
@@ -256,7 +257,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.createEventEndDatetv:
                 getEndDate();
                 break;
@@ -272,8 +273,12 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
             case R.id.textContinueToPay:
                 getDataFromEdtText();
                 break;
+            case R.id.eventBookingBackImg:
+                finish();
+                break;
         }
     }
+
     private void getDataFromEdtText() {
         eventStartDate = binding.createEventStartDateTv.getText().toString();
         eventEndDate = binding.createEventEndDatetv.getText().toString();
@@ -293,9 +298,9 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //            hitCreateEventApi();
             Intent intent = new Intent(SpaceBookingActivity.this, PaymentActivity.class);
             intent.putExtra("type", getIntent().getStringExtra("type"));
-                intent.putExtra("totalPrice", totalPrice);
-                intent.putExtra("startDate", sDate +" "+startTime);
-                intent.putExtra("endDate", enDate+" "+endTime);
+            intent.putExtra("totalPrice", totalPrice);
+            intent.putExtra("startDate", sDate + " " + startTime);
+            intent.putExtra("endDate", enDate + " " + endTime);
 //                intent.putExtra("tickets", countVAlue);
             intent.putExtra("event_id", getIntent().getStringExtra("event_id"));
             startActivity(intent);
@@ -303,6 +308,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+
     private void hitEventDetailAPI() {
 
         progressDialog = new ProgressDialog(SpaceBookingActivity.this);
@@ -323,15 +329,15 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                             binding.eventVanueDetailTv.setText(response.body().getData().getLocation());
                             binding.eventTimeDetailTv.setText(response.body().getData().getOpen_hours_to());
                             binding.eventDateDetailTv.setText(response.body().getData().getAvailability_week());
-                            binding.pricePerdayTv.setText("(Price per day $"+response.body().getData().getPrice_daily()+")");
+                            binding.pricePerdayTv.setText("(Price per day $" + response.body().getData().getPrice_daily() + ")");
                             binding.totlaPriceTv.setText("Price per day * day");
-                            pricePerday=response.body().getData().getPrice_daily();
+                            pricePerday = response.body().getData().getPrice_daily();
 //                            ticketPrice = response.body().getData().getPrice();
 //                            binding.text1.setText((ticket + " * " + countVAlue) + "");
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
-                                    if (jsonArray !=null && jsonArray.length()>0){
+                                    if (jsonArray != null && jsonArray.length() > 0) {
                                         Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(SpaceBookingActivity.this).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(binding.eventBookingImage);
                                     }
 
@@ -359,6 +365,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();

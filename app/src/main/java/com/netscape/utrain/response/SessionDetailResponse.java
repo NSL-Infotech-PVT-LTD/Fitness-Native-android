@@ -13,6 +13,7 @@ public class SessionDetailResponse {
     private boolean status;
     private int code;
     private DataBean data;
+    private ErrorModel error;
 
     public ErrorModel getError() {
         return error;
@@ -21,8 +22,6 @@ public class SessionDetailResponse {
     public void setError(ErrorModel error) {
         this.error = error;
     }
-
-    private ErrorModel error;
 
     public boolean isStatus() {
         return status;
@@ -75,7 +74,11 @@ public class SessionDetailResponse {
         private String name;
         private String description;
         private String business_hour;
-        private String date;
+        private String start_date;
+        private String end_date;
+        private String start_time;
+        private String end_time;
+        private String distance;
         private int hourly_rate;
         private String location;
         private String latitude;
@@ -90,6 +93,46 @@ public class SessionDetailResponse {
         private String created_at;
         private String updated_at;
         private Object deleted_at;
+
+        public String getStart_date() {
+            return start_date;
+        }
+
+        public void setStart_date(String start_date) {
+            this.start_date = start_date;
+        }
+
+        public String getEnd_date() {
+            return end_date;
+        }
+
+        public void setEnd_date(String end_date) {
+            this.end_date = end_date;
+        }
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public void setStart_time(String start_time) {
+            this.start_time = start_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
+        public void setEnd_time(String end_time) {
+            this.end_time = end_time;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
+        }
 
         public int getId() {
             return id;
@@ -121,14 +164,6 @@ public class SessionDetailResponse {
 
         public void setBusiness_hour(String business_hour) {
             this.business_hour = business_hour;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
         }
 
         public int getHourly_rate() {

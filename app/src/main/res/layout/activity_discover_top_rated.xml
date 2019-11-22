@@ -30,6 +30,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cViewAllDImage"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_18sdp"
+            android:src="@drawable/ic_common_background"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="@+id/exploreTv"
+            app:layout_constraintTop_toTopOf="@id/discoverBackArrowImg" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/exploreTv"
             android:layout_width="wrap_content"
@@ -118,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:drawableRight="@drawable/magnifier"
+                android:drawableRight="@drawable/ic_search"
                 android:drawablePadding="@dimen/_10sdp"
                 android:elevation="@dimen/_10sdp"
                 android:focusable="false"
@@ -145,32 +155,23 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_regular"
+            app:layout_constraintBottom_toBottomOf="@+id/dServiceSpinner"
             app:layout_constraintLeft_toLeftOf="@id/dServiceSpinner"
             app:layout_constraintRight_toRightOf="@id/dServiceSpinner"
-            app:layout_constraintBottom_toBottomOf="@+id/dServiceSpinner"
             app:layout_constraintTop_toTopOf="@id/dServiceSpinner" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/dServiceSpinner"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
-            android:padding="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
+            android:padding="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/designImg" />
+            app:layout_constraintBottom_toBottomOf="@id/designImg" />
 
 
-        <!--    <TextView-->
-        <!--        android:id="@+id/discoverSearchTv"-->
-        <!--        android:layout_width="@dimen/_60sdp"-->
-        <!--        android:layout_height="@dimen/_40sdp"-->
-        <!--        android:layout_marginLeft="@dimen/_5sdp"-->
-        <!--        android:layout_marginTop="@dimen/_34sdp"-->
-        <!--        android:background="@drawable/round_background_colord"-->
-        <!--        app:layout_constraintLeft_toRightOf="@id/searchAtuoCompleteEdt"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/exploreTv" />-->
 
         <ImageView
             android:id="@+id/designImg"
@@ -178,8 +179,9 @@
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:src="@drawable/ic_common_background"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/searchAtuoCompleteEdt"
+            app:layout_constraintLeft_toRightOf="@id/exploreTv"
             app:layout_goneMarginTop="@dimen/_60sdp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -192,13 +194,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/designImg"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/designImg" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/noDataImageView"
             android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100sdp"
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:background="@drawable/no_data_png"

@@ -96,12 +96,12 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private TopOrganizationAdapter orgAdapter;
     private List<CoachListModel> data = new ArrayList<>();
     private List<CoachListModel> orgList = new ArrayList<>();
-    private MaterialTextView btnTopCoaches, athleteNameTvDBoard, aExpDetailTv, aAchieveDetailTv, aSportsNameTv, aSportsText, aExperienceDBoard, aAchieveDBoard;
-    private MaterialTextView btnTopOrganization;
+    private MaterialTextView btnTopCoaches, athleteNameTvDBoard, aExpDetailTv, aAchieveDetailTv, aSportsNameTv, aSportsText, aExperienceDBoard, aAchieveDBoard, athleteTopCoachesTv, topCoachesViewAllBtn;
+    private MaterialTextView btnTopOrganization, athleteTopOrganizationTv, topOrgViewAllBtn;
     private Retrofitinterface api;
     private List<CoachListModel> coachList = new ArrayList<>();
     private Context context;
-    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg, aProfileImgDBoard;
+    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg, aProfileImgDBoard, cViewAllDImage, oViewAllDImage,essDImg;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -200,6 +200,14 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         aSportsText = view.findViewById(R.id.aSportsText);
         aExperienceDBoard = view.findViewById(R.id.aExperienceDBoard);
         aAchieveDBoard = view.findViewById(R.id.aAchieveDBoard);
+        athleteTopCoachesTv = view.findViewById(R.id.athleteTopCoachesTv);
+        topCoachesViewAllBtn = view.findViewById(R.id.topCoachesViewAllBtn);
+        cViewAllDImage = view.findViewById(R.id.cViewAllDImage);
+        athleteTopOrganizationTv = view.findViewById(R.id.athleteTopOrganizationTv);
+        topOrgViewAllBtn = view.findViewById(R.id.topOrgViewAllBtn);
+        oViewAllDImage = view.findViewById(R.id.oViewAllDImage);
+        essDImg = view.findViewById(R.id.essDImg);
+
         sExperience = (CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context));
         sAchievement = (CommonMethods.getPrefData(PrefrenceConstant.USER_ACHIEVE, context));
 
@@ -229,7 +237,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         getSportsIds();
         Glide.with(context).load(Constants.IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(aProfileImgDBoard);
         athleteNameTvDBoard = view.findViewById(R.id.athleteNameTvDBoard);
-        athleteNameTvDBoard.setText(getResources().getString(R.string.welcome)+" " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        athleteNameTvDBoard.setText(getResources().getString(R.string.welcome) + " " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
 
 
         tabLayout = view.findViewById(R.id.tabs);
@@ -320,6 +328,11 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                         coachAdapter = new TopCoachesAdapter(getActivity(), response.body().getData().getData());
                         topCoachesRecycler.setLayoutManager(topCoachesLayoutManager);
                         topCoachesRecycler.setAdapter(coachAdapter);
+                        athleteTopCoachesTv.setVisibility(View.VISIBLE);
+                        topCoachesViewAllBtn.setVisibility(View.VISIBLE);
+                        cViewAllDImage.setVisibility(View.VISIBLE);
+                        essDImg.setVisibility(View.VISIBLE);
+
                     }
                 } else {
 
@@ -354,6 +367,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                         orgAdapter = new TopOrganizationAdapter(getActivity(), response.body().getData().getData());
                         topOrgRecycler.setLayoutManager(topOrgLayoutManager);
                         topOrgRecycler.setAdapter(orgAdapter);
+                        athleteTopOrganizationTv.setVisibility(View.VISIBLE);
+                        topOrgViewAllBtn.setVisibility(View.VISIBLE);
+                        oViewAllDImage.setVisibility(View.VISIBLE);
                     }
                 } else {
                     try {
@@ -379,9 +395,9 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new Ath_EvntsFragment(), "Events");
-        adapter.addFragment(new A_SessionsFragment(), "Sessions");
-        adapter.addFragment(new A_SpacesFragment(), "Spaces");
+        adapter.addFragment(new Ath_EvntsFragment(), getResources().getString(R.string.events));
+        adapter.addFragment(new A_SessionsFragment(), getResources().getString(R.string.sessions));
+        adapter.addFragment(new A_SpacesFragment(), getResources().getString(R.string.spaces));
 
         viewPager.setAdapter(adapter);
     }

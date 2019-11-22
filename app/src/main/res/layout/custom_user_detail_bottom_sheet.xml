@@ -21,6 +21,9 @@
         android:paddingBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintRight_toRightOf="parent">
 
 
@@ -42,10 +45,11 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/booking_confirmed"
             android:textColor="@color/gradientDarkColor"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_12sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toRightOf="@id/ti_confirmed"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/customerImage"
+            app:layout_constraintTop_toTopOf="@+id/customerImage" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/customerImage"
@@ -61,7 +65,7 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CLARKE LINDSA"
+            android:text="@string/sophie"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
@@ -72,7 +76,7 @@
             android:id="@+id/bookingIdText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Booking ID : UT00002121521"
+            android:text="@string/booking_id_demo"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
@@ -84,11 +88,10 @@
             android:id="@+id/bookingPlaceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:text="Marathon  Day "
+            android:maxLength="20"
+            android:text="@string/marathon_run_for_fun"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
-
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintLeft_toLeftOf="@+id/bookingIdText"
             app:layout_constraintTop_toBottomOf="@id/bookingIdText" />
@@ -107,9 +110,9 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_bold"
+            app:layout_constraintBottom_toBottomOf="@+id/bookingPlaceName"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bookingPlaceName"
-            app:layout_constraintBottom_toBottomOf="@+id/bookingPlaceName"/>
+            app:layout_constraintTop_toTopOf="@id/bookingPlaceName" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ti_date"
@@ -124,15 +127,15 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookingDateText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:text="Booking ID : UT00002121521"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
+            android:singleLine="true"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@+id/userName"
-            app:layout_constraintTop_toBottomOf="@id/bookingPlaceName" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ti_date" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ti_location"
@@ -149,17 +152,15 @@
             android:id="@+id/ti_locationText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Booking ID fgfgfgfjhjdhfghggjhfjfj: UT00002121521"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@+id/userName"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ti_date" />
+            app:layout_constraintTop_toTopOf="@id/ti_location" />
 
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -175,22 +176,22 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ti_Booking_Ticket"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="Booking ID : UT00002121521"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
+            android:singleLine="true"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@+id/userName"
-            app:layout_constraintTop_toBottomOf="@id/ti_locationText" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ti_tickets" />
 
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/colorLightGray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -202,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Booking ID : UT00002121521"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
@@ -216,14 +217,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:text="$100.00"
             android:textColor="@color/lightGrayFont"
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view" />
+            app:layout_constraintTop_toTopOf="@id/ti_TotalTicketPrice" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -250,7 +250,7 @@
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ti_TotalPrice" />
+            app:layout_constraintTop_toTopOf="@id/tax" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -263,6 +263,8 @@
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/tax" />
 
 
@@ -277,7 +279,7 @@
             android:textSize="@dimen/_10sdp"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ti_tax" />
+            app:layout_constraintTop_toTopOf="@id/totalAmountpaid" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

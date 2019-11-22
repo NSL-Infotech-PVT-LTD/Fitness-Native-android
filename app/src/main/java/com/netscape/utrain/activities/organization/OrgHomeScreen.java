@@ -200,7 +200,7 @@ public class OrgHomeScreen extends AppCompatActivity {
             public void onClick(View view) {
 
                 openCloseDrawer();
-                loadFragment(new A_HomeFragment());
+                loadFragment(new O_HomeFragment());
 
             }
         });
@@ -246,6 +246,14 @@ public class OrgHomeScreen extends AppCompatActivity {
 
             }
         });
+        binding.orgSlider.getHeaderView(0).findViewById(R.id.settingsTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCloseDrawer();
+                startActivity(new Intent(OrgHomeScreen.this, SettingsActivity.class));
+            }
+        });
+
         binding.orgSlider.getHeaderView(0).findViewById(R.id.settingsTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -65,7 +65,7 @@ public class MyProfile extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent editProfileActivity = new Intent(MyProfile.this, AthleteSignupActivity.class);
-                AthleteSignupActivity.Update=true;
+                AthleteSignupActivity.Update = true;
                 CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                 startActivity(editProfileActivity);
             }

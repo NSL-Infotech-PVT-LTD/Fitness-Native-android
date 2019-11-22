@@ -189,7 +189,7 @@
     <string name="review_fragment">Review</string>
     <string name="welcome_coach_name">Welcome Roger David</string>
     <string name="recent_request">Recent Requests</string>
-    <string name="view_all">View All</string>
+    <string name="view_all">view All</string>
     <string name="ongoing_session">Ongoing Sessions</string>
     <string name="select_services">Select services</string>
     <string name="select_portfolio_images">Please select images</string>
@@ -426,4 +426,6 @@
     <string name="my_services">My Services</string>
     <string name="basic_profile">Basic Profile</string>
     <string name="choose_sports">Choose Sports</string>
+    <string name="booking_id_demo">Booking ID: UT00002121521</string>
+    <string name="space">Space</string>
 </resources>

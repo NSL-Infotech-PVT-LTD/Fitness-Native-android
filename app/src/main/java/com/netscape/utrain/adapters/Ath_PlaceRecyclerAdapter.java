@@ -81,6 +81,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
                 intent.putExtra("event_id", data.getId() + "");
                 intent.putExtra("from", "places");
+                intent.putExtra("desc", data.getDescription());
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);

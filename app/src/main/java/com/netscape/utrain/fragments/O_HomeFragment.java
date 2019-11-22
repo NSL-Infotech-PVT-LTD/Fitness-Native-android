@@ -135,7 +135,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.org_fragment_home, container, false);
         view = binding.getRoot();
-        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, getContext()));
+        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + " " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, getContext()));
 
 //        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
         progressDialog = new ProgressDialog(getContext());
@@ -147,7 +147,6 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
             }
         };
         binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
-
         getSpaceList();
 
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);

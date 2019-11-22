@@ -622,6 +622,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         mGoogleMap.getUiSettings().setTiltGesturesEnabled(true);
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
+
+        if (getIntent().getStringExtra("from") != null)
         if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
             constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
             getAthleteEventApi("distance", search,"");
