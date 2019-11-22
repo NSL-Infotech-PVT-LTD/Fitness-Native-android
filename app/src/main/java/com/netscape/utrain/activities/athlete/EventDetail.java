@@ -73,7 +73,7 @@ public class EventDetail extends AppCompatActivity {
         binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
         binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
         binding.seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
-        eventId=getIntent().getStringExtra("event_id");
+        eventId = getIntent().getStringExtra("event_id");
 
 
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +123,9 @@ public class EventDetail extends AppCompatActivity {
                 binding.seatNo.setVisibility(View.GONE);
                 binding.totalAvailableSeat.setVisibility(View.GONE);
                 binding.view3.setVisibility(View.GONE);
-//                binding.evntJoinNow.setEnabled(false);
+                binding.descriptionTv.setText(getIntent().getStringExtra("desc"));
                 eventType = "space";
             }
-        binding.descriptionTv.setText(getIntent().getStringExtra(""));
 
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("events")) {
@@ -182,9 +181,9 @@ public class EventDetail extends AppCompatActivity {
             binding.evntJoinNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (eventType.equalsIgnoreCase("space")){
+                    if (eventType.equalsIgnoreCase("space")) {
                         Intent intent = new Intent(EventDetail.this, SpaceBookingActivity.class);
-                        intent.putExtra("event_id",eventId );
+                        intent.putExtra("event_id", eventId);
                         intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
                         intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());
                         intent.putExtra("eventTime", binding.eventTimeDetailTv.getText());
@@ -193,7 +192,7 @@ public class EventDetail extends AppCompatActivity {
                         intent.putExtra("type", eventType);
                         startActivity(intent);
 
-                    }else {
+                    } else {
                         Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
                         intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
                         intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());

@@ -149,7 +149,7 @@
                         android:id="@+id/eventVenueTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -163,7 +163,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -177,7 +177,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
@@ -288,8 +288,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/description_tv"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintTop_toBottomOf="@id/view2" />
 
@@ -303,7 +302,7 @@
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
                     app:layout_constraintTop_toBottomOf="@id/descriptionText"
-                    app:layout_goneMarginBottom="@dimen/_80sdp" />
+                    app:layout_goneMarginBottom="@dimen/_90sdp" />
 
                 <View
                     android:id="@+id/view4"

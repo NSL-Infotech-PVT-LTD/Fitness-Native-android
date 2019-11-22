@@ -60,9 +60,6 @@ public class ViewCoachStaffListAdapter extends RecyclerView.Adapter<ViewCoachSta
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context, O_RegistrationProfile.class);
-                context.startActivity(intent);
-
             }
         });
     }

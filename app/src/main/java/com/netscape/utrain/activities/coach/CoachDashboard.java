@@ -66,7 +66,6 @@ public class CoachDashboard extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 //                    mTextMessage.setText(R.string.title_home);
-
                     fragment = new C_HomeFragment();
                     loadFragment(fragment);
                     return true;
@@ -188,7 +187,7 @@ public class CoachDashboard extends AppCompatActivity {
             public void onClick(View view) {
 
                 openCloseDrawer();
-                loadFragment(new A_HomeFragment());
+                loadFragment(new C_HomeFragment());
 
             }
         });

@@ -41,14 +41,14 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class A_SessionsFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private Ath_SessionRecyclerAdapter adapter;
-    private List<String> data = new ArrayList<>();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private Ath_SessionRecyclerAdapter adapter;
+    private List<String> data = new ArrayList<>();
     private List<AthleteSessionModel> listModels = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
@@ -133,7 +133,7 @@ public class A_SessionsFragment extends Fragment {
         progressDialog.setMessage("Loading....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"","10", "latest","");
+        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "10", "latest", "");
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
             public void onResponse(Call<AthleteSessionResponse> call, Response<AthleteSessionResponse> response) {
@@ -143,7 +143,6 @@ public class A_SessionsFragment extends Fragment {
                     if (response.body().isStatus()) {
                         listModels.clear();
                         listModels.addAll(response.body().getData().getData());
-
                         adapter = new Ath_SessionRecyclerAdapter(getContext(), listModels);
                         recyclerView.setAdapter(adapter);
 

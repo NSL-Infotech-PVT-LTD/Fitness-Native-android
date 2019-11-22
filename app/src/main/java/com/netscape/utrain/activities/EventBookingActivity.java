@@ -235,8 +235,8 @@ public class EventBookingActivity extends AppCompatActivity {
                         if (response.body().getData() != null) {
                             binding.eventBookMarathonHeaderTv.setText(response.body().getData().getName());
                             binding.eventVanueDetailTv.setText(response.body().getData().getLocation());
-                            binding.eventTimeDetailTv.setText(response.body().getData().getBusiness_hour());
-                            binding.eventDateDetailTv.setText(response.body().getData().getDate());
+                            binding.eventTimeDetailTv.setText(response.body().getData().getStart_time());
+                            binding.eventDateDetailTv.setText(response.body().getData().getStart_date());
                             binding.eventPrice.setText("$" + response.body().getData().getHourly_rate() + "");
                             ticketPrice = response.body().getData().getHourly_rate();
                             binding.text1.setText((ticket + "*" + countVAlue) + "");

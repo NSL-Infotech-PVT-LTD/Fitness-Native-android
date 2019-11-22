@@ -32,7 +32,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Services Filter"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_20sdp"/>
+            android:textSize="@dimen/_20sdp" />
 
         <ImageView
             android:layout_width="@dimen/_18sdp"
@@ -40,14 +40,13 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_20sdp"
-            android:background="@drawable/ic_filter_white"/>
+            android:background="@drawable/ic_filter_white" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:background="@color/colorWhite"
         android:gravity="center">
 
@@ -110,13 +109,15 @@
             android:paddingTop="@dimen/_5sdp"
             android:paddingRight="@dimen/_10sdp"
             android:paddingBottom="@dimen/_5sdp"
-            android:text="Space"
+            android:text="@string/space"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_10sdp"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/doneSel"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:layout_below="@id/spaceSel"
@@ -126,10 +127,9 @@
             android:background="@drawable/bottom_sheet_button_design"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:padding="@dimen/_20sdp"
 
+            android:padding="@dimen/_20sdp"
             android:text="Done"
-            android:id="@+id/doneSel"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_10sdp"
             android:visibility="gone"

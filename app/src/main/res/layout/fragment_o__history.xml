@@ -34,9 +34,9 @@
                 android:gravity="center"
                 android:text="Bookings"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/filterSelection"
@@ -51,7 +51,7 @@
                 android:textColor="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="@id/layoutTitleText"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/layoutTitleText"/>
+                app:layout_constraintTop_toTopOf="@+id/layoutTitleText" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/nameOfType"
@@ -61,10 +61,10 @@
                 android:gravity="center"
                 android:padding="@dimen/_4sdp"
                 android:text="Event"
-                android:textSize="@dimen/_8sdp"
                 android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/layoutTitleText"
-                app:layout_constraintTop_toBottomOf="@id/layoutTitleText"/>
+                app:layout_constraintTop_toBottomOf="@id/layoutTitleText" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_10sdp"
@@ -73,7 +73,7 @@
                 android:background="@drawable/ic_filter_white"
                 app:layout_constraintBottom_toBottomOf="@id/filterSelection"
                 app:layout_constraintRight_toRightOf="@+id/filterSelection"
-                app:layout_constraintTop_toTopOf="@+id/filterSelection"/>
+                app:layout_constraintTop_toTopOf="@+id/filterSelection" />
 
             <!--<androidx.coordinatorlayout.widget.CoordinatorLayout-->
             <!--    android:layout_width="match_parent"-->
@@ -112,19 +112,19 @@
                 android:id="@+id/parentTwo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/cards_shape"
                 android:elevation="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutTitleText">
+                app:layout_constraintTop_toBottomOf="@id/nameOfType">
 
                 <com.netscape.utrain.utils.TabLayoutEx
                     android:id="@+id/historyTabLayou"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -142,7 +142,6 @@
                     android:id="@+id/historyViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

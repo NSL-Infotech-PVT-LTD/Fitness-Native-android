@@ -76,7 +76,7 @@
                 android:id="@+id/coachListRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/createCoach"
                 app:layout_constraintLeft_toLeftOf="parent"

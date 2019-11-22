@@ -52,6 +52,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private ArrayList<SportListModel.DataBeanX.DataBean> sportList = new ArrayList<>();
     private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private ArrayList<String> sports = new ArrayList<>();
+    private SportListModel.DataBeanX.DataBean sport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +146,11 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 String position = i + "";
                 binding.dServiceSpinner.setSelection(i);
                 binding.spinnerText.setText(dropDownList.get(i).getName());
-                searchText = dropDownList.get(i).getName();
+                if (i == 0) {
+                    searchText = "";
+                } else {
+                    searchText = dropDownList.get(i).getName();
+                }
                 getCoachListApi();
 
             }
@@ -213,8 +218,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
                             String[] array = new String[response.body().getData().getData().size()];
-
                             for (int i = 0; i < response.body().getData().getData().size(); i++) {
+
+
                                 array[i] = response.body().getData().getData().get(i).getName();
                             }
                             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DiscoverTopRated.this, android.R.layout.simple_dropdown_item_1line, array);
@@ -264,7 +270,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "5", "","latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "5", "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -364,6 +370,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
                 progressDialog.dismiss();
                 if (response.body().isStatus()) {
+                    sport = new SportListModel.DataBeanX.DataBean();
+                    sport.setName("Select Sport");
+                    dropDownList.add(sport);
                     if (response.body() != null) {
                         dropDownList.addAll(response.body().getData().getData());
                         initializeUI();

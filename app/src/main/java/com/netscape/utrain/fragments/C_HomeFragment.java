@@ -127,7 +127,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
-        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome)+" " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
         binding.createEventImg.setOnClickListener(this);
         binding.findPlace.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);

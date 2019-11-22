@@ -145,11 +145,16 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         if (Update) {
             setDataFromSharedPref();
             binding.athleteNameEdt.setClickable(false);
+            binding.athleteNameEdt.setBackground(getResources().getDrawable(R.drawable.edt_corner_radious_design));
             binding.athleteNameEdt.setEnabled(false);
+
             binding.athleteEmailEdt.setClickable(false);
+            binding.athleteEmailEdt.setBackground(getResources().getDrawable(R.drawable.edt_corner_radious_design));
             binding.athleteEmailEdt.setEnabled(false);
+
             binding.athletePasswordEdt.setVisibility(View.GONE);
             binding.athletePasswordEdtLayout.setVisibility(View.GONE);
+
             binding.viewOne.setVisibility(View.GONE);
             binding.tvHeaderFifthScreen.setVisibility(View.GONE);
             binding.athleteSignUpTv.setVisibility(View.GONE);
