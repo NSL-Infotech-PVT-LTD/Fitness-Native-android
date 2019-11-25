@@ -38,7 +38,29 @@ public class CoachUserDataModel {
     private String hourly_rate;
     private String profile_image;
     private String updated_at;
+    private String achievements;
+    private String profession;
     private String sport_id;
+    private String created_at;
+    private int id;
+    private List<ServiceIdModel> service_ids;
+    private List<RolesModel> roles;
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 
     public String getExperience_detail() {
         return experience_detail;
@@ -55,11 +77,6 @@ public class CoachUserDataModel {
     public void setTraining_service_detail(String training_service_detail) {
         this.training_service_detail = training_service_detail;
     }
-
-    private String created_at;
-    private int id;
-    private List<ServiceIdModel> service_ids;
-    private List<RolesModel> roles;
 
     public String getSport_id() {
         return sport_id;

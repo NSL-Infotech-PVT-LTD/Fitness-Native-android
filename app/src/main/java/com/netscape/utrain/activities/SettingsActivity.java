@@ -112,6 +112,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(SettingsActivity.this, ChooseSportActivity.class));
                 break;
             case R.id.chooseServicesClickimg:
+                SelectedServiceList.getInstance().getList().clear();
+                ServicePriceActivity.updateServices=true;
                 startActivity(new Intent(SettingsActivity.this, ServicePriceActivity.class));
                 break;
         }

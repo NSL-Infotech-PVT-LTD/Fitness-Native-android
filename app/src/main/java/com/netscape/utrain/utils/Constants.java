@@ -18,6 +18,7 @@ public class Constants {
     public static final String ORG_UPDATE = "organiser/update";
     public static final String SERVICES = "services";
     public static final String COACH_SIGNUP = "coach/register";
+    public static final String COACH_UPDATE = "coach/update";
     public static final String TOP_COACH_LIST = "coach/list";
     public static final String TOP_ORG_LIST = "organisers/list";
     public static final String ATHLETE_EVENT_LIST = "events/athlete/list";

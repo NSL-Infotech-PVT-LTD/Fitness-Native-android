@@ -174,6 +174,11 @@ public interface Retrofitinterface {
     @POST(Constants.COACH_SIGNUP)
     Call<CoachSignUpResponse> registerCoach(@PartMap Map<String, RequestBody> fields,
                                             @Part MultipartBody.Part image);
+    @Multipart
+    @POST(Constants.COACH_UPDATE)
+    Call<CoachSignUpResponse> updateCoachBasicInfo(@Header("Authorization") String auth,
+                                               @PartMap Map<String, RequestBody> fields,
+                                               @Part MultipartBody.Part image);
 
 //    @Multipart
 //    @POST(Constants.ORG_SIGNUP)
@@ -251,7 +256,7 @@ public interface Retrofitinterface {
     Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
                                                  @Part List<MultipartBody.Part> files);
     @Multipart
-    @POST(Constants.ORG_SIGNUP)
+    @POST(Constants.ORG_UPDATE)
     Call<OrgSignUpResponse> updateOrgBasicInfo(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part MultipartBody.Part image);
@@ -402,6 +407,11 @@ public interface Retrofitinterface {
 
     @POST(Constants.CO_EVENT_LIST)
     Call<C_EventListResponse> getCoachEventList(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("order_by") String order_by);
+
+    @POST(Constants.CO_EVENT_LIST)
+    Call<O_EventListResponse> getCoachEvents(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
                                                 @Query("order_by") String order_by);
 

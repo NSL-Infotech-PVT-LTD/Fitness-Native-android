@@ -45,7 +45,7 @@ public class AllEventsFragment extends Fragment {
     private ProgressDialog progressDialog;
 
     // below code for CoachEventlist....
-    private List<C_EventDataListModel> eventList = new ArrayList<>();
+    private List<O_EventDataModel> eventList = new ArrayList<>();
     private RecyclerView allEventListRecycler;
     private RecyclerView.LayoutManager layoutManager;
     private AllEventsCoachListAdapter eventAdapter;
@@ -92,12 +92,12 @@ public class AllEventsFragment extends Fragment {
         progressDialog.show();
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<C_EventListResponse> callEventCoachList = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
+        Call<O_EventListResponse> callEventCoachList = retrofitinterface.getCoachEvents("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
                         , Constants.CONTENT_TYPE, "");
 
-        callEventCoachList.enqueue(new Callback<C_EventListResponse>() {
+        callEventCoachList.enqueue(new Callback<O_EventListResponse>() {
             @Override
-            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+            public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus())
@@ -113,7 +113,7 @@ public class AllEventsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<O_EventListResponse> call, Throwable t) {
                 progressDialog.dismiss();
             }
         });

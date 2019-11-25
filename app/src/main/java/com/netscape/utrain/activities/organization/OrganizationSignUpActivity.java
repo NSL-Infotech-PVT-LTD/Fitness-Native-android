@@ -73,6 +73,7 @@ import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
 import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ViewCoachListDataModel;
+import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -167,7 +168,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         }
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
-            orgViewCoachStaffView();
+            if (!update)
+                orgViewCoachStaffView();
+
         }
 
         // For update to CoachStaff receive intent below....
@@ -183,15 +186,18 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgHourlyRateEdt.setText(viewCoachListDataModel.getHourly_rate());
         }
         if (update){
-            binding.orgNameEdt.setVisibility(View.GONE);
-            binding.organizationNameTv.setVisibility(View.GONE);
-            binding.orgEmailEdt.setVisibility(View.GONE);
-            binding.organizationEmailTv.setVisibility(View.GONE);
+//            binding.orgNameEdt.setVisibility(View.GONE);
+//            binding.organizationNameTv.setVisibility(View.GONE);
+//            binding.orgEmailEdt.setVisibility(View.GONE);
+//            binding.organizationEmailTv.setVisibility(View.GONE);
             binding.orgPasswordEdt.setVisibility(View.GONE);
             binding.orgPasswordEdtLayout.setVisibility(View.GONE);
             binding.organizationPassTv.setVisibility(View.GONE);
 
+
+
             binding.signUpType.setText("Organization");
+            binding.completeProfileTv.setText("Update Profile");
             binding.orgNameEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrganizationSignUpActivity.this));
             binding.orgEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL,OrganizationSignUpActivity.this));
             binding.orgPhoneEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE,OrganizationSignUpActivity.this));
@@ -207,16 +213,16 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgHourlyRateEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.PRICE,OrganizationSignUpActivity.this));
             binding.orgNextBtn.setText("Update");
 
-            latUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LATITUDE, OrganizationSignUpActivity.this);
-            longUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LONGITUDE, OrganizationSignUpActivity.this);
+            latUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LAT, OrganizationSignUpActivity.this);
+            longUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LONG, OrganizationSignUpActivity.this);
             if (!TextUtils.isEmpty(latUpdate)) {
                 latitude = Double.parseDouble(latUpdate);
             }
             if (!TextUtils.isEmpty(longUpdate)) {
                 longitude = Double.parseDouble(longUpdate);
             }
-            Glide.with(OrganizationSignUpActivity.this).load(Constants.ORG_IMAGE_BASE_URL + CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, this)).into(binding.orgProfileImg);
 
+            Glide.with(getApplicationContext()).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, getApplication())).into(binding.orgProfileImg);
 
 
 
@@ -389,7 +395,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 //                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
 //                startActivity(in);
                 if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
-                    validateViewCoachFields();
+                   if(update){
+                    validateEditTextData();
+                   }else {
+                       validateViewCoachFields();
+                   }
                 } else {
                     validateEditTextData();
                 }
@@ -593,14 +603,16 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
         } else if (photoFile == null) {
             if (update) {
-                OrgUpdateApi();
+
+                getLoginUser();
             }else {
                 Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
 
             }
         } else {
             if (update) {
-                OrgUpdateApi();
+
+                getLoginUser();
             }else {
                 orgDataModel.setProfile_img(photoFile);
                 orgDataModel.setLatitude(String.valueOf(latitude));
@@ -608,6 +620,21 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 hitOrgSignUpApi();
             }
         }
+    }
+
+    private void getLoginUser() {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
+            orgDataModel.setProfile_img(photoFile);
+            orgDataModel.setLatitude(String.valueOf(latitude));
+            orgDataModel.setLongitude(String.valueOf(longitude));
+            OrgUpdateApi();
+        }else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Coach)){
+            orgDataModel.setProfile_img(photoFile);
+            orgDataModel.setLatitude(String.valueOf(latitude));
+            orgDataModel.setLongitude(String.valueOf(longitude));
+            CoachUpdateApi();
+        }
+
     }
 
     private void updateOrgBasicProfile() {
@@ -887,10 +914,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", OrganizationSignUpActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", OrganizationSignUpActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBio() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), OrganizationSignUpActivity.this);
@@ -928,6 +955,92 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.orgSnackBar, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void CoachUpdateApi() {
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+        if (orgDataModel.getProfile_img() != null) {
+            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getPhone()));
+        requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLocation()));
+        requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getLatitude()));
+        requestBodyMap.put("business_hour_starts", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_starts()));
+        requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_ends()));
+        requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
+        requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
+        requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExperienceDetail()));
+        requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
+        requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getHourly_rate()));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+
+        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
+            @Override
+            public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+                                if (Constants.Coach.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", OrganizationSignUpActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, OrganizationSignUpActivity.this);
+                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
+                                }
+                            }
+                        }else {
+                            Snackbar.make(binding.orgSnackBar, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                        Snackbar.make(binding.orgSnackBar, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.orgSnackBar, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.orgSnackBar, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.orgSnackBar, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }

@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     storeServiceIds(servicesList);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBio() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", LoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
@@ -189,6 +189,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
                                     servicesList.addAll(response.body().getData().getUser().getService_ids());
                                     storeServiceIds(servicesList);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", LoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+
 
                                     homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

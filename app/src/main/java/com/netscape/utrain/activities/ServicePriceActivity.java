@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -18,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.coach.CoachDashboard;
@@ -39,6 +41,7 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,18 +54,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class ServicePriceActivity extends AppCompatActivity implements View.OnClickListener, ServicePriceAdapter.ServicePriceInterface {
     MaterialTextView addService;
     RecyclerView.LayoutManager layoutManager;
     ServicePriceAdapter serviceAdapter;
     ArrayList<ServiceListDataModel> selectedService = new ArrayList<>();
     ArrayList<ServiceListDataModel> mList = new ArrayList<>();
+    private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     ServiceListDataModel serviceModel;
     DialogAdapter dialogAdapter;
     AlertDialog alertDialog;
     MaterialButton btnDialogNext;
     int mPosition = 0;
     JsonArray jsonArray;
+    public static boolean updateServices=false;
     private ActivityServicePriceBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
@@ -77,27 +84,24 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_service_price);
-
+        orgDataModel=new OrgUserDataModel();
         layoutManager = new LinearLayoutManager(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 //        selectedService.clear();
         init();
+        if (updateServices){
+            String price=CommonMethods.getPrefData(PrefrenceConstant.PRICE,ServicePriceActivity.this);
+            orgDataModel.setHourly_rate(price);
+
+            getService();
+        }
     }
 
     private void init() {
 //        selectedService = CommonMethods.getListPrefrence(Constants.SELECTED_SERVICE, ServicePriceActivity.this);
         mList = CommonMethods.getListPrefrence(Constants.SERVICE_LIST, ServicePriceActivity.this);
-//        if (selectedSeService != null && selectedService.size() > 0) {
-//            binding.serviceRecyclerView.setVisibility(View.VISIBLE);
-//            binding.serviceTv.setVisibility(View.VISIBLE);
-//            binding.rateTV.setVisibility(View.VISIBLE);
-//            binding.noSelectedService.setVisibility(View.GONE);
-//            serviceAdapter = new ServicePriceAdapter(getApplicationContext(), selectedService, ServicePriceActivity.this);
-//            binding.serviceRecyclerView.setLayoutManager(layoutManager);
-//            binding.serviceRecyclerView.setAdapter(serviceAdapter);
-//        }
         binding.addServiceBtn.setOnClickListener(this);
         binding.servicePriceNextBtn.setOnClickListener(this);
         binding.addServiceCenterBtn.setOnClickListener(this);
@@ -204,9 +208,20 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                             CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
-                            Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                            CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", ServicePriceActivity.this);
                             servicesList.addAll(response.body().getData().getUser().getService_ids());
                             storeServiceIds(servicesList);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", ServicePriceActivity.this);
+                            CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+
+                            Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
@@ -449,6 +464,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
+        updateServices=false;
 //        CommonMethods.setLisstPrefData(Constants.SELECTED_SERVICE, selectedService, ServicePriceActivity.this);
         super.onDestroy();
     }
@@ -470,4 +486,32 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         String listData = gson.toJson(list);
         CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
     }
+    private void getService() {
+        String serviceName = CommonMethods.getPrefData(PrefrenceConstant.SERVICE_IDS, getApplicationContext());
+        Gson gson = new Gson();
+
+        if (serviceName != null) {
+            if (serviceName.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Service Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<ServiceListDataModel>>() {
+                }.getType();
+                sList = gson.fromJson(serviceName, type);
+                if (sList!=null && sList.size()>0){
+                    SelectedServiceList.getInstance().getList().addAll(sList);
+                    CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, sList, ServicePriceActivity.this);
+
+                    setTheAdapter();
+                }
+
+                StringBuilder builder = new StringBuilder();
+                for (ServiceListDataModel details : sList) {
+                    builder.append(details.getName() + "\n");
+
+                }
+
+            }
+        }
+    }
+
 }

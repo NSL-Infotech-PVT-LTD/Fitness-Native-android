@@ -16,6 +16,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.model.C_EventDataListModel;
+import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -26,9 +27,9 @@ import java.util.List;
 public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoachListAdapter.AllEventsListHolder> {
 
     private Context context;
-    private List<C_EventDataListModel> list;
+    private List<O_EventDataModel> list;
 
-    public AllEventsCoachListAdapter(Context context, List<C_EventDataListModel> list) {
+    public AllEventsCoachListAdapter(Context context, List<O_EventDataModel> list) {
         this.context = context;
         this.list = list;
     }
@@ -45,7 +46,7 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
     @Override
     public void onBindViewHolder(@NonNull AllEventsListHolder holder, int position) {
 
-        C_EventDataListModel data = list.get(position);
+        O_EventDataModel data = list.get(position);
 
         holder.bookingEventName.setText(data.getName());
         holder.bookingEventDate.setText(data.getStart_date() + " " + data.getStart_time());

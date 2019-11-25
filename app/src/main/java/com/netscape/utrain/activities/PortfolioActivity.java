@@ -553,7 +553,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);

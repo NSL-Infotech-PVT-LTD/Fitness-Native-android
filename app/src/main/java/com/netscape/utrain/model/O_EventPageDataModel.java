@@ -29,6 +29,7 @@ public class O_EventPageDataModel {
     private Object prev_page_url;
     private int to;
     private int total;
+    private List<O_EventDataModel> data;
 
     public List<O_EventDataModel> getData() {
         return data;
@@ -37,9 +38,6 @@ public class O_EventPageDataModel {
     public void setData(List<O_EventDataModel> data) {
         this.data = data;
     }
-
-    private List<O_EventDataModel> data;
-
 
     public int getCurrent_page() {
         return current_page;

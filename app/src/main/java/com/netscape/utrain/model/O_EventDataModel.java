@@ -39,6 +39,51 @@ public class O_EventDataModel implements Serializable {
     private int created_by;
     private int guest_allowed;
     private String equipment_required;
+    private Object params;
+    private String state;
+    private String created_at;
+    private String updated_at;
+    private Object deleted_at;
+
+    public Object getParams() {
+        return params;
+    }
+
+    public void setParams(Object params) {
+        this.params = params;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Object getDeleted_at() {
+        return deleted_at;
+    }
+
+    public void setDeleted_at(Object deleted_at) {
+        this.deleted_at = deleted_at;
+    }
 
     public int getId() {
         return id;
