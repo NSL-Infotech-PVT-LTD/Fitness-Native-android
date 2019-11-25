@@ -69,9 +69,9 @@ public class AllSessionsFragment extends Fragment {
         checkRoleHitApi();
 
 
-
         return view;
     }
+
     private void checkRoleHitApi() {
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
@@ -100,8 +100,12 @@ public class AllSessionsFragment extends Fragment {
                         if (response.body() != null) {
 
                             coachSessionList = response.body().getData().getData();
-                            coachSessionAdapter = new AllSessionCoachistAdapter(context, coachSessionList);
-                            binding.allSessionCoachListRecycler.setAdapter(coachSessionAdapter);
+                            if (coachSessionList != null && coachSessionList.size() > 0) {
+                                coachSessionAdapter = new AllSessionCoachistAdapter(context, coachSessionList);
+                                binding.allSessionCoachListRecycler.setAdapter(coachSessionAdapter);
+                            } else {
+                                binding.allSessionNoImage.setVisibility(View.VISIBLE);
+                            }
 
                         } else {
                             Toast.makeText(context, "" + response.body().getError().getError_message(), Toast.LENGTH_LONG).show();
@@ -111,6 +115,7 @@ public class AllSessionsFragment extends Fragment {
             @Override
             public void onFailure(Call<O_SessionListResponse> call, Throwable t) {
                 progressDialog.dismiss();
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -133,8 +138,14 @@ public class AllSessionsFragment extends Fragment {
                         if (response.body() != null) {
 
                             orgSessionList = response.body().getData().getData();
-                            orgAdapter = new AllSessionOrgListAdapter(context, orgSessionList);
-                            binding.allSessionCoachListRecycler.setAdapter(orgAdapter);
+
+                            if (orgSessionList != null && orgSessionList.size() > 0) {
+                                orgAdapter = new AllSessionOrgListAdapter(context, orgSessionList);
+                                binding.allSessionCoachListRecycler.setAdapter(orgAdapter);
+                            } else {
+                                binding.allSessionNoImage.setVisibility(View.VISIBLE);
+                            }
+
 
                         } else {
                             Toast.makeText(context, "" + response.body().getError().getError_message(), Toast.LENGTH_LONG).show();

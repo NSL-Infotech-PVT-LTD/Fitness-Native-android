@@ -12,13 +12,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/BackImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_leftblack"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toLeftOf="@+id/findSpaceHeaderTv"
+            app:layout_constraintBottom_toBottomOf="@+id/findSpaceHeaderTv"
+            app:layout_constraintTop_toTopOf="@+id/findSpaceHeaderTv" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/findSpaceHeaderTv"
@@ -29,7 +30,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/my_services"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toRightOf="@+id/BackImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,7 +65,9 @@
                 android:id="@+id/allCreatedTab"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -27,7 +27,6 @@
             android:id="@+id/orgWelcomeOrgName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_semibold"
             android:singleLine="true"
             android:maxLength="25"
@@ -54,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.093" />
+            app:layout_constraintGuide_percent="0.08" />
 
         <ScrollView
             android:id="@+id/scroll"
@@ -140,7 +139,6 @@
                     android:id="@+id/orgCreateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
                     android:drawableLeft="@drawable/ic_add_gray"
                     android:fontFamily="@font/poppins_semibold"
                     android:hint="@string/create"

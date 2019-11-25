@@ -12,13 +12,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/settingsBackImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/ic_backblack"
+            android:src="@drawable/ic_leftblack"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_LogIn_TenthScreen"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toLeftOf="@+id/tv_LogIn_TenthScreen"
+            app:layout_constraintTop_toTopOf="@+id/tv_LogIn_TenthScreen" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -29,7 +30,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:text="@string/settings_text"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toRightOf="@+id/settingsBackImg"

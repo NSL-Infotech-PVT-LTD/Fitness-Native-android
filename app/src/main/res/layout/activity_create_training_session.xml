@@ -14,13 +14,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ctsBackArrowImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_leftblack"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/createTrainingSessionTv"
+            app:layout_constraintBottom_toBottomOf="@+id/createTrainingSessionTv"/>
+
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -32,7 +33,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/create_training_session"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toRightOf="@+id/ctsBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="@+id/createTrainingSessionTv"
             app:layout_constraintRight_toLeftOf="@+id/createEventImg"
             app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.19" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

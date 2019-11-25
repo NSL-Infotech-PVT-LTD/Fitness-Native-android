@@ -93,7 +93,7 @@ public class AllEventsFragment extends Fragment {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<C_EventListResponse> callEventCoachList = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                        , Constants.CONTENT_TYPE, "");
+                , Constants.CONTENT_TYPE, "");
 
         callEventCoachList.enqueue(new Callback<C_EventListResponse>() {
             @Override
@@ -102,9 +102,15 @@ public class AllEventsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isStatus())
                         if (response.body() != null) {
+
                             eventList = response.body().getData().getData();
-                            eventAdapter = new AllEventsCoachListAdapter(context, eventList);
-                            binding.allEventListRecycler.setAdapter(eventAdapter);
+                            if (eventList != null && eventList.size() > 0) {
+                                binding.allEventNoImage.setVisibility(View.GONE);
+                                eventAdapter = new AllEventsCoachListAdapter(context, eventList);
+                                binding.allEventListRecycler.setAdapter(eventAdapter);
+                            } else {
+                                binding.allEventNoImage.setVisibility(View.VISIBLE);
+                            }
                         }
                 } else {
                     progressDialog.dismiss();
@@ -138,8 +144,12 @@ public class AllEventsFragment extends Fragment {
                     if (response.body().isStatus())
                         if (response.body() != null) {
                             orgEventList = response.body().getData().getData();
-                            orgListAdapter = new AllEventsOrgListAdapter(context, orgEventList);
-                            binding.allEventListRecycler.setAdapter(orgListAdapter);
+                            if (orgEventList !=null && orgEventList.size() > 0) {
+                                orgListAdapter = new AllEventsOrgListAdapter(context, orgEventList);
+                                binding.allEventListRecycler.setAdapter(orgListAdapter);
+                            } else {
+                                binding.allEventNoImage.setVisibility(View.VISIBLE);
+                            }
 
                         } else {
                             progressDialog.dismiss();

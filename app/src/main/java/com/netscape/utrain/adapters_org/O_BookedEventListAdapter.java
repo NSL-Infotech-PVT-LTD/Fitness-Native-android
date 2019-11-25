@@ -51,10 +51,7 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
         if (type == 3) {
             this.sessionData = supplierData;
         }
-
-
     }
-
 
     @NonNull
     @Override

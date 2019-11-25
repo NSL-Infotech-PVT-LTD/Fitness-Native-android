@@ -419,7 +419,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_eventData.addAll(response.body().getData().getData());
-                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_UpcEventFragment.this,0,O_UpcEventFragment.this);
+                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_UpcEventFragment.this, 0, O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_EventAdapter);
 
                         } else {
@@ -472,7 +472,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this,1,O_UpcEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this, 1, O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -523,7 +523,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_sessionData.addAll(response.body().getData().getData());
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_UpcEventFragment.this,0,O_UpcEventFragment.this);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_UpcEventFragment.this, 0, O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SessionAdapter);
 
                         } else {
@@ -682,7 +682,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
 //                            data.addAll(response.body().getData());
                             a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this,1,O_UpcEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this, 1, O_UpcEventFragment.this);
                             binding.eventListRecycler.setAdapter(a_SpaceAdapter);
 
                         } else {
@@ -746,11 +746,9 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
         Date dt = null, dtEnd;
 
-
         try {
 
             dt = sdf.parse(list.getEvent().getStart_time());
-
 
             String value = null;
             if (dt != null) {
@@ -906,12 +904,13 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     }
 
     @Override
-    public void ratingVallue(int id, float rating,String type) {
-        rateService(id,rating, type);
+    public void ratingVallue(int id, float rating, String type) {
+        rateService(id, rating, type);
     }
-    public void rateService(int id,float rating,String type) {
+
+    public void rateService(int id, float rating, String type) {
         progressDialog.show();
-        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()),  id+"", rating+"");
+        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), id + "", rating + "");
         call.enqueue(new Callback<RatingResponse>() {
             @Override
             public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
@@ -920,14 +919,13 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
 
-                        if (type.equalsIgnoreCase("space")){
+                        if (type.equalsIgnoreCase("space")) {
                             getRoleSpace();
                         }
 
-
-                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "" + response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "" + response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     progressDialog.dismiss();

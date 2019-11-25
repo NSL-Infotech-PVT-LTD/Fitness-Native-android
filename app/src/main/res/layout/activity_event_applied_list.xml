@@ -33,17 +33,17 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Attendies List"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintLeft_toRightOf="@+id/backArrow"
             app:layout_constraintTop_toTopOf="@+id/view"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/backArrow"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@drawable/lefticonarrowwhite"
+            android:src="@drawable/ic_leftwhite"
             app:layout_constraintBottom_toBottomOf="@+id/titleTv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleTv"/>
@@ -54,11 +54,12 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_margin="@dimen/_15sdp"
             android:background="@drawable/round_green_design"
-            android:drawableRight="@drawable/magnifier"
+            android:drawableRight="@drawable/ic_search"
             android:hint="Tap to Search Attendee"
             android:paddingLeft="@dimen/_12sdp"
             android:paddingRight="@dimen/_15sdp"
             android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
             android:textColorHint="@color/lightGrayFont"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
