@@ -114,7 +114,10 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             }
         });
         if (type==1) {
-            holder.completedRatingText.setVisibility(View.VISIBLE);
+            if (data.getStatus().equalsIgnoreCase("pending")){
+                holder.completedRatingText.setVisibility(View.VISIBLE);
+            }
+
         }
         holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
             @Override

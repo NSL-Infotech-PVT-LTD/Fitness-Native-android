@@ -89,7 +89,9 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             }
         });
             if (type==1) {
-                holder.completedRatingText.setVisibility(View.VISIBLE);
+                if (data.getStatus().equalsIgnoreCase("pending")){
+                    holder.completedRatingText.setVisibility(View.VISIBLE);
+                }
             }
            holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
                @Override
