@@ -68,7 +68,6 @@
                 android:paddingLeft="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-
                 app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
                 app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -134,7 +133,7 @@
                 android:id="@+id/athleteLogInBtn"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/colorGreen"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
@@ -144,7 +143,7 @@
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                 app:layout_constraintRight_toRightOf="@+id/innerRightGuideLine"
-                app:layout_constraintTop_toBottomOf="@id/athletePasswordEdtLayout" />
+                app:layout_constraintTop_toBottomOf="@id/athleteForgetTv" />
 
 
             <com.google.android.material.textview.MaterialTextView

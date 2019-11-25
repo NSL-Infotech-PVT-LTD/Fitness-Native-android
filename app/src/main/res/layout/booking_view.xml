@@ -54,7 +54,7 @@
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:background="@drawable/edit"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_10sdp"></androidx.appcompat.widget.AppCompatImageView>
 
             <androidx.appcompat.widget.AppCompatImageView

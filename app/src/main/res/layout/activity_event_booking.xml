@@ -63,7 +63,7 @@
             android:layout_height="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/ic_backwhite"
+            android:src="@drawable/ic_leftwhite"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

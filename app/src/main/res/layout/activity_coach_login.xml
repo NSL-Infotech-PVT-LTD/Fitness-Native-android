@@ -65,7 +65,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/emailLoginBtn"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_48sdp"
+            android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_40sdp"
             android:backgroundTint="@color/colorGreen"
             android:fontFamily="@font/poppins_regular"
@@ -91,16 +91,6 @@
             app:layout_constraintLeft_toLeftOf="@+id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
             app:layout_constraintTop_toBottomOf="@+id/emailLoginBtn" />
-        <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/btn_facebook"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="@dimen/_50sdp"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/tv_Or"-->
-        <!--app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
-        <!--app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
-        <!--android:textSize="@dimen/_16sdp"-->
-        <!--android:padding="@dimen/_20sdp"-->
-        <!--android:layout_marginTop="@dimen/_6sdp"/>-->
         <LinearLayout
             android:id="@+id/fbLin"
             android:layout_width="0dp"

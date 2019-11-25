@@ -17,7 +17,7 @@
             android:layout_height="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/ic_backblack"
+            android:src="@drawable/ic_leftblack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/createEventTitleTv"
             app:layout_constraintRight_toLeftOf="@+id/ceEventImg"
             app:layout_constraintTop_toBottomOf="@id/createEventTitleTv" />
