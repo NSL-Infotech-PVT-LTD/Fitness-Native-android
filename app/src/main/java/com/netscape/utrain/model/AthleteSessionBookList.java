@@ -177,12 +177,30 @@ public class AthleteSessionBookList {
 
             private int id;
             private String type;
+            private String status;
+            private String rating;
             private int target_id;
             private int user_id;
             private int tickets;
             private int price;
             private UserDetailsBean user_details;
             private SessionBean session;
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+
+            public String getRating() {
+                return rating;
+            }
+
+            public void setRating(String rating) {
+                this.rating = rating;
+            }
 
             public int getId() {
                 return id;
