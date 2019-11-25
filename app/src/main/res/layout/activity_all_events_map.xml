@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/etmaterial_design"
-            android:drawableLeft="@drawable/magnifier"
+            android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="@dimen/_12sdp"
             android:elevation="@dimen/_1sdp"
             android:fontFamily="@font/poppins_regular"

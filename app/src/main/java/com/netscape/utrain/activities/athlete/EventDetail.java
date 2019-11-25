@@ -124,6 +124,7 @@ public class EventDetail extends AppCompatActivity {
                 binding.totalAvailableSeat.setVisibility(View.GONE);
                 binding.view3.setVisibility(View.GONE);
                 binding.descriptionTv.setText(getIntent().getStringExtra("desc"));
+                binding.view4.setVisibility(View.VISIBLE);
                 eventType = "space";
             }
 

@@ -197,8 +197,6 @@ public class CoachDashboard extends AppCompatActivity {
                 openCloseDrawer();
 
                 loadFragment(new A_ChatsFragment());
-
-
             }
         });
         binding.coachSlider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
