@@ -118,13 +118,12 @@ public class EventDetail extends AppCompatActivity {
                 binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
                 binding.eventCandidateTv.setVisibility(View.GONE);
                 binding.eventNumOfCandidateTv.setVisibility(View.GONE);
-                binding.view2.setVisibility(View.GONE);
                 binding.noOfSeatText.setVisibility(View.GONE);
                 binding.seatNo.setVisibility(View.GONE);
                 binding.totalAvailableSeat.setVisibility(View.GONE);
-                binding.view3.setVisibility(View.GONE);
+                binding.view3.setVisibility(View.VISIBLE);
+                binding.view4.setVisibility(View.GONE);
                 binding.descriptionTv.setText(getIntent().getStringExtra("desc"));
-                binding.view4.setVisibility(View.VISIBLE);
                 eventType = "space";
             }
 

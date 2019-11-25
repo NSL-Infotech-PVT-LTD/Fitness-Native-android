@@ -16,19 +16,19 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/discover"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toRightOf="@+id/discoverBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/discoverBackArrowImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_leftblack"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/discoverHeaderTv"
+            app:layout_constraintTop_toTopOf="@+id/discoverHeaderTv" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cViewAllDImage"

@@ -82,8 +82,13 @@ public class AllSpacesFragment extends Fragment {
                         if (response.body() != null) {
 
                             orgSpaceList = response.body().getData().getData();
-                            orgSpaceAdapter = new AllSpaceOrgListAdapter(context, orgSpaceList);
-                            binding.orgSpaceRecycler.setAdapter(orgSpaceAdapter);
+                            if (orgSpaceList != null && orgSpaceList.size() > 0) {
+                                orgSpaceAdapter = new AllSpaceOrgListAdapter(context, orgSpaceList);
+                                binding.orgSpaceRecycler.setAdapter(orgSpaceAdapter);
+
+                            } else {
+                                binding.allSpaceNoImage.setVisibility(View.VISIBLE);
+                            }
 
                         }
             }

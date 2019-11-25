@@ -69,7 +69,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
     private String searchText = "";
 
     private AutoCompleteTextView search;
-    private ImageView customerImage, noDataImageView,ti_tickets;
+    private ImageView customerImage, noDataImageView, ti_tickets;
     private MaterialTextView userName, bookingIdText, bookingPlaceName, eventText, bookingDateText, ti_locationText, ti_Booking_Ticket,
             ti_TotalTicketPrice, ti_TotalPrice, ti_tax, totalAmount;
 
@@ -154,7 +154,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             }
         });
 
-
     }
 
     private void bottomSheetUpDown_address() {
@@ -163,8 +162,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
-
-
     }
 
     private void bottomSheetBehavior_sort() {
@@ -223,8 +220,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             }
 
         }
-
-
     }
 //        adapter = new O_BookedEventListAdapter(EventAppliedList.this, list, new O_BookedEventListAdapter.onClick() {
 //            @Override
@@ -236,7 +231,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 //        });
 //
 //        recyclerView.setAdapter(adapter);
-
 
     public void getNumOfBookedList() {
         progressDialog.show();
@@ -284,9 +278,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
                     }
                 }
-
             }
-
             @Override
             public void onFailure(Call<O_EventBookedListResponse> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
@@ -578,7 +570,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
                     }
                 }
-
             }
 
             @Override
@@ -596,23 +587,19 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         if (type == 1) {
 
             Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + list.get(position).getUser_details().getProfile_image()).thumbnail(Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.get(position).getUser_details().getProfile_image())).into(customerImage);
-
             userName.setText(list.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + list.get(position).getId());
             bookingPlaceName.setText(list.get(position).getEvent().getName());
             eventText.setText("Event");
             String currentStringEnd = list.get(position).getEvent().getStart_date();
 
-
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
             final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
             Date dt = null, dtEnd;
 
-
             try {
 
                 dt = sdf.parse(list.get(position).getEvent().getStart_time());
-
 
                 String value = null;
                 if (dt != null) {
@@ -622,8 +609,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
             ti_locationText.setText(list.get(position).getEvent().getLocation());
             ti_Booking_Ticket.setText(list.get(position).getTickets() + " Attendies & Tickets (1 per person)");
             ti_TotalTicketPrice.setText(list.get(position).getTickets() + " Tickets @ $" + list.get(position).getEvent().getPrice() + " each");
@@ -665,7 +650,6 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
             ti_locationText.setText(spaceData.get(position).getSpace().getLocation());
             ti_Booking_Ticket.setVisibility(View.GONE);
             ti_tickets.setVisibility(View.GONE);
-
 //            ti_Booking_Ticket.setText(spaceData.get(position).getTickets() + " Attendies & Tickets (1 per person)");
             ti_TotalTicketPrice.setText("Space @ $" + spaceData.get(position).getSpace().getPrice_daily() + " /day");
             ti_TotalPrice.setText("$" + spaceData.get(position).getPrice() + ".00");
@@ -674,7 +658,7 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
         }
         if (type == 3) {
 
-            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + sessionData.get(position).getUser_details().getProfile_image()).thumbnail( Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL +Constants.THUMBNAILS+ sessionData.get(position).getUser_details().getProfile_image())).into(customerImage);
+            Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + sessionData.get(position).getUser_details().getProfile_image()).thumbnail(Glide.with(EventAppliedList.this).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.get(position).getUser_details().getProfile_image())).into(customerImage);
             userName.setText(sessionData.get(position).getUser_details().getName());
             bookingIdText.setText("Booking ID : " + sessionData.get(position).getId());
             bookingPlaceName.setText(sessionData.get(position).getSession().getName());

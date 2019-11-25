@@ -30,13 +30,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/selectServiceBackArrowImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/ic_backblack"
+            android:src="@drawable/ic_leftblack"
+            app:layout_constraintRight_toLeftOf="@+id/selectServiceTv"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/selectServiceTv"
+            app:layout_constraintBottom_toBottomOf="@+id/selectServiceTv"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/selectServiceTv"
@@ -47,7 +48,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/select_service_text"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toRightOf="@+id/selectServiceBackArrowImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,12 +59,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
 
-        <TextView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorGreen"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -73,19 +68,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/service_horizontalGuideline">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/service_leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/_30sdp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/service_rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/_30sdp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/serviceTv"
@@ -94,10 +76,11 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:text="@string/choose_your_services"
                 android:textSize="@dimen/_10sdp"
                 android:visibility="visible"
-                app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/service_rightGuideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,8 +100,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addServiceBtn"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorLightGray"
                 android:fontFamily="@font/poppins_regular"
@@ -126,9 +108,11 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginRight="@dimen/_30sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/service_leftGuideline"
-                app:layout_constraintRight_toRightOf="@id/service_rightGuideline" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

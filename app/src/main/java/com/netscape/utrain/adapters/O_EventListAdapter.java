@@ -56,21 +56,19 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
         try {
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
-                if (jsonArray !=null && jsonArray.length()>0){
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(0))).into(holder.eventImage);
+                if (jsonArray != null && jsonArray.length() > 0) {
+                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
                 }
             }
 
         } catch (JSONException e) {
 
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
         }
         if (status.equalsIgnoreCase("completed")) {
             holder.statusImage.setImageResource(R.drawable.ic_ti_confirm);
         } else {
             holder.statusImage.setImageResource(R.drawable.ic_yellow_ticket);
-
         }
         holder.eventName.setText(data.getName());
         holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
@@ -80,12 +78,10 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
             @Override
             public void onClick(View view) {
 
-
                 Intent topCoachesDetails = new Intent(context, EventAppliedList.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
                 topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
                 topCoachesDetails.putExtra(Constants.STATUS, status);
-
                 context.startActivity(topCoachesDetails);
             }
         });

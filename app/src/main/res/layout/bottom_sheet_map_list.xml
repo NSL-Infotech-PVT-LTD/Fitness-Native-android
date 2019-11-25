@@ -44,13 +44,13 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageLeftArrow"
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:src="@drawable/ic_leftblack"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/findAPlaceDummyText" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/allEventFindAPalceTv"
@@ -79,11 +79,11 @@
                 android:id="@+id/findAPlaceDummyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/find_a_place_text"
                 android:textSize="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"
-                app:layout_constraintTop_toBottomOf="@id/allEventFindAPalceTv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottomSheetGuideline"

@@ -7,12 +7,11 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginRight="@dimen/_10sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/_2sdp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/_16sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -40,7 +39,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_90sdp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/sophie"
+                    android:src="@drawable/ic_place_holder"
                     app:layout_constraintLeft_toLeftOf="parent" />
 
 
@@ -48,14 +47,14 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/editImage"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="@dimen/_10sdp"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/edit"
                 android:visibility="gone"
-                android:layout_marginTop="@dimen/_10sdp"></androidx.appcompat.widget.AppCompatImageView>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/statusImage"
@@ -162,21 +161,38 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/ti_tickets" />
 
+                <RatingBar
+                    android:id="@+id/bookingRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:numStars="5"
+                    android:progressBackgroundTint="@color/colorLightGray"
+                    android:progressTint="@color/colorGreen"
+                    android:rating="3"
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/bookingTicketTv"
+                    app:layout_constraintTop_toBottomOf="@+id/bookingTicketTv" />
+
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/completedRatingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@drawable/round_background_colord"
                     android:fontFamily="@font/poppins_regular"
                     android:paddingLeft="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"
-                    android:paddingRight="@dimen/_10sdp"
                     android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_4sdp"
                     android:text="@string/rate_us"
                     android:textColor="@color/colorWhite"
-                    android:visibility="gone"
                     android:textSize="@dimen/_8sdp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bookingTicketTv" />

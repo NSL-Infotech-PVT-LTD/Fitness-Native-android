@@ -17,6 +17,17 @@
             android:background="@drawable/gradiant_design_bottom_square"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/eventBookingBackImg"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:src="@drawable/ic_leftwhite"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/eventBookingText"
+            app:layout_constraintTop_toTopOf="@+id/eventBookingText"
+            app:layout_constraintBottom_toBottomOf="@+id/eventBookingText"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/eventBookingText"
             android:layout_width="wrap_content"
@@ -26,7 +37,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/event_booking"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_16sdp"
             app:layout_constraintLeft_toRightOf="@+id/eventBookingBackImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,15 +76,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/eventBookingBackImg"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/ic_backwhite"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <com.google.android.material.textview.MaterialTextView
