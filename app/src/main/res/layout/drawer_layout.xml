@@ -331,7 +331,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center_vertical"
-            android:text="@string/settings"
+            android:text="@string/settings_text"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toRightOf="@id/icDashboardIcon"

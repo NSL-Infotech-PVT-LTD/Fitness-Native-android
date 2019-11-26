@@ -15,6 +15,7 @@ import com.netscape.utrain.response.A_BookedEventResponse;
 import com.netscape.utrain.response.A_EventListResponse;
 import com.netscape.utrain.response.A_SessionResponse;
 import com.netscape.utrain.response.A_SpaceListResponse;
+import com.netscape.utrain.response.AboutUsResponse;
 import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
@@ -22,6 +23,7 @@ import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.response.BookingListResponse;
 import com.netscape.utrain.response.C_EventListResponse;
 import com.netscape.utrain.response.C_SessionListResponse;
+import com.netscape.utrain.response.ChangePasswordResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
@@ -41,6 +43,7 @@ import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.response.SpaceDetailResponse;
+import com.netscape.utrain.response.TermsAndConditionsResponse;
 import com.netscape.utrain.response.ViewCoachListResponse;
 import com.netscape.utrain.utils.Constants;
 
@@ -245,16 +248,18 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createEvent(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
                                              @Part List<MultipartBody.Part> files);
+
     @Multipart
     @POST(Constants.UPDATE_EVENTS)
     Call<OrgCreateEventResponse> updateEvents(@Header("Authorization") String auth,
-                                             @PartMap Map<String, RequestBody> fields,
-                                             @Part List<MultipartBody.Part> files);
+                                              @PartMap Map<String, RequestBody> fields,
+                                              @Part List<MultipartBody.Part> files);
 
     @Multipart
     @POST(Constants.ORG_SIGNUP)
     Call<OrgSignUpResponse> registerOrganization(@PartMap Map<String, RequestBody> fields,
                                                  @Part List<MultipartBody.Part> files);
+
     @Multipart
     @POST(Constants.ORG_UPDATE)
     Call<OrgSignUpResponse> updateOrgBasicInfo(@Header("Authorization") String auth,
@@ -272,6 +277,7 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createSpace(@Header("Authorization") String auth,
                                              @PartMap Map<String, RequestBody> fields,
                                              @Part List<MultipartBody.Part> files);
+
     @Multipart
     @POST(Constants.UPDATE_SPACE)
     Call<OrgCreateEventResponse> updateSpace(@Header("Authorization") String auth,
@@ -292,6 +298,7 @@ public interface Retrofitinterface {
     Call<OrgCreateEventResponse> createSession(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part List<MultipartBody.Part> files);
+
     @Multipart
     @POST(Constants.UPDATE_SESSION)
     Call<OrgCreateEventResponse> updateSession(@Header("Authorization") String auth,
@@ -424,10 +431,11 @@ public interface Retrofitinterface {
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
                                                     @Query("order_by") String order_by);
+
     @POST(Constants.CO_SESSION_LIST)
     Call<O_SessionListResponse> getCoachSessions(@Header("Authorization") String Authorization,
-                                                    @Header("Content-Type") String contentType,
-                                                    @Query("order_by") String order_by);
+                                                 @Header("Content-Type") String contentType,
+                                                 @Query("order_by") String order_by);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
     Call<AthleteBookListModel> getAthleteBookingList(@Header("Authorization") String Authorization,
@@ -537,6 +545,26 @@ public interface Retrofitinterface {
     Call<RatingResponse> setbookingRating(@Header("Content-Type") String Content_type,
                                           @Header("Authorization") String Authorization,
                                           @Query("booking_id") String booking_id,
-                                          @Query("rating") String rating );
+                                          @Query("rating") String rating
+    );
+
+
+    @POST(Constants.CHANGE_PASSWORD)
+    Call<ChangePasswordResponse> changePassword(@Header("Content-Type") String Content_Type,
+                                                @Header("Authorization") String Authorization,
+                                                @Query("old_password") String old_password,
+                                                @Query("password") String password,
+                                                @Query("password_confirmation") String password_confirmation
+    );
+
+
+    @GET(Constants.ABOUT_US)
+    Call<AboutUsResponse> aboutUs();
+
+
+    @POST(Constants.TERMS_CONDITIONS)
+    Call<TermsAndConditionsResponse> termsAndConditions(
+            @Query("type") String type);
+
 
 }

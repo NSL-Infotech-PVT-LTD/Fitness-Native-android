@@ -27,20 +27,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.AllCreatedActivity;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
-import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
-import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
-import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
@@ -241,8 +239,8 @@ public class OrgHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
-                loadFragment(new A_ChatsFragment());
+                Intent aboutUs = new Intent(OrgHomeScreen.this, AboutUs.class);
+                startActivity(aboutUs);
 
             }
         });

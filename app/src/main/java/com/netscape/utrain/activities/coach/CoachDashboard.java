@@ -27,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.AllCreatedActivity;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SettingsActivity;
@@ -34,10 +35,8 @@ import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
-import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.C_HomeFragment;
-import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
@@ -230,8 +229,8 @@ public class CoachDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
-                loadFragment(new A_ChatsFragment());
+                Intent aboutUs = new Intent(CoachDashboard.this, AboutUs.class);
+                startActivity(aboutUs);
 
             }
         });

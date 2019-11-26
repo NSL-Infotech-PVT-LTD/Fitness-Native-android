@@ -427,4 +427,8 @@
     <string name="choose_sports">Choose Sports</string>
     <string name="booking_id_demo">Booking ID: UT00002121521</string>
     <string name="space">Space</string>
+    <string name="old_password">Old Password</string>
+    <string name="enter_old_password">Enter Old Password</string>
+    <string name="enter_confirm_password">Enter Confirm Password</string>
+    <string name="password_doesnt_match">Password dosen\'t match</string>
 </resources>
