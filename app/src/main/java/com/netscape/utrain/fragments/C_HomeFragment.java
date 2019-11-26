@@ -108,7 +108,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
 //        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
 
-        cExp = CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, context);
+        cExp = CommonMethods.getPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, context);
         if (cExp != null)
             binding.cExpDetailTv.setText(cExp);
         else
@@ -254,12 +254,13 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 StringBuilder builder = new StringBuilder();
                 int i=1;
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
-                    i=i+1;
                     if (i< sportList.size()){
                         builder.append(details.getName() + ",");
+                        i=i+1;
                     }
-                    if (i == sportList.size()){
+                    else if (i == sportList.size()){
                         builder.append(details.getName());
+                        i=i+1;
                     }
                 }
                 binding.cSportsNameTv.setText(builder.toString());

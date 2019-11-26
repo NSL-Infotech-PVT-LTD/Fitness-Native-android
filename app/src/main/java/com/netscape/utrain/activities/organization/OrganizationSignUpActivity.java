@@ -67,6 +67,7 @@ import com.netscape.utrain.activities.ServicePriceActivity;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.athlete.ChooseSportActivity;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.coach.CoachSignupActivity;
 import com.netscape.utrain.adapters.SelectServiceSpinnerAdapter;
 import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
@@ -110,6 +111,7 @@ import retrofit2.Response;
 public class OrganizationSignUpActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
+    public static boolean update = false;
     private ActivityOrganizationSignUpBinding binding;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String orgName = "", orgEmail = "", orgPhone = "", orgPasswod = "", orgBio = "", orgAddress = "",
@@ -129,11 +131,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private ViewCoachListDataModel viewCoachListDataModel;
     private String activeUserType = "";
     private File mediaStorageDir;
-    public static boolean update=false;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    private String latUpdate="";
-    private String longUpdate="";
+    private String latUpdate = "";
+    private String longUpdate = "";
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -154,9 +155,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_organization_sign_up);
         init();
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         PortfolioActivity.clearFromConstants();
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading..");
 
         mediaStorageDir = new File(Environment.getExternalStorageDirectory(), "UtCompressed");
@@ -185,32 +186,43 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgTrainingDetailEdt.setText(viewCoachListDataModel.getTraining_service_detail());
             binding.orgHourlyRateEdt.setText(viewCoachListDataModel.getHourly_rate());
         }
-        if (update){
-//            binding.orgNameEdt.setVisibility(View.GONE);
-//            binding.organizationNameTv.setVisibility(View.GONE);
-//            binding.orgEmailEdt.setVisibility(View.GONE);
-//            binding.organizationEmailTv.setVisibility(View.GONE);
+        if (update) {
+            binding.orgNameEdt.setFocusable(false);
+            binding.orgNameEdt.setClickable(false);
+            binding.orgNameEdt.setEnabled(false);
+            binding.orgNameEdt.setBackground(getResources().getDrawable(R.drawable.edt_corner_radious_design));
+
+            binding.orgEmailEdt.setFocusable(false);
+            binding.orgEmailEdt.setClickable(false);
+            binding.orgEmailEdt.setEnabled(false);
+            binding.orgEmailEdt.setBackground(getResources().getDrawable(R.drawable.edt_corner_radious_design));
             binding.orgPasswordEdt.setVisibility(View.GONE);
             binding.orgPasswordEdtLayout.setVisibility(View.GONE);
             binding.organizationPassTv.setVisibility(View.GONE);
 
 
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
 
-            binding.signUpType.setText("Organization");
+                binding.signUpType.setText("Organization");
+            } else {
+                binding.signUpType.setText("Coach");
+
+            }
+
             binding.completeProfileTv.setText("Update Profile");
-            binding.orgNameEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME,OrganizationSignUpActivity.this));
-            binding.orgEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL,OrganizationSignUpActivity.this));
-            binding.orgPhoneEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE,OrganizationSignUpActivity.this));
-            binding.orgAddressEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.ADDRESS,OrganizationSignUpActivity.this));
+            binding.orgNameEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, OrganizationSignUpActivity.this));
+            binding.orgEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, OrganizationSignUpActivity.this));
+            binding.orgPhoneEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, OrganizationSignUpActivity.this));
+            binding.orgAddressEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.ADDRESS, OrganizationSignUpActivity.this));
             binding.orgPasswordEdt.setText("1234");
-            binding.orgBioEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO,OrganizationSignUpActivity.this));
-            binding.orgStartTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_START,OrganizationSignUpActivity.this));
-            binding.orgEndTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS,OrganizationSignUpActivity.this));
-            binding.orgProfessionType.setText(CommonMethods.getPrefData(PrefrenceConstant.PROFESSION,OrganizationSignUpActivity.this));
-            binding.orgExperienceEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE,OrganizationSignUpActivity.this));
-            binding.orgExperienceDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERIENCE_DETAILS,OrganizationSignUpActivity.this));
-            binding.orgTrainingDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL,OrganizationSignUpActivity.this));
-            binding.orgHourlyRateEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.PRICE,OrganizationSignUpActivity.this));
+            binding.orgBioEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, OrganizationSignUpActivity.this));
+            binding.orgStartTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_START, OrganizationSignUpActivity.this));
+            binding.orgEndTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, OrganizationSignUpActivity.this));
+            binding.orgProfessionType.setText(CommonMethods.getPrefData(PrefrenceConstant.PROFESSION, OrganizationSignUpActivity.this));
+            binding.orgExperienceEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, OrganizationSignUpActivity.this));
+            binding.orgExperienceDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, OrganizationSignUpActivity.this));
+            binding.orgTrainingDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, OrganizationSignUpActivity.this));
+            binding.orgHourlyRateEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.PRICE, OrganizationSignUpActivity.this));
             binding.orgNextBtn.setText("Update");
 
             latUpdate = CommonMethods.getPrefData(PrefrenceConstant.USER_LAT, OrganizationSignUpActivity.this);
@@ -223,9 +235,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
 
             Glide.with(getApplicationContext()).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, getApplication())).into(binding.orgProfileImg);
-
-
-
 
 
         }
@@ -395,11 +404,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 //                Intent in=new Intent(OrganizationSignUpActivity.this,ServicePriceActivity.class);
 //                startActivity(in);
                 if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
-                   if(update){
-                    validateEditTextData();
-                   }else {
-                       validateViewCoachFields();
-                   }
+                    if (update) {
+                        validateEditTextData();
+                    } else {
+                        validateViewCoachFields();
+                    }
                 } else {
                     validateEditTextData();
                 }
@@ -433,9 +442,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         LayoutInflater inflater = LayoutInflater.from(this);
         View content = inflater.inflate(R.layout.get_image_dialog, null);
         builder.setView(content);
-        TextView gallery = (TextView) content.findViewById(R.id.gallerySellectionBtn);
-        TextView camera = (TextView) content.findViewById(R.id.cameraSelectionBtn);
-        ImageView cancel = (ImageView) content.findViewById(R.id.closeDialogImg);
+        TextView gallery = content.findViewById(R.id.gallerySellectionBtn);
+        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+        ImageView cancel = content.findViewById(R.id.closeDialogImg);
         dialogMultiOrder = builder.create();
         dialogMultiOrder.setCancelable(false);
 //        dialogMultiOrder.setCanceledOnTouchOutside(false);
@@ -479,7 +488,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             // Create the File where the photo should go
             FileUtil fileUtil = new FileUtil();
             String fileName = "img_" + System.currentTimeMillis() + ".jpg";
-            photoFile = fileUtil.createFile(getApplicationContext(), null, fileName);
+            photoFile = FileUtil.createFile(getApplicationContext(), null, fileName);
             // Continue only if the File was successfully created
             Uri photoURI;
             if (photoFile != null) {
@@ -605,7 +614,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             if (update) {
 
                 getLoginUser();
-            }else {
+            } else {
                 Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
 
             }
@@ -613,7 +622,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             if (update) {
 
                 getLoginUser();
-            }else {
+            } else {
                 orgDataModel.setProfile_img(photoFile);
                 orgDataModel.setLatitude(String.valueOf(latitude));
                 orgDataModel.setLongitude(String.valueOf(longitude));
@@ -628,7 +637,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             orgDataModel.setLatitude(String.valueOf(latitude));
             orgDataModel.setLongitude(String.valueOf(longitude));
             OrgUpdateApi();
-        }else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Coach)){
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Coach)) {
             orgDataModel.setProfile_img(photoFile);
             orgDataModel.setLatitude(String.valueOf(latitude));
             orgDataModel.setLongitude(String.valueOf(longitude));
@@ -687,7 +696,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         if (input >= 10) {
             return String.valueOf(input);
         } else {
-            return "0" + String.valueOf(input);
+            return "0" + input;
         }
     }
 
@@ -864,7 +873,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     @Override
     protected void onDestroy() {
         clearPrefrences();
-        update=false;
+        update = false;
         super.onDestroy();
     }
 
@@ -873,6 +882,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         CommonMethods.clearKeyPrefData(Constants.SERVICE_LIST, OrganizationSignUpActivity.this);
 
     }
+
     // Organization viewCoachStaff Activity code below....
     private void OrgUpdateApi() {
         progressDialog.show();
@@ -897,7 +907,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
 
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updateOrgBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updateOrgBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -921,7 +931,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), OrganizationSignUpActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExpertise_years() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", OrganizationSignUpActivity.this);
@@ -934,7 +944,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.orgSnackBar, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
                         }
@@ -960,6 +970,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         });
     }
+
     private void CoachUpdateApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
@@ -983,7 +994,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
 
-        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
             public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
@@ -1007,7 +1018,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), OrganizationSignUpActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExpertise_years() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", OrganizationSignUpActivity.this);
 //                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", OrganizationSignUpActivity.this);
@@ -1015,12 +1026,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, OrganizationSignUpActivity.this);
-                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+
+                                    Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.orgSnackBar, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
                         }

@@ -28,6 +28,8 @@ import com.netscape.utrain.activities.SelectedServiceList;
 import com.netscape.utrain.activities.ServicePriceActivity;
 import com.netscape.utrain.activities.UpdateProfileActivity;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
+import com.netscape.utrain.activities.coach.CoachDashboard;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.adapters.DialogAdapter;
 import com.netscape.utrain.adapters.SportsAdapter;
@@ -39,6 +41,7 @@ import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.model.SportsIdModel;
 import com.netscape.utrain.model.ViewCoachListDataModel;
 import com.netscape.utrain.response.AthleteSignUpResponse;
+import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ViewCoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -154,7 +157,11 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     startActivity(intent);
                 } else if (athUpdate) {
                     if (sportsList != null && sportsList.size() > 0) {
-                        hitUpdateAthleteDetailApi();
+                         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)){
+                             CoachUpdateApi();
+                         }else {
+                             hitUpdateAthleteDetailApi();
+                         }
                     } else {
                         Toast.makeText(ChooseSportActivity.this, "Choose At least one sport", Toast.LENGTH_SHORT).show();
                     }
@@ -626,10 +633,70 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
             case R.id.csBackArrowImg:
                 finish();
         }
+    }
+
+
+
+    private void CoachUpdateApi() {
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+//        if (orgDataModel.getProfile_img() != null) {
+//            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+//        }
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), jsonArray.toString()));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+
+        Call<CoachSignUpResponse> signUpAthlete = api.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
+            @Override
+            public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+                                if (Constants.Coach.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), ChooseSportActivity.this);
+
+//
+
+                                    Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
+                                }
+                            }
+                        }else {
+                            Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.serviceLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

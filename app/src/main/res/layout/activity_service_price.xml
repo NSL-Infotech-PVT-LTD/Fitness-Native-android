@@ -33,14 +33,14 @@
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:src="@drawable/ic_leftblack"
-            app:layout_constraintBottom_toBottomOf="@+id/service_SummaryOfService"
+            app:layout_constraintBottom_toBottomOf="@+id/serviceSummaryTitle"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/service_SummaryOfService"
-            app:layout_constraintTop_toTopOf="@+id/service_SummaryOfService" />
+            app:layout_constraintRight_toLeftOf="@+id/serviceSummaryTitle"
+            app:layout_constraintTop_toTopOf="@+id/serviceSummaryTitle" />
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/service_SummaryOfService"
+            android:id="@+id/serviceSummaryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -63,8 +63,8 @@
         <!--        android:text="Add Services"-->
         <!--        android:textSize="@dimen/_15sdp"-->
         <!--        android:textColor="@color/colorBlack"-->
-        <!--        app:layout_constraintRight_toRightOf="@id/service_SummaryOfService"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/service_SummaryOfService"-->
+        <!--        app:layout_constraintRight_toRightOf="@id/serviceSummaryTitle"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/serviceSummaryTitle"-->
         <!--        />-->
 
 

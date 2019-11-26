@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -41,6 +42,8 @@ import retrofit2.Response;
 public class SelectServices extends AppCompatActivity implements View.OnClickListener, DialogAdapter.SelectedServicesInterface {
     ArrayList<ServiceListDataModel> mList = new ArrayList<>();
     ArrayList<ServiceListDataModel> selectedService = new ArrayList<>();
+    private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
+
     DialogAdapter dialogAdapter;
     RecyclerView.LayoutManager layoutManager;
     private ActivitySelectServicesBinding binding;
@@ -48,6 +51,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
     private ProgressDialog progressDialog;
     private OrgUserDataModel orgDataModel;
     private sendToMain send;
+    public static boolean updateService=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,25 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             mList.addAll(response.body().getData().getData());
+                            if (updateService){
+                                if (getIntent().getExtras()!=null){
+                                    Bundle args = getIntent().getExtras();
+                                    sList= (ArrayList<ServiceListDataModel>) args.getSerializable("SelectedService");
+                                    Constants.CHECKBOX_IS_CHECKED=sList.size();
+                                if (sList !=null && sList.size()>0){
+                                    binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                                    binding.addServiceBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+                                    for (int i=0;i<sList.size();i++){
+                                        for (int j=0;j<mList.size();j++){
+                                            if (sList.get(i).getId()==mList.get(j).getId()){
+                                                mList.get(j).setSelected(sList.get(i).isSelected());
+                                            }
+                                        }
+                                    }
+                                }
+                                }
+                            }
+
                             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
                             dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
                             binding.serviceRecyclerView.setAdapter(dialogAdapter);
@@ -143,10 +166,13 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
         if (Constants.CHECKBOX_IS_CHECKED > 0) {
             binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
             binding.addServiceBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+            binding.addServiceBtn.setClickable(true);
         }
         if (Constants.CHECKBOX_IS_CHECKED == 0) {
             binding.addServiceBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
             binding.addServiceBtn.setTextColor(getResources().getColor(R.color.lightGrayFont));
+            binding.addServiceBtn.setClickable(false);
+            Toast.makeText(this, "Select at least one service", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -168,6 +194,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onDestroy() {
+        updateService=false;
         CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, mList, SelectServices.this);
         super.onDestroy();
     }

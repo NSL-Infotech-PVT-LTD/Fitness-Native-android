@@ -260,6 +260,11 @@ public interface Retrofitinterface {
     Call<OrgSignUpResponse> updateOrgBasicInfo(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part MultipartBody.Part image);
+    @Multipart
+    @POST(Constants.ORG_UPDATE)
+    Call<OrgSignUpResponse> updatePortFolioImages(@Header("Authorization") String auth,
+                                               @PartMap Map<String, RequestBody> fields,
+                                               @Part List<MultipartBody.Part> files);
 
 
     @Multipart

@@ -31,6 +31,7 @@ import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.CoachSignUpResponse;
+import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -41,6 +42,7 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +94,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 //        selectedService.clear();
         init();
         if (updateServices){
+            binding.serviceSummaryTitle.setText("Update Services");
+            binding.servicePriceNextBtn.setText(("Update"));
             String price=CommonMethods.getPrefData(PrefrenceConstant.PRICE,ServicePriceActivity.this);
             orgDataModel.setHourly_rate(price);
 
@@ -131,10 +135,16 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             case R.id.servicePriceNextBtn:
                 if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
                     jsonArray = (JsonArray) new Gson().toJsonTree(SelectedServiceList.getInstance().getList());
-                    if (activeUserType.equals(Constants.TypeCoach)) {
+                   if (updateServices){
+                       if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
+                           OrgServiceUpdateApi();
+                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
+                           CoachUpdateApi();
+                   }
+                    if (activeUserType.equalsIgnoreCase(Constants.TypeCoach)) {
                         CoachSignUpApi();
                     }
-                    if (activeUserType.equals(Constants.TypeOrganization)) {
+                    if (activeUserType.equalsIgnoreCase(Constants.TypeOrganization)) {
                         orgDataModel.setSelectedServices(jsonArray.toString());
                         Intent portfolio = new Intent(ServicePriceActivity.this, PortfolioActivity.class);
                         portfolio.putExtra(Constants.OrgSignUpIntent, orgDataModel);
@@ -155,6 +165,10 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         Intent intent = new Intent(ServicePriceActivity.this, SelectServices.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+        Bundle args = new Bundle();
+        args.putSerializable("SelectedService",sList);
+        intent.putExtras(args);
+        SelectServices.updateService=true;
         startActivity(intent);
     }
 
@@ -458,8 +472,16 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void getServicePrice(int postion, String servicePrice, int id) {
-        SelectedServiceList.getInstance().getList().get(postion).setPrice(servicePrice);
-        SelectedServiceList.getInstance().getList().get(postion).setId(id);
+        if (Integer.parseInt(servicePrice)>5) {
+            binding.servicePriceNextBtn.setClickable(true);
+            SelectedServiceList.getInstance().getList().get(postion).setPrice(servicePrice);
+            SelectedServiceList.getInstance().getList().get(postion).setId(id);
+            binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        }else{
+            binding.servicePriceNextBtn.setClickable(false);
+            binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
+            Toast.makeText(this, "Enter Price  more than  $5", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -499,7 +521,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                 sList = gson.fromJson(serviceName, type);
                 if (sList!=null && sList.size()>0){
                     SelectedServiceList.getInstance().getList().addAll(sList);
-                    CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, sList, ServicePriceActivity.this);
+//                    CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, sList, ServicePriceActivity.this);
 
                     setTheAdapter();
                 }
@@ -512,6 +534,165 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
             }
         }
+    }
+
+
+
+    private void OrgServiceUpdateApi() {
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+        if (orgDataModel.getProfile_img() != null) {
+            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), jsonArray.toString()));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updateOrgBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
+            @Override
+            public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+                                if (Constants.Organizer.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, ServicePriceActivity.this);
+                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                    storeServiceIds(servicesList);
+
+                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
+                                }
+                            }
+                        }else {
+                            Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                        Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrgSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.serviceLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void CoachUpdateApi() {
+        progressDialog.show();
+        MultipartBody.Part userImg = null;
+        if (orgDataModel.getProfile_img() != null) {
+            userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), jsonArray.toString()));
+        requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
+        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
+        requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
+
+
+        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
+            @Override
+            public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+                                if (Constants.Coach.equalsIgnoreCase(role)) {
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", ServicePriceActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, ServicePriceActivity.this);
+                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                    storeServiceIds(servicesList);
+
+                                    Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(homeScreen);
+                                }
+                            }
+                        }else {
+                            Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Snackbar.make(binding.serviceLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
