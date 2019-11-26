@@ -41,6 +41,9 @@ public class Constants {
     public static final String organiser_coach_store = "organiser/coach/store";
     public static final String BOOKING_NOTIFICATIONS = "booking/notifications";
     public static final String BOOKING_RATING = "booking/rating";
+    public static final String CHANGE_PASSWORD = "password/change";
+    public static final String TERMS_CONDITIONS = "terms";
+
 
     public static final String ORG_SESSION_LIST = "session/organiser/list";
     public static final String CO_EVENT_LIST = "events/coach/list";
@@ -57,6 +60,7 @@ public class Constants {
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
     public static final String SPORTS_LIST = "sports";
+    public static final String ABOUT_US = "about/us";
 
 
     public static final String ORG_SPACE_LIST = "spaces/organiser/list";
@@ -108,6 +112,8 @@ public class Constants {
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     public static final String ORGANIZER_COACH_STORE = "organiser/coach/store";
     public static final String TypeOrgCoach = "OrgCoachActive";
+
+
     public static String ROLE_PLAY = "";
     public static int CHECKBOX_IS_CHECKED = 0;
     public static String SocialProfile = "";

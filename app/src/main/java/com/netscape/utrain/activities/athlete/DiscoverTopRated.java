@@ -371,7 +371,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 progressDialog.dismiss();
                 if (response.body().isStatus()) {
                     sport = new SportListModel.DataBeanX.DataBean();
-                    sport.setName("Select Sport");
+                    sport.setName("Select Sports");
                     dropDownList.add(sport);
                     if (response.body() != null) {
                         dropDownList.addAll(response.body().getData().getData());
