@@ -1,10 +1,11 @@
 package com.netscape.utrain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopCoachesListData {
     String current_page;
-    List<CoachListModel> data;
+    ArrayList<CoachListModel> data;
     /**
      * first_page_url : https://dev.netscapelabs.com/utrain/public/api/coach/list?page=1
      * from : 1
@@ -37,11 +38,11 @@ public class TopCoachesListData {
         this.current_page = current_page;
     }
 
-    public List<CoachListModel> getData() {
+    public ArrayList<CoachListModel> getData() {
         return data;
     }
 
-    public void setData(List<CoachListModel> data) {
+    public void setData(ArrayList<CoachListModel> data) {
         this.data = data;
     }
 

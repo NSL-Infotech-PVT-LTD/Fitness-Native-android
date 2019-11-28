@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.EventDetail;
+import com.netscape.utrain.model.AthleteEventListModel;
 import com.netscape.utrain.model.AthletePlaceModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -26,6 +27,7 @@ import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
     private Context context;
     private int previusPos = -1;
     private List<AthletePlaceModel> supplierData;
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
+
 
 
     public Ath_PlaceRecyclerAdapter(Context context, List<AthletePlaceModel> supplierData) {
@@ -41,18 +47,45 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
         this.supplierData = supplierData;
         this.eventData = eventData;
     }
+    public Ath_PlaceRecyclerAdapter(Context context) {
+        this.context = context;
+        supplierData = new ArrayList<>();
+    }
 
     @NonNull
     @Override
     public Ath_PlaceRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_place_old_layout, parent, false);
-        return new ViewHolder(view);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_place_old_layout, parent, false);
+//        return new ViewHolder(view);
+        Ath_PlaceRecyclerAdapter.ViewHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
+        }
+
+        return viewHolder;
+    }
+    @NonNull
+    private Ath_PlaceRecyclerAdapter.ViewHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        Ath_PlaceRecyclerAdapter.ViewHolder viewHolder;
+        View v1 = inflater.inflate(R.layout.find_place_old_layout, parent, false);
+        viewHolder = new ViewHolder(v1);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull Ath_PlaceRecyclerAdapter.ViewHolder holder, final int position) {
-
         AthletePlaceModel data = supplierData.get(position);
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if(data!=null)
         holder.eventName.setText(data.getName());
         holder.placenameTv.setText(data.getLocation());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " miles");
@@ -89,6 +122,10 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 context.startActivity(intent);
             }
         });
+            case LOADING:
+//                Do nothing
+                break;
+        }
 
     }
 
@@ -112,8 +149,75 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return supplierData == null ? 0 : supplierData.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+
+    public void add(AthletePlaceModel r) {
+        supplierData.add(r);
+        notifyItemInserted(supplierData.size() - 1);
+    }
+
+    public void addAll(List<AthletePlaceModel> moveResults) {
+        for (AthletePlaceModel result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void setList(List<AthletePlaceModel> list) {
+        this.supplierData = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(AthletePlaceModel r) {
+        int position = supplierData.indexOf(r);
+        if (position > -1) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+//        add(new C_ProductsSerial.Datum());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = supplierData.size() - 1;
+        AthletePlaceModel result = getItem(position);
+
+        if (result != null) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public AthletePlaceModel getItem(int position) {
+        return supplierData.get(position);
+
+
+    }
+
+
 
     public interface AthleteEventData {
         public void getData(Intent intent);
@@ -145,6 +249,12 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
 //            ratingBar = itemView.findViewById(R.id.supplierRating);
         }
 
+    }
+    protected class LoadingVH extends Ath_PlaceRecyclerAdapter.ViewHolder {
+
+        public LoadingVH(View itemView) {
+            super(itemView);
+        }
     }
 
 }

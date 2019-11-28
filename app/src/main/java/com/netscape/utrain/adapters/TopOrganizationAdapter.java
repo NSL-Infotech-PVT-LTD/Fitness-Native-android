@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -56,8 +57,19 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
                 context.startActivity(topCoachesDetails);
+
             }
         });
+        if (data.getRating()!=null) {
+            if (data.getRating().equalsIgnoreCase("0")) {
+                holder.noRatingTv.setVisibility(View.VISIBLE);
+                holder.topOrgRating.setVisibility(View.GONE);
+            } else {
+                holder.topOrgRating.setVisibility(View.VISIBLE);
+                holder.noRatingTv.setVisibility(View.GONE);
+                holder.topOrgRating.setRating(Float.parseFloat(data.getRating()));
+            }
+        }
     }
 
     @Override
@@ -69,13 +81,16 @@ public class TopOrganizationAdapter extends RecyclerView.Adapter<TopOrganization
 
 
         AppCompatImageView imageView;
-        MaterialTextView name;
+        MaterialTextView name,noRatingTv;
+        RatingBar topOrgRating;
 
         public TopOrgHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.topOrgRecyclerImg);
             name = itemView.findViewById(R.id.topOrgRecyclerTv);
+            noRatingTv = itemView.findViewById(R.id.noRatingView);
+            topOrgRating = itemView.findViewById(R.id.topOrgRating);
         }
     }
 }

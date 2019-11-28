@@ -167,8 +167,7 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:numStars="5"
                             android:progressBackgroundTint="@color/colorLightGray"
-                            android:progressTint="@color/themeColor"
-                            android:rating="4"
+                            android:progressTint="@color/coloryellow"
                             android:stepSize="1"
                             app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
                             app:layout_constraintTop_toBottomOf="@+id/ratingText" />

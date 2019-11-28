@@ -92,6 +92,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
             binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
             binding.detailUserName.setText(coachListModel.getName());
+            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
         }
         init();
         String saveIntent = getIntent().getStringExtra("intentFrom");

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,12 +24,14 @@ import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
 import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityDiscoverTopRatedBinding;
+import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONObject;
@@ -42,10 +46,11 @@ import retrofit2.Response;
 
 public class DiscoverTopRated extends AppCompatActivity implements View.OnClickListener {
     public static boolean coaches = false;
+    private final int PAGE_START = 1;
     Retrofitinterface api;
     private ActivityDiscoverTopRatedBinding binding;
     private AthleteTopRatedAdapter coachAdapter, orgAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private Retrofitinterface retrofitinterface;
     private String searchText = "";
     private ProgressDialog progressDialog;
@@ -53,6 +58,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private ArrayList<String> sports = new ArrayList<>();
     private SportListModel.DataBeanX.DataBean sport;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES;
+    int page=0;
+//    private int currentPage = PAGE_START;
+    private String currentPage="1";
+    private int getItemPerPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +93,26 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 binding.dServiceSpinner.setVisibility(View.VISIBLE);
                                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_coaches));
                                 searchText = binding.discoverSearchEdt.getText().toString();
+//                                if (! TextUtils.isEmpty(currentPage)) {
+//                                     page = Integer.parseInt(currentPage);
+//                                }
+//                                page=1;
+                                currentPage="";
                                 getCoachListApi();
                             }
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
 
                                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_org));
                                 searchText = binding.discoverSearchEdt.getText().toString();
+//                                if (! TextUtils.isEmpty(currentPage)) {
+//                                    page = Integer.parseInt(currentPage);
+//                                }
+//                                page=1;
+                                currentPage="";
                                 getTopOrgaNization();
                             }
                         } else {
-                            Toast.makeText(DiscoverTopRated.this, "Enter name to search", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DiscoverTopRated.this, "Enter data to search", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }
@@ -125,6 +147,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
         binding.discoverBackArrowImg.setOnClickListener(this);
         binding.searchedt.setOnClickListener(this);
 
+        recyclerFunc(layoutManager);
 //        initializeUI();
     }
 
@@ -148,9 +171,12 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 binding.spinnerText.setText(dropDownList.get(i).getName());
                 if (i == 0) {
                     searchText = "";
+                    currentPage="1";
                 } else {
                     searchText = dropDownList.get(i).getName();
+                    currentPage="";
                 }
+                currentPage="1";
                 getCoachListApi();
 
             }
@@ -198,13 +224,15 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private void closeKeyboard() {
         InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
 //        inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-        inputManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
+        }
 
     }
 
     private void getTopOrgaNization() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "10", "");
+        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -212,11 +240,26 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
+
+
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-                            orgAdapter = new AthleteTopRatedAdapter(getApplicationContext(), response.body().getData().getData(), 2);
+                            orgAdapter = new AthleteTopRatedAdapter(getApplicationContext(),2);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
+                            List<CoachListModel> results = fetchResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            orgAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                orgAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
                             String[] array = new String[response.body().getData().getData().size()];
                             for (int i = 0; i < response.body().getData().getData().size(); i++) {
 
@@ -267,10 +310,90 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
 
     }
+    private void nextGetTopOrgaNization() {
+        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
+        call.enqueue(new Callback<CoachListResponse>() {
+            @Override
+            public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+                            binding.noDataImageView.setVisibility(View.GONE);
+                            orgAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<CoachListModel> results = fetchResults(response);
+
+                            //TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            orgAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                orgAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                            String[] array = new String[response.body().getData().getData().size()];
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+
+
+                                array[i] = response.body().getData().getData().get(i).getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DiscoverTopRated.this, android.R.layout.simple_dropdown_item_1line, array);
+                            binding.discoverSearchEdt.setThreshold(1);
+                            binding.discoverSearchEdt.setAdapter(adapter);
+
+                            binding.discoverSearchEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    searchText = adapterView.getItemAtPosition(i).toString();
+                                    getTopOrgaNization();
+                                }
+                            });
+                        } else {
+                            binding.topRateRecycler.setVisibility(View.GONE);
+                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else {
+                    binding.topRateRecycler.setVisibility(View.GONE);
+                    binding.noDataImageView.setVisibility(View.VISIBLE);
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<CoachListResponse> call, Throwable t) {
+                binding.topRateRecycler.setVisibility(View.GONE);
+                binding.noDataImageView.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private List<CoachListModel> fetchResults(Response<CoachListResponse> response) {
+        CoachListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, "5", "", "latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage+"", currentPage+"", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -278,12 +401,29 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//
+//                            coachAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, response.body().getData().getData(), 1);
+//                            binding.topRateRecycler.setLayoutManager(layoutManager);
+//                            binding.topRateRecycler.setAdapter(coachAdapter);
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-
-                            coachAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, response.body().getData().getData(), 1);
+                            orgAdapter = new AthleteTopRatedAdapter(getApplicationContext(),1);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
-                            binding.topRateRecycler.setAdapter(coachAdapter);
+                            binding.topRateRecycler.setAdapter(orgAdapter);
+                            List<CoachListModel> results = fetchResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            orgAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page < TOTAL_PAGES)
+                                orgAdapter.addLoadingFooter();
+                            else isLastPage = true;
 
                             String[] array = new String[response.body().getData().getData().size()];
 
@@ -338,6 +478,93 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+    private void nextCoachListApi() {
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage+"", currentPage+"", "latest");
+        call.enqueue(new Callback<CoachListResponse>() {
+            @Override
+            public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+//                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+//                            binding.noDataImageView.setVisibility(View.GONE);
+//
+//                            coachAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, response.body().getData().getData(), 1);
+//                            binding.topRateRecycler.setLayoutManager(layoutManager);
+//                            binding.topRateRecycler.setAdapter(coachAdapter);
+
+                            binding.topRateRecycler.setVisibility(View.VISIBLE);
+                            binding.noDataImageView.setVisibility(View.GONE);
+                            orgAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<CoachListModel> results = fetchResults(response);
+
+                            //TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            orgAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                orgAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+                            String[] array = new String[response.body().getData().getData().size()];
+
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(DiscoverTopRated.this, android.R.layout.simple_dropdown_item_1line, array);
+                            binding.discoverSearchEdt.setThreshold(1);
+                            binding.discoverSearchEdt.setAdapter(adapter);
+
+                            binding.discoverSearchEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    searchText = adapterView.getItemAtPosition(i).toString();
+                                    getCoachListApi();
+                                }
+                            });
+                        } else {
+                            binding.topRateRecycler.setVisibility(View.GONE);
+                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    binding.topRateRecycler.setVisibility(View.GONE);
+                    binding.noDataImageView.setVisibility(View.VISIBLE);
+
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CoachListResponse> call, Throwable t) {
+                binding.topRateRecycler.setVisibility(View.GONE);
+                binding.noDataImageView.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void getSportsIds() {
         String sportName = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
@@ -384,6 +611,47 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<SportListModel> call, Throwable t) {
                 progressDialog.dismiss();
 
+            }
+        });
+    }
+
+    private void recyclerFunc(LinearLayoutManager layoutManager) {
+        binding.topRateRecycler.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                if (! TextUtils.isEmpty(currentPage)) {
+                    page = Integer.parseInt(currentPage);
+                }
+                page += 1;
+                currentPage=page+"";
+
+                // mocking network delay for API call
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES))
+                            nextCoachListApi();
+                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG))
+                            nextGetTopOrgaNization();
+//                        nextProductsAPI(orderbyValue, searchBy);
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
             }
         });
     }

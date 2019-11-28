@@ -98,11 +98,28 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:numStars="5"
                 android:progressBackgroundTint="@color/colorLightGray"
-                android:progressTint="@color/colorGreen"
-                android:rating="3"
+                android:progressTint="@color/coloryellow"
                 android:stepSize="1"
                 app:layout_constraintLeft_toLeftOf="@id/discoverRecyclerRatingTv"
                 app:layout_constraintTop_toBottomOf="@+id/discoverRecyclerRatingTv" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/AthTopRatingView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/coloryellow"
+                android:text="New"
+                android:textSize="@dimen/_10sdp"
+                android:singleLine="true"
+                android:maxLength="12"
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                app:layout_constraintLeft_toLeftOf="@+id/discoverRecyclerRatingTv"
+
+                android:layout_marginBottom="@dimen/_10sdp"
+
+                app:layout_constraintTop_toBottomOf="@id/discoverRecyclerRatingTv"/>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

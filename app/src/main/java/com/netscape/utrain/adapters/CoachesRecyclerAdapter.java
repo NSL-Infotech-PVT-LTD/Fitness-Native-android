@@ -20,6 +20,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.AthleteEventListModel;
+import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -27,13 +28,14 @@ import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecyclerAdapter.ViewHolder> {
     private static final int ITEM = 0;
     private static final int LOADING = 1;
-    AthleteEventData eventData;
+//    AthleteEventData eventData;
     String value = "", valueEnd = "";
     String currentStringEnd, currentStringStart;
     String[] separatedEnd = null, separated = null;
@@ -46,8 +48,13 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     public CoachesRecyclerAdapter(Context context, List<AthleteEventListModel> supplierData) {
         this.context = context;
         this.supplierData = supplierData;
-        this.eventData = eventData;
+//        this.eventData = eventData;
     }
+    public CoachesRecyclerAdapter(Context context) {
+        this.context = context;
+        supplierData = new ArrayList<>();
+    }
+
 
     @NonNull
     @Override
@@ -82,27 +89,31 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
     public void onBindViewHolder(@NonNull CoachesRecyclerAdapter.ViewHolder holder, final int position) {
 
         final AthleteEventListModel data = supplierData.get(position);
-        holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
-        holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
-        holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + " " + "To" + " " + data.getEnd_time());
-        holder.trainingSessionProfessionDesc.setText(data.getName());
-        holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
-        holder.trainingSessionVenueDetailTv.setText(data.getLocation());
-        try {
-            if (data.getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getImages());
-                if (jsonArray !=null && jsonArray.length()>0){
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventProfileImg);
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if(data!=null)
+                holder.trainingSessionStrtDateEnterTv.setText(data.getStart_date());
+                holder.trainingSessionEndDateEnterTv.setText(data.getEnd_date());
+                holder.trainingSessionTimeEnterTv.setText(data.getStart_time() + " " + "To" + " " + data.getEnd_time());
+                holder.trainingSessionProfessionDesc.setText(data.getName());
+                holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " Miles");
+                holder.findPlaceActualPriceTv.setText("$" + data.getPrice());
+                holder.trainingSessionVenueDetailTv.setText(data.getLocation());
+                try {
+                    if (data.getImages() != null) {
+                        JSONArray jsonArray = new JSONArray(data.getImages());
+                        if (jsonArray != null && jsonArray.length() > 0) {
+                            Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventProfileImg);
+                        }
+
+                    }
+
+                } catch (JSONException e) {
+
+                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
 
-            }
-
-        } catch (JSONException e) {
-
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,8 +135,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 context.startActivity(intent);
             }
         });
-        switch (getItemViewType(position)) {
-            case ITEM:
+//        switch (getItemViewType(position)) {
+//            case ITEM:
 
 
 //                if (data.getEnd_at()!=null) {
@@ -197,7 +208,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return supplierData == null ? 0 : supplierData.size();
     }
 
     @Override
@@ -205,27 +216,28 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
     }
 
-    public List<AthleteEventListModel> getsupplierData() {
-        return supplierData;
-    }
 
-    public void setsupplierData(List<AthleteEventListModel> supplierData) {
-        this.supplierData = supplierData;
-    }
 
-    public void add(AthleteEventListModel mc) {
-        supplierData.add(mc);
+
+
+    public void add(AthleteEventListModel r) {
+        supplierData.add(r);
         notifyItemInserted(supplierData.size() - 1);
     }
 
-    public void addAll(List<AthleteEventListModel> mcList) {
-        for (AthleteEventListModel mc : mcList) {
-            add(mc);
+    public void addAll(List<AthleteEventListModel> moveResults) {
+        for (AthleteEventListModel result : moveResults) {
+            add(result);
         }
     }
 
-    public void remove(AthleteEventListModel city) {
-        int position = supplierData.indexOf(city);
+    public void setList(List<AthleteEventListModel> list) {
+        this.supplierData = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(AthleteEventListModel r) {
+        int position = supplierData.indexOf(r);
         if (position > -1) {
             supplierData.remove(position);
             notifyItemRemoved(position);
@@ -245,16 +257,16 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new AthleteEventListModel());
+//        add(new C_ProductsSerial.Datum());
     }
 
     public void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = supplierData.size() - 1;
-        AthleteEventListModel item = getItem(position);
+        AthleteEventListModel result = getItem(position);
 
-        if (item != null) {
+        if (result != null) {
             supplierData.remove(position);
             notifyItemRemoved(position);
         }
@@ -264,10 +276,6 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
         return supplierData.get(position);
     }
 
-    public interface AthleteEventData {
-        public void getData(Intent intent);
-
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -56,8 +57,20 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
                 context.startActivity(topCoachesDetails);
 
+
             }
         });
+
+        if (data.getRating()!=null) {
+            if (data.getRating().equalsIgnoreCase("0")) {
+                holder.noRatingTv.setVisibility(View.VISIBLE);
+                holder.topCoachRating.setVisibility(View.GONE);
+            } else {
+                holder.topCoachRating.setVisibility(View.VISIBLE);
+                holder.noRatingTv.setVisibility(View.GONE);
+                holder.topCoachRating.setRating(Float.parseFloat(data.getRating()));
+            }
+        }
     }
 
     @Override
@@ -68,7 +81,8 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView imageView;
-        MaterialTextView name;
+        MaterialTextView name,noRatingTv;
+        RatingBar topCoachRating;
 
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
@@ -76,6 +90,8 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
 
             imageView = itemView.findViewById(R.id.topCoachesRecyclerImg);
             name = itemView.findViewById(R.id.topCoachesRecyclerTv);
+            noRatingTv = itemView.findViewById(R.id.noRatingView);
+            topCoachRating = itemView.findViewById(R.id.topCoachRating);
 
         }
     }
