@@ -29,6 +29,7 @@ import com.netscape.utrain.model.A_BookedEventDataModel;
 import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.A_EventDataModel;
 import com.netscape.utrain.model.AthleteBookListModel;
+import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -49,7 +50,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.CustomTopCoachesHolder> {
-
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
     private onEventClick onEventClick;
     private RatingInterface onRatingClick;
     private ProgressDialog progressDialog;
@@ -67,25 +70,56 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
         this.onRatingClick=rating;
 
     }
+    public A_EventListAdapter(Context context,onEventClick onEventClick,int type,RatingInterface rating) {
+        this.context = context;
+        a_eventList = new ArrayList<>();
+        this.type = type;
+        this.onRatingClick=rating;
+        this.onEventClick = onEventClick;
+    }
 
 
     @NonNull
     @Override
     public A_EventListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
+//        return new A_EventListAdapter.CustomTopCoachesHolder(view);
+        A_EventListAdapter.CustomTopCoachesHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-        return new A_EventListAdapter.CustomTopCoachesHolder(view);
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
+        }
+        return viewHolder;
+    }
+    @NonNull
+    private A_EventListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        A_EventListAdapter.CustomTopCoachesHolder viewHolder;
+        View v1 = inflater.inflate(R.layout.booking_view, parent, false);
+        viewHolder = new A_EventListAdapter.CustomTopCoachesHolder(v1);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull A_EventListAdapter.CustomTopCoachesHolder holder, int position) {
         AthleteBookListModel.DataBeanX.DataBean data = a_eventList.get(position);
-        try {
-            if (data.getEvent().getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getEvent().getImages());
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
-                }
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if (data != null)
+                    try {
+                        if (data.getEvent().getImages() != null) {
+                            JSONArray jsonArray = new JSONArray(data.getEvent().getImages());
+                            if (jsonArray != null && jsonArray.length() > 0) {
+                                Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
+                            }
 
 
 //                for (int i = position; i < jsonArray.length(); i++) {
@@ -94,44 +128,118 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 //                    Glide.with(context).load(image).into(holder.eventImage);
 //                        break;
 //                }
-            }
+                        }
 
-        } catch (JSONException e) {
+                    } catch (JSONException e) {
 
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
+                    }
+                holder.eventName.setText(data.getEvent().getName());
+                holder.eventVenue.setText(data.getEvent().getLocation());
+                holder.numTicket.setText(data.getEvent().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
+                holder.eventDate.setText(data.getEvent().getStart_date() + " " + data.getEvent().getStart_time());
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onEventClick.eventAmount(data);
+                    }
+                });
+                if (type == 1) {
+                    if (data.getStatus().equalsIgnoreCase("pending")) {
+                        holder.completedRatingText.setVisibility(View.VISIBLE);
+                    }
+
+                }
+                holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleImageSelection(data, holder.completedRatingText);
+
+                    }
+                });
+
+                break;
+            case LOADING:
+//                Do nothing
+                break;
         }
-        holder.eventName.setText(data.getEvent().getName());
-        holder.eventVenue.setText(data.getEvent().getLocation());
-        holder.numTicket.setText(data.getEvent().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
-        holder.eventDate.setText(data.getEvent().getStart_date() + " " + data.getEvent().getStart_time());
-
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onEventClick.eventAmount(data);
-            }
-        });
-        if (type==1) {
-            if (data.getStatus().equalsIgnoreCase("pending")){
-                holder.completedRatingText.setVisibility(View.VISIBLE);
-            }
-
         }
-        holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleImageSelection(data,holder.completedRatingText);
-
-            }
-        });
-    }
 
     @Override
     public int getItemCount() {
-        return a_eventList.size();
+        return a_eventList == null ? 0 : a_eventList.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == a_eventList.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+
+
+    public void add(AthleteBookListModel.DataBeanX.DataBean r) {
+        a_eventList.add(r);
+        notifyItemInserted(a_eventList.size() - 1);
+    }
+
+    public void addAll(List<AthleteBookListModel.DataBeanX.DataBean> moveResults) {
+        for (AthleteBookListModel.DataBeanX.DataBean result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void setList(List<AthleteBookListModel.DataBeanX.DataBean> list) {
+        this.a_eventList = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(AthleteBookListModel.DataBeanX.DataBean r) {
+        int position = a_eventList.indexOf(r);
+        if (position > -1) {
+            a_eventList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+//        add(new C_ProductsSerial.Datum());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = a_eventList.size() - 1;
+        AthleteBookListModel.DataBeanX.DataBean result = getItem(position);
+
+        if (result != null) {
+            a_eventList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public AthleteBookListModel.DataBeanX.DataBean getItem(int position) {
+        return a_eventList.get(position);
+    }
+
+
+
+
 
     public void handleImageSelection(AthleteBookListModel.DataBeanX.DataBean data,MaterialTextView rateMaterialTv) {
 
@@ -258,5 +366,10 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
 //
 //    }
 
+    protected class LoadingVH extends CustomTopCoachesHolder {
 
+        public LoadingVH(View itemView) {
+            super(itemView);
+        }
+    }
 }

@@ -35,10 +35,13 @@ import com.netscape.utrain.utils.RatingInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.CustomTopCoachesHolder> {
-
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
     onSpaceClick onSpaceClick;
     private Context context;
     private RatingInterface onRatingClick;
@@ -56,21 +59,53 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         this.onRatingClick=onRateClick;
 
     }
+    public A_SpaceListAdapter(Context context,onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
+        this.context = context;
+        this.onSpaceClick = onSpaceClick;
+        supplierData= new ArrayList<>();
+        this.type=typ;
+        this.onRatingClick=onRateClick;
+
+    }
+
 
 
     @NonNull
     @Override
     public A_SpaceListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-        return new A_SpaceListAdapter.CustomTopCoachesHolder(view);
-    }
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
+//        return new A_SpaceListAdapter.CustomTopCoachesHolder(view);
+        A_SpaceListAdapter.CustomTopCoachesHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
+        }
+        return viewHolder;
+
+    }
+    @NonNull
+    private A_SpaceListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        A_SpaceListAdapter.CustomTopCoachesHolder viewHolder;
+        View v1 = inflater.inflate(R.layout.booking_view, parent, false);
+        viewHolder = new A_SpaceListAdapter.CustomTopCoachesHolder(v1);
+        return viewHolder;
+    }
     @Override
     public void onBindViewHolder(@NonNull A_SpaceListAdapter.CustomTopCoachesHolder holder, int position) {
                 final AthleteSpaceBookList.DataBeanX.DataBean data = supplierData.get(position);
 
-
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if (data != null)
         try {
                 if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer))
                 {
@@ -125,6 +160,11 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
             }
         });
+                break;
+            case LOADING:
+//                Do nothing
+                break;
+        }
     }
     public void handleImageSelection(AthleteSpaceBookList.DataBeanX.DataBean data) {
 
@@ -204,8 +244,75 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return supplierData == null ? 0 : supplierData.size();
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+
+
+    public void add(AthleteSpaceBookList.DataBeanX.DataBean r) {
+        supplierData.add(r);
+        notifyItemInserted(supplierData.size() - 1);
+    }
+
+    public void addAll(List<AthleteSpaceBookList.DataBeanX.DataBean> moveResults) {
+        for (AthleteSpaceBookList.DataBeanX.DataBean result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void setList(List<AthleteSpaceBookList.DataBeanX.DataBean> list) {
+        this.supplierData = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(AthleteSpaceBookList.DataBeanX.DataBean r) {
+        int position = supplierData.indexOf(r);
+        if (position > -1) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+//        add(new C_ProductsSerial.Datum());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = supplierData.size() - 1;
+        AthleteSpaceBookList.DataBeanX.DataBean result = getItem(position);
+
+        if (result != null) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public AthleteSpaceBookList.DataBeanX.DataBean getItem(int position) {
+        return supplierData.get(position);
+    }
+
+
 
     public interface onSpaceClick {
         public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean dataBean);
@@ -228,6 +335,11 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
 //            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
         }
     }
+    protected class LoadingVH extends CustomTopCoachesHolder {
 
+        public LoadingVH(View itemView) {
+            super(itemView);
+        }
+    }
 
 }

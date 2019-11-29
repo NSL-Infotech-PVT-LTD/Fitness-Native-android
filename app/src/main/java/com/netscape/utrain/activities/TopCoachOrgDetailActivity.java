@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.internal.Utility;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -37,6 +40,7 @@ import com.netscape.utrain.utils.Constants;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,12 +75,24 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         binding.detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = null;
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("geo:19.076,72.8777"));
+                float latitude = Float.parseFloat(coachListModel.getLatitude());
+                float longitude = Float.parseFloat(coachListModel.getLongitude());
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse("http://maps.google.com/maps?saddr="+latitude +","+longitude));
+//                startActivity(intent);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr="+latitude+","+longitude+"&daddr="+latitude+","+longitude+""));
                 startActivity(intent);
 
+//                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+//                String geoUri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude + " (" + coachListModel.getName() + ")";
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+//                startActivity(intent);
+
+//                Uri mapUri = Uri.parse("geo:0,0?q="+latitude+","+longitude+"lng(label)");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                startActivity(mapIntent);
             }
         });
 
@@ -88,10 +104,21 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
             binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + "+ Years ");
             binding.detailUserBioTv.setText(coachListModel.getBio());
-            binding.detailPriceTv.setText(coachListModel.getHourly_rate() + "");
+            binding.detailPriceTv.setText("$"+coachListModel.getHourly_rate() + "");
             binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
             binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
             binding.detailUserName.setText(coachListModel.getName());
+            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+            if (coachListModel.getRating()!=null) {
+                if (coachListModel.getRating().equalsIgnoreCase("0")) {
+                    binding.noRatingText.setVisibility(View.VISIBLE);
+                    binding.discoverRating.setVisibility(View.GONE);
+                } else {
+                    binding.discoverRating.setVisibility(View.VISIBLE);
+                    binding.noRatingText.setVisibility(View.GONE);
+                    binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+                }
+            }
             binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
         }
         init();
@@ -101,7 +128,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             if (saveIntent.equalsIgnoreCase("coach")) {
 
                 binding.viewOrgBtnLayout.setVisibility(View.GONE);
-                binding.view2.setVisibility(View.GONE);
+//                binding.view2.setVisibility(View.GONE);
                 binding.btnView.setVisibility(View.GONE);
                 Glide.with(TopCoachOrgDetailActivity.this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.detailImage);
             }
@@ -224,8 +251,9 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                     chip.setEnabled(false);
                     ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
                     chip.setChipDrawable(chipDrawable);
+                    chip.setMaxWidth(200);
                     chip.setTextColor(getResources().getColor(R.color.colorWhite));
-                    chip.setText(coachListModel.getService_ids().get(i).getName());
+                    chip.setText(coachListModel.getService_ids().get(i).getName()+"..");
                     chip.setTag(coachListModel.getService_ids().get(i).getId());
                     chipGroup.addView(chip);
                 }
@@ -245,7 +273,8 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
                 chip.setChipDrawable(chipDrawable);
                 chip.setTextColor(getResources().getColor(R.color.colorWhite));
-                chip.setText(coachListModel.getService_ids().get(i).getName());
+                chip.setMaxWidth(200);
+                chip.setText(coachListModel.getService_ids().get(i).getName()+"..");
                 chip.setTag(coachListModel.getService_ids().get(i).getId());
                 chipGroup.addView(chip);
             }

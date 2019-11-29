@@ -20,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -102,18 +103,21 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;
     private int sort_count = 1;
-    private String search;
+    private String search="";
     private MaterialTextView allEventFindAPalceTv;
     private ConstraintLayout constraint_background;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    private int currentPage = PAGE_START;
+    private int pageCurrent=0;
+//    private int currentPage = PAGE_START;
+    private String currentPage="1";
     private int page = 1;
     private MapFragment map;
     private String sCoach_Id = "";
 
     private int getItemPerPage;
+    private String orderBy="latest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,15 +174,18 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search = searchAtuoCompleteEdt.getText().toString();
+                    orderBy="latest";
+                    currentPage="1";
+                    isLastPage=false;
                     if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
-                        getAthleteEventApi("distance", search, "");
+                        getAthleteEventApi(orderBy, search, "");
                     } else if (getIntent().getStringExtra("from").equalsIgnoreCase("2")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_skyblue_bottom_round));
-                        getAthleteSessionApi("distance", search, "");
+                        getAthleteSessionApi(orderBy, search, "");
                     } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
-                        getAthletePlaceApi("distance", search, "");
+                        getAthletePlaceApi(orderBy, search, "");
                     }
                     return true;
                 }
@@ -231,16 +238,18 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                         recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                        adapterPlace = new Ath_PlaceRecyclerAdapter(getApplicationContext());
+                        adapterPlace = new Ath_PlaceRecyclerAdapter(AllEventsMapAct.this);
                         recyclerViewFindPlace.setLayoutManager(layoutManager);
                         recyclerViewFindPlace.setAdapter(adapterPlace);
                         List<AthletePlaceModel> results = fetchPlaceResults(response);
 
                         TOTAL_PAGES = response.body().getData().getLast_page();
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-
                         adapterPlace.addAll(results);
-                        if (currentPage < TOTAL_PAGES)
+                        if (! TextUtils.isEmpty(currentPage)){
+                            pageCurrent=Integer.parseInt(currentPage);
+                        }
+                        if (pageCurrent < TOTAL_PAGES)
                             adapterPlace.addLoadingFooter();
                         else isLastPage = true;
 
@@ -322,8 +331,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapterPlace.addAll(results);
-
-                        if (currentPage != TOTAL_PAGES)
+                        if (! TextUtils.isEmpty(currentPage)){
+                            pageCurrent=Integer.parseInt(currentPage);
+                        }
+                        if (pageCurrent != TOTAL_PAGES)
                             adapterPlace.addLoadingFooter();
                         else isLastPage = true;
 
@@ -402,16 +413,18 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                             recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                            adapterSesson = new Ath_SessionRecyclerAdapter(getApplicationContext());
+                            adapterSesson = new Ath_SessionRecyclerAdapter(AllEventsMapAct.this);
                             recyclerViewFindPlace.setLayoutManager(layoutManager);
                             recyclerViewFindPlace.setAdapter(adapterSesson);
                             List<AthleteSessionModel> results = fetchSessionResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-
                             adapterSesson.addAll(results);
-                            if (currentPage < TOTAL_PAGES)
+                            if (! TextUtils.isEmpty(currentPage)){
+                                pageCurrent=Integer.parseInt(currentPage);
+                            }
+                            if (pageCurrent < TOTAL_PAGES)
                                 adapterSesson.addLoadingFooter();
                             else isLastPage = true;
 
@@ -502,8 +515,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapterSesson.addAll(results);
-
-                        if (currentPage != TOTAL_PAGES)
+                        if (! TextUtils.isEmpty(currentPage)){
+                            pageCurrent=Integer.parseInt(currentPage);
+                        }
+                        if (pageCurrent != TOTAL_PAGES)
                             adapterSesson.addLoadingFooter();
                         else isLastPage = true;
 
@@ -582,7 +597,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                             recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                            adapter = new CoachesRecyclerAdapter(getApplicationContext());
+                            adapter = new CoachesRecyclerAdapter(AllEventsMapAct.this);
                             recyclerViewFindPlace.setLayoutManager(layoutManager);
                             recyclerViewFindPlace.setAdapter(adapter);
                             List<AthleteEventListModel> results = fetchResults(response);
@@ -591,8 +606,17 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             adapter.addAll(results);
-                            if (currentPage < TOTAL_PAGES)
+                            if (! TextUtils.isEmpty(currentPage)){
+                                pageCurrent=Integer.parseInt(currentPage);
+                            }
+//                            else {
+//                                pageCurrent=1;
+//                                currentPage="1";
+//                                orderBy="latest";
+//                            }
+                            if (pageCurrent < TOTAL_PAGES) {
                                 adapter.addLoadingFooter();
+                            }
                             else isLastPage = true;
 
                         }
@@ -638,10 +662,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //        progressDialog.setMessage("Loading....");
 //        progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " +
-                        CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity),
-                Constants.CONTENT_TYPE, sortBy,
-                search, getItemPerPage + "", currentPage + "", "", "");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, sortBy, search, getItemPerPage + "", currentPage + "", "100", "");
         CommonMethods.getPrefData(PrefrenceConstant.USER_ID, AllEventsMapAct.this);
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
@@ -685,8 +706,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapter.addAll(results);
-
-                        if (currentPage != TOTAL_PAGES)
+                        if (! TextUtils.isEmpty(currentPage)){
+                            pageCurrent=Integer.parseInt(currentPage);
+                        }
+                        if (pageCurrent != TOTAL_PAGES)
                             adapter.addLoadingFooter();
                         else isLastPage = true;
 
@@ -857,12 +880,16 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_distance.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 1;
+                currentPage="1";
+                orderBy="distance";
+                search="";
+               isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi("distance", search, "");
+                    getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                    getAthleteSessionApi("distance", search, sCoach_Id);
+                    getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("distance", search, sCoach_Id);
+                    getAthletePlaceApi(orderBy, search, sCoach_Id);
             }
         });
         sort_high.setOnClickListener(new View.OnClickListener() {
@@ -871,12 +898,16 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_high.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 2;
+                currentPage="1";
+                orderBy="price_high";
+                search="";
+                isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi("price_high", search, "");
+                    getAthleteEventApi(orderBy ,search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                    getAthleteSessionApi("price_high", search, sCoach_Id);
+                    getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("price_high", search, sCoach_Id);
+                    getAthletePlaceApi(orderBy, search, sCoach_Id);
 
             }
         });
@@ -886,12 +917,16 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_latest.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 4;
+                currentPage="1";
+                orderBy="latest";
+                search="";
+                isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi("latest", search, "");
+                    getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                    getAthleteSessionApi("latest", search, sCoach_Id);
+                    getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("latest", search, sCoach_Id);
+                    getAthletePlaceApi(orderBy, search, sCoach_Id);
 
             }
         });
@@ -901,14 +936,18 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_low.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 3;
+                currentPage="1";
+                orderBy="price_low";
+                search="";
+                isLastPage=false;
 
-//                getAthleteEventApi("price_low", search);
+                //                getAthleteEventApi("price_low", search);
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi("price_low", search, "");
+                    getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                    getAthleteSessionApi("price_low", search, "");
+                    getAthleteSessionApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                    getAthletePlaceApi("price_low", search, sCoach_Id);
+                    getAthletePlaceApi(orderBy, search, sCoach_Id);
             }
         });
 
@@ -1088,18 +1127,22 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                currentPage += 1;
+                if (! TextUtils.isEmpty(currentPage)){
+                    pageCurrent=Integer.parseInt(currentPage);
+                }
+                pageCurrent += 1;
+                currentPage=pageCurrent + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                        nextGetAthleteEventApi("latest", "", "");
+                        nextGetAthleteEventApi(orderBy, search, "");
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                            nextGetAthleteSessionApi("latest","","");
+                            nextGetAthleteSessionApi(orderBy,search,"");
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                            getNextPageAthletePlaceApi("latest","","");
+                            getNextPageAthletePlaceApi(orderBy,search,"");
 //                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES));
 //                            nextCoachListApi();
 //                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG));

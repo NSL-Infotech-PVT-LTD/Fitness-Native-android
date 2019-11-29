@@ -97,7 +97,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                                     page = Integer.parseInt(currentPage);
 //                                }
 //                                page=1;
-                                currentPage="";
+                                currentPage="1";
                                 getCoachListApi();
                             }
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
@@ -108,7 +108,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                                    page = Integer.parseInt(currentPage);
 //                                }
 //                                page=1;
-                                currentPage="";
+                                currentPage="1";
                                 getTopOrgaNization();
                             }
                         } else {
@@ -172,11 +172,11 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 if (i == 0) {
                     searchText = "";
                     currentPage="1";
+                    isLastPage=false;
                 } else {
                     searchText = dropDownList.get(i).getName();
-                    currentPage="";
+                    currentPage="1";
                 }
-                currentPage="1";
                 getCoachListApi();
 
             }
@@ -244,7 +244,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-                            orgAdapter = new AthleteTopRatedAdapter(getApplicationContext(),2);
+                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this,2);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
                             List<CoachListModel> results = fetchResults(response);
@@ -409,7 +409,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                            binding.topRateRecycler.setAdapter(coachAdapter);
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-                            orgAdapter = new AthleteTopRatedAdapter(getApplicationContext(),1);
+                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this,1);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
                             List<CoachListModel> results = fetchResults(response);

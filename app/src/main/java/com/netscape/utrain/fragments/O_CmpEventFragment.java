@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,7 @@ import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
 import com.netscape.utrain.utils.RatingInterface;
 
@@ -84,13 +87,21 @@ import retrofit2.Response;
 public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.onEventClick, A_SessionListAdapter.onSessionClick, A_SpaceListAdapter.onSpaceClick, RatingInterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    private int TOTAL_PAGES;
+    int page=0;
+    private String currentPage="1";
+    private int getItemPerPage;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static int count = 1;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private FragmentOSessionListBinding binding;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private RecyclerView.LayoutManager completedLayoutManager;
     private RecyclerView.LayoutManager rejectedLayoutManager;
     private O_EventListAdapter currentEventAdapter;
@@ -180,6 +191,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         userBottomSheeet = view.findViewById(R.id.userBottomSheeet);
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
         bottomSheetBehavior_sort();
+        recyclerFunc(layoutManager);
         if (count == 1) {
             getUserTypeForEvent();
         } else if (count == 2) {
@@ -371,8 +383,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void a_getUpcommingSession() {
+        currentPage="1";
+        isLastPage=false;
+
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -384,9 +399,25 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_sessionData.addAll(response.body().getData().getData());
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            a_sessionData.addAll(response.body().getData().getData());
+//                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_SessionAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+                            binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_SessionAdapter);
+                            List<AthleteSessionBookList.DataBeanX.DataBean> results = fetchAthSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            a_SessionAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                a_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -416,16 +447,92 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             @Override
             public void onFailure(Call<AthleteSessionBookList> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
-
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+    public void a_GetNextCompletedSession() {
+//        progressDialog.show();
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","session");
+        call.enqueue(new Callback<AthleteSessionBookList>() {
+            @Override
+            public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
+                if (response.body() != null) {
+                    a_sessionData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            a_sessionData.addAll(response.body().getData().getData());
+//                            a_SessionAdapter = new A_SessionListAdapter(getContext(), a_sessionData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_SessionAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            a_SessionAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<AthleteSessionBookList.DataBeanX.DataBean> results = fetchAthSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            a_SessionAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                a_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+//                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+//                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+//                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSessionBookList> call, Throwable t) {
+//                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private List<AthleteSessionBookList.DataBeanX.DataBean> fetchAthSessionResults(Response<AthleteSessionBookList> response) {
+        AthleteSessionBookList topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     public void a_getUpcommingEvents() {
+        currentPage="1";
+        isLastPage=false;
         progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -437,9 +544,26 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_eventData.addAll(response.body().getData().getData());
-                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            a_eventData.addAll(response.body().getData().getData());
+//                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_EventAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            a_EventAdapter = new A_EventListAdapter(getContext(),O_CmpEventFragment.this,0,O_CmpEventFragment.this);
+                            binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
+                            List<AthleteBookListModel.DataBeanX.DataBean> results = fetchResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            a_EventAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                a_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -475,10 +599,90 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         });
 
     }
+    public void a_GetNextCompletedEvents() {
+//        progressDialog.show();
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","event");
+        call.enqueue(new Callback<AthleteBookListModel>() {
+            @Override
+            public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
+                if (response.body() != null) {
+                    a_eventData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            a_eventData.addAll(response.body().getData().getData());
+//                            a_EventAdapter = new A_EventListAdapter(getContext(), a_eventData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_EventAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            a_EventAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<AthleteBookListModel.DataBeanX.DataBean> results = fetchResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            a_EventAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                a_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+
+                        } else {
+//                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+//                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+//                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteBookListModel> call, Throwable t) {
+//                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private List<AthleteBookListModel.DataBeanX.DataBean> fetchResults(Response<AthleteBookListModel> response) {
+        AthleteBookListModel topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     public void a_getUpcommingSpaces() {
+        currentPage="1";
+        isLastPage=false;
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"","space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -490,9 +694,27 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            a_spaceData.addAll(response.body().getData().getData());
+//                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
+
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+                            binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
+                            List<AthleteSpaceBookList.DataBeanX.DataBean> results = fetchSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            a_SpaceAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                a_SpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -525,6 +747,81 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public void a_GetNextCompletedSpaces() {
+//        progressDialog.show();
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"","space");
+        call.enqueue(new Callback<AthleteSpaceBookList>() {
+            @Override
+            public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
+                if (response.body() != null) {
+                    a_spaceData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            a_spaceData.addAll(response.body().getData().getData());
+//                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+//                            binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
+
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            a_SpaceAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<AthleteSpaceBookList.DataBeanX.DataBean> results = fetchSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            a_SpaceAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                a_SpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+//                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+//                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSpaceBookList> call, Throwable t) {
+//                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private List<AthleteSpaceBookList.DataBeanX.DataBean> fetchSpaceResults(Response<AthleteSpaceBookList> response) {
+        AthleteSpaceBookList topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
     }
 //
 //    @Override
@@ -651,7 +948,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     public void getCompletedSession() {
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "",completed);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -921,6 +1218,48 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void recyclerFunc(LinearLayoutManager layoutManager) {
+        binding.sessionListRecycler.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                if (! TextUtils.isEmpty(currentPage)) {
+                    page = Integer.parseInt(currentPage);
+                }
+                page += 1;
+                currentPage=page+"";
+
+                // mocking network delay for API call
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (count==1)
+                            a_GetNextCompletedEvents();
+                        if (count==2)
+                            a_GetNextCompletedSession();
+                        if (count==3)
+                            a_GetNextCompletedSpaces();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
     }
 
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -87,8 +87,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/discoverCardImg"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="@dimen/_110sdp"
                         android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:cardCornerRadius="@dimen/_20sdp"
@@ -110,9 +110,11 @@
                         android:layout_height="0dp"
                         android:layout_marginRight="@dimen/_20sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/discoverCardImg"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toRightOf="@+id/discoverCardImg"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/discoverCardImg">
+                        app:layout_constraintTop_toTopOf="@+id/discoverCardImg"
+                        app:layout_constraintVertical_bias="0.0">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/detailUserName"
@@ -122,7 +124,7 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="@string/discoverRecylerName"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_12sdp"
+                            android:textSize="@dimen/_14sdp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -131,6 +133,7 @@
                             android:id="@+id/cYearsOfExpText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
                             android:fontFamily="@font/poppins_regular"
                             android:text="@string/years_of_experience"
                             android:textSize="@dimen/_8sdp"
@@ -153,6 +156,7 @@
                             android:id="@+id/ratingText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4sdp"
                             android:text="@string/rating"
                             android:textSize="@dimen/_8sdp"
                             app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
@@ -167,15 +171,25 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:numStars="5"
                             android:progressBackgroundTint="@color/colorLightGray"
-                            android:progressTint="@color/coloryellow"
+                            android:progressTint="@color/grayColor"
                             android:stepSize="1"
+                            app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
+                            app:layout_constraintTop_toBottomOf="@+id/ratingText" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/noRatingText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="New"
+                            android:textColor="@color/colorGreen"
+                            android:textSize="@dimen/_8sdp"
+                            android:visibility="gone"
                             app:layout_constraintLeft_toLeftOf="@+id/detailUserName"
                             app:layout_constraintTop_toBottomOf="@+id/ratingText" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/viewOrgBtnLayout"
@@ -301,31 +315,39 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view1" />
 
-
+                    <HorizontalScrollView
+                        android:id="@+id/chipHView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" >
+                    >
                     <RelativeLayout
                         android:id="@+id/constraintChipGroup"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:theme="@style/ChipTheme"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:chipIconEnabled="false"
-                        android:layout_marginLeft="@dimen/_20sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
-
+                    </HorizontalScrollView>
                     <View
                         android:id="@+id/view2"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@color/colorLightGray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/constraintChipGroup" />
+                        app:layout_constraintTop_toBottomOf="@id/chipHView" />
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -347,6 +369,8 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:text="@string/view_events"
                             android:textAllCaps="false"
+                            android:paddingLeft="@dimen/_20sdp"
+                            android:paddingRight="@dimen/_20sdp"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
                             app:cornerRadius="@dimen/_5sdp"

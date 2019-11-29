@@ -128,7 +128,7 @@ public class AllSessionsFragment extends Fragment {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<O_SessionListResponse> orgSession = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                , Constants.CONTENT_TYPE, "");
+                , Constants.CONTENT_TYPE,"", "");
         orgSession.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {

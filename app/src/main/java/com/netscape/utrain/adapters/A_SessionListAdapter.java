@@ -32,10 +32,13 @@ import com.netscape.utrain.utils.RatingInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdapter.CustomTopCoachesHolder> {
-
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
     onSessionClick onSessionClick;
     private Context context;
     private AlertDialog dialogMultiOrder;
@@ -50,19 +53,53 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         this.type=typ;
         this.onclickRate=onclickRating;
     }
+    public A_SessionListAdapter(Context context, onSessionClick onSessionClick, int typ, RatingInterface onclickRating) {
+        this.context = context;
+        supplierData = new ArrayList<>();
+        this.onSessionClick = onSessionClick;
+        this.type=typ;
+        this.onclickRate=onclickRating;
+    }
 
 
     @NonNull
     @Override
     public A_SessionListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
+//        return new A_SessionListAdapter.CustomTopCoachesHolder(view);
+        A_SessionListAdapter.CustomTopCoachesHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-        return new A_SessionListAdapter.CustomTopCoachesHolder(view);
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
+        }
+        return viewHolder;
     }
+
+    @NonNull
+    private A_SessionListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        A_SessionListAdapter.CustomTopCoachesHolder viewHolder;
+        View v1 = inflater.inflate(R.layout.booking_view, parent, false);
+        viewHolder = new A_SessionListAdapter.CustomTopCoachesHolder(v1);
+        return viewHolder;
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull A_SessionListAdapter.CustomTopCoachesHolder holder, int position) {
          final AthleteSessionBookList.DataBeanX.DataBean data = supplierData.get(position);
+
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if (data != null)
         try {
             if (data.getSession().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getSession().getImages());
@@ -100,7 +137,11 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
                }
            });
 
-
+                break;
+            case LOADING:
+//                Do nothing
+                break;
+        }
 
     }
     public void handleImageSelection(AthleteSessionBookList.DataBeanX.DataBean data) {
@@ -162,7 +203,71 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return supplierData == null ? 0 : supplierData.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+
+
+    public void add(AthleteSessionBookList.DataBeanX.DataBean r) {
+        supplierData.add(r);
+        notifyItemInserted(supplierData.size() - 1);
+    }
+
+    public void addAll(List<AthleteSessionBookList.DataBeanX.DataBean> moveResults) {
+        for (AthleteSessionBookList.DataBeanX.DataBean result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void setList(List<AthleteSessionBookList.DataBeanX.DataBean> list) {
+        this.supplierData = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(AthleteSessionBookList.DataBeanX.DataBean r) {
+        int position = supplierData.indexOf(r);
+        if (position > -1) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+//        add(new C_ProductsSerial.Datum());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = supplierData.size() - 1;
+        AthleteSessionBookList.DataBeanX.DataBean result = getItem(position);
+
+        if (result != null) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public AthleteSessionBookList.DataBeanX.DataBean getItem(int position) {
+        return supplierData.get(position);
     }
 
     public interface onSessionClick {
@@ -187,5 +292,10 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         }
     }
 
+    protected class LoadingVH extends CustomTopCoachesHolder {
 
+        public LoadingVH(View itemView) {
+            super(itemView);
+        }
+    }
 }

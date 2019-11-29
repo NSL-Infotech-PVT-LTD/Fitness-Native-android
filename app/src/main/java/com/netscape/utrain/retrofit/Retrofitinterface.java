@@ -394,6 +394,7 @@ public interface Retrofitinterface {
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
+                                                  @Query("page") String page,
                                                   @Query("order_by") String order_by);
 
 
@@ -444,6 +445,7 @@ public interface Retrofitinterface {
                                                      @Header("Content-Type") String contentType,
                                                      @Query("target_id") String target_id,
                                                      @Query("order_by") String order_by,
+                                                     @Query("page") String page,
                                                      @Query("type") String type);
 
     @POST(Constants.ATHLETE_EVENT_LIST)
@@ -458,6 +460,7 @@ public interface Retrofitinterface {
                                                            @Header("Content-Type") String contentType,
                                                            @Query("target_id") String target_id,
                                                            @Query("order_by") String order_by,
+                                                           @Query("page") String page,
                                                            @Query("type") String type);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)
@@ -465,6 +468,7 @@ public interface Retrofitinterface {
                                                        @Header("Content-Type") String contentType,
                                                        @Query("target_id") String target_id,
                                                        @Query("order_by") String order_by,
+                                                       @Query("page") String page,
                                                        @Query("type") String type);
 
     @POST(Constants.O_EVENT_BOOKING_LIST)

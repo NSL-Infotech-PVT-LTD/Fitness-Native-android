@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:src="@drawable/ic_leftblack"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/findAPlaceDummyText" />
+                app:layout_constraintTop_toTopOf="@+id/allEventFindAPalceTv" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/allEventFindAPalceTv"
@@ -69,7 +69,7 @@
                 android:id="@+id/filterIcon"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:src="@drawable/filter_ic"
                 app:layout_constraintRight_toRightOf="@id/rightGuideline"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -81,9 +81,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/find_a_place_text"
                 android:textSize="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/allEventFindAPalceTv" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottomSheetGuideline"
