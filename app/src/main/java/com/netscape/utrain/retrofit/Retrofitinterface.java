@@ -362,16 +362,19 @@ public interface Retrofitinterface {
     @POST(Constants.ORG_EVENT_LIST)
     Call<O_EventListResponse> getOrgEentList(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
+                                             @Query("page") String page,
                                              @Query("order_by") String order_by);
 
     @POST(Constants.ORG_SPACE_LIST)
     Call<O_SpaceListResponse> getOrgSpaceList(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String contentType,
+                                              @Query("page") String page,
                                               @Query("order_by") String order_by);
 
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<O_AllBookingResponse> getAllBooking(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
+                                             @Query("page") String page,
                                              @Query("limit") String limit);
 
 
@@ -384,11 +387,13 @@ public interface Retrofitinterface {
     @POST(Constants.ALL_BOOKING_ORG)
     Call<O_AllBookingResponse> getAllBookingOrg(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
+                                                @Query("page") String page,
                                                 @Query("limit") String limit);
 
     @POST(Constants.ALL_BOOKING_COACH)
     Call<O_AllBookingResponse> getAllBookingCoach(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
+                                                  @Query("page") String page,
                                                   @Query("limit") String limit);
 
     @POST(Constants.ORG_SESSION_LIST)
@@ -423,11 +428,13 @@ public interface Retrofitinterface {
     @POST(Constants.CO_EVENT_LIST)
     Call<C_EventListResponse> getCoachEventList(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
+                                                @Query("page") String page,
                                                 @Query("order_by") String order_by);
 
     @POST(Constants.CO_EVENT_LIST)
     Call<O_EventListResponse> getCoachEvents(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
+                                                @Query("page") String page,
                                                 @Query("order_by") String order_by);
 
     @POST(Constants.CO_SESSION_LIST)
@@ -438,6 +445,7 @@ public interface Retrofitinterface {
     @POST(Constants.CO_SESSION_LIST)
     Call<O_SessionListResponse> getCoachSessions(@Header("Authorization") String Authorization,
                                                  @Header("Content-Type") String contentType,
+                                                 @Query("page") String page,
                                                  @Query("order_by") String order_by);
 
     @POST(Constants.A_EVENT_BOOKING_LIST)

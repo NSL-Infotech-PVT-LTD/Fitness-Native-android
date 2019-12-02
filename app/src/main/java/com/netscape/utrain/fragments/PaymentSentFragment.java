@@ -51,13 +51,13 @@ import retrofit2.Response;
 
 public class PaymentSentFragment extends Fragment {
 
+    int page = 0;
+    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    int page=0;
-    private String currentPage="1";
+    private String currentPage = "1";
     private int getItemPerPage;
-    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
     private PaymentSentFragmentBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
@@ -83,8 +83,9 @@ public class PaymentSentFragment extends Fragment {
     }
 
     private void getBookingList() {
+        isLastPage=false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -107,14 +108,13 @@ public class PaymentSentFragment extends Fragment {
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             adapter.addAll(results);
                             if (page < TOTAL_PAGES)
                                 adapter.addLoadingFooter();
                             else isLastPage = true;
-
 
 
                         } else {
@@ -144,13 +144,15 @@ public class PaymentSentFragment extends Fragment {
         });
 
     }
+
     private List<O_AllBookingDataListModel> fetchResults(Response<O_AllBookingResponse> response) {
         O_AllBookingResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private void getNextPageBookingList() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -173,7 +175,7 @@ public class PaymentSentFragment extends Fragment {
                             getItemPerPage = response.body().getData().getPer_page();
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -208,16 +210,17 @@ public class PaymentSentFragment extends Fragment {
 
 
     }
+
     private void recyclerFunc(LinearLayoutManager layoutManager) {
         binding.paySentRecyclerView.addOnScrollListener(new PaginationScrollListener(layoutManager) {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                if (! TextUtils.isEmpty(currentPage)) {
+                if (!TextUtils.isEmpty(currentPage)) {
                     page = Integer.parseInt(currentPage);
                 }
                 page += 1;
-                currentPage=page+"";
+                currentPage = page + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {

@@ -17,6 +17,7 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_EventDataModel;
+import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.response.BookingListResponse;
@@ -25,10 +26,13 @@ import com.netscape.utrain.utils.Constants;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.CustomTopCoachesHolder> {
-
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
     private Context context;
     private int previusPos = -1;
     private List<O_EventDataModel> supplierData;
@@ -40,19 +44,50 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
         this.status = status;
 
     }
+    public O_EventListAdapter(Context context, String status) {
+        this.context = context;
+       supplierData = new ArrayList<>();
+        this.status = status;
+
+    }
 
 
     @NonNull
     @Override
     public O_EventListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-        return new O_EventListAdapter.CustomTopCoachesHolder(view);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
+//        return new O_EventListAdapter.CustomTopCoachesHolder(view);
+
+        O_EventListAdapter.CustomTopCoachesHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        switch (viewType) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
+
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
+        }
+        return viewHolder;
+    }
+    @NonNull
+    private   O_EventListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        O_EventListAdapter.CustomTopCoachesHolder viewHolder;
+        View v1 = inflater.inflate(R.layout.booking_view, parent, false);
+        viewHolder = new   O_EventListAdapter.CustomTopCoachesHolder(v1);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull O_EventListAdapter.CustomTopCoachesHolder holder, int position) {
         final O_EventDataModel data = supplierData.get(position);
+        switch (getItemViewType(position)) {
+            case ITEM:
+                if(data!=null)
         try {
             if (data.getImages() != null) {
                 JSONArray jsonArray = new JSONArray(data.getImages());
@@ -85,11 +120,81 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
                 context.startActivity(topCoachesDetails);
             }
         });
+                break;
+            case LOADING:
+//                Do nothing
+                break;
+
+        }
     }
 
     @Override
     public int getItemCount() {
-        return supplierData.size();
+        return supplierData == null ? 0 : supplierData.size();
+
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+    }
+
+
+    public void add(O_EventDataModel r) {
+        supplierData.add(r);
+        notifyItemInserted(supplierData.size() - 1);
+    }
+
+    public void addAll(List<O_EventDataModel> moveResults) {
+        for (O_EventDataModel result : moveResults) {
+            add(result);
+        }
+    }
+
+    public void setList(List<O_EventDataModel> list) {
+        this.supplierData = list;
+        notifyDataSetChanged();
+    }
+
+    public void remove(O_EventDataModel r) {
+        int position = supplierData.indexOf(r);
+        if (position > -1) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+        isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+//        add(new C_ProductsSerial.Datum());
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = supplierData.size() - 1;
+        O_EventDataModel result = getItem(position);
+
+        if (result != null) {
+            supplierData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public O_EventDataModel getItem(int position) {
+        return supplierData.get(position);
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
@@ -108,6 +213,11 @@ public class O_EventListAdapter extends RecyclerView.Adapter<O_EventListAdapter.
             eventDate = itemView.findViewById(R.id.bookingEventDate);
         }
     }
+    protected class LoadingVH extends CustomTopCoachesHolder {
 
+        public LoadingVH(View itemView) {
+            super(itemView);
+        }
+    }
 
 }

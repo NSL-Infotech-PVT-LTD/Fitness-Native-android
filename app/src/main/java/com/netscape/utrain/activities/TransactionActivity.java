@@ -41,9 +41,15 @@ public class TransactionActivity extends AppCompatActivity {
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete)){
             setupAthViewPager(binding.transactionViewPager);
+            binding.nameOfType.setText("Athlete");
             wrapTabIndicatorToTitle(binding.layoutTransactionTab, 200, 200);
 
         }else {
+            if(CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
+            binding.nameOfType.setText("Organization");
+            if(CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
+                binding.nameOfType.setText("Coach");
+
             setupViewPager(binding.transactionViewPager);
             wrapTabIndicatorToTitle(binding.layoutTransactionTab, 100, 50);
 

@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.text.TextUtils;
@@ -89,7 +88,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private FragmentOEventListBinding binding;
-    private LinearLayoutManager layoutManager;
+    private  LinearLayoutManager layoutManager;
     private O_EventListAdapter currentEventAdapter;
     private O_SpaceListAdapter currentSpaceAdapter;
     private O_SessionListAdapter currentSessionAdapter;
@@ -170,6 +169,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         totalAmount = view.findViewById(R.id.totalAmount);
         customerImage = view.findViewById(R.id.customerImage);
         layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.eventListRecycler.setLayoutManager(layoutManager);
         userBottomSheeet = view.findViewById(R.id.userBottomSheeet);
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
@@ -270,8 +270,9 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     }
 
     public void getUpcommingEvents() {
+        isLastPage=false;
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg,"");
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -280,11 +281,28 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
+
                             binding.noBookingImg.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            eventData.addAll(response.body().getData().getData());
-                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(currentEventAdapter);
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            currentEventAdapter = new O_EventListAdapter(getContext(),upcomg);
                             binding.eventListRecycler.setAdapter(currentEventAdapter);
+                            List<O_EventDataModel> results = fetchOrgEvents(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            currentEventAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                currentEventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noBookingImg.setVisibility(View.VISIBLE);
@@ -317,10 +335,82 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             }
         });
     }
+    public void getUpcommingEventsNextPage() {
+//        progressDialog.show();
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg,"");
+        call.enqueue(new Callback<O_EventListResponse>() {
+            @Override
+            public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
+                if (response.body() != null) {
+                    eventData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
 
+                            binding.noBookingImg.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(currentEventAdapter);
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+
+                            currentEventAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<O_EventDataModel> results = fetchOrgEvents(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            currentEventAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                currentEventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+                        } else {
+                            binding.noBookingImg.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    binding.noBookingImg.setVisibility(View.VISIBLE);
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_EventListResponse> call, Throwable t) {
+                binding.noBookingImg.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private List<O_EventDataModel> fetchOrgEvents(Response<O_EventListResponse> response) {
+        O_EventListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
     public void getUpcommingSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "","");
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -952,7 +1042,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     //Coach Methods
     public void getCoachUpcommingEvents() {
         progressDialog.show();
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage ,upcomg);
         call.enqueue(new Callback<C_EventListResponse>() {
             @Override
             public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
@@ -964,9 +1054,28 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            c_eventData.addAll(response.body().getData().getData());
-                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, upcomg);
+//                            c_eventData.addAll(response.body().getData().getData());
+//                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(c_EventAdapter);
+
+
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            c_EventAdapter = new C_EventListAdapter(getContext(),upcomg);
                             binding.eventListRecycler.setAdapter(c_EventAdapter);
+                            List<C_EventDataListModel> results = fetchResultsCoachUpComingEvents(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            c_EventAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                c_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
 
                         } else {
                             binding.noBookingImg.setVisibility(View.VISIBLE);
@@ -1000,7 +1109,80 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             }
         });
     }
+    public void getCoachUpcommingEventsNextPage() {
+        progressDialog.show();
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,upcomg);
+        call.enqueue(new Callback<C_EventListResponse>() {
+            @Override
+            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+                if (response.body() != null) {
+                    c_eventData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noBookingImg.setVisibility(View.GONE);
 
+//                            data.addAll(response.body().getData());
+//                            c_eventData.addAll(response.body().getData().getData());
+//                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(c_EventAdapter);
+
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            c_EventAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<C_EventDataListModel> results = fetchResultsCoachUpComingEvents(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            c_EventAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                c_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+                        } else {
+                            binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+                binding.noBookingImg.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private List<C_EventDataListModel> fetchResultsCoachUpComingEvents(Response<C_EventListResponse> response) {
+        C_EventListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     public void getCoachUpcommingSession() {
         progressDialog.show();
@@ -1369,9 +1551,17 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     @Override
                     public void run() {
                         if (count==1)
-                        a_NextPageUpcommingEvents();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                                a_NextPageUpcommingEvents();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                                getCoachUpcommingEventsNextPage();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                                getUpcommingEventsNextPage();
                         if (count==2)
-                          a_GetNextPageUpcommingSession();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                                a_GetNextPageUpcommingSession();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                                a_GetNextPageUpcommingSession();
 //                        getNextUpcommingSession();
                         if (count==3)
                         a_NextPageUpcommingSpaces();

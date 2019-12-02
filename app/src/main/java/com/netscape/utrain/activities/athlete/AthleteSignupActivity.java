@@ -329,31 +329,31 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
     private void getSignUpData() {
 
-        if (binding.athleteNameEdt.getText().toString().isEmpty()) {
+        if (binding.athleteNameEdt.getText().toString().trim().isEmpty()) {
             binding.athleteNameEdt.setError(getString(R.string.enter_name));
             binding.athleteNameEdt.requestFocus();
-        } else if (binding.athleteEmailEdt.getText().toString().isEmpty()) {
+        } else if (binding.athleteEmailEdt.getText().toString().trim().isEmpty()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_your_email));
             binding.athleteEmailEdt.requestFocus();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.athleteEmailEdt.getText().toString()).matches()) {
             binding.athleteEmailEdt.setError(getString(R.string.enter_valid_email));
             binding.athleteEmailEdt.requestFocus();
-        } else if (binding.athletePhoneEdt.getText().toString().isEmpty()) {
+        } else if (binding.athletePhoneEdt.getText().toString().trim().isEmpty()) {
             binding.athletePhoneEdt.setError(getString(R.string.enter_phone_number));
             binding.athletePhoneEdt.requestFocus();
         } else if (binding.athletePhoneEdt.getText().toString().length() < 10) {
             binding.athletePhoneEdt.setError(getString(R.string.enter_ten_diget_phone_number));
             binding.athletePhoneEdt.requestFocus();
-        } else if (binding.athleteAddressEdt.getText().toString().isEmpty()) {
+        } else if (binding.athleteAddressEdt.getText().toString().trim().isEmpty()) {
             Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.select_address), Toast.LENGTH_SHORT).show();
             binding.athleteAddressEdt.requestFocus();
-        } else if (binding.athletePasswordEdt.getText().toString().isEmpty()) {
+        } else if (binding.athletePasswordEdt.getText().toString().trim().isEmpty()) {
             binding.athletePasswordEdt.setError(getString(R.string.enter_password));
             binding.athletePasswordEdt.requestFocus();
-        } else if (binding.athleteExperienceEdt.getText().toString().isEmpty()) {
+        } else if (binding.athleteExperienceEdt.getText().toString().trim().isEmpty()) {
             binding.athleteExperienceEdt.setError(getString(R.string.enter_experience));
             binding.athleteExperienceEdt.requestFocus();
-        } else if (binding.athleteAchievementEdt.getText().toString().isEmpty()) {
+        } else if (binding.athleteAchievementEdt.getText().toString().trim().isEmpty()) {
             binding.athleteAchievementEdt.setError(getString(R.string.enter_your_achievements_details));
             binding.athleteAchievementEdt.requestFocus();
         } else if (photoFile == null) {

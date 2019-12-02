@@ -325,7 +325,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                             List<CoachListModel> results = fetchResults(response);
 
-                            //TOTAL_PAGES = response.body().getData().getLast_page();
+                            TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             orgAdapter.addAll(results);
@@ -425,6 +425,8 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 orgAdapter.addLoadingFooter();
                             else isLastPage = true;
 
+
+
                             String[] array = new String[response.body().getData().getData().size()];
 
                             for (int i = 0; i < response.body().getData().getData().size(); i++) {
@@ -500,7 +502,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                             List<CoachListModel> results = fetchResults(response);
 
-                            //TOTAL_PAGES = response.body().getData().getLast_page();
+                            TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             orgAdapter.addAll(results);

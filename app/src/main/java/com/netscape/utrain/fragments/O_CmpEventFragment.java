@@ -191,6 +191,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         userBottomSheeet = view.findViewById(R.id.userBottomSheeet);
         sheetBehavior = BottomSheetBehavior.from(userBottomSheeet);
         bottomSheetBehavior_sort();
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerFunc(layoutManager);
         if (count == 1) {
             getUserTypeForEvent();
@@ -204,7 +205,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                 a_getUpcommingSpaces();
         }
-        layoutManager = new LinearLayoutManager(getContext());
+
 
         binding.sessionListRecycler.setLayoutManager(layoutManager);
 //        binding.sessionCompletedRecycler.setLayoutManager(completedLayoutManager);
@@ -843,7 +844,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     public void getCompletedEvents() {
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "",completed);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -895,7 +896,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     public void getCompletedSpaces() {
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"", completed);
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {

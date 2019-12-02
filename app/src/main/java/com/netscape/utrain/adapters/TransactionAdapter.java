@@ -34,6 +34,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private int previusPos=-1;
     private JSONArray jsonArray;
     private List<O_AllBookingDataListModel> supplierData;
+
     public TransactionAdapter(Context context, List supplierData){
         this.context = context;
         this.supplierData = supplierData;

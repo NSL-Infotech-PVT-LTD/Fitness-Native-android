@@ -277,7 +277,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getBookingList() {
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -428,7 +428,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getOrgBooking() {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -547,7 +547,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getCoachBooking() {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "");
+        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
