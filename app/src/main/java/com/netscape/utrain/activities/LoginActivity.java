@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
         init();
     }
 
@@ -76,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.loginBtn:
+                setClikFalse();
                 getLoginData();
 //                Intent homeScreen=new Intent(LoginActivity.this, AthleteHomeScreen.class);
 //                startActivity(homeScreen);
@@ -168,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
 
                                     homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 } else if (role.equalsIgnoreCase(Constants.Coach)) {
                                     CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
@@ -198,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                                     homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 } else
                                     Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
@@ -257,5 +260,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        }, 2000);
 //    }
 
+private void setClikFalse(){
+    binding.loginBtn.setClickable(false);
 
+    new Handler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            binding.loginBtn.setClickable(true);
+
+        }
+    }, 5000);
+
+}
 }

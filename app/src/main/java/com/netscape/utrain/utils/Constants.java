@@ -62,6 +62,9 @@ public class Constants {
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
     public static final String SPORTS_LIST = "sports";
     public static final String ABOUT_US = "about/us";
+    public static final String LOGOUT= "logout";
+    public static final String NOTIFICATION= "notify/toggle";
+
 
 
     public static final String ORG_SPACE_LIST = "spaces/organiser/list";

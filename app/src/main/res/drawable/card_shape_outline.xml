@@ -4,7 +4,8 @@
 
     <corners android:topRightRadius="@dimen/_30sdp"
         android:topLeftRadius="@dimen/_30sdp"/>
-    <stroke android:color="@color/colorGreen" android:width="@dimen/_1sdp"/>
+    <stroke android:color="@color/colorGreen"
+        android:width="@dimen/_1sdp"/>
     <padding
         android:bottom="0dp"
         android:left="0dp"

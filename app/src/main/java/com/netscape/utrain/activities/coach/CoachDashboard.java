@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,14 +26,19 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.AllCreatedActivity;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
+import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
+import com.netscape.utrain.activities.ViewProfileActivity;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
@@ -40,10 +46,19 @@ import com.netscape.utrain.fragments.C_HomeFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
+import com.netscape.utrain.response.LogoutResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONObject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CoachDashboard extends AppCompatActivity {
     public DrawerLayout drawer;
@@ -55,6 +70,8 @@ public class CoachDashboard extends AppCompatActivity {
     private AppCompatImageView coachDrawer;
     private CircleImageView navImageView;
     private MaterialTextView navNameTv;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -103,7 +120,12 @@ public class CoachDashboard extends AppCompatActivity {
         navNameTv = binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
 
         Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(navImageView);
+        Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(binding.coachProfileImg);
         navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, CoachDashboard.this));
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading..");
+        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
         coachDrawer = findViewById(R.id.coachDrawer);
         orgNavView = findViewById(R.id.orgNavView);
@@ -129,11 +151,9 @@ public class CoachDashboard extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                LoginManager.getInstance().logOut();
-                                CommonMethods.clearPrefData(activity);
-                                Intent intent = new Intent(activity, SignUpTypeActivity.class);
-                                startActivity(intent);
-                                finish();
+
+                                HitLogoutApi();
+
 
                             }
 
@@ -242,6 +262,15 @@ public class CoachDashboard extends AppCompatActivity {
                 startActivity(new Intent(CoachDashboard.this, SettingsActivity.class));
             }
         });
+        binding.coachProfileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                notificationTv.setText("");
+                Intent myProfileIntent = new Intent(CoachDashboard.this, ViewProfileActivity.class);
+                startActivity(myProfileIntent);
+
+            }
+        });
 
 
     }
@@ -251,10 +280,12 @@ public class CoachDashboard extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(Gravity.LEFT);
             orgNavView.setVisibility(View.VISIBLE);
+            binding.coachProfileImg.setVisibility(View.VISIBLE);
             //CLOSE Nav Drawer!
         } else {
             drawer.openDrawer(Gravity.LEFT); //OPEN Nav Drawer!
             orgNavView.setVisibility(View.GONE);
+            binding.coachProfileImg.setVisibility(View.GONE);
 
         }
 
@@ -290,5 +321,46 @@ public class CoachDashboard extends AppCompatActivity {
                 }
             }, 2000);
         }
+    }
+    private void HitLogoutApi() {
+        progressDialog.show();
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this));
+        signUpAthlete.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            LoginManager.getInstance().logOut();
+                            CommonMethods.clearPrefData(activity);
+                            Intent intent = new Intent(activity, SignUpTypeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.coachContainer, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.coachContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.coachContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                Snackbar.make(binding.coachContainer, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                progressDialog.dismiss();
+            }
+        });
     }
 }

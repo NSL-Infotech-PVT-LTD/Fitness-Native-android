@@ -3,6 +3,7 @@ package com.netscape.utrain.activities.athlete;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -13,9 +14,12 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
@@ -33,6 +37,10 @@ import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
+import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.LogoutResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -43,6 +51,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -64,9 +73,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AthleteHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
@@ -78,6 +92,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private AppCompatImageView drawerImage;
     private CircleImageView headerImage;
     private MaterialTextView navNameTv, notificationTv;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -120,7 +136,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -142,6 +157,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
         final NavigationView navigationView = findViewById(R.id.slider);
         View header = navigationView.getHeaderView(0);
         MaterialTextView dashboardTv = header.findViewById(R.id.coachDashboardTv);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading..");
+        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
         binding.slider.getHeaderView(0).findViewById(R.id.allCreatedTv).setVisibility(View.GONE);
         binding.slider.getHeaderView(0).findViewById(R.id.allCreatedIcon).setVisibility(View.GONE);
@@ -155,11 +174,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                LoginManager.getInstance().logOut();
-                                CommonMethods.clearPrefData(AthleteHomeScreen.this);
-                                Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
-                                startActivity(intent);
-                                finish();
+                                HitLogoutApi();
+
 
                             }
 
@@ -180,6 +196,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
+//                notificationTv.setText("");
 
                 openCloseDrawer();
             }
@@ -210,7 +227,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         dashboardTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                notificationTv.setText("");
+                navView.getMenu().findItem(R.id.navigation_home).setChecked(true);
                 openCloseDrawer();
                 loadFragment(new A_HomeFragment());
 
@@ -220,7 +238,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openCloseDrawer();
-
+//                notificationTv.setText("");
                 loadFragment(new A_ChatsFragment());
 
 
@@ -229,6 +247,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         binding.slider.getHeaderView(0).findViewById(R.id.transactionTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                notificationTv.setText("");
                 openCloseDrawer();
 
                 Intent transactionActivity = new Intent(AthleteHomeScreen.this, TransactionActivity.class);
@@ -239,6 +258,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         binding.slider.getHeaderView(0).findViewById(R.id.calenderTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                notificationTv.setText("");
                 openCloseDrawer();
 
                 startActivity(new Intent(AthleteHomeScreen.this, CalendarViewWithNotesActivity.class));
@@ -248,6 +268,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         binding.slider.getHeaderView(0).findViewById(R.id.aboutUsTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                notificationTv.setText("");
                 openCloseDrawer();
                 Intent aboutUs = new Intent(AthleteHomeScreen.this, AboutUs.class);
                 startActivity(aboutUs);
@@ -275,7 +296,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         binding.athleteProfileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                notificationTv.setText("");
                 Intent myProfileIntent = new Intent(AthleteHomeScreen.this, MyProfile.class);
                 startActivity(myProfileIntent);
 
@@ -292,7 +313,31 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 startActivity(settingsTv);
             }
         });
+        setBadgeToNotification();
 
+    }
+
+    private void setBadgeToNotification() {
+        BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notifications);
+        badge.setBadgeGravity(BadgeDrawable.TOP_END);
+        badge.setNumber(10);
+        badge.setMaxCharacterCount(3);
+        badge.setBadgeTextColor(getResources().getColor(R.color.colorWhite));
+
+//        navView.removeBadge(R.id.navigation_notifications);
+
+//        BadgeUtils.attachBadgeDrawable(badge, navView, null);
+        // to remove
+//        navView.removeBadge(R.id.action_settings);
+//
+//// to add
+//        navView.getOrCreateBadge(R.id.action_settings);
+//                .apply {
+//            //if you want to change other attributes, like badge color, add a number, maximum number (a plus sign is added, e.g. 99+)
+//            number = 100;
+//            maxCharactersCount = 3
+//            backgroundColor = ContextCompat.getColor(getApplicationContext(), R.color.notificationRedIcon);
+//        }
     }
 //
 //    @Override
@@ -363,6 +408,49 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
+
+
         }
+    }
+    private void HitLogoutApi() {
+        progressDialog.show();
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        signUpAthlete.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                                Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            LoginManager.getInstance().logOut();
+                            CommonMethods.clearPrefData(AthleteHomeScreen.this);
+                            Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                progressDialog.dismiss();
+            }
+        });
     }
 }

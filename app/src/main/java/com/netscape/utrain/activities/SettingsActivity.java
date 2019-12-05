@@ -19,7 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
@@ -29,10 +32,12 @@ import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivitySettingsBinding;
 
+import com.netscape.utrain.model.NotifaicationStateResponse;
 import com.netscape.utrain.model.ServiceListDataModel;
 
 import com.netscape.utrain.model.ChangePasswordModel;
 import com.netscape.utrain.response.ChangePasswordResponse;
+import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.TermsAndConditionsResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -60,6 +65,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Retrofitinterface retrofitinterface;
     private AlertDialog dialogMultiOrder;
     private ChangePasswordModel model;
+    private ProgressDialog progressDialog;
+    private String isNotify="";
+    private String notify="";
 
 
     @Override
@@ -67,22 +75,50 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_settings);
         binding = DataBindingUtil.setContentView(SettingsActivity.this, R.layout.activity_settings);
-
         switchMaterial = findViewById(R.id.settingsSwitch);
-        textViewOn = findViewById(R.id.switchOnON);
-        textViewOff = findViewById(R.id.switchOffOFF);
+        isNotify=CommonMethods.getPrefData(PrefrenceConstant.IS_NOTIFY,SettingsActivity.this);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
+
+
+//        textViewOn = findViewById(R.id.switchOnON);
+//        textViewOff = findViewById(R.id.switchOffOFF);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading..");
 //        setProfileImage();
         inIt();
+        if (! TextUtils.isEmpty(isNotify)){
+            if (isNotify.equalsIgnoreCase("1")){
+//                switchMaterial.setOnCheckedChangeListener (null);
+                switchMaterial.setChecked(true);
+//                textViewOn.setVisibility(View.VISIBLE);
+//                textViewOff.setVisibility(View.GONE);
+//                switchMaterial.setOnCheckedChangeListener (this);
+            }
+            else{
+//                switchMaterial.setOnCheckedChangeListener (null);
+                switchMaterial.setChecked(false);
+//                textViewOff.setVisibility(View.VISIBLE);
+//                textViewOn.setVisibility(View.GONE);
+            }
+        }
         switchMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (switchMaterial.isChecked()) {
-                    textViewOn.setVisibility(View.VISIBLE);
-                    textViewOff.setVisibility(View.GONE);
+                    notify="1";
+                    ChangeNotificationState();
+//                    Toast.makeText(SettingsActivity.this, "Checked", Toast.LENGTH_SHORT).show();
+//                    textViewOn.setVisibility(View.VISIBLE);
+//                    textViewOff.setVisibility(View.GONE);
                 } else {
-                    textViewOff.setVisibility(View.VISIBLE);
-                    textViewOn.setVisibility(View.GONE);
+                    notify="0";
+                    ChangeNotificationState();
+//                    Toast.makeText(SettingsActivity.this, "Un checked", Toast.LENGTH_SHORT).show();
+//                    textViewOff.setVisibility(View.VISIBLE);
+//                    textViewOn.setVisibility(View.GONE);
                 }
 
             }
@@ -234,7 +270,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         progressDialog.setMessage("Loading....");
         progressDialog.show();
 
-        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<ChangePasswordResponse> changePasswordCall = retrofitinterface.changePassword(Constants.CONTENT_TYPE,
                 "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SettingsActivity.this),
                 sOldPassword, sNewPassword, sConfirmPwd);
@@ -275,6 +310,49 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
                 progressDialog.dismiss();
 
+            }
+        });
+    }
+
+    private void ChangeNotificationState() {
+        progressDialog.show();
+        Call<NotifaicationStateResponse> signUpAthlete = retrofitinterface.ChangeNotificationSetting("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,SettingsActivity.this));
+        signUpAthlete.enqueue(new Callback<NotifaicationStateResponse>() {
+            @Override
+            public void onResponse(Call<NotifaicationStateResponse> call, Response<NotifaicationStateResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, notify, SettingsActivity.this);
+//                            LoginManager.getInstance().logOut();
+//                            CommonMethods.clearPrefData(SettingsActivity.this);
+//                            Intent intent = new Intent(SettingsActivity.this, SignUpTypeActivity.class);
+//                            startActivity(intent);
+//                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.settingsContainer, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.settingsContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.settingsContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<NotifaicationStateResponse> call, Throwable t) {
+                Snackbar.make(binding.settingsContainer, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         });
     }

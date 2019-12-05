@@ -119,6 +119,7 @@ public class A_NotificationFragment extends Fragment {
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Loading....");
         progressDialog.show();
+
         getNotifications();
 
         try {

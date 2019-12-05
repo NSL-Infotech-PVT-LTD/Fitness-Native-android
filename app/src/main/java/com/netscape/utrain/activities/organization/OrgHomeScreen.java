@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities.organization;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
@@ -33,6 +36,7 @@ import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.databinding.OActivityBottomNavigationBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
@@ -40,11 +44,19 @@ import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
+import com.netscape.utrain.response.LogoutResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONObject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrgHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
@@ -55,6 +67,8 @@ public class OrgHomeScreen extends AppCompatActivity {
     private AppCompatImageView orgDrawerImageNew;
     private CircleImageView navImageView;
     private MaterialTextView navNameTv;
+    private ProgressDialog progressDialog;
+    private Retrofitinterface retrofitinterface;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -105,6 +119,11 @@ public class OrgHomeScreen extends AppCompatActivity {
         navImageView = binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         navNameTv = binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, OrgHomeScreen.this);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading..");
+        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+
 //        Glide.with(OrgHomeScreen.this).load(Constants.ORG_IMAGE_BASE_URL+path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(binding.orgProfileImg);
@@ -142,11 +161,8 @@ public class OrgHomeScreen extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                LoginManager.getInstance().logOut();
-                                CommonMethods.clearPrefData(OrgHomeScreen.this);
-                                Intent intent = new Intent(OrgHomeScreen.this, SignUpTypeActivity.class);
-                                startActivity(intent);
-                                finish();
+                                HitLogoutApi();
+
 
                             }
 
@@ -308,5 +324,46 @@ public class OrgHomeScreen extends AppCompatActivity {
                 }
             }, 2000);
         }
+    }
+    private void HitLogoutApi() {
+        progressDialog.show();
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, OrgHomeScreen.this));
+        signUpAthlete.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            LoginManager.getInstance().logOut();
+                            CommonMethods.clearPrefData(OrgHomeScreen.this);
+                            Intent intent = new Intent(OrgHomeScreen.this, SignUpTypeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        Snackbar.make(binding.orgContainer, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.orgContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.orgContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                Snackbar.make(binding.orgContainer, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                progressDialog.dismiss();
+            }
+        });
     }
 }

@@ -271,8 +271,9 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     public void getUpcommingEvents() {
         isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg,"");
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage ,upcomg);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -337,7 +338,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     }
     public void getUpcommingEventsNextPage() {
 //        progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg,"");
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage ,upcomg);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -459,6 +460,8 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
     }
 
     public void getUpcommingSession() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
         Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, upcomg);
         call.enqueue(new Callback<O_SessionListResponse>() {
@@ -478,7 +481,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
                             binding.eventListRecycler.setVisibility(View.VISIBLE);
                             currentSessionAdapter = new O_SessionListAdapter(getContext(),upcomg);
-                            binding.eventListRecycler.setLayoutManager(layoutManager);
                             binding.eventListRecycler.setAdapter(currentSessionAdapter);
                             List<O_SessionDataModel> results = fetchSessionResults(response);
 
@@ -552,7 +554,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
                             List<O_SessionDataModel> results = fetchSessionResults(response);
 
-                            //TOTAL_PAGES = response.body().getData().getLast_page();
+                            TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
 
                             currentSessionAdapter.addAll(results);
@@ -1041,6 +1043,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
     //Coach Methods
     public void getCoachUpcommingEvents() {
+        currentPage="1";
         progressDialog.show();
         Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage ,upcomg);
         call.enqueue(new Callback<C_EventListResponse>() {
@@ -1183,10 +1186,16 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
         C_EventListResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+    private List<C_SessionListModel> fetchCoachSessionResults(Response<C_SessionListResponse> response) {
+        C_SessionListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     public void getCoachUpcommingSession() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, upcomg);
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, upcomg);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
@@ -1198,9 +1207,28 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            c_sessionData.addAll(response.body().getData().getData());
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, upcomg);
+//                            c_sessionData.addAll(response.body().getData().getData());
+//                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, upcomg);
+//                            binding.eventListRecycler.setAdapter(c_SessionAdapter);
+
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(),upcomg);
                             binding.eventListRecycler.setAdapter(c_SessionAdapter);
+                            List<C_SessionListModel> results = fetchCoachSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            c_SessionAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                c_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
 
                         } else {
                             binding.noBookingImg.setVisibility(View.VISIBLE);
@@ -1235,10 +1263,83 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
             }
         });
     }
+    public void getCoachUpcommingSessionNextPage() {
+//        progressDialog.show();
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,upcomg);
+        call.enqueue(new Callback<C_SessionListResponse>() {
+            @Override
+            public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
+                if (response.body() != null) {
+                    c_sessionData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noBookingImg.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//
+//                            c_sessionData.addAll(response.body().getData().getData());
+//                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, upcomg);
+//                            binding.eventListRecycler.setAdapter(c_SessionAdapter);
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            c_SessionAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<C_SessionListModel> results = fetchCoachSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            c_SessionAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                c_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+
+                        } else {
+                            binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    binding.noBookingImg.setVisibility(View.VISIBLE);
+
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
+                binding.noBookingImg.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void getCoachSpaceBookings() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getCoachSpaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getCoachSpaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage,"");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -1250,9 +1351,100 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                             binding.noBookingImg.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            a_spaceData.addAll(response.body().getData().getData());
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this, 1, O_UpcEventFragment.this);
+//                            a_spaceData.addAll(response.body().getData().getData());
+//                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this, 1, O_UpcEventFragment.this);
+//                            binding.eventListRecycler.setAdapter(a_SpaceAdapter);
+
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(),O_UpcEventFragment.this,1,O_UpcEventFragment.this);
+                            binding.eventListRecycler.setLayoutManager(layoutManager);
                             binding.eventListRecycler.setAdapter(a_SpaceAdapter);
+                            List<AthleteSpaceBookList.DataBeanX.DataBean> results = fetchSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            a_SpaceAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                a_SpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
+                        } else {
+                            binding.noBookingImg.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noBookingImg.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    binding.noBookingImg.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AthleteSpaceBookList> call, Throwable t) {
+                binding.noBookingImg.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void getCoachSpaceBookingsNextPage() {
+        isLastPage=false;
+        progressDialog.show();
+        Call<AthleteSpaceBookList> call = retrofitinterface.getCoachSpaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage,getItemPerPage+"");
+        call.enqueue(new Callback<AthleteSpaceBookList>() {
+            @Override
+            public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
+                if (response.body() != null) {
+                    a_spaceData = new ArrayList<>();
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noBookingImg.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            a_spaceData.addAll(response.body().getData().getData());
+//                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), a_spaceData, O_UpcEventFragment.this, 1, O_UpcEventFragment.this);
+//                            binding.eventListRecycler.setAdapter(a_SpaceAdapter);
+
+
+                            binding.eventListRecycler.setVisibility(View.VISIBLE);
+
+                            a_SpaceAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<AthleteSpaceBookList.DataBeanX.DataBean> results = fetchSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            a_SpaceAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                a_SpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+
 
                         } else {
                             binding.noBookingImg.setVisibility(View.VISIBLE);
@@ -1560,11 +1752,17 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                         if (count==2)
                             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                                 a_GetNextPageUpcommingSession();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                                getNextUpcommingSession();
                             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
-                                a_GetNextPageUpcommingSession();
+                                getCoachUpcommingSessionNextPage();
+
 //                        getNextUpcommingSession();
                         if (count==3)
-                        a_NextPageUpcommingSpaces();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                            a_NextPageUpcommingSpaces();
+                            else
+                            getCoachSpaceBookingsNextPage();
                     }
                 }, 1000);
             }

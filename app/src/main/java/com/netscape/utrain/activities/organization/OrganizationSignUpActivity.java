@@ -135,6 +135,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private Retrofitinterface retrofitinterface;
     private String latUpdate = "";
     private String longUpdate = "";
+    private int count=0;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -392,7 +393,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     askRequiredPermission();
                     return;
                 }
+
+                if (count==0){
                 handleImageSelection();
+            }
                 break;
             case R.id.orgStartTimeTv:
                 getStartTime();
@@ -438,6 +442,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     public void handleImageSelection() {
 
+        count=1;
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View content = inflater.inflate(R.layout.get_image_dialog, null);
@@ -451,6 +456,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count=0;
                 handleGalleryImage();
                 dialogMultiOrder.dismiss();
             }
@@ -458,6 +464,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count=0;
                 getImageUsingCamera();
                 dialogMultiOrder.dismiss();
             }
@@ -465,6 +472,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                count=0;
                 dialogMultiOrder.dismiss();
             }
         });

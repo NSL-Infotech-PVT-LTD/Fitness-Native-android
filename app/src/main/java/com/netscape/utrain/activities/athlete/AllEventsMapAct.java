@@ -556,6 +556,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void getAthleteEventApi(final String sortBy, final String search, final String coach_id) {
+
         allEventFindAPalceTv.setText("Find Events");
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading....");

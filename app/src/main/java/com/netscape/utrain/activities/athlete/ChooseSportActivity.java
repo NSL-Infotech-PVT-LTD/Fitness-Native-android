@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -110,6 +111,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 //        fbImage = getIntent().getStringExtra("fbImage");
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading....");
+        progressDialog.setCancelable(false);
         sportsListAll.clear();
         init();
         if (athUpdate) {
@@ -143,6 +145,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         binding.athSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setClikFalse();
+
 
                 if (sportsList != null && sportsList.size() == 0) {
 
@@ -402,7 +406,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
                             Intent homeScreen = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -460,7 +464,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
 
                             Intent homeScreen = new Intent(ChooseSportActivity.this, ViewCoachStaffListActivity.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -548,8 +552,6 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     }
 
     private void hitUpdateAthleteDetailApi() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading....");
         progressDialog.show();
         MultipartBody.Part userImg = null;
         File myFile = (File) getIntent().getSerializableExtra("image");
@@ -601,7 +603,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
 
                             Intent updatedDetail = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
-                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(updatedDetail);
                         } else {
                             Toast.makeText(ChooseSportActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
@@ -670,7 +672,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 //
 
                                     Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 }
                             }
@@ -698,5 +700,23 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 Snackbar.make(binding.serviceLayout, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+    }
+    private void setClikFalse(){
+        binding.athSignUp.setClickable(false);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.athSignUp.setClickable(true);
+
+            }
+        }, 5000);
+
     }
 }

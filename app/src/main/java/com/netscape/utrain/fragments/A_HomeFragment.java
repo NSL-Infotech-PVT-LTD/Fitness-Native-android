@@ -303,17 +303,22 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 sportList = gson.fromJson(sportName, type);
 
                 StringBuilder builder = new StringBuilder();
-                if (sportList != null && sportList.size() > 0) {
-                    for (SportListModel.DataBeanX.DataBean details : sportList) {
-                        builder.append(details.getName() + "\n");
+                int i=1;
+                for (SportListModel.DataBeanX.DataBean details : sportList) {
+                    if (i< sportList.size()){
+                        builder.append(details.getName() + ",");
+                        i=i+1;
                     }
-                    aSportsNameTv.setText(builder.toString());
+                    else if (i == sportList.size()){
+                        builder.append(details.getName());
+                        i=i+1;
+                    }
                 }
+                aSportsNameTv.setText(builder.toString());
             }
         } else {
             aSportsText.setVisibility(View.GONE);
             aSportsNameTv.setVisibility(View.GONE);
-
         }
     }
 

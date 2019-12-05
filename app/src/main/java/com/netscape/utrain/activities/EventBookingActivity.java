@@ -176,6 +176,8 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventPrice.setText("$" + response.body().getData().getPrice() + "");
                             ticketPrice = response.body().getData().getPrice();
                             binding.text1.setText((ticket + " * " + countVAlue) + "");
+                            totalPrice=response.body().getData().getPrice();
+
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
@@ -240,6 +242,7 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventPrice.setText("$" + response.body().getData().getHourly_rate() + "");
                             ticketPrice = response.body().getData().getHourly_rate();
                             binding.text1.setText((ticket + "*" + countVAlue) + "");
+                            totalPrice=response.body().getData().getHourly_rate();
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());

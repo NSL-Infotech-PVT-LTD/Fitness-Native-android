@@ -36,6 +36,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private ForgetDataModel mDataModel;
+    private String emailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void getNewPassword() {
+        emailId=binding.forgetEmailEdt.getText().toString();
         if (binding.forgetEmailEdt.getText().toString().isEmpty()){
             binding.forgetEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.forgetEmailEdt.requestFocus();
@@ -80,7 +82,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
 
     private void hitPasswordChangeApi() {
         progressDialog.show();
-        Call<ForgetPasswordResponse> call = retrofitinterface.getForgetpassword(Constants.CONTENT_TYPE, binding.forgetEmailEdt.getText().toString());
+        Call<ForgetPasswordResponse> call = retrofitinterface.getForgetpassword(Constants.CONTENT_TYPE,emailId );
         call.enqueue(new Callback<ForgetPasswordResponse>() {
             @Override
             public void onResponse(Call<ForgetPasswordResponse> call, Response<ForgetPasswordResponse> response) {

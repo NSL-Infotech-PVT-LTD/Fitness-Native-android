@@ -414,16 +414,16 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 
 
     private void getDataFromEdt() {
-        sessionName = binding.createTrainingSessionNameEdt.getText().toString();
-        sessionDescription = binding.createTrainingSessionDescEdt.getText().toString();
-        sessionPhone = binding.createTrainingSessionPhoneEdt.getText().toString();
-        sessionStartDate = binding.createTrainingDateTv.getText().toString();
-        sessionEndDate = binding.EndDateTv.getText().toString();
-        eventStartTime = binding.createEvtnStartTimeTv.getText().toString();
-        eventEndtime = binding.createEventEndTime.getText().toString();
-        sessionHourlyRate = binding.createTrainingSessionHourRateEdt.getText().toString();
-        sessionMaxOccupancy = binding.createTrainingSessionMaxOccuEdt.getText().toString();
-        eventAddress = binding.getAddressTv.getText().toString();
+        sessionName = binding.createTrainingSessionNameEdt.getText().toString().trim();
+        sessionDescription = binding.createTrainingSessionDescEdt.getText().toString().trim();
+        sessionPhone = binding.createTrainingSessionPhoneEdt.getText().toString().trim();
+        sessionStartDate = binding.createTrainingDateTv.getText().toString().trim();
+        sessionEndDate = binding.EndDateTv.getText().toString().trim();
+        eventStartTime = binding.createEvtnStartTimeTv.getText().toString().trim();
+        eventEndtime = binding.createEventEndTime.getText().toString().trim();
+        sessionHourlyRate = binding.createTrainingSessionHourRateEdt.getText().toString().trim();
+        sessionMaxOccupancy = binding.createTrainingSessionMaxOccuEdt.getText().toString().trim();
+        eventAddress = binding.getAddressTv.getText().toString().trim();
         if (sessionName.isEmpty()) {
             binding.createTrainingSessionNameEdt.setError(getResources().getString(R.string.enter_session_name));
             binding.createTrainingSessionNameEdt.requestFocus();
@@ -450,6 +450,10 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 
         } else if (sessionHourlyRate.isEmpty()) {
             binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_session));
+            binding.createTrainingSessionHourRateEdt.requestFocus();
+        } else if (sessionHourlyRate.equalsIgnoreCase("0")|| sessionHourlyRate.equalsIgnoreCase("00")) {
+//            binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_valid_session_price));
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_session_price), Toast.LENGTH_SHORT).show();
             binding.createTrainingSessionHourRateEdt.requestFocus();
         } else if (sessionMaxOccupancy.isEmpty()) {
             binding.createTrainingSessionMaxOccuEdt.setError(getResources().getString(R.string.enter_session_max_occupacy));

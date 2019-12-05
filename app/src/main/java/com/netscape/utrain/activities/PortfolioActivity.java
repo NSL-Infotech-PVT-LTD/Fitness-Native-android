@@ -92,6 +92,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private List<ServiceIdModel> servicesList = new ArrayList<>();
     private File mediaStorageDir;
     private String type="";
+    private int count=0;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -359,7 +360,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             askRequiredPermission();
             return;
         }
-        handleImageSelection();
+        if (count==0) {
+            handleImageSelection();
+        }
     }
 
     private void askRequiredPermission() {
@@ -381,6 +384,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void handleImageSelection() {
+        count =1;
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View content = inflater.inflate(R.layout.get_image_dialog, null);
@@ -394,6 +398,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count =0;
                 handleGalleryImage();
                 dialogMultiOrder.dismiss();
             }
@@ -401,6 +406,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count =0;
                 getImageUsingCamera();
                 dialogMultiOrder.dismiss();
             }
@@ -408,6 +414,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                count =0;
                 dialogMultiOrder.dismiss();
             }
         });

@@ -122,6 +122,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private Uri selected;
     private String IMAGE_DIRECTORY = "/Utrain/";
     private File mediaStorageDir;
+    private int count=0;
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -273,7 +274,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                     askRequiredPermission();
                     return;
                 }
-                handleImageSelection();
+                if (count==0) {
+                    handleImageSelection();
+                }
                 break;
             case R.id.athleteSignUpBtn:
                 getSignUpData();
@@ -348,7 +351,16 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.select_address), Toast.LENGTH_SHORT).show();
             binding.athleteAddressEdt.requestFocus();
         } else if (binding.athletePasswordEdt.getText().toString().trim().isEmpty()) {
-            binding.athletePasswordEdt.setError(getString(R.string.enter_password));
+            Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
+//            binding.athletePasswordEdt.setError(getString(R.string.enter_password));
+            binding.athletePasswordEdt.requestFocus();
+        } else if (binding.athletePasswordEdt.getText().toString().trim().length()<6) {
+//            binding.athletePasswordEdt.setError(getString(R.string.password_length));
+            Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+            binding.athletePasswordEdt.requestFocus();
+        } else if (binding.athletePasswordEdt.getText().toString().trim().length()>8) {
+//            binding.athletePasswordEdt.setError(getString(R.string.password_length));
+            Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
             binding.athletePasswordEdt.requestFocus();
         } else if (binding.athleteExperienceEdt.getText().toString().trim().isEmpty()) {
             binding.athleteExperienceEdt.setError(getString(R.string.enter_experience));
@@ -421,13 +433,16 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count=0;
                 handleGalleryImage();
                 dialogMultiOrder.dismiss();
+
             }
         });
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                count=0;
                 getImageUsingCamera();
                 dialogMultiOrder.dismiss();
             }
@@ -435,11 +450,13 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                count=0;
                 dialogMultiOrder.dismiss();
             }
         });
 
         dialogMultiOrder.show();
+        count=1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
@@ -469,7 +486,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         } else if (requestCode == Constants.CAMERA_PERMISSION) {
             /*detects whether camera permission given*/
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                handleImageSelection();
+                if (count==0) {
+                    handleImageSelection();
+                }
             }
         }
     }

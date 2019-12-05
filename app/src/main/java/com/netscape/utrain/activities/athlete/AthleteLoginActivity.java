@@ -96,10 +96,13 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), AthleteLoginActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ATHLETE_LOG_IN, AthleteLoginActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, response.body().getData().getUser().getIs_notify(), AthleteLoginActivity.this);
+
                                     Intent homeScreen = null;
 
                                     homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 } else
                                     Toast.makeText(AthleteLoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();

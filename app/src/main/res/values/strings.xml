@@ -25,8 +25,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="explore_the_best_coaches">Exploer the best Coaches with just a tap!</string>
-    <string name="explore_the_best_org">Exploer the best Organisation with just a tap!</string>
+    <string name="explore_the_best_coaches">Explore the best Coaches with just a tap!</string>
+    <string name="explore_the_best_org">Explore the best Organisation with just a tap!</string>
     <string name="search_keyword">Search Keyword</string>
     <string name="find_your_coach">Find your coach</string>
     <string name="log_in">Log In</string>
@@ -204,7 +204,7 @@
     <string name="you_can_add_service">Hey, you can add more than one services</string>
     <string name="note">Note:</string>
     <string name="note_desc">Upload atleast 1 photo of your work to make profile more outgoing. \n you may add more photos further.</string>
-    <string name="log_in_signup_as_athlete">Log in / Sign Up Athlete</string>
+    <string name="log_in_signup_as_athlete">Log in / Sign Up As Athlete</string>
     <string name="log_in_signup_as_coach">Log In / Sign Up As Coach</string>
     <string name="log_in_signup_as_org">Log In / Sign Up As Org.</string>
     <string name="title_activity_org_main">OrgMainActivity</string>
@@ -416,7 +416,7 @@
     <string name="how_was_everything">How was Everything?</string>
     <string name="transaction_id">Transaction ID :</string>
     <string name="utrain_text">Utrain</string>
-    <string name="about_us_dummy">Welcome to Utain, Here athlete can find his best coach to train best, Coach can create event, create session or book spaces, organizer can provide them best solutions so that athlete or coach could not face any issue.</string>
+    <string name="about_us_dummy">Welcome to Utrain, Here athlete can find his best coach to train best, Coach can create event, create session or book spaces, organizer can provide them best solutions so that athlete or coach could not face any issue.</string>
     <string name="notifications">Notifications</string>
     <string name="home">Home</string>
     <string name="events">Events</string>
@@ -431,4 +431,6 @@
     <string name="enter_old_password">Enter Old Password</string>
     <string name="enter_confirm_password">Enter Confirm Password</string>
     <string name="password_doesnt_match">Password dosen\'t match</string>
+    <string name="password_length">Password field must contains  6-8 characters</string>
+    <string name="enter_valid_session_price">Enter valid price</string>
 </resources>

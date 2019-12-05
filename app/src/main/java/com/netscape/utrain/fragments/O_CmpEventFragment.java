@@ -282,8 +282,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     //Coach Methods
     public void getCoachUpcommingEvents() {
+        currentPage="1";
+        isLastPage=false;
         progressDialog.show();
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
         call.enqueue(new Callback<C_EventListResponse>() {
             @Override
             public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
@@ -294,9 +296,25 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                         if (response.body().getData().getData().size() > 0) {
                             binding.noDataImageCmp.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            c_eventData.addAll(response.body().getData().getData());
-                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, completed);
+//                            c_eventData.addAll(response.body().getData().getData());
+//                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, completed);
+//                            binding.sessionListRecycler.setAdapter(c_EventAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            c_EventAdapter = new C_EventListAdapter(getContext(),completed);
                             binding.sessionListRecycler.setAdapter(c_EventAdapter);
+                            List<C_EventDataListModel> results = fetchCoachEventResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            c_EventAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                c_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -330,11 +348,81 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+    public void getCoachUpcommingEventsNextPage() {
+        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
+        call.enqueue(new Callback<C_EventListResponse>() {
+            @Override
+            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+                if (response.body() != null) {
+                    c_eventData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+//                            c_eventData.addAll(response.body().getData().getData());
+//                            c_EventAdapter = new C_EventListAdapter(getContext(), c_eventData, completed);
+//                            binding.sessionListRecycler.setAdapter(c_EventAdapter);
+
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            c_EventAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<C_EventDataListModel> results = fetchCoachEventResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            c_EventAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                c_EventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     public void getCoachUpcommingSession() {
+        isLastPage =false;
+        currentPage="1";
         progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, completed);
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
@@ -346,9 +434,26 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
                             binding.noDataImageCmp.setVisibility(View.GONE);
 //                            data.addAll(response.body().getData());
-                            c_sessionData.addAll(response.body().getData().getData());
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, completed);
+//                            c_sessionData.addAll(response.body().getData().getData());
+//                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, completed);
+//                            binding.sessionListRecycler.setAdapter(c_SessionAdapter);
+
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(),completed);
                             binding.sessionListRecycler.setAdapter(c_SessionAdapter);
+                            List<C_SessionListModel> results = fetchCoachSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            c_SessionAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                c_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -378,6 +483,76 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                 progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void getCoachUpcommingSessionNextPage() {
+//        progressDialog.show();
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
+        call.enqueue(new Callback<C_SessionListResponse>() {
+            @Override
+            public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
+                if (response.body() != null) {
+                    c_sessionData = new ArrayList<>();
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+//                            data.addAll(response.body().getData());
+//                            c_sessionData.addAll(response.body().getData().getData());
+//                            c_SessionAdapter = new C_SessionListAdapter(getContext(), c_sessionData, completed);
+//                            binding.sessionListRecycler.setAdapter(c_SessionAdapter);
+
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            c_SessionAdapter.removeLoadingFooter();
+                            isLoading = false;
+
+                            List<C_SessionListModel> results = fetchCoachSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            c_SessionAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                c_SessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -678,6 +853,26 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         AthleteBookListModel topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+    private List<C_EventDataListModel> fetchCoachEventResults(Response<C_EventListResponse> response) {
+        C_EventListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
+    private List<C_SessionListModel> fetchCoachSessionResults(Response<C_SessionListResponse> response) {
+        C_SessionListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
+    private List<O_EventDataModel> fetchOrgEventResults(Response<O_EventListResponse> response) {
+        O_EventListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
+    private List<O_SpaceDataModel> fetchOrgSpaceResults(Response<O_SpaceListResponse> response) {
+        O_SpaceListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
+    private List<O_SessionDataModel> fetchOrgSessionResults(Response<O_SessionListResponse> response) {
+        O_SessionListResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
+    }
 
     public void a_getUpcommingSpaces() {
         currentPage="1";
@@ -843,8 +1038,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void getCompletedEvents() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "",completed);
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
         call.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -856,9 +1053,26 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            eventData.addAll(response.body().getData().getData());
-                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentEventAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            currentEventAdapter = new O_EventListAdapter(getContext(),completed);
                             binding.sessionListRecycler.setAdapter(currentEventAdapter);
+                            List<O_EventDataModel> results = fetchOrgEventResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            currentEventAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                currentEventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -893,10 +1107,78 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+    public void getCompletedEventsNextPage() {
+        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
+        call.enqueue(new Callback<O_EventListResponse>() {
+            @Override
+            public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
+                if (response.body() != null) {
+                    eventData = new ArrayList<>();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentEventAdapter);
+
+                            a_EventAdapter.removeLoadingFooter();
+                            isLoading = false;
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            List<O_EventDataModel> results = fetchOrgEventResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+
+                            currentEventAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                currentEventAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+                        } else {
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_EventListResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void getCompletedSpaces() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,"", completed);
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
         call.enqueue(new Callback<O_SpaceListResponse>() {
             @Override
             public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
@@ -909,9 +1191,25 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            spaceData.addAll(response.body().getData().getData());
-                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, completed);
+//                            spaceData.addAll(response.body().getData().getData());
+//                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(),completed);
                             binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
+                            List<O_SpaceDataModel> results = fetchOrgSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            currentSpaceAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                currentSpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -946,10 +1244,84 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+    public void getCompletedSpacesNextPage() {
+//        isLastPage=false;
+//        currentPage="1";
+//        progressDialog.show();
+        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
+        call.enqueue(new Callback<O_SpaceListResponse>() {
+            @Override
+            public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
+                if (response.body() != null) {
+                    spaceData = new ArrayList<>();
+
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            spaceData.addAll(response.body().getData().getData());
+//                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), spaceData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
+
+
+                            currentSpaceAdapter.removeLoadingFooter();
+                            isLoading = false;
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+
+                            List<O_SpaceDataModel> results = fetchOrgSpaceResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+
+                            currentSpaceAdapter.addAll(results);
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            if (page != TOTAL_PAGES)
+                                currentSpaceAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_SpaceListResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+//                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void getCompletedSession() {
+        isLastPage=false;
+        currentPage="1";
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "",completed);
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -962,9 +1334,96 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             binding.noDataImageCmp.setVisibility(View.GONE);
 
 //                            data.addAll(response.body().getData());
-                            sessionData.addAll(response.body().getData().getData());
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, completed);
+//                            sessionData.addAll(response.body().getData().getData());
+//                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentSessionAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(),completed);
                             binding.sessionListRecycler.setAdapter(currentSessionAdapter);
+
+                            List<O_SessionDataModel> results = fetchOrgSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            currentSessionAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                currentSessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                        } else {
+                            binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<O_SessionListResponse> call, Throwable t) {
+                binding.noDataImageCmp.setVisibility(View.VISIBLE);
+
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void getCompletedSessionNextPage() {
+        isLastPage=false;
+        currentPage="1";
+        progressDialog.show();
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
+        call.enqueue(new Callback<O_SessionListResponse>() {
+            @Override
+            public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
+                if (response.body() != null) {
+                    progressDialog.dismiss();
+                    sessionData = new ArrayList<>();
+
+                    if (response.body().isStatus()) {
+                        if (response.body().getData().getData().size() > 0) {
+                            binding.noDataImageCmp.setVisibility(View.GONE);
+
+//                            data.addAll(response.body().getData());
+//                            sessionData.addAll(response.body().getData().getData());
+//                            currentSessionAdapter = new O_SessionListAdapter(getContext(), sessionData, completed);
+//                            binding.sessionListRecycler.setAdapter(currentSessionAdapter);
+
+                            binding.sessionListRecycler.setVisibility(View.VISIBLE);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(),completed);
+                            List<O_SessionDataModel> results = fetchOrgSessionResults(response);
+
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (! TextUtils.isEmpty(currentPage)) {
+                                page = Integer.parseInt(currentPage);
+                            }
+                            currentSessionAdapter.addAll(results);
+                            if (page < TOTAL_PAGES)
+                                currentSessionAdapter.addLoadingFooter();
+                            else isLastPage = true;
+
 
                         } else {
                             binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -1237,11 +1696,25 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     @Override
                     public void run() {
                         if (count==1)
-                            a_GetNextCompletedEvents();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                                a_GetNextCompletedEvents();
+                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                        getCoachUpcommingEventsNextPage();
+                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                       getCompletedEventsNextPage();
                         if (count==2)
-                            a_GetNextCompletedSession();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                                a_GetNextCompletedSession();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                                getCoachUpcommingSessionNextPage();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                                getCompletedSessionNextPage();
                         if (count==3)
-                            a_GetNextCompletedSpaces();
+                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+                                a_GetNextCompletedSpaces();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                                getCompletedSpacesNextPage();
+
                     }
                 }, 1000);
             }

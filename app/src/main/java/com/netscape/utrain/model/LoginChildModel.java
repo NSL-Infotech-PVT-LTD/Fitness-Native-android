@@ -33,7 +33,16 @@ public class LoginChildModel {
     private String training_service_detail;
     private String achievements;
     private String sport_id;
+    private String is_notify;
     private List<ServiceIdModel> service_ids;
+
+    public String getIs_notify() {
+        return is_notify;
+    }
+
+    public void setIs_notify(String is_notify) {
+        this.is_notify = is_notify;
+    }
 
     public String getProfession() {
         return profession;

@@ -8,6 +8,7 @@ import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
+import com.netscape.utrain.model.NotifaicationStateResponse;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.OrgCoachStoreModel;
 import com.netscape.utrain.model.SportListModel;
@@ -28,6 +29,7 @@ import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
+import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.NotificationResponse;
 import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.response.O_BookedSpaceListResponse;
@@ -93,10 +95,10 @@ public interface Retrofitinterface {
                                   @Field("device_token") String device_token,
                                   @Header("Content-Type") String contentType);
 
-    @FormUrlEncoded
-    @POST("reset-password")
+
+    @POST("reset/password")
     Call<ForgetPasswordResponse> getForgetpassword(@Header("Content-Type") String Content_Type,
-                                                   @Field("email") String email);
+                                                   @Query("email") String email);
 
 
     @POST(Constants.SERVICES)
@@ -381,6 +383,7 @@ public interface Retrofitinterface {
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<AthleteSpaceBookList> getCoachSpaceBooking(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
+                                                    @Query("page") String page,
                                                     @Query("limit") String limit);
 
 
@@ -440,6 +443,7 @@ public interface Retrofitinterface {
     @POST(Constants.CO_SESSION_LIST)
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
+                                                    @Query("page") String page,
                                                     @Query("order_by") String order_by);
 
     @POST(Constants.CO_SESSION_LIST)
@@ -579,6 +583,15 @@ public interface Retrofitinterface {
     @POST(Constants.TERMS_CONDITIONS)
     Call<TermsAndConditionsResponse> termsAndConditions(
             @Query("type") String type);
+
+    @GET(Constants.LOGOUT)
+    Call<LogoutResponse> LogoutApi(@Header("Content-Type") String Content_type,
+                                   @Header("Authorization") String Authorization);
+    @GET(Constants.NOTIFICATION)
+    Call<NotifaicationStateResponse> ChangeNotificationSetting(@Header("Authorization") String Authorization);
+
+
+
 
 
 }

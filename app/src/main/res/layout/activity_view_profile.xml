@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout >
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,14 +13,23 @@
         android:id="@+id/viewProfile_ViewProfileTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="View Profile"
+        android:text="Profile"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/coachProfileBackImg"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:src="@drawable/ic_leftblack"
+        app:layout_constraintBottom_toBottomOf="@+id/viewProfile_ViewProfileTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewProfile_ViewProfileTv" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="@dimen/_120sdp"
@@ -47,6 +57,7 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/coachProfileImg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -61,7 +72,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/viewProfile_CoachNameTv"
+        android:id="@+id/coachNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
@@ -82,8 +93,8 @@
         android:text="@string/coach"
         android:padding="@dimen/_5sdp"
         android:textSize="@dimen/_13sdp"
-        app:layout_constraintLeft_toLeftOf="@id/viewProfile_CoachNameTv"
-        app:layout_constraintTop_toBottomOf="@id/viewProfile_CoachNameTv" />
+        app:layout_constraintLeft_toLeftOf="@id/coachNameTv"
+        app:layout_constraintTop_toBottomOf="@id/coachNameTv" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="@dimen/_20sdp"
@@ -92,29 +103,36 @@
         android:src="@drawable/coach"
         app:layout_constraintLeft_toRightOf="@id/viewProfile_CoachTv"
         app:layout_constraintTop_toTopOf="@id/viewProfile_CoachTv" />
-
     <RatingBar
-        android:id="@+id/viewProfile_RatingBar"
+        android:id="@+id/coachRatingBar"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/poppins_semibold"
         android:numStars="5"
+        android:progressBackgroundTint="@color/colorLightGray"
+        android:progressTint="@color/colorGreen"
+        android:rating="3"
         android:stepSize="1"
-        android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
-        app:layout_constraintLeft_toLeftOf="@id/viewProfile_CoachTv"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/viewProfile_CoachTv" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/bookingTicketTv"
+        app:layout_constraintTop_toBottomOf="@+id/bookingTicketTv" />
+
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/coachRatingTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:textSize="@dimen/_10sdp"
         android:text="4.1"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/_10sdp"
-        app:layout_constraintLeft_toRightOf="@id/viewProfile_RatingBar"
-        app:layout_constraintTop_toTopOf="@id/viewProfile_RatingBar"
-        app:layout_constraintBottom_toBottomOf="@id/viewProfile_RatingBar"/>
+        app:layout_constraintLeft_toRightOf="@id/coachRatingBar"
+        app:layout_constraintTop_toTopOf="@id/coachRatingBar"
+        app:layout_constraintBottom_toBottomOf="@id/coachRatingBar"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/viewProfile_Guideline"
@@ -130,158 +148,394 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/viewProfile_Guideline">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/viewProfile_leftGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_30sdp" />
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/viewProfile_innerleftGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_60sdp" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/viewProfile_leftGuideline"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_begin="@dimen/_30sdp" />-->
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/viewProfile_innerleftGuideline"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_begin="@dimen/_60sdp" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/viewProfile_rightGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_30sdp" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_TrainingSessionTv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:drawableLeft="@drawable/ic_time"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="right|center"
-
-            android:text="@string/training_session"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_EnterTrainingSessionTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/enter_training_session"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_TrainingSessionTv" />
-
-        <View
-            android:id="@+id/viewOne"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/colorLightGray"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_EnterTrainingSessionTv"
-            app:layout_constraintRight_toRightOf="@id/viewProfile_rightGuideline"
-
-            android:layout_marginTop="@dimen/_10sdp"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_LocationTv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:drawableLeft="@drawable/ic_location"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:paddingRight="@dimen/_45sdp"
-            android:text="@string/location"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewOne" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_EnterLocationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/enter_training_session"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"
-
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_LocationTv" />
-
-        <View
-            android:id="@+id/viewTwo"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/colorLightGray"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_EnterLocationTv"
-            app:layout_constraintRight_toRightOf="@id/viewProfile_rightGuideline"
-
-            android:layout_marginTop="@dimen/_10sdp"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_PriceTv"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:drawableLeft="@drawable/ic_location"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:paddingRight="@dimen/_70sdp"
-            android:text="@string/price"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewTwo" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/viewProfile_EnterPriceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_13sdp"
-            android:text="$30"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"
-
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_PriceTv" />
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/register_for_the_session"
-            android:textColor="@color/colorBlack"
-            android:fontFamily="@font/poppins_semibold"
-            android:textAllCaps="false"
-            android:layout_marginTop="@dimen/_20sdp"
-            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"
-            app:layout_constraintTop_toBottomOf="@id/viewProfile_EnterPriceTv"
-            app:layout_constraintRight_toRightOf="@id/viewProfile_rightGuideline"
-            android:backgroundTint="@color/colorGreen"/>
-
-        <View
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_4sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/view_design"
-            />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/viewProfile_rightGuideline"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_end="@dimen/_30sdp" />-->
 
 
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_TrainingSessionTv"-->
+<!--            android:layout_width="@dimen/_150sdp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_20sdp"-->
+<!--            android:drawableLeft="@drawable/ic_time"-->
+<!--            android:imeOptions="actionNext"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:gravity="right|center"-->
+
+<!--            android:text="@string/training_session"-->
+<!--            android:textSize="@dimen/_15sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_EnterTrainingSessionTv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:text="@string/enter_training_session"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="@dimen/_13sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewProfile_TrainingSessionTv" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/viewOne"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_1sdp"-->
+<!--            android:background="@color/colorLightGray"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewProfile_EnterTrainingSessionTv"-->
+<!--            app:layout_constraintRight_toRightOf="@id/viewProfile_rightGuideline"-->
+
+<!--            android:layout_marginTop="@dimen/_10sdp"/>-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_LocationTv"-->
+<!--            android:layout_width="@dimen/_150sdp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:drawableLeft="@drawable/ic_location"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingRight="@dimen/_45sdp"-->
+<!--            android:text="@string/location"-->
+<!--            android:textSize="@dimen/_15sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewOne" />-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_EnterLocationTv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:text="@string/enter_training_session"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="@dimen/_13sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"-->
+
+<!--            app:layout_constraintTop_toBottomOf="@id/viewProfile_LocationTv" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/viewTwo"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_1sdp"-->
+<!--            android:background="@color/colorLightGray"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewProfile_EnterLocationTv"-->
+<!--            app:layout_constraintRight_toRightOf="@id/viewProfile_rightGuideline"-->
+
+<!--            android:layout_marginTop="@dimen/_10sdp"/>-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_PriceTv"-->
+<!--            android:layout_width="@dimen/_150sdp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:drawableLeft="@drawable/ic_location"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingRight="@dimen/_70sdp"-->
+<!--            android:text="@string/price"-->
+<!--            android:textSize="@dimen/_15sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_leftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewTwo" />-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/viewProfile_EnterPriceTv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:textColor="@color/colorBlack"-->
+<!--            android:textSize="@dimen/_13sdp"-->
+<!--            android:text="$30"-->
+<!--            app:layout_constraintLeft_toLeftOf="@id/viewProfile_innerleftGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewProfile_PriceTv" />-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/LeftGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/RightGuideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/_30sdp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/userNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:text="@string/user_name"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachProfileNameTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_name_demo"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/userNameText" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/coachProfileNameTv" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/emailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/email"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachEmailTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_emil_demo"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/emailText" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/coachEmailTv" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/phoneText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/phone"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachPhoneTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_mobile_demo"
+                    android:inputType="number"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/phoneText" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/coachPhoneTv" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/addressText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:text="@string/address"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/view3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachAddressTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_address_demo"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:minHeight="@dimen/_40sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/addressText" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/coachAddressTv" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/experienceText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:drawableLeft="@drawable/expicon"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:text="@string/experience_text"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/view4" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachExperienceTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_your_experience_demo"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/experienceText" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/coachExperienceTv" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/achievementText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:drawableLeft="@drawable/achieveicon"
+                    android:drawablePadding="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:text="@string/achievement_Text"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/view5" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/coachAchiveMentsTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/enter_your_achievements_details_demo"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/_40sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
+                    app:layout_constraintRight_toRightOf="@id/RightGuideLine"
+                    app:layout_constraintTop_toBottomOf="@id/achievementText" />
+
+
+                <!--                    <androidx.recyclerview.widget.RecyclerView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="@dimen/_10sdp"-->
+                <!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                        app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"-->
+                <!--                        app:layout_constraintRight_toRightOf="@id/RightGuideLine"-->
+                <!--                        app:layout_constraintTop_toBottomOf="@+id/coachAchiveMentsTv" />-->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

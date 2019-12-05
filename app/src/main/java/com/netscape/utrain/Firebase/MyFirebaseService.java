@@ -116,6 +116,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
+        notificationManager.cancelAll();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
