@@ -406,7 +406,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getAddress(), ChooseSportActivity.this);
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
                             Intent homeScreen = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -464,7 +464,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
 
                             Intent homeScreen = new Intent(ChooseSportActivity.this, ViewCoachStaffListActivity.class);
-                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -579,7 +579,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
                 progressDialog.dismiss();
 
-                if (response.isSuccessful())
+                if (response.isSuccessful()){
                     if (response.body().isStatus()) {
                         if (response.body() != null) {
                             Toast.makeText(ChooseSportActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
@@ -603,7 +603,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                             CommonMethods.setPrefData(PrefrenceConstant.PRICE, "90", ChooseSportActivity.this);
 
                             Intent updatedDetail = new Intent(ChooseSportActivity.this, AthleteHomeScreen.class);
-                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            updatedDetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(updatedDetail);
                         } else {
                             Toast.makeText(ChooseSportActivity.this, "" + response.errorBody(), Toast.LENGTH_LONG).show();
@@ -611,6 +611,15 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     } else {
                         Toast.makeText(ChooseSportActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
+            }else {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    }                }
                 // isStatus error message here....
 
             }
@@ -619,7 +628,6 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             public void onFailure(Call<AthleteSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(ChooseSportActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-
 
             }
         });
@@ -672,7 +680,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 //
 
                                     Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 }
                             }

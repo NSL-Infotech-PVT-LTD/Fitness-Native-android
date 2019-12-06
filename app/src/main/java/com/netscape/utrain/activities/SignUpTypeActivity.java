@@ -144,12 +144,16 @@ public class SignUpTypeActivity extends AppCompatActivity implements View.OnClic
                     Intent coachSignUp = new Intent(SignUpTypeActivity.this, LoginActivity.class);
                     coachSignUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     coachSignUp.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
+                    coachSignUp.putExtra(Constants.LoginFor,Constants.LoginToCoach);
+
                     startActivity(coachSignUp);
                 }
                 if (signUpAs.equals(Constants.Organization)){
                     Intent organizationSignUp = new Intent(SignUpTypeActivity.this, LoginActivity.class);
                     organizationSignUp.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     organizationSignUp.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
+                    organizationSignUp.putExtra(Constants.LoginFor,Constants.LoginToOrg);
+
                     startActivity(organizationSignUp);
                 }
                 break;

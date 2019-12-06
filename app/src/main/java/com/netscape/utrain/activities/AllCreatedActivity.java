@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.netscape.utrain.R;
@@ -156,5 +157,12 @@ public class AllCreatedActivity extends AppCompatActivity {
 
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    protected void onResume() {
+//        setupViewPager(binding.allCreatedViewPager);
+//        Toast.makeText(AllCreatedActivity.this, "data changed", Toast.LENGTH_SHORT).show();
+        super.onResume();
     }
 }

@@ -30,6 +30,8 @@ import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LogoutResponse;
+import com.netscape.utrain.response.NotificationCountResponse;
+import com.netscape.utrain.response.NotificationReadResponse;
 import com.netscape.utrain.response.NotificationResponse;
 import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.response.O_BookedSpaceListResponse;
@@ -372,32 +374,32 @@ public interface Retrofitinterface {
                                               @Header("Content-Type") String contentType,
                                               @Query("page") String page,
                                               @Query("order_by") String order_by);
-
+    @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<O_AllBookingResponse> getAllBooking(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
-                                             @Query("page") String page,
-                                             @Query("limit") String limit);
+                                             @Field("limit") String limit,
+                                             @Field("filter_by") String filter_by);
 
 
-    @POST(Constants.ALL_BOOKING_ATHLETE)
+    @POST(Constants.SPACE_BOOKING_FOR_ATH_ORG)
     Call<AthleteSpaceBookList> getCoachSpaceBooking(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
                                                     @Query("page") String page,
                                                     @Query("limit") String limit);
 
-
+    @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_ORG)
     Call<O_AllBookingResponse> getAllBookingOrg(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
-                                                @Query("page") String page,
-                                                @Query("limit") String limit);
-
+                                                @Field("limit") String limit,
+                                                @Field("filter_by") String filter_by);
+    @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_COACH)
     Call<O_AllBookingResponse> getAllBookingCoach(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
-                                                  @Query("page") String page,
-                                                  @Query("limit") String limit);
+                                                  @Field("limit") String page,
+                                                  @Field("filter_by") String filter_by);
 
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,
@@ -590,8 +592,12 @@ public interface Retrofitinterface {
     @GET(Constants.NOTIFICATION)
     Call<NotifaicationStateResponse> ChangeNotificationSetting(@Header("Authorization") String Authorization);
 
+    @GET(Constants.GET_NEW_NOTIFICATIONS)
+    Call<NotificationCountResponse> getNewNotificationCount(@Header("Content-Type") String Content_type,
+                                                            @Header("Authorization") String Authorization);
 
-
-
+    @GET(Constants.MARK_NOTIFICATIONS_READ)
+    Call<NotificationReadResponse> setNewNotificationRead(@Header("Content-Type") String Content_type,
+                                                          @Header("Authorization") String Authorization);
 
 }

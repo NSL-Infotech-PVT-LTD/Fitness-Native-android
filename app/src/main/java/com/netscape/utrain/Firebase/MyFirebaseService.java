@@ -21,7 +21,12 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 
 
 import org.json.JSONArray;
@@ -96,7 +101,12 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
     private void setNotification(String title, String data) {
         Intent intent = null;
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
             intent = new Intent(this, OrgHomeScreen.class);
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete))
+            intent = new Intent(this, AthleteHomeScreen.class);
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
+            intent = new Intent(this, CoachDashboard.class);
 
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -122,7 +132,12 @@ public class MyFirebaseService extends FirebaseMessagingService {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void Greater_M_version(String title, String messageData) {
         Intent intent = null;
-        intent = new Intent(this, OrgHomeScreen.class);
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
+            intent = new Intent(this, OrgHomeScreen.class);
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete))
+            intent = new Intent(this, AthleteHomeScreen.class);
+        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
+        intent = new Intent(this, CoachDashboard.class);
 
 
         Notification notification;
@@ -161,6 +176,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
                 notificationManager.notify(1, notification);
+                notificationManager.cancelAll();
 
             }
         }

@@ -79,7 +79,7 @@ public class AllSessionsFragment extends Fragment {
         View view = binding.getRoot();
         layoutManager = new LinearLayoutManager(context);
         binding.allSessionCoachListRecycler.setLayoutManager(layoutManager);
-        checkRoleHitApi();
+
 
         recyclerFunc(layoutManager);
         return view;
@@ -376,6 +376,11 @@ public class AllSessionsFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        checkRoleHitApi();
+        super.onStart();
+    }
 
 
 }

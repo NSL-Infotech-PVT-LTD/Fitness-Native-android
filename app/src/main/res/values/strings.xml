@@ -433,4 +433,6 @@
     <string name="password_doesnt_match">Password dosen\'t match</string>
     <string name="password_length">Password field must contains  6-8 characters</string>
     <string name="enter_valid_session_price">Enter valid price</string>
+    <string name="enter_valid_price">Enter valid price</string>
+    <string name="enter_valid_weekly_price">Enter valid price</string>
 </resources>

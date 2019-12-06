@@ -72,7 +72,7 @@ public class AllSpacesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(context);
         binding.orgSpaceRecycler.setLayoutManager(layoutManager);
         recyclerFunc(layoutManager);
-        AllSpacesorgList();
+
 
 
         return view;
@@ -236,4 +236,9 @@ public class AllSpacesFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        AllSpacesorgList();
+        super.onStart();
+    }
 }

@@ -56,15 +56,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreateTrainingSession extends AppCompatActivity implements View.OnClickListener {
+    public static boolean editSession = false;
     AppCompatSpinner spinnerLocation;
     MaterialTextView createTrainingDateTv;
-    public static boolean editSession=false;
     int mYear, mMonth, mDay, mHour, mMinute;
     DatePickerDialog datePickerDialog = null;
+    String eventAddress = "";
     private ActivityCreateTrainingSessionBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "",eventStartTime = "", eventEndtime = "", sessionEndDate = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
+    private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", eventStartTime = "", eventEndtime = "", sessionEndDate = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
     private int SESSIOM_IMAGE = 129;
     private String dateNow = "";
     private String dateSend = "";
@@ -77,7 +78,6 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private String timeNow = "";
     private Date now = null;
     private int ADDRESS_EVENT = 132;
-    String eventAddress = "";
     private String locationLat = "", locationLong = "";
     private O_SessionDataModel data;
 
@@ -95,10 +95,10 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         });
 
         init();
-        if (editSession){
-            if (getIntent().getExtras()!=null){
-                data= (O_SessionDataModel) getIntent().getSerializableExtra("sessionEdit");
-                if (data !=null){
+        if (editSession) {
+            if (getIntent().getExtras() != null) {
+                data = (O_SessionDataModel) getIntent().getSerializableExtra("sessionEdit");
+                if (data != null) {
                     prepareDataSet();
                 }
             }
@@ -112,18 +112,18 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         binding.createTrainingSessionDescEdt.setText(data.getDescription());
         binding.createTrainingSessionPhoneEdt.setText(data.getPhone());
         binding.getAddressTv.setText(data.getLocation());
-        enDate=data.getEnd_date();
-        dateSend=data.getStart_date();
+        enDate = data.getEnd_date();
+        dateSend = data.getStart_date();
         binding.createTrainingDateTv.setText(data.getStart_date());
 
         binding.EndDateTv.setText(data.getEnd_date());
         binding.createEvtnStartTimeTv.setText(data.getStart_time());
         binding.createEventEndTime.setText(data.getEnd_time());
-        binding.createTrainingSessionHourRateEdt.setText(data.getHourly_rate()+"");
-        binding.createTrainingSessionMaxOccuEdt.setText(data.getGuest_allowed()+"");
+        binding.createTrainingSessionHourRateEdt.setText(data.getHourly_rate() + "");
+        binding.createTrainingSessionMaxOccuEdt.setText(data.getGuest_allowed() + "");
 
-        locationLat=data.getLatitude()+"";
-        locationLong=data.getLongitude()+"";
+        locationLat = data.getLatitude() + "";
+        locationLong = data.getLongitude() + "";
 
         binding.createSessionBtn.setText("Update");
 
@@ -149,7 +149,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
-        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"),(enDate)));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"), (enDate)));
         requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
         requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), startTime));
         requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), endTime));
@@ -159,7 +159,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
-        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));   requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
+        requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
+        requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
         List<MultipartBody.Part> parts = new ArrayList<>();
         parts.add(PortfolioImagesConstants.partOne);
@@ -167,7 +168,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         parts.add(PortfolioImagesConstants.partThree);
         parts.add(PortfolioImagesConstants.partFour);
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts );
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.createSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
@@ -210,19 +211,20 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                 Intent getAddress = new Intent(CreateTrainingSession.this, OrgMapFindAddressActivity.class);
                 getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityForResult(getAddress, ADDRESS_EVENT);
-                break; case R.id.createTrainingDateTv:
+                break;
+            case R.id.createTrainingDateTv:
                 getTrainingDate();
                 break;
             case R.id.EndDateTv:
                 getEndDate();
                 break;
             case R.id.createTrainingSessionUploadTv:
-                if (editSession){
+                if (editSession) {
                     Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
                     getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     PortfolioActivity.updateImages = true;
-                    getImages.putExtra("updateEventImg",data.getImages());
-                    getImages.putExtra("updateImgType","sessionImgUpdate");
+                    getImages.putExtra("updateEventImg", data.getImages());
+                    getImages.putExtra("updateImgType", "sessionImgUpdate");
                     startActivityForResult(getImages, SESSIOM_IMAGE);
                 }
                 Intent getImages = new Intent(CreateTrainingSession.this, PortfolioActivity.class);
@@ -281,11 +283,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.createTrainingDateTv.setPadding(20, 20, 20, 20);
                 dateSend = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
-                dateNow = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" +year ;
+                dateNow = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String currentDateandTime = sdf.format(new Date());
                 try {
-                    now=sdf.parse(currentDateandTime);
+                    now = sdf.parse(currentDateandTime);
                     strDate = sdf.parse(dateNow);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -302,6 +304,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
     private void getEndDate() {
         Calendar cal = Calendar.getInstance();
         mYear = cal.get(Calendar.YEAR);
@@ -312,7 +315,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 binding.EndDateTv.setPadding(20, 20, 20, 20);
                 enDate = year + "-" + convertDate((monthOfYear + 1)) + "-" + convertDate(dayOfMonth);
-                eDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" +year ;
+                eDate = convertDate(dayOfMonth) + "/" + convertDate((monthOfYear + 1)) + "/" + year;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     sEndDate = sdf.parse(eDate);
@@ -336,6 +339,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
     private void getStartTime() {
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -376,6 +380,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         }, mHour, mMinute, true);
         timePickerDialog.show();
     }
+
     private void getEndTime() {
         Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -386,11 +391,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
-                if (strDate != null && sEndDate!= null) {
+                if (strDate != null && sEndDate != null) {
                     if (sEndDate.compareTo(strDate) == 0) {
                         if (!startTime.isEmpty()) {
 //                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
-                                binding.createEventEndTime.setText(endTime);
+                            binding.createEventEndTime.setText(endTime);
 //                            } else {
 //                                binding.createEventEndTime.setText("");
 //                                binding.createEventEndTime.setHint("End time");
@@ -451,7 +456,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionHourlyRate.isEmpty()) {
             binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_session));
             binding.createTrainingSessionHourRateEdt.requestFocus();
-        } else if (sessionHourlyRate.equalsIgnoreCase("0")|| sessionHourlyRate.equalsIgnoreCase("00")) {
+        } else if (sessionHourlyRate.equalsIgnoreCase("0") || sessionHourlyRate.equalsIgnoreCase("00")) {
 //            binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_valid_session_price));
             Toast.makeText(this, getResources().getString(R.string.enter_valid_session_price), Toast.LENGTH_SHORT).show();
             binding.createTrainingSessionHourRateEdt.requestFocus();
@@ -461,11 +466,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionMaxOccupancy.equalsIgnoreCase("0") || sessionMaxOccupancy.equalsIgnoreCase("00")) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
-            if (editSession){
-                startTime=data.getStart_time();
-                endTime=data.getEnd_time();
+            if (editSession) {
+                startTime = data.getStart_time();
+                endTime = data.getEnd_time();
                 updateTrainingSession();
-            }else {
+            } else {
                 hitCreateSessionApi();
             }
         }
@@ -483,8 +488,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     locationLat = data.getStringExtra(Constants.LOCATION_LAT);
                     locationLong = data.getStringExtra(Constants.LOCATION_LONG);
                 }
-            }
-              else if (requestCode == SESSIOM_IMAGE) {
+            } else if (requestCode == SESSIOM_IMAGE) {
                 if (data != null && data.hasExtra(Constants.ADDRESS)) {
                     Toast.makeText(CreateTrainingSession.this, "Images Imported", Toast.LENGTH_SHORT).show();
                     binding.createTrainingSessionUploadTv.setText(PortfolioImagesConstants.numImages + " Images selected");
@@ -494,28 +498,30 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 //            Toast.makeText(this, "Unable to import Images", Toast.LENGTH_SHORT).show();
         }
     }
+
     public String convertDate(int input) {
         if (input >= 10) {
             return String.valueOf(input);
         } else {
-            return "0" + String.valueOf(input);
+            return "0" + input;
         }
     }
 
     @Override
     protected void onDestroy() {
-        editSession=false;
+        editSession = false;
         super.onDestroy();
     }
+
     private void updateTrainingSession() {
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), sessionName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), sessionDescription));
-        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"),(enDate)));
+        requestBodyMap.put("end_date", RequestBody.create(MediaType.parse("multipart/form-data"), (enDate)));
         requestBodyMap.put("start_date", RequestBody.create(MediaType.parse("multipart/form-data"), dateSend));
-        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"),startTime ));
-        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"),endTime ));
+        requestBodyMap.put("start_time", RequestBody.create(MediaType.parse("multipart/form-data"), startTime));
+        requestBodyMap.put("end_time", RequestBody.create(MediaType.parse("multipart/form-data"), endTime));
         requestBodyMap.put("hourly_rate", RequestBody.create(MediaType.parse("multipart/form-data"), sessionHourlyRate));
         requestBodyMap.put("phone", RequestBody.create(MediaType.parse("multipart/form-data"), sessionPhone));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
@@ -523,24 +529,24 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
-        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId()+""));
+        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId() + ""));
         requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
         List<MultipartBody.Part> parts = new ArrayList<>();
-        if (PortfolioImagesConstants.partOne !=null){
+        if (PortfolioImagesConstants.partOne != null) {
             parts.add(PortfolioImagesConstants.partOne);
         }
-        if (PortfolioImagesConstants.partTwo !=null){
+        if (PortfolioImagesConstants.partTwo != null) {
             parts.add(PortfolioImagesConstants.partTwo);
         }
-        if (PortfolioImagesConstants.partThree !=null){
+        if (PortfolioImagesConstants.partThree != null) {
             parts.add(PortfolioImagesConstants.partThree);
         }
-        if (PortfolioImagesConstants.partFour !=null){
+        if (PortfolioImagesConstants.partFour != null) {
             parts.add(PortfolioImagesConstants.partFour);
         }
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
-        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.updateSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts );
+        Call<OrgCreateEventResponse> signUpAthlete = retrofitinterface.updateSession("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<OrgCreateEventResponse>() {
             @Override
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
@@ -550,7 +556,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                         if (response.body().getData() != null) {
                             PortfolioActivity.clearFromConstants();
                             Constants.CHECKBOX_IS_CHECKED = 0;
-                            Toast.makeText(CreateTrainingSession.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CreateTrainingSession.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateTrainingSession.this, "Updated", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     } else {

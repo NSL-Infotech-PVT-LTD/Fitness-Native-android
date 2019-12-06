@@ -39,6 +39,8 @@ import com.netscape.utrain.fragments.A_StardFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LogoutResponse;
+import com.netscape.utrain.response.NotificationCountResponse;
+import com.netscape.utrain.response.NotificationReadResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
@@ -123,9 +125,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
+                    SetNotificationRead();
                     notificationTv.setText(R.string.title_notifications);
                     fragment = new A_NotificationFragment();
                     loadFragment(fragment);
+
                     return true;
             }
             return false;
@@ -161,6 +165,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        GetNewNotificationCount();
 
         binding.slider.getHeaderView(0).findViewById(R.id.allCreatedTv).setVisibility(View.GONE);
         binding.slider.getHeaderView(0).findViewById(R.id.allCreatedIcon).setVisibility(View.GONE);
@@ -313,14 +318,14 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 startActivity(settingsTv);
             }
         });
-        setBadgeToNotification();
+
 
     }
 
-    private void setBadgeToNotification() {
+    private void setBadgeToNotification(int num) {
         BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notifications);
         badge.setBadgeGravity(BadgeDrawable.TOP_END);
-        badge.setNumber(10);
+        badge.setNumber(num);
         badge.setMaxCharacterCount(3);
         badge.setBadgeTextColor(getResources().getColor(R.color.colorWhite));
 
@@ -450,6 +455,81 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onFailure(Call<LogoutResponse> call, Throwable t) {
                 Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
                 progressDialog.dismiss();
+            }
+        });
+    }
+    private void GetNewNotificationCount() {
+//        progressDialog.show();
+        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        signUpAthlete.enqueue(new Callback<NotificationCountResponse>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponse> call, Response<NotificationCountResponse> response) {
+                if (response.isSuccessful()) {
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+//                            Toast.makeText(getApplicationContext(),response.body().getData().getNotification_count(),Toast.LENGTH_SHORT).show();
+                            if (response.body().getData().getNotification_count()>0){
+                                setBadgeToNotification(response.body().getData().getNotification_count());
+                            }
+
+                        }
+                    } else {
+                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponse> call, Throwable t) {
+                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+//                progressDialog.dismiss();
+            }
+        });
+    }
+    private void SetNotificationRead() {
+//        progressDialog.show();
+        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        signUpAthlete.enqueue(new Callback<NotificationReadResponse>() {
+            @Override
+            public void onResponse(Call<NotificationReadResponse> call, Response<NotificationReadResponse> response) {
+                if (response.isSuccessful()) {
+//                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            navView.removeBadge(R.id.navigation_notifications);
+                        }
+                    } else {
+                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                } else {
+//                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+            @Override
+            public void onFailure(Call<NotificationReadResponse> call, Throwable t) {
+                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+//                progressDialog.dismiss();
             }
         });
     }

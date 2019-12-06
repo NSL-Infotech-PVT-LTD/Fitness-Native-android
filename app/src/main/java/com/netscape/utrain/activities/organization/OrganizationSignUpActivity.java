@@ -130,6 +130,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private OrgUserDataModel orgDataModel;
     private ViewCoachListDataModel viewCoachListDataModel;
     private String activeUserType = "";
+    private String loginFor = "";
     private File mediaStorageDir;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;

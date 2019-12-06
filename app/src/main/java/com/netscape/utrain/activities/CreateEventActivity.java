@@ -605,7 +605,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                         if (response.body().getData() != null) {
                             PortfolioActivity.clearFromConstants();
                             Constants.CHECKBOX_IS_CHECKED = 0;
-                            Toast.makeText(CreateEventActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CreateEventActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     } else {

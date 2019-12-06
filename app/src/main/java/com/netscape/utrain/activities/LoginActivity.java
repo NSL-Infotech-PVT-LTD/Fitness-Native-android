@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog progressDialog;
     private boolean doubleBackToExitPressedOnce = false;
     private String activeUserType = "";
+    private String loginFor = "";
     private List<ServiceIdModel> servicesList = new ArrayList<>();
 
 
@@ -59,6 +60,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         if (getIntent().getExtras() != null) {
             activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
+            loginFor = getIntent().getStringExtra(Constants.LoginFor);
+
         }
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
@@ -97,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+                    signUpActivity.putExtra(Constants.LoginFor, Constants.LoginToCoach);
                     startActivity(signUpActivity);
                 }
                 if (activeUserType.equals(Constants.TypeOrganization)) {
@@ -104,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+                    signUpActivity.putExtra(Constants.LoginFor, Constants.LoginToOrg);
                     startActivity(signUpActivity);
                 }
                 break;
@@ -119,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (binding.loginEmailEdt.getText().toString().isEmpty()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.loginEmailEdt.requestFocus();
-        } else if (! Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
             binding.loginEmailEdt.requestFocus();
         } else if (binding.loginPasswordEdt.getText().toString().isEmpty()) {
@@ -143,84 +148,96 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Intent homeScreen = null;
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
-                                if (role.equalsIgnoreCase(Constants.Organizer)) {
-                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
-                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
-                                    storeServiceIds(servicesList);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                if (loginFor.equalsIgnoreCase(Constants.Organizer)) {
+                                    if (loginFor.equalsIgnoreCase(role)) {
+                                        CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
+                                        servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                        storeServiceIds(servicesList);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, response.body().getData().getUser().getIs_notify(), LoginActivity.this);
+                                        homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                                        homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(homeScreen);
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                if (loginFor.equalsIgnoreCase(Constants.Coach)) {
+                                    if (loginFor.equalsIgnoreCase(role)) {
+                                        CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
+                                        CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
+                                        servicesList.addAll(response.body().getData().getUser().getService_ids());
+                                        storeServiceIds(servicesList);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                        CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, response.body().getData().getUser().getIs_notify(), LoginActivity.this);
 
-                                    homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(homeScreen);
-                                } else if (role.equalsIgnoreCase(Constants.Coach)) {
-                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken(), LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
-                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
-                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
-                                    storeServiceIds(servicesList);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", LoginActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", LoginActivity.this);
+                                        homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+                                        homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(homeScreen);
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
 
-
-                                    homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(homeScreen);
-                                } else
-                                    Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+//                                else
+//                                    Toast.makeText(LoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     } else {
-                        Snackbar.make(binding.loginLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, response.body().getError().getError_message().getMessage().toString(), Snackbar.LENGTH_LONG).show();
                     }
                 } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
-                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
-                        Snackbar.make(binding.loginLayout, errorMsg, BaseTransientBottomBar.LENGTH_LONG).show();
+//                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+//                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        Snackbar.make(binding.loginLayout, errorMessage, Snackbar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.loginLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.loginLayout, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 }
 
@@ -228,7 +245,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show();
                 progressDialog.dismiss();
 
             }
@@ -260,16 +277,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        }, 2000);
 //    }
 
-private void setClikFalse(){
-    binding.loginBtn.setClickable(false);
+    private void setClikFalse() {
+        binding.loginBtn.setClickable(false);
 
-    new Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-            binding.loginBtn.setClickable(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.loginBtn.setClickable(true);
 
-        }
-    }, 5000);
+            }
+        }, 5000);
 
-}
+    }
 }

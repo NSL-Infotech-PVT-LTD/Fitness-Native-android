@@ -83,7 +83,6 @@ public class AllEventsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(context);
         binding.allEventListRecycler.setLayoutManager(layoutManager);
         recyclerFunc(layoutManager);
-        checkRoleHitApi();
 
 
         return view;
@@ -373,4 +372,11 @@ public class AllEventsFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        checkRoleHitApi();
+        super.onStart();
+    }
+
 }

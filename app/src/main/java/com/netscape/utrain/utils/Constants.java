@@ -40,7 +40,8 @@ public class Constants {
     public static final String ORG_EVENT_LIST = "events/organiser/list";
     public static final String ORG_COACH_ATH_List = "organiser/coach/athlete/list";
     public static final String organiser_coach_store = "organiser/coach/store";
-    public static final String BOOKING_NOTIFICATIONS = "booking/notifications";
+//    public static final String BOOKING_NOTIFICATIONS = "booking/notifications";
+    public static final String BOOKING_NOTIFICATIONS = "notifications";
     public static final String BOOKING_RATING = "booking/rating";
     public static final String CHANGE_PASSWORD = "password/change";
     public static final String TERMS_CONDITIONS = "terms";
@@ -57,13 +58,16 @@ public class Constants {
     public static final String O_EVENT_BOOKING_LIST = "booking/organiser/list";
     public static final String COACH_EVENT_BOOKING_LIST = "booking/coach/list";
 
-    public static final String ALL_BOOKING_ATHLETE = "booking/athlete/list/all";
+    public static final String ALL_BOOKING_ATHLETE = "booking/list/all";
+    public static final String SPACE_BOOKING_FOR_ATH_ORG = "booking/space/list";
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
     public static final String SPORTS_LIST = "sports";
     public static final String ABOUT_US = "about/us";
     public static final String LOGOUT= "logout";
     public static final String NOTIFICATION= "notify/toggle";
+    public static final String GET_NEW_NOTIFICATIONS= "dashboard";
+    public static final String MARK_NOTIFICATIONS_READ= "notification/read";
 
 
 
@@ -79,12 +83,15 @@ public class Constants {
     public static final String AthSignUpIntent = "athIntent";
     public static final String JsonArrayIntent = "arrayIntent";
     public static final String TypeCoach = "coachActive";
+    public static final String LoginToCoach = "coach";
     public static final String ActiveUserType = "activeType";
+    public static final String LoginFor = "loginFor";
     public static final String Athlete = "athlete";
     public static final String TypeAthlete = "athleteActive";
     public static final String Organization = "organization";
     public static final String Organizer = "organizer";
     public static final String TypeOrganization = "organizationActive";
+    public static final String LoginToOrg = "organizer";
     public static final String SELECTED_SERVICE = "selectedService";
     public static final String SERVICE_LIST = "serviceList";
     public static final String TOP_COACHES = "topCoaches";

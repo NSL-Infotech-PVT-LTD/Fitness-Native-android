@@ -49,6 +49,7 @@ import com.netscape.utrain.views.RobotoCalendarView;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,7 +72,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class CalendarViewWithNotesActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener {
     private final static int CREATE_EVENT_REQUEST_CODE = 100;
     List<AllBookingListModel.DataBeanX.DataBean> mEventList = new ArrayList<>();
-    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
+    List<O_AllBookingDataListModel> orgEventList;
     ArrayList<CalendarView.CalendarObject> calendarObjectArrayList = new ArrayList();
     HashMap<String, ArrayList<O_AllBookingDataListModel>> eventsMap = new HashMap<>();
     private RobotoCalendarView robotoCalendarView;
@@ -87,6 +88,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
     private Retrofitinterface retrofitinterface;
     private ArrayList<O_AllBookingDataListModel> selectedDateEvents;
     private RecyclerView.LayoutManager layoutManager;
+    private int currentMonth,currentYear;
+    private String selectedMonth;
+
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, CalendarViewWithNotesActivity.class);
@@ -141,7 +145,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 //            }
 //        }else {
 
-        getDataFromApi();
+        getDataFromApi(getSelectedJobsForMonth());
 
 //        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
 //            getOrgBooking();
@@ -151,6 +155,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 //            getCoachBooking();
 //        }
 //        }
+
+
+
     }
 
     private void initializeUI() {
@@ -178,15 +185,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
 
         mCalendarView = findViewById(R.id.calendarView);
-        mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(int month, int year) {
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(mShortMonths[month]);
-                    getSupportActionBar().setSubtitle(Integer.toString(year));
-                }
-            }
-        });
+
+
         mCalendarView.setOnItemClickedListener(new CalendarView.OnItemClickListener() {
             @Override
             public void onItemClicked(List<CalendarView.CalendarObject> calendarObjects,
@@ -207,6 +207,12 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(int month, int year) {
+                Toast.makeText(CalendarViewWithNotesActivity.this, month+"-"+year, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -259,9 +265,10 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 //        builder.setView(content);
 //        mRecyclerView = content.findViewById(R.id.customeDialogRecycler);
 //        MaterialButton noBtn = content.findViewById(R.id.closeBtn);
-        mRecyclerView.setLayoutManager(layoutManager);
         CalendarEventListAdapter adapter = new CalendarEventListAdapter(this, selectedDateEvents);
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(adapter);
+//            adapter.notifyDataSetChanged();
 //        final AlertDialog dialog = builder.create();
 //        dialog.show();
 //         Change the alert dialog background color
@@ -275,9 +282,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 //        dialog.show();
     }
 
-    private void getBookingList() {
+    private void getBookingList(String currentMonth) {
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -285,6 +292,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
+                        orgEventList=new ArrayList<>();
+                        eventsMap.clear();
                         orgEventList = response.body().getData().getData();
                         if (orgEventList.size() > 0) {
 
@@ -390,6 +399,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
                             }
                         } else {
+
+                            calNoDataImage.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.GONE);
                         }
                     }
                 } else {
@@ -426,9 +438,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
         }
     }
 
-    private void getOrgBooking() {
+    private void getOrgBooking(String currentMonth) {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
+        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -436,7 +448,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        orgEventList.clear();
+                        orgEventList=new ArrayList<>();
+                        eventsMap.clear();
                         orgEventList.addAll(response.body().getData().getData());
                         if (orgEventList.size() > 0) {
 
@@ -522,6 +535,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
                             }
                         } else {
+                            calNoDataImage.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.GONE);
                         }
                     }
                 } else {
@@ -545,9 +560,9 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     }
 
-    private void getCoachBooking() {
+    private void getCoachBooking(String currentMonth) {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "","");
+        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -555,6 +570,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
+                        orgEventList=new ArrayList<>();
+                        eventsMap.clear();
                         orgEventList.addAll(response.body().getData().getData());
                         if (orgEventList.size() > 0) {
 
@@ -639,6 +656,8 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
                             }
                         } else {
+                            calNoDataImage.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.GONE);
                         }
                     }
                 } else {
@@ -801,24 +820,40 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     @Override
     public void onRightButtonClick() {
-        getDataFromApi();
+        getDataFromApi(getSelectedJobsForMonth());
 //        Toast.makeText(this, "onRightButtonClick!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLeftButtonClick() {
+
+
 //        Toast.makeText(this, "onLeftButtonClick!", Toast.LENGTH_SHORT).show();
-        getDataFromApi();
+        getDataFromApi(getSelectedJobsForMonth());
     }
 
-    private void getDataFromApi() {
+    private void getDataFromApi(String dataSelected) {
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Organizer)) {
-            getOrgBooking();
+            getOrgBooking(dataSelected);
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Athlete)) {
-            getBookingList();
+            getBookingList(dataSelected);
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, CalendarViewWithNotesActivity.this).equalsIgnoreCase(Constants.Coach)) {
-            getCoachBooking();
+            getCoachBooking(dataSelected);
         }
     }
+    public String getSelectedJobsForMonth(){
+        Date cDAtedate=robotoCalendarView.getDate();
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        CharSequence  checkForMonth= df.format("yyyy-MM", cDAtedate);
+        String date=checkForMonth+"";
+        return date;
+    }
 
+    public String convertDate(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + String.valueOf(input);
+        }
+    }
 }

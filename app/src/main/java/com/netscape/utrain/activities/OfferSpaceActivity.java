@@ -117,9 +117,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         binding.offerSpaceSelectEndWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                binding.offerSpaceSelectEndWeek.setSelection(i);
-                availEnd = startWeekList.get(i);
-            }
+                if (i==0){
+                    availEnd="";
+                }else {
+                    binding.offerSpaceSelectEndWeek.setSelection(i);
+                    availEnd = startWeekList.get(i);
+                }
+                }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -346,11 +350,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             binding.offerSpaceNameEdt.requestFocus();
 
         } else if (spaceHourlyPrice.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.enter_hourly_rate), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, getResources().getString(R.string.enter_price), Toast.LENGTH_SHORT).show();
+        } else if (! (Integer.parseInt(spaceHourlyPrice)>0)) {
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_weekly_price), Toast.LENGTH_SHORT).show();
         } else if (spaceWeeklyPrice.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.enter_weekly_price), Toast.LENGTH_SHORT).show();
-
+        } else if (! (Integer.parseInt(spaceWeeklyPrice)>0)) {
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_weekly_price), Toast.LENGTH_SHORT).show();
         } else if (availStart.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.selecte_availability), Toast.LENGTH_SHORT).show();
 

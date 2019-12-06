@@ -102,7 +102,7 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
 
                                     homeScreen = new Intent(getApplicationContext(), AthleteHomeScreen.class);
 //                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(homeScreen);
                                 } else
                                     Toast.makeText(AthleteLoginActivity.this, "You can't access this", Toast.LENGTH_SHORT).show();
