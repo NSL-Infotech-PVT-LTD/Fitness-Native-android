@@ -230,7 +230,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorWhite"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_regular"
                 android:text="@string/one_more_step"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"

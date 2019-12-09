@@ -47,8 +47,8 @@
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:src="@drawable/ic_leftblack"
+                app:layout_constraintBottom_toBottomOf="@+id/allEventFindAPalceTv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/allEventFindAPalceTv" />
 
@@ -57,9 +57,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:text=""
+                android:text="Find Event"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/imageLeftArrow"
@@ -75,21 +75,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/findAPlaceDummyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/find_a_place_text"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"
-                app:layout_constraintTop_toBottomOf="@+id/allEventFindAPalceTv" />
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottomSheetGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.13" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/findPlaceRecycler"
@@ -102,6 +93,18 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/bottomSheetGuideline" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/allEventNoDataImg"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_data_png"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/main_progress"

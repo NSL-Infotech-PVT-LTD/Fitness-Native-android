@@ -17,7 +17,6 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:src="@drawable/ic_leftblack"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/findSpaceHeaderTv"
             app:layout_constraintBottom_toBottomOf="@+id/findSpaceHeaderTv"
             app:layout_constraintTop_toTopOf="@+id/findSpaceHeaderTv" />
 

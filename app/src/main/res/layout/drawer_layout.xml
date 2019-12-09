@@ -4,7 +4,7 @@
     android:id="@+id/bottomsheet_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_18sdp"
     android:background="@drawable/drawer_right_corner_laydesign_white"
     android:orientation="vertical">
 

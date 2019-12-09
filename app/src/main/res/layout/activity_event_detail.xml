@@ -59,7 +59,7 @@
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_25sdp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_details_map"
                         app:layout_constraintRight_toRightOf="parent"
@@ -68,15 +68,16 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_38sdp"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:paddingBottom="@dimen/_10sdp"
                         android:text="@string/get_direction"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_7sdp"
+                        app:layout_constraintLeft_toLeftOf="@+id/getDirectionImage"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/getDirectionImage" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -110,14 +111,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="@dimen/_30sdp" />
+                    app:layout_constraintGuide_begin="@dimen/_20sdp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/rightGuideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_end="@dimen/_30sdp" />
+                    app:layout_constraintGuide_end="@dimen/_20sdp" />
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -421,8 +422,8 @@
             android:id="@+id/evntJoinNow"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:backgroundTint="@color/gradientDarkColor"
             android:fontFamily="@font/poppins_regular"

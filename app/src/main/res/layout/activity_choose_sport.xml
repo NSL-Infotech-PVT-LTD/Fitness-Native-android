@@ -58,13 +58,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
 
-        <TextView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorGreen"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -121,7 +114,7 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:backgroundTint="@color/colorWhite"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_regular"
                 app:strokeColor="@color/themeColor"
                 app:strokeWidth="@dimen/_1sdp"
                 android:text="@string/sign_up"

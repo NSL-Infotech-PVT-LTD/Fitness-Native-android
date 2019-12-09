@@ -98,26 +98,26 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private AllEventsMapAct activity;
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
-    private AppCompatImageView filterIcon, imageLeftArrow;
+    private AppCompatImageView filterIcon, imageLeftArrow, allEventNoDataImg;
     private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;
     private int sort_count = 1;
-    private String search="";
+    private String search = "";
     private MaterialTextView allEventFindAPalceTv;
     private ConstraintLayout constraint_background;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    private int pageCurrent=0;
-//    private int currentPage = PAGE_START;
-    private String currentPage="1";
+    private int pageCurrent = 0;
+    //    private int currentPage = PAGE_START;
+    private String currentPage = "1";
     private int page = 1;
     private MapFragment map;
     private String sCoach_Id = "";
 
     private int getItemPerPage;
-    private String orderBy="latest";
+    private String orderBy = "latest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +132,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //        }
 
         activity = this;
+        allEventNoDataImg = findViewById(R.id.allEventNoDataImg);
         progressBar = findViewById(R.id.main_progress);
         layoutBottomSheet = findViewById(R.id.bottomsheet_sort);
         bottomsheet_list_laout = findViewById(R.id.bottomsheet_list);
@@ -174,9 +175,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search = searchAtuoCompleteEdt.getText().toString();
-                    orderBy="latest";
-                    currentPage="1";
-                    isLastPage=false;
+                    orderBy = "latest";
+                    currentPage = "1";
+                    isLastPage = false;
                     if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
                         getAthleteEventApi(orderBy, search, "");
@@ -205,7 +206,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         progressDialog.setMessage("Loading Spaces....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", order_by,currentPage+"", "");
+        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", order_by, currentPage + "", "");
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -214,6 +215,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                     if (response.body().isStatus()) {
                         listModelPlace.clear();
                         listModelPlace.addAll(response.body().getData().getData());
+
+                        if (response.body().getData().getData().size() == 0) {
+                            allEventNoDataImg.setVisibility(View.VISIBLE);
+                        }
 
                         int value = response.body().getData().getData().size();
 
@@ -246,8 +251,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         TOTAL_PAGES = response.body().getData().getLast_page();
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
                         adapterPlace.addAll(results);
-                        if (! TextUtils.isEmpty(currentPage)){
-                            pageCurrent=Integer.parseInt(currentPage);
+                        if (!TextUtils.isEmpty(currentPage)) {
+                            pageCurrent = Integer.parseInt(currentPage);
                         }
                         if (pageCurrent < TOTAL_PAGES)
                             adapterPlace.addLoadingFooter();
@@ -272,8 +277,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         });
                     }
                 }
-
-
             }
 
             @Override
@@ -283,14 +286,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 Toast.makeText(activity, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
     private void getNextPageAthletePlaceApi(final String order_by, final String s, final String sCoach_Id) {
         allEventFindAPalceTv.setText("Find Spaces");
 
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", order_by,currentPage+"", "");
+        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", order_by, currentPage + "", "");
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -331,15 +333,12 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapterPlace.addAll(results);
-                        if (! TextUtils.isEmpty(currentPage)){
-                            pageCurrent=Integer.parseInt(currentPage);
+                        if (!TextUtils.isEmpty(currentPage)) {
+                            pageCurrent = Integer.parseInt(currentPage);
                         }
                         if (pageCurrent != TOTAL_PAGES)
                             adapterPlace.addLoadingFooter();
                         else isLastPage = true;
-
-
-
 
 
                         String[] array = new String[response.body().getData().getData().size()];
@@ -381,7 +380,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         progressDialog.setMessage("Loading Session....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", orderBy, currentPage+"",sCoach_Id);
+        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", orderBy, currentPage + "", sCoach_Id);
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
             public void onResponse(Call<AthleteSessionResponse> call, Response<AthleteSessionResponse> response) {
@@ -391,6 +390,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                     if (response.body().isStatus()) {
                         listModelSession.clear();
                         listModelSession.addAll(response.body().getData().getData());
+
+                        if (response.body().getData().getData().size() == 0) {
+                            allEventNoDataImg.setVisibility(View.VISIBLE);
+                        }
 
                         int value = response.body().getData().getData().size();
 
@@ -421,8 +424,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
                             adapterSesson.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)){
-                                pageCurrent=Integer.parseInt(currentPage);
+                            if (!TextUtils.isEmpty(currentPage)) {
+                                pageCurrent = Integer.parseInt(currentPage);
                             }
                             if (pageCurrent < TOTAL_PAGES)
                                 adapterSesson.addLoadingFooter();
@@ -431,8 +434,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         }
 //                        adapterSesson = new Ath_SessionRecyclerAdapter(activity, listModelSession);
 //                        recyclerViewFindPlace.setAdapter(adapterSesson);
-
-
 
 
                         String[] array = new String[response.body().getData().getData().size()];
@@ -454,6 +455,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<AthleteSessionResponse> call, Throwable t) {
 
@@ -471,7 +473,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //        progressDialog.setMessage("Loading Session....");
 //        progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", orderBy,currentPage+"", sCoach_Id);
+        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", orderBy, currentPage + "", sCoach_Id);
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
             public void onResponse(Call<AthleteSessionResponse> call, Response<AthleteSessionResponse> response) {
@@ -515,8 +517,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapterSesson.addAll(results);
-                        if (! TextUtils.isEmpty(currentPage)){
-                            pageCurrent=Integer.parseInt(currentPage);
+                        if (!TextUtils.isEmpty(currentPage)) {
+                            pageCurrent = Integer.parseInt(currentPage);
                         }
                         if (pageCurrent != TOTAL_PAGES)
                             adapterSesson.addLoadingFooter();
@@ -578,6 +580,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                         listModels.addAll(response.body().getData().getData());
 
+                        if (response.body().getData().getData().size() == 0) {
+                            allEventNoDataImg.setVisibility(View.VISIBLE);
+                        }
+
 
                         int value = response.body().getData().getData().size();
 
@@ -607,8 +613,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)){
-                                pageCurrent=Integer.parseInt(currentPage);
+                            if (!TextUtils.isEmpty(currentPage)) {
+                                pageCurrent = Integer.parseInt(currentPage);
                             }
 //                            else {
 //                                pageCurrent=1;
@@ -617,8 +623,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //                            }
                             if (pageCurrent < TOTAL_PAGES) {
                                 adapter.addLoadingFooter();
-                            }
-                            else isLastPage = true;
+                            } else isLastPage = true;
 
                         }
 
@@ -641,6 +646,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         });
 
                     }
+                } else {
+                    allEventNoDataImg.setVisibility(View.VISIBLE);
                 }
 
 
@@ -693,8 +700,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //                            recyclerViewFindPlace.setAdapter(adapter);
 
 
-
-
                         }
                         recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
@@ -707,8 +712,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                         adapter.addAll(results);
-                        if (! TextUtils.isEmpty(currentPage)){
-                            pageCurrent=Integer.parseInt(currentPage);
+                        if (!TextUtils.isEmpty(currentPage)) {
+                            pageCurrent = Integer.parseInt(currentPage);
                         }
                         if (pageCurrent != TOTAL_PAGES)
                             adapter.addLoadingFooter();
@@ -754,10 +759,12 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         AthleteEventListResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private List<AthleteSessionModel> fetchSessionResults(Response<AthleteSessionResponse> response) {
         AthleteSessionResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private List<AthletePlaceModel> fetchPlaceResults(Response<AthletePlaceResponse> response) {
         AthletePlaceResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
@@ -881,10 +888,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_distance.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 1;
-                currentPage="1";
-                orderBy="distance";
-                search="";
-               isLastPage=false;
+                currentPage = "1";
+                orderBy = "distance";
+                search = "";
+                isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
                     getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
@@ -899,12 +906,12 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_high.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 2;
-                currentPage="1";
-                orderBy="price_high";
-                search="";
-                isLastPage=false;
+                currentPage = "1";
+                orderBy = "price_high";
+                search = "";
+                isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi(orderBy ,search, "");
+                    getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
@@ -918,10 +925,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_latest.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 4;
-                currentPage="1";
-                orderBy="latest";
-                search="";
-                isLastPage=false;
+                currentPage = "1";
+                orderBy = "latest";
+                search = "";
+                isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
                     getAthleteEventApi(orderBy, search, "");
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
@@ -937,10 +944,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_low.setTypeface(null, Typeface.BOLD);
                 bottomSheetUpDown_address();
                 sort_count = 3;
-                currentPage="1";
-                orderBy="price_low";
-                search="";
-                isLastPage=false;
+                currentPage = "1";
+                orderBy = "price_low";
+                search = "";
+                isLastPage = false;
 
                 //                getAthleteEventApi("price_low", search);
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
@@ -1128,22 +1135,22 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                if (! TextUtils.isEmpty(currentPage)){
-                    pageCurrent=Integer.parseInt(currentPage);
+                if (!TextUtils.isEmpty(currentPage)) {
+                    pageCurrent = Integer.parseInt(currentPage);
                 }
                 pageCurrent += 1;
-                currentPage=pageCurrent + "";
+                currentPage = pageCurrent + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                        nextGetAthleteEventApi(orderBy, search, "");
+                            nextGetAthleteEventApi(orderBy, search, "");
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                            nextGetAthleteSessionApi(orderBy,search,"");
+                            nextGetAthleteSessionApi(orderBy, search, "");
                         if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
-                            getNextPageAthletePlaceApi(orderBy,search,"");
+                            getNextPageAthletePlaceApi(orderBy, search, "");
 //                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES));
 //                            nextCoachListApi();
 //                        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG));
