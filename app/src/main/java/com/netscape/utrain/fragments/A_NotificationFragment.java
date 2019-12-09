@@ -12,23 +12,34 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.coremedia.iso.boxes.Container;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.adapters.NotificationsAdapter;
+import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.databinding.FragmentNotificationBinding;
 import com.netscape.utrain.databinding.OFragmentNotificationBinding;
+import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.NotificationDatamodel;
+import com.netscape.utrain.model.NotificationPageModel;
+import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.response.NotificationResponse;
+import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +62,12 @@ import retrofit2.Response;
 public class A_NotificationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
+    private int TOTAL_PAGES;
+    int page=0;
+    private String currentPage="1";
+    private int getItemPerPage;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     String dateFormat = "";
@@ -59,7 +75,7 @@ public class A_NotificationFragment extends Fragment {
     private OFragmentNotificationBinding binding;
     private Retrofitinterface retrofitinterface;
     private RecyclerView notificationRecycler;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private List<NotificationDatamodel> list = new ArrayList<>();
     private NotificationsAdapter adapter;
     private Context context;
@@ -121,6 +137,7 @@ public class A_NotificationFragment extends Fragment {
         progressDialog.show();
 
         getNotifications();
+        recyclerFunc(layoutManager);
 
         try {
             formatDate();
@@ -137,7 +154,7 @@ public class A_NotificationFragment extends Fragment {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<NotificationResponse> getNotifications =
-                retrofitinterface.notifications(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()));
+                retrofitinterface.notifications(Constants.CONTENT_TYPE, currentPage,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()));
         getNotifications.enqueue(new Callback<NotificationResponse>() {
             @Override
             public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
@@ -146,26 +163,75 @@ public class A_NotificationFragment extends Fragment {
 
                     if (response.body().isStatus())
                         if (response.body() != null) {
-
                             list = response.body().getData().getData();
-                            adapter = new NotificationsAdapter(context, list);
-                            binding.notificationRecycler.setAdapter(adapter);
-                            datamodel = response.body().getData().getData();
+                            if (list !=null && list.size()>0){
+                                binding.noImgNotification.setVisibility(View.GONE);
 
-                            for (int i = 0; i < datamodel.size(); i++) {
+                                adapter = new NotificationsAdapter(getContext());
+                                binding.notificationRecycler.setAdapter(adapter);
+                                List<NotificationDatamodel> results = fetchNotificationResults(response);
 
-                                dateFormat = list.get(i).getCreated_at();
+                                TOTAL_PAGES = response.body().getData().getLast_page();
+                                getItemPerPage = response.body().getData().getPer_page();
+                                if (! TextUtils.isEmpty(currentPage)) {
+                                    page = Integer.parseInt(currentPage);
+                                }
+                                adapter.addAll(results);
+                                if (page < TOTAL_PAGES)
+                                    adapter.addLoadingFooter();
+                                else isLastPage = true;
 
+                            }else {
+                                binding.noImgNotification.setVisibility(View.VISIBLE);
                             }
 
-                            if (adapter.getItemCount() > 1) {
-                                binding.noNotificationsText.setVisibility(View.VISIBLE);
 
-                            } else {
-                                binding.noNotificationsText.setVisibility(View.VISIBLE);
-                                binding.noNotificationsText.setText("No Notification to Display");
-                            }
+//                            adapter = new NotificationsAdapter(context, list);
+//                            binding.notificationRecycler.setAdapter(adapter);
+//                            datamodel = response.body().getData().getData();
+
+
+
+//                            data.addAll(response.body().getData());
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(currentEventAdapter);
+
+
+
+
+
+
+
+
+//                            for (int i = 0; i < datamodel.size(); i++) {
+//
+//                                dateFormat = list.get(i).getCreated_at();
+//
+//                            }
+
+//                            if (adapter.getItemCount() > 1) {
+//                                binding.noNotificationsText.setVisibility(View.VISIBLE);
+//
+//                            } else {
+//                                binding.noNotificationsText.setVisibility(View.VISIBLE);
+//                                binding.noNotificationsText.setText("No Notification to Display");
+//                            }
+                        }else {
+                            binding.noImgNotification.setVisibility(View.VISIBLE);
+
                         }
+                }else {
+                    binding.noImgNotification.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
                 }
             }
 
@@ -176,6 +242,110 @@ public class A_NotificationFragment extends Fragment {
             }
         });
 
+    }
+    private void getNotificationsNextPage() {
+
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        Call<NotificationResponse> getNotifications =
+                retrofitinterface.notifications(Constants.CONTENT_TYPE, currentPage,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()));
+        getNotifications.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+
+                    if (response.body().isStatus())
+                        if (response.body() != null) {
+                            list = response.body().getData().getData();
+                            if (list !=null && list.size()>0){
+                                binding.noImgNotification.setVisibility(View.GONE);
+
+                                adapter.removeLoadingFooter();
+                                isLoading = false;
+
+                                List<NotificationDatamodel> results = fetchNotificationResults(response);
+
+                                TOTAL_PAGES = response.body().getData().getLast_page();
+                                getItemPerPage = response.body().getData().getPer_page();
+
+                                adapter.addAll(results);
+                                if (! TextUtils.isEmpty(currentPage)) {
+                                    page = Integer.parseInt(currentPage);
+                                }
+                                if (page != TOTAL_PAGES)
+                                    adapter.addLoadingFooter();
+                                else isLastPage = true;
+
+
+
+
+
+                            }else {
+                                binding.noImgNotification.setVisibility(View.VISIBLE);
+                            }
+
+
+//                            adapter = new NotificationsAdapter(context, list);
+//                            binding.notificationRecycler.setAdapter(adapter);
+//                            datamodel = response.body().getData().getData();
+
+
+
+//                            data.addAll(response.body().getData());
+//                            eventData.addAll(response.body().getData().getData());
+//                            currentEventAdapter = new O_EventListAdapter(getContext(), eventData, upcomg);
+//                            binding.eventListRecycler.setAdapter(currentEventAdapter);
+
+
+
+
+
+
+
+
+//                            for (int i = 0; i < datamodel.size(); i++) {
+//
+//                                dateFormat = list.get(i).getCreated_at();
+//
+//                            }
+
+//                            if (adapter.getItemCount() > 1) {
+//                                binding.noNotificationsText.setVisibility(View.VISIBLE);
+//
+//                            } else {
+//                                binding.noNotificationsText.setVisibility(View.VISIBLE);
+//                                binding.noNotificationsText.setText("No Notification to Display");
+//                            }
+                        }else {
+                            binding.noImgNotification.setVisibility(View.VISIBLE);
+
+                        }
+                }else {
+                    binding.noImgNotification.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+                progressDialog.dismiss();
+            }
+        });
+
+    }
+
+    private List<NotificationDatamodel> fetchNotificationResults(Response<NotificationResponse> response) {
+        NotificationResponse topRatedMovies = response.body();
+        return topRatedMovies.getData().getData();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -280,6 +450,68 @@ public class A_NotificationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    private void recyclerFunc(LinearLayoutManager layoutManager) {
+        binding.notificationRecycler.addOnScrollListener(new PaginationScrollListener(layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                if (! TextUtils.isEmpty(currentPage)) {
+                    page = Integer.parseInt(currentPage);
+                }
+                page += 1;
+                currentPage=page+"";
+
+                // mocking network delay for API call
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        getNotificationsNextPage();
+
+//                        if (count==1)
+//                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+//                                a_NextPageUpcommingEvents();
+//                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+//                                getCoachUpcommingEventsNextPage();
+//                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+//                                getUpcommingEventsNextPage();
+//                        if (count==2)
+//                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+//                                a_GetNextPageUpcommingSession();
+//                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+//                                getNextUpcommingSession();
+//                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+//                                getCoachUpcommingSessionNextPage();
+//
+////                        getNextUpcommingSession();
+//                        if (count==3)
+//                            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
+//                                a_NextPageUpcommingSpaces();
+//                            else
+//                                getCoachSpaceBookingsNextPage();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+    }
+
 }
 
 //    public class FormateDate {

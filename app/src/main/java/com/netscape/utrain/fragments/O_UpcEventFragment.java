@@ -1372,8 +1372,6 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                                 a_SpaceAdapter.addLoadingFooter();
                             else isLastPage = true;
 
-
-
                         } else {
                             binding.noBookingImg.setVisibility(View.VISIBLE);
                         }

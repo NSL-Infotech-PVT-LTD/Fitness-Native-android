@@ -128,6 +128,10 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             if (type==1) {
                 if (data.getStatus().equalsIgnoreCase("pending")){
                     holder.completedRatingText.setVisibility(View.VISIBLE);
+                }else {
+                    holder.bookingRating.setVisibility(View.VISIBLE);
+                    holder.completedRatingText.setVisibility(View.GONE);
+                    holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
                 }
             }
            holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
@@ -277,6 +281,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
+        RatingBar bookingRating;
         MaterialTextView eventName, eventVenue, eventDate, bookingTv,completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
@@ -288,6 +293,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
             eventDate = itemView.findViewById(R.id.bookingEventDate);
             bookingTv = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
+            bookingRating = itemView.findViewById(R.id.bookingRating);
 
         }
     }

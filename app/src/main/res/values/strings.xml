@@ -147,7 +147,7 @@
     <string name="select_business_start_hour">Select business start hour</string>
     <string name="select_business_end_hour">Select business end hours</string>
     <string name="enter_your_experience_details">Enter experience details</string>
-    <string name="enter_your_experites">Enter your expertise</string>
+    <string name="enter_your_experites">Enter your experience</string>
     <string name="enter_profession_type">Enter profession type</string>
     <string name="enter_org_service_details">Enter training service details</string>
     <string name="sevice_summary_of_services">Summary of service</string>
@@ -297,7 +297,7 @@
     <string name="enter_event_name">Enter event name</string>
     <string name="enter_event_descriptions">Enter event descriptions</string>
     <string name="availability">Availability</string>
-    <string name="weekly_price">Weekly Price</string>
+    <string name="weekly_price">Daily Price</string>
     <string name="start_week">Start Week</string>
     <string name="end_week">End Week</string>
     <string name="enter_space_name">Enter space name</string>
@@ -350,7 +350,7 @@
     <string name="user_previous_cards">User Previous Cards</string>
     <string name="add_card_procees">Add Card and Proceed</string>
     <string name="experience_text">Experience</string>
-    <string name="price_weekly">Price (weekly)</string>
+    <string name="price_weekly">Price (Daily)</string>
     <string name="price_hourly">Price (Hourly)</string>
     <string name="seat">Seats</string>
     <string name="booking_confirmed">Booking Confirmed</string>
@@ -435,4 +435,6 @@
     <string name="enter_valid_session_price">Enter valid price</string>
     <string name="enter_valid_price">Enter valid price</string>
     <string name="enter_valid_weekly_price">Enter valid price</string>
+    <string name="selecte_week_day_start">Select week day from</string>
+    <string name="select_week_day_to">Select week day to</string>
 </resources>

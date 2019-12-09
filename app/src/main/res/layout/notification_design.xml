@@ -16,7 +16,7 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_place_holder"
+            android:src="@drawable/ic_notification_list"
             app:civ_border_color="@color/themeColor"
             app:civ_border_width="@dimen/_1sdp"
             app:layout_constraintLeft_toLeftOf="parent"

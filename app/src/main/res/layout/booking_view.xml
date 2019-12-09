@@ -170,7 +170,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:numStars="5"
                     android:progressBackgroundTint="@color/colorLightGray"
-                    android:progressTint="@color/colorGreen"
+                    android:progressTint="@color/coloryellow"
                     android:rating="3"
                     android:stepSize="1"
                     android:visibility="gone"

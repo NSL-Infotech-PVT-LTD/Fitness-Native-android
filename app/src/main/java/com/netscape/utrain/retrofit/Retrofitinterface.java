@@ -558,6 +558,7 @@ public interface Retrofitinterface {
 
     @POST(Constants.BOOKING_NOTIFICATIONS)
     Call<NotificationResponse> notifications(@Header("Content-Type") String Content_type,
+                                             @Query("page") String page,
                                              @Header("Authorization") String Authorization);
 
 

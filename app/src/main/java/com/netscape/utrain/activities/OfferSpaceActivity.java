@@ -358,10 +358,10 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         } else if (! (Integer.parseInt(spaceWeeklyPrice)>0)) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_weekly_price), Toast.LENGTH_SHORT).show();
         } else if (availStart.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.selecte_availability), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.selecte_week_day_start), Toast.LENGTH_SHORT).show();
 
         } else if (availEnd.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.selecte_availability_to), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.select_week_day_to), Toast.LENGTH_SHORT).show();
 
         } else if (spaceDescription.isEmpty()) {
             binding.offerSpaceDescriptionEnterTv.setError(getResources().getString(R.string.enter_description));

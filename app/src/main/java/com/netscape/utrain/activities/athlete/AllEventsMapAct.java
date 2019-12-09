@@ -205,7 +205,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         progressDialog.setMessage("Loading Spaces....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", order_by,currentPage+"", "");
+        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage+"", order_by,currentPage+"", sCoach_Id);
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -565,7 +565,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " +
                         CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity),
                 Constants.CONTENT_TYPE, sortBy,
-                search, getItemPerPage + "", currentPage + "", "100", "");
+                search, getItemPerPage + "", currentPage + "", "100", coach_id);
         CommonMethods.getPrefData(PrefrenceConstant.USER_ID, AllEventsMapAct.this);
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
@@ -904,7 +904,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 search="";
                 isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi(orderBy ,search, "");
+                    getAthleteEventApi(orderBy ,search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
@@ -923,7 +923,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 search="";
                 isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi(orderBy, search, "");
+                    getAthleteEventApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
@@ -944,9 +944,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                 //                getAthleteEventApi("price_low", search);
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi(orderBy, search, "");
+                    getAthleteEventApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
-                    getAthleteSessionApi(orderBy, search, "");
+                    getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
                     getAthletePlaceApi(orderBy, search, sCoach_Id);
             }
@@ -1003,10 +1003,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
                 constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
-                getAthleteEventApi("distance", search, "");
+                getAthleteEventApi("distance", search, sCoach_Id);
             } else if (getIntent().getStringExtra("from").equalsIgnoreCase("2")) {
                 constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_skyblue_bottom_round));
-                getAthleteSessionApi("distance", search, "");
+                getAthleteSessionApi("distance", search, sCoach_Id);
             } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
                 constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
                 getAthletePlaceApi("distance", search, sCoach_Id);

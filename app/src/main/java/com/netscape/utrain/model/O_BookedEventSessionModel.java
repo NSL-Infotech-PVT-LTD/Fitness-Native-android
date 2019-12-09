@@ -27,8 +27,8 @@ public class O_BookedEventSessionModel {
     private String description;
     private String start_date;
     private String end_date;
-    private Object start_time;
-    private Object end_time;
+    private String start_time;
+    private String end_time;
     private int hourly_rate;
     private String location;
     private String latitude;
@@ -38,6 +38,22 @@ public class O_BookedEventSessionModel {
     private int guest_allowed;
     private int guest_allowed_left;
     private int created_by;
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
 
     public int getId() {
         return id;
@@ -79,21 +95,6 @@ public class O_BookedEventSessionModel {
         this.end_date = end_date;
     }
 
-    public Object getStart_time() {
-        return start_time;
-    }
-
-    public void setStart_time(Object start_time) {
-        this.start_time = start_time;
-    }
-
-    public Object getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(Object end_time) {
-        this.end_time = end_time;
-    }
 
     public int getHourly_rate() {
         return hourly_rate;

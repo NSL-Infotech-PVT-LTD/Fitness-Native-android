@@ -151,7 +151,12 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         if (type==1) {
             if (data.getStatus().equalsIgnoreCase("pending")){
                 holder.completedRatingText.setVisibility(View.VISIBLE);
+            }else {
+                holder.bookingRating.setVisibility(View.VISIBLE);
+                holder.completedRatingText.setVisibility(View.GONE);
+                holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
             }
+
         }
         holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,6 +326,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage,ti_tickets;
+        RatingBar bookingRating;
         MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv,completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
@@ -332,7 +338,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             eventDate = itemView.findViewById(R.id.bookingEventDate);
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
-//            findPlaceDistanceTv = itemView.findViewById(R.id.findPlaceDistanceTv);
+            bookingRating = itemView.findViewById(R.id.bookingRating);
         }
     }
     protected class LoadingVH extends CustomTopCoachesHolder {

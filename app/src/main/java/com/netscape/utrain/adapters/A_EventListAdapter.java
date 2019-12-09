@@ -150,6 +150,10 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
                 if (type == 1) {
                     if (data.getStatus().equalsIgnoreCase("pending")) {
                         holder.completedRatingText.setVisibility(View.VISIBLE);
+                    }else {
+                        holder.bookingRating.setVisibility(View.VISIBLE);
+                        holder.completedRatingText.setVisibility(View.GONE);
+                        holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
                     }
 
                 }
@@ -308,6 +312,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView eventImage;
+        RatingBar bookingRating;
         MaterialTextView eventName, eventVenue, eventDate, numTicket, completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
@@ -319,6 +324,7 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
             eventDate = itemView.findViewById(R.id.bookingEventDate);
             numTicket = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
+            bookingRating = itemView.findViewById(R.id.bookingRating);
 
 
         }

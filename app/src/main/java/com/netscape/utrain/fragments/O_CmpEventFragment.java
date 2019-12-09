@@ -725,7 +725,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            a_EventAdapter = new A_EventListAdapter(getContext(),O_CmpEventFragment.this,0,O_CmpEventFragment.this);
+                            a_EventAdapter = new A_EventListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
                             binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
                             List<AthleteBookListModel.DataBeanX.DataBean> results = fetchResults(response);

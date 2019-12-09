@@ -671,7 +671,8 @@ public class EventAppliedList extends AppCompatActivity implements O_BookedEvent
 
             try {
 
-                dt = sdf.parse(sessionData.get(position).getSession().getStart_date());
+                dt = sdf.parse(sessionData.get(position).getSession().getStart_time());
+//                dt = sdf.parse(list.get(position).getEvent().getStart_time());
 
 
                 String value = null;

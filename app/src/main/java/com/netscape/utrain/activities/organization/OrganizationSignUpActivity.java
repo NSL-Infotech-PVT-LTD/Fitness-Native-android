@@ -266,19 +266,19 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         // ViewCoachStaff Validations with api
 
         viewCoachListDataModel = new ViewCoachListDataModel();
-        orgName = binding.orgNameEdt.getText().toString();
+        orgName = binding.orgNameEdt.getText().toString().trim();
         viewCoachListDataModel.setName(orgName);
-        orgBio = binding.orgBioEdt.getText().toString();
+        orgBio = binding.orgBioEdt.getText().toString().trim();
         viewCoachListDataModel.setBio(orgBio);
-        orgProfessionType = binding.orgProfessionType.getText().toString();
+        orgProfessionType = binding.orgProfessionType.getText().toString().trim();
         viewCoachListDataModel.setProfession(orgProfessionType);
-        orgExpertise = binding.orgExperienceEdt.getText().toString();
+        orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
         viewCoachListDataModel.setExpertise_years(orgExpertise);
-        orgExpDetail = binding.orgExperienceDetailEdt.getText().toString();
+        orgExpDetail = binding.orgExperienceDetailEdt.getText().toString().trim();
         viewCoachListDataModel.setExperience_detail(orgExpDetail);
-        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString();
+        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString().trim();
         viewCoachListDataModel.setTraining_service_detail(orgTrainingDetail);
-        orgHourlyRate = binding.orgHourlyRateEdt.getText().toString();
+        orgHourlyRate = binding.orgHourlyRateEdt.getText().toString().trim();
         viewCoachListDataModel.setHourly_rate(orgHourlyRate);
 
         if (orgName.isEmpty()) {
@@ -531,31 +531,31 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     private void validateEditTextData() {
         orgDataModel = new OrgUserDataModel();
-        orgName = binding.orgNameEdt.getText().toString();
+        orgName = binding.orgNameEdt.getText().toString().trim();
         orgDataModel.setName(orgName);
-        orgEmail = binding.orgEmailEdt.getText().toString();
+        orgEmail = binding.orgEmailEdt.getText().toString().trim();
         orgDataModel.setEmail(orgEmail);
-        orgPhone = binding.orgPhoneEdt.getText().toString();
+        orgPhone = binding.orgPhoneEdt.getText().toString().trim();
         orgDataModel.setPhone(orgPhone);
-        orgAddress = binding.orgAddressEdt.getText().toString();
+        orgAddress = binding.orgAddressEdt.getText().toString().trim();
         orgDataModel.setLocation(orgAddress);
-        orgPasswod = binding.orgPasswordEdt.getText().toString();
+        orgPasswod = binding.orgPasswordEdt.getText().toString().trim();
         orgDataModel.setPassword(orgPasswod);
-        orgBio = binding.orgBioEdt.getText().toString();
+        orgBio = binding.orgBioEdt.getText().toString().trim();
         orgDataModel.setBio(orgBio);
-        orgStartTime = binding.orgStartTimeTv.getText().toString();
+        orgStartTime = binding.orgStartTimeTv.getText().toString().trim();
         orgDataModel.setBusiness_hour_starts(orgStartTime);
-        orgEndTime = binding.orgEndTimeTv.getText().toString();
+        orgEndTime = binding.orgEndTimeTv.getText().toString().trim();
         orgDataModel.setBusiness_hour_ends(orgEndTime);
-        orgProfessionType = binding.orgProfessionType.getText().toString();
+        orgProfessionType = binding.orgProfessionType.getText().toString().trim();
         orgDataModel.setProfessionType(orgProfessionType);
-        orgExpertise = binding.orgExperienceEdt.getText().toString();
+        orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
         orgDataModel.setExpertise_years(orgExpertise);
-        orgExpDetail = binding.orgExperienceDetailEdt.getText().toString();
+        orgExpDetail = binding.orgExperienceDetailEdt.getText().toString().trim();
         orgDataModel.setExperienceDetail(orgExpDetail);
-        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString();
+        orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString().trim();
         orgDataModel.setTrainingDetail(orgTrainingDetail);
-        orgHourlyRate = binding.orgHourlyRateEdt.getText().toString();
+        orgHourlyRate = binding.orgHourlyRateEdt.getText().toString().trim();
         orgDataModel.setHourly_rate(orgHourlyRate);
 
         if (orgName.isEmpty()) {
@@ -600,13 +600,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             Toast.makeText(this, getResources().getString(R.string.select_business_end_hour), Toast.LENGTH_SHORT).show();
             binding.orgNameEdt.requestFocus();
         } else if (orgProfessionType.isEmpty()) {
-            binding.orgProfessionType.setError(getResources().getString(R.string.enter_profession_type));
+            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.enter_profession_type), Toast.LENGTH_SHORT).show();
             binding.orgProfessionType.requestFocus();
         } else if (orgExpertise.isEmpty()) {
-            binding.orgExperienceEdt.setError(getResources().getString(R.string.enter_your_experites));
+            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.enter_your_experites), Toast.LENGTH_SHORT).show();
             binding.orgExperienceEdt.requestFocus();
-            String expertise = binding.orgExperienceEdt.getText().toString();
-            Double number = Double.parseDouble(expertise);
+//            String expertise = binding.orgExperienceEdt.getText().toString();
+//            Double number = Double.parseDouble(expertise);
         } else if (orgExpDetail.isEmpty()) {
             binding.orgExperienceDetailEdt.setError(getResources().getString(R.string.enter_your_experience_details));
             binding.orgExperienceDetailEdt.requestFocus();
@@ -614,11 +614,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgTrainingDetailEdt.setError(getResources().getString(R.string.enter_org_service_details));
             binding.orgTrainingDetailEdt.requestFocus();
         } else if (orgHourlyRate.isEmpty()) {
-            binding.orgHourlyRateEdt.setError(getResources().getString(R.string.enter_hourly_rate));
+            Toast.makeText(OrganizationSignUpActivity.this, "Enter hourly price", Toast.LENGTH_SHORT).show();
             binding.orgHourlyRateEdt.requestFocus();
         } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) < 4) {
-            binding.orgHourlyRateEdt.setError("Hourly rate should not less than 4");
-
+            Toast.makeText(OrganizationSignUpActivity.this, "Hourly rate should not less than 4", Toast.LENGTH_SHORT).show();
+            binding.orgHourlyRateEdt.requestFocus();
         } else if (photoFile == null) {
             if (update) {
 
