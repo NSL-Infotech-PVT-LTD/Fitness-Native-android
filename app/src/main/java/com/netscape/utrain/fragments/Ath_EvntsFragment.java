@@ -123,6 +123,7 @@ public class Ath_EvntsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AllEventsMapAct.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("from","1");
                 context.startActivity(intent);
             }

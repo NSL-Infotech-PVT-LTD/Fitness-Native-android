@@ -326,6 +326,11 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     if (sEndDate.compareTo(strDate) >= 0) {
                         Log.i("app", "Date1 is after Date2");
                         binding.EndDateTv.setText(eDate);
+                        binding.createEvtnStartTimeTv.setText("");
+                        binding.createEventEndTime.setText("");
+                        binding.createEvtnStartTimeTv.setHint("Start time");
+                        binding.createEventEndTime.setHint("End time");
+
                     } else {
                         Toast.makeText(CreateTrainingSession.this, "Select valid date", Toast.LENGTH_SHORT).show();
                         binding.EndDateTv.setText("");
@@ -357,17 +362,21 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
 
-                Date time = Calendar.getInstance().getTime();
+//                Date time = Calendar.getInstance().getTime();
+//                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+//
+//                String timeNow=timeFormat.format(time);
                 if (strDate != null && sEndDate != null) {
-//                    if (endDate.compareTo(stDate) == 0) {
+//                    if (strDate.compareTo(sEndDate) == 0) {
 //                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
-                    binding.createEvtnStartTimeTv.setText(startTime);
+//                        if (formatTime(startTime).after(formatTime(timeNow))) {
+                            binding.createEvtnStartTimeTv.setText(startTime);
                     binding.createEventEndTime.setText("");
                     binding.createEventEndTime.setHint("End time");
 //                        } else {
 //                            binding.createEvtnStartTimeTv.setText("");
 //                            binding.createEvtnStartTimeTv.setHint("Start time");
-//                            Toast.makeText(CreateEventActivity.this, "Select a valid time", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CreateTrainingSession.this, "Select a valid time", Toast.LENGTH_SHORT).show();
 //                        }
 //                    } else {
 //                        binding.createEvtnStartTimeTv.setText(startTime);
@@ -395,12 +404,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     if (sEndDate.compareTo(strDate) == 0) {
                         if (!startTime.isEmpty()) {
 //                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+                                if (formatTime(endTime).after(formatTime(startTime))) {
                             binding.createEventEndTime.setText(endTime);
-//                            } else {
-//                                binding.createEventEndTime.setText("");
-//                                binding.createEventEndTime.setHint("End time");
-//                                Toast.makeText(CreateTrainingSession.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
-//                            }
+                            } else {
+                                binding.createEventEndTime.setText("");
+                                binding.createEventEndTime.setHint("End time");
+                                Toast.makeText(CreateTrainingSession.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(CreateTrainingSession.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
                         }
@@ -415,6 +425,16 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
+    }
+    private Date formatTime(String time){
+        Date formated=null;
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+        try {
+            formated=timeFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formated;
     }
 
 

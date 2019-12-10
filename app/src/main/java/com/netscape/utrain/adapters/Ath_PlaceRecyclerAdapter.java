@@ -106,6 +106,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("eventTime", data.getOpen_hours_from());

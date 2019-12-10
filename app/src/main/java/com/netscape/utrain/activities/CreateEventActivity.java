@@ -98,6 +98,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private Date stDate = null;
     private Date endDate = null;
     private O_EventDataModel data;
+    private Date eventEndTime,eventSTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,10 +267,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
 
-                Date time = Calendar.getInstance().getTime();
+//                Date time = Calendar.getInstance().getTime();
+//                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+//
+//                String timeNow=timeFormat.format(time);
                 if (stDate != null && endDate != null) {
 //                    if (endDate.compareTo(stDate) == 0) {
-//                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
+//                        if (formatTime(startTime).after(formatTime(timeNow))) {
                     binding.createEvtnStartTimeTv.setText(startTime);
                     binding.createEventEndTime.setText("");
                     binding.createEventEndTime.setHint("End time");
@@ -286,6 +291,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
             }
         }, mHour, mMinute, true);
+
         timePickerDialog.show();
     }
 
@@ -299,16 +305,24 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
+//                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+//                try {
+//                    eventEndTime=timeFormat.parse(endTime);
+//                  eventSTime=timeFormat.parse(startTime);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
                 if (stDate != null && endDate != null) {
                     if (endDate.compareTo(stDate) == 0) {
                         if (!startTime.isEmpty()) {
 //                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
+                            if (formatTime(endTime).after(formatTime(startTime))) {
                                 binding.createEventEndTime.setText(endTime);
-//                            } else {
-//                                binding.createEventEndTime.setText("");
-//                                binding.createEventEndTime.setHint("End time");
-//                                Toast.makeText(CreateEventActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
-//                            }
+                            } else {
+                                binding.createEventEndTime.setText("");
+                                binding.createEventEndTime.setHint("End time");
+                                Toast.makeText(CreateEventActivity.this, "Selecte valid time", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(CreateEventActivity.this, "Selecte Start time", Toast.LENGTH_SHORT).show();
                         }
@@ -323,6 +337,16 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
+    }
+    private Date formatTime(String time){
+        Date formated=null;
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+        try {
+            formated=timeFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formated;
     }
 
     private void getStartDate() {
@@ -369,6 +393,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     if (endDate.compareTo(stDate) >= 0) {
                         Log.i("app", "Date1 is after Date2");
                         binding.createEventEndDatetv.setText(eDate);
+                        binding.createEventEndTime.setText("");
+                        binding.createEvtnStartTimeTv.setText("");
+                        binding.createEventEndTime.setHint("End time");
+                        binding.createEvtnStartTimeTv.setHint("Start time");
                     } else {
                         Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
                         binding.createEventEndDatetv.setText("");
@@ -379,6 +407,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 

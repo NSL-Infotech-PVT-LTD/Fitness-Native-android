@@ -123,6 +123,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, EventDetail.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.putExtra("eventName", data.getName());
                         intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
                         intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");

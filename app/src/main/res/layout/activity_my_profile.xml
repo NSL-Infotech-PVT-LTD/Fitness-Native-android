@@ -312,7 +312,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/enter_address_demo"
                         android:inputType="textMultiLine"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
                         android:maxLines="3"
                         android:minHeight="@dimen/_40sdp"
                         android:textColor="@color/colorBlack"

@@ -82,6 +82,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
         holder.notificationDatTimeTv.setText(datamodel.getCreated_at());
         holder.notificationBody.setText(datamodel.getBody());
+        holder.titleNotification.setText(datamodel.getTitle());
 
 //        String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
 //        if (!TextUtils.isEmpty(img)) {
@@ -169,7 +170,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView notificationImg;
-        MaterialTextView notificationBody, notificationDatTimeTv;
+        MaterialTextView notificationBody, notificationDatTimeTv,titleNotification;
 
         public NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -177,6 +178,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             notificationImg = itemView.findViewById(R.id.notificationImg);
             notificationBody = itemView.findViewById(R.id.notificationBody);
             notificationDatTimeTv = itemView.findViewById(R.id.notificationDatTimeTv);
+            titleNotification = itemView.findViewById(R.id.titleNotification);
 
         }
     }

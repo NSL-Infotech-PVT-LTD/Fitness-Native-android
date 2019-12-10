@@ -118,6 +118,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EventDetail.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("event_id", data.getId());

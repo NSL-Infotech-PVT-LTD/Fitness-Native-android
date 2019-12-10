@@ -303,6 +303,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onClick(View view) {
                 notificationTv.setText("");
                 Intent myProfileIntent = new Intent(AthleteHomeScreen.this, MyProfile.class);
+                myProfileIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(myProfileIntent);
 
             }

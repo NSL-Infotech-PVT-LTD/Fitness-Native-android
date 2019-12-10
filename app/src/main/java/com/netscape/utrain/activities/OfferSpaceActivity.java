@@ -39,6 +39,8 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -330,11 +332,27 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
-                binding.createEventEndTime.setText(endTime);
+                if (formatTime(endTime).after(formatTime(startTime))) {
+                    binding.createEventEndTime.setText(endTime);
+                }else {
+                    binding.createEventEndTime.setText("");
+                    binding.createEventEndTime.setText("End time");
+                    Toast.makeText(OfferSpaceActivity.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                }
 
             }
         }, mHour, mMinute, true);
         timePickerDialog.show();
+    }
+    private Date formatTime(String time){
+        Date formated=null;
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+        try {
+            formated=timeFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formated;
     }
 
     private void getData() {

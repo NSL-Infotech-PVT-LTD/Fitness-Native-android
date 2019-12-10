@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivitySettingsBinding;
@@ -152,9 +153,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(View v) {
 
-                        sOldPassword = oldPwd.getText().toString();
-                        sNewPassword = newPwd.getText().toString();
-                        sConfirmPwd = confirmPwd.getText().toString();
+                        sOldPassword = oldPwd.getText().toString().trim();
+                        sNewPassword = newPwd.getText().toString().trim();
+                        sConfirmPwd = confirmPwd.getText().toString().trim();
 
                         if (sOldPassword.isEmpty()) {
                             oldPwd.setError(getResources().getString(R.string.enter_old_password));
@@ -162,8 +163,20 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         } else if (sNewPassword.isEmpty()) {
                             newPwd.setError(getResources().getString(R.string.enter_new_password));
                             newPwd.requestFocus();
+                        } else if (sNewPassword.length()<6) {
+                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                            newPwd.requestFocus();
+                        } else if (sNewPassword.length()>8) {
+                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                            newPwd.requestFocus();
                         } else if (sConfirmPwd.isEmpty()) {
                             confirmPwd.setError(getResources().getString(R.string.enter_confirm_password));
+                            confirmPwd.requestFocus();
+                        } else if (sConfirmPwd.length()<6) {
+                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                            confirmPwd.requestFocus();
+                        } else if (sConfirmPwd.length()>8) {
+                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
                             confirmPwd.requestFocus();
 
                         } else if (!sNewPassword.equals(sConfirmPwd)) {

@@ -587,7 +587,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 public void onFocusChange(View view, boolean b) {
                     if (b)
                         binding.orgPasswordEdtLayout.setEnabled(false);
-
                 }
             });
         } else if (orgBio.isEmpty()) {
@@ -1034,7 +1033,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                                     CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", OrganizationSignUpActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", OrganizationSignUpActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, OrganizationSignUpActivity.this);
+                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, OrganizationSignUpActivity.this);
 
                                     Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
                                     homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

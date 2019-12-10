@@ -440,27 +440,32 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.topCoachesViewAllBtn:
                 Intent topCoahces = new Intent(getContext(), DiscoverTopRated.class);
+                topCoahces.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 topCoahces.putExtra(Constants.TOP_TYPE_INTENT, Constants.TOP_COACHES);
                 startActivity(topCoahces);
                 break;
             case R.id.topOrgViewAllBtn:
                 Intent topOrg = new Intent(getContext(), DiscoverTopRated.class);
+                topOrg.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 topOrg.putExtra(Constants.TOP_TYPE_INTENT, Constants.TOP_ORG);
                 startActivity(topOrg);
                 break;
 
             case R.id.sessionIconImg:
                 Intent intents = new Intent(getContext(), AllEventsMapAct.class);
+                intents.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intents.putExtra("from", "2");
                 getContext().startActivity(intents);
                 break;
             case R.id.eventIconImg:
                 Intent intentss = new Intent(getContext(), AllEventsMapAct.class);
+                intentss.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intentss.putExtra("from", "1");
                 getContext().startActivity(intentss);
                 break;
             case R.id.findSpacesIconImg:
                 Intent intentsss = new Intent(getContext(), AllEventsMapAct.class);
+                intentsss.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intentsss.putExtra("from", "3");
                 getContext().startActivity(intentsss);
                 break;

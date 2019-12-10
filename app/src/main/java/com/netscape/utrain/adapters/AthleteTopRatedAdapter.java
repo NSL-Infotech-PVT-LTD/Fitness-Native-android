@@ -123,7 +123,7 @@ public class AthleteTopRatedAdapter extends RecyclerView.Adapter<AthleteTopRated
                 }
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, type + "");
-                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 context.startActivity(topCoachesDetails);
             }
         });

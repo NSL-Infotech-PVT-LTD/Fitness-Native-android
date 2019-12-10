@@ -69,6 +69,7 @@ public class A_SpacesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AllEventsMapAct.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("from", "3");
                 getContext().startActivity(intent);
 
