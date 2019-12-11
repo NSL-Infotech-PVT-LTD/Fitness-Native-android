@@ -77,12 +77,21 @@ public class EventBookingModel {
         private int service_id;
         private int organizer_id;
         private int guest_allowed;
+        private int guest_allowed_left;
         private String equipment_required;
         private Object params;
         private String state;
         private String created_at;
         private String updated_at;
         private Object deleted_at;
+
+        public int getGuest_allowed_left() {
+            return guest_allowed_left;
+        }
+
+        public void setGuest_allowed_left(int guest_allowed_left) {
+            this.guest_allowed_left = guest_allowed_left;
+        }
 
         public int getId() {
             return id;

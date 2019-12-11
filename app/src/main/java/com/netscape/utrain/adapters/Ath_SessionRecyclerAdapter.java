@@ -132,8 +132,10 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
                         intent.putExtra("eventDate", data.getStart_date());
                         intent.putExtra("eventDescription", data.getDescription());
                         intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
-                        intent.putExtra("event_id", data.getId());
+                        intent.putExtra("event_id", data.getId()+"");
                         intent.putExtra("from", "sessions");
+                        intent.putExtra("gmapLat", data.getLatitude()+"");
+                        intent.putExtra("gmapLong", data.getLongitude()+"");
                         Bundle b = new Bundle();
                         b.putString("Array", data.getImages());
                         intent.putExtras(b);

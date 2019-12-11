@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
 import com.netscape.utrain.model.CoachListModel;
@@ -75,14 +76,31 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         binding.detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float latitude = Float.parseFloat(coachListModel.getLatitude());
-                float longitude = Float.parseFloat(coachListModel.getLongitude());
+                if (!TextUtils.isEmpty(coachListModel.getLatitude()) && ! TextUtils.isEmpty(coachListModel.getLongitude())) {
+                    float latitude = Float.parseFloat(coachListModel.getLatitude());
+                    float longitude = Float.parseFloat(coachListModel.getLongitude());
+//                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 28.7040, 77.1025);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//               startActivity(intent);
+
+                    String uri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps");
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(TopCoachOrgDetailActivity.this, "No lat long found", Toast.LENGTH_SHORT).show();
+                }
+
+
+//                float latitude = Float.parseFloat();
+//                float longitude = Float.parseFloat();
+////                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+////                        Uri.parse("http://maps.google.com/maps?saddr="+latitude +","+longitude));
+////                startActivity(intent);
 //                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-//                        Uri.parse("http://maps.google.com/maps?saddr="+latitude +","+longitude));
+//                        Uri.parse("http://maps.google.com/maps?saddr="+latitude+","+longitude+"&daddr="+latitude+","+longitude+""));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                startActivity(intent);
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr="+latitude+","+longitude+"&daddr="+latitude+","+longitude+""));
-                startActivity(intent);
 
 //                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
 //                String geoUri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude + " (" + coachListModel.getName() + ")";

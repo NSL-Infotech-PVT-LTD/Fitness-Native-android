@@ -116,6 +116,8 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 intent.putExtra("event_id", data.getId() + "");
                 intent.putExtra("from", "places");
                 intent.putExtra("desc", data.getDescription());
+                intent.putExtra("gmapLat", data.getLatitude()+"");
+                intent.putExtra("gmapLong", data.getLongitude()+"");
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);

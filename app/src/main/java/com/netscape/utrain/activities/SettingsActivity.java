@@ -58,17 +58,18 @@ import retrofit2.Response;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
     ActivitySettingsBinding binding;
-    private int IMAGE_GET = 166;
     String sOldPassword, sNewPassword, sConfirmPwd;
     TextInputEditText oldPwd, newPwd, confirmPwd;
+    private int IMAGE_GET = 166;
     private SwitchMaterial switchMaterial;
     private MaterialTextView textViewOn, textViewOff;
     private Retrofitinterface retrofitinterface;
     private AlertDialog dialogMultiOrder;
     private ChangePasswordModel model;
     private ProgressDialog progressDialog;
-    private String isNotify="";
-    private String notify="";
+    private String isNotify = "";
+    private String notify = "";
+    private int count=0;
 
 
     @Override
@@ -77,27 +78,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 //        setContentView(R.layout.activity_settings);
         binding = DataBindingUtil.setContentView(SettingsActivity.this, R.layout.activity_settings);
         switchMaterial = findViewById(R.id.settingsSwitch);
-        isNotify=CommonMethods.getPrefData(PrefrenceConstant.IS_NOTIFY,SettingsActivity.this);
+        isNotify = CommonMethods.getPrefData(PrefrenceConstant.IS_NOTIFY, SettingsActivity.this);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-
 
 
 //        textViewOn = findViewById(R.id.switchOnON);
 //        textViewOff = findViewById(R.id.switchOffOFF);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
 //        setProfileImage();
         inIt();
-        if (! TextUtils.isEmpty(isNotify)){
-            if (isNotify.equalsIgnoreCase("1")){
+        if (!TextUtils.isEmpty(isNotify)) {
+            if (isNotify.equalsIgnoreCase("1")) {
 //                switchMaterial.setOnCheckedChangeListener (null);
                 switchMaterial.setChecked(true);
 //                textViewOn.setVisibility(View.VISIBLE);
 //                textViewOff.setVisibility(View.GONE);
 //                switchMaterial.setOnCheckedChangeListener (this);
-            }
-            else{
+            } else {
 //                switchMaterial.setOnCheckedChangeListener (null);
                 switchMaterial.setChecked(false);
 //                textViewOff.setVisibility(View.VISIBLE);
@@ -109,13 +108,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View view) {
 
                 if (switchMaterial.isChecked()) {
-                    notify="1";
+                    notify = "1";
                     ChangeNotificationState();
 //                    Toast.makeText(SettingsActivity.this, "Checked", Toast.LENGTH_SHORT).show();
 //                    textViewOn.setVisibility(View.VISIBLE);
 //                    textViewOff.setVisibility(View.GONE);
                 } else {
-                    notify="0";
+                    notify = "0";
                     ChangeNotificationState();
 //                    Toast.makeText(SettingsActivity.this, "Un checked", Toast.LENGTH_SHORT).show();
 //                    textViewOff.setVisibility(View.VISIBLE);
@@ -135,16 +134,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View view) {
 
                 // change password api hit here....
-
+                if (count==0){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                 LayoutInflater inflater = LayoutInflater.from(SettingsActivity.this);
                 View content = inflater.inflate(R.layout.change_password_layout, null);
                 builder.setView(content);
-                oldPwd = (TextInputEditText) content.findViewById(R.id.oldPasswordEnter);
-                newPwd = (TextInputEditText) content.findViewById(R.id.newPasswordEnter);
-                confirmPwd = (TextInputEditText) content.findViewById(R.id.confirmNewPasswordEnter);
-                MaterialButton changePasswordBtn = (MaterialButton) content.findViewById(R.id.changePasswordBtn);
-                AppCompatImageView cancel = (AppCompatImageView) content.findViewById(R.id.changePwdCancelImg);
+                oldPwd = content.findViewById(R.id.oldPasswordEnter);
+                newPwd = content.findViewById(R.id.newPasswordEnter);
+                confirmPwd = content.findViewById(R.id.confirmNewPasswordEnter);
+                MaterialButton changePasswordBtn = content.findViewById(R.id.changePasswordBtn);
+                AppCompatImageView cancel = content.findViewById(R.id.changePwdCancelImg);
                 dialogMultiOrder = builder.create();
                 dialogMultiOrder.setCancelable(false);
 
@@ -163,19 +162,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         } else if (sNewPassword.isEmpty()) {
                             newPwd.setError(getResources().getString(R.string.enter_new_password));
                             newPwd.requestFocus();
-                        } else if (sNewPassword.length()<6) {
+                        } else if (sNewPassword.length() < 6) {
                             Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
                             newPwd.requestFocus();
-                        } else if (sNewPassword.length()>8) {
+                        } else if (sNewPassword.length() > 8) {
                             Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
                             newPwd.requestFocus();
                         } else if (sConfirmPwd.isEmpty()) {
                             confirmPwd.setError(getResources().getString(R.string.enter_confirm_password));
                             confirmPwd.requestFocus();
-                        } else if (sConfirmPwd.length()<6) {
+                        } else if (sConfirmPwd.length() < 6) {
                             Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
                             confirmPwd.requestFocus();
-                        } else if (sConfirmPwd.length()>8) {
+                        } else if (sConfirmPwd.length() > 8) {
                             Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
                             confirmPwd.requestFocus();
 
@@ -190,21 +189,26 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 //                            }
                         } else {
                             hitChangePasswordApi();
+                            count=0;
                         }
                     }
                 });
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        count=0;
                         dialogMultiOrder.dismiss();
+
                     }
                 });
-
+                count=1;
                 dialogMultiOrder.show();
                 dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             }
+        }
         });
+
     }
 
     private void inIt() {
@@ -246,7 +250,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.basicProfileClickImg:
                 OrganizationSignUpActivity.update = true;
-                startActivity(new Intent(SettingsActivity.this, OrganizationSignUpActivity.class));
+                Intent chooProfile = new Intent(SettingsActivity.this, OrganizationSignUpActivity.class);
+                chooProfile.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(chooProfile);
                 break;
             case R.id.chooseSportsClickImg:
                 if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
@@ -258,9 +264,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     getImages.putExtra("updateImgType", "portfolioImages");
                     startActivityForResult(getImages, IMAGE_GET);
                 } else {
+                    Intent chooseSport = new Intent(SettingsActivity.this, ChooseSportActivity.class);
                     CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                     ChooseSportActivity.athUpdate = true;
-                    startActivity(new Intent(SettingsActivity.this, ChooseSportActivity.class));
+                    chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(chooseSport);
                 }
                 break;
             case R.id.chooseServicesClickimg:
@@ -268,10 +276,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 ArrayList<ServiceListDataModel> list = new ArrayList<>();
                 CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, list, SettingsActivity.this);
                 ServicePriceActivity.updateServices = true;
-                startActivity(new Intent(SettingsActivity.this, ServicePriceActivity.class));
+                Intent servicePrice = new Intent(SettingsActivity.this, ServicePriceActivity.class);
+                servicePrice.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(servicePrice);
                 break;
             case R.id.termAndConditionsTv:
-                startActivity(new Intent(SettingsActivity.this, TermsAndConditions.class));
+                Intent chooseSport = new Intent(SettingsActivity.this, TermsAndConditions.class);
+                chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(chooseSport);
         }
 
 
@@ -329,7 +341,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void ChangeNotificationState() {
         progressDialog.show();
-        Call<NotifaicationStateResponse> signUpAthlete = retrofitinterface.ChangeNotificationSetting("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,SettingsActivity.this));
+        Call<NotifaicationStateResponse> signUpAthlete = retrofitinterface.ChangeNotificationSetting("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SettingsActivity.this));
         signUpAthlete.enqueue(new Callback<NotifaicationStateResponse>() {
             @Override
             public void onResponse(Call<NotifaicationStateResponse> call, Response<NotifaicationStateResponse> response) {
@@ -337,7 +349,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
                             CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, notify, SettingsActivity.this);
 //                            LoginManager.getInstance().logOut();
 //                            CommonMethods.clearPrefData(SettingsActivity.this);
@@ -353,10 +365,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.settingsContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.settingsContainer, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.settingsContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.settingsContainer, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 

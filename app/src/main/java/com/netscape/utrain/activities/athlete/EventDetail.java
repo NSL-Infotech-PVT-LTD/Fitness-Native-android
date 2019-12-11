@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,10 +30,12 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.prefs.Preferences;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -50,6 +53,7 @@ public class EventDetail extends AppCompatActivity {
     private ActivityEventDetailBinding binding;
     private AthletePlaceModel placeModel;
     private String eventId;
+    private String gmapLat="",gmapLong="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +78,59 @@ public class EventDetail extends AppCompatActivity {
         binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
         binding.seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
         eventId = getIntent().getStringExtra("event_id");
+        gmapLat=getIntent().getStringExtra("gmapLat");
+        gmapLong=getIntent().getStringExtra("gmapLong");
+
 
 
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = null;
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("geo:19.076,72.8777"));
-                startActivity(intent);
+                if (!TextUtils.isEmpty(gmapLat) && ! TextUtils.isEmpty(gmapLong)) {
+                    float latitude = Float.parseFloat(gmapLat);
+                    float longitude = Float.parseFloat(gmapLong);
+//                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 28.7040, 77.1025);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//               startActivity(intent);
 
+                    String uri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    intent.setPackage("com.google.android.apps.maps");
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(EventDetail.this, "No lat long found", Toast.LENGTH_SHORT).show();
+                }
+
+
+//                String urlAddress = "http://maps.google.com/maps?q="+ gmapLat  +"," + gmapLong+"("+ "India" + ")&iwloc=A&hl=es";
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress));
+//                startActivity(intent);
+
+//                Intent intent = null;
+//                intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse("geo:19.076,72.8777"));
+//                startActivity(intent);
+//                float latitude = Float.parseFloat(gmapLat);
+//                float longitude = Float.parseFloat(gmapLong);
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse("http://maps.google.com/maps?saddr="+latitude +","+longitude));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                startActivity(intent);
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse("http://maps.google.com/maps?saddr="+latitude+","+longitude+""));
+//                startActivity(intent);
+
+//// Create a Uri from an intent string. Use the result to create an Intent.
+//                Uri gmmIntentUri = Uri.parse("google.streetview:cbll="+gmapLat+","+gmapLong);
+//
+//// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//// Make the Intent explicit by setting the Google Maps package
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//
+//// Attempt to start an activity that can handle the Intent
+//                startActivity(mapIntent);
+//
             }
         });
 
@@ -194,7 +241,7 @@ public class EventDetail extends AppCompatActivity {
 
                     } else {
                         Intent intent = new Intent(EventDetail.this, EventBookingActivity.class);
-                        intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
+                        intent.putExtra("event_id", eventId);
                         intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
                         intent.putExtra("seatLeft", binding.seatNo.getText());
                         intent.putExtra("eventVenue", binding.eventVanueDetailTv.getText());

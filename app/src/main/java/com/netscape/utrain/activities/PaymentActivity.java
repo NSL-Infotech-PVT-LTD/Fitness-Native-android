@@ -395,7 +395,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getIntExtra("event_id", 0) + "", tickets, price, "pending", token);
+        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") , tickets, price, "pending", token);
         signUpAthlete.enqueue(new Callback<BookingConfirmModel>() {
             @Override
             public void onResponse(Call<BookingConfirmModel> call, Response<BookingConfirmModel> response) {
@@ -450,7 +450,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") + "", price, "pending", token, getIntent().getStringExtra("startDate"), getIntent().getStringExtra("endDate"));
+        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") , price, "pending", token, getIntent().getStringExtra("startDate"), getIntent().getStringExtra("endDate"));
         signUpAthlete.enqueue(new Callback<SpaceBookingResponse>() {
             @Override
             public void onResponse(Call<SpaceBookingResponse> call, Response<SpaceBookingResponse> response) {

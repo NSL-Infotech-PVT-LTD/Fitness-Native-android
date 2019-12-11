@@ -121,7 +121,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
-                intent.putExtra("event_id", data.getId());
+                intent.putExtra("event_id", data.getId()+"");
                 intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
                 intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
                 intent.putExtra("eventDate", data.getStart_date());
@@ -130,6 +130,8 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
                 intent.putExtra("from", "events");
                 intent.putExtra("capacity", data.getGuest_allowed());
+                intent.putExtra("gmapLat", data.getLatitude()+"");
+                intent.putExtra("gmapLong", data.getLongitude()+"");
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);

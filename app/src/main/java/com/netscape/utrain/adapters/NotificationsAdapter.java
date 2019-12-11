@@ -19,6 +19,10 @@ import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
+import com.netscape.utrain.utils.TimeAgo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +35,18 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     private boolean isLoadingAdded = false;
     private Context context;
     private List<NotificationDatamodel> list;
+    private SendToSelected sendData;
+    String model="",id="";
 
     public NotificationsAdapter(Context context, List<NotificationDatamodel> list) {
         this.context = context;
         this.list = list;
+
     }
-    public NotificationsAdapter(Context context) {
+    public NotificationsAdapter(Context context,SendToSelected send) {
         this.context = context;
         list = new ArrayList<>();
+        this.sendData=send;
     }
 
 
@@ -80,9 +88,29 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             case ITEM:
                 if(datamodel!=null)
 
-        holder.notificationDatTimeTv.setText(datamodel.getCreated_at());
+
         holder.notificationBody.setText(datamodel.getBody());
         holder.titleNotification.setText(datamodel.getTitle());
+                TimeAgo timeAgo = new TimeAgo();
+                if (! datamodel.getCreated_at().isEmpty()) {
+                    String date=datamodel.getCreated_at();
+                    String MyFinalValue = timeAgo.covertTimeToText(date);
+                    holder.notificationDatTimeTv.setText(MyFinalValue);
+                }
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String data=datamodel.getData();
+                        try {
+                            JSONObject jsonObject=new JSONObject(data);
+                             model=jsonObject.getString("target_model");
+                             id=jsonObject.getString("target_id");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        sendData.sendType(model,id);
+                    }
+                });
 
 //        String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context);
 //        if (!TextUtils.isEmpty(img)) {
@@ -187,5 +215,8 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         public LoadingVH(View itemView) {
             super(itemView);
         }
+    }
+    public interface  SendToSelected{
+       void sendType(String event,String id);
     }
 }

@@ -71,7 +71,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 
     private void init() {
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        hitEventDetailAPI();
+        hitSpaceDetailAPI();
         if (getIntent().getExtras() != null) {
             binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
             binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
@@ -309,13 +309,13 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void hitEventDetailAPI() {
+    private void hitSpaceDetailAPI() {
 
         progressDialog = new ProgressDialog(SpaceBookingActivity.this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SpaceBookingActivity.this), Constants.CONTENT_TYPE, getIntent().getStringExtra("event_id") + "");
+        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SpaceBookingActivity.this), Constants.CONTENT_TYPE, getIntent().getStringExtra("event_id"));
         signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
             @Override
             public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {

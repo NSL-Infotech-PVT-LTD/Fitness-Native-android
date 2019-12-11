@@ -7,9 +7,20 @@ import android.preference.PreferenceManager;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.model.ServiceListDataModel;
+import com.netscape.utrain.response.NotificationCountResponse;
+import com.netscape.utrain.response.NotificationReadResponse;
+import com.netscape.utrain.retrofit.RetrofitInstance;
+import com.netscape.utrain.retrofit.Retrofitinterface;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +34,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CommonMethods {
     private static SharedPreferences data;
+    Retrofitinterface retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
     public static String getPrefData(String ke, Context ct) {
         data = PreferenceManager.getDefaultSharedPreferences(ct);

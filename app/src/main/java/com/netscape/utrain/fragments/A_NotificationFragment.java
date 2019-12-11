@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,19 +21,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.coremedia.iso.boxes.Container;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.adapters.NotificationsAdapter;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.databinding.FragmentNotificationBinding;
 import com.netscape.utrain.databinding.OFragmentNotificationBinding;
 import com.netscape.utrain.model.AthleteSpaceBookList;
+import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotificationDatamodel;
 import com.netscape.utrain.model.NotificationPageModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.response.NotificationResponse;
 import com.netscape.utrain.response.O_EventListResponse;
+import com.netscape.utrain.response.SessionDetailResponse;
+import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
@@ -39,6 +49,8 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -59,7 +71,7 @@ import retrofit2.Response;
  * Use the {@link A_NotificationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class A_NotificationFragment extends Fragment {
+public class A_NotificationFragment extends Fragment implements NotificationsAdapter.SendToSelected {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private int TOTAL_PAGES;
@@ -167,7 +179,7 @@ public class A_NotificationFragment extends Fragment {
                             if (list !=null && list.size()>0){
                                 binding.noImgNotification.setVisibility(View.GONE);
 
-                                adapter = new NotificationsAdapter(getContext());
+                                adapter = new NotificationsAdapter(getContext(),A_NotificationFragment.this);
                                 binding.notificationRecycler.setAdapter(adapter);
                                 List<NotificationDatamodel> results = fetchNotificationResults(response);
 
@@ -436,6 +448,8 @@ public class A_NotificationFragment extends Fragment {
     }
 
 
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -511,25 +525,222 @@ public class A_NotificationFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void sendType(String event,String id) {
 
+        if (event.equalsIgnoreCase("event")){
+            hitEventDetailAPI(id);
+        }
+        if (event.equalsIgnoreCase("session")){
+            getSessionDetails(id);
+        }
+        if (event.equalsIgnoreCase("space")){
+            hitSpaceDetailAPI(id);
+        }
+        if (event.equalsIgnoreCase("booking")){
+//            navView.getMenu().findItem(R.id.navigation_home).setChecked(true);
+            O_HistoryFragment fragment=new O_HistoryFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+            fragmentTransaction.commit();
+        }
+
+
+    }
+    private void hitEventDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, id );
+        signUpAthlete.enqueue(new Callback<EventBookingModel>() {
+            @Override
+            public void onResponse(Call<EventBookingModel> call, Response<EventBookingModel> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            Intent intent = new Intent(context, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                            intent.putExtra("from", "events");
+                            intent.putExtra("capacity", response.body().getData().getGuest_allowed());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            context.startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), ""+ errorMessage, Toast.LENGTH_SHORT).show();
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), ""+ e, Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EventBookingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    private void getSessionDetails(String id) {
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SessionDetailResponse>() {
+            @Override
+            public void onResponse(Call<SessionDetailResponse> call, Response<SessionDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(context, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("from", "sessions");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            context.startActivity(intent);
+
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SessionDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Toast.makeText(getContext(), ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+    private void hitSpaceDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
+            @Override
+            public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(context, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getOpen_hours_from());
+                            intent.putExtra("eventALLImages", response.body().getData().getImages());
+                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+                            intent.putExtra("event_id", response.body().getData().getId() + "");
+                            intent.putExtra("from", "places");
+                            intent.putExtra("desc", response.body().getData().getDescription());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+//                            intent.putExtra(Constants.SPACE_DATA, response.body());
+                            context.startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(context, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(context, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(context, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
 }
 
-//    public class FormateDate {
-//
-//        public void main(String[] args) throws ParseException {
-//            dateFormat = "2017-03-08 13:27:00";
-//
-//            // *** note that it's "yyyy-MM-dd hh:mm:ss" not "yyyy-mm-dd hh:mm:ss"
-//            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//            Date date = dt.parse(dateFormat);
-//
-//            // *** same for the format String below
-//            dt1 = new SimpleDateFormat("yyyy-MM-dd");
-//            System.out.println("Date :"+dt1.format(date));
-//
-//            dt1 = new SimpleDateFormat("HH:mm:ss");
-//            System.out.println("Time :"+dt1.format(date));
-//        }
-//
-//    }
+
 

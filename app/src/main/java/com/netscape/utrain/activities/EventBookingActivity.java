@@ -145,7 +145,7 @@ public class EventBookingActivity extends AppCompatActivity {
                 intent.putExtra("type", getIntent().getStringExtra("type"));
                 intent.putExtra("totalPrice", totalPrice);
                 intent.putExtra("tickets", countVAlue);
-                intent.putExtra("event_id", getIntent().getIntExtra("event_id", 0));
+                intent.putExtra("event_id", getIntent().getStringExtra("event_id"));
                 startActivity(intent);
             }
         });
@@ -159,7 +159,7 @@ public class EventBookingActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getIntExtra("event_id", 0) + "");
+        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getStringExtra("event_id" ));
         signUpAthlete.enqueue(new Callback<EventBookingModel>() {
             @Override
             public void onResponse(Call<EventBookingModel> call, Response<EventBookingModel> response) {
@@ -226,7 +226,7 @@ public class EventBookingActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getIntExtra("event_id", 0) + "");
+        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getStringExtra("event_id"));
         signUpAthlete.enqueue(new Callback<SessionDetailResponse>() {
             @Override
             public void onResponse(Call<SessionDetailResponse> call, Response<SessionDetailResponse> response) {
