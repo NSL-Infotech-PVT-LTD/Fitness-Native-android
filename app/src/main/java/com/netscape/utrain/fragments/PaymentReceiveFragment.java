@@ -84,7 +84,7 @@ public class PaymentReceiveFragment extends Fragment {
     private void getPaymentReceivedListOrg() {
         isLastPage=false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -143,7 +143,7 @@ public class PaymentReceiveFragment extends Fragment {
     }
     private void getNextPagePaymentReceivedListOrg() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -208,7 +208,7 @@ public class PaymentReceiveFragment extends Fragment {
     private void getPaymentReceivedListCoach() {
         isLastPage=false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -267,7 +267,7 @@ public class PaymentReceiveFragment extends Fragment {
     }
     private void getNextPagePaymentReceivedListCoach() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

@@ -16,22 +16,31 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.TermsAndConditions"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.AboutUs"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.TransactionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ViewCoachStaffListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SpaceBookingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.UpdateProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.athlete.ChooseSportActivity"
+        <activity android:name=".activities.SelecteTimeSlot"></activity>
+        <activity
+            android:name=".activities.TermsAndConditions"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.athlete.SelectSportActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.AboutUs"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.TransactionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ViewCoachStaffListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SpaceBookingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.UpdateProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.athlete.ChooseSportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.athlete.SelectSportActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.TopCoachOrgDetailActivity"
             android:screenOrientation="portrait" />
@@ -43,8 +52,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.coach.CoachDashboard"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PaymentActivity"
             android:screenOrientation="portrait" />
@@ -227,7 +236,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true"

@@ -226,189 +226,233 @@
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backgroundText">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/addViewRecycler"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/ticket"
+                </androidx.recyclerview.widget.RecyclerView>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Start date of booking"
-                    android:textSize="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:background="@drawable/ic_add_black"
+                    app:layout_constraintTop_toBottomOf="@+id/addViewRecycler"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvent_endbsnshourTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="End date of booking"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndDatetv"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventStartDateTv"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_date"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:hint="@string/start_date"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ticket" />
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndDatetv"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_date"
-                    android:gravity="center"
-                    android:hint="@string/end_date"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:paddingRight="@dimen/_20sdp"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/createEvent_endbsnshourTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventStartTimeTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Start hour of Booking"
-                    android:textSize="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndTimeTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="End hour of bookings"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"
-                    app:layout_constraintTop_toBottomOf="@id/createEventEndDatetv" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEvtnStartTimeTv"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_time"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:gravity="left|center_vertical"
-                    android:hint="@string/start_time"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/createEventEndTime"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/card_input_edt_background"
-                    android:drawableLeft="@drawable/ic_time"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:gravity="left|center_vertical"
-                    android:hint="@string/end_time"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:textSize="@dimen/_10sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/countDisplayConstraint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:visibility="gone"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ticket">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/substractImg"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-
-                        android:src="@drawable/ic_subtract"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/addImg"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/countDisplay"
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_40sdp"
-
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@color/colorTransparent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="1"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:backgroundTint="@color/colorWhite"
-                        app:layout_constraintLeft_toLeftOf="@id/substractImg"
-                        app:layout_constraintRight_toRightOf="@id/addImg"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/addImg"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_marginLeft="@dimen/_40sdp"
-
-                        android:src="@drawable/ic_add"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/substractImg"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:id="@+id/addView"></TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:visibility="visible"-->
+<!--                >-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/ticket"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_regular"-->
+<!--                    android:text="Start date of booking"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    android:layout_marginLeft="@dimen/_20sdp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEvent_endbsnshourTv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_regular"-->
+<!--                    android:text="End date of booking"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndDatetv"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEventStartDateTv"-->
+<!--                    android:layout_width="@dimen/_110sdp"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:background="@drawable/card_input_edt_background"-->
+<!--                    android:drawableLeft="@drawable/ic_date"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_marginLeft="@dimen/_20sdp"-->
+<!--                    android:hint="@string/start_date"-->
+<!--                    android:paddingLeft="@dimen/_10sdp"-->
+<!--                    android:paddingRight="@dimen/_20sdp"-->
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/ticket" />-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEventEndDatetv"-->
+<!--                    android:layout_width="@dimen/_110sdp"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:background="@drawable/card_input_edt_background"-->
+<!--                    android:drawableLeft="@drawable/ic_date"-->
+<!--                    android:gravity="center"-->
+<!--                    android:hint="@string/end_date"-->
+<!--                    android:layout_marginRight="@dimen/_20sdp"-->
+<!--                    android:paddingLeft="@dimen/_10sdp"-->
+<!--                    android:paddingRight="@dimen/_20sdp"-->
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEvent_endbsnshourTv" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEventStartTimeTv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_regular"-->
+<!--                    android:text="Start hour of Booking"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    android:layout_marginLeft="@dimen/_20sdp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEventStartDateTv" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEventEndTimeTv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:fontFamily="@font/poppins_regular"-->
+<!--                    android:text="End hour of bookings"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@+id/createEventEndTime"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEventEndDatetv" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEvtnStartTimeTv"-->
+<!--                    android:layout_width="@dimen/_110sdp"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:background="@drawable/card_input_edt_background"-->
+<!--                    android:drawableLeft="@drawable/ic_time"-->
+<!--                    android:drawablePadding="@dimen/_10sdp"-->
+<!--                    android:gravity="left|center_vertical"-->
+<!--                    android:hint="@string/start_time"-->
+<!--                    android:paddingLeft="@dimen/_10sdp"-->
+<!--                    android:layout_marginLeft="@dimen/_20sdp"-->
+
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEventStartTimeTv" />-->
+<!--      -->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/createEventEndTime"-->
+<!--                    android:layout_width="@dimen/_110sdp"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:background="@drawable/card_input_edt_background"-->
+<!--                    android:drawableLeft="@drawable/ic_time"-->
+<!--                    android:drawablePadding="@dimen/_10sdp"-->
+<!--                    android:gravity="left|center_vertical"-->
+<!--                    android:hint="@string/end_time"-->
+<!--                    android:paddingLeft="@dimen/_10sdp"-->
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:layout_marginRight="@dimen/_20sdp"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />-->
+
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/addLayoutBtn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/ic_add_black"-->
+<!--                    android:drawablePadding="@dimen/_10sdp"-->
+<!--                    android:gravity="left|center_vertical"-->
+<!--                    android:paddingLeft="@dimen/_10sdp"-->
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:layout_marginRight="@dimen/_20sdp"-->
+<!--                    android:textSize="@dimen/_10sdp"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/createEventEndTime" />-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/countDisplayConstraint"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/ticket">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatImageView-->
+<!--                        android:id="@+id/substractImg"-->
+<!--                        android:layout_width="@dimen/_60sdp"-->
+<!--                        android:layout_height="@dimen/_60sdp"-->
+<!--                        android:layout_marginLeft="@dimen/_10sdp"-->
+
+<!--                        android:src="@drawable/ic_subtract"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                        app:layout_constraintRight_toLeftOf="@id/addImg"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/countDisplay"-->
+<!--                        android:layout_width="@dimen/_50sdp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+
+<!--                        android:layout_marginTop="@dimen/_8sdp"-->
+<!--                        android:background="@color/colorTransparent"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:text="1"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:backgroundTint="@color/colorWhite"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/substractImg"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/addImg"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                    <androidx.appcompat.widget.AppCompatImageView-->
+<!--                        android:id="@+id/addImg"-->
+<!--                        android:layout_width="@dimen/_60sdp"-->
+<!--                        android:layout_height="@dimen/_60sdp"-->
+<!--                        android:layout_marginLeft="@dimen/_40sdp"-->
+
+<!--                        android:src="@drawable/ic_add"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintLeft_toRightOf="@id/substractImg"-->
+<!--                        app:layout_constraintRight_toRightOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+<!--                  -->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </ScrollView>
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addTimeSlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:backgroundTint="@color/colorGreen"
+            android:src="@drawable/ic_add_black"
+            android:visibility="visible"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@id/bottomConstraint"
+            app:layout_constraintRight_toRightOf="parent"
+            app:maxImageSize="@dimen/_24sdp" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomConstraint"
             android:layout_width="match_parent"

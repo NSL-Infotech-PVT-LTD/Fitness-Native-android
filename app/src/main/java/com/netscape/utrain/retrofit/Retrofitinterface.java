@@ -387,6 +387,11 @@ public interface Retrofitinterface {
                                                     @Header("Content-Type") String contentType,
                                                     @Query("page") String page,
                                                     @Query("limit") String limit);
+    @POST(Constants.SPACE_BOOKING_FOR_ATH_ORG)
+    Call<O_AllBookingResponse> getTransactionList(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String contentType,
+                                                    @Query("page") String page,
+                                                    @Query("limit") String limit);
 
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_ORG)
@@ -394,6 +399,18 @@ public interface Retrofitinterface {
                                                 @Header("Content-Type") String contentType,
                                                 @Field("limit") String limit,
                                                 @Field("filter_by") String filter_by);
+    @FormUrlEncoded
+    @POST(Constants.ALL_TRANSACTIONS_ORG)
+    Call<O_AllBookingResponse> allTransactionListOrg(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Field("page") String page,
+                                                @Field("limit") String limit);
+    @FormUrlEncoded
+    @POST(Constants.ALL_TRANSACTIONS_COACH)
+    Call<O_AllBookingResponse> allTransactionListCoach(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String contentType,
+                                                     @Field("page") String page,
+                                                     @Field("limit") String limit);
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_COACH)
     Call<O_AllBookingResponse> getAllBookingCoach(@Header("Authorization") String Authorization,

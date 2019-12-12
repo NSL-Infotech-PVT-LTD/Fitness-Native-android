@@ -188,6 +188,21 @@ public class AthleteSpaceBookList {
             private String start_date;
             private String end_date;
             private String start_time;
+            private String end_time;
+            private String rating;
+            private String payment_id;
+            private TargetDataBean target_data;
+            private BookingDateBean booking_date;
+            private UserDetailsBean user_details;
+            private SpaceBean space;
+
+            public String getPayment_id() {
+                return payment_id;
+            }
+
+            public void setPayment_id(String payment_id) {
+                this.payment_id = payment_id;
+            }
 
             public String getStart_date() {
                 return start_date;
@@ -220,14 +235,6 @@ public class AthleteSpaceBookList {
             public void setEnd_time(String end_time) {
                 this.end_time = end_time;
             }
-
-            private String end_time;
-
-            private String rating;
-            private TargetDataBean target_data;
-            private BookingDateBean booking_date;
-            private UserDetailsBean user_details;
-            private SpaceBean space;
 
             public String getStatus() {
                 return status;

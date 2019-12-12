@@ -85,9 +85,8 @@ public class PaymentSentFragment extends Fragment {
     private void getBookingList() {
         isLastPage=false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.getTransactionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
@@ -152,7 +151,7 @@ public class PaymentSentFragment extends Fragment {
 
     private void getNextPageBookingList() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.getTransactionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

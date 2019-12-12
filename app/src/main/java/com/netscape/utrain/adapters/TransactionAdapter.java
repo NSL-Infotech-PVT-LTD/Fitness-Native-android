@@ -86,7 +86,11 @@ final O_AllBookingDataListModel data=supplierData.get(position);
                 if(data!=null)
         holder.name.setText(data.getTarget_data().getName());
         holder.transactionId.setText("ID: "+data.getPayment_id());
-        holder.date.setText(data.getTarget_data().getStart_date()+" | "+data.getTarget_data().getStart_time());
+        if (data.getType().equalsIgnoreCase("space")){
+            holder.date.setText(data.getBooking_date().getStart() );
+        }else {
+            holder.date.setText(data.getTarget_data().getStart_date() + " | " + data.getTarget_data().getStart_time());
+        }
         holder.price.setText("$"+data.getPrice());
     try {
         if (data.getTarget_data().getImages() != null) {
