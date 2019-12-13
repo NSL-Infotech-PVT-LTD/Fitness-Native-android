@@ -1,5 +1,6 @@
 package com.netscape.utrain.activities;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +14,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +29,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.AddViewRecyclerAdapter;
 import com.netscape.utrain.databinding.ActivitySpaceBookingBinding;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotificationDatamodel;
+import com.netscape.utrain.model.SlotModel;
 import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -68,29 +73,34 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     private Date stDate = null;
     private Date endDate = null;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private String eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", totalPrice = "";
+    private String spaceId="",eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", totalPrice = "";
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private int pricePerday;
+    private int SLOT_REQUEST=191;
+    private SlotModel slotModel;
 
     private LinearLayout mLayout;
     private EditText mEditText;
     private Button mButton;
     private AddViewRecyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    List<String> results = new ArrayList<>();
+    private List<SlotModel> results = new ArrayList<>();
+    private int totalHours=0;
+    private JsonArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_space_booking);
+
         init();
     }
 
     private void init() {
         ///
         layoutManager=new LinearLayoutManager(this);
-        results.add("Chet");
+//        results.add("Chet");
         adapter=new AddViewRecyclerAdapter(SpaceBookingActivity.this,results);
         binding.addViewRecycler.setLayoutManager(layoutManager);
         binding.addViewRecycler.setAdapter(adapter);
@@ -104,10 +114,9 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
             binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
 
         }
-        binding.addView.setOnClickListener(this);
         binding.addTimeSlot.setOnClickListener(this);
         binding.eventBookingBackImg.setOnClickListener(this);
-//        binding.textContinueToPay.setOnClickListener(this);
+        binding.textContinueToPay.setOnClickListener(this);
 //        binding.createEventEndDatetv.setOnClickListener(this);
 //        binding.createEventStartDateTv.setOnClickListener(this);
 //        binding.createEventEndTime.setOnClickListener(this);
@@ -257,12 +266,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //        datePickerDialog.show();
 //    }
 
-//    private void setTotalPrice(Long days) {
-//        days = days + 1;
-//        totalPrice = String.valueOf((days * pricePerday));
-//        binding.totlaPriceTv.setText("Price per day * " + days + " days");
-//        binding.eventPrice.setText("$ " + String.valueOf((days * pricePerday)));
-//    }
+
 //
 //    public String convertDate(int input) {
 //        if (input >= 10) {
@@ -283,6 +287,12 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //        return strDate;
 //    }
     }
+    private void setTotalPrice(int hours) {
+        totalPrice = String.valueOf((hours * pricePerday));
+//        binding.totlaPriceTv.setText("Price per Hour * " + hours + " Hours");
+        binding.eventPrice.setText("$ " + totalPrice);
+    }
+
         @Override
         public void onClick (View view){
             switch (view.getId()) {
@@ -298,30 +308,51 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //            case R.id.createEvtnStartTimeTv:
 //                getStartTime();
 //                break;
-//            case R.id.textContinueToPay:
-//                getDataFromEdtText();
-//                break;
+            case R.id.textContinueToPay:
+                sendDataToPayment();
+
+//
+                break;
                 case R.id.eventBookingBackImg:
                     finish();
                     break;
 
-                case R.id.addView:
-//                TOTAL_PAGES = response.body().getData().getLast_page();
-//                getItemPerPage = response.body().getData().getPer_page();
-
-                    adapter.add("Chet");
-                    break;
+//                case R.id.addView:
+////                TOTAL_PAGES = response.body().getData().getLast_page();
+////                getItemPerPage = response.body().getData().getPer_page();
+//
+//                    adapter.add(slotModel);
+//                    break;
                 case R.id.addTimeSlot:
 //                TOTAL_PAGES = response.body().getData().getLast_page();
 //                getItemPerPage = response.body().getData().getPer_page();
 
                     Intent intent=new Intent(SpaceBookingActivity.this,SelecteTimeSlot.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
+                    intent.putExtra("bookSpaceId",getIntent().getStringExtra("event_id"));
+                    startActivityForResult(intent,SLOT_REQUEST);
                     break;
             }
 
         }
+
+    private void sendDataToPayment() {
+        if (results !=null && results.size()>0 && Integer.parseInt(totalPrice)>0) {
+            Intent payment = new Intent(SpaceBookingActivity.this, PaymentActivity.class);
+            jsonArray = (JsonArray) new Gson().toJsonTree(results);
+
+            payment.putExtra("type", getIntent().getStringExtra("type"));
+            payment.putExtra("totalPrice", totalPrice);
+            payment.putExtra("totalSlots", jsonArray.toString());
+            payment.putExtra("startDate", sDate + " " + startTime);
+            payment.putExtra("endDate", enDate + " " + endTime);
+//                intent.putExtra("tickets", countVAlue);
+            payment.putExtra("event_id", getIntent().getStringExtra("event_id"));
+            startActivity(payment);
+        }else {
+            Toast.makeText(this, "Select At least One Slot", Toast.LENGTH_SHORT).show();
+        }
+    }
 //    private TextView createNewTextView(String text) {
 //        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        final TextView textView = new TextView(this);
@@ -360,6 +391,34 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //
 //    }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode==SLOT_REQUEST && resultCode==RESULT_OK && data!=null){
+            slotModel=new SlotModel();
+            slotModel.setSelectedSlot(data.getStringExtra(Constants.SELECTED_SLOT));
+            slotModel.setSelectedTime(data.getStringExtra(Constants.SLOT_TIME));
+            slotModel.setSelectedDate(data.getStringExtra(Constants.SLOT_DATE));
+//            results.add(slotModel);
+            adapter.add(slotModel);
+            binding.noSlotCalendar.setVisibility(View.GONE);
+            binding.noSlotText.setVisibility(View.GONE);
+            binding.bookintText.setVisibility(View.VISIBLE);
+            binding.bottomConstraint.setVisibility(View.VISIBLE);
+            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
+            if(firstWord.contains(" ")){
+                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
+
+            }
+            totalHours=totalHours+Integer.parseInt(firstWord);
+            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
+            setTotalPrice(totalHours);
+        }else{
+            Toast.makeText(this, "No Slot Created", Toast.LENGTH_SHORT).show();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void hitSpaceDetailAPI() {
 
         progressDialog = new ProgressDialog(SpaceBookingActivity.this);
@@ -380,9 +439,9 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                             binding.eventVanueDetailTv.setText(response.body().getData().getLocation());
                             binding.eventTimeDetailTv.setText(response.body().getData().getOpen_hours_to());
                             binding.eventDateDetailTv.setText(response.body().getData().getAvailability_week());
-                            binding.pricePerdayTv.setText("(Price per day $" + response.body().getData().getPrice_daily() + ")");
-                            binding.totlaPriceTv.setText("Price per day * day");
-                            pricePerday = response.body().getData().getPrice_daily();
+                            binding.pricePerdayTv.setText("(Total Hours * " + response.body().getData().getPrice_hourly() + ")");
+//                            binding.totlaPriceTv.setText("Price per Hour * Hours");
+                            pricePerday = response.body().getData().getPrice_hourly();
 //                            ticketPrice = response.body().getData().getPrice();
 //                            binding.text1.setText((ticket + " * " + countVAlue) + "");
                             try {

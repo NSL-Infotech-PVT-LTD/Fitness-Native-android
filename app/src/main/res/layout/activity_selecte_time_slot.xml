@@ -37,7 +37,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/ic_calendar_space"
+        android:background="@drawable/ic_calendar_space_two"
         ></androidx.appcompat.widget.AppCompatImageView>
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/selectDateText"
@@ -65,13 +65,13 @@
         android:drawableLeft="@drawable/ic_time"
         android:fontFamily="@font/poppins_regular"
         android:textSize="@dimen/_12sdp"
-        android:paddingRight="@dimen/_10sdp"
+        android:paddingRight="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:text="@string/select_number_of_service_hour">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-    <com.google.android.material.textfield.TextInputEditText
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/createEventServiceEnterTv"
         android:layout_width="0dp"
         android:layout_height="@dimen/_40sdp"
@@ -82,7 +82,6 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_10sdp"
         android:singleLine="true"
-        android:hint="Select No. of Hours"
         app:fontFamily="@font/poppins_regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -91,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@id/selectNumServicText" />
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/createEventServiceSpinner"
+        android:id="@+id/timeSlotDropDown"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="@dimen/_10sdp"

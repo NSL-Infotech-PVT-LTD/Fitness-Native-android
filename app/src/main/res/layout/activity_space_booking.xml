@@ -229,22 +229,47 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bookings"
+                    android:visibility="gone"
+                    android:textColor="@color/colorGreen"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/bookintText"></TextView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
                     android:id="@+id/addViewRecycler"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
+                    app:layout_constraintTop_toBottomOf="@+id/bookintText">
                 </androidx.recyclerview.widget.RecyclerView>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/noSlotCalendar"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:background="@drawable/ic_calendar_space"></androidx.appcompat.widget.AppCompatImageView>
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_add_black"
-                    app:layout_constraintTop_toBottomOf="@+id/addViewRecycler"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/addView"></TextView>
+                    android:text="@string/select_date_time"
+                    android:fontFamily="@font/poppins_regular"
+                    app:layout_constraintTop_toBottomOf="@+id/noSlotCalendar"
+                    app:layout_constraintLeft_toLeftOf="@+id/noSlotCalendar"
+                    app:layout_constraintRight_toRightOf="@+id/noSlotCalendar"
+                    android:id="@+id/noSlotText"></TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
@@ -455,6 +480,7 @@
             app:maxImageSize="@dimen/_24sdp" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomConstraint"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/darkGreens"
@@ -469,7 +495,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Total Price "
+                android:text="Booking Price "
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -480,7 +506,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="(per person)"
+                android:text="Total Hours * 3"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -117,6 +117,9 @@ public class Constants {
     public static final int REQUEST_CODE_GOOGLE_PLACE_SEARCH = 7;
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";
+    public static final String SELECTED_SLOT = "selectedSlot";
+    public static final String SLOT_DATE = "slotDate";
+    public static final String SLOT_TIME = "slotTime";
     public static final String LOCATION_LAT = "locationLat";
     public static final String LOCATION_LONG = "locationLong";
     public static final String STATUS = "";

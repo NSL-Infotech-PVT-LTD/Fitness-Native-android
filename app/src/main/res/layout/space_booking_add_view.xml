@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/linearLayout">
-    <EditText
-        android:id="@+id/editText"
+    android:layout_height="wrap_content"
+    android:id="@+id/linearLayout"
+    >
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/grayColor"
+        app:layout_constraintTop_toTopOf="parent"></View>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bookingSlotNum"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="Booking Slot 1"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:drawablePadding="@dimen/_10sdp"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/view"
         />
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/slotType"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Add+"
+        android:text="Booking Slot 1"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:drawablePadding="@dimen/_10sdp"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableLeft="@drawable/ic_time"
+        app:layout_constraintTop_toBottomOf="@+id/bookingSlotNum"
         />
-</LinearLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/slotDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Slot 1"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:drawablePadding="@dimen/_10sdp"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableLeft="@drawable/ic_icon_cal_dialog"
+        app:layout_constraintTop_toBottomOf="@+id/slotType"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/slotTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Slot 1"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:drawablePadding="@dimen/_10sdp"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:drawableLeft="@drawable/ic_time_slot"
+        app:layout_constraintTop_toBottomOf="@+id/slotDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

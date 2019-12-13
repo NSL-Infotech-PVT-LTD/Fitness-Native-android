@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +14,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.model.NotificationDatamodel;
+import com.netscape.utrain.model.SlotModel;
 import com.netscape.utrain.model.ViewCoachListDataModel;
 import com.netscape.utrain.utils.Constants;
 
@@ -23,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecyclerAdapter.ViewCoachStaffListHolder> {
 
     Context context;
-    List<String> list;
+    List<SlotModel> list;
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
@@ -45,11 +47,13 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
     @Override
     public void onBindViewHolder(@NonNull final AddViewRecyclerAdapter.ViewCoachStaffListHolder holder, int position) {
 
-//        final ViewCoachListDataModel data = list.get(position);
+        final SlotModel data = list.get(position);
 //        Glide.with(context).load(Constants.ORG_COACH_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.coachStaffImg);
-//        holder.coachStaffName.setText(data.getName());
-//        holder.coachStaffProfession.setText(data.getProfession());
-//        holder.coachStaffAdpLayout.setOnClickListener(new View.OnClickListener() {
+        holder.bookingSlotNum.setText("Booking Slot "+list.size());
+        holder.slotType.setText(data.getSelectedSlot());
+        holder.slotDate.setText(data.getSelectedDate());
+        holder.slotTime.setText(data.getSelectedTime());
+//        holder.slotTime.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //
@@ -67,23 +71,23 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
         }
 
 
-        public void add(String r) {
+        public void add(SlotModel r) {
             list.add(r);
             notifyItemInserted(list.size() - 1);
         }
 
-        public void addAll(List<String> moveResults) {
-            for (String result : moveResults) {
+        public void addAll(List<SlotModel> moveResults) {
+            for (SlotModel result : moveResults) {
                 add(result);
             }
         }
 
-        public void setList(List<String> list) {
+        public void setList(List<SlotModel> list) {
             this.list = list;
             notifyDataSetChanged();
         }
 
-        public void remove(String r) {
+        public void remove(SlotModel r) {
             int position = list.indexOf(r);
             if (position > -1) {
                 list.remove(position);
@@ -111,7 +115,7 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
             isLoadingAdded = false;
 
             int position = list.size() - 1;
-            String result = getItem(position);
+            SlotModel result = getItem(position);
 
             if (result != null) {
                 list.remove(position);
@@ -119,7 +123,7 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
             }
         }
 
-        public String getItem(int position) {
+        public SlotModel getItem(int position) {
             return list.get(position);
         }
 
@@ -128,18 +132,17 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
 
     public class ViewCoachStaffListHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView coachStaffImg;
-        MaterialTextView coachStaffName;
-        MaterialTextView coachStaffProfession;
-        MaterialCardView coachStaffAdpLayout;
+
+        AppCompatTextView bookingSlotNum,slotType,slotDate,slotTime;
+
 
         public ViewCoachStaffListHolder(@NonNull View itemView) {
             super(itemView);
 
-            coachStaffImg = itemView.findViewById(R.id.coachStaffImg);
-            coachStaffName = itemView.findViewById(R.id.coachStaffName);
-            coachStaffProfession = itemView.findViewById(R.id.coachStaffProfession);
-            coachStaffAdpLayout = itemView.findViewById(R.id.coachStaffAdpLayout);
+            bookingSlotNum = itemView.findViewById(R.id.bookingSlotNum);
+            slotType = itemView.findViewById(R.id.slotType);
+            slotDate = itemView.findViewById(R.id.slotDate);
+            slotTime = itemView.findViewById(R.id.slotTime);
         }
     }
 }
