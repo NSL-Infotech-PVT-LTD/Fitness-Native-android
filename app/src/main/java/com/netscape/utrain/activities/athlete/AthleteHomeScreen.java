@@ -4,12 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -43,6 +48,7 @@ import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CheckNetwork;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -67,6 +73,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -96,6 +103,9 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private MaterialTextView navNameTv, notificationTv;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
+    boolean isInternetPresent = false;
+    private AlertDialog dialogMultiOrder;
+    private int count =0;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -140,13 +150,55 @@ public class AthleteHomeScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkReceiver, filter);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(networkReceiver);
+    }
+
+    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent bufferIntent) {
+            String status = CheckNetwork.getConnectivityStatusString(context);
+            if(status.equals("WIFI") || status.equals("MOBILE")) {
+                isInternetPresent = true;
+            } else if(status.equals("No Connection")) {
+                isInternetPresent = false;
+            }
+
+            showNetworkState();
+        }
+    };
+
+    public void showNetworkState(){
+        if(isInternetPresent) {
+            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
+//            networkConnectionImageView.setVisibility(View.VISIBLE);
+        } else {
+            if (count == 0){
+                handleImageSelection();
+        }
+            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
+//            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.a_activity_bottom_navigation);
         binding = DataBindingUtil.setContentView(AthleteHomeScreen.this, R.layout.a_activity_bottom_navigation);
+
+
+        init();
+    }
+
+    private void init() {
+        //        setContentView(R.layout.a_activity_bottom_navigation);
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         drawerImage = findViewById(R.id.drawerImageNew);
@@ -320,8 +372,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     private void setBadgeToNotification(int num) {
         BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notifications);
@@ -405,7 +457,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
             this.doubleBackToExitPressedOnce = true;
 //        Snackbar.make(binding.container,getResources().getString(R.string.please_click_again_to_exit), BaseTransientBottomBar.LENGTH_LONG).show();
-
             Toast.makeText(this, getResources().getString(R.string.please_click_again_to_exit), Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
@@ -534,4 +585,36 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
     }
+
+    public void handleImageSelection() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View content = inflater.inflate(R.layout.internet_check, null);
+        builder.setView(content);
+        TextView retry = content.findViewById(R.id.retryInternet);
+//        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+//        ImageView cancel = content.findViewById(R.id.closeDialogImg);
+        dialogMultiOrder = builder.create();
+        dialogMultiOrder.setCancelable(false);
+//        dialogMultiOrder.setCanceledOnTouchOutside(false);
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(isInternetPresent) {
+                    count=0;
+                    dialogMultiOrder.dismiss();
+//                    init();
+                } else {
+                }
+
+            }
+        });
+
+        dialogMultiOrder.show();
+        count=1;
+        dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
 }

@@ -2,11 +2,18 @@ package com.netscape.utrain.activities.organization;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -50,6 +57,7 @@ import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CheckNetwork;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -72,6 +80,9 @@ public class OrgHomeScreen extends AppCompatActivity {
     private MaterialTextView navNameTv;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
+    boolean isInternetPresent = false;
+    private AlertDialog dialogMultiOrder;
+    private int count=0;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -454,5 +465,71 @@ public class OrgHomeScreen extends AppCompatActivity {
 //                progressDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(networkReceiver);
+    }
+    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent bufferIntent) {
+            String status = CheckNetwork.getConnectivityStatusString(context);
+            if(status.equals("WIFI") || status.equals("MOBILE")) {
+                isInternetPresent = true;
+            } else if(status.equals("No Connection")) {
+                isInternetPresent = false;
+            }
+
+            showNetworkState();
+        }
+    };
+    public void showNetworkState(){
+        if(isInternetPresent) {
+            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
+//            networkConnectionImageView.setVisibility(View.VISIBLE);
+        } else {
+            if (count==0) {
+                handleImageSelection();
+            }
+            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
+//            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
+        }
+    }
+    public void handleImageSelection() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View content = inflater.inflate(R.layout.internet_check, null);
+        builder.setView(content);
+        TextView retry = content.findViewById(R.id.retryInternet);
+//        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+//        ImageView cancel = content.findViewById(R.id.closeDialogImg);
+        dialogMultiOrder = builder.create();
+        dialogMultiOrder.setCancelable(false);
+//        dialogMultiOrder.setCanceledOnTouchOutside(false);
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isInternetPresent) {
+                    count=0;
+                    dialogMultiOrder.dismiss();
+                } else {
+                }
+
+            }
+        });
+
+        dialogMultiOrder.show();
+        count=1;
+        dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 }

@@ -441,4 +441,7 @@
     <string name="select_number_of_service_hour">Select Number Of <b><i>Service Hours</i></b></string>
     <string name="selecte_date_of_service">Select <b><i>Date Of Service</i></b></string>
     <string name="select_time_slot_you_want_service">Select <b><i>Time Slot</i></b> You Want Service</string>
+    <string name="network_check">No Internet</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection</string>
+    <string name="retry">Refresh</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
@@ -11,6 +12,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -20,15 +22,21 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.JsonArray;
 import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityOfferSpaceBinding;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -62,7 +70,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     public static boolean spaceEdit=false;
     private ActivityOfferSpaceBinding binding;
     private int OFFER_IMAGE = 333;
-    private List<String> startWeekList = new ArrayList<String>();
+    private List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
     private String spaceName = "",eventAddress = "", eventStartTime = "", eventEndtime = "", spaceHourlyPrice = "", spaceWeeklyPrice = "", availStart = "", availEnd = "", spaceDescription = "", availValue = "";
 
     private int ADDRESS_EVENT = 132;
@@ -79,13 +87,21 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     private O_SpaceDataModel data;
     private String startWeek;
     private String endWeek;
+    ChipGroup chipSpaceGroup;
+    private boolean selected=false;
+    private Chip chipSelected;
+    SelectSpaceDaysModel selectSpaceDaysModel;
+    private ArrayList<SelectSpaceDaysModel> selectedDays=new ArrayList<>();
+    private JsonArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_offer_space);
-        init();
+        chipSpaceGroup = new ChipGroup(this);
+        chipSpaceGroup.setSingleSelection(false);
         addDataToList();
+        init();
 
         ArrayAdapter startWeekadapter = new ArrayAdapter(OfferSpaceActivity.this, android.R.layout.simple_spinner_item, startWeekList);
         startWeekadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,8 +117,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         binding.offerSpaceSelectStrtWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                binding.offerSpaceSelectStrtWeek.setSelection(i);
-                availStart = startWeekList.get(i);
+                if (i==0){
+                    availStart="";
+                }else {
+                    binding.offerSpaceSelectStrtWeek.setSelection(i);
+                    availStart = i+"";
+                }
+
             }
 
             @Override
@@ -110,6 +131,30 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+//        chipSpaceGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup group, int checkedId) {
+//                if (selected){
+//                    if (chipSelected !=null) {
+//                        chipSelected.setChipBackgroundColor(ColorStateList.valueOf(
+//                                ContextCompat.getColor(OfferSpaceActivity.this, R.color.lightGrayFont)));
+////                        timeSlotSelected="";
+//                    }
+//                }
+//                chipSelected = chipSpaceGroup.findViewById(checkedId);
+//                if (chipSelected !=null){
+//                    chipSelected.setChipBackgroundColor( ColorStateList.valueOf(
+//                            ContextCompat.getColor(OfferSpaceActivity.this, R.color.colorAccent)));
+//                    selected=true;
+////                    timeSlotSelected=chipSelected.getText().toString();
+//                    Toast.makeText(OfferSpaceActivity.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
+//                }else{
+//                    selected=false;
+//                    Toast.makeText(OfferSpaceActivity.this, "Chip Un Selected", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
 
 
         ArrayAdapter endWeekAdapter = new ArrayAdapter(OfferSpaceActivity.this, android.R.layout.simple_spinner_item, startWeekList);
@@ -123,7 +168,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
                     availEnd="";
                 }else {
                     binding.offerSpaceSelectEndWeek.setSelection(i);
-                    availEnd = startWeekList.get(i);
+                    availEnd = String.valueOf(i);
                 }
                 }
 
@@ -141,6 +186,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+
     }
 
     private void prepareDataSet() {
@@ -170,7 +216,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             for (int i = 0; i < startWeekList.size(); i++) {
                 if (startWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
                     binding.offerSpaceSelectStrtWeek.setSelection(i);
-                    availStart = startWeekList.get(i);
+                    availStart = i+"";
                 }
             }
         }
@@ -178,24 +224,53 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             for (int i = 0; i < startWeekList.size(); i++) {
                 if (endWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
                     binding.offerSpaceSelectEndWeek.setSelection(i);
-                    availEnd = startWeekList.get(i);
+                    availEnd = i+"";
                 }
             }
         }
     }
 
     private void addDataToList() {
-        startWeekList.add("Week day");
-        startWeekList.add("Sunday");
-        startWeekList.add("Monday");
-        startWeekList.add("Tuesday");
-        startWeekList.add("Wednesday");
-        startWeekList.add("Thursday");
-        startWeekList.add("Friday");
-        startWeekList.add("Saturday");
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("1");
+        selectSpaceDaysModel.setDayName("Monday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("2");
+        selectSpaceDaysModel.setDayName("Tuesday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("3");
+        selectSpaceDaysModel.setDayName("Wednesday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("4");
+        selectSpaceDaysModel.setDayName("Thursday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("5");
+        selectSpaceDaysModel.setDayName("Friday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("6");
+        selectSpaceDaysModel.setDayName("Saturday");
+        startWeekList.add(selectSpaceDaysModel);
+        selectSpaceDaysModel=new SelectSpaceDaysModel();
+        selectSpaceDaysModel.setChecked(false);
+        selectSpaceDaysModel.setDaySeleced("7");
+        selectSpaceDaysModel.setDayName("Sunday");
+        startWeekList.add(selectSpaceDaysModel);
+
     }
 
     private void init() {
+        jsonArray=new JsonArray();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
@@ -205,6 +280,48 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         binding.createEventEndTime.setOnClickListener(this);
         binding.createEvtnStartTimeTv.setOnClickListener(this);
         binding.getAddressTv.setOnClickListener(this);
+
+
+
+        setChips();
+    }
+
+    private void setChips() {
+        for (int i = 0; i < startWeekList.size(); i++) {
+            final Chip chip = new Chip(this);
+            chip.setEnabled(true);
+            ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+            chip.setChipDrawable(chipDrawable);
+            chip.setTextColor(getResources().getColor(R.color.colorWhite));
+//            chip.setMaxWidth(200);
+            chip.setText(startWeekList.get(i).getDayName());
+            chip.setTag(i);
+            chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String id=view.getId()+"";
+
+
+                        for (int i = 0; i < startWeekList.size(); i++) {
+
+                            if (id.equalsIgnoreCase(startWeekList.get(i).getDaySeleced())) {
+                                if (startWeekList.get(i).isChecked()) {
+                                    startWeekList.get(i).setChecked(false);
+                                    chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+                                } else {
+                                    startWeekList.get(i).setChecked(true);
+                                    chip.setChipBackgroundColorResource(R.color.colorGreen);
+                                }
+                            }
+                        }
+                }
+            });
+            chipSpaceGroup.addView(chip);
+        }
+        chipSpaceGroup.setEnabled(true);
+        chipSpaceGroup.setChipSpacingVertical(20);
+        binding.spaceDaysLayout.addView(chipSpaceGroup);
     }
 
 
