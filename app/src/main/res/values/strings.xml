@@ -302,7 +302,7 @@
     <string name="end_week">End Week</string>
     <string name="enter_space_name">Enter space name</string>
     <string name="enter_weekly_price">Enter weekly price</string>
-    <string name="selecte_availability">Select availablity from</string>
+    <string name="selecte_availability">Select availablity in week day</string>
     <string name="selecte_availability_to">Select availability to</string>
     <string name="training_session_name">Outdoor training</string>
     <string name="description_crate_training_session">Taking team fitness to a new level</string>
@@ -444,4 +444,5 @@
     <string name="network_check">No Internet</string>
     <string name="please_check_your_internet_connection">Please check your internet connection</string>
     <string name="retry">Refresh</string>
+    <string name="select_date_for_space_booking">Select date for Space Booking</string>
 </resources>

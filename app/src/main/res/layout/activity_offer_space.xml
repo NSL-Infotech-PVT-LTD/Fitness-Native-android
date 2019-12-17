@@ -283,17 +283,17 @@
                         app:layout_constraintTop_toBottomOf="@id/offerSpacePriceTv" />
 
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/offerSpaceAvailabilityTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:hint="@string/availability"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontFamily="@font/poppins_regular"
-                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/offerSpaceHourlyPrice" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:id="@+id/offerSpaceAvailabilityTv"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/_10sdp"-->
+<!--                        android:hint="@string/availability"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:fontFamily="@font/poppins_regular"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/offerSpaceHourlyPrice" />-->
 
                     <!--        <com.google.android.material.textview.MaterialTextView-->
                     <!--            android:id="@+id/offerSpaceAvailableEnterTv"-->
@@ -310,55 +310,55 @@
                     <!--            app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
                     <!--            app:layout_constraintTop_toBottomOf="@id/offerSpaceAvailabilityTv" />-->
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/OfferSpaceAvailableStrtTv"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/card_input_edt_background"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="@dimen/_15sdp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/offerSpaceAvailabilityTv" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:id="@+id/OfferSpaceAvailableStrtTv"-->
+<!--                        android:layout_width="@dimen/_120sdp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:background="@drawable/card_input_edt_background"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:paddingLeft="@dimen/_15sdp"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/offerSpaceAvailabilityTv" />-->
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/offerSpaceSelectStrtWeek"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="0dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="@dimen/_6sdp"
-                        android:spinnerMode="dropdown"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/OfferSpaceAvailableStrtTv"
-                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toTopOf="@id/OfferSpaceAvailableStrtTv" />
+<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                        android:id="@+id/offerSpaceSelectStrtWeek"-->
+<!--                        android:layout_width="@dimen/_120sdp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:paddingLeft="@dimen/_6sdp"-->
+<!--                        android:spinnerMode="dropdown"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_8sdp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/OfferSpaceAvailableStrtTv"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                        app:layout_constraintTop_toTopOf="@id/OfferSpaceAvailableStrtTv" />-->
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/OfferSpaceAvailableEndTv"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/card_input_edt_background"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="@dimen/_15sdp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/offerSpaceAvailabilityTv" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:id="@+id/OfferSpaceAvailableEndTv"-->
+<!--                        android:layout_width="@dimen/_120sdp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:background="@drawable/card_input_edt_background"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:paddingLeft="@dimen/_15sdp"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/offerSpaceAvailabilityTv" />-->
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/offerSpaceSelectEndWeek"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="0dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="@dimen/_6sdp"
-                        android:spinnerMode="dropdown"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/OfferSpaceAvailableEndTv"
-                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toTopOf="@id/OfferSpaceAvailableEndTv" />
+<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                        android:id="@+id/offerSpaceSelectEndWeek"-->
+<!--                        android:layout_width="@dimen/_120sdp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:paddingLeft="@dimen/_6sdp"-->
+<!--                        android:spinnerMode="dropdown"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_8sdp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/OfferSpaceAvailableEndTv"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
+<!--                        app:layout_constraintTop_toTopOf="@id/OfferSpaceAvailableEndTv" />-->
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -371,7 +371,7 @@
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/offerSpaceSelectStrtWeek" />
+                        app:layout_constraintTop_toBottomOf="@id/offerSpaceHourlyPrice" />
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -416,9 +416,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/services"
-                        android:textColor="@color/themeColor"
-                        android:textSize="@dimen/_12sdp"
+                        android:text="@string/availability"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@+id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/offerSpaceUploadTv" />
 

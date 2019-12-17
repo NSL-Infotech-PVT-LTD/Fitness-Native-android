@@ -45,6 +45,7 @@ import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.response.ServiceListResponse;
 import com.netscape.utrain.response.SessionDetailResponse;
+import com.netscape.utrain.response.SlotListResponse;
 import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.response.TermsAndConditionsResponse;
@@ -617,5 +618,11 @@ public interface Retrofitinterface {
     @GET(Constants.MARK_NOTIFICATIONS_READ)
     Call<NotificationReadResponse> setNewNotificationRead(@Header("Content-Type") String Content_type,
                                                           @Header("Authorization") String Authorization);
+    @FormUrlEncoded
+    @POST(Constants.AVAILABLE_SLOTS)
+    Call<SlotListResponse> getTimeSlots(@Header("Content-Type") String Content_type,
+                                        @Header("Authorization") String Authorization,
+                                        @Field("target_id")String target_id,
+                                        @Field("date")String date);
 
 }

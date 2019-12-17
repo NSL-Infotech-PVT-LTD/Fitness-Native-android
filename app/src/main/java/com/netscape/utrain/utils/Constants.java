@@ -128,6 +128,7 @@ public class Constants {
     public static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
     public static final String ORGANIZER_COACH_STORE = "organiser/coach/store";
     public static final String TypeOrgCoach = "OrgCoachActive";
+    public static final String AVAILABLE_SLOTS ="availability" ;
 
 
     public static String ROLE_PLAY = "";

@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,8 @@ import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivitySelecteTimeSlotBinding;
 import com.netscape.utrain.model.ServiceListDataModel;
+import com.netscape.utrain.model.SlotModels;
+import com.netscape.utrain.response.SlotListResponse;
 import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -36,9 +39,12 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +64,9 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
     private String spaceId="";
     private Chip chipSelected;
     private boolean selected=false;
+    private ArrayList<SlotListResponse.DataBean>slotList;
+    private ArrayList<SlotModels>slotListApi;
+    private String previewSlot="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,76 +76,77 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
         spaceId=getIntent().getStringExtra("bookSpaceId");
         chipGroup = new ChipGroup(this);
-        chipGroup.setSingleSelection(true);
+        chipGroup.setSingleSelection(false);
         binding.dateLayout.setOnClickListener(this);
         binding.bottomConstraint.setOnClickListener(this);
         binding.closeSlotDialog.setOnClickListener(this);
         init();
         getService();
-        setChips();
+        hitSpaceDetailAPI(spaceId);
+//        setChips();
     }
 
     private void init() {
-        timeSlotList.add("Select No. of Hours");
-        timeSlotList.add("1 Hour");
-        timeSlotList.add("2 Hour");
-        timeSlotList.add("3 Hour");
-        timeSlotList.add("4 Hour");
-        timeSlotList.add("5 Hour");
-        timeSlotList.add("6 Hour");
-        timeSlotList.add("7 Hour");
-        timeSlotList.add("8 Hour");
-        timeSlotList.add("9 Hour");
-        timeSlotList.add("10 Hour");
-        ArrayAdapter endWeekAdapter = new ArrayAdapter(SelecteTimeSlot.this, android.R.layout.simple_spinner_item, timeSlotList);
-        endWeekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.timeSlotDropDown.setAdapter(endWeekAdapter);
-
-        binding.timeSlotDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i==0){
-                    selectedSlot="";
-                }else {
-                    binding.timeSlotDropDown.setSelection(i);
-                    selectedSlot = timeSlotList.get(i);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
+//        timeSlotList.add("Select No. of Hours");
+//        timeSlotList.add("1 Hour");
+//        timeSlotList.add("2 Hour");
+//        timeSlotList.add("3 Hour");
+//        timeSlotList.add("4 Hour");
+//        timeSlotList.add("5 Hour");
+//        timeSlotList.add("6 Hour");
+//        timeSlotList.add("7 Hour");
+//        timeSlotList.add("8 Hour");
+//        timeSlotList.add("9 Hour");
+//        timeSlotList.add("10 Hour");
+//        ArrayAdapter endWeekAdapter = new ArrayAdapter(SelecteTimeSlot.this, android.R.layout.simple_spinner_item, timeSlotList);
+//        endWeekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        binding.timeSlotDropDown.setAdapter(endWeekAdapter);
+//
+//        binding.timeSlotDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (i==0){
+//                    selectedSlot="";
+//                }else {
+//                    binding.timeSlotDropDown.setSelection(i);
+//                    selectedSlot = timeSlotList.get(i);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
 
 
 
-        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ChipGroup group, int checkedId) {
-                if (selected){
-                    if (chipSelected !=null) {
-                        chipSelected.setChipBackgroundColor(ColorStateList.valueOf(
-                                ContextCompat.getColor(SelecteTimeSlot.this, R.color.lightGrayFont)));
-                        timeSlotSelected="";
-                    }
-                }
-                chipSelected = chipGroup.findViewById(checkedId);
-                if (chipSelected !=null){
-                    chipSelected.setChipBackgroundColor( ColorStateList.valueOf(
-                            ContextCompat.getColor(SelecteTimeSlot.this, R.color.colorAccent)));
-                    selected=true;
-                    timeSlotSelected=chipSelected.getText().toString();
-                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
-                }else{
-                    selected=false;
+
+
+//        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup group, int checkedId) {
+//                if (selected){
+//                    if (chipSelected !=null) {
+//                        chipSelected.setChipBackgroundColor(ColorStateList.valueOf(
+//                                ContextCompat.getColor(SelecteTimeSlot.this, R.color.lightGrayFont)));
+//                        timeSlotSelected="";
+//                    }
+//                }
+//                chipSelected = chipGroup.findViewById(checkedId);
+//                if (chipSelected !=null){
+//                    chipSelected.setChipBackgroundColor( ColorStateList.valueOf(
+//                            ContextCompat.getColor(SelecteTimeSlot.this, R.color.colorAccent)));
+//                    selected=true;
+//                    timeSlotSelected=chipSelected.getText().toString();
 //                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//                }else{
+//                    selected=false;
+////                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     private void getService() {
@@ -163,21 +173,59 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
         }
     }
     private void setChips() {
-        for (int i = 0; i < sList.size(); i++) {
+        for (SlotModels slots : slotListApi) {
             final Chip chip = new Chip(this);
             chip.setEnabled(true);
             ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
             chip.setChipDrawable(chipDrawable);
             chip.setTextColor(getResources().getColor(R.color.colorWhite));
-            chip.setMaxWidth(200);
-            chip.setText(sList.get(i).getName()+"..");
-            chip.setTag(sList.get(i).getId());
+//            chip.setMaxWidth(200);
+            chip.setText(slots.getSlotStartTime()+" To "+slots.getSlotEndTime());
+//            chip.setTag(slotListApi.get(i).getId());
             chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String id=view.getId()+"";
+                    Chip chips=chipGroup.findViewById(view.getId());
+                    String chipText=chips.getChipText().toString();
+                    String timeSlot=getSlotValue(chipText);
+
+
+//                    if (!TextUtils.isEmpty(previewSlot)){
+//                        if (Integer.parseInt(previewSlot)==Integer.parseInt(timeSlot)){
+//
+//                        }
+//
+//                    }else {
+
+
+                    slots.setChecked(!slots.isChecked());
+                    if (slots.isChecked()) {
+                        previewSlot=timeSlot;
+                        chip.setChipBackgroundColorResource(R.color.colorGreen);
+                    } else {
+                        previewSlot=timeSlot;
+                        chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+                    }
+                    }
+
+
+//                }
+            });
             chipGroup.addView(chip);
         }
         chipGroup.setEnabled(true);
         chipGroup.setChipSpacingVertical(20);
         binding.constraintChipGroup.addView(chipGroup);
+    }
+    private String getSlotValue(String value){
+        StringTokenizer tokens = new StringTokenizer(value, "To");
+        String first = tokens.nextToken();// this will contain "Fruit"
+        String second = tokens.nextToken();
+        StringTokenizer tokenss = new StringTokenizer(second, ":");
+        String firstSt=tokenss.nextToken();
+        return firstSt;
     }
 
     @Override
@@ -255,17 +303,18 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SelecteTimeSlot.this), Constants.CONTENT_TYPE, id);
-        signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
+        Call<SlotListResponse> signUpAthlete = retrofitinterface.getTimeSlots(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, SelecteTimeSlot.this),  "23","2019-12-18");
+        signUpAthlete.enqueue(new Callback<SlotListResponse>() {
             @Override
-            public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
+            public void onResponse(Call<SlotListResponse> call, Response<SlotListResponse> response) {
                 progressDialog.dismiss();
-
+                slotList=new ArrayList<>();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            slotList.add(response.body().getData());
+                            getSlotsFromArray();
 
-                            setChips();
 
                         }
                     }
@@ -287,7 +336,7 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
             }
 
             @Override
-            public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
+            public void onFailure(Call<SlotListResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(SelecteTimeSlot.this, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
@@ -295,6 +344,19 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
 
             }
         });
+    }
+
+    private void getSlotsFromArray() {
+        slotListApi=new ArrayList<>();
+        if (slotList !=null && slotList.size()>0){
+            for (int i=0;i<slotList.get(0).getAvailable_slot().size();i++){
+                SlotModels models=new SlotModels();
+                models.setSlotStartTime(slotList.get(0).getAvailable_slot().get(i).get(0));
+                models.setSlotEndTime(slotList.get(0).getAvailable_slot().get(i).get(1));
+                slotListApi.add(models);
+            }
+            setChips();
+        }
     }
 }
 
