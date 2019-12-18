@@ -1,19 +1,23 @@
 package com.netscape.utrain.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
@@ -40,9 +44,11 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -67,6 +73,10 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
     private ArrayList<SlotListResponse.DataBean>slotList;
     private ArrayList<SlotModels>slotListApi;
     private String previewSlot="";
+    private int mYear, mMonth, mDay, mHour, mMinute;
+    private String endTime = "";
+    private String startTime = "";
+    private String chipStartTime="",chipEndtime="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +86,12 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
         retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
         spaceId=getIntent().getStringExtra("bookSpaceId");
         chipGroup = new ChipGroup(this);
-        chipGroup.setSingleSelection(false);
+        chipGroup.setSingleSelection(true);
         binding.dateLayout.setOnClickListener(this);
         binding.bottomConstraint.setOnClickListener(this);
         binding.closeSlotDialog.setOnClickListener(this);
+        binding.startHour.setOnClickListener(this);
+        binding.endHour.setOnClickListener(this);
         init();
         getService();
         hitSpaceDetailAPI(spaceId);
@@ -124,29 +136,43 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
 
 
 
-//        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(ChipGroup group, int checkedId) {
-//                if (selected){
-//                    if (chipSelected !=null) {
-//                        chipSelected.setChipBackgroundColor(ColorStateList.valueOf(
-//                                ContextCompat.getColor(SelecteTimeSlot.this, R.color.lightGrayFont)));
-//                        timeSlotSelected="";
-//                    }
-//                }
-//                chipSelected = chipGroup.findViewById(checkedId);
-//                if (chipSelected !=null){
-//                    chipSelected.setChipBackgroundColor( ColorStateList.valueOf(
-//                            ContextCompat.getColor(SelecteTimeSlot.this, R.color.colorAccent)));
-//                    selected=true;
-//                    timeSlotSelected=chipSelected.getText().toString();
+        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+                if (selected){
+                    if (chipSelected !=null) {
+                        chipSelected.setChipBackgroundColor(ColorStateList.valueOf(
+                                ContextCompat.getColor(SelecteTimeSlot.this, R.color.lightGrayFont)));
+                        timeSlotSelected="";
+                    }
+                }
+                chipSelected = chipGroup.findViewById(checkedId);
+                if (chipSelected !=null){
+                    chipSelected.setChipBackgroundColor( ColorStateList.valueOf(
+                            ContextCompat.getColor(SelecteTimeSlot.this, R.color.colorAccent)));
+                    selected=true;
+                    timeSlotSelected=chipSelected.getText().toString();
+                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
+                    chipStartTime=getSlotValue(chipSelected.getText().toString(),false);
+                    chipEndtime=getSlotValue(chipSelected.getText().toString(),true);
+                    setValue();
+                }else{
+                    selected=false;
+                    chipEndtime="";
+                    chipStartTime="";
+                    startTime="";
+                    endTime="";
 //                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
-//                }else{
-//                    selected=false;
-////                    Toast.makeText(SelecteTimeSlot.this, ""+chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+                }
+            }
+        });
+    }
+
+    private void setValue() {
+        startTime=chipStartTime;
+        endTime=chipEndtime;
+        binding.startHour.setText(chipStartTime);
+        binding.endHour.setText(chipEndtime);
     }
 
     private void getService() {
@@ -183,49 +209,64 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
             chip.setText(slots.getSlotStartTime()+" To "+slots.getSlotEndTime());
 //            chip.setTag(slotListApi.get(i).getId());
             chip.setChipBackgroundColorResource(R.color.lightGrayFont);
-            chip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String id=view.getId()+"";
-                    Chip chips=chipGroup.findViewById(view.getId());
-                    String chipText=chips.getChipText().toString();
-                    String timeSlot=getSlotValue(chipText);
-
-
-//                    if (!TextUtils.isEmpty(previewSlot)){
-//                        if (Integer.parseInt(previewSlot)==Integer.parseInt(timeSlot)){
+//            chip.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    String id=view.getId()+"";
+//                    Chip chips=chipGroup.findViewById(view.getId());
+//                    String chipText=chips.getChipText().toString();
+//                    String startSlot=getSlotValue(chipText,false);
+//                    String endSlot=getSlotValue(chipText,true);
 //
+//
+//                    if (!TextUtils.isEmpty(previewSlot)){
+//                        if ((Integer.parseInt(previewSlot.trim()))==(Integer.parseInt(startSlot.trim()))){
+//                            chip.setChipBackgroundColorResource(R.color.colorGreen);
+//                            previewSlot=endSlot;
+//                        }else {
+//                            chip.setCheckable(false);
+//                            chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+//                            Toast.makeText(SelecteTimeSlot.this, "Cant selecte this slot", Toast.LENGTH_SHORT).show();
 //                        }
 //
+//
 //                    }else {
-
-
-                    slots.setChecked(!slots.isChecked());
-                    if (slots.isChecked()) {
-                        previewSlot=timeSlot;
-                        chip.setChipBackgroundColorResource(R.color.colorGreen);
-                    } else {
-                        previewSlot=timeSlot;
-                        chip.setChipBackgroundColorResource(R.color.lightGrayFont);
-                    }
-                    }
-
-
-//                }
-            });
+//                        previewSlot=endSlot;
+//                        chip.setChipBackgroundColorResource(R.color.colorGreen);
+//
+//                    }
+//                    }
+//
+////
+////                    slots.setChecked(!slots.isChecked());
+////                    if (slots.isChecked()) {
+////                        previewSlot=timeSlot;
+////                        chip.setChipBackgroundColorResource(R.color.colorGreen);
+////                    } else {
+////                        previewSlot=timeSlot;
+////                        chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+////                    }
+////                    }
+//
+//
+//
+//            });
             chipGroup.addView(chip);
         }
         chipGroup.setEnabled(true);
         chipGroup.setChipSpacingVertical(20);
         binding.constraintChipGroup.addView(chipGroup);
     }
-    private String getSlotValue(String value){
+    private String getSlotValue(String value,boolean endSlot){
+        StringTokenizer tokenss=null;
         StringTokenizer tokens = new StringTokenizer(value, "To");
         String first = tokens.nextToken();// this will contain "Fruit"
         String second = tokens.nextToken();
-        StringTokenizer tokenss = new StringTokenizer(second, ":");
-        String firstSt=tokenss.nextToken();
-        return firstSt;
+        if (endSlot) {
+             return second;
+        }else {
+            return first;
+        }
     }
 
     @Override
@@ -239,23 +280,30 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bottomConstraint:
                 getDataFromFields();
-
             break;
+            case R.id.startHour:
+                getStartTime();
+                break;
+            case R.id.endHour:
+                getEndTime();
+                break;
         }
     }
 
     private void getDataFromFields() {
-    if (selectedSlot.isEmpty()){
-        Toast.makeText(this, "Select Time Slot", Toast.LENGTH_SHORT).show();
-    }else if (startDate.isEmpty()){
-        Toast.makeText(this, "Select Date ", Toast.LENGTH_SHORT).show();
-    }else if (timeSlotSelected.isEmpty()){
-        Toast.makeText(this, "Select Time ", Toast.LENGTH_SHORT).show();
+        startTime=binding.startHour.getText().toString().trim();
+        endTime=binding.endHour.getText().toString().trim();
+    if (startDate.isEmpty()){
+        Toast.makeText(this, "Select Date", Toast.LENGTH_SHORT).show();
+    }else if (startTime.isEmpty()){
+        Toast.makeText(this, "Select start hour ", Toast.LENGTH_SHORT).show();
+    }else if (endTime.isEmpty()){
+        Toast.makeText(this, "Select end hour ", Toast.LENGTH_SHORT).show();
     }else {
         Intent intent = new Intent();
-        intent.putExtra(Constants.SELECTED_SLOT, selectedSlot);
         intent.putExtra(Constants.SLOT_DATE, startDate);
-        intent.putExtra(Constants.SLOT_TIME, timeSlotSelected);
+        intent.putExtra(Constants.SLOT_START_TIME, startTime);
+        intent.putExtra(Constants.SLOT_END_TIME, endTime);
         setResult(RESULT_OK, intent);
         SelecteTimeSlot.this.finish();
     }
@@ -357,6 +405,67 @@ public class SelecteTimeSlot extends AppCompatActivity implements View.OnClickLi
             }
             setChips();
         }
+    }
+    private void getStartTime() {
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(SelecteTimeSlot.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                binding.startHour.setPadding(20, 0, 70, 0);
+                if (formatTime(startTime).after(formatTime(chipStartTime)) && formatTime(startTime).before(formatTime(chipEndtime))){
+                    binding.startHour.setText(startTime);
+                }else {
+                    binding.startHour.setText("");
+                    binding.startHour.setText("Start time");
+                    Toast.makeText(SelecteTimeSlot.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
+    private void getEndTime() {
+        Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(SelecteTimeSlot.this, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                binding.endHour.setPadding(20, 0, 70, 0);
+                if (!TextUtils.isEmpty(startTime)) {
+                    if (formatTime(endTime).before(formatTime(chipEndtime)) && formatTime(endTime).after(formatTime(startTime))) {
+                        binding.endHour.setText(endTime);
+                    } else {
+                        binding.endHour.setText("");
+                        binding.endHour.setText("End time");
+                        Toast.makeText(SelecteTimeSlot.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(SelecteTimeSlot.this, "Change start hour first", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
+    private Date formatTime(String time){
+        Date formated=null;
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+        try {
+            formated=timeFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formated;
     }
 }
 

@@ -445,4 +445,8 @@
     <string name="please_check_your_internet_connection">Please check your internet connection</string>
     <string name="retry">Refresh</string>
     <string name="select_date_for_space_booking">Select date for Space Booking</string>
+    <string name="slot_start_hour">Slot start hour</string>
+    <string name="start_hour">Start hour</string>
+    <string name="end_hour">End hour</string>
+    <string name="change_time_range">Change time</string>
 </resources>

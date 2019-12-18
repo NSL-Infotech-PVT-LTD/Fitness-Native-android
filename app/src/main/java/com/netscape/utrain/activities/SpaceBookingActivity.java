@@ -396,8 +396,8 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode==SLOT_REQUEST && resultCode==RESULT_OK && data!=null){
             slotModel=new SlotModel();
-            slotModel.setSelectedSlot(data.getStringExtra(Constants.SELECTED_SLOT));
-            slotModel.setSelectedTime(data.getStringExtra(Constants.SLOT_TIME));
+            slotModel.setSlotStartTime(data.getStringExtra(Constants.SLOT_START_TIME));
+            slotModel.setSlotEndTime(data.getStringExtra(Constants.SLOT_END_TIME));
             slotModel.setSelectedDate(data.getStringExtra(Constants.SLOT_DATE));
 //            results.add(slotModel);
             adapter.add(slotModel);
@@ -405,14 +405,14 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
             binding.noSlotText.setVisibility(View.GONE);
             binding.bookintText.setVisibility(View.VISIBLE);
             binding.bottomConstraint.setVisibility(View.VISIBLE);
-            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
-            if(firstWord.contains(" ")){
-                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
-
-            }
-            totalHours=totalHours+Integer.parseInt(firstWord);
-            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
-            setTotalPrice(totalHours);
+//            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
+//            if(firstWord.contains(" ")){
+//                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
+//
+//            }
+//            totalHours=totalHours+Integer.parseInt(firstWord);
+//            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
+//            setTotalPrice(totalHours);
         }else{
             Toast.makeText(this, "No Slot Created", Toast.LENGTH_SHORT).show();
         }

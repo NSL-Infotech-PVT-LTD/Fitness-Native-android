@@ -417,7 +417,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                startTime = convertDate(hourOfDay) + ":" + "00";
                 binding.createEvtnStartTimeTv.setText(startTime);
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
             }
@@ -436,11 +436,12 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                endTime = convertDate(hourOfDay) + ":" + "00";
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
                 if (formatTime(endTime).after(formatTime(startTime))) {
                     binding.createEventEndTime.setText(endTime);

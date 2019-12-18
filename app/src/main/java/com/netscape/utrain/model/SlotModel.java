@@ -1,16 +1,24 @@
 package com.netscape.utrain.model;
 
 public class SlotModel {
-    private String selectedSlot;
+    private String slotStartTime;
     private String selectedDate;
-    private String selectedTime;
+    private String slotEndTime;
 
-    public String getSelectedSlot() {
-        return selectedSlot;
+    public String getSlotStartTime() {
+        return slotStartTime;
     }
 
-    public void setSelectedSlot(String selectedSlot) {
-        this.selectedSlot = selectedSlot;
+    public void setSlotStartTime(String slotStartTime) {
+        this.slotStartTime = slotStartTime;
+    }
+
+    public String getSlotEndTime() {
+        return slotEndTime;
+    }
+
+    public void setSlotEndTime(String slotEndTime) {
+        this.slotEndTime = slotEndTime;
     }
 
     public String getSelectedDate() {
@@ -21,11 +29,4 @@ public class SlotModel {
         this.selectedDate = selectedDate;
     }
 
-    public String getSelectedTime() {
-        return selectedTime;
-    }
-
-    public void setSelectedTime(String selectedTime) {
-        this.selectedTime = selectedTime;
-    }
 }

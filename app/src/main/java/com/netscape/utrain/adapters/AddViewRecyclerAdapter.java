@@ -50,9 +50,9 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
         final SlotModel data = list.get(position);
 //        Glide.with(context).load(Constants.ORG_COACH_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.coachStaffImg);
         holder.bookingSlotNum.setText("Booking Slot "+list.size());
-        holder.slotType.setText(data.getSelectedSlot());
+        holder.slotType.setText(data.getSlotStartTime()+" To "+data.getSlotEndTime());
         holder.slotDate.setText(data.getSelectedDate());
-        holder.slotTime.setText(data.getSelectedTime());
+//        holder.slotTime.setText(data.getSelectedTime());
 //        holder.slotTime.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -142,7 +142,7 @@ public class AddViewRecyclerAdapter extends RecyclerView.Adapter<AddViewRecycler
             bookingSlotNum = itemView.findViewById(R.id.bookingSlotNum);
             slotType = itemView.findViewById(R.id.slotType);
             slotDate = itemView.findViewById(R.id.slotDate);
-            slotTime = itemView.findViewById(R.id.slotTime);
+//            slotTime = itemView.findViewById(R.id.slotTime);
         }
     }
 }

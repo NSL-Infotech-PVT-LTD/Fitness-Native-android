@@ -572,6 +572,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
                                     clearFromConstants();
                                     Constants.CHECKBOX_IS_CHECKED = 0;
+                                    CommonMethods.deleteDirectory(mediaStorageDir);
                                     SelectedServiceList.getInstance().getList().clear();
                                     CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
                                     CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);

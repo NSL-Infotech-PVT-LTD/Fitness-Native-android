@@ -119,7 +119,8 @@ public class Constants {
     public static final String ADDRESS = "address";
     public static final String SELECTED_SLOT = "selectedSlot";
     public static final String SLOT_DATE = "slotDate";
-    public static final String SLOT_TIME = "slotTime";
+    public static final String SLOT_START_TIME = "slotStartTime";
+    public static final String SLOT_END_TIME = "slotEndTime";
     public static final String LOCATION_LAT = "locationLat";
     public static final String LOCATION_LONG = "locationLong";
     public static final String STATUS = "";

@@ -161,7 +161,9 @@ public class EventDetail extends AppCompatActivity {
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Spaces");
 //                placeModel= (AthletePlaceModel) getIntent().getSerializableExtra(Constants.SPACE_DATA);
-
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer) ||CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                    binding.view1.setVisibility(View.GONE);
+                }
                 binding.eventNumOfCandidateAttendingTv.setVisibility(View.GONE);
                 binding.eventCandidateTv.setVisibility(View.GONE);
                 binding.eventNumOfCandidateTv.setVisibility(View.GONE);

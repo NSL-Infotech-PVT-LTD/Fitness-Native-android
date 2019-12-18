@@ -150,6 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
                                 if (loginFor.equalsIgnoreCase(Constants.Organizer)) {
                                     if (loginFor.equalsIgnoreCase(role)) {
+
                                         CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, LoginActivity.this);
                                         CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), LoginActivity.this);
                                         CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), LoginActivity.this);

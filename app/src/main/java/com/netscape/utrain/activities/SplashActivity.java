@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -21,6 +22,7 @@ import com.netscape.utrain.databinding.ActivitySplashBinding;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -28,6 +30,7 @@ public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding binding;
     private int SPLASH_DISPLAY_LENGTH=2000;
     private String userEmail="",userMobile="",loginUser;
+    private File mediaStorageDir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,16 @@ public class SplashActivity extends AppCompatActivity {
         userEmail = CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, getApplicationContext());
         userMobile = CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, getApplicationContext());
         loginUser = CommonMethods.getPrefData(PrefrenceConstant.LOGED_IN_USER, getApplicationContext());
+        mediaStorageDir = new File(Environment.getExternalStorageDirectory() ,"UtCompressed");
+        File dir = getFilesDir();
+        File file = new File(dir, "UtCompressed");
+//        File dir = new File(Environment.getExternalStorageDirectory()+"UtCompressed");
+        File mydir = new File(Environment.getExternalStoragePublicDirectory("UtCompressed").toString()); //Creating an internal dir;
+
+        if (mydir.isDirectory()){
+            CommonMethods.deleteDirectory(mediaStorageDir);
+        }
+        ///storage/emulated/0/UtCompressed
 
         new Handler().postDelayed(new Runnable(){
             @Override
