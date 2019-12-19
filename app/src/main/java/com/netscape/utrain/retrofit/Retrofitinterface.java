@@ -340,13 +340,12 @@ public interface Retrofitinterface {
     @POST(Constants.SPACE_BOOKING_API)
     Call<SpaceBookingResponse> spaceBooking(@Header("Authorization") String Authorization,
                                             @Header("Content-Type") String contentType,
-                                            @Query("type") String type,
                                             @Query("target_id") String id,
                                             @Query("price") String price,
-                                            @Query("status") String status,
                                             @Query("token") String token,
-                                            @Query("space_date_start") String startDate,
-                                            @Query("space_date_end") String endDate);
+                                            @Query("status") String status,
+                                            @Query("type") String type,
+                                            @Query("booking") String booking);
 
     @POST(Constants.BOOKING_LIST_EVENT)
     Call<BookingListResponse> getBookingList(@Header("Authorization") String Authorization,

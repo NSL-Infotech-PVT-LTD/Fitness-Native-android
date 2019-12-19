@@ -117,17 +117,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void getLoginData() {
 
-        email = binding.loginEmailEdt.getText().toString();
-        password = binding.loginPasswordEdt.getText().toString();
+        email = binding.loginEmailEdt.getText().toString().trim();
+        password = binding.loginPasswordEdt.getText().toString().trim();
 
 
-        if (binding.loginEmailEdt.getText().toString().isEmpty()) {
+        if (email.isEmpty()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.loginEmailEdt.requestFocus();
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.loginEmailEdt.getText().toString()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.loginEmailEdt.setError(getResources().getString(R.string.enter_valid_email));
             binding.loginEmailEdt.requestFocus();
-        } else if (binding.loginPasswordEdt.getText().toString().isEmpty()) {
+        } else if (binding.loginPasswordEdt.getText().toString().trim().isEmpty()) {
             binding.loginPasswordEdt.setError(getResources().getString(R.string.enter_your_password));
             binding.loginPasswordEdt.requestFocus();
         } else {

@@ -1,32 +1,35 @@
 package com.netscape.utrain.model;
 
 public class SlotModel {
-    private String slotStartTime;
-    private String selectedDate;
-    private String slotEndTime;
+    private String from_time;
 
-    public String getSlotStartTime() {
-        return slotStartTime;
+    public String getFrom_time() {
+        return from_time;
     }
 
-    public void setSlotStartTime(String slotStartTime) {
-        this.slotStartTime = slotStartTime;
+    public void setFrom_time(String from_time) {
+        this.from_time = from_time;
     }
 
-    public String getSlotEndTime() {
-        return slotEndTime;
+    public String getBooking_date() {
+        return booking_date;
     }
 
-    public void setSlotEndTime(String slotEndTime) {
-        this.slotEndTime = slotEndTime;
+    public void setBooking_date(String booking_date) {
+        this.booking_date = booking_date;
     }
 
-    public String getSelectedDate() {
-        return selectedDate;
+    public String getTo_time() {
+        return to_time;
     }
 
-    public void setSelectedDate(String selectedDate) {
-        this.selectedDate = selectedDate;
+    public void setTo_time(String to_time) {
+        this.to_time = to_time;
     }
+
+    private String booking_date;
+    private String to_time;
+
+
 
 }

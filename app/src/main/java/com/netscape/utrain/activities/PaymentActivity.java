@@ -450,7 +450,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") , price, "pending", token, getIntent().getStringExtra("startDate"), getIntent().getStringExtra("endDate"));
+        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE,  getIntent().getStringExtra("event_id") , price,token, "pending",  type, getIntent().getStringExtra("totalSlots"));
         signUpAthlete.enqueue(new Callback<SpaceBookingResponse>() {
             @Override
             public void onResponse(Call<SpaceBookingResponse> call, Response<SpaceBookingResponse> response) {

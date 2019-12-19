@@ -1,29 +1,18 @@
 package com.netscape.utrain.activities;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.legacy.widget.Space;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -34,8 +23,7 @@ import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.AddViewRecyclerAdapter;
 import com.netscape.utrain.databinding.ActivitySpaceBookingBinding;
-import com.netscape.utrain.model.EventBookingModel;
-import com.netscape.utrain.model.NotificationDatamodel;
+import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.SlotModel;
 import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -47,12 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -327,7 +312,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //                TOTAL_PAGES = response.body().getData().getLast_page();
 //                getItemPerPage = response.body().getData().getPer_page();
 
-                    Intent intent=new Intent(SpaceBookingActivity.this,SelecteTimeSlot.class);
+                    Intent intent=new Intent(SpaceBookingActivity.this, SelectTimeSlot.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.putExtra("bookSpaceId",getIntent().getStringExtra("event_id"));
                     startActivityForResult(intent,SLOT_REQUEST);
@@ -340,13 +325,9 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         if (results !=null && results.size()>0 && Integer.parseInt(totalPrice)>0) {
             Intent payment = new Intent(SpaceBookingActivity.this, PaymentActivity.class);
             jsonArray = (JsonArray) new Gson().toJsonTree(results);
-
             payment.putExtra("type", getIntent().getStringExtra("type"));
             payment.putExtra("totalPrice", totalPrice);
             payment.putExtra("totalSlots", jsonArray.toString());
-            payment.putExtra("startDate", sDate + " " + startTime);
-            payment.putExtra("endDate", enDate + " " + endTime);
-//                intent.putExtra("tickets", countVAlue);
             payment.putExtra("event_id", getIntent().getStringExtra("event_id"));
             startActivity(payment);
         }else {
@@ -396,23 +377,39 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode==SLOT_REQUEST && resultCode==RESULT_OK && data!=null){
             slotModel=new SlotModel();
-            slotModel.setSlotStartTime(data.getStringExtra(Constants.SLOT_START_TIME));
-            slotModel.setSlotEndTime(data.getStringExtra(Constants.SLOT_END_TIME));
-            slotModel.setSelectedDate(data.getStringExtra(Constants.SLOT_DATE));
+            slotModel.setFrom_time(data.getStringExtra(Constants.SLOT_START_TIME));
+            slotModel.setTo_time(data.getStringExtra(Constants.SLOT_END_TIME));
+            slotModel.setBooking_date(data.getStringExtra(Constants.SLOT_DATE));
 //            results.add(slotModel);
+            ServiceListDataModel serviceListDataModel=new ServiceListDataModel();
+            serviceListDataModel.setName(data.getStringExtra(Constants.SLOT_DATE));
+            SelectedServiceList.getInstance().getList().add(serviceListDataModel);
             adapter.add(slotModel);
             binding.noSlotCalendar.setVisibility(View.GONE);
             binding.noSlotText.setVisibility(View.GONE);
             binding.bookintText.setVisibility(View.VISIBLE);
             binding.bottomConstraint.setVisibility(View.VISIBLE);
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            Date date1=null;
+            Date date2=null;
+            try {
+                date1=format.parse(data.getStringExtra(Constants.SLOT_START_TIME));
+                date2=format.parse(data.getStringExtra(Constants.SLOT_END_TIME));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            long hour = CommonMethods.getDiffrenceTwoTimes(date1,date2);
+            Toast.makeText(this, "hour="+hour, Toast.LENGTH_SHORT).show();
+
 //            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
 //            if(firstWord.contains(" ")){
 //                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
 //
 //            }
-//            totalHours=totalHours+Integer.parseInt(firstWord);
-//            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
-//            setTotalPrice(totalHours);
+            totalHours=totalHours+(int)hour;
+            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
+            setTotalPrice(totalHours);
         }else{
             Toast.makeText(this, "No Slot Created", Toast.LENGTH_SHORT).show();
         }

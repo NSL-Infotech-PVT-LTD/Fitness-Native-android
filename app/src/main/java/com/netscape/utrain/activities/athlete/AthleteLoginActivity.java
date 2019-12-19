@@ -158,8 +158,8 @@ public class AthleteLoginActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void validateEdt() {
-        email = binding.athleteEmailEdt.getText().toString();
-        password = binding.athletePasswordEdt.getText().toString();
+        email = binding.athleteEmailEdt.getText().toString().trim();
+        password = binding.athletePasswordEdt.getText().toString().trim();
         if (email.isEmpty()) {
 //            Snackbar.make(binding.athleteLoginLayout,getResources().getString(R.string.enter_email), BaseTransientBottomBar.LENGTH_LONG).show();
             binding.athleteEmailEdt.setError(getResources().getString(R.string.enter_email));

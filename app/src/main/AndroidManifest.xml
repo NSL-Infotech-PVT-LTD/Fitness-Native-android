@@ -16,7 +16,7 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SelecteTimeSlot"></activity>
+        <activity android:name=".activities.SelectTimeSlot"></activity>
         <activity
             android:name=".activities.TermsAndConditions"
             android:screenOrientation="portrait" />

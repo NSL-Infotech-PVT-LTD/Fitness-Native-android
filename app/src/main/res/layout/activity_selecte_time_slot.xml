@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SelecteTimeSlot">
+    tools:context=".activities.SelectTimeSlot">
 
    <androidx.appcompat.widget.AppCompatImageView
        android:id="@+id/closeSlotDialog"
@@ -18,9 +18,12 @@
        android:background="@drawable/ic_back"
        ></androidx.appcompat.widget.AppCompatImageView>
     <ScrollView
+        android:id="@+id/editTimeScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/closeSlotDialog"
         app:layout_constraintBottom_toTopOf="@+id/bottomConstraint">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +65,7 @@
         android:gravity="center"
         android:drawablePadding="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:drawableLeft="@drawable/ic_time"
+        android:drawableLeft="@drawable/ic_icon_cal_dialog"
         android:fontFamily="@font/poppins_regular"
         android:textSize="@dimen/_12sdp"
         android:paddingRight="@dimen/_20sdp"
@@ -146,6 +149,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.appcompat.widget.AppCompatTextView
+        android:visibility="gone"
         app:layout_goneMarginTop="@dimen/_10sdp"
         android:id="@+id/selectTimeSlotText"
         android:layout_width="wrap_content"
@@ -163,6 +167,7 @@
         android:text="@string/select_time_slot_you_want_service">
     </androidx.appcompat.widget.AppCompatTextView>
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/constraintChipGroup"
         android:layout_width="0dp"
         android:layout_marginBottom="@dimen/_20sdp"
@@ -177,11 +182,13 @@
         app:layout_constraintTop_toBottomOf="@+id/selectTimeSlotText" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:id="@+id/editTimeLaout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintChipGroup">
         <androidx.appcompat.widget.AppCompatTextView

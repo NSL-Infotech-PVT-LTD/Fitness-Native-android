@@ -150,5 +150,13 @@ public class CommonMethods {
         }
         Files.delete(path);
     }
+    public static long getDiffrenceTwoTimes(Date date1,Date date2){
+        long difference = date2.getTime() - date1.getTime();
+      int days = (int) (difference / (1000*60*60*24));
+      int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+      int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+        hours = (hours < 0 ? -hours : hours);
+    return hours;
+    }
 
 }

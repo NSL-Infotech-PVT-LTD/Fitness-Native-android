@@ -68,8 +68,8 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void getNewPassword() {
-        emailId=binding.forgetEmailEdt.getText().toString();
-        if (binding.forgetEmailEdt.getText().toString().isEmpty()){
+        emailId=binding.forgetEmailEdt.getText().toString().trim();
+        if (binding.forgetEmailEdt.getText().toString().trim().isEmpty()){
             binding.forgetEmailEdt.setError(getResources().getString(R.string.enter_your_email));
             binding.forgetEmailEdt.requestFocus();
         }else if (!Patterns.EMAIL_ADDRESS.matcher(binding.forgetEmailEdt.getText().toString()).matches()) {

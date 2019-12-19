@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventBookingActivity;
+import com.netscape.utrain.activities.SelectedServiceList;
 import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.MyCustomPagerAdapter;
@@ -231,6 +232,7 @@ public class EventDetail extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (eventType.equalsIgnoreCase("space")) {
+                        SelectedServiceList.getInstance().getList().clear();
                         Intent intent = new Intent(EventDetail.this, SpaceBookingActivity.class);
                         intent.putExtra("event_id", eventId);
                         intent.putExtra("eventName", binding.eventMarathonHeaderTv.getText());
