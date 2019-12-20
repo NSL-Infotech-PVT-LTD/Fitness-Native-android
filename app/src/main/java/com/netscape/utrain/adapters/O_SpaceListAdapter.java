@@ -19,6 +19,8 @@ import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -35,6 +37,7 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
     private int previusPos = -1;
     private List<O_SpaceDataModel> supplierData;
     private String status;
+    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
 
     public O_SpaceListAdapter(Context context, List supplierD,String status) {
         this.context = context;
@@ -109,7 +112,12 @@ public class O_SpaceListAdapter extends RecyclerView.Adapter<O_SpaceListAdapter.
         holder.eventVenue.setText(data.getLocation());
         holder.bookingTicketTv.setVisibility(View.GONE);
         holder.ti_tickets.setVisibility(View.GONE);
-        holder.eventDate.setText(data.getAvailability_week());
+
+                startWeekList= CommonMethods.getDaysFromId(data.getAvailability_week(),CommonMethods.getWeekDaysList());
+                if (startWeekList !=null && startWeekList.size()>0){
+                    holder.eventDate.setText(startWeekList.get(0).getDayName()+"..");
+                }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

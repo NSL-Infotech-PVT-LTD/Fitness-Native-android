@@ -73,7 +73,7 @@ import retrofit2.Response;
 
 public class CoachDashboard extends AppCompatActivity {
     public DrawerLayout drawer;
-    BottomNavigationView orgNavView;
+    public BottomNavigationView orgNavView;
     CoachDashboard activity;
     private TextView mTextMessage;
     private ActivityCoachDashboardBinding binding;
@@ -490,13 +490,13 @@ public class CoachDashboard extends AppCompatActivity {
     };
     public void showNetworkState(){
         if(isInternetPresent) {
-            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
 //            networkConnectionImageView.setVisibility(View.VISIBLE);
         } else {
             if (count==0) {
                 handleImageSelection();
             }
-            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
 //            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
         }
     }

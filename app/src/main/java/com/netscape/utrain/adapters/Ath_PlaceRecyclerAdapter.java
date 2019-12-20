@@ -39,6 +39,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
+    private ArrayList<String>data1;
 
 
 
@@ -110,8 +111,9 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 intent.putExtra("eventName", data.getName());
                 intent.putExtra("eventVenue", data.getLocation());
                 intent.putExtra("eventTime", data.getOpen_hours_from());
+                intent.putExtra("eventEndTime", data.getOpen_hours_to());
                 intent.putExtra("eventALLImages", data.getImages());
-                intent.putExtra("eventDate", data.getAvailability_week());
+//                intent.putExtra("eventDate", data.getAvailability_week());
                 intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
                 intent.putExtra("event_id", data.getId() + "");
                 intent.putExtra("from", "places");
@@ -121,7 +123,9 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
                 Bundle b = new Bundle();
                 b.putString("Array", data.getImages());
                 intent.putExtras(b);
-                intent.putExtra(Constants.SPACE_DATA, data);
+                data1=new ArrayList<>();
+                data1=(ArrayList<String>) (data.getAvailability_week());
+                intent.putStringArrayListExtra(Constants.SPACE_DATA, data1);
                 context.startActivity(intent);
             }
         });

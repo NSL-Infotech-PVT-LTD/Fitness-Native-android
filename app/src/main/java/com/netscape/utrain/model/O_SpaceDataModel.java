@@ -3,6 +3,7 @@ package com.netscape.utrain.model;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class O_SpaceDataModel implements Serializable{
 
@@ -22,7 +23,16 @@ public class O_SpaceDataModel implements Serializable{
     private String images;
     private String description;
     private int price_hourly;
-    private String availability_week;
+
+    public List<String> getAvailability_week() {
+        return availability_week;
+    }
+
+    public void setAvailability_week(List<String> availability_week) {
+        this.availability_week = availability_week;
+    }
+
+    private List<String> availability_week;
     private String location;
     private String latitude;
     private String longitude;
@@ -109,14 +119,6 @@ public class O_SpaceDataModel implements Serializable{
 
     public void setPrice_hourly(int price_hourly) {
         this.price_hourly = price_hourly;
-    }
-
-    public String getAvailability_week() {
-        return availability_week;
-    }
-
-    public void setAvailability_week(String availability_week) {
-        this.availability_week = availability_week;
     }
 
     public int getCreated_by() {

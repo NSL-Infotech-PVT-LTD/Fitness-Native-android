@@ -93,7 +93,7 @@ import retrofit2.Response;
 
 public class AthleteHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
-    BottomNavigationView navView;
+    public BottomNavigationView navView;
     private TextView mTextMessage;
     private AActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
@@ -177,13 +177,13 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
     public void showNetworkState(){
         if(isInternetPresent) {
-            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
 //            networkConnectionImageView.setVisibility(View.VISIBLE);
         } else {
             if (count == 0){
                 handleImageSelection();
         }
-            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
 //            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
         }
     }

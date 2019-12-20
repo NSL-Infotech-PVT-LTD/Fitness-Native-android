@@ -29,11 +29,16 @@ import com.netscape.utrain.R;
 import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.EventDetail;
+import com.netscape.utrain.activities.coach.CoachDashboard;
+import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.adapters.NotificationsAdapter;
 import com.netscape.utrain.adapters.O_EventListAdapter;
 import com.netscape.utrain.databinding.FragmentNotificationBinding;
 import com.netscape.utrain.databinding.OFragmentNotificationBinding;
+import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.AthletePlaceModel;
 import com.netscape.utrain.model.AthleteSpaceBookList;
+import com.netscape.utrain.model.DaysModel;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotificationDatamodel;
 import com.netscape.utrain.model.NotificationPageModel;
@@ -93,6 +98,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
     private Context context;
     private ProgressDialog progressDialog;
     private List<NotificationDatamodel> datamodel = new ArrayList<>();
+    private ArrayList<String>data;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -542,9 +548,22 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
             O_HistoryFragment fragment=new O_HistoryFragment();
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
+                fragmentTransaction.replace(R.id.org_fragment, fragment);
+                ((OrgHomeScreen) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            }
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                ((AthleteHomeScreen) context).navView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            }
+            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
+                fragmentTransaction.replace(R.id.coachNavFragment, fragment);
+                ((CoachDashboard) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            }
+
             fragmentTransaction.commit();
         }
+
 
 
     }
@@ -573,6 +592,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
                             intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
                             intent.putExtra("eventDescription", response.body().getData().getDescription());
                             intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
                             intent.putExtra("from", "events");
@@ -638,6 +658,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
                             intent.putExtra("eventVenue", response.body().getData().getLocation());
                             intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
                             intent.putExtra("eventDescription", response.body().getData().getDescription());
                             intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
@@ -698,7 +719,8 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             intent.putExtra("eventVenue", response.body().getData().getLocation());
                             intent.putExtra("eventTime", response.body().getData().getOpen_hours_from());
                             intent.putExtra("eventALLImages", response.body().getData().getImages());
-                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
+                            intent.putExtra("eventEndTime", response.body().getData().getOpen_hours_to());
+//                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
                             intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
                             intent.putExtra("event_id", response.body().getData().getId() + "");
                             intent.putExtra("from", "places");
@@ -708,7 +730,9 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             Bundle b = new Bundle();
                             b.putString("Array", response.body().getData().getImages());
                             intent.putExtras(b);
-//                            intent.putExtra(Constants.SPACE_DATA, response.body());
+                            data=new ArrayList<>();
+                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
+                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
                             context.startActivity(intent);
 
                         }

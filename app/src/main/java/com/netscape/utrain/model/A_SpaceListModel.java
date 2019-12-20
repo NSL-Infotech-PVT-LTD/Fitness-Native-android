@@ -1,6 +1,11 @@
 package com.netscape.utrain.model;
 
-public class A_SpaceListModel {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class A_SpaceListModel implements Serializable {
 
     /**
      * id : 12
@@ -29,7 +34,7 @@ public class A_SpaceListModel {
     private String description;
     private int price_hourly;
     private int price_daily;
-    private String availability_week;
+    private List<String> availability_week;
     private String open_hours_from;
     private String open_hours_to;
     private String location;
@@ -41,6 +46,14 @@ public class A_SpaceListModel {
     private String created_at;
     private String updated_at;
     private Object deleted_at;
+
+    public List<String> getAvailability_week() {
+        return availability_week;
+    }
+
+    public void setAvailability_week(List<String> availability_week) {
+        this.availability_week = availability_week;
+    }
 
     public int getId() {
         return id;
@@ -90,13 +103,6 @@ public class A_SpaceListModel {
         this.price_daily = price_daily;
     }
 
-    public String getAvailability_week() {
-        return availability_week;
-    }
-
-    public void setAvailability_week(String availability_week) {
-        this.availability_week = availability_week;
-    }
 
     public String getOpen_hours_from() {
         return open_hours_from;

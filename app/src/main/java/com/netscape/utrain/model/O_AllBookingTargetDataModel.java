@@ -1,5 +1,7 @@
 package com.netscape.utrain.model;
 
+import java.util.List;
+
 public class O_AllBookingTargetDataModel {
 
     /**
@@ -28,7 +30,7 @@ public class O_AllBookingTargetDataModel {
     private String end_date;
     private String start_time;
     private String end_time;
-    private String availability_week;
+    private List<String> availability_week;
     private String price_daily;
     private int price;
     private String images;
@@ -40,11 +42,11 @@ public class O_AllBookingTargetDataModel {
     private int guest_allowed_left;
     private String equipment_required;
 
-    public String getAvailability_week() {
+    public List<String> getAvailability_week() {
         return availability_week;
     }
 
-    public void setAvailability_week(String availability_week) {
+    public void setAvailability_week(List<String> availability_week) {
         this.availability_week = availability_week;
     }
 

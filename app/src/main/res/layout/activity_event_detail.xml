@@ -214,22 +214,48 @@
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/eventTimeDetailTv"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_semibold"
                         android:gravity="center"
-                        android:text="@string/time_format"
-                        android:textColor="@color/colorBlack"
+                        android:orientation="vertical"
+                        >
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/eventTimeDetailTv"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/time_format"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                            app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/ToText"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="to"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_8sdp"
+                            app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                            app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/endTimeTv"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="12:30"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                            app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
-                        app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
-
+                    </LinearLayout>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/eventDateDetailTv"

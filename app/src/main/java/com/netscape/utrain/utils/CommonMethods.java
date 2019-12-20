@@ -11,15 +11,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -157,6 +161,66 @@ public class CommonMethods {
       int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
         hours = (hours < 0 ? -hours : hours);
     return hours;
+    }
+    public static List<SelectSpaceDaysModel> getWeekDaysList(){
+             List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
+             SelectSpaceDaysModel selectSpaceDaysModel;
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("1");
+            selectSpaceDaysModel.setDayName("Monday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("2");
+            selectSpaceDaysModel.setDayName("Tuesday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("3");
+            selectSpaceDaysModel.setDayName("Wednesday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("4");
+            selectSpaceDaysModel.setDayName("Thursday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("5");
+            selectSpaceDaysModel.setDayName("Friday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("6");
+            selectSpaceDaysModel.setDayName("Saturday");
+            startWeekList.add(selectSpaceDaysModel);
+            selectSpaceDaysModel=new SelectSpaceDaysModel();
+            selectSpaceDaysModel.setChecked(false);
+            selectSpaceDaysModel.setDaySeleced("7");
+            selectSpaceDaysModel.setDayName("Sunday");
+            startWeekList.add(selectSpaceDaysModel);
+
+
+        return startWeekList;
+    }
+    public static List<SelectSpaceDaysModel> getDaysFromId(List selectedId,List<SelectSpaceDaysModel> list){
+        List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
+
+        if ((selectedId !=null && list !=null) && (selectedId.size()>0 && list.size()>0)){
+            for (int i=0;i<selectedId.size();i++){
+
+                for (int j=0;j<list.size();j++){
+                    if (selectedId.get(i).toString().equalsIgnoreCase(list.get(j).getDaySeleced().toString())){
+                        startWeekList.add(list.get(i));
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        return startWeekList;
     }
 
 }

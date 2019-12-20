@@ -283,7 +283,7 @@
             android:id="@+id/totlaPriceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DONE"
+            android:text="Done"
             android:padding="@dimen/_6sdp"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_12sdp"

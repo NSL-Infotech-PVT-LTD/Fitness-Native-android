@@ -129,6 +129,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
                         intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
                         intent.putExtra("eventVenue", data.getLocation());
                         intent.putExtra("eventTime", data.getStart_time());
+                        intent.putExtra("eventEndTime", data.getEnd_time());
                         intent.putExtra("eventDate", data.getStart_date());
                         intent.putExtra("eventDescription", data.getDescription());
                         intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);

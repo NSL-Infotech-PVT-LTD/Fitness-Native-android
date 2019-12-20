@@ -1,5 +1,7 @@
 package com.netscape.utrain.response;
 
+import java.util.List;
+
 public class SpaceBookingResponse {
 
 
@@ -217,12 +219,20 @@ public class SpaceBookingResponse {
                 private String images;
                 private String description;
                 private int price_hourly;
-                private String availability_week;
+                private List<String> availability_week;
                 private String location;
                 private String latitude;
                 private String longitude;
                 private int created_by;
                 private int price_daily;
+
+                public List<String> getAvailability_week() {
+                    return availability_week;
+                }
+
+                public void setAvailability_week(List<String> availability_week) {
+                    this.availability_week = availability_week;
+                }
 
                 public int getId() {
                     return id;
@@ -264,13 +274,6 @@ public class SpaceBookingResponse {
                     this.price_hourly = price_hourly;
                 }
 
-                public String getAvailability_week() {
-                    return availability_week;
-                }
-
-                public void setAvailability_week(String availability_week) {
-                    this.availability_week = availability_week;
-                }
 
                 public String getLocation() {
                     return location;

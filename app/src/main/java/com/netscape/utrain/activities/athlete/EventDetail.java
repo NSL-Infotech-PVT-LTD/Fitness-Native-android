@@ -25,6 +25,7 @@ import com.netscape.utrain.adapters.MyCustomPagerAdapter;
 import com.netscape.utrain.adapters.ViewPagerAdapter;
 import com.netscape.utrain.databinding.ActivityEventDetailBinding;
 import com.netscape.utrain.model.AthletePlaceModel;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
@@ -55,6 +56,9 @@ public class EventDetail extends AppCompatActivity {
     private AthletePlaceModel placeModel;
     private String eventId;
     private String gmapLat="",gmapLong="";
+    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
+    private ArrayList<String>data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,6 @@ public class EventDetail extends AppCompatActivity {
         binding.eventBookingBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });
@@ -76,6 +79,8 @@ public class EventDetail extends AppCompatActivity {
         binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
         binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
         binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        binding.endTimeTv.setText(getIntent().getStringExtra("eventEndTime"));
+
         binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
         binding.seatNo.setText(getIntent().getStringExtra("guest_allowed_left"));
         eventId = getIntent().getStringExtra("event_id");
@@ -161,7 +166,12 @@ public class EventDetail extends AppCompatActivity {
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("places")) {
                 title.setText("Spaces");
-//                placeModel= (AthletePlaceModel) getIntent().getSerializableExtra(Constants.SPACE_DATA);
+                data=new ArrayList<>();
+                data= (ArrayList<String>) getIntent().getSerializableExtra(Constants.SPACE_DATA);
+                startWeekList=CommonMethods.getDaysFromId(data,CommonMethods.getWeekDaysList());
+                if (startWeekList !=null && startWeekList.size()>0){
+                    binding.eventDateDetailTv.setText(startWeekList.get(0).getDayName()+"..");
+                }
                 if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer) ||CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
                     binding.view1.setVisibility(View.GONE);
                 }

@@ -199,6 +199,34 @@
                 app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
                 app:layout_constraintRight_toLeftOf="@id/eventDateDetailTv"
                 app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="to"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                app:layout_constraintRight_toLeftOf="@id/eventDateDetailTv"
+                app:layout_constraintTop_toBottomOf="@+id/eventTimeDetailTv" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/eventEndTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/time_format"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/eventVanueDetailTv"
+                app:layout_constraintRight_toLeftOf="@id/eventDateDetailTv"
+                app:layout_constraintTop_toBottomOf="@+id/toText" />
 
 
             <com.google.android.material.textview.MaterialTextView

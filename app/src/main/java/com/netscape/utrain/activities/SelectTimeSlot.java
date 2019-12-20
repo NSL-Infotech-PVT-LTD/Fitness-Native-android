@@ -258,7 +258,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                             ContextCompat.getColor(SelectTimeSlot.this, R.color.colorAccent)));
                     selected = true;
                     timeSlotSelected = chipSelected.getText().toString();
-                    Toast.makeText(SelectTimeSlot.this, "" + chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SelectTimeSlot.this, "" + chipSelected.getText().toString(), Toast.LENGTH_SHORT).show();
                     chipStartTime = getSlotValue(chipSelected.getText().toString(), false);
                     chipEndtime = getSlotValue(chipSelected.getText().toString(), true);
                     binding.editTimeLaout.setVisibility(View.VISIBLE);

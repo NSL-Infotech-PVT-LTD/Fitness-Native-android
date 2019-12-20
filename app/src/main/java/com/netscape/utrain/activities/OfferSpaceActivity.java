@@ -207,71 +207,72 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         locationLat=data.getLatitude()+"";
         locationLong=data.getLongitude()+"";
 
-        String currentString = data.getAvailability_week();
-        String[] separated = currentString.split("-");
-        if (separated.length>=2) {
-             startWeek = separated[0];
-             endWeek = separated[1];
-        }
-        if (! startWeek.isEmpty()) {
-            for (int i = 0; i < startWeekList.size(); i++) {
-                if (startWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
-//                    binding.offerSpaceSelectStrtWeek.setSelection(i);
-                    availStart = i+"";
-                }
-            }
-        }
-        if (! endWeek.isEmpty()) {
-            for (int i = 0; i < startWeekList.size(); i++) {
-                if (endWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
-//                    binding.offerSpaceSelectEndWeek.setSelection(i);
-                    availEnd = i+"";
-                }
-            }
-        }
+//        String currentString = data.getAvailability_week();
+//        String[] separated = currentString.split("-");
+//        if (separated.length>=2) {
+//             startWeek = separated[0];
+//             endWeek = separated[1];
+//        }
+//        if (! startWeek.isEmpty()) {
+//            for (int i = 0; i < startWeekList.size(); i++) {
+//                if (startWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
+////                    binding.offerSpaceSelectStrtWeek.setSelection(i);
+//                    availStart = i+"";
+//                }
+//            }
+//        }
+//        if (! endWeek.isEmpty()) {
+//            for (int i = 0; i < startWeekList.size(); i++) {
+//                if (endWeek.equalsIgnoreCase(startWeekList.get(i).toString())){
+////                    binding.offerSpaceSelectEndWeek.setSelection(i);
+//                    availEnd = i+"";
+//                }
+//            }
+//        }
     }
 
     private void addDataToList() {
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("1");
-        selectSpaceDaysModel.setDayName("Monday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("2");
-        selectSpaceDaysModel.setDayName("Tuesday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("3");
-        selectSpaceDaysModel.setDayName("Wednesday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("4");
-        selectSpaceDaysModel.setDayName("Thursday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("5");
-        selectSpaceDaysModel.setDayName("Friday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("6");
-        selectSpaceDaysModel.setDayName("Saturday");
-        startWeekList.add(selectSpaceDaysModel);
-        selectSpaceDaysModel=new SelectSpaceDaysModel();
-        selectSpaceDaysModel.setChecked(false);
-        selectSpaceDaysModel.setDaySeleced("7");
-        selectSpaceDaysModel.setDayName("Sunday");
-        startWeekList.add(selectSpaceDaysModel);
+        startWeekList=CommonMethods.getWeekDaysList();
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("1");
+//        selectSpaceDaysModel.setDayName("Monday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("2");
+//        selectSpaceDaysModel.setDayName("Tuesday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("3");
+//        selectSpaceDaysModel.setDayName("Wednesday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("4");
+//        selectSpaceDaysModel.setDayName("Thursday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("5");
+//        selectSpaceDaysModel.setDayName("Friday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("6");
+//        selectSpaceDaysModel.setDayName("Saturday");
+//        startWeekList.add(selectSpaceDaysModel);
+//        selectSpaceDaysModel=new SelectSpaceDaysModel();
+//        selectSpaceDaysModel.setChecked(false);
+//        selectSpaceDaysModel.setDaySeleced("7");
+//        selectSpaceDaysModel.setDayName("Sunday");
+//        startWeekList.add(selectSpaceDaysModel);
 
     }
 
     private void init() {
-        jsonArray=new JsonArray();
+//        jsonArray=new JsonArray();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
@@ -467,6 +468,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getData() {
+        jsonArray=new JsonArray();
         for (int i=0;i<startWeekList.size();i++){
             if (startWeekList.get(i).isChecked()){
                 jsonArray.add(startWeekList.get(i).getDaySeleced());
@@ -504,7 +506,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this, ""+getResources().getString(R.string.selecte_availability), Toast.LENGTH_SHORT).show();
         } else {
             if (spaceEdit){
-                availValue=data.getAvailability_week();
+//                availValue=data.getAvailability_week();
             updateSpace();
             }else {
                 availValue = availStart + "-" + availEnd;

@@ -1,6 +1,11 @@
 package com.netscape.utrain.model;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AthletePlaceModel implements Serializable {
 
@@ -27,7 +32,7 @@ public class AthletePlaceModel implements Serializable {
     private String images;
     private String description;
     private int price_hourly;
-    private String availability_week;
+    private List<String> availability_week;
     private String open_hours_from;
     private String open_hours_to;
     private int created_by;
@@ -36,6 +41,14 @@ public class AthletePlaceModel implements Serializable {
     private String latitude;
     private String longitude;
     private String distance;
+
+    public List<String> getAvailability_week() {
+        return availability_week;
+    }
+
+    public void setAvailability_week(List<String> availability_week) {
+        this.availability_week = availability_week;
+    }
 
     public int getId() {
         return id;
@@ -77,13 +90,6 @@ public class AthletePlaceModel implements Serializable {
         this.price_hourly = price_hourly;
     }
 
-    public String getAvailability_week() {
-        return availability_week;
-    }
-
-    public void setAvailability_week(String availability_week) {
-        this.availability_week = availability_week;
-    }
 
     public String getOpen_hours_from() {
         return open_hours_from;
