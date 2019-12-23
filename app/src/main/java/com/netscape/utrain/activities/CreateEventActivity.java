@@ -83,7 +83,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String locationLat = "", locationLong = "";
     private Retrofitinterface retrofitinterface;
-    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "";
+    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "",eventPrice;
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
     private String serviIds = "";
     private String servicePrice = "";
@@ -432,6 +432,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventEndtime = binding.createEventEndTime.getText().toString();
         eventEquipments = binding.createEventEquipmentEdt.getText().toString();
         eventCapacity = binding.createEventCapicityEdt.getText().toString();
+//        eventPrice=binding.eventPrice.getText().toString();
         binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -463,8 +464,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         } else if (serviIds.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.select_services), Toast.LENGTH_SHORT).show();
-
-
+//        } else if (eventPrice.isEmpty()) {
+//            binding.eventPrice.requestFocus();
+//        }else if ((Integer.parseInt(eventPrice))<=0){
+//            Toast.makeText(this, getResources().getString(R.string.enter_valid_price), Toast.LENGTH_SHORT).show();
         } else if (eventCapacity.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.enter_numbe_of_guest_allowed), Toast.LENGTH_SHORT).show();
         } else if (eventCapacity.equalsIgnoreCase("0") || eventCapacity.equalsIgnoreCase("00")) {

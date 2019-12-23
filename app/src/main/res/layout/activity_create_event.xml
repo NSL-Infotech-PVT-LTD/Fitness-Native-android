@@ -335,6 +335,38 @@
                         app:layout_constraintTop_toBottomOf="@id/createEventEndTimeTv" />
 
 
+
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:id="@+id/createTrainSessionHourRateText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/_10sdp"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:text="@string/event_price"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/createEventEndTime" />-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/eventPrice"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:background="@drawable/card_input_edt_background"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        android:inputType="number"-->
+<!--                        android:maxLength="2"-->
+<!--                        android:paddingLeft="@dimen/_15sdp"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:layout_constraintHorizontal_bias="0.0"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/createTrainSessionHourRateText" />-->
+
+
+
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/capacityTV"
                         android:layout_width="0dp"
@@ -351,7 +383,7 @@
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/createEvtnStartTimeTv" />
+                        app:layout_constraintTop_toBottomOf="@id/createEventEndTime" />
 
                     <View
                         android:id="@+id/createEvent_CapicityView"

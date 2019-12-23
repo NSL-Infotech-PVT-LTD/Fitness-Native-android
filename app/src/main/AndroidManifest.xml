@@ -138,7 +138,7 @@
             android:name=".activities.BookSlotPrivateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.NotificationActivity"
+            android:name=".activities.BookingDetails"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoginActivity"

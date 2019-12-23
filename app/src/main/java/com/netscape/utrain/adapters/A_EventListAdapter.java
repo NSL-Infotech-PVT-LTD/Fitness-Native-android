@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
@@ -144,7 +145,13 @@ public class A_EventListAdapter extends RecyclerView.Adapter<A_EventListAdapter.
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onEventClick.eventAmount(data);
+//                        onEventClick.eventAmount(data);
+                        Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                        topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
+                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+//                        topCoachesDetails.putExtra(Constants.STATUS, status);
+                        context.startActivity(topCoachesDetails);
+
                     }
                 });
                 if (type == 1) {

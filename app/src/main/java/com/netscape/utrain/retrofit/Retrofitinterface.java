@@ -27,6 +27,7 @@ import com.netscape.utrain.response.C_SessionListResponse;
 import com.netscape.utrain.response.ChangePasswordResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
+import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LogoutResponse;
@@ -44,8 +45,10 @@ import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.response.RatingResponse;
 import com.netscape.utrain.response.ServiceListResponse;
+import com.netscape.utrain.response.SessionBookingDetails;
 import com.netscape.utrain.response.SessionDetailResponse;
 import com.netscape.utrain.response.SlotListResponse;
+import com.netscape.utrain.response.SpaceBookingDetailResponse;
 import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.response.TermsAndConditionsResponse;
@@ -623,5 +626,22 @@ public interface Retrofitinterface {
                                         @Header("Authorization") String Authorization,
                                         @Field("target_id")String target_id,
                                         @Field("date")String date);
+
+    @FormUrlEncoded
+    @POST(Constants.BOOKING_DETAILS)
+    Call<SessionBookingDetails> getBookingSession(@Header("Authorization") String Authorization,
+                                                  @Header("Content-Type") String Content_type,
+                                                  @Field("id")String target_id);
+    @FormUrlEncoded
+    @POST(Constants.BOOKING_DETAILS)
+    Call<SpaceBookingDetailResponse> getBookingSpace(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String Content_type,
+                                                     @Field("id")String target_id);
+    @FormUrlEncoded
+    @POST(Constants.BOOKING_DETAILS)
+    Call<EventDetailResponse> getBookingEvent(@Header("Authorization") String Authorization,
+                                              @Header("Content-Type") String Content_type,
+                                              @Field("id")String target_id);
+
 
 }

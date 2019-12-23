@@ -100,7 +100,7 @@ public class Ath_SessionRecyclerAdapter extends RecyclerView.Adapter<Ath_Session
 //        holder.eventEndDateTimeEnterTv.setText(data.getBusiness_hour()+" "+data.getBusiness_hour());
 
                 holder.eventStartDateTimeEnterTv.setText(data.getStart_date() + " " + data.getStart_time() + " ");
-                holder.findPlaceActualPriceTv.setText("$" + data.getHourly_rate() + "/hr");
+                holder.findPlaceActualPriceTv.setText("$" + data.getHourly_rate() + "");
 
                 try {
                     JSONArray jsonArray = new JSONArray(data.getImages());

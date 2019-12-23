@@ -136,7 +136,6 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
     @Override
     public int getItemCount() {
         return supplierData == null ? 0 : supplierData.size();
-
     }
 
 
@@ -145,9 +144,6 @@ public class O_SessionListAdapter extends RecyclerView.Adapter<O_SessionListAdap
     public int getItemViewType(int position) {
         return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
     }
-
-
-
 
     public void add(O_SessionDataModel r) {
         supplierData.add(r);

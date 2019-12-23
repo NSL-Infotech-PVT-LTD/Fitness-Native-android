@@ -34,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.NotificationViewHolder> {
     private static final int ITEM = 0;
     private static final int LOADING = 1;
-    String model = "", id = "";
+    String model = "", id = "",targetType;
     private boolean isLoadingAdded = false;
     private Context context;
     private List<NotificationDatamodel> list;
@@ -114,10 +114,11 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                                 JSONObject jsonObject = new JSONObject(data);
                                 model = jsonObject.getString("target_model");
                                 id = jsonObject.getString("target_id");
+                                targetType = jsonObject.getString("target_type");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            sendData.sendType(model, id);
+                            sendData.sendType(model, id,targetType);
                         }
                     });
 
@@ -204,7 +205,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
 
     public interface SendToSelected {
-        void sendType(String event, String id);
+        void sendType(String event, String id,String targetType);
     }
 
     public class NotificationViewHolder extends RecyclerView.ViewHolder {

@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_SessionDataModel;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSessionBookList;
@@ -121,7 +123,12 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSessionClick.sessionAmount(data);
+//                onSessionClick.sessionAmount(data);
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
 
             }
         });

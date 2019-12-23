@@ -26,6 +26,7 @@ import com.coremedia.iso.boxes.Container;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.EventDetail;
@@ -532,7 +533,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
         });
     }
     @Override
-    public void sendType(String event,String id) {
+    public void sendType(String event,String id,String targetType) {
 
         if (event.equalsIgnoreCase("event")){
             hitEventDetailAPI(id);
@@ -544,24 +545,50 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
             hitSpaceDetailAPI(id);
         }
         if (event.equalsIgnoreCase("booking")){
-//            navView.getMenu().findItem(R.id.navigation_home).setChecked(true);
-            O_HistoryFragment fragment=new O_HistoryFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
-                fragmentTransaction.replace(R.id.org_fragment, fragment);
-                ((OrgHomeScreen) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            if (targetType.equalsIgnoreCase("event")){
+//                hitEventDetailAPI(id);
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+//                        topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
             }
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
-                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
-                ((AthleteHomeScreen) context).navView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            if (targetType.equalsIgnoreCase("session")){
+//                getSessionDetails(id);
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
             }
-            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
-                fragmentTransaction.replace(R.id.coachNavFragment, fragment);
-                ((CoachDashboard) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+            if (targetType.equalsIgnoreCase("space")){
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
             }
 
-            fragmentTransaction.commit();
+
+
+//            navView.getMenu().findItem(R.id.navigation_home).setChecked(true);
+//            O_HistoryFragment fragment=new O_HistoryFragment();
+//            FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
+//                fragmentTransaction.replace(R.id.org_fragment, fragment);
+//                ((OrgHomeScreen) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+//            }
+//            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
+//                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+//                ((AthleteHomeScreen) context).navView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+//            }
+//            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
+//                fragmentTransaction.replace(R.id.coachNavFragment, fragment);
+//                ((CoachDashboard) context).orgNavView.getMenu().findItem(R.id.navigation_running).setChecked(true);
+//            }
+//
+//            fragmentTransaction.commit();
         }
 
 

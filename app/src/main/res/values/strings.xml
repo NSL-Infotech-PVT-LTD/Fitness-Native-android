@@ -449,4 +449,7 @@
     <string name="start_hour">Start hour</string>
     <string name="end_hour">End hour</string>
     <string name="change_time_range">Change time</string>
+    <string name="booking_detail">Booking Detail</string>
+    <string name="session_price">Session price</string>
+    <string name="event_price">Event price</string>
 </resources>

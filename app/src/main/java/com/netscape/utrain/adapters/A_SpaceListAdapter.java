@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_SpaceDataModel;
 import com.netscape.utrain.model.A_SpaceListModel;
 import com.netscape.utrain.model.AthleteBookListModel;
@@ -154,7 +156,12 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
             @Override
             public void onClick(View view) {
 
-                onSpaceClick.getSpaceAmount(data);
+//                onSpaceClick.getSpaceAmount(data);
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
 
             }
         });
