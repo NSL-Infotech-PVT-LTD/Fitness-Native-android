@@ -179,6 +179,7 @@
                         android:layout_marginLeft="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_weight="1"
+                        android:id="@+id/dateText"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="@string/date"
@@ -256,20 +257,40 @@
                             app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
 
                     </LinearLayout>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/eventDateDetailTv"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center"
-                        android:text="@string/date_format"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
-                        app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+                        android:orientation="vertical">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/eventDateDetailTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center"
+                            android:text="@string/date_format"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
+                            app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/viewMore"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center"
+                            android:text="@string/view_more"
+                            android:textColor="@color/gradientDarkColor"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
+                            app:layout_constraintTop_toBottomOf="@id/eventVenueTv" />
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <View

@@ -1,6 +1,7 @@
 package com.netscape.utrain.adapters_org;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
+import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.BookedUserModel;
 import com.netscape.utrain.model.O_BookedEventDataModel;
 import com.netscape.utrain.model.O_BookedSessionDataModel;
@@ -36,6 +39,11 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     private List<O_SpaceListDataModel> spaceData;
     private int type;
     private onClick onClick;
+    private String id;
+    O_BookedEventDataModel eData;
+    O_SpaceListDataModel sData ;
+    O_BookedSessionDataModel seData;
+
 
 
     public O_BookedEventListAdapter(Context context, List supplierData, int type, onClick onClick) {
@@ -65,27 +73,42 @@ public class O_BookedEventListAdapter extends RecyclerView.Adapter<O_BookedEvent
     public void onBindViewHolder(@NonNull O_BookedEventListAdapter.CustomTopCoachesHolder holder, final int position) {
 
         if (type == 1) {
-            O_BookedEventDataModel data = supplierData.get(position);
-            holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
+            eData = supplierData.get(position);
+            holder.userName.setText(eData.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + eData.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + eData.getUser_details().getProfile_image())).into(holder.circleImageView);
 
         }
         if (type == 2) {
-            O_SpaceListDataModel data = spaceData.get(position);
-            holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
+           sData = spaceData.get(position);
+            holder.userName.setText(sData.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + sData.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sData.getUser_details().getProfile_image())).into(holder.circleImageView);
 
         }
         if (type == 3) {
-            O_BookedSessionDataModel data = sessionData.get(position);
-            holder.userName.setText(data.getUser_details().getName());
-            Glide.with(context).load(Constants.IMAGE_BASE_URL + data.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + data.getUser_details().getProfile_image())).into(holder.circleImageView);
+            seData = sessionData.get(position);
+            holder.userName.setText(seData.getUser_details().getName());
+            Glide.with(context).load(Constants.IMAGE_BASE_URL + seData.getUser_details().getProfile_image()).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + seData.getUser_details().getProfile_image())).into(holder.circleImageView);
         }
 
         holder.viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClick.onClick(type, position);
+//                onClick.onClick(type, position);
+                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                if (type==1) {
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, eData.getId() + "");
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+                }
+                if (type==2) {
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, sData.getId() + "");
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+                }
+                if (type==3) {
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, seData.getId() + "");
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+                }
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                context.startActivity(topCoachesDetails);
 
             }
         });

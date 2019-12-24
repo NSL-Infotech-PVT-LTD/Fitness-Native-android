@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:gravity="center">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="@dimen/_10sdp"
+    android:orientation="vertical"
+
+    android:background="@drawable/round_corner">
+
+    <TextView
+        android:id="@+id/spaceAvailableTv"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/space_available_text"></TextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_4sdp"
+        app:contentPadding="@dimen/_12sdp">
+
+
+        <RelativeLayout
+            android:id="@+id/viewMorelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:theme="@style/ChipTheme"
+            app:chipIconEnabled="false"
+            app:layout_constraintLeft_toLeftOf="@id/bookingPlaceName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventText" />
+
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/closeBtn"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/notificationRedIcon"
+        android:textColor="@color/colorWhite"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="Close"></TextView>
+</LinearLayout>
+
+</LinearLayout>

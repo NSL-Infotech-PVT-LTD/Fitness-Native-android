@@ -86,7 +86,7 @@
             android:layout_height="@dimen/_60sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:src="@drawable/sophie"
+            android:src="@drawable/u_train"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,15 +144,29 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/bookingPlaceName" />
 
+
+        <RelativeLayout
+            android:id="@+id/spaceDaysLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:theme="@style/ChipTheme"
+            app:chipIconEnabled="false"
+            app:layout_constraintLeft_toLeftOf="@id/bookingPlaceName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventText" />
+
+
+
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ti_date"
+            android:id="@+id/tiDate"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_ti_date"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookingPlaceName" />
+            app:layout_constraintTop_toBottomOf="@+id/spaceDaysLayout" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -165,7 +179,7 @@
             app:fontFamily="@font/poppins_semibold"
             app:layout_constraintLeft_toLeftOf="@+id/userName"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ti_date" />
+            app:layout_constraintTop_toTopOf="@id/tiDate" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/tiLocation"
@@ -175,7 +189,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_ti_location"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_date" />
+            app:layout_constraintTop_toBottomOf="@+id/tiDate" />
 
 
         <com.google.android.material.textview.MaterialTextView

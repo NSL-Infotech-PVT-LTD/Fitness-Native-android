@@ -1,13 +1,25 @@
 package com.netscape.utrain.utils;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -50,6 +62,9 @@ import retrofit2.Response;
 
 public class CommonMethods {
     private static SharedPreferences data;
+    private static Dialog loadingDialog;
+    private ChipGroup chipSpaceGroup;
+    private RelativeLayout layout;
     Retrofitinterface retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
     public static String getPrefData(String ke, Context ct) {
@@ -240,6 +255,62 @@ public class CommonMethods {
             e.printStackTrace();
         }
         return str;
+    }
+    public static void showLoadingDialog(final Context context,List<SelectSpaceDaysModel> startWeekList) {
+        if (context != null) {
+            if (loadingDialog != null && loadingDialog.isShowing()) {
+                loadingDialog.dismiss();
+                loadingDialog = null;
+            }
+            loadingDialog = new Dialog(context);
+            loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            View view = View.inflate(context, R.layout.view_more_layout, null);
+            RelativeLayout layout=view.findViewById(R.id.viewMorelayout);
+            TextView close=view.findViewById(R.id.closeBtn);
+            loadingDialog.setContentView(view);
+//            loadingDialog.setCancelable(false);
+//            loadingDialog.setCanceledOnTouchOutside(false);
+            Window window = loadingDialog.getWindow();
+            assert window != null;
+            window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            window.setGravity(Gravity.CENTER);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loadingDialog.dismiss();
+                }
+            });
+            if (!((Activity) context).isFinishing()) {
+
+                CommonMethods commonMethods=new CommonMethods();
+                commonMethods.setChips(context,layout,startWeekList);
+                loadingDialog.show();
+                loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            } else {
+            }
+        }
+    }
+    public  void setChips(Context context,RelativeLayout layout,List<SelectSpaceDaysModel> startWeekList) {
+
+        layout.removeAllViews();
+        chipSpaceGroup = new ChipGroup(context);
+        for (SelectSpaceDaysModel selectDays : startWeekList) {
+            Chip chip = new Chip(context);
+            chip.setEnabled(true);
+            ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(context, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+            chip.setChipDrawable(chipDrawable);
+            chip.setTextColor(context.getResources().getColor(R.color.colorWhite));
+//            chip.setMaxWidth(200);
+            chip.setText(selectDays.getDayName());
+            chip.setTag(selectDays.getDaySeleced());
+            chip.setCheckable(false);
+            chip.setChipBackgroundColorResource(R.color.gradientDarkColor);
+            chipSpaceGroup.addView(chip);
+        }
+        chipSpaceGroup.setChipSpacingVertical(20);
+        layout.addView(chipSpaceGroup);
     }
 
 }

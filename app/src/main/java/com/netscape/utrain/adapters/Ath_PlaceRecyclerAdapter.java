@@ -90,7 +90,7 @@ public class Ath_PlaceRecyclerAdapter extends RecyclerView.Adapter<Ath_PlaceRecy
         holder.eventName.setText(data.getName());
         holder.placenameTv.setText(data.getLocation());
         holder.findPlaceDistanceDetailTv.setText(data.getDistance() + " miles");
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
+        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_hourly() + "/hour");
 
         try {
             JSONArray jsonArray = new JSONArray(data.getImages());

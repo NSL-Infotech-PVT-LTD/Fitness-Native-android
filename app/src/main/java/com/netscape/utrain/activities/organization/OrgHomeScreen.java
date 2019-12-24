@@ -40,6 +40,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.AllCreatedActivity;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
@@ -290,7 +291,10 @@ public class OrgHomeScreen extends AppCompatActivity {
                 startActivity(new Intent(OrgHomeScreen.this, SettingsActivity.class));
             }
         });
-
+        if (getIntent().hasExtra("pushnotification")){
+            Intent intent=new Intent(getApplicationContext(), BookingDetails.class);
+            startActivity(intent);
+        }
 
     }
 

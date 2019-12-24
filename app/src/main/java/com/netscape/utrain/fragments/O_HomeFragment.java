@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.LoginActivity;
@@ -136,7 +137,6 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.org_fragment_home, container, false);
         view = binding.getRoot();
         binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + " " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, getContext()));
-
 //        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
         progressDialog = new ProgressDialog(getContext());
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);

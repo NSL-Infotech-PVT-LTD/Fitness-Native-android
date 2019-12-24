@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.A_EventListAdapter;
 import com.netscape.utrain.adapters.A_SessionListAdapter;
@@ -20,6 +23,7 @@ import com.netscape.utrain.fragments.O_UpcEventFragment;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.SessionBookingDetails;
 import com.netscape.utrain.response.SpaceBookingDetailResponse;
@@ -51,6 +55,7 @@ public class BookingDetails extends AppCompatActivity {
     private SessionBookingDetails.DataBean sessionData;
     private SpaceBookingDetailResponse.DataBean spaceData;
     private String jobId="", jobType="",status;
+    ChipGroup chipSpaceGroup;
 
 
     @Override
@@ -88,6 +93,7 @@ public class BookingDetails extends AppCompatActivity {
 
 
     }
+
 
     public void getEventDetail() {
         progressDialog.show();
@@ -261,7 +267,7 @@ public class BookingDetails extends AppCompatActivity {
 
 
         try {
-            dt = sdf.parse(sessionData.getSession().getStart_date());
+            dt = sdf.parse(sessionData.getTarget_data().getStart_time());
             String value = null;
             if (dt != null) {
                 value = CommonMethods.parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
@@ -348,12 +354,14 @@ public class BookingDetails extends AppCompatActivity {
             binding.tiLocationText.setText(spaceData.getTarget_data().getLocation());
             binding.tiBookingTicket.setVisibility(View.GONE);
             binding.tiTickets.setVisibility(View.GONE);
+            binding.tiDate.setVisibility(View.GONE);
 
 //        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
             binding.tiTotalTicketPrice.setText("Space @ $" + spaceData.getTarget_data().getPrice_hourly() + " /hour");
             binding.tiTotalPrice.setText("$" + spaceData.getPrice() + ".00");
             binding.tiTax.setText("$0.00");
             binding.totalAmount.setText("$" + spaceData.getPrice() + ".00");
+            setChips();
 //            binding.bottomSheetUpDown_address();
         } else {
 //        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
@@ -380,14 +388,67 @@ public class BookingDetails extends AppCompatActivity {
             binding.tiLocationText.setText(spaceData.getSpace().getLocation());
             binding.tiBookingTicket.setVisibility(View.GONE);
             binding.tiTickets.setVisibility(View.GONE);
+            binding.tiDate.setVisibility(View.GONE);
 
 //        ti_Booking_Ticket.setText(spaceData.getTickets() + " Attendies & Tickets (1 per person)");
             binding.tiTotalTicketPrice.setText("Space @ $" + spaceData.getSpace().getPrice_hourly() + " /hour");
             binding.tiTotalPrice.setText("$" + spaceData.getPrice() + ".00");
             binding.tiTax.setText("$0.00");
             binding.totalAmount.setText("$" + spaceData.getPrice() + ".00");
+            setChips();
 //            bottomSheetUpDown_address();
         }
+    }
+    private void setChips() {
+        binding.spaceDaysLayout.removeAllViews();
+        chipSpaceGroup = new ChipGroup(this);
+        for (SpaceBookingDetailResponse.DataBean.BookingDetailsBean selectDays : spaceData.getBooking_details()) {
+            Chip chip = new Chip(this);
+//            chip.setEnabled(true);
+            ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+            chip.setChipDrawable(chipDrawable);
+            chip.setTextColor(getResources().getColor(R.color.colorWhite));
+//            chip.setMaxWidth(200);
+            String currentStringEnd = selectDays.getBooking_date();
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+            Date dt = null, dtEnd;
+
+
+            try {
+                dt = sdf.parse(selectDays.getTo_time());
+                String value = null;
+                if (dt != null) {
+                    value = CommonMethods.parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
+                }
+                chip.setText(value);
+//                binding.bookingDateText.setText(value);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+//            chip.setText(selectDays.getBooking_date()+"\n "+"Time:"+selectDays.getFrom_time()+" To "+selectDays.getTo_time());
+            chip.setTag(selectDays.getId());
+            chip.setChipBackgroundColorResource(R.color.gradientDarkColor);
+            chip.setCheckable(false);
+//            chip.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    String id=view.getId()+"";
+//
+//                    selectDays.setChecked(!selectDays.isChecked());
+//                    if (selectDays.isChecked()) {
+//                        chip.setChipBackgroundColorResource(R.color.colorGreen);
+//                    } else {
+//                        chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+//                    }
+//
+//                }
+//            });
+            chipSpaceGroup.addView(chip);
+        }
+//        chipSpaceGroup.setEnabled(true);
+        chipSpaceGroup.setChipSpacingVertical(20);
+        binding.spaceDaysLayout.addView(chipSpaceGroup);
     }
 
 }

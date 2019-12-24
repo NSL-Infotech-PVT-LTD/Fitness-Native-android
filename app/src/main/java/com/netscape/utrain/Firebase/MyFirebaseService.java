@@ -108,7 +108,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
             intent = new Intent(this, CoachDashboard.class);
 
-
+        intent.putExtra("pushnotification", "yes");
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -139,7 +139,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
         intent = new Intent(this, CoachDashboard.class);
 
-
+        intent.putExtra("pushnotification", "yes");
         Notification notification;
         String channelId = getApplicationContext().getString(R.string.default_notification_channel_id);
         NotificationChannel channel = null;

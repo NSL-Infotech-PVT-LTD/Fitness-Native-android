@@ -1,20 +1,31 @@
 package com.netscape.utrain.activities.athlete;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventBookingActivity;
@@ -54,10 +65,14 @@ public class EventDetail extends AppCompatActivity {
     MyCustomPagerAdapter pagerAdapter;
     private ActivityEventDetailBinding binding;
     private AthletePlaceModel placeModel;
+    private AlertDialog dialogMultiOrder;
     private String eventId;
     private String gmapLat="",gmapLong="";
     List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
     private ArrayList<String>data;
+    private int count=0;
+    private ChipGroup chipSpaceGroup;
+    RelativeLayout  relativeLayout;
 
 
     @Override
@@ -87,7 +102,17 @@ public class EventDetail extends AppCompatActivity {
         gmapLat=getIntent().getStringExtra("gmapLat");
         gmapLong=getIntent().getStringExtra("gmapLong");
 
+        binding.viewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (startWeekList !=null && startWeekList.size()>0) {
+                    CommonMethods.showLoadingDialog(EventDetail.this, startWeekList);
+                }else {
 
+                }
+//                handleImageSelection();
+            }
+        });
 
         binding.getDirectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +208,9 @@ public class EventDetail extends AppCompatActivity {
                 binding.totalAvailableSeat.setVisibility(View.GONE);
                 binding.view3.setVisibility(View.VISIBLE);
                 binding.view4.setVisibility(View.GONE);
+                binding.viewMore.setVisibility(View.VISIBLE);
+                binding.dateText.setText("Availability");
+
                 binding.descriptionTv.setText(getIntent().getStringExtra("desc"));
                 eventType = "space";
             }
@@ -284,6 +312,52 @@ public class EventDetail extends AppCompatActivity {
             else
                 indicator.setViewPager(viewPager);
         }
+    }
+    public void handleImageSelection() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View content = inflater.inflate(R.layout.view_more_layout, null);
+        builder.setView(content);
+          relativeLayout= content.findViewById(R.id.viewMorelayout);
+//        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+//        ImageView cancel = content.findViewById(R.id.closeDialogImg);
+        dialogMultiOrder = builder.create();
+        dialogMultiOrder.setCancelable(false);
+        setChips();
+//        dialogMultiOrder.setCanceledOnTouchOutside(false);
+
+
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                count=0;
+//                dialogMultiOrder.dismiss();
+//            }
+//        });
+
+        dialogMultiOrder.show();
+        count=1;
+        dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+    public  void setChips() {
+        relativeLayout.removeAllViews();
+        chipSpaceGroup = new ChipGroup(this);
+        for (SelectSpaceDaysModel selectDays : startWeekList) {
+            Chip chip = new Chip(this);
+            chip.setEnabled(true);
+            ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
+            chip.setChipDrawable(chipDrawable);
+            chip.setTextColor(getResources().getColor(R.color.colorWhite));
+//            chip.setMaxWidth(200);
+            chip.setText(selectDays.getDayName());
+            chip.setTag(selectDays.getDaySeleced());
+            chip.setCheckable(false);
+            chip.setChipBackgroundColorResource(R.color.gradientDarkColor);
+            chipSpaceGroup.addView(chip);
+        }
+        chipSpaceGroup.setChipSpacingVertical(20);
+        relativeLayout.addView(chipSpaceGroup);
     }
 
 }

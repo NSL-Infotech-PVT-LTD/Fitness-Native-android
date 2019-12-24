@@ -99,8 +99,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_offer_space);
-        chipSpaceGroup = new ChipGroup(this);
-        chipSpaceGroup.setSingleSelection(false);
+
         addDataToList();
         init();
 
@@ -206,6 +205,16 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
 
         locationLat=data.getLatitude()+"";
         locationLong=data.getLongitude()+"";
+        for (int i=0;i<data.getAvailability_week().size();i++){
+           for (int j=0;j<startWeekList.size();j++){
+               if (data.getAvailability_week().get(i).toString().equalsIgnoreCase(startWeekList.get(j).getDaySeleced().toString())){
+                   startWeekList.get(i).setChecked(true);
+                   break;
+               }
+           }
+        }
+        setChips();
+
 
 //        String currentString = data.getAvailability_week();
 //        String[] separated = currentString.split("-");
@@ -287,6 +296,9 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setChips() {
+        binding.spaceDaysLayout.removeAllViews();
+        chipSpaceGroup = new ChipGroup(this);
+        chipSpaceGroup.setSingleSelection(false);
         for (SelectSpaceDaysModel selectDays : startWeekList) {
             Chip chip = new Chip(this);
             chip.setEnabled(true);
@@ -297,6 +309,10 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             chip.setText(selectDays.getDayName());
             chip.setTag(selectDays.getDaySeleced());
             chip.setChipBackgroundColorResource(R.color.lightGrayFont);
+            if (selectDays.isChecked()){
+                chip.setChipBackgroundColorResource(R.color.colorGreen);
+                chip.setChecked(true);
+            }
             chip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -385,7 +401,8 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
             case R.id.getAddressTv:
                 Intent getAddress = new Intent(OfferSpaceActivity.this, OrgMapFindAddressActivity.class);
                 getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityForResult(getAddress, ADDRESS_EVENT); case R.id.offerSpaceBtnPost:
+                startActivityForResult(getAddress, ADDRESS_EVENT);
+            case R.id.offerSpaceBtnPost:
                 getData();
                 break;
             case R.id.offerSpaceUploadTv:
@@ -549,7 +566,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), spaceName));
         requestBodyMap.put("description", RequestBody.create(MediaType.parse("multipart/form-data"), spaceDescription));
         requestBodyMap.put("price_hourly", RequestBody.create(MediaType.parse("multipart/form-data"), spaceHourlyPrice));
-        requestBodyMap.put("availability_week", RequestBody.create(MediaType.parse("multipart/form-data"),availValue));
+        requestBodyMap.put("availability_week", RequestBody.create(MediaType.parse("multipart/form-data"),jsonArray.toString()));
         requestBodyMap.put("price_daily", RequestBody.create(MediaType.parse("multipart/form-data"), spaceWeeklyPrice));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 
