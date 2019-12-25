@@ -3,6 +3,7 @@ package com.netscape.utrain.activities.athlete;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SettingsActivity;
@@ -371,6 +373,16 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 startActivity(settingsTv);
             }
         });
+
+        if (getIntent().hasExtra("pushnotification")){
+            Intent intent=new Intent(getApplicationContext(), BookingDetails.class);
+            startActivity(intent);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent , 0);
+//            intent.setLatestEventInfo(this, "", "", contentIntent);
+
+
+        }
+
 
     }
 

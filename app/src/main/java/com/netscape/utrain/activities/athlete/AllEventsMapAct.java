@@ -886,7 +886,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 search="";
                isLastPage=false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
-                    getAthleteEventApi(orderBy, search, "");
+                    getAthleteEventApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
                     getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
@@ -1010,12 +1010,12 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
                 constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline_yellow_top_round));
                 getAthletePlaceApi("distance", search, sCoach_Id);
-            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topEvent")) {
-                getAthleteEventApi("distance", search, sCoach_Id);
-            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topSession")) {
-                getAthleteSessionApi("distance", search, sCoach_Id);
-            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topSpace")) {
-                getAthletePlaceApi("distance", search, sCoach_Id);
+//            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topEvent")) {
+//                getAthleteEventApi("distance", search, sCoach_Id);
+//            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topSession")) {
+//                getAthleteSessionApi("distance", search, sCoach_Id);
+//            } else if (getIntent().getStringExtra("from").equalsIgnoreCase("topSpace")) {
+//                getAthletePlaceApi("distance", search, sCoach_Id);
 
             }
 

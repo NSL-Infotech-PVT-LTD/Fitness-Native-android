@@ -21,8 +21,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.adapters.AddViewRecyclerAdapter;
 import com.netscape.utrain.databinding.ActivitySpaceBookingBinding;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.model.SlotModel;
 import com.netscape.utrain.response.SpaceDetailResponse;
@@ -74,6 +76,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     private int totalHours=0;
     private JsonArray jsonArray;
     private Date removeDate;
+    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,10 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init() {
-        ///
+//        data=new ArrayList<>();
+//        data= (ArrayList<String>) getIntent().getSerializableExtra(Constants.SPACE_DATA);
+//        startWeekList=CommonMethods.getDaysFromId(data,CommonMethods.getWeekDaysList());
+//        ///
         layoutManager=new LinearLayoutManager(this);
 //        results.add("Chet");
         adapter=new AddViewRecyclerAdapter(SpaceBookingActivity.this,results,SpaceBookingActivity.this);
@@ -103,6 +109,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         binding.addTimeSlot.setOnClickListener(this);
         binding.eventBookingBackImg.setOnClickListener(this);
         binding.textContinueToPay.setOnClickListener(this);
+        binding.viewMore.setOnClickListener(this);
 //        binding.createEventEndDatetv.setOnClickListener(this);
 //        binding.createEventStartDateTv.setOnClickListener(this);
 //        binding.createEventEndTime.setOnClickListener(this);
@@ -283,9 +290,13 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void onClick (View view){
             switch (view.getId()) {
-//            case R.id.createEventEndDatetv:
-//                getEndDate();
-//                break;
+            case R.id.viewMore:
+                if (startWeekList !=null && startWeekList.size()>0) {
+                    CommonMethods.showLoadingDialog(SpaceBookingActivity.this, startWeekList);
+                }else {
+                    Toast.makeText(SpaceBookingActivity.this, "No Days Available", Toast.LENGTH_SHORT).show();
+                }
+                break;
 //            case R.id.createEventStartDateTv:
 //                getStartDate();
 //                break;
@@ -440,7 +451,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //                            binding.eventDateDetailTv.setText(response.body().getData().getAvailability_week());
                             binding.pricePerdayTv.setText("(Total Hours * " + response.body().getData().getPrice_hourly() + ")");
                             binding.eventEndTime.setText( response.body().getData().getOpen_hours_to());
-
+                            startWeekList=CommonMethods.getDaysFromId(response.body().getData().getAvailability_week(),CommonMethods.getWeekDaysList());
 //                            binding.totlaPriceTv.setText("Price per Hour * Hours");
                             pricePerday = response.body().getData().getPrice_hourly();
 //                            ticketPrice = response.body().getData().getPrice();

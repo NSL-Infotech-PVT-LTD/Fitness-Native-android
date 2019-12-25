@@ -263,6 +263,7 @@
                                 android:fontFamily="@font/poppins_regular"
                                 android:gravity="center_vertical"
                                 android:hint="@string/name_on_card_enter"
+                                android:inputType="text"
                                 android:paddingLeft="@dimen/_15sdp"
                                 android:singleLine="true"
                                 android:maxLength="20"

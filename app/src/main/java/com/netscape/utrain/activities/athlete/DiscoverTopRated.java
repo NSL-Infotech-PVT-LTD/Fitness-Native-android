@@ -97,7 +97,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                                     page = Integer.parseInt(currentPage);
 //                                }
 //                                page=1;
-                                currentPage="1";
+                                currentPage="";
                                 getCoachListApi();
                             }
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
@@ -171,12 +171,14 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 binding.spinnerText.setText(dropDownList.get(i).getName());
                 if (i == 0) {
                     searchText = "";
-                    currentPage="1";
+                    currentPage="";
                     isLastPage=false;
+
                 } else {
                     searchText = dropDownList.get(i).getName();
-                    currentPage="1";
+                    currentPage="";
                 }
+
                 getCoachListApi();
 
             }

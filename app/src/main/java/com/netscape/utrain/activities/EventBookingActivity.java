@@ -174,6 +174,7 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventTimeDetailTv.setText(response.body().getData().getStart_time());
                             binding.eventEndTime.setText(response.body().getData().getEnd_time());
                             binding.eventDateDetailTv.setText(response.body().getData().getStart_date());
+                            binding.dateToTvBooking.setText(response.body().getData().getEnd_date());
                             binding.eventPrice.setText("$" + response.body().getData().getPrice() + "");
                             ticketPrice = response.body().getData().getPrice();
                             binding.text1.setText((ticket + " * " + countVAlue) + "");
@@ -241,6 +242,7 @@ public class EventBookingActivity extends AppCompatActivity {
                             binding.eventTimeDetailTv.setText(response.body().getData().getStart_time());
                             binding.eventEndTime.setText(response.body().getData().getEnd_time());
                             binding.eventDateDetailTv.setText(response.body().getData().getStart_date());
+                            binding.dateToTvBooking.setText(response.body().getData().getEnd_date());
                             binding.eventPrice.setText("$" + response.body().getData().getHourly_rate() + "");
                             ticketPrice = response.body().getData().getHourly_rate();
                             binding.text1.setText((ticket + "*" + countVAlue) + "");

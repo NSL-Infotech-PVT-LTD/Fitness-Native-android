@@ -146,7 +146,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="@string/date"
+                android:text="@string/availability"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toRightOf="@id/eventTimeTv"
@@ -243,6 +243,19 @@
                 app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/viewMore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/view_days"
+                android:textColor="@color/grayColor"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/eventTimeDetailTv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventDateDetailTv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

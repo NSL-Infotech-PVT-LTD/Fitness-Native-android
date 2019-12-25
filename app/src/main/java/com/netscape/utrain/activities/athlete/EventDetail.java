@@ -94,6 +94,7 @@ public class EventDetail extends AppCompatActivity {
         binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));//eventEndDateTime
         binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
         binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+        binding.dateToTvDetail.setText(getIntent().getStringExtra("eventEndDate"));
         binding.endTimeTv.setText(getIntent().getStringExtra("eventEndTime"));
 
         binding.eventNumOfCandidateTv.setText(getIntent().getStringExtra("guest_allowed"));
@@ -108,7 +109,7 @@ public class EventDetail extends AppCompatActivity {
                 if (startWeekList !=null && startWeekList.size()>0) {
                     CommonMethods.showLoadingDialog(EventDetail.this, startWeekList);
                 }else {
-
+                    Toast.makeText(EventDetail.this, "No Days Available", Toast.LENGTH_SHORT).show();
                 }
 //                handleImageSelection();
             }
@@ -227,6 +228,8 @@ public class EventDetail extends AppCompatActivity {
                 binding.noOfSeatText.setVisibility(View.VISIBLE);
                 binding.seatNo.setVisibility(View.VISIBLE);
                 binding.totalAvailableSeat.setVisibility(View.VISIBLE);
+                binding.dateToTvDetail.setVisibility(View.VISIBLE);
+                binding.dateTo.setVisibility(View.VISIBLE);
             }
         if (getIntent().getStringExtra("from") != null)
             if (getIntent().getStringExtra("from").equalsIgnoreCase("sessions")) {
@@ -239,6 +242,8 @@ public class EventDetail extends AppCompatActivity {
                 binding.noOfSeatText.setVisibility(View.VISIBLE);
                 binding.seatNo.setVisibility(View.VISIBLE);
                 binding.totalAvailableSeat.setVisibility(View.VISIBLE);
+                binding.dateToTvDetail.setVisibility(View.VISIBLE);
+                binding.dateTo.setVisibility(View.VISIBLE);
 
             }
         Bundle b = getIntent().getExtras();
@@ -252,19 +257,19 @@ public class EventDetail extends AppCompatActivity {
             } catch (JSONException e) {
                 Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            imgBackArrowImage = findViewById(R.id.eventBookingBackImg);
-            imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase(Constants.Athlete)) {
-                        Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
-                        startActivity(intent);
-                    } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase("Organizer")) {
-                        Intent intent = new Intent(EventDetail.this, OrgHomeScreen.class);
-                        startActivity(intent);
-                    }
-                }
-            });
+//            imgBackArrowImage = findViewById(R.id.eventBookingBackImg);
+//            imgBackArrowImage.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase(Constants.Athlete)) {
+//                        Intent intent = new Intent(EventDetail.this, AthleteHomeScreen.class);
+//                        startActivity(intent);
+//                    } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, EventDetail.this).equalsIgnoreCase("Organizer")) {
+//                        Intent intent = new Intent(EventDetail.this, OrgHomeScreen.class);
+//                        startActivity(intent);
+//                    }
+//                }
+//            });
 
             binding.evntJoinNow.setOnClickListener(new View.OnClickListener() {
                 @Override

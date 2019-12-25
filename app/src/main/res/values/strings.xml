@@ -453,4 +453,6 @@
     <string name="session_price">Session price</string>
     <string name="event_price">Event price</string>
     <string name="space_available_text">Space Available for</string>
+    <string name="view_days">view All +</string>
+    <string name="to">to</string>
 </resources>

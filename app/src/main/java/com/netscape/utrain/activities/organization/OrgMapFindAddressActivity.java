@@ -3,6 +3,7 @@ package com.netscape.utrain.activities.organization;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
@@ -76,6 +77,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     private EditText searchEdt;
     SupportMapFragment mapFragment;
     private ImageButton searchImgBtn;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         confirmLocRel=findViewById(R.id.confirmLocRel);
         searchLin=findViewById(R.id.searchLin);
         searchEdt=findViewById(R.id.searchEdt);
+        toolbar=findViewById(R.id.toolbarBack);
         searchImgBtn=findViewById(R.id.searchImgBtn);
 //        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
 //                findFragmentById(R.id.map);
@@ -130,6 +133,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         confirmLocRel.setOnClickListener(this);
         searchLin.setOnClickListener(this);
         searchImgBtn.setOnClickListener(this);
+        toolbar.setOnClickListener(this);
 
     }
 
@@ -358,6 +362,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 break;
             case R.id.searchEdt:
                 placeSearch();
+                break;
+            case R.id.toolbar:
+                finish();
                 break;
         }
     }

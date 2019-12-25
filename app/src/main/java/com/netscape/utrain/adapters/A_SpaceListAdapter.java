@@ -117,7 +117,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
                     if (data.getTarget_data().getImages() != null) {
                         startWeekList=CommonMethods.getDaysFromId(data.getTarget_data().getAvailability_week(),CommonMethods.getWeekDaysList());
                         if (startWeekList !=null && startWeekList.size()>0){
-                            holder.eventDate.setText(startWeekList.get(0).getDayName()+"..");
+//                            holder.eventDate.setText(startWeekList.get(0).getDayName()+"..");
                         }
                         jsonArray = new JSONArray(data.getTarget_data().getImages());
                         holder.eventName.setText(data.getTarget_data().getName());
@@ -130,7 +130,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
                     if (data.getSpace().getImages() != null) {
                         startWeekList=CommonMethods.getDaysFromId(data.getSpace().getAvailability_week(),CommonMethods.getWeekDaysList());
                         if (startWeekList !=null && startWeekList.size()>0){
-                            holder.eventDate.setText(startWeekList.get(0).getDayName()+"..");
+//                            holder.eventDate.setText(startWeekList.get(0).getDayName()+"..");
                         }
                         jsonArray = new JSONArray(data.getSpace().getImages());
                         holder.eventName.setText(data.getSpace().getName());
@@ -143,6 +143,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
                 if (jsonArray !=null && jsonArray.length()>0){
                     Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
                 }
+            holder.eventDate.setText(data.getBooking_date().getStart());
 
 
         } catch (JSONException e) {

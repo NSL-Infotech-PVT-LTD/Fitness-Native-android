@@ -64,6 +64,12 @@ public class BookingDetails extends AppCompatActivity {
 //        setContentView(R.layout.activity_notification);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification);
         init();
+        binding.backImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void init() {

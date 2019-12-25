@@ -9,6 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -40,6 +44,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -181,6 +187,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
+        cardHolder.setFilters(new InputFilter[]{CommonMethods.getEditTextFilter()});
 
         checkCard(cardNumberEditText);
 
@@ -486,8 +493,6 @@ public class PaymentActivity extends AppCompatActivity {
                         JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
                         String errorMsg=errorMessage.getJSONObject(0).getString("message");
                         Toast.makeText(activity, "" + errorMsg, Toast.LENGTH_SHORT).show();
-
-
                     } catch (Exception e) {
                         Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -504,5 +509,6 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

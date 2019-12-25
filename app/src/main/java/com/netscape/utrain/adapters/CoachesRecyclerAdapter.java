@@ -125,6 +125,7 @@ public class CoachesRecyclerAdapter extends RecyclerView.Adapter<CoachesRecycler
                 intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
                 intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
                 intent.putExtra("eventDate", data.getStart_date());
+                intent.putExtra("eventEndDate", data.getEnd_date());
                 intent.putExtra("eventTime", data.getStart_time());
                 intent.putExtra("eventEndTime", data.getEnd_time());
                 intent.putExtra("eventDescription", data.getDescription());

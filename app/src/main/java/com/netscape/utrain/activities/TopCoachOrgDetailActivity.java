@@ -163,7 +163,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             public void onClick(View view) {
                 Intent intent = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.putExtra("from", "topEvent");
+                intent.putExtra("from", "1");
                 intent.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(intent);
             }
@@ -173,7 +173,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View view) {
                 Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
-                vSesssion.putExtra("from", "topSession");
+                vSesssion.putExtra("from", "2");
                 vSesssion.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(vSesssion);
             }
@@ -184,7 +184,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             public void onClick(View view) {
 
                 Intent vEventOrg = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
-                vEventOrg.putExtra("from", "topSpace");
+                vEventOrg.putExtra("from", "3");
                 vEventOrg.putExtra("coach_id", coachListModel.getId() + "");
                 startActivity(vEventOrg);
             }

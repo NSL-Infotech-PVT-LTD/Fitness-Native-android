@@ -455,22 +455,22 @@ public class AthleteSpaceBookList {
                  * end : null
                  */
 
-                private Object start;
-                private Object end;
+                private String start;
+                private String end;
 
-                public Object getStart() {
+                public String getStart() {
                     return start;
                 }
 
-                public void setStart(Object start) {
+                public void setStart(String start) {
                     this.start = start;
                 }
 
-                public Object getEnd() {
+                public String getEnd() {
                     return end;
                 }
 
-                public void setEnd(Object end) {
+                public void setEnd(String end) {
                     this.end = end;
                 }
             }
