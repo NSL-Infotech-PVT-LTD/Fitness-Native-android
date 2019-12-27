@@ -63,6 +63,7 @@ public class Constants {
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_TRANSACTIONS_ORG = "all/organiser/bookings";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
+    public static final String ALL_BOOKING_COACH_ORG = "both/bookings";
     public static final String ALL_TRANSACTIONS_COACH = "all/coach/bookings";
     public static final String SPORTS_LIST = "sports";
     public static final String ABOUT_US = "about/us";

@@ -74,6 +74,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -108,6 +109,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
     boolean isInternetPresent = false;
     private AlertDialog dialogMultiOrder;
     private int count =0;
+    private String notiFicationData="";
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -346,9 +349,18 @@ public class AthleteHomeScreen extends AppCompatActivity {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 //        NavigationUI.setupWithNavController(navigationView, navController);
-
+        if (getIntent().getExtras()!=null){
+            Log.d("HomeNotification","found");
+            notiFicationData=getIntent().getStringExtra("notification");
+        }
         setProfileImage();
-        loadFragment(new A_HomeFragment());
+        A_HomeFragment homeFragment=new A_HomeFragment();
+        if (! TextUtils.isEmpty(notiFicationData)){
+            Bundle args = new Bundle();
+            args.putString("notification", notiFicationData);
+            homeFragment.setArguments(args);
+        }
+        loadFragment(homeFragment);
 
         // When User Will Click on Athlete Home Screen ImageView, it will open MyProfileActivity....
 
@@ -373,19 +385,19 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 startActivity(settingsTv);
             }
         });
-
-        if (getIntent().hasExtra("pushnotification")){
-            Intent intent=new Intent(getApplicationContext(), BookingDetails.class);
-            startActivity(intent);
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent , 0);
-//            intent.setLatestEventInfo(this, "", "", contentIntent);
+//        Toast.makeText(this, "From Notification", Toast.LENGTH_SHORT).show();
+//        Log.d("Notification","found");
 
 
-        }
+// Set the Activity to start in a new, empty task
+//        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//// Create the PendingIntent
+//        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+//                this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+//        );
 
 
     }
-
 
     private void setBadgeToNotification(int num) {
         BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notifications);

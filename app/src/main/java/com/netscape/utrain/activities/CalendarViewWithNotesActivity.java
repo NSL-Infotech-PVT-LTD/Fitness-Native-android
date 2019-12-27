@@ -36,6 +36,7 @@ import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.O_AllBookingDataListModel;
 import com.netscape.utrain.model.O_AllBookingDataModel;
 import com.netscape.utrain.model.O_AllBookingTargetDataModel;
+import com.netscape.utrain.response.CoachOrgCalResponse;
 import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -440,17 +441,17 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getOrgBooking(String currentMonth) {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
-        call.enqueue(new Callback<O_AllBookingResponse>() {
+        Call call = retrofitinterface.getCoachOrgCalBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE,currentMonth);
+        call.enqueue(new Callback<CoachOrgCalResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
+            public void onResponse(Call<CoachOrgCalResponse> call, Response<CoachOrgCalResponse> response) {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         orgEventList=new ArrayList<>();
                         eventsMap.clear();
-                        orgEventList.addAll(response.body().getData().getData());
+//                        orgEventList.addAll(response.body().getData().);
                         if (orgEventList.size() > 0) {
 
                             for (O_AllBookingDataListModel e : orgEventList) {
@@ -551,7 +552,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
             }
 
             @Override
-            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
+            public void onFailure(Call<CoachOrgCalResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

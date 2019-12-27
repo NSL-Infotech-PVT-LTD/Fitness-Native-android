@@ -3,6 +3,7 @@ package com.netscape.utrain.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,6 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     private int SPLASH_DISPLAY_LENGTH=2000;
     private String userEmail="",userMobile="",loginUser;
     private File mediaStorageDir;
+    private String notificationData="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,14 @@ public class SplashActivity extends AppCompatActivity {
             CommonMethods.deleteDirectory(mediaStorageDir);
         }
         ///storage/emulated/0/UtCompressed
+        // to get notification intent
+//        Log.d("Notification From","found");
+//        if (getIntent().getExtras()!=null){
+//            notificationData=getIntent().getStringExtra("pushnotification");
+//            Log.d("Notification",notificationData.toString());
+//
+//        }
+//        onNewIntent();
 
         new Handler().postDelayed(new Runnable(){
             @Override
@@ -57,7 +67,12 @@ public class SplashActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(loginUser)){
                     if (loginUser.equalsIgnoreCase(PrefrenceConstant.ATHLETE_LOG_IN)) {
                     if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
+
                         Intent intent = new Intent(getApplicationContext(), AthleteHomeScreen.class);
+                        if (! TextUtils.isEmpty(notificationData)){
+                            Log.d("NotificationSentt","ToHome");
+                            intent.putExtra("notification",notificationData);
+                        }
                         startActivity(intent);
                         finish();
                     } else {
@@ -68,6 +83,9 @@ public class SplashActivity extends AppCompatActivity {
                 }else if (loginUser.equalsIgnoreCase(PrefrenceConstant.COACH_LOG_IN)) {
                     if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
                         Intent intent = new Intent(getApplicationContext(), CoachDashboard.class);
+                        if (! TextUtils.isEmpty(notificationData)){
+                            intent.putExtra("notification",notificationData);
+                        }
                         startActivity(intent);
                         finish();
                     } else {
@@ -79,6 +97,9 @@ public class SplashActivity extends AppCompatActivity {
                     else if (loginUser.equalsIgnoreCase(PrefrenceConstant.ORG_LOG_IN)) {
                         if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
                             Intent intent = new Intent(getApplicationContext(), OrgHomeScreen.class);
+                            if (! TextUtils.isEmpty(notificationData)){
+                                intent.putExtra("notification",notificationData);
+                            }
                             startActivity(intent);
                             finish();
                         } else {

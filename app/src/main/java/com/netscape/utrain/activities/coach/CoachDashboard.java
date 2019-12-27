@@ -131,6 +131,12 @@ public class CoachDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(CoachDashboard.this, R.layout.activity_coach_dashboard);
         activity = this;
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (!intent.getStringExtra("pushnotification").isEmpty()) {
+                Toast.makeText(this, "Notification area", Toast.LENGTH_SHORT).show();
+            }
+        }
         navImageView = binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         navNameTv = binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
 

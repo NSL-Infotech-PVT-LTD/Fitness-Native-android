@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
@@ -45,6 +46,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
     private int NOTIFICATION_ID = 0;
     private NotificationCompat.Builder mBuilder;
     private String title = "F17ONE";
+    private String response = "";
 
 
     @Override
@@ -69,12 +71,12 @@ public class MyFirebaseService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData().get("data"));
             String tragetId = "";
 
-            String response = remoteMessage.getData().toString();
+            response = remoteMessage.getData().toString();
             try {
 
                 JSONObject json = new JSONObject(response);
                 JSONObject jsonObject = json.getJSONObject("data");
-              //  tragetId = jsonObject.getString("target_id");
+                //  tragetId = jsonObject.getString("target_id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -102,13 +104,14 @@ public class MyFirebaseService extends FirebaseMessagingService {
     private void setNotification(String title, String data) {
         Intent intent = null;
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
-            intent = new Intent(this, OrgHomeScreen.class);
+            intent = new Intent(this, BookingDetails.class);
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete))
-            intent = new Intent(this, AthleteHomeScreen.class);
+            intent = new Intent(this, BookingDetails.class);
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
-            intent = new Intent(this, CoachDashboard.class);
+            intent = new Intent(this, BookingDetails.class);
 
-        intent.putExtra("pushnotification", "yes");
+        intent.putExtra("pushnotification", response);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -122,6 +125,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.u_train))
                 .setContentText(data)
                 .setSound(defaultSoundUri)
+                .setAutoCancel(true)
                 .build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -133,13 +137,13 @@ public class MyFirebaseService extends FirebaseMessagingService {
     private void Greater_M_version(String title, String messageData) {
         Intent intent = null;
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
-            intent = new Intent(this, OrgHomeScreen.class);
+            intent = new Intent(this, BookingDetails.class);
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Athlete))
-            intent = new Intent(this, AthleteHomeScreen.class);
+            intent = new Intent(this, BookingDetails.class);
         else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
-        intent = new Intent(this, CoachDashboard.class);
+            intent = new Intent(this, BookingDetails.class);
 
-        intent.putExtra("pushnotification", "yes");
+        intent.putExtra("pushnotification", response);
         Notification notification;
         String channelId = getApplicationContext().getString(R.string.default_notification_channel_id);
         NotificationChannel channel = null;
@@ -168,6 +172,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
                 .setLargeIcon(bitmap)
                 .setContentText(messageData)
                 .setSound(defaultSoundUri)
+                .setAutoCancel(true)
                 .build();
 
 // notification.flags |= Notification.FLAG_AUTO_CANCEL;

@@ -780,7 +780,6 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();

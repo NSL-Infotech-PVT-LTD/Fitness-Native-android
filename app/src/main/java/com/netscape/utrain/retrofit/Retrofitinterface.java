@@ -26,6 +26,7 @@ import com.netscape.utrain.response.C_EventListResponse;
 import com.netscape.utrain.response.C_SessionListResponse;
 import com.netscape.utrain.response.ChangePasswordResponse;
 import com.netscape.utrain.response.CoachListResponse;
+import com.netscape.utrain.response.CoachOrgCalResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
@@ -420,6 +421,11 @@ public interface Retrofitinterface {
                                                   @Header("Content-Type") String contentType,
                                                   @Field("limit") String page,
                                                   @Field("filter_by") String filter_by);
+    @FormUrlEncoded
+    @POST(Constants.ALL_BOOKING_COACH_ORG)
+    Call<CoachOrgCalResponse> getCoachOrgCalBooking(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String contentType,
+                                                    @Field("filter_by") String filter_by);
 
     @POST(Constants.ORG_SESSION_LIST)
     Call<O_SessionListResponse> getOrgSessionList(@Header("Authorization") String Authorization,

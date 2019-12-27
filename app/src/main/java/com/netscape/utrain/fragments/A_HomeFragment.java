@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.activities.athlete.DiscoverTopRated;
 import com.netscape.utrain.activities.SignUpTypeActivity;
@@ -83,7 +86,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "notification";
     private static final String ARG_PARAM2 = "param2";
     TopCoachesAdapter coachAdapter;
     String sExperience, sAchievement;
@@ -141,6 +144,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            Log.d("FragmentNoti",mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
 
@@ -285,7 +289,18 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
 //        orgAdapter = new TopOrganizationAdapter(getContext(),orgList);
 //        topOrgRecycler.setAdapter(orgAdapter);
 //
+//        Intent notifyIntent = new Intent(context, BookingDetails.class);
+//        startActivity(notifyIntent);
 
+//        if (context.getIntent().hasExtra("pushnotification")){
+//            Intent intent=new Intent(getApplicationContext(), BookingDetails.class);
+//            startActivity(intent);
+//            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent , 0);
+////            intent.setLatestEventInfo(this, "", "", contentIntent);
+//
+//            Intent notifyIntent = new Intent(this, BookingDetails.class);
+//            startActivity(notifyIntent);
+//        }
 
         return view;
 

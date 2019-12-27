@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
@@ -48,15 +49,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookingDetails extends AppCompatActivity {
+    ChipGroup chipSpaceGroup;
     private ActivityNotificationBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private EventDetailResponse.DataBean eventData;
     private SessionBookingDetails.DataBean sessionData;
     private SpaceBookingDetailResponse.DataBean spaceData;
-    private String jobId="", jobType="",status;
-    ChipGroup chipSpaceGroup;
-
+    private String jobId = "", jobType = "", status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,9 @@ public class BookingDetails extends AppCompatActivity {
     }
 
     private void init() {
-        if (getIntent().getExtras()!=null) {
+
+
+        if (getIntent().getExtras() != null) {
             jobType = getIntent().getStringExtra(Constants.SELECTED_TYPE);
             jobId = getIntent().getStringExtra(Constants.SELECTED_ID);
             status = getIntent().getStringExtra(Constants.STATUS);
@@ -87,13 +89,13 @@ public class BookingDetails extends AppCompatActivity {
     }
 
     private void jobTypeFilter() {
-        if (jobType.equalsIgnoreCase(Constants.EVENT)){
+        if (jobType.equalsIgnoreCase(Constants.EVENT)) {
             getEventDetail();
         }
-        if (jobType.equalsIgnoreCase(Constants.SESSION)){
+        if (jobType.equalsIgnoreCase(Constants.SESSION)) {
             getSessionDetail();
         }
-        if (jobType.equalsIgnoreCase(Constants.SPACE)){
+        if (jobType.equalsIgnoreCase(Constants.SPACE)) {
             getSpaceDetails();
         }
 
@@ -110,10 +112,10 @@ public class BookingDetails extends AppCompatActivity {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body()!=null) {
+                        if (response.body() != null) {
                             binding.noBookingDetailImg.setVisibility(View.GONE);
-                            eventData=(response.body().getData());
-                                setEventData();
+                            eventData = (response.body().getData());
+                            setEventData();
                         } else {
                             binding.noBookingDetailImg.setVisibility(View.VISIBLE);
 
@@ -152,10 +154,10 @@ public class BookingDetails extends AppCompatActivity {
 //        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + list.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + list.getUser_details().getProfile_image())).into(customerImage);
 
         try {
-            if (eventData.getTarget_data().getImages()!= null) {
+            if (eventData.getTarget_data().getImages() != null) {
                 JSONArray jsonArray = new JSONArray(eventData.getTarget_data().getImages());
                 if (jsonArray != null && jsonArray.length() > 0) {
-                    Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with( getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(binding.customerImage);
+                    Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(binding.customerImage);
                 }
             }
 
@@ -207,9 +209,9 @@ public class BookingDetails extends AppCompatActivity {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData()!=null) {
+                        if (response.body().getData() != null) {
                             binding.noBookingDetailImg.setVisibility(View.GONE);
-                            sessionData=response.body().getData();
+                            sessionData = response.body().getData();
                             setSessionData();
 
                         } else {
@@ -246,6 +248,7 @@ public class BookingDetails extends AppCompatActivity {
             }
         });
     }
+
     public void setSessionData() {
 //        Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + sessionData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + sessionData.getUser_details().getProfile_image())).into(customerImage);
         try {
@@ -302,9 +305,9 @@ public class BookingDetails extends AppCompatActivity {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (response.body().getData()!=null) {
+                        if (response.body().getData() != null) {
                             binding.noBookingDetailImg.setVisibility(View.GONE);
-                            spaceData=response.body().getData();
+                            spaceData = response.body().getData();
                             getSpaceAmount();
                         } else {
                             binding.noBookingDetailImg.setVisibility(View.VISIBLE);
@@ -335,6 +338,7 @@ public class BookingDetails extends AppCompatActivity {
             }
         });
     }
+
     public void getSpaceAmount() {
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
 //            Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + spaceData.getUser_details().getProfile_image()).thumbnail(Glide.with(getContext()).load(Constants.IMAGE_BASE_URL + Constants.THUMBNAILS + spaceData.getUser_details().getProfile_image())).into(customerImage);
@@ -405,6 +409,7 @@ public class BookingDetails extends AppCompatActivity {
 //            bottomSheetUpDown_address();
         }
     }
+
     private void setChips() {
         binding.spaceDaysLayout.removeAllViews();
         chipSpaceGroup = new ChipGroup(this);

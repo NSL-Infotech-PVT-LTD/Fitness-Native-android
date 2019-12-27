@@ -140,6 +140,7 @@
         <activity
             android:name=".activities.BookingDetails"
             android:screenOrientation="portrait">
+
 <!--        <intent-filter>-->
 <!--            <action android:name="OPEN_ACTIVITY" />-->
 <!--            &lt;!&ndash; Add this OPEN_ACTIVITY string into your data payload while sending the notification from server side. &ndash;&gt;-->
