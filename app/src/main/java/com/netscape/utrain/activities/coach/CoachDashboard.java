@@ -75,6 +75,7 @@ public class CoachDashboard extends AppCompatActivity {
     public DrawerLayout drawer;
     public BottomNavigationView orgNavView;
     CoachDashboard activity;
+    boolean isInternetPresent = false;
     private TextView mTextMessage;
     private ActivityCoachDashboardBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
@@ -83,9 +84,8 @@ public class CoachDashboard extends AppCompatActivity {
     private MaterialTextView navNameTv;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    boolean isInternetPresent = false;
     private AlertDialog dialogMultiOrder;
-    private int count =0;
+    private int count = 0;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -125,6 +125,19 @@ public class CoachDashboard extends AppCompatActivity {
             return false;
         }
     };
+    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent bufferIntent) {
+            String status = CheckNetwork.getConnectivityStatusString(context);
+            if (status.equals("WIFI") || status.equals("MOBILE")) {
+                isInternetPresent = true;
+            } else if (status.equals("No Connection")) {
+                isInternetPresent = false;
+            }
+
+            showNetworkState();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,21 +145,21 @@ public class CoachDashboard extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(CoachDashboard.this, R.layout.activity_coach_dashboard);
         activity = this;
         Intent intent = getIntent();
-        if (intent != null) {
-            if (!intent.getStringExtra("pushnotification").isEmpty()) {
-                Toast.makeText(this, "Notification area", Toast.LENGTH_SHORT).show();
-            }
-        }
+//        if (intent != null) {
+//            if (!intent.getStringExtra("pushnotification").isEmpty()) {
+//                Toast.makeText(this, "Notification area", Toast.LENGTH_SHORT).show();
+//            }
+//        }
         navImageView = binding.coachSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         navNameTv = binding.coachSlider.getHeaderView(0).findViewById(R.id.navNameTv);
 
         Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(navImageView);
         Glide.with(CoachDashboard.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, CoachDashboard.this)).into(binding.coachProfileImg);
         navNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, CoachDashboard.this));
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 
         coachDrawer = findViewById(R.id.coachDrawer);
         orgNavView = findViewById(R.id.orgNavView);
@@ -344,9 +357,10 @@ public class CoachDashboard extends AppCompatActivity {
             }, 2000);
         }
     }
+
     private void HitLogoutApi() {
         progressDialog.show();
-        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this));
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this));
         signUpAthlete.enqueue(new Callback<LogoutResponse>() {
             @Override
             public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
@@ -354,7 +368,7 @@ public class CoachDashboard extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(activity);
                             Intent intent = new Intent(activity, SignUpTypeActivity.class);
@@ -369,10 +383,10 @@ public class CoachDashboard extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.coachContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.coachContainer, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.coachContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.coachContainer, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -385,89 +399,92 @@ public class CoachDashboard extends AppCompatActivity {
             }
         });
     }
-        private void setBadgeToNotification(int num) {
-            BadgeDrawable badge = orgNavView.getOrCreateBadge(R.id.navigation_notifications);
-            badge.setBadgeGravity(BadgeDrawable.TOP_END);
-            badge.setNumber(num);
-            badge.setMaxCharacterCount(3);
-            badge.setBadgeTextColor(getResources().getColor(R.color.colorWhite));
-        }
 
-        private void GetNewNotificationCount() {
-    //        progressDialog.show();
-            Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,CoachDashboard.this));
-            signUpAthlete.enqueue(new Callback<NotificationCountResponse>() {
-                @Override
-                public void onResponse(Call<NotificationCountResponse> call, Response<NotificationCountResponse> response) {
-                    if (response.isSuccessful()) {
-    //                    progressDialog.dismiss();
-                        if (response.body().isStatus()) {
-                            if (response.body().getData() != null) {
-    //                            Toast.makeText(getApplicationContext(),response.body().getData().getNotification_count(),Toast.LENGTH_SHORT).show();
-                                if (response.body().getData().getNotification_count()>0){
-                                    setBadgeToNotification(response.body().getData().getNotification_count());
-                                }
+    private void setBadgeToNotification(int num) {
+        BadgeDrawable badge = orgNavView.getOrCreateBadge(R.id.navigation_notifications);
+        badge.setBadgeGravity(BadgeDrawable.TOP_END);
+        badge.setNumber(num);
+        badge.setMaxCharacterCount(3);
+        badge.setBadgeTextColor(getResources().getColor(R.color.colorWhite));
+    }
 
+    private void GetNewNotificationCount() {
+        //        progressDialog.show();
+        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this));
+        signUpAthlete.enqueue(new Callback<NotificationCountResponse>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponse> call, Response<NotificationCountResponse> response) {
+                if (response.isSuccessful()) {
+                    //                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            //                            Toast.makeText(getApplicationContext(),response.body().getData().getNotification_count(),Toast.LENGTH_SHORT).show();
+                            if (response.body().getData().getNotification_count() > 0) {
+                                setBadgeToNotification(response.body().getData().getNotification_count());
                             }
-                        } else {
-    //                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+
                         }
                     } else {
-    //                    progressDialog.dismiss();
-                        try {
-                            JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-    //                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-
-                        } catch (Exception e) {
-    //                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                        }
+                        //                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
+                } else {
+                    //                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        //                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
+                    } catch (Exception e) {
+                        //                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
                 }
 
-                @Override
-                public void onFailure(Call<NotificationCountResponse> call, Throwable t) {
-    //                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-    //                progressDialog.dismiss();
-                }
-            });
-        }
-        private void SetNotificationRead() {
-    //        progressDialog.show();
-            Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,CoachDashboard.this));
-            signUpAthlete.enqueue(new Callback<NotificationReadResponse>() {
-                @Override
-                public void onResponse(Call<NotificationReadResponse> call, Response<NotificationReadResponse> response) {
-                    if (response.isSuccessful()) {
-    //                    progressDialog.dismiss();
-                        if (response.body().isStatus()) {
-                            if (response.body().getData() != null) {
-                                orgNavView.removeBadge(R.id.navigation_notifications);
-                            }
-                        } else {
-    //                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponse> call, Throwable t) {
+                //                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                //                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void SetNotificationRead() {
+        //        progressDialog.show();
+        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this));
+        signUpAthlete.enqueue(new Callback<NotificationReadResponse>() {
+            @Override
+            public void onResponse(Call<NotificationReadResponse> call, Response<NotificationReadResponse> response) {
+                if (response.isSuccessful()) {
+                    //                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            orgNavView.removeBadge(R.id.navigation_notifications);
                         }
                     } else {
-    //                    progressDialog.dismiss();
-                        try {
-                            JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-    //                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-
-                        } catch (Exception e) {
-    //                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                        }
+                        //                        Snackbar.make(binding.athHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
+                } else {
+                    //                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        //                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
 
+                    } catch (Exception e) {
+                        //                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
                 }
-                @Override
-                public void onFailure(Call<NotificationReadResponse> call, Throwable t) {
-    //                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-    //                progressDialog.dismiss();
-                }
-            });
-        }
+
+            }
+
+            @Override
+            public void onFailure(Call<NotificationReadResponse> call, Throwable t) {
+                //                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                //                progressDialog.dismiss();
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
@@ -481,31 +498,20 @@ public class CoachDashboard extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(networkReceiver);
     }
-    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent bufferIntent) {
-            String status = CheckNetwork.getConnectivityStatusString(context);
-            if(status.equals("WIFI") || status.equals("MOBILE")) {
-                isInternetPresent = true;
-            } else if(status.equals("No Connection")) {
-                isInternetPresent = false;
-            }
 
-            showNetworkState();
-        }
-    };
-    public void showNetworkState(){
-        if(isInternetPresent) {
+    public void showNetworkState() {
+        if (isInternetPresent) {
 //            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
 //            networkConnectionImageView.setVisibility(View.VISIBLE);
         } else {
-            if (count==0) {
+            if (count == 0) {
                 handleImageSelection();
             }
 //            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
 //            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
         }
     }
+
     public void handleImageSelection() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -521,17 +527,16 @@ public class CoachDashboard extends AppCompatActivity {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInternetPresent) {
-                    count=0;
+                if (isInternetPresent) {
+                    count = 0;
                     dialogMultiOrder.dismiss();
                 } else {
                 }
 
             }
         });
-
         dialogMultiOrder.show();
-        count=1;
+        count = 1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 }

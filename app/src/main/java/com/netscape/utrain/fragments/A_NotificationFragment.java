@@ -594,7 +594,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
 
 
     }
-    private void hitEventDetailAPI(String id) {
+    public void hitEventDetailAPI(String id) {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
@@ -663,7 +663,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
         });
     }
 
-    private void getSessionDetails(String id) {
+    public void getSessionDetails(String id) {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
@@ -725,7 +725,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
             }
         });
     }
-    private void hitSpaceDetailAPI(String id) {
+    public  void hitSpaceDetailAPI(String id) {
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);

@@ -28,6 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.JsonArray;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.BookingDetails;
@@ -44,10 +45,14 @@ import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
+import com.netscape.utrain.model.A_SpaceListModel;
+import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
+import com.netscape.utrain.response.SessionDetailResponse;
+import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CheckNetwork;
@@ -85,9 +90,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -97,6 +106,7 @@ import retrofit2.Response;
 public class AthleteHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
     public BottomNavigationView navView;
+    boolean isInternetPresent = false;
     private TextView mTextMessage;
     private AActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
@@ -106,10 +116,12 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private MaterialTextView navNameTv, notificationTv;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    boolean isInternetPresent = false;
     private AlertDialog dialogMultiOrder;
-    private int count =0;
-    private String notiFicationData="";
+    private int count = 0;
+    private String notiFicationData = "";
+    private A_NotificationFragment notificationFragment;
+    private ArrayList<String>dataList;
+    private ArrayList<String>data;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -150,6 +162,81 @@ public class AthleteHomeScreen extends AppCompatActivity {
             return false;
         }
     };
+    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent bufferIntent) {
+            String status = CheckNetwork.getConnectivityStatusString(context);
+            if (status.equals("WIFI") || status.equals("MOBILE")) {
+                isInternetPresent = true;
+            } else if (status.equals("No Connection")) {
+                isInternetPresent = false;
+            }
+
+            showNetworkState();
+        }
+    };
+
+    @Override
+    public void onNewIntent(Intent intentData) {
+
+        super.onNewIntent(intentData);
+        Bundle extras = intentData.getExtras();
+        if (extras !=null) {
+            Log.d("SystemTray", extras.toString());
+        }
+        String data=intentData.getStringExtra("pushnotification");
+        if (data != null) {
+                String typeData="";
+                String id="";
+                String targetType="";
+                    try {
+                        JSONObject jsonObject = new JSONObject(data);
+                        JSONObject jsonObject1=jsonObject.getJSONObject("data");
+                        typeData = jsonObject1.getString("target_model");
+                        id = jsonObject1.getString("target_id");
+                        if (jsonObject1.getString("target_type")!=null)
+                        targetType = jsonObject1.getString("target_type");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                if (typeData.equalsIgnoreCase("event")){
+                    hitEventDetailAPI(id);
+                }
+                if (typeData.equalsIgnoreCase("session")){
+                    getSessionDetails(id);
+                }
+                if (typeData.equalsIgnoreCase("space")){
+                    hitSpaceDetailAPI(id);
+                }
+                if (typeData.equalsIgnoreCase("booking")) {
+                    if (targetType.equalsIgnoreCase("event")) {
+//                hitEventDetailAPI(id);
+                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+//                        topCoachesDetails.putExtra(Constants.STATUS, status);
+                        startActivity(topCoachesDetails);
+                    }
+                    if (targetType.equalsIgnoreCase("session")) {
+//                getSessionDetails(id);
+                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                        startActivity(topCoachesDetails);
+                    }
+                    if (targetType.equalsIgnoreCase("space")) {
+                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                        startActivity(topCoachesDetails);
+                    }
+                }
+                    Log.d("pushnotification", "onNewIntent: " + data);
+            }
+        }
 
 
     @Override
@@ -166,28 +253,14 @@ public class AthleteHomeScreen extends AppCompatActivity {
         unregisterReceiver(networkReceiver);
     }
 
-    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent bufferIntent) {
-            String status = CheckNetwork.getConnectivityStatusString(context);
-            if(status.equals("WIFI") || status.equals("MOBILE")) {
-                isInternetPresent = true;
-            } else if(status.equals("No Connection")) {
-                isInternetPresent = false;
-            }
-
-            showNetworkState();
-        }
-    };
-
-    public void showNetworkState(){
-        if(isInternetPresent) {
+    public void showNetworkState() {
+        if (isInternetPresent) {
 //            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
 //            networkConnectionImageView.setVisibility(View.VISIBLE);
         } else {
-            if (count == 0){
+            if (count == 0) {
                 handleImageSelection();
-        }
+            }
 //            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
 //            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
         }
@@ -200,9 +273,11 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
 
         init();
+        onNewIntent(getIntent());
     }
 
     private void init() {
+        notificationFragment=new A_NotificationFragment();
         //        setContentView(R.layout.a_activity_bottom_navigation);
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
@@ -211,6 +286,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         navNameTv = binding.slider.getHeaderView(0).findViewById(R.id.navNameTv);
         headerImage = binding.slider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         binding.navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setVisibility(View.GONE);
@@ -218,10 +295,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
         final NavigationView navigationView = findViewById(R.id.slider);
         View header = navigationView.getHeaderView(0);
         MaterialTextView dashboardTv = header.findViewById(R.id.coachDashboardTv);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         GetNewNotificationCount();
 
         binding.slider.getHeaderView(0).findViewById(R.id.allCreatedTv).setVisibility(View.GONE);
@@ -349,13 +426,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 //        NavigationUI.setupWithNavController(navigationView, navController);
-        if (getIntent().getExtras()!=null){
-            Log.d("HomeNotification","found");
-            notiFicationData=getIntent().getStringExtra("notification");
-        }
+
         setProfileImage();
-        A_HomeFragment homeFragment=new A_HomeFragment();
-        if (! TextUtils.isEmpty(notiFicationData)){
+        A_HomeFragment homeFragment = new A_HomeFragment();
+        if (!TextUtils.isEmpty(notiFicationData)) {
             Bundle args = new Bundle();
             args.putString("notification", notiFicationData);
             homeFragment.setArguments(args);
@@ -398,6 +472,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
 
     }
+
 
     private void setBadgeToNotification(int num) {
         BadgeDrawable badge = navView.getOrCreateBadge(R.id.navigation_notifications);
@@ -493,9 +568,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
         }
     }
+
     private void HitLogoutApi() {
         progressDialog.show();
-        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this));
         signUpAthlete.enqueue(new Callback<LogoutResponse>() {
             @Override
             public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
@@ -503,7 +579,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                                Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar().toString(), Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(AthleteHomeScreen.this);
                             Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
@@ -534,9 +610,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
     }
+
     private void GetNewNotificationCount() {
 //        progressDialog.show();
-        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this));
         signUpAthlete.enqueue(new Callback<NotificationCountResponse>() {
             @Override
             public void onResponse(Call<NotificationCountResponse> call, Response<NotificationCountResponse> response) {
@@ -545,7 +622,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
 //                            Toast.makeText(getApplicationContext(),response.body().getData().getNotification_count(),Toast.LENGTH_SHORT).show();
-                            if (response.body().getData().getNotification_count()>0){
+                            if (response.body().getData().getNotification_count() > 0) {
                                 setBadgeToNotification(response.body().getData().getNotification_count());
                             }
 
@@ -574,9 +651,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
             }
         });
     }
+
     private void SetNotificationRead() {
 //        progressDialog.show();
-        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,AthleteHomeScreen.this));
+        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this));
         signUpAthlete.enqueue(new Callback<NotificationReadResponse>() {
             @Override
             public void onResponse(Call<NotificationReadResponse> call, Response<NotificationReadResponse> response) {
@@ -602,6 +680,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 }
 
             }
+
             @Override
             public void onFailure(Call<NotificationReadResponse> call, Throwable t) {
                 Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -626,8 +705,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(isInternetPresent) {
-                    count=0;
+                if (isInternetPresent) {
+                    count = 0;
                     dialogMultiOrder.dismiss();
 //                    init();
                 } else {
@@ -637,8 +716,204 @@ public class AthleteHomeScreen extends AppCompatActivity {
         });
 
         dialogMultiOrder.show();
-        count=1;
+        count = 1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+    public  void hitSpaceDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
+            @Override
+            public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(AthleteHomeScreen.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getOpen_hours_from());
+                            intent.putExtra("eventALLImages", response.body().getData().getImages());
+                            intent.putExtra("eventEndTime", response.body().getData().getOpen_hours_to());
+//                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+                            intent.putExtra("event_id", response.body().getData().getId() + "");
+                            intent.putExtra("from", "places");
+                            intent.putExtra("desc", response.body().getData().getDescription());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            data=new ArrayList<>();
+                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
+                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(AthleteHomeScreen.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(AthleteHomeScreen.this, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(AthleteHomeScreen.this, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+    public void hitEventDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this), Constants.CONTENT_TYPE, id );
+        signUpAthlete.enqueue(new Callback<EventBookingModel>() {
+            @Override
+            public void onResponse(Call<EventBookingModel> call, Response<EventBookingModel> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            Intent intent = new Intent(AthleteHomeScreen.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                            intent.putExtra("from", "events");
+                            intent.putExtra("capacity", response.body().getData().getGuest_allowed());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(AthleteHomeScreen.this, ""+ errorMessage, Toast.LENGTH_SHORT).show();
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(AthleteHomeScreen.this, ""+ e, Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EventBookingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(AthleteHomeScreen.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    public void getSessionDetails(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SessionDetailResponse>() {
+            @Override
+            public void onResponse(Call<SessionDetailResponse> call, Response<SessionDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(AthleteHomeScreen.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("from", "sessions");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(AthleteHomeScreen.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SessionDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Toast.makeText(AthleteHomeScreen.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 }

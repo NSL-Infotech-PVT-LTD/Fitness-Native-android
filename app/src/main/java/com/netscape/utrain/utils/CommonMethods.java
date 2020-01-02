@@ -2,11 +2,14 @@ package com.netscape.utrain.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -31,10 +35,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.EventDetail;
+import com.netscape.utrain.model.A_SpaceListModel;
 import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.model.ServiceListDataModel;
 import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
+import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 
@@ -71,6 +78,7 @@ public class CommonMethods {
     private static Dialog loadingDialog;
     private ChipGroup chipSpaceGroup;
     private RelativeLayout layout;
+    private ProgressDialog progressDialog;
     Retrofitinterface retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
     public static String getPrefData(String ke, Context ct) {
@@ -352,6 +360,75 @@ public class CommonMethods {
                 return ms.matches();
             }
         };
+    }
+
+    public  List<A_SpaceListModel> hitSpaceDetailAPI(String id,Context context) {
+        List<A_SpaceListModel>spaceData=new ArrayList<>();
+
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
+            @Override
+            public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                                spaceData.add(response.body().getData());
+//                            Intent intent = new Intent(context, EventDetail.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            intent.putExtra("eventName", response.body().getData().getName());
+//                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+//                            intent.putExtra("eventTime", response.body().getData().getOpen_hours_from());
+//                            intent.putExtra("eventALLImages", response.body().getData().getImages());
+//                            intent.putExtra("eventEndTime", response.body().getData().getOpen_hours_to());
+////                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
+//                            intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+//                            intent.putExtra("event_id", response.body().getData().getId() + "");
+//                            intent.putExtra("from", "places");
+//                            intent.putExtra("desc", response.body().getData().getDescription());
+//                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+//                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+//                            Bundle b = new Bundle();
+//                            b.putString("Array", response.body().getData().getImages());
+//                            intent.putExtras(b);
+//                            data=new ArrayList<>();
+//                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
+//                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
+//                            context.startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(context, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(context, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(context, ""+context.getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+        return spaceData;
     }
 
 }
