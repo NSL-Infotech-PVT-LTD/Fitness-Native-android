@@ -22,7 +22,7 @@ public class AthleteSessionModel {
     private String business_hour;
     private String start_date;
     private String start_time;
-    private int hourly_rate;
+    private float hourly_rate;
     private String images;
     private String phone;
     private int guest_allowed;
@@ -148,11 +148,11 @@ public class AthleteSessionModel {
     }
 
 
-    public int getHourly_rate() {
+    public float getHourly_rate() {
         return hourly_rate;
     }
 
-    public void setHourly_rate(int hourly_rate) {
+    public void setHourly_rate(float hourly_rate) {
         this.hourly_rate = hourly_rate;
     }
 

@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -100,6 +101,9 @@ public class MyFireBase extends FirebaseMessagingService {
             intent = new Intent(this, CoachDashboard.class);
             intent.putExtra("pushnotification", response);
         }
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(intent);
+
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -134,6 +138,8 @@ public class MyFireBase extends FirebaseMessagingService {
             intent = new Intent(this, CoachDashboard.class);
             intent.putExtra("pushnotification", response);
         }
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(intent);
         Notification notification;
         String channelId = getApplicationContext().getString(R.string.default_notification_channel_id);
         NotificationChannel channel = null;

@@ -1323,9 +1323,7 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
 
                     }
                 }
-
             }
-
             @Override
             public void onFailure(Call<C_SessionListResponse> call, Throwable t) {
                 binding.noBookingImg.setVisibility(View.VISIBLE);

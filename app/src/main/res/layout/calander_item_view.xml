@@ -115,8 +115,6 @@
                 android:id="@+id/findPlacePriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:fontFamily="@font/poppins_regular"
                 android:text="Date "
                 android:textSize="@dimen/_8sdp"
@@ -132,6 +130,18 @@
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="@+id/calNameTv"
                 app:layout_constraintTop_toBottomOf="@id/findPlacePriceTv" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/mySpaceBookings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="My Booking"
+                android:visibility="gone"
+                app:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintLeft_toLeftOf="@+id/calNameTv"
+                app:layout_constraintTop_toBottomOf="@id/calDateTv"
+               />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

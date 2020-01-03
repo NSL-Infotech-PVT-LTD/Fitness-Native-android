@@ -116,17 +116,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onNewIntent(Intent intent) {
 
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            if (extras.containsKey("pushnotification")) {
-                notificationData=extras.toString();
-                Log.d("pushnotificationSplash", "onNewIntent: "+extras.getString("pushnotification"));
-            }
-        }
-    }
 
     private void haskey() {
         try {

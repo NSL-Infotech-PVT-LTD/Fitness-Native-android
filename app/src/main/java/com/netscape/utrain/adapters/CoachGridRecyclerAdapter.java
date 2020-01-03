@@ -39,7 +39,7 @@ public class CoachGridRecyclerAdapter extends RecyclerView.Adapter<CoachGridRecy
 
         CoachListModel data = list.get(position);
 
-        holder.priceDispText.setText(data.getHourly_rate());
+        holder.priceDispText.setText(data.getHourly_rate()+"");
         holder.durationDispText.setText(data.getBusiness_hour_starts());
     }
 

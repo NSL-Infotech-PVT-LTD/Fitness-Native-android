@@ -30,7 +30,7 @@ public class AthleteEventListModel {
     private String start_time;
     private String end_date;
     private String end_time;
-    private int price;
+    private float price;
     private String location;
     private String latitude;
     private String longitude;
@@ -130,11 +130,11 @@ public class AthleteEventListModel {
         this.description = description;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

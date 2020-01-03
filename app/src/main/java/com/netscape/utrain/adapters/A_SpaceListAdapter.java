@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.CustomTopCoachesHolder> {
@@ -54,6 +56,7 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
     private JSONArray jsonArray;
     private int type;
     private AlertDialog dialogMultiOrder;
+    private Date endDate=null;
     List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
 
     public A_SpaceListAdapter(Context context, List supplierData, onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
@@ -156,7 +159,6 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 //                onSpaceClick.getSpaceAmount(data);
                 Intent topCoachesDetails = new Intent(context, BookingDetails.class);
                 topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
@@ -168,13 +170,18 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         });
 
         if (type==1) {
-            if (data.getStatus().equalsIgnoreCase("pending")){
-                holder.completedRatingText.setVisibility(View.VISIBLE);
-            }else {
-                holder.bookingRating.setVisibility(View.VISIBLE);
-                holder.completedRatingText.setVisibility(View.GONE);
-                holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
-            }
+//            if (!TextUtils.isEmpty(data.getBooking_date().getEnd())){
+//                CommonMethods commonMethods=new CommonMethods();
+//                endDate=commonMethods.formatDate(data.getBooking_date().getEnd());
+//                if (endDate.getTime()>System.currentTimeMillis() && en)
+//            }
+//            if (data.getStatus().equalsIgnoreCase("pending")){
+//                holder.completedRatingText.setVisibility(View.VISIBLE);
+//            }else {
+//                holder.bookingRating.setVisibility(View.VISIBLE);
+//                holder.completedRatingText.setVisibility(View.GONE);
+//                holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
+//            }
 
         }
         holder.completedRatingText.setOnClickListener(new View.OnClickListener() {

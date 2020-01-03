@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Achievements"
+                        android:text="Training Details"
                         android:textSize="@dimen/_8sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cExpDetailTv" />
@@ -183,6 +183,7 @@
                         android:inputType="textMultiLine"
                         android:maxLength="50"
                         android:maxLines="2"
+                        android:layout_marginLeft="@dimen/_8sdp"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"

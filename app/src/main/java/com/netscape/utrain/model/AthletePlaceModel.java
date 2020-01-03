@@ -31,7 +31,7 @@ public class AthletePlaceModel implements Serializable {
     private String name;
     private String images;
     private String description;
-    private int price_hourly;
+    private float price_hourly;
     private List<String> availability_week;
     private String open_hours_from;
     private String open_hours_to;
@@ -82,11 +82,11 @@ public class AthletePlaceModel implements Serializable {
         this.description = description;
     }
 
-    public int getPrice_hourly() {
+    public float getPrice_hourly() {
         return price_hourly;
     }
 
-    public void setPrice_hourly(int price_hourly) {
+    public void setPrice_hourly(float price_hourly) {
         this.price_hourly = price_hourly;
     }
 

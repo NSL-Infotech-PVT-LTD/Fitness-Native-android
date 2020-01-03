@@ -423,15 +423,15 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getDataFromEdtText() {
-        eventName = binding.createEventNameEnterTv.getText().toString();
-        eventDescription = binding.createEventDescriptionEnterTv.getText().toString();
-        eventAddress = binding.getAddressTv.getText().toString();
-        eventStartDate = binding.createEventStartDateTv.getText().toString();
-        eventEndDate = binding.createEventEndDatetv.getText().toString();
-        eventStartTime = binding.createEvtnStartTimeTv.getText().toString();
-        eventEndtime = binding.createEventEndTime.getText().toString();
-        eventEquipments = binding.createEventEquipmentEdt.getText().toString();
-        eventCapacity = binding.createEventCapicityEdt.getText().toString();
+        eventName = binding.createEventNameEnterTv.getText().toString().trim();
+        eventDescription = binding.createEventDescriptionEnterTv.getText().toString().trim();
+        eventAddress = binding.getAddressTv.getText().toString().trim();
+        eventStartDate = binding.createEventStartDateTv.getText().toString().trim();
+        eventEndDate = binding.createEventEndDatetv.getText().toString().trim();
+        eventStartTime = binding.createEvtnStartTimeTv.getText().toString().trim();
+        eventEndtime = binding.createEventEndTime.getText().toString().trim();
+        eventEquipments = binding.createEventEquipmentEdt.getText().toString().trim();
+        eventCapacity = binding.createEventCapicityEdt.getText().toString().trim();
 //        eventPrice=binding.eventPrice.getText().toString();
         binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
             @Override

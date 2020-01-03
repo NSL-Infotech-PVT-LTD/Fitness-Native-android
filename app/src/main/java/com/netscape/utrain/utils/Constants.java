@@ -60,6 +60,7 @@ public class Constants {
 
     public static final String ALL_BOOKING_ATHLETE = "booking/list/all";
     public static final String SPACE_BOOKING_FOR_ATH_ORG = "booking/space/list";
+    public static final String CALANDER_BOOKINGS_BOTHE = "both/bookings";
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_TRANSACTIONS_ORG = "all/organiser/bookings";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";

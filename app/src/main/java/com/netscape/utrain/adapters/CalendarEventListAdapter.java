@@ -48,7 +48,9 @@ public void onBindViewHolder(@NonNull final CustomTopCoachesHolder holder, int p
 final O_AllBookingDataListModel data=supplierData.get(position);
         holder.name.setText(data.getTarget_data().getName());
         holder.location.setText(data.getTarget_data().getLocation());
-        holder.date.setText(data.getTarget_data().getStart_date()+" "+data.getTarget_data().getStart_time());
+        holder.date.setText(data.getBooking_date().getStart()+" To "+data.getBooking_date().getEnd());
+        holder.mySpaceBookings.setVisibility(View.GONE);
+
     try {
         if (data.getTarget_data().getImages() != null) {
             jsonArray = new JSONArray(data.getTarget_data().getImages());
@@ -82,6 +84,9 @@ final O_AllBookingDataListModel data=supplierData.get(position);
     }
     if (data.getType().equalsIgnoreCase("space")){
         holder.view.setBackgroundColor(context.getResources().getColor(R.color.spaceColor));
+        if (! data.isIs_booking_my()){
+            holder.mySpaceBookings.setVisibility(View.VISIBLE);
+        }
         if (jsonArray !=null && jsonArray.length()>0){
             try {
                 Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(0))).into(holder.imageView);
@@ -103,7 +108,7 @@ public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
     AppCompatImageView imageView;
     View view;
-    TextView location,date,name;
+    TextView location,date,name,mySpaceBookings;
 
 
 
@@ -114,6 +119,7 @@ public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
         date = itemView.findViewById(R.id.calDateTv);
         name = itemView.findViewById(R.id.calNameTv);
         view = itemView.findViewById(R.id.typeView);
+        mySpaceBookings = itemView.findViewById(R.id.mySpaceBookings);
 
     }
 }

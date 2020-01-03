@@ -17,10 +17,19 @@ public class O_AllBookingDataListModel {
     private int user_id;
     private int tickets;
     private int price;
+    private boolean is_booking_my;
     private String payment_id;
     private O_AllBookingTargetDataModel target_data;
     private O_AllBookingUserDetailsModel user_details;
     private BookingDateModel booking_date;
+
+    public boolean isIs_booking_my() {
+        return is_booking_my;
+    }
+
+    public void setIs_booking_my(boolean is_booking_my) {
+        this.is_booking_my = is_booking_my;
+    }
 
     public String getPayment_id() {
         return payment_id;

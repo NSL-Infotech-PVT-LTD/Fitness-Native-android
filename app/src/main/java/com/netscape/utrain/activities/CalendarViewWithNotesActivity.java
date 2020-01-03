@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,7 +51,6 @@ import com.netscape.utrain.views.RobotoCalendarView;
 
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,7 +89,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
     private Retrofitinterface retrofitinterface;
     private ArrayList<O_AllBookingDataListModel> selectedDateEvents;
     private RecyclerView.LayoutManager layoutManager;
-    private int currentMonth,currentYear;
+    private int currentMonth, currentYear;
     private String selectedMonth;
 
 
@@ -158,7 +158,6 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 //        }
 
 
-
     }
 
     private void initializeUI() {
@@ -213,7 +212,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
         mCalendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
             @Override
             public void onMonthChanged(int month, int year) {
-                Toast.makeText(CalendarViewWithNotesActivity.this, month+"-"+year, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalendarViewWithNotesActivity.this, month + "-" + year, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -285,7 +284,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getBookingList(String currentMonth) {
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
+        Call<O_AllBookingResponse> call = retrofitinterface.getAllBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "", currentMonth);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -293,7 +292,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        orgEventList=new ArrayList<>();
+                        orgEventList = new ArrayList<>();
                         eventsMap.clear();
                         orgEventList = response.body().getData().getData();
                         if (orgEventList.size() > 0) {
@@ -441,17 +440,17 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     private void getOrgBooking(String currentMonth) {
         progressDialog.show();
-        Call call = retrofitinterface.getCoachOrgCalBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE,currentMonth);
-        call.enqueue(new Callback<CoachOrgCalResponse>() {
+        Call call = retrofitinterface.getBotheCalBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "", currentMonth);
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<CoachOrgCalResponse> call, Response<CoachOrgCalResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        orgEventList=new ArrayList<>();
+                        orgEventList = new ArrayList<>();
                         eventsMap.clear();
-//                        orgEventList.addAll(response.body().getData().);
+                        orgEventList.addAll(response.body().getData().getData());
                         if (orgEventList.size() > 0) {
 
                             for (O_AllBookingDataListModel e : orgEventList) {
@@ -552,18 +551,16 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
             }
 
             @Override
-            public void onFailure(Call<CoachOrgCalResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void getCoachBooking(String currentMonth) {
         progressDialog.show();
-        Call call = retrofitinterface.getAllBookingCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "",currentMonth);
+        Call call = retrofitinterface.getBotheCalBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, "", currentMonth);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -571,7 +568,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        orgEventList=new ArrayList<>();
+                        orgEventList = new ArrayList<>();
                         eventsMap.clear();
                         orgEventList.addAll(response.body().getData().getData());
                         if (orgEventList.size() > 0) {
@@ -818,15 +815,18 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
 
     }
 
-
     @Override
     public void onRightButtonClick() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
         getDataFromApi(getSelectedJobsForMonth());
 //        Toast.makeText(this, "onRightButtonClick!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLeftButtonClick() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
 
 
 //        Toast.makeText(this, "onLeftButtonClick!", Toast.LENGTH_SHORT).show();
@@ -842,11 +842,12 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
             getCoachBooking(dataSelected);
         }
     }
-    public String getSelectedJobsForMonth(){
-        Date cDAtedate=robotoCalendarView.getDate();
+
+    public String getSelectedJobsForMonth() {
+        Date cDAtedate = robotoCalendarView.getDate();
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        CharSequence  checkForMonth= df.format("yyyy-MM", cDAtedate);
-        String date=checkForMonth+"";
+        CharSequence checkForMonth = DateFormat.format("yyyy-MM", cDAtedate);
+        String date = checkForMonth + "";
         return date;
     }
 
@@ -854,7 +855,7 @@ public class CalendarViewWithNotesActivity extends AppCompatActivity implements 
         if (input >= 10) {
             return String.valueOf(input);
         } else {
-            return "0" + String.valueOf(input);
+            return "0" + input;
         }
     }
 }

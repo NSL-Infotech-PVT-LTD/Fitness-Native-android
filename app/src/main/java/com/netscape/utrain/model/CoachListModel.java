@@ -19,8 +19,8 @@ public class CoachListModel implements Serializable {
     private String business_hour_starts;
     private String business_hour_ends;
     private String bio;
-    private int expertise_years;
-    private int hourly_rate;
+    private float expertise_years;
+    private float hourly_rate;
     private String sport_id;
     private String profession;
     private String experience_detail;
@@ -174,19 +174,19 @@ public class CoachListModel implements Serializable {
         this.bio = bio;
     }
 
-    public int getExpertise_years() {
+    public float getExpertise_years() {
         return expertise_years;
     }
 
-    public void setExpertise_years(int expertise_years) {
+    public void setExpertise_years(float expertise_years) {
         this.expertise_years = expertise_years;
     }
 
-    public int getHourly_rate() {
+    public float getHourly_rate() {
         return hourly_rate;
     }
 
-    public void setHourly_rate(int hourly_rate) {
+    public void setHourly_rate(float hourly_rate) {
         this.hourly_rate = hourly_rate;
     }
 

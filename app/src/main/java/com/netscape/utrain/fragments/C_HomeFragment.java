@@ -108,9 +108,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         binding.coachSpaceRecyclerView.setLayoutManager(layoutManager);
 //        binding.cSportsNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, context));
 
-        cExp = CommonMethods.getPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, context);
+        cExp = CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context);
         if (cExp != null)
-            binding.cExpDetailTv.setText(cExp);
+            binding.cExpDetailTv.setText(cExp+" year");
         else
             binding.cExpDetailTv.setVisibility(View.GONE);
         cAchievement = CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, context);

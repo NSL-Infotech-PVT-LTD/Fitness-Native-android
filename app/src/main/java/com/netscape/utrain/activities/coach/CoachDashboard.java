@@ -22,6 +22,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AboutUs;
 import com.netscape.utrain.activities.AllCreatedActivity;
+import com.netscape.utrain.activities.BookingDetails;
 import com.netscape.utrain.activities.CalendarViewWithNotesActivity;
 import com.netscape.utrain.activities.MyProfile;
 import com.netscape.utrain.activities.SettingsActivity;
@@ -47,6 +49,7 @@ import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.TransactionActivity;
 import com.netscape.utrain.activities.ViewProfileActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.databinding.ActivityCoachDashboardBinding;
 import com.netscape.utrain.fragments.A_ChatsFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
@@ -54,9 +57,12 @@ import com.netscape.utrain.fragments.C_HomeFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_NotificationFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
+import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.NotificationCountResponse;
 import com.netscape.utrain.response.NotificationReadResponse;
+import com.netscape.utrain.response.SessionDetailResponse;
+import com.netscape.utrain.response.SpaceDetailResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CheckNetwork;
@@ -64,7 +70,10 @@ import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -86,6 +95,7 @@ public class CoachDashboard extends AppCompatActivity {
     private Retrofitinterface retrofitinterface;
     private AlertDialog dialogMultiOrder;
     private int count = 0;
+    private ArrayList<String>data;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -307,6 +317,7 @@ public class CoachDashboard extends AppCompatActivity {
             }
         });
 
+        onNewIntent(getIntent());
 
     }
 
@@ -538,5 +549,258 @@ public class CoachDashboard extends AppCompatActivity {
         dialogMultiOrder.show();
         count = 1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    @Override
+    public void onNewIntent(Intent intentData) {
+
+        super.onNewIntent(intentData);
+//        Bundle extras = intentData.getExtras();
+//
+//        if (extras !=null) {
+//            Log.d("SystemTray", extras.toString());
+//        }
+        String data=intentData.getStringExtra("pushnotification");
+//        Log.d("StringNoti",data);
+        if (data != null) {
+            String typeData="";
+            String id="";
+            String targetType="";
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                JSONObject jsonObject1=jsonObject.getJSONObject("data");
+                typeData = jsonObject1.getString("target_model");
+                id = jsonObject1.getString("target_id");
+                if (jsonObject1.getString("target_type")!=null)
+                    targetType = jsonObject1.getString("target_type");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (typeData.equalsIgnoreCase("space")){
+                hitSpaceDetailAPI(id);
+            }
+            if (typeData.equalsIgnoreCase("booking")) {
+                if (targetType.equalsIgnoreCase("event")) {
+//                hitEventDetailAPI(id);
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+//                        topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+                if (targetType.equalsIgnoreCase("session")) {
+//                getSessionDetails(id);
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+                if (targetType.equalsIgnoreCase("space")) {
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+            }
+            Log.d("pushnotification", "onNewIntent: " + data);
+        }
+    }
+    public  void hitSpaceDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SpaceDetailResponse> signUpAthlete = retrofitinterface.spaceDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SpaceDetailResponse>() {
+            @Override
+            public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(CoachDashboard.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getOpen_hours_from());
+                            intent.putExtra("eventALLImages", response.body().getData().getImages());
+                            intent.putExtra("eventEndTime", response.body().getData().getOpen_hours_to());
+//                            intent.putExtra("eventDate", response.body().getData().getAvailability_week());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_PLACE);
+                            intent.putExtra("event_id", response.body().getData().getId() + "");
+                            intent.putExtra("from", "places");
+                            intent.putExtra("desc", response.body().getData().getDescription());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            data=new ArrayList<>();
+                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
+                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(CoachDashboard.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(CoachDashboard.this, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(CoachDashboard.this, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+    public void hitEventDetailAPI(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this), Constants.CONTENT_TYPE, id );
+        signUpAthlete.enqueue(new Callback<EventBookingModel>() {
+            @Override
+            public void onResponse(Call<EventBookingModel> call, Response<EventBookingModel> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            Intent intent = new Intent(CoachDashboard.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                            intent.putExtra("from", "events");
+                            intent.putExtra("capacity", response.body().getData().getGuest_allowed());
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(CoachDashboard.this, ""+ errorMessage, Toast.LENGTH_SHORT).show();
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(CoachDashboard.this, ""+ e, Toast.LENGTH_SHORT).show();
+
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EventBookingModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(CoachDashboard.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    public void getSessionDetails(String id) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading.........");
+        progressDialog.show();
+        Call<SessionDetailResponse> signUpAthlete = retrofitinterface.getSessionDetails("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, CoachDashboard.this), Constants.CONTENT_TYPE, id);
+        signUpAthlete.enqueue(new Callback<SessionDetailResponse>() {
+            @Override
+            public void onResponse(Call<SessionDetailResponse> call, Response<SessionDetailResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            Intent intent = new Intent(CoachDashboard.this, EventDetail.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("eventName", response.body().getData().getName());
+                            intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
+                            intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
+                            intent.putExtra("eventVenue", response.body().getData().getLocation());
+                            intent.putExtra("eventTime", response.body().getData().getStart_time());
+                            intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
+                            intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventDescription", response.body().getData().getDescription());
+                            intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
+                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("from", "sessions");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            Bundle b = new Bundle();
+                            b.putString("Array", response.body().getData().getImages());
+                            intent.putExtras(b);
+                            startActivity(intent);
+
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(CoachDashboard.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SessionDetailResponse> call, Throwable t) {
+                progressDialog.dismiss();
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Toast.makeText(CoachDashboard.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

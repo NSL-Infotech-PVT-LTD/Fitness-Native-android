@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -472,15 +473,17 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void getServicePrice(int postion, String servicePrice, int id) {
-        if (Integer.parseInt(servicePrice)>5) {
-            binding.servicePriceNextBtn.setClickable(true);
-            SelectedServiceList.getInstance().getList().get(postion).setPrice(servicePrice);
-            SelectedServiceList.getInstance().getList().get(postion).setId(id);
-            binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-        }else{
-            binding.servicePriceNextBtn.setClickable(false);
-            binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
-            Toast.makeText(this, "Enter Price  more than  $5", Toast.LENGTH_SHORT).show();
+        if (!TextUtils.isEmpty(servicePrice)) {
+            if (Float.parseFloat(servicePrice) > 5) {
+                binding.servicePriceNextBtn.setClickable(true);
+                SelectedServiceList.getInstance().getList().get(postion).setPrice(servicePrice);
+                SelectedServiceList.getInstance().getList().get(postion).setId(id);
+                binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else {
+                binding.servicePriceNextBtn.setClickable(false);
+                binding.servicePriceNextBtn.setBackgroundColor(getResources().getColor(R.color.lightGrayBtn));
+                Toast.makeText(this, "Enter Price  more than  $5", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

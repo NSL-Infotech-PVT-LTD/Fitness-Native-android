@@ -615,7 +615,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgHourlyRate.isEmpty()) {
             Toast.makeText(OrganizationSignUpActivity.this, "Enter hourly price", Toast.LENGTH_SHORT).show();
             binding.orgHourlyRateEdt.requestFocus();
-        } else if (Integer.parseInt(binding.orgHourlyRateEdt.getText().toString()) < 4) {
+        } else if (Float.parseFloat(binding.orgHourlyRateEdt.getText().toString()) < 4) {
             Toast.makeText(OrganizationSignUpActivity.this, "Hourly rate should not less than 4", Toast.LENGTH_SHORT).show();
             binding.orgHourlyRateEdt.requestFocus();
         } else if (photoFile == null) {

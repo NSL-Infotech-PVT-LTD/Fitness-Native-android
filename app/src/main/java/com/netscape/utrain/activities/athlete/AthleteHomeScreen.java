@@ -180,11 +180,13 @@ public class AthleteHomeScreen extends AppCompatActivity {
     public void onNewIntent(Intent intentData) {
 
         super.onNewIntent(intentData);
-        Bundle extras = intentData.getExtras();
-        if (extras !=null) {
-            Log.d("SystemTray", extras.toString());
-        }
+//        Bundle extras = intentData.getExtras();
+//
+//        if (extras !=null) {
+//            Log.d("SystemTray", extras.toString());
+//        }
         String data=intentData.getStringExtra("pushnotification");
+//        Log.d("StringNoti",data);
         if (data != null) {
                 String typeData="";
                 String id="";

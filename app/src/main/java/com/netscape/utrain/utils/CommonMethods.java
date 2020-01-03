@@ -79,6 +79,7 @@ public class CommonMethods {
     private ChipGroup chipSpaceGroup;
     private RelativeLayout layout;
     private ProgressDialog progressDialog;
+    private Date strDate = null;
     Retrofitinterface retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
 
     public static String getPrefData(String ke, Context ct) {
@@ -429,6 +430,16 @@ public class CommonMethods {
             }
         });
         return spaceData;
+    }
+    public Date formatDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
+        try {
+            strDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return strDate;
     }
 
 }
