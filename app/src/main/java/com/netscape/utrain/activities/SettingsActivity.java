@@ -217,6 +217,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         binding.chooseSportsClickImg.setOnClickListener(this);
         binding.chooseServicesClickimg.setOnClickListener(this);
         binding.termAndConditionsTv.setOnClickListener(this);
+        binding.helpSupportClickImg.setOnClickListener(this);
 
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Athlete)) {
@@ -284,6 +285,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 Intent chooseSport = new Intent(SettingsActivity.this, TermsAndConditions.class);
                 chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(chooseSport);
+                break;
+            case R.id.helpSupportClickImg:
+                Intent helpAndSupport = new Intent(SettingsActivity.this, HelpAndSupport.class);
+                helpAndSupport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(helpAndSupport);
+                break;
+
         }
 
 

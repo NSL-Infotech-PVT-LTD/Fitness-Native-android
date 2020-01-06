@@ -16,7 +16,9 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SelectTimeSlot"></activity>
+        <activity android:name=".activities.HelpAndSupport"></activity>
+        <activity android:name=".activities.HourlySlotsActivity" />
+        <activity android:name=".activities.SelectTimeSlot" />
         <activity
             android:name=".activities.TermsAndConditions"
             android:screenOrientation="portrait" />
@@ -141,11 +143,11 @@
             android:name=".activities.BookingDetails"
             android:screenOrientation="portrait">
 
-<!--        <intent-filter>-->
-<!--            <action android:name="OPEN_ACTIVITY" />-->
-<!--            &lt;!&ndash; Add this OPEN_ACTIVITY string into your data payload while sending the notification from server side. &ndash;&gt;-->
-<!--            <category android:name="android.intent.category.DEFAULT" />-->
-<!--        </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="OPEN_ACTIVITY" /> -->
+            <!-- &lt;!&ndash; Add this OPEN_ACTIVITY string into your data payload while sending the notification from server side. &ndash;&gt; -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.LoginActivity"

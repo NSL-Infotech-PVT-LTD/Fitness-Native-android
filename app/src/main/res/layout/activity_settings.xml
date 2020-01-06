@@ -55,16 +55,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:id="@+id/settingsProfileImg"-->
-<!--            android:layout_width="@dimen/_30sdp"-->
-<!--            android:layout_height="@dimen/_30sdp"-->
-<!--            android:layout_marginTop="@dimen/_15sdp"-->
-<!--            android:layout_marginRight="@dimen/_20sdp"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/ic_user"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--            android:id="@+id/settingsProfileImg"-->
+        <!--            android:layout_width="@dimen/_30sdp"-->
+        <!--            android:layout_height="@dimen/_30sdp"-->
+        <!--            android:layout_marginTop="@dimen/_15sdp"-->
+        <!--            android:layout_marginRight="@dimen/_20sdp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            android:src="@drawable/ic_user"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -180,28 +180,28 @@
                         app:layout_constraintTop_toTopOf="@id/notificationTv"
                         app:track="@drawable/switch_settingscreen_track" />
 
-<!--                    <com.google.android.material.textview.MaterialTextView-->
-<!--                        android:id="@+id/switchOnON"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="@dimen/_5sdp"-->
-<!--                        android:text="@string/on"-->
-<!--                        android:textColor="@color/colorBlack"-->
-<!--                        android:visibility="gone"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@id/settingsSwitch"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/settingsSwitch"-->
-<!--                        app:layout_constraintTop_toTopOf="@id/settingsSwitch" />-->
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/switchOnON"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginLeft="@dimen/_5sdp"-->
+                    <!--                        android:text="@string/on"-->
+                    <!--                        android:textColor="@color/colorBlack"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/settingsSwitch"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@id/settingsSwitch"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/settingsSwitch" />-->
 
-<!--                    <com.google.android.material.textview.MaterialTextView-->
-<!--                        android:id="@+id/switchOffOFF"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginRight="@dimen/_5sdp"-->
-<!--                        android:text="@string/off"-->
-<!--                        android:textColor="#000"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@id/settingsSwitch"-->
-<!--                        app:layout_constraintRight_toRightOf="@id/settingsSwitch"-->
-<!--                        app:layout_constraintTop_toTopOf="@id/settingsSwitch" />-->
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/switchOffOFF"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginRight="@dimen/_5sdp"-->
+                    <!--                        android:text="@string/off"-->
+                    <!--                        android:textColor="#000"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/settingsSwitch"-->
+                    <!--                        app:layout_constraintRight_toRightOf="@id/settingsSwitch"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/settingsSwitch" />-->
 
 
                     <View
@@ -367,7 +367,7 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_25sdp"
-                        android:src="@drawable/ic_phone"
+                        android:src="@drawable/help"
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/cAddedFieldLayout" />
 
@@ -377,7 +377,7 @@
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center_vertical"
-                        android:text="@string/contact_us"
+                        android:text="@string/help_and_support"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:fontFamily="@font/poppins_semibold"
@@ -386,7 +386,7 @@
                         app:layout_constraintTop_toBottomOf="@id/cAddedFieldLayout" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/contactusClickImg"
+                        android:id="@+id/helpSupportClickImg"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:src="@drawable/ic_settingsarrow"
@@ -445,38 +445,38 @@
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/termAndConditionsTv" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/helpAndSupportImg"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_25sdp"
-                        android:src="@drawable/help"
-                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                        app:layout_constraintTop_toBottomOf="@id/view4" />
+<!--                    <androidx.appcompat.widget.AppCompatImageView-->
+<!--                        android:id="@+id/helpAndSupportImg"-->
+<!--                        android:layout_width="@dimen/_20sdp"-->
+<!--                        android:layout_height="@dimen/_20sdp"-->
+<!--                        android:layout_marginTop="@dimen/_25sdp"-->
+<!--                        android:src="@drawable/help"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/helpAndSupportTv"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_marginBottom="@dimen/_20sdp"
-                        android:gravity="center_vertical"
-                        android:text="@string/help_and_support"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:fontFamily="@font/poppins_semibold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="@id/view4"
-                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                        app:layout_constraintTop_toBottomOf="@id/view4" />
+<!--                    <com.google.android.material.textview.MaterialTextView-->
+<!--                        android:id="@+id/helpAndSupportTv"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:layout_marginTop="@dimen/_15sdp"-->
+<!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:text="@string/ccc"-->
+<!--                        android:textColor="@color/colorBlack"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        app:fontFamily="@font/poppins_semibold"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintLeft_toLeftOf="@id/view4"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/ic_settingsarrow"
-                        app:layout_constraintBottom_toBottomOf="@id/helpAndSupportTv"
-                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                        app:layout_constraintTop_toTopOf="@id/helpAndSupportTv" />
+<!--                    <androidx.appcompat.widget.AppCompatImageView-->
+<!--                        android:layout_width="@dimen/_20sdp"-->
+<!--                        android:layout_height="@dimen/_20sdp"-->
+<!--                        android:src="@drawable/ic_settingsarrow"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@id/helpAndSupportTv"-->
+<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+<!--                        app:layout_constraintTop_toTopOf="@id/helpAndSupportTv" />-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

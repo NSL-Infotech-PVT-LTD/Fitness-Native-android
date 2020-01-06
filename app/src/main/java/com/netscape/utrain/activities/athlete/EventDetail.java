@@ -29,6 +29,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.EventBookingActivity;
+import com.netscape.utrain.activities.HourlySlotsActivity;
 import com.netscape.utrain.activities.SelectedServiceList;
 import com.netscape.utrain.activities.SpaceBookingActivity;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
@@ -112,6 +113,14 @@ public class EventDetail extends AppCompatActivity {
                     Toast.makeText(EventDetail.this, "No Days Available", Toast.LENGTH_SHORT).show();
                 }
 //                handleImageSelection();
+            }
+        });
+        binding.viewSlots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(EventDetail.this, HourlySlotsActivity.class);
+                intent.putExtra("event_id", eventId);
+                startActivity(intent);
             }
         });
 

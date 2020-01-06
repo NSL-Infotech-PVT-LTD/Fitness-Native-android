@@ -138,29 +138,6 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
         binding.endHour.setText(chipEndtime);
     }
 
-    private void getService() {
-        String serviceName = CommonMethods.getPrefData(PrefrenceConstant.SERVICE_IDS, getApplicationContext());
-        Gson gson = new Gson();
-
-        if (serviceName != null) {
-            if (serviceName.isEmpty()) {
-                Toast.makeText(SelectTimeSlot.this, "Service Not Found", Toast.LENGTH_SHORT).show();
-            } else {
-                Type type = new TypeToken<List<ServiceListDataModel>>() {
-                }.getType();
-                sList = gson.fromJson(serviceName, type);
-                sList.addAll(sList);
-                sList.addAll(sList);
-
-                StringBuilder builder = new StringBuilder();
-                for (ServiceListDataModel details : sList) {
-                    builder.append(details.getName() + "\n");
-
-                }
-
-            }
-        }
-    }
 
     private void setChips() {
 

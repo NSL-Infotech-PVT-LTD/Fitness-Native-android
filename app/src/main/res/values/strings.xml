@@ -455,4 +455,9 @@
     <string name="space_available_text">Space Available for</string>
     <string name="view_days">view All +</string>
     <string name="to">to</string>
+    <string name="slot_booked">This Slot is Booked</string>
+    <string name="view_slots">view Slots</string>
+    <string name="you_may_write">You may Write for any request and \n report</string>
+    <string name="wirte_message">Write Message ...</string>
+    <string name="enter_some_text">Write your message to send.</string>
 </resources>

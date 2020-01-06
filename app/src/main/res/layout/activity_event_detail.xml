@@ -129,10 +129,23 @@
                     android:text="@string/marathon_run_for_fun"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:maxLength="30"
                     app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintRight_toLeftOf="@id/viewSlots"
                     app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/viewSlots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/view_slots"
+                    android:textColor="@color/gradientDarkColor"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />
 
                 <LinearLayout
 

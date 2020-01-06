@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.SelectTimeSlot">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/closeSlotDialog"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/ic_back"
+            ></androidx.appcompat.widget.AppCompatImageView>
+        <ScrollView
+            android:id="@+id/editTimeScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintTop_toBottomOf="@+id/closeSlotDialog"
+            app:layout_constraintBottom_toTopOf="@+id/bottomConstraint">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/closeSlotDialog"
+                app:layout_constraintBottom_toTopOf="@+id/bottomConstraint">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/calanderImg"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:background="@drawable/ic_calendar_space_two"
+                    ></androidx.appcompat.widget.AppCompatImageView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/selectDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/calanderImg"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/colorGreen"
+                    android:text="@string/select_date_time">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/selectNumServicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/selectDateText"
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:drawableLeft="@drawable/ic_icon_cal_dialog"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_12sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:text="@string/select_date_for_space_booking">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <!--    <androidx.appcompat.widget.AppCompatTextView-->
+                <!--        android:id="@+id/createEventServiceEnterTv"-->
+                <!--        android:layout_width="0dp"-->
+                <!--        android:layout_height="@dimen/_40sdp"-->
+                <!--        android:layout_marginTop="@dimen/_20sdp"-->
+                <!--        android:background="@drawable/card_input_edt_background"-->
+                <!--        android:gravity="center_vertical"-->
+                <!--        android:paddingLeft="@dimen/_15sdp"-->
+                <!--        android:textColor="@color/colorBlack"-->
+                <!--        android:textSize="@dimen/_10sdp"-->
+                <!--        android:singleLine="true"-->
+                <!--        app:fontFamily="@font/poppins_regular"-->
+                <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--        app:layout_constraintRight_toRightOf="parent"-->
+                <!--        android:layout_marginLeft="@dimen/_30sdp"-->
+                <!--        android:layout_marginRight="@dimen/_30sdp"-->
+                <!--        app:layout_constraintTop_toBottomOf="@id/selectNumServicText" />-->
+
+                <!--    <androidx.appcompat.widget.AppCompatSpinner-->
+                <!--        android:id="@+id/timeSlotDropDown"-->
+                <!--        android:layout_width="0dp"-->
+                <!--        android:layout_height="0dp"-->
+                <!--        android:padding="@dimen/_10sdp"-->
+                <!--        app:layout_constraintBottom_toBottomOf="@id/createEventServiceEnterTv"-->
+                <!--        app:layout_constraintLeft_toLeftOf="@+id/createEventServiceEnterTv"-->
+                <!--        app:layout_constraintRight_toRightOf="@+id/createEventServiceEnterTv"-->
+                <!--        app:layout_constraintTop_toTopOf="@id/createEventServiceEnterTv" />-->
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/dateLayout"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@color/lightGrayFont"></View>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dateLayout"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:background="@drawable/card_input_edt_background"
+                    app:layout_constraintTop_toBottomOf="@+id/selectNumServicText">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/selectDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:drawableLeft="@drawable/ic_icon_cal_dialog"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
+
+                        android:text="@string/selecte_date_of_service">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginRight="@dimen/_6sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:background="@drawable/ic_chevron_end"></androidx.appcompat.widget.AppCompatImageView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:id="@+id/editTimeLaout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/hourlyRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        ></androidx.recyclerview.widget.RecyclerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreens"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/totlaPriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:padding="@dimen/_6sdp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

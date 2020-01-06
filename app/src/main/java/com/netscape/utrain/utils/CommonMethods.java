@@ -66,6 +66,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -441,5 +442,21 @@ public class CommonMethods {
         }
         return strDate;
     }
+    public String convertDate(int input) {
+        if (input >= 10) {
+            return String.valueOf(input);
+        } else {
+            return "0" + input;
+        }
+    }
+    public String getSplitedValue(String value, String splitFrom) {
+        StringTokenizer tokenss = null;
+        StringTokenizer tokens = new StringTokenizer(value, splitFrom);
+        String first = tokens.nextToken();// this will contain "Fruit"
+        String second = tokens.nextToken();
+
+        return first;
+        }
+
 
 }

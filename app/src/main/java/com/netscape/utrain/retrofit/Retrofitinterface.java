@@ -30,6 +30,7 @@ import com.netscape.utrain.response.CoachOrgCalResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
+import com.netscape.utrain.response.HelpAndSupportResponse;
 import com.netscape.utrain.response.LoginResponse;
 import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.NotificationCountResponse;
@@ -652,6 +653,12 @@ public interface Retrofitinterface {
     Call<EventDetailResponse> getBookingEvent(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String Content_type,
                                               @Field("id")String target_id);
+
+    @FormUrlEncoded
+    @POST(Constants.LOGIN_METHOD)
+    Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String Content_type,
+                                                @Field("message")String message);
 
 
 }
