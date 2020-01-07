@@ -38,7 +38,7 @@
         android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title"
-         />
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentTwo"
         android:layout_width="match_parent"
