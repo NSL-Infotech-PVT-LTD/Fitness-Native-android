@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.List;
 
-public class O_SpaceDataModel implements Serializable{
+public class O_SpaceDataModel implements Serializable {
 
     /**
      * id : 14
@@ -23,6 +23,23 @@ public class O_SpaceDataModel implements Serializable{
     private String images;
     private String description;
     private int price_hourly;
+    private List<String> availability_week;
+    private String location;
+    private String latitude;
+    private String longitude;
+    private String open_hours_from;
+    private String open_hours_to;
+    private boolean IsBooked;
+    private int created_by;
+    private int price_daily;
+
+    public boolean isBooked() {
+        return IsBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        IsBooked = booked;
+    }
 
     public List<String> getAvailability_week() {
         return availability_week;
@@ -31,15 +48,6 @@ public class O_SpaceDataModel implements Serializable{
     public void setAvailability_week(List<String> availability_week) {
         this.availability_week = availability_week;
     }
-
-    private List<String> availability_week;
-    private String location;
-    private String latitude;
-    private String longitude;
-    private String open_hours_from;
-    private String open_hours_to;
-    private int created_by;
-    private int price_daily;
 
     public String getLatitude() {
         return latitude;

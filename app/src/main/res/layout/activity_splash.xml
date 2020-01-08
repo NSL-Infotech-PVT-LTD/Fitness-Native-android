@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/utrain_background_design"
+    android:background="@color/colorWhite"
     tools:context=".activities.SplashActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -21,13 +21,14 @@
         />
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="@dimen/_150sdp"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_70sdp"
-        android:text="@string/find_the_best_coach_text"
-        android:textColor="@color/colorWhite"
+        android:text="@string/connect_train_and_rentSpace"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/_12sdp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_UtrainLogo" />

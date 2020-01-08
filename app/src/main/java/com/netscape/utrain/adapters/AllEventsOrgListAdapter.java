@@ -18,12 +18,14 @@ import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_EventDataModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AllEventsOrgListAdapter extends RecyclerView.Adapter<AllEventsOrgListAdapter.AllOrgEventsListHolder> {
@@ -32,14 +34,17 @@ public class AllEventsOrgListAdapter extends RecyclerView.Adapter<AllEventsOrgLi
     private boolean isLoadingAdded = false;
     private Context context;
     private List<O_EventDataModel> list;
+    private CommonMethods commonMethods = new CommonMethods();
+    private Date date = null;
 
     public AllEventsOrgListAdapter(Context context, List<O_EventDataModel> list) {
         this.context = context;
         this.list = list;
     }
+
     public AllEventsOrgListAdapter(Context context) {
         this.context = context;
-        list =new ArrayList<>();
+        list = new ArrayList<>();
     }
 
 
@@ -64,6 +69,7 @@ public class AllEventsOrgListAdapter extends RecyclerView.Adapter<AllEventsOrgLi
         }
         return viewHolder;
     }
+
     @NonNull
     private AllOrgEventsListHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
         AllOrgEventsListHolder viewHolder;
@@ -79,37 +85,48 @@ public class AllEventsOrgListAdapter extends RecyclerView.Adapter<AllEventsOrgLi
 
         switch (getItemViewType(position)) {
             case ITEM:
-                if(data!=null)
-        holder.bookingEventName.setText(data.getName());
-        holder.bookingEventDate.setText(data.getStart_date());
-        holder.bookingVenueTv.setText(data.getLocation());
-        holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
-        holder.statusImage.setVisibility(View.GONE);
-        holder.editImage.setVisibility(View.VISIBLE);
-
-        try {
-            if (data.getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getImages());
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).
-                            load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.bookingEventImage);
+                if (data != null)
+                    holder.bookingEventName.setText(data.getName());
+                holder.bookingEventDate.setText(data.getStart_date());
+                holder.bookingVenueTv.setText(data.getLocation());
+                holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
+                holder.statusImage.setVisibility(View.GONE);
+                if (data.getStart_date() != null && !data.getStart_date().isEmpty()) {
+                    date = commonMethods.formatDate(data.getStart_date(), "yyyy-MM-dd");
                 }
-            }
 
-        } catch (JSONException e) {
+                if (data.isBooked()) {
+                    holder.editImage.setVisibility(View.GONE);
+                } else if (System.currentTimeMillis() > date.getTime()) {
+                    holder.editImage.setVisibility(View.GONE);
+                } else {
+                    holder.editImage.setVisibility(View.VISIBLE);
 
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
-        }
-        holder.editImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent eventEdit=new Intent(context, CreateEventActivity.class);
-                eventEdit.putExtra("eventEdit",data);
-                CreateEventActivity.editEvent=true;
-                context.startActivity(eventEdit);
-            }
-        });
+                try {
+                    if (data.getImages() != null) {
+                        JSONArray jsonArray = new JSONArray(data.getImages());
+                        if (jsonArray != null && jsonArray.length() > 0) {
+                            Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).
+                                    load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.bookingEventImage);
+                        }
+                    }
+
+                } catch (JSONException e) {
+
+                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+                holder.editImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent eventEdit = new Intent(context, CreateEventActivity.class);
+                        eventEdit.putExtra("eventEdit", data);
+                        CreateEventActivity.editEvent = true;
+                        context.startActivity(eventEdit);
+                    }
+                });
 
 
                 break;
@@ -189,12 +206,10 @@ public class AllEventsOrgListAdapter extends RecyclerView.Adapter<AllEventsOrgLi
     }
 
 
-
-
     public class AllOrgEventsListHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView bookingEventName, bookingEventDate, bookingVenueTv, bookingTicketTv;
-        AppCompatImageView bookingEventImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView bookingEventImage, statusImage, editImage;       // Using the booking.view layout which is same for completed....
 
         public AllOrgEventsListHolder(@NonNull View itemView) {
             super(itemView);

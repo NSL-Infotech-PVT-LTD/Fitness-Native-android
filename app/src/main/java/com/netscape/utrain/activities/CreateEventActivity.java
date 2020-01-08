@@ -458,10 +458,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         } else if (eventEndtime.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.select_end_time), Toast.LENGTH_SHORT).show();
-
-        } else if (eventEquipments.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.enter_equipments_required), Toast.LENGTH_SHORT).show();
-
         } else if (serviIds.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.select_services), Toast.LENGTH_SHORT).show();
 //        } else if (eventPrice.isEmpty()) {

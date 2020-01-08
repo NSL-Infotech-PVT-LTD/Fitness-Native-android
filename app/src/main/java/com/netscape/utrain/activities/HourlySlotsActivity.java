@@ -1,6 +1,7 @@
 package com.netscape.utrain.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.HourlySlotAdapter;
-import com.netscape.utrain.databinding.ActivityHourlySlotsBinding;
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.HourSelectedModel;
 import com.netscape.utrain.model.SlotModels;
@@ -30,6 +30,7 @@ import com.netscape.utrain.views.RobotoCalendarView;
 import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HourlySlotsActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener {
-    private ActivityHourlySlotsBinding binding;
+//    private ActivityHourlySlotsBinding binding;
     private Date strDate = null;
     private Date selectedDate = null;
     private Date oldDates = null;
@@ -57,18 +58,22 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
     private RobotoCalendarView roboCalView;
     private String[] mShortMonths;
     private CalendarDialog mCalendarDialog;
+    private RecyclerView hourlyRecycler;
+    private AppCompatImageView backArrowClick;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_hourly_slots);
+        setContentView(R.layout.activity_hourly_slots);
         mShortMonths = new DateFormatSymbols().getShortMonths();
 
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_hourly_slots);
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_hourly_slots);
         roboCalView=findViewById(R.id.roboCalHours);
+        hourlyRecycler=findViewById(R.id.hourRecyler);
+        backArrowClick=findViewById(R.id.backArrowClick);
         init();
 
     }
@@ -80,7 +85,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
         commonMethods = new CommonMethods();
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         layoutManager=new LinearLayoutManager(this);
-        binding.hourRecyler.setLayoutManager(layoutManager);
+        hourlyRecycler.setLayoutManager(layoutManager);
 //        binding.dateLayout.setOnClickListener(this);
         hoursSelected=new ArrayList<>();
         for (int i=1;i<25;i++){
@@ -94,63 +99,12 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
             hoursSelected.add(model);
         }
 
-
-
-
-
-//        binding.calendarView.setOnItemClickedListener(new CalendarView.OnItemClickListener() {
-//            @Override
-//            public void onItemClicked(List<CalendarView.CalendarObject> calendarObjects,
-//                                      Calendar previousDate,
-//                                      Calendar selectedDate) {
-////                if (calendarObjects.size() != 0) {
-//                mCalendarDialog.setSelectedDate(selectedDate);
-////                mCalendarDialog.show();
-////                displaySupplierList(calendarObjects);
-//            }
-////                else {
-////                    if (diffYMD(previousDate, selectedDate) == 0)
-////                        createEvent(selectedDate);
-////                }
-////            }
-//        });
-//        backArrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-//        binding.calendarView.setOnMonthChangedListener(new CalendarView.OnMonthChangedListener() {
-//            @Override
-//            public void onMonthChanged(int month, int year) {
-//                Toast.makeText(HourlySlotsActivity.this, month + "-" + year, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
-//        if (getSupportActionBar() != null) {
-//            int month = binding.calendarView.getCurrentDate().get(Calendar.MONTH);
-//            int year = binding.calendarView.getCurrentDate().get(Calendar.YEAR);
-//            getSupportActionBar().setTitle(mShortMonths[month]);
-//            getSupportActionBar().setSubtitle(Integer.toString(year));
-//        }
-
-
-//        mCalendarDialog = CalendarDialog.Builder.instance(this)
-//                .setOnItemClickListener(new CalendarDialog.OnCalendarDialogListener() {
-//                    @Override
-//                    public void onEventClick(AllBookingListModel.DataBeanX.DataBean event) {
-////                         onEventSelected(event);
-//                    }
-//
-//                    @Override
-//                    public void onCreateEvent(Calendar calendar) {
-////                        createEvent(calendar);
-//                    }
-//                })
-//                .create();
-
-
+        backArrowClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         roboCalView.setRobotoCalendarListener(HourlySlotsActivity.this);
@@ -164,52 +118,14 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 
     }
 
-//    private void getStartDate() {
-////        binding.constraintChipGroup.setVisibility(View.GONE);
-////        binding.selectTimeSlotText.setVisibility(View.GONE);
-////        binding.editTimeLaout.setVisibility(View.GONE);
-//        Calendar cal = Calendar.getInstance();
-//        int mYear = cal.get(Calendar.YEAR);
-//        int mMonth = cal.get(Calendar.MONTH);
-//        int mDay = cal.get(Calendar.DAY_OF_MONTH);
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(HourlySlotsActivity.this, new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-//                binding.selectDate.setPadding(20, 20, 20, 20);
-//                sDate = year + "-" + commonMethods.convertDate((monthOfYear + 1)) + "-" + commonMethods.convertDate(dayOfMonth);
-//                startDate = year + "/" + commonMethods.convertDate((monthOfYear + 1)) + "/" + commonMethods.convertDate(dayOfMonth);
-////                selected = false;
-//                selectedDate = commonMethods.formatDate(startDate);
-//                if (selectedDate.getTime() > System.currentTimeMillis()) {
-//                    binding.selectDate.setText(startDate);
-//                    hitSpaceDetailAPI();
-//                } else {
-//                    binding.selectDate.setText("");
-//                    binding.selectDate.setHint(getResources().getString(R.string.selecte_date_of_service));
-//                    Toast.makeText(HourlySlotsActivity.this, "Can't create event for current date", Toast.LENGTH_SHORT).show();
-//                }
-//
-////                    binding.createEventEndDatetv.setText("");
-////                    binding.createEventEndDatetv.setHint("End date");
-////                } else {
-////                    binding.createEventStartDateTv.setText("");
-////                    binding.createEventStartDateTv.setHint("Start date");
-////                    Toast.makeText(SelectTimeSlot.this, "Can't create event for current date", Toast.LENGTH_SHORT).show();
-////                }
-//
-//            }
-//        }, mYear, mMonth, mDay);
-//        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-//        datePickerDialog.show();
-//    }
 
-    private void hitSpaceDetailAPI() {
+    private void hitSpaceDetailAPI(String date) {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
         progressDialog.show();
-        Call<SlotListResponse> signUpAthlete = retrofitinterface.getTimeSlots(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, HourlySlotsActivity.this), spaceId, sDate);
+        Call<SlotListResponse> signUpAthlete = retrofitinterface.getTimeSlots(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, HourlySlotsActivity.this), spaceId, date);
         signUpAthlete.enqueue(new Callback<SlotListResponse>() {
             @Override
             public void onResponse(Call<SlotListResponse> call, Response<SlotListResponse> response) {
@@ -219,6 +135,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null && response.body().getData().getAvailable_slot().size() > 0) {
 //                            binding.hourlyRecycler.removeAllViews();
+                            hourlyRecycler.setVisibility(View.VISIBLE);
                             slotList.add(response.body().getData());
                             getSlotsFromArray();
 
@@ -227,6 +144,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                     }
                 } else {
                     progressDialog.dismiss();
+                    hourlyRecycler.setVisibility(View.GONE);
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
@@ -242,6 +160,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
             @Override
             public void onFailure(Call<SlotListResponse> call, Throwable t) {
                 progressDialog.dismiss();
+                hourlyRecycler.setVisibility(View.GONE);
                 Toast.makeText(HourlySlotsActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
             }
@@ -249,7 +168,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
     }
 
     private void getSlotsFromArray() {
-        slotListApi = new ArrayList<>();
+//        slotListApi = new ArrayList<>();
 
         if (slotList != null && slotList.size() > 0) {
             for (int i = 0; i < slotList.get(0).getAvailable_slot().size(); i++) {
@@ -274,13 +193,14 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 
             }
             adapter=new HourlySlotAdapter(getApplicationContext(),hoursSelected);
-            binding.hourRecyler.setAdapter(adapter);
+            hourlyRecycler.setAdapter(adapter);
         }
     }
 
     @Override
     public void onDayClick(Date date) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        hitSpaceDetailAPI(commonMethods.getDateInStringFormat(date));
+
     }
 
     @Override
@@ -290,6 +210,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 
     @Override
     public void onRightButtonClick() {
+        hourlyRecycler.setVisibility(View.GONE);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
@@ -298,6 +219,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 
     @Override
     public void onLeftButtonClick() {
+        hourlyRecycler.setVisibility(View.GONE);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();

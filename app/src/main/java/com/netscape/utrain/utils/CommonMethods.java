@@ -15,6 +15,7 @@ import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -442,6 +443,16 @@ public class CommonMethods {
         }
         return strDate;
     }
+    public Date formatDate(String date,String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
+        try {
+            strDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return strDate;
+    }
     public String convertDate(int input) {
         if (input >= 10) {
             return String.valueOf(input);
@@ -457,6 +468,13 @@ public class CommonMethods {
 
         return first;
         }
+    public String getDateInStringFormat(Date sdate) {
+
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        CharSequence checkForMonth = DateFormat.format("yyyy-MM-dd", sdate);
+        String date = checkForMonth + "";
+        return date;
+    }
 
 
 }

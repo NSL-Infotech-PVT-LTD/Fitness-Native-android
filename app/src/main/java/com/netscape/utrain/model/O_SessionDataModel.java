@@ -35,6 +35,7 @@ public class O_SessionDataModel implements Serializable {
     private String latitude;
     private String longitude;
     private String images;
+    private boolean IsBooked;
     private String phone;
     private int guest_allowed;
     private int guest_allowed_left;
@@ -45,6 +46,14 @@ public class O_SessionDataModel implements Serializable {
     private String equipment_required;
     private int service_id;
     private int price;
+
+    public boolean isBooked() {
+        return IsBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        IsBooked = booked;
+    }
 
     public String getBusiness_hour() {
         return business_hour;

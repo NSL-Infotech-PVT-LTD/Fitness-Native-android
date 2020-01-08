@@ -28,6 +28,7 @@ import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.RoboTest;
 import com.netscape.utrain.activities.EventBookingActivity;
 import com.netscape.utrain.activities.HourlySlotsActivity;
 import com.netscape.utrain.activities.SelectedServiceList;
@@ -219,6 +220,7 @@ public class EventDetail extends AppCompatActivity {
                 binding.view3.setVisibility(View.VISIBLE);
                 binding.view4.setVisibility(View.GONE);
                 binding.viewMore.setVisibility(View.VISIBLE);
+                binding.viewSlots.setVisibility(View.VISIBLE);
                 binding.dateText.setText("Availability");
 
                 binding.descriptionTv.setText(getIntent().getStringExtra("desc"));

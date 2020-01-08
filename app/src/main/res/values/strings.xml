@@ -26,7 +26,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="explore_the_best_coaches">Explore the best Coaches with just a tap!</string>
-    <string name="explore_the_best_org">Explore the best Organisation with just a tap!</string>
+    <string name="explore_the_best_org">Explore the best Organization with just a tap!</string>
     <string name="search_keyword">Search Keyword</string>
     <string name="find_your_coach">Find your coach</string>
     <string name="log_in">Log In</string>
@@ -283,7 +283,7 @@
     <string name="confirm_location">Confirm Location</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
-    <string name="createEventEquipments">Equipments</string>
+    <string name="createEventEquipments">Additional comments</string>
     <string name="selecte_event_address">Select event address</string>
     <string name="select_start_time">Select start time</string>
     <string name="select_start_date">Select start date</string>
@@ -460,4 +460,6 @@
     <string name="you_may_write">You may Write for any request and \n report</string>
     <string name="wirte_message">Write Message ...</string>
     <string name="enter_some_text">Write your message to send.</string>
+    <string name="upload_screenshot">Upload Screen shot</string>
+    <string name="connect_train_and_rentSpace">Connect, Train and Rent Space</string>
 </resources>

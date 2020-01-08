@@ -40,6 +40,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
         this.context = context;
         this.list = list;
     }
+
     public AllSpaceOrgListAdapter(Context context) {
         this.context = context;
         list = new ArrayList<>();
@@ -68,6 +69,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
         return viewHolder;
 
     }
+
     @NonNull
     private AllSpaceOrgHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
         AllSpaceOrgHolder viewHolder;
@@ -75,43 +77,50 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
         viewHolder = new AllSpaceOrgHolder(v1);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull AllSpaceOrgHolder holder, int position) {
 
         O_SpaceDataModel data = list.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
-                if(data!=null)
-        holder.placeNameInfoTv.setText(data.getName());
-        holder.placenameTv.setText(data.getLocation());
+                if (data != null)
+                    holder.placeNameInfoTv.setText(data.getName());
+                holder.placenameTv.setText(data.getLocation());
 //        holder.findPlaceDistanceTv.setText("Description");
-        holder.findPlaceDistanceDetailTv.setText(data.getDescription());
-        holder.findPlaceDistanceDetailTv.setTextColor(Color.LTGRAY);
-        holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
+                holder.findPlaceDistanceDetailTv.setText(data.getDescription());
+                holder.findPlaceDistanceDetailTv.setTextColor(Color.LTGRAY);
+                holder.findPlaceActualPriceTv.setText("$" + data.getPrice_daily() + "/day");
 //        holder.statusImage.setVisibility(View.GONE);
-        holder.editImage.setVisibility(View.VISIBLE);
+                holder.editImage.setVisibility(View.VISIBLE);
 
-        try {
-            if (data.getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getImages());
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).
-                            load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.findPlaceImage);
+                if (data.isBooked()) {
+                    holder.editImage.setVisibility(View.GONE);
+                } else {
+                    holder.editImage.setVisibility(View.VISIBLE);
                 }
-            }
-        } catch (JSONException e) {
 
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-        holder.editImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent spaceEdit=new Intent(context, OfferSpaceActivity.class);
-                spaceEdit.putExtra("spaceEdit",data);
-                OfferSpaceActivity.spaceEdit=true;
-                context.startActivity(spaceEdit);
-            }
-        });
+                try {
+                    if (data.getImages() != null) {
+                        JSONArray jsonArray = new JSONArray(data.getImages());
+                        if (jsonArray != null && jsonArray.length() > 0) {
+                            Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).
+                                    load(Constants.IMAGE_BASE_PLACE + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.findPlaceImage);
+                        }
+                    }
+                } catch (JSONException e) {
+
+                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                holder.editImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent spaceEdit = new Intent(context, OfferSpaceActivity.class);
+                        spaceEdit.putExtra("spaceEdit", data);
+                        OfferSpaceActivity.spaceEdit = true;
+                        context.startActivity(spaceEdit);
+                    }
+                });
                 break;
             case LOADING:
 //                Do nothing
@@ -129,7 +138,6 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
     public int getItemViewType(int position) {
         return (position == list.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
     }
-
 
 
     public void add(O_SpaceDataModel r) {
@@ -191,7 +199,7 @@ public class AllSpaceOrgListAdapter extends RecyclerView.Adapter<AllSpaceOrgList
     public class AllSpaceOrgHolder extends RecyclerView.ViewHolder {
 
         MaterialTextView placeNameInfoTv, placenameTv, findPlaceDistanceDetailTv, bookingTicketTv, findPlaceDistanceTv, findPlaceActualPriceTv;
-        AppCompatImageView findPlaceImage, statusImage,editImage;       // Using the booking.view layout which is same for completed....
+        AppCompatImageView findPlaceImage, statusImage, editImage;       // Using the booking.view layout which is same for completed....
 
         public AllSpaceOrgHolder(@NonNull View itemView) {
             super(itemView);

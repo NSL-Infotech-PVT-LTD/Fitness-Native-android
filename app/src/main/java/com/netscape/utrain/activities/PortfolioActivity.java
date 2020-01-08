@@ -71,6 +71,8 @@ import retrofit2.Response;
 
 public class PortfolioActivity extends AppCompatActivity implements View.OnClickListener {
     public static boolean getImages = false;
+    public static boolean getSingleImage = false;
+
     public static boolean updateImages = false;
     MultipartBody.Part userImg = null;
     MultipartBody.Part portFolioImage1 = null, portFolioImage2 = null, portFolioImage3 = null, portFolioImage4 = null;
@@ -187,7 +189,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
                                         if (type.equalsIgnoreCase("portfolioImages"))
                                             Glide.with(getApplicationContext()).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.ORG_PORTFOLIO_IMAGE_BASE_URL + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
-
                                     }
                                 }
                             }
@@ -210,6 +211,16 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             binding.portfolioTitleTv.setText("Select Images");
             binding.noteTv.setText("Select at least one image");
         }
+        if (getSingleImage) {
+            binding.portfolioTitleTv.setText("Select Image");
+            binding.noteTv.setText("Select at least one image");
+            binding.card1.setVisibility(View.GONE);
+            binding.card2.setVisibility(View.GONE);
+            binding.card3.setVisibility(View.GONE);
+            binding.portfolioNoteTv.setVisibility(View.GONE);
+            binding.noteTv.setVisibility(View.GONE);
+        }
+
 
         if (getIntent().getExtras() != null) {
             orgDataModel = (OrgUserDataModel) getIntent().getSerializableExtra(Constants.OrgSignUpIntent);
@@ -225,7 +236,6 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         binding.imgPlusThree.setOnClickListener(this);
         binding.imgPlusFour.setOnClickListener(this);
         binding.portfolioBackArrowImg.setOnClickListener(this);
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getResources().getString(R.string.loading));
         progressDialog.setCancelable(false);
@@ -270,6 +280,12 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 addFourthImage();
                 break;
             case R.id.addImageSubmitBtn:
+                if (getSingleImage){
+                    finish();
+                }else {
+
+
+
                 if (updateImages){
                     if (type!=null) {
                         if (type.equalsIgnoreCase("portfolioImages")) {
@@ -307,6 +323,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
                     }
+                }
                 }
                 break;
 
@@ -511,11 +528,16 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
             setImages = photoFile.getPath();
-            if (getImages) {
-                userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            if (getSingleImage){
+                userImg = MultipartBody.Part.createFormData("media", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
 
-            } else {
-                userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+            }else {
+                if (getImages) {
+                    userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+
+                } else {
+                    userImg = MultipartBody.Part.createFormData("portfolio_image_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
+                }
             }
             setPortfolioImages();
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY) {
@@ -839,6 +861,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         getImages=false;
+        getSingleImage=false;
         super.onDestroy();
     }
 

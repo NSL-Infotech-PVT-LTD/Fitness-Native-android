@@ -63,7 +63,6 @@ public class SplashActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(loginUser)) {
                     if (loginUser.equalsIgnoreCase(PrefrenceConstant.ATHLETE_LOG_IN)) {
                         if (!TextUtils.isEmpty(userEmail) && !TextUtils.isEmpty(userMobile)) {
-
                             Intent intent = new Intent(getApplicationContext(), AthleteHomeScreen.class);
                             if (!TextUtils.isEmpty(notificationData)) {
                                 intent.putExtra("notificationData", notificationData);

@@ -153,30 +153,29 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/findTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:drawableLeft="@drawable/ic_search"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/find"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="visible"
-            app:fontFamily="@font/poppins_regular"
-            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-            app:layout_constraintTop_toBottomOf="@+id/aProfileImgCard"
-            app:layout_goneMarginTop="@dimen/_20sdp" />
+        <!--        <com.google.android.material.textview.MaterialTextView-->
+        <!--            android:id="@+id/findTv"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/_10sdp"-->
+        <!--            android:drawableLeft="@drawable/ic_search"-->
+        <!--            android:fontFamily="@font/poppins_regular"-->
+        <!--            android:hint="@string/find"-->
+        <!--            android:textColor="@color/colorBlack"-->
+        <!--            android:textSize="@dimen/_10sdp"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:fontFamily="@font/poppins_regular"-->
+        <!--            app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/aProfileImgCard"-->
+        <!--            app:layout_goneMarginTop="@dimen/_20sdp" />-->
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_13sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:src="@drawable/ic_common_background"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/findTv" />
+            app:layout_constraintTop_toBottomOf="@id/aProfileImgCard" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cViewAllDImage"
@@ -212,11 +211,11 @@
             android:id="@+id/athleteCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             app:cardCornerRadius="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
             app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/findTv">
+            app:layout_constraintTop_toBottomOf="@id/aProfileImgCard">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

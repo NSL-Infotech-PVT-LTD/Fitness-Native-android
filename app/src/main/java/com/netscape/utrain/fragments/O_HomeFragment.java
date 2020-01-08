@@ -140,12 +140,13 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 //        orglogOutTv = (MaterialButton) view.findViewById(R.id.orglogOutTv);
         progressDialog = new ProgressDialog(getContext());
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) {
-            @Override
-            public boolean canScrollVertically() {
-                return true;
-            }
-        };
+        layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false) {
+//            @Override
+//            public boolean canScrollVertically() {
+//                return true;
+//            }
+//        };
         binding.orgSpaceRecyclerView.setLayoutManager(layoutManager);
         getSpaceList();
 
@@ -231,7 +232,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low", "","");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low", "", "");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -264,12 +265,12 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.orgHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
 
 
-                        Snackbar.make(binding.orgHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 

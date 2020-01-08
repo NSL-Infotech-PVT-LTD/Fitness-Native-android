@@ -25,6 +25,7 @@
                     android:id="@+id/layoutConstraint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:background="@drawable/card_bottomboth_round_design"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -137,12 +138,16 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/viewSlots"
+                    android:visibility="gone"
+                    android:background="@drawable/round_background_colord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_40sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_4sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/view_slots"
-                    android:textColor="@color/gradientDarkColor"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintRight_toRightOf="@id/rightGuideline"
                     app:layout_constraintTop_toBottomOf="@id/viewPagerImage" />

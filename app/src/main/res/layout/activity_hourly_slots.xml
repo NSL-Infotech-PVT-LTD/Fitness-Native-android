@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<!--<layout>-->
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,16 +7,16 @@
         android:layout_height="match_parent"
         tools:context=".activities.SelectTimeSlot">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/closeSlotDialog"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/ic_back"
-            ></androidx.appcompat.widget.AppCompatImageView>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backArrowClick"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/ic_back"
+                ></androidx.appcompat.widget.AppCompatImageView>
         <com.netscape.utrain.views.RobotoCalendarView
             android:id="@+id/roboCalHours"
             android:layout_width="match_parent"
@@ -30,8 +30,8 @@
             android:fillViewport="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintTop_toBottomOf="@+id/closeSlotDialog"
-            app:layout_constraintBottom_toTopOf="@+id/bottomConstraint">
+            app:layout_constraintTop_toBottomOf="@+id/roboCalHours"
+            app:layout_constraintBottom_toBottomOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -190,32 +190,32 @@
 
 
         </ScrollView>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottomConstraint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/darkGreens"
-            android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/bottomConstraint"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/darkGreens"-->
+<!--            android:padding="@dimen/_5sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent">-->
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/totlaPriceTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                android:padding="@dimen/_6sdp"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/totlaPriceTv"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Done"-->
+<!--                android:padding="@dimen/_6sdp"-->
+<!--                android:textColor="@color/colorWhite"-->
+<!--                android:textSize="@dimen/_12sdp"-->
+<!--                android:fontFamily="@font/poppins_bold"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"/>-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+<!--</layout>-->

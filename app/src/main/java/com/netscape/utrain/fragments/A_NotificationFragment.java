@@ -618,6 +618,8 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
                             intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventEndDate", response.body().getData().getEnd_time());
+
                             intent.putExtra("eventTime", response.body().getData().getStart_time());
                             intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
                             intent.putExtra("eventDescription", response.body().getData().getDescription());
@@ -687,6 +689,7 @@ public class A_NotificationFragment extends Fragment implements NotificationsAda
                             intent.putExtra("eventTime", response.body().getData().getStart_time());
                             intent.putExtra("eventEndTime", response.body().getData().getEnd_time());
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
+                            intent.putExtra("eventEndDate", response.body().getData().getEnd_date());
                             intent.putExtra("eventDescription", response.body().getData().getDescription());
                             intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
                             intent.putExtra("event_id", response.body().getData().getId()+"");

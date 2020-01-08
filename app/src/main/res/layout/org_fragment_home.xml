@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintGuide_percent="0.04" />
 
         <ScrollView
             android:id="@+id/scroll"
@@ -135,38 +135,38 @@
 <!--                    app:layout_constraintRight_toRightOf="parent"/>-->
 
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/orgCreateTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_add_gray"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:hint="@string/create"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:fontFamily="@font/poppins_regular"
-                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
-                    app:layout_constraintTop_toTopOf="parent"
-                     />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/orgCreateTv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_add_gray"-->
+<!--                    android:fontFamily="@font/poppins_semibold"-->
+<!--                    android:hint="@string/create"-->
+<!--                    android:textColor="@color/colorBlack"-->
+<!--                    android:textSize="@dimen/_12sdp"-->
+<!--                    app:fontFamily="@font/poppins_regular"-->
+<!--                    app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                     />-->
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:src="@drawable/ic_common_background"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginTop="@dimen/_17sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    app:layout_constraintTop_toTopOf="@id/orgCreateTv" />
+
+                    android:layout_marginRight="@dimen/_16sdp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/organizationCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     app:cardCornerRadius="@dimen/_20sdp"
                     app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                     app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
-                    app:layout_constraintTop_toBottomOf="@+id/orgCreateTv">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

@@ -48,10 +48,10 @@
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:src="@drawable/ic_leftblack"
+            app:layout_constraintBottom_toBottomOf="@+id/portfolioTitleTv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/portfolioTitleTv"
-            app:layout_constraintTop_toTopOf="@+id/portfolioTitleTv"
-            app:layout_constraintBottom_toBottomOf="@+id/portfolioTitleTv"/>
+            app:layout_constraintTop_toTopOf="@+id/portfolioTitleTv" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/portfolioTitleTv"
@@ -93,6 +93,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutFirstImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -133,6 +134,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSecondImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -174,6 +176,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/card1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutThirdImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -213,9 +216,13 @@
                 android:layout_marginRight="@dimen/_45sdp"
                 app:layout_constraintLeft_toRightOf="@id/card3"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card2">
+                app:layout_constraintTop_toBottomOf="@+id/card2"
+                app:layout_goneMarginLeft="@dimen/_45sdp"
+                app:layout_goneMarginRight="@dimen/_45sdp"
+                app:layout_goneMarginTop="@dimen/_45sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutFourthImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -256,7 +263,8 @@
                 android:text="@string/note"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card4" />
+                app:layout_constraintTop_toBottomOf="@id/card4"
+                app:layout_goneMarginLeft="@dimen/_20sdp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/noteTv"
@@ -269,7 +277,8 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toRightOf="@id/portfolioNoteTv"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card4" />
+                app:layout_constraintTop_toBottomOf="@id/card4"
+                app:layout_goneMarginRight="@dimen/_20sdp" />
 
 
             <com.google.android.material.button.MaterialButton

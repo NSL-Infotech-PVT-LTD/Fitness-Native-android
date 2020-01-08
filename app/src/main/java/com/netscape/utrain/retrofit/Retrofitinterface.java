@@ -654,11 +654,18 @@ public interface Retrofitinterface {
                                               @Header("Content-Type") String Content_type,
                                               @Field("id")String target_id);
 
-    @FormUrlEncoded
-    @POST(Constants.LOGIN_METHOD)
-    Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String Authorization,
-                                                @Header("Content-Type") String Content_type,
-                                                @Field("message")String message);
+//    @FormUrlEncoded
+//    @POST(Constants.LOGIN_METHOD)
+//    Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String Authorization,
+//                                                @Header("Content-Type") String Content_type,
+//                                                @Field("message")String message);
+
+    @Multipart
+    @POST(Constants.HELP_SUPPORT)
+    Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String auth,
+                                             @Query("message")String message,
+                                             @Part MultipartBody.Part file);
+
 
 
 }

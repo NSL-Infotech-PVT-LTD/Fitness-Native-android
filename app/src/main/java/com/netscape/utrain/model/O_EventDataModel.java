@@ -32,6 +32,7 @@ public class O_EventDataModel implements Serializable {
     private String end_time;
     private int price;
     private String images;
+    private boolean IsBooked;
     private String location;
     private String latitude;
     private String longitude;
@@ -44,6 +45,14 @@ public class O_EventDataModel implements Serializable {
     private String created_at;
     private String updated_at;
     private Object deleted_at;
+
+    public boolean isBooked() {
+        return IsBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        IsBooked = booked;
+    }
 
     public Object getParams() {
         return params;

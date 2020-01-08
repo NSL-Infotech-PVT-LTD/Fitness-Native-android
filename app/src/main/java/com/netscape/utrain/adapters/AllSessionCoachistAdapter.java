@@ -18,12 +18,14 @@ import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.model.C_SessionListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SessionDataModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCoachistAdapter.AllSessionsCoachHolder> {
@@ -32,6 +34,8 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
     private boolean isLoadingAdded = false;
     private Context context;
     private List<O_SessionDataModel> list;
+    private Date date=null;
+    private CommonMethods commonMethods=new CommonMethods();
 
     public AllSessionCoachistAdapter(Context context, List<O_SessionDataModel> list) {
         this.context = context;
@@ -87,7 +91,19 @@ public class AllSessionCoachistAdapter extends RecyclerView.Adapter<AllSessionCo
         holder.bookingVenueTv.setText(data.getLocation());
         holder.bookingTicketTv.setText(data.getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
         holder.statusImage.setVisibility(View.GONE);
-        holder.editImage.setVisibility(View.VISIBLE);
+
+                if (data.getStart_date() != null && !data.getStart_date().isEmpty()) {
+                    date = commonMethods.formatDate(data.getStart_date(), "yyyy-MM-dd");
+                }
+
+                if (data.isBooked()) {
+                    holder.editImage.setVisibility(View.GONE);
+                } else if (System.currentTimeMillis() > date.getTime()) {
+                    holder.editImage.setVisibility(View.GONE);
+                } else {
+                    holder.editImage.setVisibility(View.VISIBLE);
+
+                }
 
         try {
             if (data.getImages() != null) {

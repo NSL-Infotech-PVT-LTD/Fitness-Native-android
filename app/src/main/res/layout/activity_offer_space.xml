@@ -45,16 +45,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/createTrainingSessionTv" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/create_event_dummytxt"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/createTrainingSessionTv"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/poppins_regular"-->
+<!--            android:text="@string/create_event_dummytxt"-->
+<!--            android:textSize="@dimen/_10sdp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@+id/createTrainingSessionTv"-->
+<!--            android:layout_marginRight="@dimen/_10sdp"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/createTrainingSessionTv" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/Guideline"

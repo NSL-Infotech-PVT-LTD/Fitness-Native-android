@@ -75,21 +75,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/findAPlaceDummyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/find_a_place_text"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"
-                app:layout_constraintTop_toBottomOf="@+id/allEventFindAPalceTv" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/findAPlaceDummyText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/find_a_place_text"-->
+<!--                android:textSize="@dimen/_10sdp"-->
+<!--                app:layout_constraintLeft_toLeftOf="@id/allEventFindAPalceTv"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/allEventFindAPalceTv" />-->
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottomSheetGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.10" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/findPlaceRecycler"

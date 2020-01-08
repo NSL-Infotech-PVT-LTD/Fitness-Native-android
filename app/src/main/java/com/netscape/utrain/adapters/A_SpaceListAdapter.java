@@ -40,6 +40,8 @@ import com.netscape.utrain.utils.RatingInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -170,18 +172,25 @@ public class A_SpaceListAdapter extends RecyclerView.Adapter<A_SpaceListAdapter.
         });
 
         if (type==1) {
-//            if (!TextUtils.isEmpty(data.getBooking_date().getEnd())){
-//                CommonMethods commonMethods=new CommonMethods();
-//                endDate=commonMethods.formatDate(data.getBooking_date().getEnd());
-//                if (endDate.getTime()>System.currentTimeMillis() && en)
-//            }
-//            if (data.getStatus().equalsIgnoreCase("pending")){
-//                holder.completedRatingText.setVisibility(View.VISIBLE);
-//            }else {
-//                holder.bookingRating.setVisibility(View.VISIBLE);
-//                holder.completedRatingText.setVisibility(View.GONE);
-//                holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
-//            }
+            if (!TextUtils.isEmpty(data.getBooking_date().getEnd())){
+                CommonMethods commonMethods=new CommonMethods();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    endDate=sdf.parse(data.getBooking_date().getEnd());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (endDate !=null ) {
+                    if (System.currentTimeMillis()>(endDate.getTime()) && (data.getRating().equalsIgnoreCase("0"))) {
+                        holder.completedRatingText.setVisibility(View.VISIBLE);
+                    } else if (Float.parseFloat(data.getRating().toString()) > 0) {
+                        holder.bookingRating.setVisibility(View.VISIBLE);
+                        holder.completedRatingText.setVisibility(View.GONE);
+                        holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
+                    }
+                }
+            }
+
 
         }
         holder.completedRatingText.setOnClickListener(new View.OnClickListener() {

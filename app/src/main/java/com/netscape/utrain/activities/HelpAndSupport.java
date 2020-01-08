@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
@@ -33,6 +34,7 @@ public class HelpAndSupport extends AppCompatActivity implements View.OnClickLis
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private String messageText = "";
+    private int IMAGE_GET = 166;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class HelpAndSupport extends AppCompatActivity implements View.OnClickLis
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         binding.submitBtn.setOnClickListener(this);
         binding.eventBookingBackImg.setOnClickListener(this);
+        binding.imageUploadText.setOnClickListener(this);
     }
 
     @Override
@@ -66,12 +69,18 @@ public class HelpAndSupport extends AppCompatActivity implements View.OnClickLis
             case R.id.eventBookingBackImg:
                 finish();
                 break;
+            case R.id.imageUploadText:
+                Intent getImages = new Intent(HelpAndSupport.this, PortfolioActivity.class);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                PortfolioActivity.getSingleImage = true;
+                startActivityForResult(getImages, IMAGE_GET);
+                break;
         }
     }
 
     private void hitHelpAndSupportApi() {
         progressDialog.show();
-        Call<HelpAndSupportResponse> signUpAthlete = retrofitinterface.helpAndSupport("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, messageText);
+        Call<HelpAndSupportResponse> signUpAthlete = retrofitinterface.helpAndSupport("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), messageText, PortfolioImagesConstants.partFour);
         signUpAthlete.enqueue(new Callback<HelpAndSupportResponse>() {
             @Override
             public void onResponse(Call<HelpAndSupportResponse> call, Response<HelpAndSupportResponse> response) {
@@ -80,7 +89,7 @@ public class HelpAndSupport extends AppCompatActivity implements View.OnClickLis
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             Toast.makeText(HelpAndSupport.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
-
+                                finish();
                         } else {
 //                            Toast.makeText(HelpAndSupport.this, ""+response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
 

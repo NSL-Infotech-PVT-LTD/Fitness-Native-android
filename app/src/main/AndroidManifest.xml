@@ -16,7 +16,8 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HelpAndSupport"></activity>
+        <activity android:name=".RoboTest"></activity>
+        <activity android:name=".activities.HelpAndSupport" />
         <activity android:name=".activities.HourlySlotsActivity" />
         <activity android:name=".activities.SelectTimeSlot" />
         <activity
