@@ -516,6 +516,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 ////                AppDelegate.Log("imageCaptured ", "result failed");
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+
             String realPath = ImageFilePath.getPath(this, data.getData());
             String filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
 
@@ -548,8 +549,13 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private void OrgSignUpApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
+        MultipartBody.Part policeDoc = null;
         if (orgDataModel.getProfile_img() != null) {
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        if (orgDataModel.getProfile_img()!=null){
+            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
+
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
@@ -577,6 +583,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         parts.add(portFolioImage3);
         parts.add(portFolioImage4);
         parts.add(userImg);
+        parts.add(policeDoc);
 
 
         Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap , parts);

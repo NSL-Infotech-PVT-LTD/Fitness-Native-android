@@ -1,16 +1,22 @@
 package com.netscape.utrain.response;
 
-import com.netscape.utrain.model.TermsAndConditionsModel;
-
-import java.util.List;
+import com.netscape.utrain.model.ErrorModel;
 
 public class TermsAndConditionsResponse {
 
 
     private boolean status;
     private int code;
-    private List<TermsAndConditionsModel> data;
+    private String data;
+    private ErrorModel error;
 
+    public ErrorModel getError() {
+        return error;
+    }
+
+    public void setError(ErrorModel error) {
+        this.error = error;
+    }
 
     public boolean isStatus() {
         return status;
@@ -28,11 +34,11 @@ public class TermsAndConditionsResponse {
         this.code = code;
     }
 
-    public List<TermsAndConditionsModel> getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(List<TermsAndConditionsModel> data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

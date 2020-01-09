@@ -45,7 +45,7 @@ public class Constants {
     public static final String BOOKING_NOTIFICATIONS = "notifications";
     public static final String BOOKING_RATING = "booking/rating";
     public static final String CHANGE_PASSWORD = "password/change";
-    public static final String TERMS_CONDITIONS = "terms";
+    public static final String TERMS_CONDITIONS = "configuration/terms_and_conditions";
 
 
     public static final String ORG_SESSION_LIST = "session/organiser/list";
@@ -68,7 +68,7 @@ public class Constants {
     public static final String ALL_BOOKING_COACH_ORG = "both/bookings";
     public static final String ALL_TRANSACTIONS_COACH = "all/coach/bookings";
     public static final String SPORTS_LIST = "sports";
-    public static final String ABOUT_US = "about/us";
+    public static final String ABOUT_US = "configuration/about_us";
     public static final String LOGOUT= "logout";
     public static final String NOTIFICATION= "notify/toggle";
     public static final String GET_NEW_NOTIFICATIONS= "dashboard";

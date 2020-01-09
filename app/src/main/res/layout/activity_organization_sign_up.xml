@@ -506,6 +506,23 @@
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/orgTrainingDetailEdt" />
 
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/policeDoceTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/upload_police_doc"
+                            android:drawableRight="@drawable/uplod_help"
+                            android:drawablePadding="@dimen/_16sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:background="@drawable/organization_edt_design"
+                            app:layout_constraintLeft_toLeftOf="@+id/organization_left_Guideline"
+                            app:layout_constraintTop_toBottomOf="@+id/orgHourlyRateEdt"
+                            app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/orgNextBtn"
                             android:layout_width="0dp"
@@ -523,7 +540,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
-                            app:layout_constraintTop_toBottomOf="@id/orgHourlyRateEdt" />
+                            app:layout_constraintTop_toBottomOf="@id/policeDoceTv" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

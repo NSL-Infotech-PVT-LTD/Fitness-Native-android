@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGreen"
+            android:background="@color/gradientDarkColor"
             >
             <ImageView
                 android:id="@+id/closeDialogImg"

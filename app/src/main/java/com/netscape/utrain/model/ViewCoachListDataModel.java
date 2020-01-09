@@ -21,13 +21,11 @@ public class ViewCoachListDataModel implements Serializable {
      */
 
 
-
     // below fields are in organizerCoachUpdate Api, We can add these parameters to below mention model for reusability.
 //    "remember_token": null,
 //            "params": null,
 //            "state": "0",
 //            "deleted_at": null
-
 
 
     private int id;
@@ -44,9 +42,17 @@ public class ViewCoachListDataModel implements Serializable {
     private String updated_at;
     private String created_at;
     private File oCoachProfileImg;
+    private File police_doc;
     private String latitude;
     private String longitude;
 
+    public File getPolice_doc() {
+        return police_doc;
+    }
+
+    public void setPolice_doc(File police_doc) {
+        this.police_doc = police_doc;
+    }
 
     public String getLatitude() {
         return latitude;

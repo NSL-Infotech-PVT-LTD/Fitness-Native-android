@@ -177,9 +177,14 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 //        CommonMethods.hideKeyboard(this);
         progressDialog.show();
         MultipartBody.Part userImg = null;
+        MultipartBody.Part policeDoc = null;
         if (orgDataModel.getProfile_img() != null) {
 //            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
+        }
+        if (orgDataModel.getProfile_img()!=null){
+            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
+
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
@@ -202,7 +207,12 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
 //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
-        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.registerCoach(requestBodyMap, userImg);
+
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(userImg);
+        parts.add(policeDoc);
+
+        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.registerCoach(requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
             public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
@@ -210,33 +220,35 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
-                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Coach, ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
-                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", ServicePriceActivity.this);
-                            servicesList.addAll(response.body().getData().getUser().getService_ids());
-                            storeServiceIds(servicesList);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", ServicePriceActivity.this);
-                            CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+                            Toast.makeText(ServicePriceActivity.this, ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
 
-                            Intent homeScreen = new Intent(getApplicationContext(), CoachDashboard.class);
+//                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
+//                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Coach, ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.COACH_LOG_IN, ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.COACH_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
+//                            CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", ServicePriceActivity.this);
+//                            servicesList.addAll(response.body().getData().getUser().getService_ids());
+//                            storeServiceIds(servicesList);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", ServicePriceActivity.this);
+//                            CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", ServicePriceActivity.this);
+
+                            Intent homeScreen = new Intent(getApplicationContext(), LoginActivity.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(homeScreen);
                         }

@@ -1,25 +1,16 @@
 package com.netscape.utrain.response;
 
-import com.netscape.utrain.model.AboutUsModel;
 import com.netscape.utrain.model.ErrorModel;
-
-import java.util.List;
 
 public class AboutUsResponse {
 
 
-    private boolean status;
-    private int code;
-    private List<AboutUsModel> data;
     private ErrorModel error;
 
-    public List<AboutUsModel> getData() {
-        return data;
-    }
+    private boolean status;
+    private int code;
+    private String data;
 
-    public void setData(List<AboutUsModel> data) {
-        this.data = data;
-    }
 
     public ErrorModel getError() {
         return error;
@@ -28,6 +19,7 @@ public class AboutUsResponse {
     public void setError(ErrorModel error) {
         this.error = error;
     }
+
 
     public boolean isStatus() {
         return status;
@@ -45,5 +37,11 @@ public class AboutUsResponse {
         this.code = code;
     }
 
+    public String getData() {
+        return data;
+    }
 
+    public void setData(String data) {
+        this.data = data;
+    }
 }

@@ -177,7 +177,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search = searchAtuoCompleteEdt.getText().toString();
                     orderBy = "latest";
-                    currentPage = "1";
+                    currentPage = "";
                     isLastPage = false;
                     if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
                         constraint_background.setBackground(getResources().getDrawable(R.drawable.card_shape_outline));
@@ -268,8 +268,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
+
                             }
                         });
                     }
@@ -354,7 +355,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
                             }
                         });
@@ -443,7 +444,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
                             }
                         });
@@ -531,7 +532,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
                             }
                         });
@@ -582,42 +583,45 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         Bitmap b = bitmapdraw.getBitmap();
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
                         if (mGoogleMap != null) mGoogleMap.clear();
+
                         for (int i = 0; i < value; i++) {
-                            latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+                            if (response.body().getData().getData().get(i).getLatitude()!=null && response.body().getData().getData().get(i).getLongitude()!=null) {
+                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
 
-                            Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(response.body().getData().getData().get(i).getName())
-                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                            marker.setTag(i);
+                                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(response.body().getData().getData().get(i).getName())
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                marker.setTag(i);
 
 
-                            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
+                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                            mGoogleMap.animateCamera(update);
 //                            adapter = new CoachesRecyclerAdapter(activity, listModels);
 //                            recyclerViewFindPlace.setAdapter(adapter);
 
 
-                            recyclerViewFindPlace.setVisibility(View.VISIBLE);
+                                recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                            adapter = new CoachesRecyclerAdapter(AllEventsMapAct.this);
-                            recyclerViewFindPlace.setLayoutManager(layoutManager);
-                            recyclerViewFindPlace.setAdapter(adapter);
-                            List<AthleteEventListModel> results = fetchResults(response);
+                                adapter = new CoachesRecyclerAdapter(AllEventsMapAct.this);
+                                recyclerViewFindPlace.setLayoutManager(layoutManager);
+                                recyclerViewFindPlace.setAdapter(adapter);
+                                List<AthleteEventListModel> results = fetchResults(response);
 
-                            TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                                TOTAL_PAGES = response.body().getData().getLast_page();
+                                getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
-                            adapter.addAll(results);
-                            if (!TextUtils.isEmpty(currentPage)) {
-                                pageCurrent = Integer.parseInt(currentPage);
-                            }
+                                adapter.addAll(results);
+                                if (!TextUtils.isEmpty(currentPage)) {
+                                    pageCurrent = Integer.parseInt(currentPage);
+                                }
 //                            else {
 //                                pageCurrent=1;
 //                                currentPage="1";
 //                                orderBy="latest";
 //                            }
-                            if (pageCurrent < TOTAL_PAGES) {
-                                adapter.addLoadingFooter();
-                            } else isLastPage = true;
+                                if (pageCurrent < TOTAL_PAGES) {
+                                    adapter.addLoadingFooter();
+                                } else isLastPage = true;
+                            }
 
                         }
 
@@ -634,7 +638,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
                             }
                         });
@@ -724,7 +728,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                currentPage="";
                                 getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
                             }
                         });

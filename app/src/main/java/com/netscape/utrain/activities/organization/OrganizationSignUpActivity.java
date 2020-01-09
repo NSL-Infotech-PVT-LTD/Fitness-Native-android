@@ -119,6 +119,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private AskPermission askPermObj;
     private AlertDialog dialogMultiOrder;
     private File photoFile = null;
+    private File policeDoceFile = null;
     private String currentPhotoFilePath = "", imageUrl = "", imgRealPath = "";
     private String address = "";
     private double latitude = 0.0, longitude = 0.0;
@@ -137,6 +138,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private String latUpdate = "";
     private String longUpdate = "";
     private int count = 0;
+    private boolean policeDoc = false;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -278,6 +280,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         viewCoachListDataModel.setTraining_service_detail(orgTrainingDetail);
         orgHourlyRate = binding.orgHourlyRateEdt.getText().toString().trim();
         viewCoachListDataModel.setHourly_rate(orgHourlyRate);
+//        viewCoachListDataModel.setPolice_doc(policeDoceFile);
 
         if (orgName.isEmpty()) {
             binding.orgNameEdt.setError(getResources().getString(R.string.enter_name));
@@ -328,6 +331,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         askPermObj = new AskPermission(getApplicationContext(), this);
         binding.orgProfileImg.setOnClickListener(this);
         binding.orgStartTimeTv.setOnClickListener(this);
+        binding.policeDoceTv.setOnClickListener(this);
         binding.orgEndTimeTv.setOnClickListener(this);
         binding.orgNextBtn.setOnClickListener(this);
         binding.orgAddressEdt.setOnClickListener(this);
@@ -384,18 +388,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.orgProfileImg:
-                if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    askRequiredPermission();
-                    return;
-                }
-                if (!askPermObj.isPermissionGiven(this, Manifest.permission.CAMERA)) {
-                    askRequiredPermission();
-                    return;
-                }
-
-                if (count == 0) {
-                    handleImageSelection();
-                }
+                policeDoc = false;
+                getImages();
                 break;
             case R.id.orgStartTimeTv:
                 getStartTime();
@@ -415,12 +409,29 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 } else {
                     validateEditTextData();
                 }
-
-
                 break;
             case R.id.orgAddressEdt:
                 break;
+            case R.id.policeDoceTv:
+                policeDoc = true;
+                getImages();
+                break;
 
+        }
+    }
+
+    private void getImages() {
+        if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            askRequiredPermission();
+            return;
+        }
+        if (!askPermObj.isPermissionGiven(this, Manifest.permission.CAMERA)) {
+            askRequiredPermission();
+            return;
+        }
+
+        if (count == 0) {
+            handleImageSelection();
         }
     }
 
@@ -521,8 +532,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             isPermissionGranted(OrganizationSignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE,
                     Constants.MY_PERMISSION_GALLERY);
         } else {
-            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-            photoPickerIntent.setType("image/*");
+            Intent photoPickerIntent=null;
+            if (policeDoc){
+                photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+            }else {
+                photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+            }
             OrganizationSignUpActivity.this.startActivityForResult(photoPickerIntent, Constants.REQUEST_CODE_GALLERY);
         }
     }
@@ -555,6 +572,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgDataModel.setTrainingDetail(orgTrainingDetail);
         orgHourlyRate = binding.orgHourlyRateEdt.getText().toString().trim();
         orgDataModel.setHourly_rate(orgHourlyRate);
+        orgDataModel.setPolice_doc(policeDoceFile);
 
         if (orgName.isEmpty()) {
             binding.orgNameEdt.setError(getResources().getString(R.string.enter_name));
@@ -616,9 +634,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (Float.parseFloat(binding.orgHourlyRateEdt.getText().toString()) < 4) {
             Toast.makeText(OrganizationSignUpActivity.this, "Hourly rate should not less than 4", Toast.LENGTH_SHORT).show();
             binding.orgHourlyRateEdt.requestFocus();
+        } else if (policeDoceFile == null) {
+            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.upload_police_varrification_doc), Toast.LENGTH_SHORT).show();
         } else if (photoFile == null) {
             if (update) {
-
                 getLoginUser();
             } else {
                 Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
@@ -845,34 +864,45 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
-//                AppDelegate.Log("imageCaptured ", "result ok");
                 String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
-
                 photoFile = new File(filePath);
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
                 if (photoFile != null) {
 //                    plus.setVisibility(View.GONE);
-                    Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+                    if (policeDoc) {
+                        policeDoceFile = photoFile;
+                        policeDoc = false;
+                    } else {
+                        Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+                    }
+
 //                    imagesSelected.add(position,photoFile);
 
-                } /*else {
-//                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }*/
-//            } else {
-//                Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-////                AppDelegate.Log("imageCaptured ", "result failed");
+                }
+
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            String realPath = ImageFilePath.getPath(this, data.getData());
-            String filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
-
+            String realPath=null;
+            String filePath=null;
+//            if (policeDoc){
+//                realPath=data.getData().getPath();
+//                filePath=realPath;
+//            }else {
+                 realPath = ImageFilePath.getPath(this, data.getData());
+                 filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+//            }
             if (filePath != null) {
                 photoFile = new File(filePath);
             }
             if (photoFile != null)
 //                plus.setVisibility(View.GONE);
-                Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
+                if (policeDoc) {
+                    policeDoceFile = photoFile;
+                    policeDoc = false;
+                }else {
+                    Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
 
+                }
         }
     }
 

@@ -186,7 +186,7 @@ public interface Retrofitinterface {
     @Multipart
     @POST(Constants.COACH_SIGNUP)
     Call<CoachSignUpResponse> registerCoach(@PartMap Map<String, RequestBody> fields,
-                                            @Part MultipartBody.Part image);
+                                            @Part List<MultipartBody.Part> files);
     @Multipart
     @POST(Constants.COACH_UPDATE)
     Call<CoachSignUpResponse> updateCoachBasicInfo(@Header("Authorization") String auth,
@@ -611,7 +611,11 @@ public interface Retrofitinterface {
 
 
     @GET(Constants.ABOUT_US)
-    Call<AboutUsResponse> aboutUs();
+    Call<AboutUsResponse> aboutUs(@Header("Content-Type") String Content_type,
+                                            @Header("Authorization") String Authorization);
+    @GET(Constants.TERMS_CONDITIONS)
+    Call<TermsAndConditionsResponse> termsConditions(@Header("Content-Type") String Content_type,
+                                                    @Header("Authorization") String Authorization);
 
 
     @POST(Constants.TERMS_CONDITIONS)

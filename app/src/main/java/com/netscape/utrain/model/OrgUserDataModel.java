@@ -49,6 +49,7 @@ public class OrgUserDataModel implements Serializable {
     private String service_ids;
     private String expertise_years;
     private String hourly_rate;
+    private File police_doc;
     private String business_hour_starts;
     private String business_hour_ends;
     private String profile_image;
@@ -62,6 +63,14 @@ public class OrgUserDataModel implements Serializable {
     private File profile_img;
     private int id;
     private String selectedServices;
+
+    public File getPolice_doc() {
+        return police_doc;
+    }
+
+    public void setPolice_doc(File police_doc) {
+        this.police_doc = police_doc;
+    }
 
     public String getSport_id() {
         return sport_id;

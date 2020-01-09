@@ -462,4 +462,6 @@
     <string name="enter_some_text">Write your message to send.</string>
     <string name="upload_screenshot">Upload Screen shot</string>
     <string name="connect_train_and_rentSpace">Connect, Train and Rent Space</string>
+    <string name="upload_police_doc">Police doc</string>
+    <string name="upload_police_varrification_doc">Upload police verification doc</string>
 </resources>

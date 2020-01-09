@@ -24,6 +24,7 @@ public class CoachUserDataModel {
      */
 
     private String name;
+    private String message;
     private String email;
     private String phone;
     private String location;
@@ -45,6 +46,14 @@ public class CoachUserDataModel {
     private int id;
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getAchievements() {
         return achievements;

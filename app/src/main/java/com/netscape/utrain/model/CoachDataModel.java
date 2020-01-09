@@ -1,16 +1,16 @@
 package com.netscape.utrain.model;
 
 public class CoachDataModel {
-    private String Message;
+    private String message;
     private String token;
     private CoachUserDataModel user;
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        message = message;
     }
 
     public String getToken() {

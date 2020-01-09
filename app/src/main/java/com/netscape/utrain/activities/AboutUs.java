@@ -15,10 +15,11 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
 import com.netscape.utrain.databinding.ActivityAboutUsBinding;
-import com.netscape.utrain.model.AboutUsModel;
 import com.netscape.utrain.response.AboutUsResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
+import com.netscape.utrain.utils.CommonMethods;
+import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +33,6 @@ public class AboutUs extends AppCompatActivity {
     private ActivityAboutUsBinding binding;
     private AppCompatImageView aboutUsBackImg;
     private Retrofitinterface retrofitinterface;
-    private AboutUsModel model;
     private ProgressDialog progressDialog;
 
     @Override
@@ -42,7 +42,7 @@ public class AboutUs extends AppCompatActivity {
 //        setContentView(R.layout.activity_about_us);
         binding = DataBindingUtil.setContentView(AboutUs.this, R.layout.activity_about_us);
         aboutUsBackImg = findViewById(R.id.aboutUsBackImg);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
 
@@ -60,7 +60,7 @@ public class AboutUs extends AppCompatActivity {
         progressDialog.show();
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 
-        Call<AboutUsResponse> aboutUsResponseCall = retrofitinterface.aboutUs();
+        Call<AboutUsResponse> aboutUsResponseCall = retrofitinterface.aboutUs(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AboutUs.this));
         aboutUsResponseCall.enqueue(new Callback<AboutUsResponse>() {
             @Override
             public void onResponse(Call<AboutUsResponse> call, Response<AboutUsResponse> response) {
@@ -69,18 +69,16 @@ public class AboutUs extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body() != null) {
                         if (response.body().isStatus())
-                            if (response.body().getData()!=null && response.body().getData().size()>0) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    binding.htmlViewText.setText(Html.fromHtml(response.body().getData().get(0).getAbout_us() + "", Html.FROM_HTML_MODE_COMPACT));
-                                } else {
-                                    binding.htmlViewText.setText(Html.fromHtml(response.body().getData().get(0).getAbout_us() + ""));
-                                }
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                binding.htmlViewText.setText(Html.fromHtml(response.body().getData() + "", Html.FROM_HTML_MODE_COMPACT));
+                            } else {
+                                binding.htmlViewText.setText(Html.fromHtml(response.body().getData() + ""));
                             }
 
-                    }else {
+                    } else {
                         Toast.makeText(AboutUs.this, "Something Went wrong", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -90,12 +88,13 @@ public class AboutUs extends AppCompatActivity {
 
                     } catch (Exception e) {
                         Snackbar.make(binding.aboutUs, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
-                    }                }
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<AboutUsResponse> call, Throwable t) {
-            progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         });
 
