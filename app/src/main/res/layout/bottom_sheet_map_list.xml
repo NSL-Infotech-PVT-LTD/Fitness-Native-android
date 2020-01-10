@@ -64,6 +64,16 @@
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/imageLeftArrow"
                 app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sportFilterIon"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/filter_ic"
+                android:layout_marginRight="@dimen/_20sdp"
+                app:layout_constraintRight_toLeftOf="@id/filterIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/filterIcon"

@@ -347,6 +347,42 @@
 
 
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createEventServiceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/sports"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@+id/getAddressTv" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createEventSportEnterTv"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        android:singleLine="true"
+                        app:fontFamily="@font/poppins_regular"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventServiceTv" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/createEventSportsSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/createEventSportEnterTv"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toTopOf="@id/createEventSportEnterTv" />
+
+
 
 
 
@@ -361,7 +397,7 @@
                         android:text="@string/session_price"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/getAddressTv" />
+                        app:layout_constraintTop_toBottomOf="@id/createEventSportEnterTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/createTrainingSessionHourRateEdt"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sportNameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sports"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="@dimen/_6sdp"
+        app:fontFamily="@font/poppins_regular"
+        android:layout_marginRight="@dimen/_20sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/_10sdp"></androidx.appcompat.widget.AppCompatTextView>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_1sdp"
+    android:visibility="gone"
+    android:background="@color/lightGrayFont"
+    app:layout_constraintTop_toBottomOf="@+id/sportNameTv"
+    app:layout_constraintLeft_toLeftOf="parent"
+    ></View>
+</androidx.constraintlayout.widget.ConstraintLayout>

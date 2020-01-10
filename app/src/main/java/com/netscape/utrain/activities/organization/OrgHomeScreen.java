@@ -56,6 +56,7 @@ import com.netscape.utrain.fragments.O_RegistrationProfile;
 import com.netscape.utrain.fragments.O_HistoryFragment;
 import com.netscape.utrain.fragments.O_HomeFragment;
 import com.netscape.utrain.fragments.O_StardFragment;
+import com.netscape.utrain.fragments.TransactionFragment;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.LogoutResponse;
 import com.netscape.utrain.response.NotificationCountResponse;
@@ -109,7 +110,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_chat:
 //                    mTextMessage.setText(R.string.title_dashboard);
-                    fragment = new O_StardFragment();
+                    fragment = new TransactionFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:

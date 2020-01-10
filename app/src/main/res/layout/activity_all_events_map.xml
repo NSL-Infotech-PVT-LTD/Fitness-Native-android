@@ -55,5 +55,6 @@
     <include layout="@layout/bottom_sheet_map_list" />
 
     <include layout="@layout/custom_athelete_bottom_sheet" />
+    <include layout="@layout/sports_bottom_sheet" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

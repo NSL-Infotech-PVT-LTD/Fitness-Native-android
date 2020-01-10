@@ -29,6 +29,7 @@ import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCreateTrainingSessionBinding;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SessionDataModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -62,11 +63,14 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     int mYear, mMonth, mDay, mHour, mMinute;
     DatePickerDialog datePickerDialog = null;
     String eventAddress = "";
+    AppCompatSpinner createEventServiceSpinner;
     private ActivityCreateTrainingSessionBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private String sessionName = "", sessionDescription = "", sessionPhone = "", sessionStartDate = "", eventStartTime = "", eventEndtime = "", sessionEndDate = "", sessionHourlyRate = "", sessionMaxOccupancy = "", businessHour = "";
     private int SESSIOM_IMAGE = 129;
+    private SportListModel.DataBeanX.DataBean sport;
+    private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private String dateNow = "";
     private String dateSend = "";
     private String startTime = "";
@@ -80,12 +84,18 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
     private int ADDRESS_EVENT = 132;
     private String locationLat = "", locationLong = "";
     private O_SessionDataModel data;
+    private String sportId = "";
+    private ArrayList<String> sports = new ArrayList<>();
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_training_session);
+
+        init();
+        sportsListApi();
+
 
         binding.ctsBackArrowImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +104,6 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
             }
         });
 
-        init();
         if (editSession) {
             if (getIntent().getExtras() != null) {
                 data = (O_SessionDataModel) getIntent().getSerializableExtra("sessionEdit");
@@ -144,6 +153,63 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         binding.createEvtnStartTimeTv.setOnClickListener(this);
     }
 
+    private void setSportAdapter() {
+
+        for (SportListModel.DataBeanX.DataBean details : dropDownList) {
+            sports.add(details.getName());
+        }
+        createEventServiceSpinner = findViewById(R.id.createEventSportsSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateTrainingSession.this, R.layout.spinner_view, R.id.sportNameTv, sports);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        createEventServiceSpinner.setAdapter(adapter);
+
+        createEventServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                createEventServiceSpinner.setSelection(i);
+                if (i == 0) {
+                    sportId = "";
+                } else {
+                    sportId = String.valueOf(dropDownList.get(i).getId());
+                    Toast.makeText(CreateTrainingSession.this, "" + sportId, Toast.LENGTH_SHORT).show();
+                }
+
+//                servicePrice = String.valueOf(dropDownList.get(i).getPrice());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void sportsListApi() {
+        progressDialog.show();
+        Call<SportListModel> call = retrofitinterface.getSportList(Constants.CONTENT_TYPE, "", "");
+        call.enqueue(new Callback<SportListModel>() {
+            @Override
+            public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
+                progressDialog.dismiss();
+                if (response.body().isStatus()) {
+                    sport = new SportListModel.DataBeanX.DataBean();
+                    sport.setName("Select Sports");
+                    dropDownList.add(sport);
+                    if (response.body() != null) {
+                        dropDownList.addAll(response.body().getData().getData());
+                        setSportAdapter();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportListModel> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
     private void hitCreateSessionApi() {
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
@@ -158,6 +224,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
 
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), sportId));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
         requestBodyMap.put("max_occupancy", RequestBody.create(MediaType.parse("multipart/form-data"), sessionMaxOccupancy));
@@ -370,7 +437,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
 //                    if (strDate.compareTo(sEndDate) == 0) {
 //                        if (LocalTime.parse(startTime).isAfter(LocalTime.now())) {
 //                        if (formatTime(startTime).after(formatTime(timeNow))) {
-                            binding.createEvtnStartTimeTv.setText(startTime);
+                    binding.createEvtnStartTimeTv.setText(startTime);
                     binding.createEventEndTime.setText("");
                     binding.createEventEndTime.setHint("End time");
 //                        } else {
@@ -404,8 +471,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     if (sEndDate.compareTo(strDate) == 0) {
                         if (!startTime.isEmpty()) {
 //                            if (LocalTime.parse(endTime).isAfter(LocalTime.parse(startTime))) {
-                                if (formatTime(endTime).after(formatTime(startTime))) {
-                            binding.createEventEndTime.setText(endTime);
+                            if (formatTime(endTime).after(formatTime(startTime))) {
+                                binding.createEventEndTime.setText(endTime);
                             } else {
                                 binding.createEventEndTime.setText("");
                                 binding.createEventEndTime.setHint("End time");
@@ -426,11 +493,12 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         }, mHour, mMinute, true);
         timePickerDialog.show();
     }
-    private Date formatTime(String time){
-        Date formated=null;
-        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+
+    private Date formatTime(String time) {
+        Date formated = null;
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         try {
-            formated=timeFormat.parse(time);
+            formated = timeFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -476,14 +544,14 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         } else if (sessionHourlyRate.isEmpty()) {
             binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_hourly_rate_session));
             binding.createTrainingSessionHourRateEdt.requestFocus();
-        } else if (sessionHourlyRate.equalsIgnoreCase("0") || sessionHourlyRate.equalsIgnoreCase("00")) {
+        } else if ((Integer.parseInt(sessionHourlyRate)) <= 0) {
 //            binding.createTrainingSessionHourRateEdt.setError(getResources().getString(R.string.enter_valid_session_price));
             Toast.makeText(this, getResources().getString(R.string.enter_valid_session_price), Toast.LENGTH_SHORT).show();
             binding.createTrainingSessionHourRateEdt.requestFocus();
         } else if (sessionMaxOccupancy.isEmpty()) {
             binding.createTrainingSessionMaxOccuEdt.setError(getResources().getString(R.string.enter_session_max_occupacy));
             binding.createTrainingSessionMaxOccuEdt.requestFocus();
-        } else if (sessionMaxOccupancy.equalsIgnoreCase("0") || sessionMaxOccupancy.equalsIgnoreCase("00")) {
+        } else if ((Integer.parseInt(sessionMaxOccupancy)) <= 0) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
             if (editSession) {

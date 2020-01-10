@@ -306,19 +306,27 @@
                         app:layout_constraintTop_toBottomOf="@id/createEvent_LocationTv" />
 
 
+
+
+
+
+
+
+
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/createEventServiceTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/service"
+                        android:text="@string/sports"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintTop_toBottomOf="@+id/getAddressTv" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/createEventServiceEnterTv"
+                        android:id="@+id/createEventSportEnterTv"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/card_input_edt_background"
@@ -333,14 +341,14 @@
                         app:layout_constraintTop_toBottomOf="@id/createEventServiceTv" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/createEventServiceSpinner"
+                        android:id="@+id/createEventSportsSpinner"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:padding="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/createEventServiceEnterTv"
+                        style="@style/mySpinnerItemStyle"
+                        app:layout_constraintBottom_toBottomOf="@id/createEventSportEnterTv"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toTopOf="@id/createEventServiceEnterTv" />
+                        app:layout_constraintTop_toTopOf="@id/createEventSportEnterTv" />
 
 
 
@@ -351,33 +359,33 @@
 
 
 
-<!--                    <com.google.android.material.textview.MaterialTextView-->
-<!--                        android:id="@+id/createTrainSessionHourRateText"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="@dimen/_10sdp"-->
-<!--                        android:fontFamily="@font/poppins_regular"-->
-<!--                        android:text="@string/event_price"-->
-<!--                        android:textSize="@dimen/_10sdp"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/createEventEndTime" />-->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createTrainSessionHourRateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/event_price"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createEventSportEnterTv" />
 
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:id="@+id/eventPrice"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/_40sdp"-->
-<!--                        android:background="@drawable/card_input_edt_background"-->
-<!--                        android:fontFamily="@font/poppins_regular"-->
-<!--                        android:inputType="number"-->
-<!--                        android:maxLength="2"-->
-<!--                        android:paddingLeft="@dimen/_15sdp"-->
-<!--                        android:singleLine="true"-->
-<!--                        android:textColor="@color/colorBlack"-->
-<!--                        android:textSize="@dimen/_10sdp"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"-->
-<!--                        app:layout_constraintRight_toRightOf="@id/rightGuideline"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/createTrainSessionHourRateText" />-->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eventPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/card_input_edt_background"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+                        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/createTrainSessionHourRateText" />
 
 
 
@@ -398,7 +406,7 @@
                         app:fontFamily="@font/poppins_regular"
                         app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
                         app:layout_constraintRight_toRightOf="@id/rightGuideline"
-                        app:layout_constraintTop_toBottomOf="@id/createEventServiceEnterTv" />
+                        app:layout_constraintTop_toBottomOf="@id/eventPrice" />
 
                     <View
                         android:id="@+id/createEvent_CapicityView"
@@ -421,7 +429,7 @@
                         android:hint="10"
                         android:inputType="number"
                         android:singleLine="true"
-                        android:maxLength="2"
+                        android:maxLength="5"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="@id/createEvent_CapicityView"
                         app:layout_constraintHorizontal_bias="0"

@@ -243,7 +243,6 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData().size() > 0) {
 
-
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
                             orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this,2);
@@ -297,7 +296,6 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                     }
                 }
-
 
             }
 

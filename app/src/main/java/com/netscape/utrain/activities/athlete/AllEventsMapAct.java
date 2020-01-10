@@ -3,7 +3,6 @@ package com.netscape.utrain.activities.athlete;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
@@ -26,8 +25,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,25 +43,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
 import com.netscape.utrain.activities.organization.GPSService;
-import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
 import com.netscape.utrain.adapters.Ath_SessionRecyclerAdapter;
-import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
 import com.netscape.utrain.adapters.CoachesRecyclerAdapter;
+import com.netscape.utrain.adapters.SportBottomDialogAdapter;
 import com.netscape.utrain.databinding.ActivityAllEventsMapBinding;
 import com.netscape.utrain.model.AthleteEventListModel;
 import com.netscape.utrain.model.AthletePlaceModel;
 import com.netscape.utrain.model.AthleteSessionModel;
-import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.AthleteEventListResponse;
 import com.netscape.utrain.response.AthletePlaceResponse;
 import com.netscape.utrain.response.AthleteSessionResponse;
-import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.CommonMethods;
@@ -79,7 +74,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, SportBottomDialogAdapter.sportFilterInter {
 
     private static final int PAGE_START = 1;
     GoogleMap mGoogleMap;
@@ -89,17 +84,21 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     Ath_SessionRecyclerAdapter adapterSesson;
     Ath_PlaceRecyclerAdapter adapterPlace;
     ProgressBar progressBar;
+    RecyclerView.LayoutManager layoutManagerSport;
+    BottomSheetDialog mBottomSheetDialog;
     private ActivityAllEventsMapBinding binding;
     private AskPermission askPermObj;
     private GPSService gpsService;
+    private SportListModel.DataBeanX.DataBean sport;
     private List<AthleteEventListModel> listModels = new ArrayList<>();
     private List<AthleteSessionModel> listModelSession = new ArrayList<>();
     private List<AthletePlaceModel> listModelPlace = new ArrayList<>();
+    private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private Retrofitinterface api;
     private AllEventsMapAct activity;
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
-    private AppCompatImageView filterIcon, imageLeftArrow;
+    private AppCompatImageView filterIcon, imageLeftArrow, sportFilterIon;
     private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
     private TextView sort_distance, sort_high, sort_low, sort_latest;
@@ -116,10 +115,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private int page = 1;
     private MapFragment map;
     private String sCoach_Id = "";
-
     private int getItemPerPage;
     private String orderBy = "latest";
     private ArrayList<String> data1;
+    private ProgressDialog progressDialog;
+    private SportBottomDialogAdapter sportAdapter;
+    private RecyclerView recyclerView;
+    private View sheetView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,12 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //            Toast.makeText(AllEventsWithMap.this, "Perfect!!!!", Toast.LENGTH_LONG).show();
 //        setContentView(R.layout.activity_all_events_map);
         binding = DataBindingUtil.setContentView(AllEventsMapAct.this, R.layout.activity_all_events_map);
+        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading..");
+        progressDialog.setCancelable(false);
         inItMap();
+        initBottomDialog();
 //        } else {
 //            // else Google map Layout.....
 //        }
@@ -143,10 +150,17 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         bottomsheet_list = BottomSheetBehavior.from(bottomsheet_list_laout);
         recyclerViewFindPlace = findViewById(R.id.findPlaceRecycler);
         filterIcon = findViewById(R.id.filterIcon);
+        sportFilterIon = findViewById(R.id.sportFilterIon);
         searchAtuoCompleteEdt = findViewById(R.id.searchAtuoCompleteEdt);
         layoutManager = new LinearLayoutManager(this);
         recyclerViewFindPlace.setLayoutManager(layoutManager);
+        if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
+            sportFilterIon.setVisibility(View.GONE);
+
         sCoach_Id = getIntent().getStringExtra("coach_id");
+
+
+        sportsListApi();
 
         imageLeftArrow = findViewById(R.id.imageLeftArrow);
         imageLeftArrow.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +183,20 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 bottomSheetUpDown_address();
+            }
+        });
+        sportFilterIon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBottomSheetDialog = new BottomSheetDialog(AllEventsMapAct.this);
+                sheetView = AllEventsMapAct.this.getLayoutInflater().inflate(R.layout.sports_bottom_sheet, null);
+                recyclerView = sheetView.findViewById(R.id.recyclerSportView);
+                layoutManagerSport = new LinearLayoutManager(AllEventsMapAct.this);
+                recyclerView.setLayoutManager(layoutManagerSport);
+                sportAdapter = new SportBottomDialogAdapter(AllEventsMapAct.this, dropDownList, AllEventsMapAct.this);
+                recyclerView.setAdapter(sportAdapter);
+                mBottomSheetDialog.setContentView(sheetView);
+                mBottomSheetDialog.show();
             }
         });
         searchAtuoCompleteEdt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -201,12 +229,13 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+    private void initBottomDialog() {
+
+    }
+
     private void getAthletePlaceApi(final String order_by, final String s, final String sCoach_Id) {
         allEventFindAPalceTv.setText("Find Spaces");
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Loading Spaces....");
-        progressDialog.show();
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", order_by, currentPage + "", sCoach_Id);
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
@@ -268,7 +297,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
+                                currentPage = "";
                                 getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
 
                             }
@@ -293,7 +322,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private void getNextPageAthletePlaceApi(final String order_by, final String s, final String sCoach_Id) {
         allEventFindAPalceTv.setText("Find Spaces");
 
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", order_by, currentPage + "", "");
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
@@ -355,7 +384,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
+                                currentPage = "";
                                 getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
                             }
                         });
@@ -376,10 +405,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
     private void getAthleteSessionApi(final String orderBy, final String s, final String sCoach_Id) {
         allEventFindAPalceTv.setText("Find Sessions");
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Loading Session....");
+
         progressDialog.show();
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", orderBy, currentPage + "", sCoach_Id);
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
@@ -388,66 +415,70 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
-                        listModelSession.clear();
-                        listModelSession.addAll(response.body().getData().getData());
+                        if (response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            listModelSession.clear();
+                            listModelSession.addAll(response.body().getData().getData());
 
-                        int value = response.body().getData().getData().size();
+                            int value = response.body().getData().getData().size();
 
-                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
-                        Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
-                        mGoogleMap.clear();
-                        for (int i = 0; i < value; i++) {
-                            if ((response.body().getData().getData().get(i).getLatitude() != null) && (response.body().getData().getData().get(i).getLongitude() != null)) {
-                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-                                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(listModelSession.get(i).getName())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                                marker.setTag(i);
-                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
+                            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
+                            Bitmap b = bitmapdraw.getBitmap();
+                            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
+                            mGoogleMap.clear();
+                            for (int i = 0; i < value; i++) {
+                                if ((response.body().getData().getData().get(i).getLatitude() != null) && (response.body().getData().getData().get(i).getLongitude() != null)) {
+                                    latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(listModelSession.get(i).getName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                    marker.setTag(i);
+                                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                            mGoogleMap.animateCamera(update);
 //                                adapter = new CoachesRecyclerAdapter(activity, listModels);
 //                            recyclerViewFindPlace.setAdapter(adapter);
-                            }
+                                }
 //
 
-                            recyclerViewFindPlace.setVisibility(View.VISIBLE);
+                                recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                            adapterSesson = new Ath_SessionRecyclerAdapter(AllEventsMapAct.this);
-                            recyclerViewFindPlace.setLayoutManager(layoutManager);
-                            recyclerViewFindPlace.setAdapter(adapterSesson);
-                            List<AthleteSessionModel> results = fetchSessionResults(response);
+                                adapterSesson = new Ath_SessionRecyclerAdapter(AllEventsMapAct.this);
+                                recyclerViewFindPlace.setLayoutManager(layoutManager);
+                                recyclerViewFindPlace.setAdapter(adapterSesson);
+                                List<AthleteSessionModel> results = fetchSessionResults(response);
 
-                            TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                            adapterSesson.addAll(results);
-                            if (!TextUtils.isEmpty(currentPage)) {
-                                pageCurrent = Integer.parseInt(currentPage);
+                                TOTAL_PAGES = response.body().getData().getLast_page();
+                                getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                                adapterSesson.addAll(results);
+                                if (!TextUtils.isEmpty(currentPage)) {
+                                    pageCurrent = Integer.parseInt(currentPage);
+                                }
+                                if (pageCurrent < TOTAL_PAGES)
+                                    adapterSesson.addLoadingFooter();
+                                else isLastPage = true;
+
                             }
-                            if (pageCurrent < TOTAL_PAGES)
-                                adapterSesson.addLoadingFooter();
-                            else isLastPage = true;
-
-                        }
 //                        adapterSesson = new Ath_SessionRecyclerAdapter(activity, listModelSession);
 //                        recyclerViewFindPlace.setAdapter(adapterSesson);
 
 
-                        String[] array = new String[response.body().getData().getData().size()];
+                            String[] array = new String[response.body().getData().getData().size()];
 
-                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
-                            array[i] = response.body().getData().getData().get(i).getName();
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
-                        searchAtuoCompleteEdt.setThreshold(1);
-                        searchAtuoCompleteEdt.setAdapter(adapter);
-
-                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
-                                getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getName();
                             }
-                        });
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                            searchAtuoCompleteEdt.setThreshold(1);
+                            searchAtuoCompleteEdt.setAdapter(adapter);
+
+                            searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    currentPage = "";
+                                    getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(AllEventsMapAct.this, "No data found", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -468,7 +499,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //        final ProgressDialog progressDialog = new ProgressDialog(activity);
 //        progressDialog.setMessage("Loading Session....");
 //        progressDialog.show();
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, s, getItemPerPage + "", orderBy, currentPage + "", sCoach_Id);
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
@@ -532,7 +563,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
+                                currentPage = "";
                                 getAthleteSessionApi(orderBy, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
                             }
                         });
@@ -556,10 +587,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private void getAthleteEventApi(final String sortBy, final String search, final String coach_id) {
 
         allEventFindAPalceTv.setText("Find Events");
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading....");
         progressDialog.show();
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " +
                         CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity),
                 Constants.CONTENT_TYPE, sortBy,
@@ -572,76 +601,79 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
-                        listModels.clear();
+                        if (response.body().getData().getData()!=null && response.body().getData().getData().size()>0) {
+                            listModels.clear();
 
-                        listModels.addAll(response.body().getData().getData());
-
-
-                        int value = response.body().getData().getData().size();
-
-                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
-                        Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
-                        if (mGoogleMap != null) mGoogleMap.clear();
-
-                        for (int i = 0; i < value; i++) {
-                            if (response.body().getData().getData().get(i).getLatitude()!=null && response.body().getData().getData().get(i).getLongitude()!=null) {
-                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-
-                                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(response.body().getData().getData().get(i).getName())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                                marker.setTag(i);
+                            listModels.addAll(response.body().getData().getData());
 
 
-                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
+                            int value = response.body().getData().getData().size();
+
+                            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
+                            Bitmap b = bitmapdraw.getBitmap();
+                            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
+                            if (mGoogleMap != null) mGoogleMap.clear();
+
+                            for (int i = 0; i < value; i++) {
+                                if (response.body().getData().getData().get(i).getLatitude() != null && response.body().getData().getData().get(i).getLongitude() != null) {
+                                    latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+
+                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(response.body().getData().getData().get(i).getName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                    marker.setTag(i);
+
+
+                                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                            mGoogleMap.animateCamera(update);
 //                            adapter = new CoachesRecyclerAdapter(activity, listModels);
 //                            recyclerViewFindPlace.setAdapter(adapter);
 
 
-                                recyclerViewFindPlace.setVisibility(View.VISIBLE);
+                                    recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                                adapter = new CoachesRecyclerAdapter(AllEventsMapAct.this);
-                                recyclerViewFindPlace.setLayoutManager(layoutManager);
-                                recyclerViewFindPlace.setAdapter(adapter);
-                                List<AthleteEventListModel> results = fetchResults(response);
+                                    adapter = new CoachesRecyclerAdapter(AllEventsMapAct.this);
+                                    recyclerViewFindPlace.setLayoutManager(layoutManager);
+                                    recyclerViewFindPlace.setAdapter(adapter);
+                                    List<AthleteEventListModel> results = fetchResults(response);
 
-                                TOTAL_PAGES = response.body().getData().getLast_page();
-                                getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                                    TOTAL_PAGES = response.body().getData().getLast_page();
+                                    getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
-                                adapter.addAll(results);
-                                if (!TextUtils.isEmpty(currentPage)) {
-                                    pageCurrent = Integer.parseInt(currentPage);
-                                }
+                                    adapter.addAll(results);
+                                    if (!TextUtils.isEmpty(currentPage)) {
+                                        pageCurrent = Integer.parseInt(currentPage);
+                                    }
 //                            else {
 //                                pageCurrent=1;
 //                                currentPage="1";
 //                                orderBy="latest";
 //                            }
-                                if (pageCurrent < TOTAL_PAGES) {
-                                    adapter.addLoadingFooter();
-                                } else isLastPage = true;
+                                    if (pageCurrent < TOTAL_PAGES) {
+                                        adapter.addLoadingFooter();
+                                    } else isLastPage = true;
+                                }
+
                             }
 
-                        }
+                            String[] array = new String[response.body().getData().getData().size()];
 
-
-                        String[] array = new String[response.body().getData().getData().size()];
-
-                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
-                            array[i] = response.body().getData().getData().get(i).getName();
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
-                        searchAtuoCompleteEdt.setThreshold(1);
-                        searchAtuoCompleteEdt.setAdapter(adapter);
-
-                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
-                                getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getName();
                             }
-                        });
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                            searchAtuoCompleteEdt.setThreshold(1);
+                            searchAtuoCompleteEdt.setAdapter(adapter);
+
+                            searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    currentPage = "";
+                                    getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
+                                }
+                            });
+                        }else {
+                            Toast.makeText(AllEventsMapAct.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 }
@@ -665,7 +697,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
 //        progressDialog.setMessage("Loading....");
 //        progressDialog.show();
-        api = RetrofitInstance.getClient().create(Retrofitinterface.class);
+
         Call<AthleteEventListResponse> call = api.getAthleteEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, sortBy, search, getItemPerPage + "", currentPage + "", "100", "");
         CommonMethods.getPrefData(PrefrenceConstant.USER_ID, AllEventsMapAct.this);
         call.enqueue(new Callback<AthleteEventListResponse>() {
@@ -728,7 +760,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage="";
+                                currentPage = "";
                                 getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
                             }
                         });
@@ -1247,5 +1279,42 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             intent.putStringArrayListExtra(Constants.SPACE_DATA, data1);
             startActivity(intent);
         }
+    }
+
+    private void sportsListApi() {
+        progressDialog.show();
+        Call<SportListModel> call = api.getSportList(Constants.CONTENT_TYPE, "", "");
+        call.enqueue(new Callback<SportListModel>() {
+            @Override
+            public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
+                progressDialog.dismiss();
+                if (response.body().isStatus()) {
+//                    sport = new SportListModel.DataBeanX.DataBean();
+//                    sport.setName("Select Sports");
+//                    dropDownList.add(sport);
+                    if (response.body() != null) {
+                        dropDownList.addAll(response.body().getData().getData());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportListModel> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void getSportName(String name) {
+        mBottomSheetDialog.dismiss();
+        search = name;
+        currentPage = "";
+        if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
+            getAthleteEventApi(orderBy, search, sCoach_Id);
+        else if (getIntent().getStringExtra("from").equalsIgnoreCase("2"))
+            getAthleteSessionApi(orderBy, search, sCoach_Id);
+
     }
 }

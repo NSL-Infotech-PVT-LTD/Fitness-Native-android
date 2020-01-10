@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.netscape.utrain.databinding.ActivityCreateEventBinding;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.ServiceIdModel;
 import com.netscape.utrain.model.ServiceListDataModel;
+import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.response.OrgCreateEventResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
@@ -70,12 +72,12 @@ import static com.netscape.utrain.activities.PortfolioActivity.clearFromConstant
 
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
+    public static boolean editEvent = false;
     AppCompatSpinner spinnerLocation;
     MaterialTextView startBusinessHourTv, endBusinessHourTv, textViewDate, createEventStartDateTv, createEventEndDatetv;
     AppCompatSpinner createEventServiceSpinner;
-    public static boolean editEvent=false;
-
     TextInputEditText tvEnterCapicity;
+    private SportListModel.DataBeanX.DataBean sport;
     private ProgressDialog progressDialog;
     private ActivityCreateEventBinding binding;
     private int ADDRESS_EVENT = 132;
@@ -83,9 +85,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String locationLat = "", locationLong = "";
     private Retrofitinterface retrofitinterface;
-    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "",eventPrice;
+    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "", eventPrice="";
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
+    private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
+    private ArrayList<String> sports = new ArrayList<>();
     private String serviIds = "";
+    private String sportId = "";
     private String servicePrice = "";
     private String startDate = "";
     private String sDate = "";
@@ -98,13 +103,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private Date stDate = null;
     private Date endDate = null;
     private O_EventDataModel data;
-    private Date eventEndTime,eventSTime;
+    private Date eventEndTime, eventSTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_event);
+        init();
         binding.ceBackArrowImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,33 +118,15 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         });
         getServiceIds();
-        createEventServiceSpinner = findViewById(R.id.createEventServiceSpinner);
-        ArrayAdapter<ServiceIdModel> adapter = new ArrayAdapter<ServiceIdModel>(CreateEventActivity.this, android.R.layout.simple_spinner_item, selectedServices);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        createEventServiceSpinner.setAdapter(adapter);
+        sportsListApi();
 
-        createEventServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                createEventServiceSpinner.setSelection(i);
-                serviIds = String.valueOf(selectedServices.get(i).getId());
-                servicePrice = String.valueOf(selectedServices.get(i).getPrice());
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        init();
-        if (editEvent){
-            if (getIntent().getExtras()!=null){
-            data= (O_EventDataModel) getIntent().getSerializableExtra("eventEdit");
-            if (data !=null){
-                prepareDataSet();
-            }
+        if (editEvent) {
+            if (getIntent().getExtras() != null) {
+                data = (O_EventDataModel) getIntent().getSerializableExtra("eventEdit");
+                if (data != null) {
+                    prepareDataSet();
+                }
             }
         }
     }
@@ -149,22 +137,22 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         binding.createEventDescriptionEnterTv.setText(data.getDescription());
         binding.getAddressTv.setText(data.getLocation());
         binding.createEventStartDateTv.setText(data.getStart_date());
-        sDate=data.getStart_date();
+        sDate = data.getStart_date();
         binding.createEventEndDatetv.setText(data.getEnd_date());
-        enDate=data.getEnd_date();
+        enDate = data.getEnd_date();
         binding.createEvtnStartTimeTv.setText(data.getStart_time());
         binding.createEventEndTime.setText(data.getEnd_time());
-        binding.createEventCapicityEdt.setText(data.getGuest_allowed()+"");
+        binding.createEventCapicityEdt.setText(data.getGuest_allowed() + "");
         binding.createEventEquipmentEdt.setText(data.getEquipment_required());
 
-        locationLat=data.getLatitude()+"";
-        locationLong=data.getLongitude()+"";
+        locationLat = data.getLatitude() + "";
+        locationLong = data.getLongitude() + "";
 
         binding.createEventBtn.setText("Update");
 
-        if (selectedServices!=null && selectedServices.size()>0){
-            for (int i=0;i<selectedServices.size();i++){
-                if (data.getService_id()==selectedServices.get(i).getId()){
+        if (selectedServices != null && selectedServices.size() > 0) {
+            for (int i = 0; i < selectedServices.size(); i++) {
+                if (data.getService_id() == selectedServices.get(i).getId()) {
                     createEventServiceSpinner.setSelection(i);
                     serviIds = String.valueOf(selectedServices.get(i).getId());
                     servicePrice = String.valueOf(selectedServices.get(i).getPrice());
@@ -174,8 +162,38 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }
 
 
+    }
 
+    private void setDataToSpinner() {
+        for (SportListModel.DataBeanX.DataBean details : dropDownList) {
+            sports.add(details.getName());
+        }
+        createEventServiceSpinner = findViewById(R.id.createEventSportsSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateEventActivity.this, R.layout.spinner_view, R.id.sportNameTv, sports);
 
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        createEventServiceSpinner.setAdapter(adapter);
+
+        createEventServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                createEventServiceSpinner.setSelection(i);
+                if (i == 0) {
+
+                } else {
+                    sportId = String.valueOf(dropDownList.get(i).getId());
+                    Toast.makeText(CreateEventActivity.this, "" + sportId, Toast.LENGTH_SHORT).show();
+                }
+
+//                servicePrice = String.valueOf(dropDownList.get(i).getPrice());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 
@@ -191,6 +209,32 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 selectedServices = gson.fromJson(serviceIds, type);
             }
         }
+    }
+
+    private void sportsListApi() {
+        progressDialog.show();
+        Call<SportListModel> call = retrofitinterface.getSportList(Constants.CONTENT_TYPE, "", "");
+        call.enqueue(new Callback<SportListModel>() {
+            @Override
+            public void onResponse(Call<SportListModel> call, Response<SportListModel> response) {
+                progressDialog.dismiss();
+                if (response.body().isStatus()) {
+                    sport = new SportListModel.DataBeanX.DataBean();
+                    sport.setName("Select Sports");
+                    dropDownList.add(sport);
+                    if (response.body() != null) {
+                        dropDownList.addAll(response.body().getData().getData());
+                        setDataToSpinner();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SportListModel> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+        });
     }
 
     private void init() {
@@ -219,12 +263,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 startActivityForResult(getAddress, ADDRESS_EVENT);
                 break;
             case R.id.createEventImages:
-                if (editEvent){
+                if (editEvent) {
                     Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
                     getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     PortfolioActivity.updateImages = true;
-                    getImages.putExtra("updateEventImg",data.getImages());
-                    getImages.putExtra("updateImgType","eventImgUpdate");
+                    getImages.putExtra("updateEventImg", data.getImages());
+                    getImages.putExtra("updateImgType", "eventImgUpdate");
                     startActivityForResult(getImages, IMAGE_GET);
                 }
                 Intent getImages = new Intent(CreateEventActivity.this, PortfolioActivity.class);
@@ -338,11 +382,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }, mHour, mMinute, true);
         timePickerDialog.show();
     }
-    private Date formatTime(String time){
-        Date formated=null;
-        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+
+    private Date formatTime(String time) {
+        Date formated = null;
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         try {
-            formated=timeFormat.parse(time);
+            formated = timeFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -432,7 +477,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventEndtime = binding.createEventEndTime.getText().toString().trim();
         eventEquipments = binding.createEventEquipmentEdt.getText().toString().trim();
         eventCapacity = binding.createEventCapicityEdt.getText().toString().trim();
-//        eventPrice=binding.eventPrice.getText().toString();
+        servicePrice=binding.eventPrice.getText().toString();
         binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -458,20 +503,21 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         } else if (eventEndtime.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.select_end_time), Toast.LENGTH_SHORT).show();
-        } else if (serviIds.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.select_services), Toast.LENGTH_SHORT).show();
-//        } else if (eventPrice.isEmpty()) {
-//            binding.eventPrice.requestFocus();
-//        }else if ((Integer.parseInt(eventPrice))<=0){
-//            Toast.makeText(this, getResources().getString(R.string.enter_valid_price), Toast.LENGTH_SHORT).show();
+        } else if (sportId.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.select_sports), Toast.LENGTH_SHORT).show();
+        } else if (servicePrice.isEmpty()) {
+            binding.eventPrice.setError(getResources().getString(R.string.enter_price));
+            binding.eventPrice.requestFocus();
+        } else if ((Integer.parseInt(servicePrice)) <= 0) {
+            Toast.makeText(this, getResources().getString(R.string.enter_valid_price), Toast.LENGTH_SHORT).show();
         } else if (eventCapacity.isEmpty()) {
             Toast.makeText(this, getResources().getString(R.string.enter_numbe_of_guest_allowed), Toast.LENGTH_SHORT).show();
-        } else if (eventCapacity.equalsIgnoreCase("0") || eventCapacity.equalsIgnoreCase("00")) {
+        } else if ((Integer.parseInt(eventCapacity)) <= 0) {
             Toast.makeText(this, getResources().getString(R.string.enter_valid_capacity), Toast.LENGTH_SHORT).show();
         } else {
-            if (editEvent){
+            if (editEvent) {
                 updateEvent();
-            }else {
+            } else {
 
                 hitCreateEventApi();
             }
@@ -515,7 +561,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
-        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), sportId));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), eventCapacity));
         requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
@@ -571,17 +617,17 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         if (input >= 10) {
             return String.valueOf(input);
         } else {
-            return "0" + String.valueOf(input);
+            return "0" + input;
         }
     }
 
     @Override
     protected void onDestroy() {
-        editEvent=false;
+        editEvent = false;
         super.onDestroy();
     }
 
-    private void updateEvent(){
+    private void updateEvent() {
         progressDialog.show();
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
 
@@ -600,26 +646,23 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
         requestBodyMap.put("price", RequestBody.create(MediaType.parse("multipart/form-data"), servicePrice));
-        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId()+""));
+        requestBodyMap.put("id", RequestBody.create(MediaType.parse("multipart/form-data"), data.getId() + ""));
 //        requestBodyMap.put("Authorization", RequestBody.create(MediaType.parse("text/plain"),));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("text/plain"), Constants.CONTENT_TYPE));
 
         List<MultipartBody.Part> parts = new ArrayList<>();
-        if (PortfolioImagesConstants.partOne !=null){
+        if (PortfolioImagesConstants.partOne != null) {
             parts.add(PortfolioImagesConstants.partOne);
         }
-        if (PortfolioImagesConstants.partTwo !=null){
+        if (PortfolioImagesConstants.partTwo != null) {
             parts.add(PortfolioImagesConstants.partTwo);
         }
-        if (PortfolioImagesConstants.partThree !=null){
+        if (PortfolioImagesConstants.partThree != null) {
             parts.add(PortfolioImagesConstants.partThree);
         }
-        if (PortfolioImagesConstants.partFour !=null){
+        if (PortfolioImagesConstants.partFour != null) {
             parts.add(PortfolioImagesConstants.partFour);
         }
-
-
-
 
 
         //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));

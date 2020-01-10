@@ -1,7 +1,7 @@
 package com.netscape.utrain.model;
 
 public class OrgDataModel {
-    private String Message;
+    private String message;
     private String token;
     private OrgUserModel user;
 
@@ -14,11 +14,11 @@ public class OrgDataModel {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String Message) {
-        this.Message = Message;
+        this.message = Message;
     }
 
     public String getToken() {

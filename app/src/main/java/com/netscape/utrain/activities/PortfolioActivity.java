@@ -93,8 +93,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     private JSONArray selectedServices;
     private List<ServiceIdModel> servicesList = new ArrayList<>();
     private File mediaStorageDir;
-    private String type="";
-    private int count=0;
+    private String type = "";
+    private int count = 0;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -132,15 +132,15 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         });
 
         init();
-        if (updateImages){
-            if (getIntent().getExtras()!=null){
-                String images=getIntent().getStringExtra("updateEventImg");
-                 type=getIntent().getStringExtra("updateImgType");
+        if (updateImages) {
+            if (getIntent().getExtras() != null) {
+                String images = getIntent().getStringExtra("updateEventImg");
+                type = getIntent().getStringExtra("updateImgType");
                 try {
                     if (images != null) {
                         JSONArray jsonArray = new JSONArray(images);
-                        if (jsonArray !=null && jsonArray.length()>0){
-                            for (int i=0;i<jsonArray.length();i++) {
+                        if (jsonArray != null && jsonArray.length() > 0) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 if (type != null) {
                                     if (i == 0) {
                                         position = i;
@@ -157,7 +157,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     }
                                     if (i == 1) {
                                         position = i;
-                                        binding.imgPlusTwo.setVisibility(View.GONE);                                        if (type.equalsIgnoreCase("eventImgUpdate"))
+                                        binding.imgPlusTwo.setVisibility(View.GONE);
+                                        if (type.equalsIgnoreCase("eventImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageTwo);
                                         if (type.equalsIgnoreCase("sessionImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageTwo);
@@ -169,7 +170,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     }
                                     if (i == 2) {
                                         position = i;
-                                        binding.imgPlusThree.setVisibility(View.GONE);                                        if (type.equalsIgnoreCase("eventImgUpdate"))
+                                        binding.imgPlusThree.setVisibility(View.GONE);
+                                        if (type.equalsIgnoreCase("eventImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageThree);
                                         if (type.equalsIgnoreCase("sessionImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageThree);
@@ -181,7 +183,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     }
                                     if (i == 3) {
                                         position = i;
-                                        binding.imgPlusFour.setVisibility(View.GONE);                                        if (type.equalsIgnoreCase("eventImgUpdate"))
+                                        binding.imgPlusFour.setVisibility(View.GONE);
+                                        if (type.equalsIgnoreCase("eventImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
                                         if (type.equalsIgnoreCase("sessionImgUpdate"))
                                             Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(binding.addImageFour);
@@ -280,50 +283,49 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 addFourthImage();
                 break;
             case R.id.addImageSubmitBtn:
-                if (getSingleImage){
+                if (getSingleImage) {
                     finish();
-                }else {
+                } else {
 
 
+                    if (updateImages) {
+                        if (type != null) {
+                            if (type.equalsIgnoreCase("portfolioImages")) {
+                                OrgServiceUpdateApi();
+                            } else {
 
-                if (updateImages){
-                    if (type!=null) {
-                        if (type.equalsIgnoreCase("portfolioImages")) {
-                            OrgServiceUpdateApi();
-                        } else {
-
-                            sendDataToIntent();
-                        }
-                    }
-                }else {
-
-
-                    imgPortfolio = new ArrayList<>();
-                    if (portFolioImage1 != null) {
-                        imgPortfolio.add(portFolioImage1);
-                    }
-                    if (portFolioImage2 != null) {
-                        imgPortfolio.add(portFolioImage2);
-                    }
-                    if (portFolioImage3 != null) {
-                        imgPortfolio.add(portFolioImage3);
-                    }
-                    if (portFolioImage4 != null) {
-                        imgPortfolio.add(portFolioImage4);
-                    }
-
-                    if (imgPortfolio != null && imgPortfolio.size() >= 1) {
-                        if (getImages) {
-                            PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
-                            sendDataToIntent();
-                        } else {
-
-                            OrgSignUpApi();
+                                sendDataToIntent();
+                            }
                         }
                     } else {
-                        Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
+
+
+                        imgPortfolio = new ArrayList<>();
+                        if (portFolioImage1 != null) {
+                            imgPortfolio.add(portFolioImage1);
+                        }
+                        if (portFolioImage2 != null) {
+                            imgPortfolio.add(portFolioImage2);
+                        }
+                        if (portFolioImage3 != null) {
+                            imgPortfolio.add(portFolioImage3);
+                        }
+                        if (portFolioImage4 != null) {
+                            imgPortfolio.add(portFolioImage4);
+                        }
+
+                        if (imgPortfolio != null && imgPortfolio.size() >= 1) {
+                            if (getImages) {
+                                PortfolioImagesConstants.numImages = String.valueOf(imgPortfolio.size());
+                                sendDataToIntent();
+                            } else {
+
+                                OrgSignUpApi();
+                            }
+                        } else {
+                            Snackbar.make(binding.portFolioLayout, getResources().getString(R.string.select_portfolio_images), BaseTransientBottomBar.LENGTH_SHORT).show();
+                        }
                     }
-                }
                 }
                 break;
 
@@ -377,7 +379,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             askRequiredPermission();
             return;
         }
-        if (count==0) {
+        if (count == 0) {
             handleImageSelection();
         }
     }
@@ -401,21 +403,21 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void handleImageSelection() {
-        count =1;
+        count = 1;
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View content = inflater.inflate(R.layout.get_image_dialog, null);
         builder.setView(content);
-        TextView gallery = (TextView) content.findViewById(R.id.gallerySellectionBtn);
-        TextView camera = (TextView) content.findViewById(R.id.cameraSelectionBtn);
-        ImageView cancel = (ImageView) content.findViewById(R.id.closeDialogImg);
+        TextView gallery = content.findViewById(R.id.gallerySellectionBtn);
+        TextView camera = content.findViewById(R.id.cameraSelectionBtn);
+        ImageView cancel = content.findViewById(R.id.closeDialogImg);
         dialogMultiOrder = builder.create();
         dialogMultiOrder.setCancelable(false);
 //        dialogMultiOrder.setCanceledOnTouchOutside(false);
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count =0;
+                count = 0;
                 handleGalleryImage();
                 dialogMultiOrder.dismiss();
             }
@@ -423,7 +425,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count =0;
+                count = 0;
                 getImageUsingCamera();
                 dialogMultiOrder.dismiss();
             }
@@ -431,7 +433,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count =0;
+                count = 0;
                 dialogMultiOrder.dismiss();
             }
         });
@@ -447,7 +449,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             // Create the File where the photo should go
             FileUtil fileUtil = new FileUtil();
             String fileName = "img_" + System.currentTimeMillis() + ".jpg";
-            photoFile = fileUtil.createFile(getApplicationContext(), null, fileName);
+            photoFile = FileUtil.createFile(getApplicationContext(), null, fileName);
             // Continue only if the File was successfully created
             Uri photoURI;
             if (photoFile != null) {
@@ -529,10 +531,10 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                 plus.setVisibility(View.GONE);
             Glide.with(this).load(photoFile.getPath()).into(imageView);
             setImages = photoFile.getPath();
-            if (getSingleImage){
+            if (getSingleImage) {
                 userImg = MultipartBody.Part.createFormData("media", photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
 
-            }else {
+            } else {
                 if (getImages) {
                     userImg = MultipartBody.Part.createFormData("images_" + position, photoFile.getName(), RequestBody.create(MediaType.parse("image/*"), photoFile));
 
@@ -553,7 +555,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         if (orgDataModel.getProfile_img() != null) {
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
         }
-        if (orgDataModel.getProfile_img()!=null){
+        if (orgDataModel.getProfile_img() != null) {
             policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
 
         }
@@ -586,7 +588,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         parts.add(policeDoc);
 
 
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap , parts);
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -594,44 +596,45 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+                            Toast.makeText(PortfolioActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
 
-                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
-                                String role = response.body().getData().getUser().getRoles().get(i).getName();
-                                if (Constants.Organizer.equalsIgnoreCase(role)) {
-                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
-                                    clearFromConstants();
-                                    Constants.CHECKBOX_IS_CHECKED = 0;
-                                    CommonMethods.deleteDirectory(mediaStorageDir);
-                                    SelectedServiceList.getInstance().getList().clear();
-                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
-                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", PortfolioActivity.this);
-                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
-                                    storeServiceIds(servicesList);
-                                    Intent homeScreen = new Intent(getApplicationContext(), OrgHomeScreen.class);
-                                    homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(homeScreen);
-                                }
-                            }
-                        }else {
+//                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
+//                                String role = response.body().getData().getUser().getRoles().get(i).getName();
+//                                if (Constants.Organizer.equalsIgnoreCase(role)) {
+//                                    CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, role, PortfolioActivity.this);
+//                                    clearFromConstants();
+//                                    Constants.CHECKBOX_IS_CHECKED = 0;
+//                                    CommonMethods.deleteDirectory(mediaStorageDir);
+//                                    SelectedServiceList.getInstance().getList().clear();
+//                                    CommonMethods.setPrefData(Constants.AUTH_TOKEN, response.body().getData().getToken() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_NAME, response.body().getData().getUser().getName(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EMAIL, response.body().getData().getUser().getEmail(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_PHONE, response.body().getData().getUser().getPhone(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_ID, response.body().getData().getUser().getId() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.ADDRESS, response.body().getData().getUser().getLocation() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PROFILE_IMAGE, Constants.ORG_IMAGE_BASE_URL + response.body().getData().getUser().getProfile_image() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_START, response.body().getData().getUser().getBusiness_hour_starts() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.BIO, response.body().getData().getUser().getBio() + "", PortfolioActivity.this);
+//                                    servicesList.addAll(response.body().getData().getUser().getService_ids());
+//                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERTISE_YEAR, response.body().getData().getUser().getExpertise_years(), PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_EXPERIENCE, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, response.body().getData().getUser().getPortfolio_image() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.ACHIVEMENTS, response.body().getData().getUser().getAchievements() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.PROFESSION, response.body().getData().getUser().getProfession() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, response.body().getData().getUser().getExperience_detail() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, response.body().getData().getUser().getTraining_service_detail() + "", PortfolioActivity.this);
+//                                    CommonMethods.setPrefData(PrefrenceConstant.LOGED_IN_USER, PrefrenceConstant.ORG_LOG_IN, PortfolioActivity.this);
+//                                    storeServiceIds(servicesList);
+                            Intent homeScreen = new Intent(getApplicationContext(), LoginActivity.class);
+                            homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(homeScreen);
+//                                }
+//                            }
+                        } else {
                             Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
                         }
@@ -867,8 +870,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onDestroy() {
-        getImages=false;
-        getSingleImage=false;
+        getImages = false;
+        getSingleImage = false;
         super.onDestroy();
     }
 
@@ -884,16 +887,16 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
         List<MultipartBody.Part> parts = new ArrayList<>();
-        if (PortfolioImagesConstants.partOne !=null){
+        if (PortfolioImagesConstants.partOne != null) {
             parts.add(PortfolioImagesConstants.partOne);
         }
-        if (PortfolioImagesConstants.partTwo !=null){
+        if (PortfolioImagesConstants.partTwo != null) {
             parts.add(PortfolioImagesConstants.partTwo);
         }
-        if (PortfolioImagesConstants.partThree !=null){
+        if (PortfolioImagesConstants.partThree != null) {
             parts.add(PortfolioImagesConstants.partThree);
         }
-        if (PortfolioImagesConstants.partFour !=null){
+        if (PortfolioImagesConstants.partFour != null) {
             parts.add(PortfolioImagesConstants.partFour);
         }
 //        parts.add(portFolioImage1);
@@ -902,7 +905,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 //        parts.add(portFolioImage4);
 //        parts.add(userImg);
 
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updatePortFolioImages("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , parts);
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updatePortFolioImages("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, parts);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -926,7 +929,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.portFolioLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
                         }
