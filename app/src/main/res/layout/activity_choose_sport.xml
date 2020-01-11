@@ -58,12 +58,12 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
 
-        <TextView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:background="@color/colorGreen"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline" />
+<!--        <TextView-->
+<!--            android:layout_width="@dimen/_100sdp"-->
+<!--            android:layout_height="@dimen/_50sdp"-->
+<!--            android:background="@color/colorGreen"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/service_horizontalGuideline" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

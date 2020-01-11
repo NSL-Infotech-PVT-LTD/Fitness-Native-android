@@ -464,4 +464,5 @@
     <string name="connect_train_and_rentSpace">Connect, Train and Rent Space</string>
     <string name="upload_police_doc">Police doc</string>
     <string name="upload_police_varrification_doc">Upload police verification doc</string>
+    <string name="reset">Reset</string>
 </resources>

@@ -98,10 +98,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private AllEventsMapAct activity;
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
-    private AppCompatImageView filterIcon, imageLeftArrow, sportFilterIon;
+    private AppCompatImageView filterIcon, imageLeftArrow, sportFilterIon,noDataImg;
     private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
-    private TextView sort_distance, sort_high, sort_low, sort_latest;
+    private TextView sort_distance, sort_high, sort_low, sort_latest,resetFilter;
     private int sort_count = 1;
     private String search = "";
     private MaterialTextView allEventFindAPalceTv;
@@ -151,6 +151,8 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         recyclerViewFindPlace = findViewById(R.id.findPlaceRecycler);
         filterIcon = findViewById(R.id.filterIcon);
         sportFilterIon = findViewById(R.id.sportFilterIon);
+        resetFilter = findViewById(R.id.resetFilter);
+        noDataImg = findViewById(R.id.noDataImg);
         searchAtuoCompleteEdt = findViewById(R.id.searchAtuoCompleteEdt);
         layoutManager = new LinearLayoutManager(this);
         recyclerViewFindPlace.setLayoutManager(layoutManager);
@@ -167,6 +169,20 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        resetFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search="";
+                if (getIntent().getStringExtra("from") != null)
+                    if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
+                        getAthleteEventApi("distance", search, sCoach_Id);
+                    } else if (getIntent().getStringExtra("from").equalsIgnoreCase("2")) {
+                        getAthleteSessionApi("distance", search, sCoach_Id);
+                    } else if (getIntent().getStringExtra("from").equalsIgnoreCase("3")) {
+                        getAthletePlaceApi("distance", search, sCoach_Id);
+                    }
             }
         });
 
@@ -243,65 +259,73 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
-                        listModelPlace.clear();
-                        listModelPlace.addAll(response.body().getData().getData());
+                        if (response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            recyclerViewFindPlace.setVisibility(View.VISIBLE);
+                            noDataImg.setVisibility(View.GONE);
+                            resetFilter.setVisibility(View.GONE);
+                            listModelPlace.clear();
+                            listModelPlace.addAll(response.body().getData().getData());
 
-                        int value = response.body().getData().getData().size();
+                            int value = response.body().getData().getData().size();
 
-                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
-                        Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
-                        mGoogleMap.clear();
-                        for (int i = 0; i < value; i++) {
-                            if (response.body().getData().getData().get(i).getLatitude() != null && response.body().getData().getData().get(i).getLongitude() != null) {
-                                latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-                                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(listModelPlace.get(i).getName())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                                marker.setTag(i);
-                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
+                            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
+                            Bitmap b = bitmapdraw.getBitmap();
+                            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 60, 60, false);
+                            mGoogleMap.clear();
+                            for (int i = 0; i < value; i++) {
+                                if (response.body().getData().getData().get(i).getLatitude() != null && response.body().getData().getData().get(i).getLongitude() != null) {
+                                    latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
+                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(listModelPlace.get(i).getName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                    marker.setTag(i);
+                                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                                mGoogleMap.animateCamera(update);
 //                                adapter = new CoachesRecyclerAdapter(activity, listModels);
 //                                recyclerViewFindPlace.setAdapter(adapter);
+                                }
                             }
-                        }
 //                        adapterPlace = new Ath_PlaceRecyclerAdapter(activity, listModelPlace);
 //                        recyclerViewFindPlace.setAdapter(adapterPlace);
 
-                        recyclerViewFindPlace.setVisibility(View.VISIBLE);
+//                            recyclerViewFindPlace.setVisibility(View.VISIBLE);
 //                            binding.noDataImageView.setVisibility(View.GONE);
-                        adapterPlace = new Ath_PlaceRecyclerAdapter(AllEventsMapAct.this);
-                        recyclerViewFindPlace.setLayoutManager(layoutManager);
-                        recyclerViewFindPlace.setAdapter(adapterPlace);
-                        List<AthletePlaceModel> results = fetchPlaceResults(response);
+                            adapterPlace = new Ath_PlaceRecyclerAdapter(AllEventsMapAct.this);
+                            recyclerViewFindPlace.setLayoutManager(layoutManager);
+                            recyclerViewFindPlace.setAdapter(adapterPlace);
+                            List<AthletePlaceModel> results = fetchPlaceResults(response);
 
-                        TOTAL_PAGES = response.body().getData().getLast_page();
-                        getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                        adapterPlace.addAll(results);
-                        if (!TextUtils.isEmpty(currentPage)) {
-                            pageCurrent = Integer.parseInt(currentPage);
-                        }
-                        if (pageCurrent < TOTAL_PAGES)
-                            adapterPlace.addLoadingFooter();
-                        else isLastPage = true;
-
-
-                        String[] array = new String[response.body().getData().getData().size()];
-
-                        for (int i = 0; i < response.body().getData().getData().size(); i++) {
-                            array[i] = response.body().getData().getData().get(i).getName();
-                        }
-                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
-                        searchAtuoCompleteEdt.setThreshold(1);
-                        searchAtuoCompleteEdt.setAdapter(adapter);
-
-                        searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                currentPage = "";
-                                getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
-
+                            TOTAL_PAGES = response.body().getData().getLast_page();
+                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            adapterPlace.addAll(results);
+                            if (!TextUtils.isEmpty(currentPage)) {
+                                pageCurrent = Integer.parseInt(currentPage);
                             }
-                        });
+                            if (pageCurrent < TOTAL_PAGES)
+                                adapterPlace.addLoadingFooter();
+                            else isLastPage = true;
+
+
+                            String[] array = new String[response.body().getData().getData().size()];
+
+                            for (int i = 0; i < response.body().getData().getData().size(); i++) {
+                                array[i] = response.body().getData().getData().get(i).getName();
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, array);
+                            searchAtuoCompleteEdt.setThreshold(1);
+                            searchAtuoCompleteEdt.setAdapter(adapter);
+
+                            searchAtuoCompleteEdt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    currentPage = "";
+                                    getAthletePlaceApi(order_by, adapterView.getItemAtPosition(i).toString(), sCoach_Id);
+
+                                }
+                            });
+                        }else {
+                            recyclerViewFindPlace.setVisibility(View.GONE);
+                            noDataImg.setVisibility(View.VISIBLE);
+                            resetFilter.setVisibility(View.VISIBLE);                         }
                     }
                 }
 
@@ -416,6 +440,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            recyclerViewFindPlace.setVisibility(View.VISIBLE);
+                            noDataImg.setVisibility(View.GONE);
+                            resetFilter.setVisibility(View.GONE);
                             listModelSession.clear();
                             listModelSession.addAll(response.body().getData().getData());
 
@@ -438,7 +465,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                 }
 //
 
-                                recyclerViewFindPlace.setVisibility(View.VISIBLE);
+
 //                            binding.noDataImageView.setVisibility(View.GONE);
                                 adapterSesson = new Ath_SessionRecyclerAdapter(AllEventsMapAct.this);
                                 recyclerViewFindPlace.setLayoutManager(layoutManager);
@@ -477,8 +504,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                 }
                             });
                         } else {
-                            Toast.makeText(AllEventsMapAct.this, "No data found", Toast.LENGTH_SHORT).show();
-                        }
+                            recyclerViewFindPlace.setVisibility(View.GONE);
+                            noDataImg.setVisibility(View.VISIBLE);
+                            resetFilter.setVisibility(View.VISIBLE);                        }
                     }
                 }
             }
@@ -601,12 +629,11 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
-                        if (response.body().getData().getData()!=null && response.body().getData().getData().size()>0) {
+                        if (response.body().getData().getData() != null && response.body().getData().getData().size() > 0) {
+                            noDataImg.setVisibility(View.GONE);
+                            resetFilter.setVisibility(View.GONE);
                             listModels.clear();
-
                             listModels.addAll(response.body().getData().getData());
-
-
                             int value = response.body().getData().getData().size();
 
                             BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_marker);
@@ -671,10 +698,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                                     getAthleteEventApi(sortBy, adapterView.getItemAtPosition(i).toString(), coach_id);
                                 }
                             });
-                        }else {
-                            Toast.makeText(AllEventsMapAct.this, "No Data Found", Toast.LENGTH_SHORT).show();
-                        }
-
+                        } else {
+                            recyclerViewFindPlace.setVisibility(View.GONE);
+                            noDataImg.setVisibility(View.VISIBLE);
+                            resetFilter.setVisibility(View.VISIBLE);                        }
                     }
                 }
 
@@ -918,7 +945,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_count = 1;
                 currentPage = "1";
                 orderBy = "distance";
-                search = "";
+//                search = "";
                 isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
                     getAthleteEventApi(orderBy, search, sCoach_Id);
@@ -936,7 +963,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_count = 2;
                 currentPage = "1";
                 orderBy = "price_high";
-                search = "";
+//                search = "";
                 isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
                     getAthleteEventApi(orderBy, search, sCoach_Id);
@@ -955,7 +982,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_count = 4;
                 currentPage = "1";
                 orderBy = "latest";
-                search = "";
+//                search = "";
                 isLastPage = false;
                 if (getIntent().getStringExtra("from").equalsIgnoreCase("1"))
                     getAthleteEventApi(orderBy, search, sCoach_Id);
@@ -974,7 +1001,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                 sort_count = 3;
                 currentPage = "1";
                 orderBy = "price_low";
-                search = "";
+//                search = "";
                 isLastPage = false;
 
                 //                getAthleteEventApi("price_low", search);

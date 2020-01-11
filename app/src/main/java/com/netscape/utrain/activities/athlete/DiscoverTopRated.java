@@ -48,6 +48,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     public static boolean coaches = false;
     private final int PAGE_START = 1;
     Retrofitinterface api;
+    int page = 0;
     private ActivityDiscoverTopRatedBinding binding;
     private AthleteTopRatedAdapter coachAdapter, orgAdapter;
     private LinearLayoutManager layoutManager;
@@ -61,9 +62,8 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    int page=0;
-//    private int currentPage = PAGE_START;
-    private String currentPage="1";
+    //    private int currentPage = PAGE_START;
+    private String currentPage = "1";
     private int getItemPerPage;
 
     @Override
@@ -72,7 +72,6 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //        setContentView(R.layout.activity_discover_top_rated);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_discover_top_rated);
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-
         init();
 
 
@@ -97,7 +96,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                                     page = Integer.parseInt(currentPage);
 //                                }
 //                                page=1;
-                                currentPage="";
+                                currentPage = "";
                                 getCoachListApi();
                             }
                             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
@@ -108,7 +107,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                                    page = Integer.parseInt(currentPage);
 //                                }
 //                                page=1;
-                                currentPage="1";
+                                currentPage = "1";
                                 getTopOrgaNization();
                             }
                         } else {
@@ -165,21 +164,20 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
         binding.dServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String position = i + "";
                 binding.dServiceSpinner.setSelection(i);
                 binding.spinnerText.setText(dropDownList.get(i).getName());
                 if (i == 0) {
                     searchText = "";
-                    currentPage="";
-                    isLastPage=false;
+                    currentPage = "";
+                    isLastPage = false;
 
                 } else {
                     searchText = dropDownList.get(i).getName();
-                    currentPage="";
+                    currentPage = "";
+                    getCoachListApi();
                 }
 
-                getCoachListApi();
+
 
             }
 
@@ -245,14 +243,14 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this,2);
+                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, 2);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
                             List<CoachListModel> results = fetchResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             orgAdapter.addAll(results);
@@ -280,8 +278,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 }
                             });
                         } else {
-                            binding.topRateRecycler.setVisibility(View.GONE);
-                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
                         }
                     }
                 } else {
@@ -310,6 +309,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
 
     }
+
     private void nextGetTopOrgaNization() {
         Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
         call.enqueue(new Callback<CoachListResponse>() {
@@ -329,7 +329,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             orgAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -393,7 +393,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage+"", currentPage+"", "latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -409,7 +409,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                            binding.topRateRecycler.setAdapter(coachAdapter);
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
                             binding.noDataImageView.setVisibility(View.GONE);
-                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this,1);
+                            orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, 1);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
                             binding.topRateRecycler.setAdapter(orgAdapter);
                             List<CoachListModel> results = fetchResults(response);
@@ -418,13 +418,12 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             orgAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page < TOTAL_PAGES)
                                 orgAdapter.addLoadingFooter();
                             else isLastPage = true;
-
 
 
                             String[] array = new String[response.body().getData().getData().size()];
@@ -445,8 +444,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 }
                             });
                         } else {
-                            binding.topRateRecycler.setVisibility(View.GONE);
-                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
+//                            binding.topRateRecycler.setVisibility(View.GONE);
+//                            binding.noDataImageView.setVisibility(View.VISIBLE);
                         }
 
 
@@ -480,8 +480,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
     private void nextCoachListApi() {
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage+"", currentPage+"", "latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -506,13 +507,12 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                             getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                             orgAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
                                 orgAdapter.addLoadingFooter();
                             else isLastPage = true;
-
 
 
                             String[] array = new String[response.body().getData().getData().size()];
@@ -533,8 +533,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 }
                             });
                         } else {
-                            binding.topRateRecycler.setVisibility(View.GONE);
-                            binding.noDataImageView.setVisibility(View.VISIBLE);
+//                            Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -622,11 +621,11 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                if (! TextUtils.isEmpty(currentPage)) {
+                if (!TextUtils.isEmpty(currentPage)) {
                     page = Integer.parseInt(currentPage);
                 }
                 page += 1;
-                currentPage=page+"";
+                currentPage = page + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {

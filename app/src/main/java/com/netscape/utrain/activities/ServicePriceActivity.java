@@ -60,19 +60,19 @@ import retrofit2.Response;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ServicePriceActivity extends AppCompatActivity implements View.OnClickListener, ServicePriceAdapter.ServicePriceInterface {
+    public static boolean updateServices = false;
     MaterialTextView addService;
     RecyclerView.LayoutManager layoutManager;
     ServicePriceAdapter serviceAdapter;
     ArrayList<ServiceListDataModel> selectedService = new ArrayList<>();
     ArrayList<ServiceListDataModel> mList = new ArrayList<>();
-    private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     ServiceListDataModel serviceModel;
     DialogAdapter dialogAdapter;
     AlertDialog alertDialog;
     MaterialButton btnDialogNext;
     int mPosition = 0;
     JsonArray jsonArray;
-    public static boolean updateServices=false;
+    private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     private ActivityServicePriceBinding binding;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
@@ -87,17 +87,17 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_service_price);
-        orgDataModel=new OrgUserDataModel();
+        orgDataModel = new OrgUserDataModel();
         layoutManager = new LinearLayoutManager(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 //        selectedService.clear();
         init();
-        if (updateServices){
+        if (updateServices) {
             binding.serviceSummaryTitle.setText("Update Services");
             binding.servicePriceNextBtn.setText(("Update"));
-            String price=CommonMethods.getPrefData(PrefrenceConstant.PRICE,ServicePriceActivity.this);
+            String price = CommonMethods.getPrefData(PrefrenceConstant.PRICE, ServicePriceActivity.this);
             orgDataModel.setHourly_rate(price);
 
             getService();
@@ -136,12 +136,12 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             case R.id.servicePriceNextBtn:
                 if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
                     jsonArray = (JsonArray) new Gson().toJsonTree(SelectedServiceList.getInstance().getList());
-                   if (updateServices){
-                       if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
-                           OrgServiceUpdateApi();
-                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
-                           CoachUpdateApi();
-                   }
+                    if (updateServices) {
+                        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer))
+                            OrgServiceUpdateApi();
+                        else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach))
+                            CoachUpdateApi();
+                    }
                     if (activeUserType.equalsIgnoreCase(Constants.TypeCoach)) {
                         CoachSignUpApi();
                     }
@@ -167,9 +167,9 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
         Bundle args = new Bundle();
-        args.putSerializable("SelectedService",sList);
+        args.putSerializable("SelectedService", sList);
         intent.putExtras(args);
-        SelectServices.updateService=true;
+        SelectServices.updateService = true;
         startActivity(intent);
     }
 
@@ -182,7 +182,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 //            userImg = prepareFilePart("profile_image", photoFile.getName(), photoFile);
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
         }
-        if (orgDataModel.getProfile_img()!=null){
+        if (orgDataModel.getProfile_img() != null) {
             policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
 
         }
@@ -220,7 +220,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(ServicePriceActivity.this, ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ServicePriceActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_LONG).show();
 
 //                            CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
 //                            CommonMethods.setPrefData(PrefrenceConstant.ROLE_PLAY, Constants.Coach, ServicePriceActivity.this);
@@ -250,6 +250,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
                             Intent homeScreen = new Intent(getApplicationContext(), LoginActivity.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
+                            homeScreen.putExtra(Constants.LoginFor,Constants.LoginToCoach);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -501,7 +503,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
-        updateServices=false;
+        updateServices = false;
 //        CommonMethods.setLisstPrefData(Constants.SELECTED_SERVICE, selectedService, ServicePriceActivity.this);
         super.onDestroy();
     }
@@ -523,6 +525,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         String listData = gson.toJson(list);
         CommonMethods.setPrefData(PrefrenceConstant.SERVICE_IDS, listData, getApplicationContext());
     }
+
     private void getService() {
         String serviceName = CommonMethods.getPrefData(PrefrenceConstant.SERVICE_IDS, getApplicationContext());
         Gson gson = new Gson();
@@ -534,7 +537,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                 Type type = new TypeToken<List<ServiceListDataModel>>() {
                 }.getType();
                 sList = gson.fromJson(serviceName, type);
-                if (sList!=null && sList.size()>0){
+                if (sList != null && sList.size() > 0) {
                     SelectedServiceList.getInstance().getList().addAll(sList);
 //                    CommonMethods.setLisstPrefData(Constants.SERVICE_LIST, sList, ServicePriceActivity.this);
 
@@ -552,7 +555,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
     private void OrgServiceUpdateApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
@@ -566,7 +568,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
 
-        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updateOrgBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.updateOrgBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<OrgSignUpResponse>() {
             @Override
             public void onResponse(Call<OrgSignUpResponse> call, Response<OrgSignUpResponse> response) {
@@ -606,7 +608,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
 
                         }
@@ -632,6 +634,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+
     private void CoachUpdateApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
@@ -645,7 +648,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
 
-        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
             public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
@@ -684,7 +687,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                         }
                     } else {

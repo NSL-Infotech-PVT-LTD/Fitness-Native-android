@@ -596,7 +596,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(PortfolioActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PortfolioActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_LONG).show();
 
 //                            for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
 //                                String role = response.body().getData().getUser().getRoles().get(i).getName();
@@ -631,6 +631,8 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 //                                    storeServiceIds(servicesList);
                             Intent homeScreen = new Intent(getApplicationContext(), LoginActivity.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            homeScreen.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
+                            homeScreen.putExtra(Constants.LoginFor,Constants.LoginToOrg);
                             startActivity(homeScreen);
 //                                }
 //                            }

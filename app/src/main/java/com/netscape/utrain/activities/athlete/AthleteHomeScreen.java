@@ -45,6 +45,7 @@ import com.netscape.utrain.fragments.A_HomeFragment;
 import com.netscape.utrain.fragments.A_NotificationFragment;
 import com.netscape.utrain.fragments.A_StardFragment;
 import com.netscape.utrain.fragments.O_HistoryFragment;
+import com.netscape.utrain.fragments.TransactionFragment;
 import com.netscape.utrain.model.A_SpaceListModel;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.response.LoginResponse;
@@ -138,7 +139,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_chat:
                     notificationTv.setText("");
-                    fragment = new A_StardFragment();
+                    fragment = new TransactionFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:

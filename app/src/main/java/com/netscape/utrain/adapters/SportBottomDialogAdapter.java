@@ -44,7 +44,7 @@ public class SportBottomDialogAdapter extends RecyclerView.Adapter<SportBottomDi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sportFilterInter.getSportName(sportsList.get(position).getName());
+                sportFilterInter.getSportName(sportsList.get(position).getId()+"");
             }
         });
 

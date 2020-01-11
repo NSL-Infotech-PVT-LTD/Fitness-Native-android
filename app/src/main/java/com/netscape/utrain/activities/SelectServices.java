@@ -74,6 +74,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
         if (mList != null && mList.size() > 0) {
             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
             dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
+            binding.serviceRecyclerView.setItemViewCacheSize(mList.size());
             binding.serviceRecyclerView.setAdapter(dialogAdapter);
         }
 
@@ -120,6 +121,7 @@ public class SelectServices extends AppCompatActivity implements View.OnClickLis
                             binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(SelectServices.this));
                             dialogAdapter = new DialogAdapter(SelectServices.this, mList, SelectServices.this);
                             binding.serviceRecyclerView.setAdapter(dialogAdapter);
+                            binding.serviceRecyclerView.setItemViewCacheSize(mList.size());
                         }
                     } else {
                         Snackbar.make(binding.serviceLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();

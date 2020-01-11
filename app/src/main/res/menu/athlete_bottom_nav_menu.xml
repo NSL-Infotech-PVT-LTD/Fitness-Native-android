@@ -7,7 +7,7 @@
         android:title="" />
     <item
         android:id="@+id/navigation_chat"
-        android:icon="@drawable/chat_selector"
+        android:icon="@drawable/transaction_icon"
         android:title="" />
     <item
         android:id="@+id/navigation_reqimage"

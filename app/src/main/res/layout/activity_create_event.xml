@@ -377,7 +377,7 @@
                         android:background="@drawable/card_input_edt_background"
                         android:fontFamily="@font/poppins_regular"
                         android:inputType="number"
-                        android:maxLength="2"
+                        android:maxLength="5"
                         android:paddingLeft="@dimen/_15sdp"
                         android:singleLine="true"
                         android:textColor="@color/colorBlack"

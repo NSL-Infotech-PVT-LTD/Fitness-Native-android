@@ -36,6 +36,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class TransactionFragment extends Fragment {
+    private int[] tabIcons = {
+            R.drawable.ic_arrow_left,
+            R.drawable.ic_arrow_left,
+            R.drawable.ic_arrow_left
+    };
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,6 +99,7 @@ public class TransactionFragment extends Fragment {
             setupAthViewPager(binding.transactionViewPager);
             binding.nameOfType.setText("Athlete");
             wrapTabIndicatorToTitle(binding.layoutTransactionTab, 200, 200);
+//            setupTabIcons();
 
         }else {
             if(CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
@@ -103,6 +109,7 @@ public class TransactionFragment extends Fragment {
 
             setupViewPager(binding.transactionViewPager);
             wrapTabIndicatorToTitle(binding.layoutTransactionTab, 100, 50);
+//            setupTabIcons();
 
         }
         return view;
@@ -156,10 +163,10 @@ public class TransactionFragment extends Fragment {
 //            }
 //        });
 //    }
-    private void setupTabIcons() {
-        binding.layoutTransactionTab.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
-        binding.layoutTransactionTab.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
-    }
+//    private void setupTabIcons() {
+//        binding.layoutTransactionTab.getTabAt(0).setIcon(tabIcons[0]);
+////        binding.layoutTransactionTab.getTabAt(1).setIcon(tabIcons[1]);
+//    }
     private void setupViewPager(final ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new PaymentSentFragment(), "Sent");

@@ -29,7 +29,11 @@ import java.util.List;
 public class TransactionActivity extends AppCompatActivity {
 
     ActivityTransactionBinding binding;
-
+    private int[] tabIcons = {
+            R.drawable.ic_arrow_left,
+            R.drawable.ic_arrow_left,
+            R.drawable.ic_arrow_left
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +75,8 @@ public class TransactionActivity extends AppCompatActivity {
         });
     }
     private void setupTabIcons() {
-        binding.layoutTransactionTab.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
-        binding.layoutTransactionTab.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_arrow_left));
+        binding.layoutTransactionTab.getTabAt(0).setIcon(tabIcons[0]);
+        binding.layoutTransactionTab.getTabAt(1).setIcon(tabIcons[1]);
     }
     private void setupViewPager(final ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

@@ -207,6 +207,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
             adapter = new SportsAdapter(sportsListAll, ChooseSportActivity.this, ChooseSportActivity.this);
             binding.csRecyclerView.setAdapter(adapter);
+            binding.csRecyclerView.setItemViewCacheSize(sportsList.size());
             for (int i = 0; i < sportsListAll.size(); i++) {
                 if (sportsListAll.get(i).isCheckekd()) {
                     sportsList.add(sportsListAll.get(i));
@@ -338,6 +339,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                         binding.csRecyclerView.setLayoutManager(new LinearLayoutManager(ChooseSportActivity.this));
                         adapter = new SportsAdapter(response.body().getData().getData(), ChooseSportActivity.this, ChooseSportActivity.this);
                         binding.csRecyclerView.setAdapter(adapter);
+                        binding.csRecyclerView.setItemViewCacheSize(response.body().getData().getData().size());
                         sportsListAll.addAll(response.body().getData().getData());
                         if (athUpdate) {
                             getAthSelectedSports();
