@@ -345,7 +345,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             if (activeUserType != null)
                 if (activeUserType.equals(Constants.TypeOrganization)) {
                     binding.signUpType.setText(getResources().getString(R.string.organization));
-                    binding.orgNextBtn.setText(getResources().getString(R.string.two_more_step));
+                    binding.orgNextBtn.setText(getResources().getString(R.string.three_more_step));
                 }
             if (activeUserType != null)
                 if (activeUserType.equals((Constants.TypeOrgCoach))) {
@@ -535,7 +535,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             Intent photoPickerIntent=null;
             if (policeDoc){
                 photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
+                photoPickerIntent.setType("*/*");
+//                photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                photoPickerIntent.addCategory(Intent.CATEGORY_OPENABLE);
             }else {
                 photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
@@ -685,10 +687,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     private void hitOrgSignUpApi() {
         if (activeUserType.equals(Constants.TypeOrganization)) {
-            Intent intent = new Intent(OrganizationSignUpActivity.this, ServicePriceActivity.class);
+//            Intent intent = new Intent(OrganizationSignUpActivity.this,  ServicePriceActivity.class);
+            Intent intent = new Intent(OrganizationSignUpActivity.this,  ChooseSportActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
             intent.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+            ChooseSportActivity.coachActive = true;
             startActivity(intent);
         }
         if (activeUserType.equals(Constants.TypeCoach)) {

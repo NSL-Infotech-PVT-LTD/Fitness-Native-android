@@ -153,6 +153,7 @@
             android:id="@+id/icTransactionIcon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_transaction"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
@@ -166,6 +167,7 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center_vertical"
             android:text="@string/transaction"
+            android:visibility="gone"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/view3"
@@ -180,6 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"
             android:background="@color/colorLightGray"
             app:layout_constraintTop_toBottomOf="@id/icTransactionIcon" />
 

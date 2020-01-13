@@ -95,8 +95,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 PortfolioActivity.clearFromConstants();
                 SelectedServiceList.getInstance().getList().clear();
                 Constants.CHECKBOX_IS_CHECKED = 0;
+                CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                 if (activeUserType.equals(Constants.TypeCoach)) {
-                    CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     startActivity(signUpActivity);
                 }
                 if (activeUserType.equals(Constants.TypeOrganization)) {
-
                     Intent signUpActivity = new Intent(LoginActivity.this, OrganizationSignUpActivity.class);
                     signUpActivity.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     signUpActivity.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);

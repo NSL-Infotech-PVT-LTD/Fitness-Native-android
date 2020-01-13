@@ -184,7 +184,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
         }
         if (orgDataModel.getProfile_img() != null) {
             policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
-
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
@@ -250,8 +249,8 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
 
                             Intent homeScreen = new Intent(getApplicationContext(), LoginActivity.class);
                             homeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            homeScreen.putExtra(Constants.ActiveUserType,Constants.TypeCoach);
-                            homeScreen.putExtra(Constants.LoginFor,Constants.LoginToCoach);
+                            homeScreen.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+                            homeScreen.putExtra(Constants.LoginFor, Constants.LoginToCoach);
                             startActivity(homeScreen);
                         }
                     } else {
@@ -335,7 +334,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
@@ -343,7 +341,6 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
-
     private void hitServiceListApi() {
         progressDialog.show();
         Call<ServiceListResponse> signUpAthlete = retrofitinterface.getServiceList(Constants.CONTENT_TYPE);

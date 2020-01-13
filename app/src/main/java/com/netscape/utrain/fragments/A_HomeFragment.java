@@ -222,7 +222,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         } else {
             aExpDetailTv.setVisibility(View.VISIBLE);
             aExperienceDBoard.setVisibility(View.VISIBLE);
-            aExpDetailTv.setText(sExperience +" year");
+            aExpDetailTv.setText(sExperience );
 
 
         }

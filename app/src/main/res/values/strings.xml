@@ -465,4 +465,5 @@
     <string name="upload_police_doc">Police doc</string>
     <string name="upload_police_varrification_doc">Upload police verification doc</string>
     <string name="reset">Reset</string>
+    <string name="three_more_step">Three more steps</string>
 </resources>

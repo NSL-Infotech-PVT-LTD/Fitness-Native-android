@@ -556,7 +556,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
         }
         if (orgDataModel.getProfile_img() != null) {
-            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
+            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getPolice_doc().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
 
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
@@ -571,6 +571,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
         requestBodyMap.put("business_hour_ends", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBusiness_hour_ends()));
         requestBodyMap.put("bio", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getBio()));
         requestBodyMap.put("service_ids", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSelectedServices()));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getSport_id()));
         requestBodyMap.put("expertise_years", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExpertise_years()));
         requestBodyMap.put("experience_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getExperienceDetail()));
         requestBodyMap.put("training_service_detail", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getTrainingDetail()));
@@ -634,6 +635,7 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                             homeScreen.putExtra(Constants.ActiveUserType,Constants.TypeOrganization);
                             homeScreen.putExtra(Constants.LoginFor,Constants.LoginToOrg);
                             startActivity(homeScreen);
+                            finish();
 //                                }
 //                            }
                         } else {

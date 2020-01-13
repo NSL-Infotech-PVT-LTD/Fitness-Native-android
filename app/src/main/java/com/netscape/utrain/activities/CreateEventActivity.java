@@ -144,6 +144,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         binding.createEventEndTime.setText(data.getEnd_time());
         binding.createEventCapicityEdt.setText(data.getGuest_allowed() + "");
         binding.createEventEquipmentEdt.setText(data.getEquipment_required());
+        binding.eventPrice.setText(data.getPrice());
 
         locationLat = data.getLatitude() + "";
         locationLong = data.getLongitude() + "";

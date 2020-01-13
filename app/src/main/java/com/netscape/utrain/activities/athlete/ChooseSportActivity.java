@@ -146,26 +146,33 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             @Override
             public void onClick(View view) {
                 setClikFalse();
-
-
                 if (sportsList != null && sportsList.size() == 0) {
 
                     Toast.makeText(ChooseSportActivity.this, "Please Select sport", Toast.LENGTH_SHORT).show();
 
                 } else if (coachActive) {
                     orgDataModel.setSport_id(String.valueOf(jsonArray));
-                    Intent intent = new Intent(ChooseSportActivity.this, ServicePriceActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
-                    intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
-                    startActivity(intent);
+                    if (activeUserType.equalsIgnoreCase(Constants.TypeCoach)) {
+                        Intent intent = new Intent(ChooseSportActivity.this, ServicePriceActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+                        intent.putExtra(Constants.ActiveUserType, Constants.TypeCoach);
+                        startActivity(intent);
+                    } else if (activeUserType.equalsIgnoreCase(Constants.TypeOrganization)) {
+                        Intent intent = new Intent(ChooseSportActivity.this, ServicePriceActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
+                        intent.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
+                        startActivity(intent);
+                    }
+
                 } else if (athUpdate) {
                     if (sportsList != null && sportsList.size() > 0) {
-                         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)){
-                             CoachUpdateApi();
-                         }else {
-                             hitUpdateAthleteDetailApi();
-                         }
+                        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Coach)) {
+                            CoachUpdateApi();
+                        } else {
+                            hitUpdateAthleteDetailApi();
+                        }
                     } else {
                         Toast.makeText(ChooseSportActivity.this, "Choose At least one sport", Toast.LENGTH_SHORT).show();
                     }
@@ -223,6 +230,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                 activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
                 if (activeUserType.equals(Constants.TypeCoach)) {
                     binding.athSignUp.setText(getResources().getString(R.string.one_more_step));
+                } else if (activeUserType.equals(Constants.TypeOrganization)) {
+                    binding.athSignUp.setText(getResources().getString(R.string.two_more_step));
                 }
             }
         }
@@ -549,6 +558,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     @Override
     protected void onDestroy() {
         athUpdate = false;
+        coachActive = false;
         storeServiceIds(sportsListAll);
         super.onDestroy();
     }
@@ -581,7 +591,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
                 progressDialog.dismiss();
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body() != null) {
                             Toast.makeText(ChooseSportActivity.this, "Detail updated successfully", Toast.LENGTH_LONG).show();
@@ -613,7 +623,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                     } else {
                         Toast.makeText(ChooseSportActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
-            }else {
+                } else {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -621,7 +631,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                         Snackbar.make(binding.serviceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Snackbar.make(binding.serviceLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
-                    }                }
+                    }
+                }
                 // isStatus error message here....
 
             }
@@ -652,7 +663,6 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
     }
 
 
-
     private void CoachUpdateApi() {
         progressDialog.show();
         MultipartBody.Part userImg = null;
@@ -666,7 +676,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
 
-        Call<CoachSignUpResponse> signUpAthlete = api.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()),requestBodyMap , userImg);
+        Call<CoachSignUpResponse> signUpAthlete = api.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
             public void onResponse(Call<CoachSignUpResponse> call, Response<CoachSignUpResponse> response) {
@@ -686,7 +696,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
                                     startActivity(homeScreen);
                                 }
                             }
-                        }else {
+                        } else {
                             Snackbar.make(binding.serviceLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_SHORT).show();
                         }
                     } else {
@@ -717,7 +727,8 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
 
         super.onResume();
     }
-    private void setClikFalse(){
+
+    private void setClikFalse() {
         binding.athSignUp.setClickable(false);
 
         new Handler().postDelayed(new Runnable() {

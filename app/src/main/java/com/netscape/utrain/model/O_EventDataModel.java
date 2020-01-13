@@ -37,6 +37,7 @@ public class O_EventDataModel implements Serializable {
     private String latitude;
     private String longitude;
     private int service_id;
+    private int sport_id;
     private int created_by;
     private int guest_allowed;
     private String equipment_required;
@@ -45,6 +46,14 @@ public class O_EventDataModel implements Serializable {
     private String created_at;
     private String updated_at;
     private Object deleted_at;
+
+    public int getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(int sport_id) {
+        this.sport_id = sport_id;
+    }
 
     public boolean isBooked() {
         return IsBooked;
