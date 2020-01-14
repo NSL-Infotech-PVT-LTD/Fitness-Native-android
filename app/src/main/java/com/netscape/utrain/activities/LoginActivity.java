@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         CommonMethods.setPrefData(PrefrenceConstant.PRICE, response.body().getData().getUser().getHourly_rate() + "", LoginActivity.this);
                                         servicesList.addAll(response.body().getData().getUser().getService_ids());
                                         storeServiceIds(servicesList);
+                                        CommonMethods.setPrefData(PrefrenceConstant.SPORTS_NAME, response.body().getData().getUser().getSport_id(), getApplicationContext());
                                         CommonMethods.setPrefData(PrefrenceConstant.USER_LAT, response.body().getData().getUser().getLatitude() + "", LoginActivity.this);
                                         CommonMethods.setPrefData(PrefrenceConstant.USER_LONG, response.body().getData().getUser().getLongitude() + "", LoginActivity.this);
                                         CommonMethods.setPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, response.body().getData().getUser().getBusiness_hour_ends() + "", LoginActivity.this);

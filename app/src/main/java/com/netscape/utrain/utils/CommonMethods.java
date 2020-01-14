@@ -196,6 +196,19 @@ public class CommonMethods {
         hours = (hours < 0 ? -hours : hours);
     return hours;
     }
+    public static Date formatHour(String startHour){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date date1=null;
+//        Date date2=null;
+        try {
+            date1=format.parse(startHour);
+//            date2=format.parse(endHour);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date1;
+
+    }
     public static List<SelectSpaceDaysModel> getWeekDaysList(){
              List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
              SelectSpaceDaysModel selectSpaceDaysModel;

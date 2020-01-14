@@ -85,7 +85,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private int mYear, mMonth, mDay, mHour, mMinute;
     private String locationLat = "", locationLong = "";
     private Retrofitinterface retrofitinterface;
-    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "", eventPrice="";
+    private String eventName = "", eventDescription = "", eventAddress = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", eventEquipments = "", eventCapacity = "", eventPrice = "";
     private ArrayList<ServiceIdModel> selectedServices = new ArrayList<>();
     private ArrayList<SportListModel.DataBeanX.DataBean> dropDownList = new ArrayList<>();
     private ArrayList<String> sports = new ArrayList<>();
@@ -118,7 +118,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         });
         getServiceIds();
-        sportsListApi();
+        getSelectedSports();
+//        sportsListApi();
 
 
         if (editEvent) {
@@ -180,10 +181,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 createEventServiceSpinner.setSelection(i);
                 if (i == 0) {
-
+                    sportId="";
                 } else {
                     sportId = String.valueOf(dropDownList.get(i).getId());
-                    Toast.makeText(CreateEventActivity.this, "" + sportId, Toast.LENGTH_SHORT).show();
                 }
 
 //                servicePrice = String.valueOf(dropDownList.get(i).getPrice());
@@ -211,6 +211,23 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         }
     }
+    private void getSelectedSports() {
+        String serviceIds = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
+        Gson gson = new Gson();
+        if (serviceIds != null) {
+            if (serviceIds.isEmpty()) {
+                Toast.makeText(this, "Sports Not Found", Toast.LENGTH_SHORT).show();
+            } else {
+                Type type = new TypeToken<List<SportListModel.DataBeanX.DataBean>>() {
+                }.getType();
+                sport = new SportListModel.DataBeanX.DataBean();
+                sport.setName("Select Sports");
+                dropDownList.add(sport);
+                dropDownList.addAll(gson.fromJson(serviceIds, type));
+                setDataToSpinner();
+            }
+        }
+    }
 
     private void sportsListApi() {
         progressDialog.show();
@@ -233,7 +250,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onFailure(Call<SportListModel> call, Throwable t) {
                 progressDialog.dismiss();
-
             }
         });
     }
@@ -478,7 +494,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         eventEndtime = binding.createEventEndTime.getText().toString().trim();
         eventEquipments = binding.createEventEquipmentEdt.getText().toString().trim();
         eventCapacity = binding.createEventCapicityEdt.getText().toString().trim();
-        servicePrice=binding.eventPrice.getText().toString();
+        servicePrice = binding.eventPrice.getText().toString();
         binding.createEventCapicityEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

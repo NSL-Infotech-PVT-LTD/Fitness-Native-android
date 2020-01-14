@@ -21,7 +21,7 @@
             android:id="@+id/roboCalHours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/closeSlotDialog"
+            app:layout_constraintTop_toBottomOf="@+id/backArrowClick"
             app:layout_constraintLeft_toLeftOf="parent"/>
         <ScrollView
             android:id="@+id/editTimeScroll"

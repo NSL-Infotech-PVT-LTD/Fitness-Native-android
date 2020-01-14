@@ -119,6 +119,7 @@ public class EventDetail extends AppCompatActivity {
         binding.viewSlots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SelectedServiceList.getInstance().getList().clear();
                 Intent intent=new Intent(EventDetail.this, HourlySlotsActivity.class);
                 intent.putExtra("event_id", eventId);
                 startActivity(intent);

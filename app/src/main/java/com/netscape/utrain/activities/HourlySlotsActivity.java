@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.netscape.utrain.R;
 import com.netscape.utrain.adapters.HourlySlotAdapter;
@@ -41,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HourlySlotsActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener {
-//    private ActivityHourlySlotsBinding binding;
+    //    private ActivityHourlySlotsBinding binding;
     private Date strDate = null;
     private Date selectedDate = null;
     private Date oldDates = null;
@@ -53,14 +54,14 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
     private ArrayList<SlotListResponse.DataBean> slotList;
     private RecyclerView.LayoutManager layoutManager;
     private HourlySlotAdapter adapter;
-    private String spaceId="";
-    private List<HourSelectedModel>hoursSelected;
+    private String spaceId = "";
+    private List<HourSelectedModel> hoursSelected;
     private RobotoCalendarView roboCalView;
     private String[] mShortMonths;
     private CalendarDialog mCalendarDialog;
     private RecyclerView hourlyRecycler;
     private AppCompatImageView backArrowClick;
-
+    private String slotsForDate = "";
 
 
     @Override
@@ -71,30 +72,30 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 
 
 //        binding = DataBindingUtil.setContentView(this, R.layout.activity_hourly_slots);
-        roboCalView=findViewById(R.id.roboCalHours);
-        hourlyRecycler=findViewById(R.id.hourRecyler);
-        backArrowClick=findViewById(R.id.backArrowClick);
+        roboCalView = findViewById(R.id.roboCalHours);
+        hourlyRecycler = findViewById(R.id.hourRecyler);
+        backArrowClick = findViewById(R.id.backArrowClick);
         init();
 
     }
 
     private void init() {
-        if (getIntent().getExtras()!=null){
-            spaceId=getIntent().getStringExtra("event_id");
+        if (getIntent().getExtras() != null) {
+            spaceId = getIntent().getStringExtra("event_id");
         }
         commonMethods = new CommonMethods();
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         hourlyRecycler.setLayoutManager(layoutManager);
 //        binding.dateLayout.setOnClickListener(this);
-        hoursSelected=new ArrayList<>();
-        for (int i=1;i<25;i++){
-            HourSelectedModel model=new HourSelectedModel();
-            if (i >= 12 && i< 24) {
-                model.setHour(i+"Pm");
-            } else {
-                model.setHour(i+"Am");
-            }
+        hoursSelected = new ArrayList<>();
+        for (int i = 1; i < 25; i++) {
+            HourSelectedModel model = new HourSelectedModel();
+//            if (i >= 12 && i< 24) {
+            model.setHour(commonMethods.convertDate(i));
+//            } else {
+//                model.setHour(i+":00");
+//            }
             model.setSelected(false);
             hoursSelected.add(model);
         }
@@ -140,6 +141,10 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                             getSlotsFromArray();
 
 
+                        } else{
+                            hourlyRecycler.setVisibility(View.VISIBLE);
+                            adapter = new HourlySlotAdapter(getApplicationContext(), hoursSelected, slotsForDate, spaceId);
+                            hourlyRecycler.setAdapter(adapter);
                         }
                     }
                 } else {
@@ -157,6 +162,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<SlotListResponse> call, Throwable t) {
                 progressDialog.dismiss();
@@ -174,14 +180,14 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
             for (int i = 0; i < slotList.get(0).getAvailable_slot().size(); i++) {
                 SlotModels models = new SlotModels();
 //                models.setSlotStartTime(slotList.get(0).getAvailable_slot().get(i).get(0));
-                String slotStartTime=commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(0).toString(),":");
-                String slotEndTime=commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(1).toString(),":");
-                if (Integer.parseInt(slotStartTime)<= Integer.parseInt(slotEndTime)) {
-                    for (int j=Integer.parseInt(slotStartTime);j<=Integer.parseInt(slotEndTime);j++){
-                        HourSelectedModel model=new HourSelectedModel();
+                String slotStartTime = commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(0), ":");
+                String slotEndTime = commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(1), ":");
+                if (Integer.parseInt(slotStartTime) <= Integer.parseInt(slotEndTime)) {
+                    for (int j = Integer.parseInt(slotStartTime); j <= Integer.parseInt(slotEndTime); j++) {
+                        HourSelectedModel model = new HourSelectedModel();
                         model.setSelected(true);
-                        model.setHour(j+"Am");
-                        hoursSelected.set((j-1),model);
+                        model.setHour(commonMethods.convertDate(j));
+                        hoursSelected.set((j - 1), model);
 //                        SlotModels hours = new SlotModels();
 //                        hours .setSlotStartTime(j+":00");
 //                        slotListApi.add(hours );
@@ -192,15 +198,15 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
 //                slotListApi.add(models);
 
             }
-            adapter=new HourlySlotAdapter(getApplicationContext(),hoursSelected);
+            adapter = new HourlySlotAdapter(getApplicationContext(), hoursSelected, slotsForDate, spaceId);
             hourlyRecycler.setAdapter(adapter);
         }
     }
 
     @Override
     public void onDayClick(Date date) {
-        hitSpaceDetailAPI(commonMethods.getDateInStringFormat(date));
-
+        slotsForDate = commonMethods.getDateInStringFormat(date);
+        hitSpaceDetailAPI(slotsForDate);
     }
 
     @Override

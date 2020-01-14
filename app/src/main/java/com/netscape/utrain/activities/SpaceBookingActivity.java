@@ -47,7 +47,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SpaceBookingActivity extends AppCompatActivity implements View.OnClickListener , AddViewRecyclerAdapter.removeTimeSlot {
+public class SpaceBookingActivity extends AppCompatActivity implements View.OnClickListener, AddViewRecyclerAdapter.removeTimeSlot {
+    public static boolean intentFrom = false;
+    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
     private ActivitySpaceBookingBinding binding;
     private String sDate = "";
     private String startDate = "";
@@ -60,23 +62,23 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
     private Date stDate = null;
     private Date endDate = null;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private String spaceId="",eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", totalPrice = "";
+    private String spaceId = "", eventId = "", eventStartDate = "", eventEndDate = "", eventStartTime = "", eventEndtime = "", totalPrice = "";
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private int pricePerday;
-    private int SLOT_REQUEST=191;
+    private int SLOT_REQUEST = 191;
     private SlotModel slotModel;
-
     private LinearLayout mLayout;
     private EditText mEditText;
     private Button mButton;
     private AddViewRecyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<SlotModel> results = new ArrayList<>();
-    private int totalHours=0;
+    private int totalHours = 0;
     private JsonArray jsonArray;
     private Date removeDate;
-    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
+    private Intent intent;
+    private ArrayList<String> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,19 +93,21 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //        data= (ArrayList<String>) getIntent().getSerializableExtra(Constants.SPACE_DATA);
 //        startWeekList=CommonMethods.getDaysFromId(data,CommonMethods.getWeekDaysList());
 //        ///
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
 //        results.add("Chet");
-        adapter=new AddViewRecyclerAdapter(SpaceBookingActivity.this,results,SpaceBookingActivity.this);
+        adapter = new AddViewRecyclerAdapter(SpaceBookingActivity.this, results, SpaceBookingActivity.this);
         binding.addViewRecycler.setLayoutManager(layoutManager);
         binding.addViewRecycler.setAdapter(adapter);
         ///
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         hitSpaceDetailAPI();
         if (getIntent().getExtras() != null) {
-            binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
-            binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
-            binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
-            binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
+            intent = getIntent();
+
+//            binding.eventBookMarathonHeaderTv.setText(getIntent().getStringExtra("eventName"));
+//            binding.eventVanueDetailTv.setText(getIntent().getStringExtra("eventVenue"));
+//            binding.eventTimeDetailTv.setText(getIntent().getStringExtra("eventTime"));
+//            binding.eventDateDetailTv.setText(getIntent().getStringExtra("eventDate"));
 
         }
         binding.addTimeSlot.setOnClickListener(this);
@@ -269,8 +273,8 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 //        }
 //    }
 //
-
     }
+
     public Date formatDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         Date now = new Date(System.currentTimeMillis()); // 2016-03-10 22:06:10
@@ -281,69 +285,49 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         }
         return strDate;
     }
+
     private void setTotalPrice(int hours) {
         totalPrice = String.valueOf((hours * pricePerday));
 //        binding.totlaPriceTv.setText("Price per Hour * " + hours + " Hours");
         binding.eventPrice.setText("$ " + totalPrice);
     }
 
-        @Override
-        public void onClick (View view){
-            switch (view.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.viewMore:
-                if (startWeekList !=null && startWeekList.size()>0) {
+                if (startWeekList != null && startWeekList.size() > 0) {
                     CommonMethods.showLoadingDialog(SpaceBookingActivity.this, startWeekList);
-                }else {
+                } else {
                     Toast.makeText(SpaceBookingActivity.this, "No Days Available", Toast.LENGTH_SHORT).show();
                 }
                 break;
-//            case R.id.createEventStartDateTv:
-//                getStartDate();
-//                break;
-//            case R.id.createEventEndTime:
-//                getEndTime();
-//                break;
-//            case R.id.createEvtnStartTimeTv:
-//                getStartTime();
-//                break;
             case R.id.textContinueToPay:
                 sendDataToPayment();
-
-//
                 break;
-                case R.id.eventBookingBackImg:
-                    finish();
-                    break;
-
-//                case R.id.addView:
-////                TOTAL_PAGES = response.body().getData().getLast_page();
-////                getItemPerPage = response.body().getData().getPer_page();
-//
-//                    adapter.add(slotModel);
-//                    break;
-                case R.id.addTimeSlot:
-//                TOTAL_PAGES = response.body().getData().getLast_page();
-//                getItemPerPage = response.body().getData().getPer_page();
-
-                    Intent intent=new Intent(SpaceBookingActivity.this, SelectTimeSlot.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra("bookSpaceId",getIntent().getStringExtra("event_id"));
-                    startActivityForResult(intent,SLOT_REQUEST);
-                    break;
-            }
-
+            case R.id.eventBookingBackImg:
+                finish();
+                break;
+            case R.id.addTimeSlot:
+                Intent intent = new Intent(SpaceBookingActivity.this, SelectTimeSlot.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("bookSpaceId", getIntent().getStringExtra("event_id"));
+                startActivityForResult(intent, SLOT_REQUEST);
+                break;
         }
 
+    }
+
     private void sendDataToPayment() {
-        if (results !=null && results.size()>0 && Integer.parseInt(totalPrice)>0) {
+        if (results != null && results.size() > 0 && Integer.parseInt(totalPrice) > 0) {
             Intent payment = new Intent(SpaceBookingActivity.this, PaymentActivity.class);
             jsonArray = (JsonArray) new Gson().toJsonTree(results);
-            payment.putExtra("type", getIntent().getStringExtra("type"));
+            payment.putExtra("type", "space");
             payment.putExtra("totalPrice", totalPrice);
             payment.putExtra("totalSlots", jsonArray.toString());
             payment.putExtra("event_id", getIntent().getStringExtra("event_id"));
             startActivity(payment);
-        }else {
+        } else {
             Toast.makeText(this, "Select At least One Slot", Toast.LENGTH_SHORT).show();
         }
     }
@@ -388,45 +372,13 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode==SLOT_REQUEST && resultCode==RESULT_OK && data!=null){
-            slotModel=new SlotModel();
-            slotModel.setFrom_time(data.getStringExtra(Constants.SLOT_START_TIME));
-            slotModel.setTo_time(data.getStringExtra(Constants.SLOT_END_TIME));
-            slotModel.setBooking_date(data.getStringExtra(Constants.SLOT_DATE));
-//            results.add(slotModel);
-            ServiceListDataModel serviceListDataModel=new ServiceListDataModel();
-            serviceListDataModel.setName(data.getStringExtra(Constants.SLOT_DATE));
-            SelectedServiceList.getInstance().getList().add(serviceListDataModel);
-            adapter.add(slotModel);
-            binding.noSlotCalendar.setVisibility(View.GONE);
-            binding.noSlotText.setVisibility(View.GONE);
-            binding.bookintText.setVisibility(View.VISIBLE);
-            binding.bottomConstraint.setVisibility(View.VISIBLE);
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            Date date1=null;
-            Date date2=null;
-            try {
-                date1=format.parse(data.getStringExtra(Constants.SLOT_START_TIME));
-                date2=format.parse(data.getStringExtra(Constants.SLOT_END_TIME));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            long hour = CommonMethods.getDiffrenceTwoTimes(date1,date2);
-//            Toast.makeText(this, "hour="+hour, Toast.LENGTH_SHORT).show();
-
-//            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
-//            if(firstWord.contains(" ")){
-//                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
-//
-//            }
-            totalHours=totalHours+(int)hour;
-//            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
-            setTotalPrice(totalHours);
-        }else{
+        if (requestCode == SLOT_REQUEST && resultCode == RESULT_OK && data != null) {
+            setDataToAdapter(data);
+        } else {
             Toast.makeText(this, "No Slot Created", Toast.LENGTH_SHORT).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void hitSpaceDetailAPI() {
@@ -440,22 +392,27 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onResponse(Call<SpaceDetailResponse> call, Response<SpaceDetailResponse> response) {
                 progressDialog.dismiss();
-
+                data = new ArrayList<>();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
+//
 
                             binding.eventBookMarathonHeaderTv.setText(response.body().getData().getName());
                             binding.eventVanueDetailTv.setText(response.body().getData().getLocation());
                             binding.eventTimeDetailTv.setText(response.body().getData().getOpen_hours_from());
 //                            binding.eventDateDetailTv.setText(response.body().getData().getAvailability_week());
                             binding.pricePerdayTv.setText("(Total Hours * " + response.body().getData().getPrice_hourly() + ")");
-                            binding.eventEndTime.setText( response.body().getData().getOpen_hours_to());
-                            startWeekList=CommonMethods.getDaysFromId(response.body().getData().getAvailability_week(),CommonMethods.getWeekDaysList());
+                            binding.eventEndTime.setText(response.body().getData().getOpen_hours_to());
+                            startWeekList = CommonMethods.getDaysFromId(response.body().getData().getAvailability_week(), CommonMethods.getWeekDaysList());
 //                            binding.totlaPriceTv.setText("Price per Hour * Hours");
                             pricePerday = response.body().getData().getPrice_hourly();
-//                            ticketPrice = response.body().getData().getPrice();
-//                            binding.text1.setText((ticket + " * " + countVAlue) + "");
+                            if (startWeekList != null && startWeekList.size() > 0) {
+                                binding.eventDateDetailTv.setText(startWeekList.get(0).getDayName() + "..");
+                            }
+                            if (intentFrom) {
+                                setDataToAdapter(intent);
+                            }
                             try {
                                 if (response.body().getData().getImages() != null) {
                                     JSONArray jsonArray = new JSONArray(response.body().getData().getImages());
@@ -479,7 +436,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
 
                     } catch (Exception e) {
@@ -500,10 +457,16 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void removeSlot(int position) {
-        removeDate=formatDate(results.get(position).getBooking_date());
-        if (SelectedServiceList.getInstance().getList()!=null && SelectedServiceList.getInstance().getList().size()>0){
-            for (int i=0;i<SelectedServiceList.getInstance().getList().size();i++){
-                if (removeDate.compareTo(formatDate(SelectedServiceList.getInstance().getList().get(i).getName())) == 0){
+        removeDate = formatDate(results.get(position).getBooking_date());
+        if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
+            for (int i = 0; i < SelectedServiceList.getInstance().getList().size(); i++) {
+                if (removeDate.compareTo(formatDate(SelectedServiceList.getInstance().getList().get(i).getName())) == 0) {
+                    totalPrice = String.valueOf((Integer.parseInt(totalPrice) - pricePerday));
+                    long hour = CommonMethods.getDiffrenceTwoTimes(CommonMethods.formatHour(results.get(position).getFrom_time()), CommonMethods.formatHour(results.get(position).getTo_time()));
+                    totalHours = totalHours - (int) hour;
+                    setTotalPrice(totalHours);
+//                    setTotalPrice((Integer.parseInt(totalPrice))-totalHours-(int)hour);
+//                    totalPrice=String.valueOf((Integer.parseInt(totalPrice))-totalHours-(int)hour);
                     SelectedServiceList.getInstance().getList().remove(i);
                     break;
                 }
@@ -511,6 +474,58 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         }
         results.remove(position);
         adapter.notifyDataSetChanged();
+        if (results.size() == 0) {
+            binding.noSlotCalendar.setVisibility(View.VISIBLE);
+            binding.noSlotText.setVisibility(View.VISIBLE);
+            binding.bookintText.setVisibility(View.GONE);
+            binding.bottomConstraint.setVisibility(View.GONE);
+        }
     }
 
+    public void setDataToAdapter(Intent data) {
+        slotModel = new SlotModel();
+        slotModel.setFrom_time(data.getStringExtra(Constants.SLOT_START_TIME));
+        slotModel.setTo_time(data.getStringExtra(Constants.SLOT_END_TIME));
+        String date = (data.getStringExtra(Constants.SLOT_DATE)).replace("-", "/");
+        slotModel.setBooking_date(date);
+//            results.add(slotModel);
+        ServiceListDataModel serviceListDataModel = new ServiceListDataModel();
+
+        serviceListDataModel.setName(date);
+        SelectedServiceList.getInstance().getList().add(serviceListDataModel);
+        adapter.add(slotModel);
+        binding.noSlotCalendar.setVisibility(View.GONE);
+        binding.noSlotText.setVisibility(View.GONE);
+        binding.bookintText.setVisibility(View.VISIBLE);
+        binding.bottomConstraint.setVisibility(View.VISIBLE);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = format.parse(data.getStringExtra(Constants.SLOT_START_TIME));
+            date2 = format.parse(data.getStringExtra(Constants.SLOT_END_TIME));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long hour = CommonMethods.getDiffrenceTwoTimes(date1, date2);
+//            Toast.makeText(this, "hour="+hour, Toast.LENGTH_SHORT).show();
+
+//            String firstWord = data.getStringExtra(Constants.SELECTED_SLOT);
+//            if(firstWord.contains(" ")){
+//                firstWord= firstWord.substring(0, firstWord.indexOf(" "));
+//
+//            }
+        totalHours = totalHours + (int) hour;
+//            Toast.makeText(this, ""+totalHours, Toast.LENGTH_SHORT).show();
+        setTotalPrice(totalHours);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        intentFrom = false;
+        SelectedServiceList.getInstance().getList().clear();
+        super.onDestroy();
+    }
 }

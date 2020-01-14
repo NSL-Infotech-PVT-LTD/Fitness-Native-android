@@ -96,6 +96,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
+
 //        timeSlotList.add("Select No. of Hours");
 //        timeSlotList.add("1 Hour");
 //        timeSlotList.add("2 Hour");
@@ -375,6 +376,8 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                             slotList.add(response.body().getData());
                             getSlotsFromArray();
 
+                        }else {
+                            Toast.makeText(SelectTimeSlot.this, "All Slots Booked for this date", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
