@@ -26,17 +26,14 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
     private Context context;
     private int previusPos = -1;
     private List<CoachListModel> supplierData;
-
     public TopCoachesAdapter(Context context, List supplierData) {
         this.context = context;
         this.supplierData = supplierData;
-
     }
 
     @NonNull
     @Override
     public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_coaches_recycler_design, parent, false);
         return new CustomTopCoachesHolder(view);
     }
@@ -46,7 +43,6 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
         final CoachListModel data = supplierData.get(position);
         Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + data.getProfile_image()).thumbnail(Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + data.getProfile_image())).into(holder.imageView);
         holder.name.setText(data.getName());
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +52,10 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
                 topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
                 topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "1");
                 context.startActivity(topCoachesDetails);
-
-
             }
         });
 
-        if (data.getRating()!=null) {
+        if (data.getRating() != null) {
             if (data.getRating().equalsIgnoreCase("0")) {
                 holder.noRatingTv.setVisibility(View.VISIBLE);
                 holder.topCoachRating.setVisibility(View.GONE);
@@ -79,15 +73,11 @@ public class TopCoachesAdapter extends RecyclerView.Adapter<TopCoachesAdapter.Cu
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
-
         AppCompatImageView imageView;
-        MaterialTextView name,noRatingTv;
+        MaterialTextView name, noRatingTv;
         RatingBar topCoachRating;
-
-
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.topCoachesRecyclerImg);
             name = itemView.findViewById(R.id.topCoachesRecyclerTv);
             noRatingTv = itemView.findViewById(R.id.noRatingView);

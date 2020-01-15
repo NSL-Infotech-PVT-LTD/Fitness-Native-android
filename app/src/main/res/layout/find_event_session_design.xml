@@ -105,7 +105,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:maxLength="18"
                 android:singleLine="true"
-
+                android:ellipsize="end"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintLeft_toRightOf="@id/findPlaceCandidateTv"
                 app:layout_constraintRight_toRightOf="parent"

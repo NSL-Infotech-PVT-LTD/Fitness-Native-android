@@ -120,11 +120,12 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (getIntent().getExtras() != null) {
             coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
             type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
-            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + "+ Years ");
+            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
             binding.detailUserBioTv.setText(coachListModel.getBio());
             binding.detailPriceTv.setText("$"+coachListModel.getHourly_rate() + "");
             binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-            binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + "+ Years");
+            binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
+            binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
             binding.detailUserName.setText(coachListModel.getName());
             binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
             if (coachListModel.getRating()!=null) {

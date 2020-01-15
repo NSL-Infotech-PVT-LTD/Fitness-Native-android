@@ -145,19 +145,19 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         binding.createEventEndTime.setText(data.getEnd_time());
         binding.createEventCapicityEdt.setText(data.getGuest_allowed() + "");
         binding.createEventEquipmentEdt.setText(data.getEquipment_required());
-        binding.eventPrice.setText(data.getPrice());
+        binding.eventPrice.setText(data.getPrice() + "");
 
         locationLat = data.getLatitude() + "";
         locationLong = data.getLongitude() + "";
 
         binding.createEventBtn.setText("Update");
 
-        if (selectedServices != null && selectedServices.size() > 0) {
-            for (int i = 0; i < selectedServices.size(); i++) {
-                if (data.getService_id() == selectedServices.get(i).getId()) {
+        if (dropDownList != null && dropDownList.size() > 0) {
+            for (int i = 0; i < dropDownList.size(); i++) {
+                if (data.getSport_id() == dropDownList.get(i).getId()) {
                     createEventServiceSpinner.setSelection(i);
-                    serviIds = String.valueOf(selectedServices.get(i).getId());
-                    servicePrice = String.valueOf(selectedServices.get(i).getPrice());
+                    sportId = String.valueOf(dropDownList.get(i).getId());
+//                    servicePrice = String.valueOf(selectedServices.get(i).getPrice());
 
                 }
             }
@@ -181,7 +181,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 createEventServiceSpinner.setSelection(i);
                 if (i == 0) {
-                    sportId="";
+                    sportId = "";
                 } else {
                     sportId = String.valueOf(dropDownList.get(i).getId());
                 }
@@ -211,6 +211,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             }
         }
     }
+
     private void getSelectedSports() {
         String serviceIds = CommonMethods.getPrefData(PrefrenceConstant.SPORTS_NAME, getApplicationContext());
         Gson gson = new Gson();
@@ -322,15 +323,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
 
                 timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
-
-
 //                int currentTime = LocalTime.parse(startTime);
-
                 binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
-
 //                Date time = Calendar.getInstance().getTime();
 //                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
-//
 //                String timeNow=timeFormat.format(time);
                 if (stDate != null && endDate != null) {
 //                    if (endDate.compareTo(stDate) == 0) {
@@ -400,6 +396,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         timePickerDialog.show();
     }
 
+
+
     private Date formatTime(String time) {
         Date formated = null;
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -438,6 +436,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
+
 
     private void getEndDate() {
         Calendar c = Calendar.getInstance();
@@ -657,7 +657,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         requestBodyMap.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), eventAddress));
         requestBodyMap.put("latitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLat));
         requestBodyMap.put("longitude", RequestBody.create(MediaType.parse("multipart/form-data"), locationLong));
-        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
+//        requestBodyMap.put("service_id", RequestBody.create(MediaType.parse("multipart/form-data"), serviIds));
+        requestBodyMap.put("sport_id", RequestBody.create(MediaType.parse("multipart/form-data"), sportId));
         requestBodyMap.put("guest_allowed", RequestBody.create(MediaType.parse("multipart/form-data"), eventCapacity));
         requestBodyMap.put("equipment_required", RequestBody.create(MediaType.parse("multipart/form-data"), eventEquipments));
         requestBodyMap.put("device_type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TYPE));

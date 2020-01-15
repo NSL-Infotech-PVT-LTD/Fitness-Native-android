@@ -914,7 +914,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 progressDialog.dismiss();
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
                 Toast.makeText(AthleteHomeScreen.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-
             }
         });
     }

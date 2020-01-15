@@ -134,12 +134,12 @@ public class O_RegistrationProfile extends Fragment {
 
 
         binding.oNameTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
-        binding.cYearsOfExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context) + "+ Years");
+        binding.cYearsOfExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context) + " Years");
         binding.orgBioTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, context));
         binding.detailPriceTv.setText("$ "+CommonMethods.getPrefData(PrefrenceConstant.PRICE, context));
         binding.eventTimeDetailTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_START, context));
         binding.eventToTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, context));
-        binding.oExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context) + "+ Years");
+        binding.oExpTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context) + " Years");
 
         getService();
         cChipGroup = new ChipGroup(context);

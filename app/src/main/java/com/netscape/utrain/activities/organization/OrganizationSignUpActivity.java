@@ -108,6 +108,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.netscape.utrain.utils.CommonMethods.getFilePathFrom;
+
+
 public class OrganizationSignUpActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
@@ -532,13 +535,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             isPermissionGranted(OrganizationSignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE,
                     Constants.MY_PERMISSION_GALLERY);
         } else {
-            Intent photoPickerIntent=null;
-            if (policeDoc){
-                photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            Intent photoPickerIntent = null;
+            if (policeDoc) {
+                photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 photoPickerIntent.setType("*/*");
 //                photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 //                photoPickerIntent.addCategory(Intent.CATEGORY_OPENABLE);
-            }else {
+            } else {
                 photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
             }
@@ -688,7 +691,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private void hitOrgSignUpApi() {
         if (activeUserType.equals(Constants.TypeOrganization)) {
 //            Intent intent = new Intent(OrganizationSignUpActivity.this,  ServicePriceActivity.class);
-            Intent intent = new Intent(OrganizationSignUpActivity.this,  ChooseSportActivity.class);
+            Intent intent = new Intent(OrganizationSignUpActivity.this, ChooseSportActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra(Constants.OrgSignUpIntent, orgDataModel);
             intent.putExtra(Constants.ActiveUserType, Constants.TypeOrganization);
@@ -825,7 +828,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
         mylocation = location;
@@ -867,6 +869,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
+
             if (resultCode == RESULT_OK) {
                 String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
                 photoFile = new File(filePath);
@@ -886,27 +889,34 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            String realPath=null;
-            String filePath=null;
-//            if (policeDoc){
-//                realPath=data.getData().getPath();
-//                filePath=realPath;
-//            }else {
-                 realPath = ImageFilePath.getPath(this, data.getData());
-                 filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
-//            }
-            if (filePath != null) {
-                photoFile = new File(filePath);
-            }
-            if (photoFile != null)
-//                plus.setVisibility(View.GONE);
-                if (policeDoc) {
-                    policeDoceFile = photoFile;
-                    policeDoc = false;
-                }else {
+            String realPath = null;
+            String filePath = null;
+            if (policeDoc) {
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    realPath = getFilePathFrom(data.getData(), this);
+
+                } else
+                    realPath = ImageFilePath.getPath(this, data.getData());
+//                filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+                if (realPath != null) {
+                    policeDoceFile = new File(realPath);
+                }
+//                realPath=CommonMethods.getRealPathFromURI(data.getData(),OrganizationSignUpActivity.this);
+//                filePath = file.toString();
+            } else {
+                realPath = ImageFilePath.getPath(this, data.getData());
+                filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
+
+                if (filePath != null) {
+                    photoFile = new File(filePath);
+                }
+                if (photoFile != null)
                     Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
 
-                }
+
+            }
         }
     }
 

@@ -581,12 +581,13 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
 //        requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.DEVICE_TOKEN));
 
         List<MultipartBody.Part> parts = new ArrayList<>();
+        parts.add(userImg);
+        parts.add(policeDoc);
         parts.add(portFolioImage1);
         parts.add(portFolioImage2);
         parts.add(portFolioImage3);
         parts.add(portFolioImage4);
-        parts.add(userImg);
-        parts.add(policeDoc);
+
 
 
         Call<OrgSignUpResponse> signUpAthlete = retrofitinterface.registerOrganization(requestBodyMap, parts);

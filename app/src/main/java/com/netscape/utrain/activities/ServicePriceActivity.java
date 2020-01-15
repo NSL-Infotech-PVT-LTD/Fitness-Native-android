@@ -183,7 +183,7 @@ public class ServicePriceActivity extends AppCompatActivity implements View.OnCl
             userImg = MultipartBody.Part.createFormData("profile_image", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getProfile_img()));
         }
         if (orgDataModel.getProfile_img() != null) {
-            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getProfile_img().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
+            policeDoc = MultipartBody.Part.createFormData("police_doc", orgDataModel.getPolice_doc().getName(), RequestBody.create(MediaType.parse("image/*"), orgDataModel.getPolice_doc()));
         }
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("name", RequestBody.create(MediaType.parse("multipart/form-data"), orgDataModel.getName()));
