@@ -270,13 +270,12 @@ public class CommonMethods {
 
     public static List<SelectSpaceDaysModel> getDaysFromId(List selectedId, List<SelectSpaceDaysModel> list) {
         List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
-
         if ((selectedId != null && list != null) && (selectedId.size() > 0 && list.size() > 0)) {
             for (int i = 0; i < selectedId.size(); i++) {
 
                 for (int j = 0; j < list.size(); j++) {
                     if (selectedId.get(i).toString().equalsIgnoreCase(list.get(j).getDaySeleced().toString())) {
-                        startWeekList.add(list.get(i));
+                        startWeekList.add(list.get(j));
                         break;
                     }
                 }
@@ -484,15 +483,23 @@ public class CommonMethods {
         StringTokenizer tokens = new StringTokenizer(value, splitFrom);
         String first = tokens.nextToken();// this will contain "Fruit"
         String second = tokens.nextToken();
-
         return first;
     }
 
     public String getDateInStringFormat(Date sdate) {
-
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         CharSequence checkForMonth = DateFormat.format("yyyy-MM-dd", sdate);
         String date = checkForMonth + "";
+        return date;
+    }
+    public static Date convertDateInDays(String dtStart){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(dtStart);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return date;
     }
 

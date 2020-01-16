@@ -370,13 +370,13 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
-                        if (response.body().getData() != null && response.body().getData().getAvailable_slot().size()>0) {
+                        if (response.body().getData() != null && response.body().getData().getAvailable_slot().size() > 0) {
                             binding.constraintChipGroup.setVisibility(View.VISIBLE);
                             binding.selectTimeSlotText.setVisibility(View.VISIBLE);
                             slotList.add(response.body().getData());
                             getSlotsFromArray();
 
-                        }else {
+                        } else {
                             Toast.makeText(SelectTimeSlot.this, "All Slots Booked for this date", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -471,7 +471,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                 endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
                 binding.endHour.setPadding(20, 0, 70, 0);
                 if (!TextUtils.isEmpty(startTime)) {
-                    if ((formatTime(endTime).before(formatTime(chipEndtime)) || formatTime(endTime).equals(formatTime(chipEndtime))) && formatTime(endTime).after(formatTime(startTime))) {
+                    if ((formatTime(endTime).before(formatTime(chipEndtime)) || (formatTime(endTime).equals(formatTime(chipEndtime))) || formatTime(endTime).equals(formatTime(chipEndtime))) && formatTime(endTime).after(formatTime(startTime))) {
 //                        if ((Integer.parseInt(convertDate(minute)))>00){
 //                            Toast.makeText(SelectTimeSlot.this, "Select in fixed hour", Toast.LENGTH_SHORT).show();
 //                        }

@@ -83,18 +83,18 @@ import retrofit2.Response;
 public class OrgHomeScreen extends AppCompatActivity {
     public DrawerLayout drawer;
     public BottomNavigationView orgNavView;
+    boolean isInternetPresent = false;
     private TextView mTextMessage;
     private OActivityBottomNavigationBinding binding;
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView orgDrawerImageNew;
     private CircleImageView navImageView;
-    private MaterialTextView navNameTv;
+    private MaterialTextView navNameTv, orgNotification;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
-    boolean isInternetPresent = false;
     private AlertDialog dialogMultiOrder;
-    private int count=0;
-    private ArrayList<String>data;
+    private int count = 0;
+    private ArrayList<String> data;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -104,34 +104,47 @@ public class OrgHomeScreen extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
+                    orgNotification.setText("");
                     fragment = new O_HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                    orgNotification.setText("");
                     fragment = new TransactionFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    orgNotification.setText("");
                     fragment = new O_RegistrationProfile();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
 
-//                    mTextMessage.setText(R.string.title_notifications);
+                    orgNotification.setText("");
                     fragment = new O_HistoryFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     SetNotificationRead();
-//                    mTextMessage.setText(R.string.title_notifications);
+                    orgNotification.setText(R.string.title_notifications);
                     fragment = new A_NotificationFragment();
                     loadFragment(fragment);
                     return true;
             }
             return false;
+        }
+    };
+    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent bufferIntent) {
+            String status = CheckNetwork.getConnectivityStatusString(context);
+            if (status.equals("WIFI") || status.equals("MOBILE")) {
+                isInternetPresent = true;
+            } else if (status.equals("No Connection")) {
+                isInternetPresent = false;
+            }
+
+            showNetworkState();
         }
     };
 
@@ -143,13 +156,14 @@ public class OrgHomeScreen extends AppCompatActivity {
         orgDrawerImageNew = findViewById(R.id.orgDrawerImageNew);
         orgNavView = findViewById(R.id.orgNavView);
         drawer = findViewById(R.id.orgdrawer_layout);
+        orgNotification = findViewById(R.id.orgNotification);
         navImageView = binding.orgSlider.getHeaderView(0).findViewById(R.id.naviProfileImage);
         navNameTv = binding.orgSlider.getHeaderView(0).findViewById(R.id.navNameTv);
         String path = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, OrgHomeScreen.this);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading..");
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
 
 //        Glide.with(OrgHomeScreen.this).load(Constants.ORG_IMAGE_BASE_URL+path).into(navImageView);
         Glide.with(OrgHomeScreen.this).load(path).into(navImageView);
@@ -352,9 +366,10 @@ public class OrgHomeScreen extends AppCompatActivity {
             }, 2000);
         }
     }
+
     private void HitLogoutApi() {
         progressDialog.show();
-        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, OrgHomeScreen.this));
+        Call<LogoutResponse> signUpAthlete = retrofitinterface.LogoutApi(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, OrgHomeScreen.this));
         signUpAthlete.enqueue(new Callback<LogoutResponse>() {
             @Override
             public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
@@ -362,7 +377,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(),response.body().getData().getScalar().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(OrgHomeScreen.this);
                             Intent intent = new Intent(OrgHomeScreen.this, SignUpTypeActivity.class);
@@ -377,10 +392,10 @@ public class OrgHomeScreen extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.orgContainer, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgContainer, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.orgContainer, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgContainer, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -394,7 +409,6 @@ public class OrgHomeScreen extends AppCompatActivity {
         });
     }
 
-
     private void setBadgeToNotification(int num) {
         BadgeDrawable badge = orgNavView.getOrCreateBadge(R.id.navigation_notifications);
         badge.setBadgeGravity(BadgeDrawable.TOP_END);
@@ -405,7 +419,7 @@ public class OrgHomeScreen extends AppCompatActivity {
 
     private void GetNewNotificationCount() {
 //        progressDialog.show();
-        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,OrgHomeScreen.this));
+        Call<NotificationCountResponse> signUpAthlete = retrofitinterface.getNewNotificationCount(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, OrgHomeScreen.this));
         signUpAthlete.enqueue(new Callback<NotificationCountResponse>() {
             @Override
             public void onResponse(Call<NotificationCountResponse> call, Response<NotificationCountResponse> response) {
@@ -414,7 +428,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
 //                            Toast.makeText(getApplicationContext(),response.body().getData().getNotification_count(),Toast.LENGTH_SHORT).show();
-                            if (response.body().getData().getNotification_count()>0){
+                            if (response.body().getData().getNotification_count() > 0) {
                                 setBadgeToNotification(response.body().getData().getNotification_count());
                             }
 
@@ -443,9 +457,10 @@ public class OrgHomeScreen extends AppCompatActivity {
             }
         });
     }
+
     private void SetNotificationRead() {
 //        progressDialog.show();
-        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN,OrgHomeScreen.this));
+        Call<NotificationReadResponse> signUpAthlete = retrofitinterface.setNewNotificationRead(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, OrgHomeScreen.this));
         signUpAthlete.enqueue(new Callback<NotificationReadResponse>() {
             @Override
             public void onResponse(Call<NotificationReadResponse> call, Response<NotificationReadResponse> response) {
@@ -471,6 +486,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                 }
 
             }
+
             @Override
             public void onFailure(Call<NotificationReadResponse> call, Throwable t) {
 //                Snackbar.make(binding.athHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -491,31 +507,20 @@ public class OrgHomeScreen extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(networkReceiver);
     }
-    private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent bufferIntent) {
-            String status = CheckNetwork.getConnectivityStatusString(context);
-            if(status.equals("WIFI") || status.equals("MOBILE")) {
-                isInternetPresent = true;
-            } else if(status.equals("No Connection")) {
-                isInternetPresent = false;
-            }
 
-            showNetworkState();
-        }
-    };
-    public void showNetworkState(){
-        if(isInternetPresent) {
+    public void showNetworkState() {
+        if (isInternetPresent) {
 //            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show();
 //            networkConnectionImageView.setVisibility(View.VISIBLE);
         } else {
-            if (count==0) {
+            if (count == 0) {
                 handleImageSelection();
             }
 //            Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show();
 //            noNetworkConnectionImageView.setVisibility(View.VISIBLE);
         }
     }
+
     public void handleImageSelection() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -531,8 +536,8 @@ public class OrgHomeScreen extends AppCompatActivity {
         retry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInternetPresent) {
-                    count=0;
+                if (isInternetPresent) {
+                    count = 0;
                     dialogMultiOrder.dismiss();
                 } else {
                 }
@@ -541,9 +546,10 @@ public class OrgHomeScreen extends AppCompatActivity {
         });
 
         dialogMultiOrder.show();
-        count=1;
+        count = 1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
     @Override
     public void onNewIntent(Intent intentData) {
 
@@ -553,25 +559,25 @@ public class OrgHomeScreen extends AppCompatActivity {
 //        if (extras !=null) {
 //            Log.d("SystemTray", extras.toString());
 //        }
-        String data=intentData.getStringExtra("pushnotification");
+        String data = intentData.getStringExtra("pushnotification");
 //        Log.d("StringNoti",data);
         if (data != null) {
-            String typeData="";
-            String id="";
-            String targetType="";
+            String typeData = "";
+            String id = "";
+            String targetType = "";
             try {
                 JSONObject jsonObject = new JSONObject(data);
-                JSONObject jsonObject1=jsonObject.getJSONObject("data");
+                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                 typeData = jsonObject1.getString("target_model");
                 id = jsonObject1.getString("target_id");
-                if (jsonObject1.getString("target_type")!=null)
+                if (jsonObject1.getString("target_type") != null)
                     targetType = jsonObject1.getString("target_type");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-            if (typeData.equalsIgnoreCase("space")){
+            if (typeData.equalsIgnoreCase("space")) {
                 hitSpaceDetailAPI(id);
             }
             if (typeData.equalsIgnoreCase("booking")) {
@@ -602,7 +608,8 @@ public class OrgHomeScreen extends AppCompatActivity {
             Log.d("pushnotification", "onNewIntent: " + data);
         }
     }
-    public  void hitSpaceDetailAPI(String id) {
+
+    public void hitSpaceDetailAPI(String id) {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -629,14 +636,14 @@ public class OrgHomeScreen extends AppCompatActivity {
                             intent.putExtra("event_id", response.body().getData().getId() + "");
                             intent.putExtra("from", "places");
                             intent.putExtra("desc", response.body().getData().getDescription());
-                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
-                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude() + "");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude() + "");
                             Bundle b = new Bundle();
                             b.putString("Array", response.body().getData().getImages());
                             intent.putExtras(b);
-                            data=new ArrayList<>();
-                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
-                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
+                            data = new ArrayList<>();
+                            data = (ArrayList<String>) response.body().getData().getAvailability_week();
+                            intent.putStringArrayListExtra(Constants.SPACE_DATA, data);
                             startActivity(intent);
 
                         }
@@ -648,19 +655,20 @@ public class OrgHomeScreen extends AppCompatActivity {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 //                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                        Toast.makeText(OrgHomeScreen.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrgHomeScreen.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
-                        Toast.makeText(OrgHomeScreen.this, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrgHomeScreen.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(OrgHomeScreen.this, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrgHomeScreen.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 

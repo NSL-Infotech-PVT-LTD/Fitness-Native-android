@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog progressDialog;
     private String isNotify = "";
     private String notify = "";
-    private int count=0;
+    private int count = 0;
 
 
     @Override
@@ -134,79 +134,79 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View view) {
 
                 // change password api hit here....
-                if (count==0){
-                final AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                LayoutInflater inflater = LayoutInflater.from(SettingsActivity.this);
-                View content = inflater.inflate(R.layout.change_password_layout, null);
-                builder.setView(content);
-                oldPwd = content.findViewById(R.id.oldPasswordEnter);
-                newPwd = content.findViewById(R.id.newPasswordEnter);
-                confirmPwd = content.findViewById(R.id.confirmNewPasswordEnter);
-                MaterialButton changePasswordBtn = content.findViewById(R.id.changePasswordBtn);
-                AppCompatImageView cancel = content.findViewById(R.id.changePwdCancelImg);
-                dialogMultiOrder = builder.create();
-                dialogMultiOrder.setCancelable(false);
+                if (count == 0) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                    LayoutInflater inflater = LayoutInflater.from(SettingsActivity.this);
+                    View content = inflater.inflate(R.layout.change_password_layout, null);
+                    builder.setView(content);
+                    oldPwd = content.findViewById(R.id.oldPasswordEnter);
+                    newPwd = content.findViewById(R.id.newPasswordEnter);
+                    confirmPwd = content.findViewById(R.id.confirmNewPasswordEnter);
+                    MaterialButton changePasswordBtn = content.findViewById(R.id.changePasswordBtn);
+                    AppCompatImageView cancel = content.findViewById(R.id.changePwdCancelImg);
+                    dialogMultiOrder = builder.create();
+                    dialogMultiOrder.setCancelable(false);
 
 
-                changePasswordBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        sOldPassword = oldPwd.getText().toString().trim();
-                        sNewPassword = newPwd.getText().toString().trim();
-                        sConfirmPwd = confirmPwd.getText().toString().trim();
+                            sOldPassword = oldPwd.getText().toString().trim();
+                            sNewPassword = newPwd.getText().toString().trim();
+                            sConfirmPwd = confirmPwd.getText().toString().trim();
 
-                        if (sOldPassword.isEmpty()) {
-                            oldPwd.setError(getResources().getString(R.string.enter_old_password));
-                            oldPwd.requestFocus();
-                        } else if (sNewPassword.isEmpty()) {
-                            newPwd.setError(getResources().getString(R.string.enter_new_password));
-                            newPwd.requestFocus();
-                        } else if (sNewPassword.length() < 6) {
-                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
-                            newPwd.requestFocus();
-                        } else if (sNewPassword.length() > 8) {
-                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
-                            newPwd.requestFocus();
-                        } else if (sConfirmPwd.isEmpty()) {
-                            confirmPwd.setError(getResources().getString(R.string.enter_confirm_password));
-                            confirmPwd.requestFocus();
-                        } else if (sConfirmPwd.length() < 6) {
-                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
-                            confirmPwd.requestFocus();
-                        } else if (sConfirmPwd.length() > 8) {
-                            Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
-                            confirmPwd.requestFocus();
+                            if (sOldPassword.isEmpty()) {
+                                oldPwd.setError(getResources().getString(R.string.enter_old_password));
+                                oldPwd.requestFocus();
+                            } else if (sNewPassword.isEmpty()) {
+                                newPwd.setError(getResources().getString(R.string.enter_new_password));
+                                newPwd.requestFocus();
+                            } else if (sNewPassword.length() < 6) {
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                                newPwd.requestFocus();
+                            } else if (sNewPassword.length() > 8) {
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                                newPwd.requestFocus();
+                            } else if (sConfirmPwd.isEmpty()) {
+                                confirmPwd.setError(getResources().getString(R.string.enter_confirm_password));
+                                confirmPwd.requestFocus();
+                            } else if (sConfirmPwd.length() < 6) {
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                                confirmPwd.requestFocus();
+                            } else if (sConfirmPwd.length() > 8) {
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.password_length), Toast.LENGTH_SHORT).show();
+                                confirmPwd.requestFocus();
 
-                        } else if (!sNewPassword.equals(sConfirmPwd)) {
+                            } else if (!sNewPassword.equals(sConfirmPwd)) {
 
-                            confirmPwd.setError(getResources().getString(R.string.confirm_password_doesnt_match));
-                            confirmPwd.requestFocus();
+                                confirmPwd.setError(getResources().getString(R.string.confirm_password_doesnt_match));
+                                confirmPwd.requestFocus();
 //                            if (sNewPassword.equals(sConfirmPwd)) {
 //                                newPwd.setError("");
 //                                confirmPwd.setError("");
 //
 //                            }
-                        } else {
-                            hitChangePasswordApi();
-                            count=0;
+                            } else {
+                                hitChangePasswordApi();
+                                count = 0;
+                            }
                         }
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        count=0;
-                        dialogMultiOrder.dismiss();
+                    });
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            count = 0;
+                            dialogMultiOrder.dismiss();
 
-                    }
-                });
-                count=1;
-                dialogMultiOrder.show();
-                dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        }
+                    });
+                    count = 1;
+                    dialogMultiOrder.show();
+                    dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                }
             }
-        }
         });
 
     }
@@ -218,12 +218,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         binding.chooseServicesClickimg.setOnClickListener(this);
         binding.termAndConditionsTv.setOnClickListener(this);
         binding.helpSupportClickImg.setOnClickListener(this);
+        binding.orgPortFolioViewSelect.setOnClickListener(this);
 
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Athlete)) {
             binding.cAddedFieldLayout.setVisibility(View.GONE);
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
-            binding.chooseSportsTv.setText("Portfolio images");
+            binding.orgPortFolioTv.setVisibility(View.VISIBLE);
+            binding.orgPortFolioViewSelect.setVisibility(View.VISIBLE);
+            binding.orgPortFolioIcon.setVisibility(View.VISIBLE);
+            binding.orgPortFolioView.setVisibility(View.VISIBLE);
+//            binding.chooseSportsTv.setText("Portfolio images");
 //            binding.chooseSportsClickImg.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
@@ -256,21 +261,30 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(chooProfile);
                 break;
             case R.id.chooseSportsClickImg:
-                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
-                    PortfolioActivity.clearFromConstants();
-                    Intent getImages = new Intent(SettingsActivity.this, PortfolioActivity.class);
-                    getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    PortfolioActivity.updateImages = true;
-                    getImages.putExtra("updateEventImg", CommonMethods.getPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, SettingsActivity.this));
-                    getImages.putExtra("updateImgType", "portfolioImages");
-                    startActivityForResult(getImages, IMAGE_GET);
-                } else {
+//                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
+//                    PortfolioActivity.clearFromConstants();
+//                    Intent getImages = new Intent(SettingsActivity.this, PortfolioActivity.class);
+//                    getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//                    PortfolioActivity.updateImages = true;
+//                    getImages.putExtra("updateEventImg", CommonMethods.getPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, SettingsActivity.this));
+//                    getImages.putExtra("updateImgType", "portfolioImages");
+//                    startActivityForResult(getImages, IMAGE_GET);
+//                } else {
                     Intent chooseSport = new Intent(SettingsActivity.this, ChooseSportActivity.class);
                     CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
                     ChooseSportActivity.athUpdate = true;
                     chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(chooseSport);
-                }
+//                }
+                break;
+            case R.id.orgPortFolioViewSelect:
+                PortfolioActivity.clearFromConstants();
+                Intent getImages = new Intent(SettingsActivity.this, PortfolioActivity.class);
+                getImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                PortfolioActivity.updateImages = true;
+                getImages.putExtra("updateEventImg", CommonMethods.getPrefData(PrefrenceConstant.PORT_FOLIO_IMAGES, SettingsActivity.this));
+                getImages.putExtra("updateImgType", "portfolioImages");
+                startActivityForResult(getImages, IMAGE_GET);
                 break;
             case R.id.chooseServicesClickimg:
                 SelectedServiceList.getInstance().getList().clear();
@@ -282,9 +296,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(servicePrice);
                 break;
             case R.id.termAndConditionsTv:
-                Intent chooseSport = new Intent(SettingsActivity.this, TermsAndConditions.class);
-                chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(chooseSport);
+                Intent portFoliImages = new Intent(SettingsActivity.this, TermsAndConditions.class);
+                portFoliImages.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(portFoliImages);
                 break;
             case R.id.helpSupportClickImg:
                 Intent helpAndSupport = new Intent(SettingsActivity.this, HelpAndSupport.class);

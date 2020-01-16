@@ -40,6 +40,7 @@ public class OrgUserModel {
     private String portfolio_image;
     private String updated_at;
     private String created_at;
+    private String sport_id;
     private String achievements;
     private String profession;
     private String experience_detail;
@@ -47,6 +48,14 @@ public class OrgUserModel {
     private int id;
     private List<ServiceIdModel> service_ids;
     private List<RolesModel> roles;
+
+    public String getSport_id() {
+        return sport_id;
+    }
+
+    public void setSport_id(String sport_id) {
+        this.sport_id = sport_id;
+    }
 
     public String getAchievements() {
         return achievements;

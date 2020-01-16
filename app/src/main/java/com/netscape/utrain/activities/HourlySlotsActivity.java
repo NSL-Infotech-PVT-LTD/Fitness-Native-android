@@ -206,7 +206,12 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
     @Override
     public void onDayClick(Date date) {
         slotsForDate = commonMethods.getDateInStringFormat(date);
-        hitSpaceDetailAPI(slotsForDate);
+        if (date.getTime() > System.currentTimeMillis()) {
+            hitSpaceDetailAPI(slotsForDate);
+        }else {
+            Toast.makeText(this, "Select valid date", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

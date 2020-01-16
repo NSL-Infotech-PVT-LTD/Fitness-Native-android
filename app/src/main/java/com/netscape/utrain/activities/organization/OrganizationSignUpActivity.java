@@ -206,6 +206,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgPasswordEdt.setVisibility(View.GONE);
             binding.orgPasswordEdtLayout.setVisibility(View.GONE);
             binding.organizationPassTv.setVisibility(View.GONE);
+            binding.policeDoceTv.setVisibility(View.GONE);
 
 
             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
@@ -579,6 +580,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgDataModel.setHourly_rate(orgHourlyRate);
         orgDataModel.setPolice_doc(policeDoceFile);
 
+
         if (orgName.isEmpty()) {
             binding.orgNameEdt.setError(getResources().getString(R.string.enter_name));
             binding.orgNameEdt.requestFocus();
@@ -639,24 +641,29 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (Float.parseFloat(binding.orgHourlyRateEdt.getText().toString()) < 4) {
             Toast.makeText(OrganizationSignUpActivity.this, "Hourly rate should not less than 4", Toast.LENGTH_SHORT).show();
             binding.orgHourlyRateEdt.requestFocus();
-        } else if (policeDoceFile == null) {
-            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.upload_police_varrification_doc), Toast.LENGTH_SHORT).show();
+//        } else if (policeDoceFile == null) {
+//            Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.upload_police_varrification_doc), Toast.LENGTH_SHORT).show();
+//
         } else if (photoFile == null) {
             if (update) {
                 getLoginUser();
             } else {
                 Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
-
             }
         } else {
             if (update) {
 
                 getLoginUser();
             } else {
-                orgDataModel.setProfile_img(photoFile);
-                orgDataModel.setLatitude(String.valueOf(latitude));
-                orgDataModel.setLongitude(String.valueOf(longitude));
-                hitOrgSignUpApi();
+                if (policeDoceFile == null) {
+                    Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.upload_police_varrification_doc), Toast.LENGTH_SHORT).show();
+                } else {
+
+                    orgDataModel.setProfile_img(photoFile);
+                    orgDataModel.setLatitude(String.valueOf(latitude));
+                    orgDataModel.setLongitude(String.valueOf(longitude));
+                    hitOrgSignUpApi();
+                }
             }
         }
     }

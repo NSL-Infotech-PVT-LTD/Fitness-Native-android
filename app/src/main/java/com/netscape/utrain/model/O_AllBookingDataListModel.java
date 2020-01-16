@@ -13,6 +13,7 @@ public class O_AllBookingDataListModel {
 
     private int id;
     private String type;
+    private String created_at;
     private int target_id;
     private int user_id;
     private int tickets;
@@ -22,6 +23,14 @@ public class O_AllBookingDataListModel {
     private O_AllBookingTargetDataModel target_data;
     private O_AllBookingUserDetailsModel user_details;
     private BookingDateModel booking_date;
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
 
     public boolean isIs_booking_my() {
         return is_booking_my;

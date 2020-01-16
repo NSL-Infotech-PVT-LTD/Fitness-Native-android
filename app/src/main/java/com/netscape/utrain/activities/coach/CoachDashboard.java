@@ -91,7 +91,7 @@ public class CoachDashboard extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private AppCompatImageView coachDrawer;
     private CircleImageView navImageView;
-    private MaterialTextView navNameTv;
+    private MaterialTextView navNameTv,CoachNotification;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private AlertDialog dialogMultiOrder;
@@ -106,29 +106,29 @@ public class CoachDashboard extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
+                    CoachNotification.setText("");
                     fragment = new C_HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                    CoachNotification.setText("");
                     fragment = new TransactionFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_reqimage:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    CoachNotification.setText("");
                     fragment = new O_NotificationFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
 
-//                    mTextMessage.setText(R.string.title_notifications);
+                    CoachNotification.setText("");
                     fragment = new O_HistoryFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     SetNotificationRead();
-//                    mTextMessage.setText(R.string.title_notifications);
+                    CoachNotification.setText(R.string.title_notifications);
                     fragment = new A_NotificationFragment();
                     loadFragment(fragment);
                     return true;
@@ -175,6 +175,7 @@ public class CoachDashboard extends AppCompatActivity {
         coachDrawer = findViewById(R.id.coachDrawer);
         orgNavView = findViewById(R.id.orgNavView);
         drawer = findViewById(R.id.orgdrawerlayout);
+        CoachNotification = findViewById(R.id.coachNotification);
 //        coachDrawer.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) { binding.orgdrawerlayout.openDrawer(GravityCompat.START);

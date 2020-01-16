@@ -17,6 +17,18 @@
         android:src="@drawable/ic_dashboard"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orgNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_14sdp"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/orgDrawerImageNew"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/orgDrawerImageNew"/>
+
 
     <fragment
         android:id="@+id/org_fragment"

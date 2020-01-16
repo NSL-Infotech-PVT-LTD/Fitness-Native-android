@@ -278,6 +278,11 @@ public interface Retrofitinterface {
                                                @Part MultipartBody.Part image);
     @Multipart
     @POST(Constants.ORG_UPDATE)
+    Call<OrgSignUpResponse> updateSports(@Header("Authorization") String auth,
+                                               @PartMap Map<String, RequestBody> sportsField);
+
+    @Multipart
+    @POST(Constants.ORG_UPDATE)
     Call<OrgSignUpResponse> updatePortFolioImages(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part List<MultipartBody.Part> files);

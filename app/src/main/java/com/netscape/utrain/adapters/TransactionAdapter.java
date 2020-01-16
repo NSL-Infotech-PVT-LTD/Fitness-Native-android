@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.netscape.utrain.R;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_AllBookingDataListModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -86,11 +87,11 @@ final O_AllBookingDataListModel data=supplierData.get(position);
                 if(data!=null)
         holder.name.setText(data.getTarget_data().getName());
         holder.transactionId.setText("ID: "+data.getPayment_id());
-        if (data.getType().equalsIgnoreCase("space")){
-            holder.date.setText(data.getBooking_date().getStart() );
-        }else {
-            holder.date.setText(data.getTarget_data().getStart_date() + " | " + data.getTarget_data().getStart_time());
-        }
+//        if (data.getType().equalsIgnoreCase("space")){
+//            holder.date.setText(CommonMethods.parseDateToddMMyyyy(data.getCreated_at()) );
+//        }else {
+            holder.date.setText(String.valueOf(CommonMethods.convertDateInDays(data.getCreated_at())));
+//        }
         holder.price.setText("$"+data.getPrice());
     try {
         if (data.getTarget_data().getImages() != null) {

@@ -55,15 +55,17 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/notificationRecycler" />
-          <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/notificationText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/notification"
-              android:gravity="center"
-              android:fontFamily="@font/poppins_semibold"
-              app:layout_constraintLeft_toLeftOf="parent"
-              app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatTextView>
+<!--          <androidx.appcompat.widget.AppCompatTextView-->
+<!--              android:id="@+id/notificationText"-->
+<!--              android:layout_width="match_parent"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              android:text="@string/notification"-->
+<!--              android:gravity="center"-->
+<!--              android:fontFamily="@font/poppins_semibold"-->
+<!--              app:layout_constraintLeft_toLeftOf="parent"-->
+<!--              app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatTextView>-->
+<!--           -->
+<!--           -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/notificationRecycler"
                 android:layout_width="0dp"
@@ -72,7 +74,7 @@
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notificationText" />
+                app:layout_constraintTop_toTopOf="parent" />
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/noImgNotification"
                 android:layout_width="@dimen/_90sdp"

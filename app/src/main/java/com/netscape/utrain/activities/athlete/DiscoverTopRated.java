@@ -16,12 +16,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.adapters.AthleteTopRatedAdapter;
+import com.netscape.utrain.adapters.SportBottomDialogAdapter;
 import com.netscape.utrain.adapters.SportsAdapter;
 import com.netscape.utrain.databinding.ActivityDiscoverTopRatedBinding;
 import com.netscape.utrain.model.CoachListModel;
@@ -44,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DiscoverTopRated extends AppCompatActivity implements View.OnClickListener {
+public class DiscoverTopRated extends AppCompatActivity implements View.OnClickListener , SportBottomDialogAdapter.sportFilterInter {
     public static boolean coaches = false;
     private final int PAGE_START = 1;
     Retrofitinterface api;
@@ -65,6 +67,11 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
     //    private int currentPage = PAGE_START;
     private String currentPage = "1";
     private int getItemPerPage;
+    RecyclerView.LayoutManager layoutManagerSport;
+    BottomSheetDialog mBottomSheetDialog;
+    private SportBottomDialogAdapter sportAdapter;
+    private RecyclerView recyclerView;
+    private View sheetView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +139,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES)) {
                 binding.exploreTv.setText(getResources().getString(R.string.explore_the_best_coaches));
                 getCoachListApi();
-                sportsListApi();
+
 
             }
             if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG)) {
@@ -141,10 +148,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 binding.spinnerText.setVisibility(View.GONE);
                 getTopOrgaNization();
             }
+            sportsListApi();
         }
 //        binding.discoverSearchTv.setOnClickListener(this);
         binding.discoverBackArrowImg.setOnClickListener(this);
         binding.searchedt.setOnClickListener(this);
+        binding.sportFilterIon.setOnClickListener(this);
+        binding.topResetFilter.setOnClickListener(this);
 
         recyclerFunc(layoutManager);
 //        initializeUI();
@@ -176,8 +186,6 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     currentPage = "";
                     getCoachListApi();
                 }
-
-
 
             }
 
@@ -216,7 +224,22 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 binding.searchAtuoCompleteEdt.setVisibility(View.VISIBLE);
                 binding.searchIcon.setVisibility(View.GONE);
                 break;
-
+            case R.id.sportFilterIon:
+                mBottomSheetDialog = new BottomSheetDialog(DiscoverTopRated.this);
+                sheetView = DiscoverTopRated.this.getLayoutInflater().inflate(R.layout.sports_bottom_sheet, null);
+                recyclerView = sheetView.findViewById(R.id.recyclerSportView);
+                layoutManagerSport = new LinearLayoutManager(DiscoverTopRated.this);
+                recyclerView.setLayoutManager(layoutManagerSport);
+                sportAdapter = new SportBottomDialogAdapter(DiscoverTopRated.this, dropDownList, DiscoverTopRated.this);
+                recyclerView.setAdapter(sportAdapter);
+                mBottomSheetDialog.setContentView(sheetView);
+                mBottomSheetDialog.show();
+                break;
+            case R.id.topResetFilter:
+                currentPage="1";
+                searchText="";
+                getApiType();
+                break;
 
         }
     }
@@ -242,6 +265,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                         if (response.body().getData().getData().size() > 0) {
 
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
+                            binding.topResetFilter.setVisibility(View.GONE);
                             binding.noDataImageView.setVisibility(View.GONE);
                             orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, 2);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
@@ -279,8 +303,9 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                             });
                         } else {
                             Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.topRateRecycler.setVisibility(View.GONE);
+                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.topResetFilter.setVisibility(View.VISIBLE);
                         }
                     }
                 } else {
@@ -408,6 +433,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 //                            binding.topRateRecycler.setLayoutManager(layoutManager);
 //                            binding.topRateRecycler.setAdapter(coachAdapter);
                             binding.topRateRecycler.setVisibility(View.VISIBLE);
+                            binding.topResetFilter.setVisibility(View.GONE);
                             binding.noDataImageView.setVisibility(View.GONE);
                             orgAdapter = new AthleteTopRatedAdapter(DiscoverTopRated.this, 1);
                             binding.topRateRecycler.setLayoutManager(layoutManager);
@@ -444,9 +470,11 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                                 }
                             });
                         } else {
-                            Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
-//                            binding.topRateRecycler.setVisibility(View.GONE);
-//                            binding.noDataImageView.setVisibility(View.VISIBLE);
+//                            Toast.makeText(DiscoverTopRated.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                            binding.topRateRecycler.setVisibility(View.GONE);
+                            binding.noDataImageView.setVisibility(View.VISIBLE);
+                            binding.topResetFilter.setVisibility(View.VISIBLE);
+
                         }
 
 
@@ -582,10 +610,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                 StringBuilder builder = new StringBuilder();
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
                     builder.append(details.getName() + "\n");
-
                 }
-
-
             }
         }
     }
@@ -656,5 +681,20 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+    @Override
+    public void getSportName(String name) {
+        mBottomSheetDialog.dismiss();
+        searchText = name;
+        currentPage = "";
+        getApiType();
+    }
+    public void getApiType(){
+        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_COACHES))
+            getCoachListApi();
+        if (getIntent().getStringExtra(Constants.TOP_TYPE_INTENT).equalsIgnoreCase(Constants.TOP_ORG))
+            getTopOrgaNization();
+    }
+
 
 }
