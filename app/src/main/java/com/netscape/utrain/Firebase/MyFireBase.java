@@ -32,12 +32,14 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 public class MyFireBase extends FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMessService";
     private int NOTIFICATION_ID = 0;
     private NotificationCompat.Builder mBuilder;
-    private String title = "F17ONE";
+    private String title = "U-Train";
     private String response = "";
 
 
@@ -55,14 +57,18 @@ public class MyFireBase extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
 
+
+        Map<String, String> data = remoteMessage.getData();
+        String myCustomKey = data.get("data");
+        Log.d(TAG, "onMessageReceived: "+myCustomKey);
 // TODO(developer): Handle FCM messages here.
 // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
 // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
+            response = remoteMessage.getData().get("data");
             Log.d(TAG, "Message data payload: " + remoteMessage.getData().get("data"));
             String tragetId = "";
 
-            response = remoteMessage.getData().toString();
             try {
 
                 JSONObject json = new JSONObject(response);
@@ -72,8 +78,6 @@ public class MyFireBase extends FirebaseMessagingService {
                 e.printStackTrace();
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-
 // if (remoteMessage.getNotification() != null) {
 // Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
                 if (remoteMessage.getNotification() != null)
@@ -83,7 +87,6 @@ public class MyFireBase extends FirebaseMessagingService {
                     setNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
 // }
             }
-
 // Check if message contains a notification payload.
 
 

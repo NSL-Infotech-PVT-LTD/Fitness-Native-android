@@ -32,43 +32,43 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
     private Context context;
-    private int previusPos=-1;
+    private int previusPos = -1;
     private JSONArray jsonArray;
     private List<O_AllBookingDataListModel> supplierData;
 
-    public TransactionAdapter(Context context, List supplierData){
+    public TransactionAdapter(Context context, List supplierData) {
         this.context = context;
         this.supplierData = supplierData;
 
-        }
+    }
 
-    public TransactionAdapter(Context context){
+    public TransactionAdapter(Context context) {
         this.context = context;
         supplierData = new ArrayList<>();
 
     }
 
-@NonNull
-@Override
-public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewdate) {
+    @NonNull
+    @Override
+    public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewdate) {
 //        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.payment_receive_design, parent, false);
 //        return new CustomTopCoachesHolder(view);
 
-    CustomTopCoachesHolder viewHolder = null;
-    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        CustomTopCoachesHolder viewHolder = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-    switch (viewdate) {
-        case ITEM:
-            viewHolder = getViewHolder(parent, inflater);
+        switch (viewdate) {
+            case ITEM:
+                viewHolder = getViewHolder(parent, inflater);
 
-            break;
-        case LOADING:
-            View v2 = inflater.inflate(R.layout.item_progress, parent, false);
-            viewHolder = new LoadingVH(v2);
-            break;
-    }
-    return viewHolder;
+                break;
+            case LOADING:
+                View v2 = inflater.inflate(R.layout.item_progress, parent, false);
+                viewHolder = new LoadingVH(v2);
+                break;
         }
+        return viewHolder;
+    }
 
     @NonNull
     private CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
@@ -80,57 +80,55 @@ public CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int 
 
 
     @Override
-public void onBindViewHolder(@NonNull final CustomTopCoachesHolder holder, int position) {
-final O_AllBookingDataListModel data=supplierData.get(position);
+    public void onBindViewHolder(@NonNull final CustomTopCoachesHolder holder, int position) {
+        final O_AllBookingDataListModel data = supplierData.get(position);
         switch (getItemViewType(position)) {
             case ITEM:
-                if(data!=null)
-        holder.name.setText(data.getTarget_data().getName());
-        holder.transactionId.setText("ID: "+data.getPayment_id());
-//        if (data.getType().equalsIgnoreCase("space")){
-//            holder.date.setText(CommonMethods.parseDateToddMMyyyy(data.getCreated_at()) );
-//        }else {
-            holder.date.setText(String.valueOf(CommonMethods.convertDateInDays(data.getCreated_at())));
-//        }
-        holder.price.setText("$"+data.getPrice());
-    try {
-        if (data.getTarget_data().getImages() != null) {
-            jsonArray = new JSONArray(data.getTarget_data().getImages());
-
-        }
-
-    } catch (JSONException e) {
-
-        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-    }
-        if (data.getType().equalsIgnoreCase("event")){
-            if (jsonArray !=null && jsonArray.length()>0){
-                try {
-                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(0))).into(holder.imageView);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (data != null)
+                    holder.name.setText(data.getTarget_data().getName());
+                holder.transactionId.setText("ID: " + data.getPayment_id());
+                if (data.getCreated_at() != null) {
+                    holder.date.setText(String.valueOf(CommonMethods.convertDateInDays(data.getCreated_at())));
                 }
-            }
-        }
-    if (data.getType().equalsIgnoreCase("session")){
-        if (jsonArray !=null && jsonArray.length()>0){
-            try {
-                Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(0))).into(holder.imageView);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    if (data.getType().equalsIgnoreCase("space")){
-        if (jsonArray !=null && jsonArray.length()>0){
-            try {
-                Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT +Constants.THUMBNAILS+ jsonArray.get(0))).into(holder.imageView);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+                holder.price.setText("$" + data.getPrice());
+                try {
+                    if (data.getTarget_data().getImages() != null) {
+                        jsonArray = new JSONArray(data.getTarget_data().getImages());
+
+                    }
+
+                } catch (JSONException e) {
+
+                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+                if (data.getType().equalsIgnoreCase("event")) {
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        try {
+                            Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.imageView);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (data.getType().equalsIgnoreCase("session")) {
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        try {
+                            Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.imageView);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (data.getType().equalsIgnoreCase("space")) {
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        try {
+                            Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.imageView);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
                 break;
             case LOADING:
@@ -138,13 +136,12 @@ final O_AllBookingDataListModel data=supplierData.get(position);
                 break;
 
         }
-        }
+    }
 
-@Override
-public int getItemCount() {
-    return supplierData == null ? 0 : supplierData.size();
-        }
-
+    @Override
+    public int getItemCount() {
+        return supplierData == null ? 0 : supplierData.size();
+    }
 
 
     @Override
@@ -210,27 +207,24 @@ public int getItemCount() {
     }
 
 
+    public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
+
+        CircleImageView imageView;
+
+        TextView transactionId, date, name, price;
 
 
+        public CustomTopCoachesHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.coachStaffImg);
+            transactionId = itemView.findViewById(R.id.transactionId);
+            date = itemView.findViewById(R.id.coachStaffProfession);
+            name = itemView.findViewById(R.id.coachStaffName);
+            price = itemView.findViewById(R.id.transactionPrice);
 
-public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
-
-    CircleImageView imageView;
-
-    TextView transactionId,date,name,price;
-
-
-
-    public CustomTopCoachesHolder(@NonNull View itemView) {
-        super(itemView);
-        imageView=itemView.findViewById(R.id.coachStaffImg);
-        transactionId = itemView.findViewById(R.id.transactionId);
-        date = itemView.findViewById(R.id.coachStaffProfession);
-        name = itemView.findViewById(R.id.coachStaffName);
-        price = itemView.findViewById(R.id.transactionPrice);
-
+        }
     }
-}
+
     protected class LoadingVH extends CustomTopCoachesHolder {
 
         public LoadingVH(View itemView) {

@@ -67,6 +67,8 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,10 +100,10 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
     private AllEventsMapAct activity;
     private LatLng latng;
     private ConstraintLayout layoutBottomSheet, bottomsheet_list_laout;
-    private AppCompatImageView filterIcon, imageLeftArrow, sportFilterIon,noDataImg;
+    private AppCompatImageView filterIcon, imageLeftArrow, sportFilterIon, noDataImg;
     private AppCompatAutoCompleteTextView searchAtuoCompleteEdt;
     private BottomSheetBehavior sheetBehavior, bottomsheet_list;
-    private TextView sort_distance, sort_high, sort_low, sort_latest,resetFilter;
+    private TextView sort_distance, sort_high, sort_low, sort_latest, resetFilter;
     private int sort_count = 1;
     private String search = "";
     private MaterialTextView allEventFindAPalceTv;
@@ -174,7 +176,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         resetFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                search="";
+                search = "";
                 if (getIntent().getStringExtra("from") != null)
                     if (getIntent().getStringExtra("from").equalsIgnoreCase("1")) {
                         getAthleteEventApi("distance", search, sCoach_Id);
@@ -322,10 +324,31 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
 
                                 }
                             });
-                        }else {
+                        } else {
                             recyclerViewFindPlace.setVisibility(View.GONE);
                             noDataImg.setVisibility(View.VISIBLE);
-                            resetFilter.setVisibility(View.VISIBLE);                         }
+                            resetFilter.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }else {
+                    recyclerViewFindPlace.setVisibility(View.GONE);
+                    noDataImg.setVisibility(View.VISIBLE);
+                    resetFilter.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(AllEventsMapAct.this, AllEventsMapAct.this);
+                            }
+                        }
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(AllEventsMapAct.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
                     }
                 }
 
@@ -506,7 +529,28 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         } else {
                             recyclerViewFindPlace.setVisibility(View.GONE);
                             noDataImg.setVisibility(View.VISIBLE);
-                            resetFilter.setVisibility(View.VISIBLE);                        }
+                            resetFilter.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }else {
+                    recyclerViewFindPlace.setVisibility(View.GONE);
+                    noDataImg.setVisibility(View.VISIBLE);
+                    resetFilter.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(AllEventsMapAct.this, AllEventsMapAct.this);
+                            }
+                        }
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(AllEventsMapAct.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
                     }
                 }
             }
@@ -701,7 +745,28 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                         } else {
                             recyclerViewFindPlace.setVisibility(View.GONE);
                             noDataImg.setVisibility(View.VISIBLE);
-                            resetFilter.setVisibility(View.VISIBLE);                        }
+                            resetFilter.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else {
+                    recyclerViewFindPlace.setVisibility(View.GONE);
+                    noDataImg.setVisibility(View.VISIBLE);
+                    resetFilter.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(AllEventsMapAct.this, AllEventsMapAct.this);
+                            }
+                        }
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+
+                        Toast.makeText(AllEventsMapAct.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
                     }
                 }
 

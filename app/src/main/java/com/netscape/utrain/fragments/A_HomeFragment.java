@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -359,6 +360,13 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                     try {
 
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Toast.makeText(context, "" + errorMessage, Toast.LENGTH_SHORT).show();
 

@@ -255,7 +255,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getTopOrgaNization() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
+        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearerr " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -314,6 +314,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(DiscoverTopRated.this, DiscoverTopRated.this);
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
@@ -418,7 +425,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearerr " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -489,6 +496,13 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(DiscoverTopRated.this, DiscoverTopRated.this);
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 
                         Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();

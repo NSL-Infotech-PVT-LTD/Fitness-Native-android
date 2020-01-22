@@ -49,7 +49,7 @@
             android:fontFamily="@font/poppins_regular"
             android:singleLine="true"
             android:maxLength="20"
-            android:text="Place Holder"
+            android:text=""
             android:textSize="@dimen/_8sdp"
             app:layout_constraintLeft_toLeftOf="@+id/coachStaffName"
             app:layout_constraintTop_toBottomOf="@+id/coachStaffName"

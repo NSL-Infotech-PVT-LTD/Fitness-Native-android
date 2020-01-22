@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -29,7 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -40,6 +43,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.A_SpaceListModel;
@@ -501,6 +505,24 @@ public class CommonMethods {
             e.printStackTrace();
         }
         return date;
+    }
+    public static void invalidAuthToken(final Context context,Activity activity) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Auth Expired");
+        dialog.setCancelable(false);
+        dialog.setMessage("Your auth is expired.Please Login again");
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                LoginManager.getInstance().logOut();
+                CommonMethods.clearPrefData(context);
+                Intent intent = new Intent(context, SignUpTypeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+                dialog.dismiss();
+                activity.finish();
+            }
+        });
+        dialog.show();
     }
 
 

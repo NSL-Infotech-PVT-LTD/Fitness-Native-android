@@ -318,6 +318,13 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 
                         Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
@@ -653,6 +660,13 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 
                         Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
@@ -1094,6 +1108,13 @@ public class O_UpcEventFragment extends Fragment implements A_SpaceListAdapter.o
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 
                         Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();

@@ -85,7 +85,7 @@ public class PaymentSentFragment extends Fragment {
     private void getBookingList() {
         isLastPage=false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getTransactionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.getTransactionList("Bearerr " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
             public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
@@ -127,6 +127,13 @@ public class PaymentSentFragment extends Fragment {
                     binding.noPaymentHistory.setVisibility(View.VISIBLE);
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Toast.makeText(getContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {

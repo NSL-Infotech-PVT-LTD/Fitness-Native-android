@@ -128,6 +128,7 @@ public class O_RegistrationProfile extends Fragment {
             public void onClick(View view) {
 
                 Intent viewSpaceIntent = new Intent(context, AllEventsMapAct.class);
+                viewSpaceIntent.putExtra("from", "3");
                 startActivity(viewSpaceIntent);
             }
         });

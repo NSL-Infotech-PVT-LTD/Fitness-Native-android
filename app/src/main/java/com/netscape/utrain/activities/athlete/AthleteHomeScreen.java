@@ -121,8 +121,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
     private int count = 0;
     private String notiFicationData = "";
     private A_NotificationFragment notificationFragment;
-    private ArrayList<String>dataList;
-    private ArrayList<String>data;
+    private ArrayList<String> dataList;
+    private ArrayList<String> data;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -181,65 +181,65 @@ public class AthleteHomeScreen extends AppCompatActivity {
     public void onNewIntent(Intent intentData) {
 
         super.onNewIntent(intentData);
-        Bundle extras = intentData.getExtras();
+//        Bundle extras = intentData.getExtras();
 
-        if (extras !=null) {
-            Log.d("SystemTray", extras.toString());
-        }
-        String data=intentData.getStringExtra("pushnotification");
+//        if (extras !=null) {
+//            Log.d("SystemTray", extras.toString());
+//        }
+        String data = intentData.getStringExtra("pushnotification");
 //        Log.d("StringNoti",data);
         if (data != null) {
-                String typeData="";
-                String id="";
-                String targetType="";
-                    try {
-                        JSONObject jsonObject = new JSONObject(data);
-                        JSONObject jsonObject1=jsonObject.getJSONObject("data");
-                        typeData = jsonObject1.getString("target_model");
-                        id = jsonObject1.getString("target_id");
-                        if (jsonObject1.getString("target_type")!=null)
-                        targetType = jsonObject1.getString("target_type");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                if (typeData.equalsIgnoreCase("event")){
-                    hitEventDetailAPI(id);
-                }
-                if (typeData.equalsIgnoreCase("session")){
-                    getSessionDetails(id);
-                }
-                if (typeData.equalsIgnoreCase("space")){
-                    hitSpaceDetailAPI(id);
-                }
-                if (typeData.equalsIgnoreCase("booking")) {
-                    if (targetType.equalsIgnoreCase("event")) {
-//                hitEventDetailAPI(id);
-                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
-                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
-                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
-//                        topCoachesDetails.putExtra(Constants.STATUS, status);
-                        startActivity(topCoachesDetails);
-                    }
-                    if (targetType.equalsIgnoreCase("session")) {
-//                getSessionDetails(id);
-                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
-                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
-                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
-//                topCoachesDetails.putExtra(Constants.STATUS, status);
-                        startActivity(topCoachesDetails);
-                    }
-                    if (targetType.equalsIgnoreCase("space")) {
-                        Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
-                        topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
-                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
-//                topCoachesDetails.putExtra(Constants.STATUS, status);
-                        startActivity(topCoachesDetails);
-                    }
-                }
-                    Log.d("pushnotification", "onNewIntent: " + data);
+            String typeData = "";
+            String id = "";
+            String targetType = "";
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                typeData = jsonObject1.getString("target_model");
+                id = jsonObject1.getString("target_id");
+                if (jsonObject1.getString("target_type") != null)
+                    targetType = jsonObject1.getString("target_type");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            if (typeData.equalsIgnoreCase("event")) {
+                hitEventDetailAPI(id);
+            }
+            if (typeData.equalsIgnoreCase("session")) {
+                getSessionDetails(id);
+            }
+            if (typeData.equalsIgnoreCase("space")) {
+                hitSpaceDetailAPI(id);
+            }
+            if (typeData.equalsIgnoreCase("booking")) {
+                if (targetType.equalsIgnoreCase("event")) {
+//                hitEventDetailAPI(id);
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.EVENT);
+//                        topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+                if (targetType.equalsIgnoreCase("session")) {
+//                getSessionDetails(id);
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+                if (targetType.equalsIgnoreCase("space")) {
+                    Intent topCoachesDetails = new Intent(getApplicationContext(), BookingDetails.class);
+                    topCoachesDetails.putExtra(Constants.SELECTED_ID, id);
+                    topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                    startActivity(topCoachesDetails);
+                }
+            }
+            Log.d("pushnotification", "onNewIntent: " + data);
         }
+    }
 
 
     @Override
@@ -247,7 +247,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
         super.onResume();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkReceiver, filter);
-
     }
 
     @Override
@@ -280,7 +279,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
     }
 
     private void init() {
-        notificationFragment=new A_NotificationFragment();
+        notificationFragment = new A_NotificationFragment();
         //        setContentView(R.layout.a_activity_bottom_navigation);
         navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
@@ -582,7 +581,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(AthleteHomeScreen.this);
                             Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
@@ -597,10 +596,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -638,10 +637,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -675,10 +674,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.athHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
-                        Snackbar.make(binding.athHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.athHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -722,7 +721,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
         count = 1;
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
-    public  void hitSpaceDetailAPI(String id) {
+
+    public void hitSpaceDetailAPI(String id) {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -749,14 +749,14 @@ public class AthleteHomeScreen extends AppCompatActivity {
                             intent.putExtra("event_id", response.body().getData().getId() + "");
                             intent.putExtra("from", "places");
                             intent.putExtra("desc", response.body().getData().getDescription());
-                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
-                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude() + "");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude() + "");
                             Bundle b = new Bundle();
                             b.putString("Array", response.body().getData().getImages());
                             intent.putExtras(b);
-                            data=new ArrayList<>();
-                            data=(ArrayList<String>) response.body().getData().getAvailability_week();
-                            intent.putStringArrayListExtra(Constants.SPACE_DATA,data);
+                            data = new ArrayList<>();
+                            data = (ArrayList<String>) response.body().getData().getAvailability_week();
+                            intent.putStringArrayListExtra(Constants.SPACE_DATA, data);
                             startActivity(intent);
 
                         }
@@ -768,32 +768,34 @@ public class AthleteHomeScreen extends AppCompatActivity {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 //                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
-                        Toast.makeText(AthleteHomeScreen.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AthleteHomeScreen.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
-                        Toast.makeText(AthleteHomeScreen.this, ""+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AthleteHomeScreen.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<SpaceDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(AthleteHomeScreen.this, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AthleteHomeScreen.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
             }
         });
     }
+
     public void hitEventDetailAPI(String id) {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this), Constants.CONTENT_TYPE, id );
+        Call<EventBookingModel> signUpAthlete = retrofitinterface.eventDetail("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, AthleteHomeScreen.this), Constants.CONTENT_TYPE, id);
         signUpAthlete.enqueue(new Callback<EventBookingModel>() {
             @Override
             public void onResponse(Call<EventBookingModel> call, Response<EventBookingModel> response) {
@@ -807,7 +809,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("eventName", response.body().getData().getName());
                             intent.putExtra("eventVenue", response.body().getData().getLocation());
-                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("event_id", response.body().getData().getId() + "");
                             intent.putExtra("guest_allowed", response.body().getData().getGuest_allowed() + "");
                             intent.putExtra("guest_allowed_left", response.body().getData().getGuest_allowed_left() + "");
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
@@ -817,8 +819,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
                             intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
                             intent.putExtra("from", "events");
                             intent.putExtra("capacity", response.body().getData().getGuest_allowed());
-                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
-                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude() + "");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude() + "");
                             Bundle b = new Bundle();
                             b.putString("Array", response.body().getData().getImages());
                             intent.putExtras(b);
@@ -828,16 +830,15 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     }
                 } else {
                     progressDialog.dismiss();
-
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 //                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
-                        Toast.makeText(AthleteHomeScreen.this, ""+ errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AthleteHomeScreen.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
 
 
                     } catch (Exception e) {
-                        Toast.makeText(AthleteHomeScreen.this, ""+ e, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AthleteHomeScreen.this, "" + e, Toast.LENGTH_SHORT).show();
 
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
@@ -848,7 +849,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<EventBookingModel> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(AthleteHomeScreen.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AthleteHomeScreen.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
@@ -857,7 +858,6 @@ public class AthleteHomeScreen extends AppCompatActivity {
     }
 
     public void getSessionDetails(String id) {
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
@@ -882,10 +882,10 @@ public class AthleteHomeScreen extends AppCompatActivity {
                             intent.putExtra("eventDate", response.body().getData().getStart_date());
                             intent.putExtra("eventDescription", response.body().getData().getDescription());
                             intent.putExtra("image_url", Constants.IMAGE_BASE_SESSION);
-                            intent.putExtra("event_id", response.body().getData().getId()+"");
+                            intent.putExtra("event_id", response.body().getData().getId() + "");
                             intent.putExtra("from", "sessions");
-                            intent.putExtra("gmapLat", response.body().getData().getLatitude()+"");
-                            intent.putExtra("gmapLong", response.body().getData().getLongitude()+"");
+                            intent.putExtra("gmapLat", response.body().getData().getLatitude() + "");
+                            intent.putExtra("gmapLong", response.body().getData().getLongitude() + "");
                             Bundle b = new Bundle();
                             b.putString("Array", response.body().getData().getImages());
                             intent.putExtras(b);
@@ -900,7 +900,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
 //                        Snackbar.make(binding.maineventBooking, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
-                        Toast.makeText(AthleteHomeScreen.this, ""+errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AthleteHomeScreen.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
 //                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
@@ -913,7 +913,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
             public void onFailure(Call<SessionDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();
 //                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
-                Toast.makeText(AthleteHomeScreen.this, ""+ getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AthleteHomeScreen.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
             }
         });
     }
