@@ -134,7 +134,7 @@ public class A_SessionsFragment extends Fragment {
         progressDialog.setMessage("Loading....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "10", "latest","", "");
+        Call<AthleteSessionResponse> call = api.getAthleteSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "20", "latest","", "");
         call.enqueue(new Callback<AthleteSessionResponse>() {
             @Override
             public void onResponse(Call<AthleteSessionResponse> call, Response<AthleteSessionResponse> response) {

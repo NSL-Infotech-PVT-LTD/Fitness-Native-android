@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -379,6 +380,13 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(OfferSpaceActivity.this, OfferSpaceActivity.this);
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Snackbar.make(binding.offerSpaceLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {

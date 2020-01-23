@@ -255,7 +255,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getTopOrgaNization() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearerr " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
+        Call<CoachListResponse> call = retrofitinterface.getTopOrgList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {
@@ -425,7 +425,7 @@ public class DiscoverTopRated extends AppCompatActivity implements View.OnClickL
 
     private void getCoachListApi() {
         progressDialog.show();
-        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearerr " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
+        Call<CoachListResponse> call = retrofitinterface.getCoachList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), searchText, getItemPerPage + "", currentPage + "", "latest");
         call.enqueue(new Callback<CoachListResponse>() {
             @Override
             public void onResponse(Call<CoachListResponse> call, Response<CoachListResponse> response) {

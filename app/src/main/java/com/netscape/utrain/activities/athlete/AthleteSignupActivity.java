@@ -57,16 +57,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
-import com.netscape.utrain.activities.ServicePriceActivity;
-import com.netscape.utrain.activities.UpdateProfileActivity;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
-import com.netscape.utrain.response.AthleteSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.AppController;
@@ -75,8 +70,6 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.FileUtil;
 import com.netscape.utrain.utils.ImageFilePath;
 import com.netscape.utrain.utils.PrefrenceConstant;
-
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -95,9 +88,6 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
@@ -123,6 +113,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private String IMAGE_DIRECTORY = "/Utrain/";
     private File mediaStorageDir;
     private int count = 0;
+
+
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(activity, permission)
@@ -223,6 +215,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
     }
 
+
     private void setDataFromSharedPref() {
         binding.athleteNameEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, AthleteSignupActivity.this));
         binding.athleteEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, AthleteSignupActivity.this));
@@ -261,6 +254,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 //        mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocListener);
 
     }
+
 
     @Override
     public void onClick(View view) {

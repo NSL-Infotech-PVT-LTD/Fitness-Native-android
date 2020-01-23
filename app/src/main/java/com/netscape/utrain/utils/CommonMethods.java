@@ -516,10 +516,10 @@ public class CommonMethods {
                 LoginManager.getInstance().logOut();
                 CommonMethods.clearPrefData(context);
                 Intent intent = new Intent(context, SignUpTypeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 dialog.dismiss();
-                activity.finish();
+                activity.finishAffinity();
             }
         });
         dialog.show();

@@ -115,8 +115,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getLoginData() {
-
         email = binding.loginEmailEdt.getText().toString().trim();
+        email = email.replaceAll("\\s","");
         password = binding.loginPasswordEdt.getText().toString().trim();
 
 

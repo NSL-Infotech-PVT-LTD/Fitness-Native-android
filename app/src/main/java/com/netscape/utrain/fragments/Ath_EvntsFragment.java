@@ -159,7 +159,7 @@ public class Ath_EvntsFragment extends Fragment {
         progressDialog.setMessage("Loading Events....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"latest","","10","1","1000000","");
+        Call<AthleteEventListResponse> call = api.getAthleteEventList( "Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, context),Constants.CONTENT_TYPE,"latest","","20","1","1000000","");
         call.enqueue(new Callback<AthleteEventListResponse>() {
             @Override
             public void onResponse(Call<AthleteEventListResponse> call, Response<AthleteEventListResponse> response) {

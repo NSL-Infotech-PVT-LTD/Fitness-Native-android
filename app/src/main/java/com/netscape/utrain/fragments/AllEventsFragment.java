@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.DiscoverTopRated;
 import com.netscape.utrain.adapters.AllEventsCoachListAdapter;
@@ -36,6 +38,8 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.PaginationScrollListener;
 import com.netscape.utrain.utils.PrefrenceConstant;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,12 +49,12 @@ import retrofit2.Response;
 
 public class AllEventsFragment extends Fragment {
 
+    int page = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    int page=0;
     //    private int currentPage = PAGE_START;
-    private String currentPage="1";
+    private String currentPage = "1";
     private int getItemPerPage;
     private Retrofitinterface retrofitinterface;
     private AllEventsFragmentBinding binding;
@@ -99,14 +103,14 @@ public class AllEventsFragment extends Fragment {
     }
 
     public void AllCoachEventsCreatedApi() {
-        isLastPage=false;
+        isLastPage = false;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Loading....");
         progressDialog.show();
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<O_EventListResponse> callEventCoachList = retrofitinterface.getCoachEvents("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                        , Constants.CONTENT_TYPE, "",currentPage);
+                , Constants.CONTENT_TYPE, "", currentPage);
         callEventCoachList.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -128,14 +132,13 @@ public class AllEventsFragment extends Fragment {
 
                                 TOTAL_PAGES = response.body().getData().getLast_page();
                                 getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                                if (! TextUtils.isEmpty(currentPage)) {
+                                if (!TextUtils.isEmpty(currentPage)) {
                                     page = Integer.parseInt(currentPage);
                                 }
                                 eventAdapter.addAll(results);
                                 if (page < TOTAL_PAGES)
                                     eventAdapter.addLoadingFooter();
                                 else isLastPage = true;
-
 
 
                             } else {
@@ -154,6 +157,7 @@ public class AllEventsFragment extends Fragment {
             }
         });
     }
+
     public void AllCoachEventsCreatedNextPage() {
 
 //        progressDialog = new ProgressDialog(context);
@@ -162,7 +166,7 @@ public class AllEventsFragment extends Fragment {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<O_EventListResponse> callEventCoachList = retrofitinterface.getCoachEvents("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                , Constants.CONTENT_TYPE, "",currentPage);
+                , Constants.CONTENT_TYPE, "", currentPage);
         callEventCoachList.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
@@ -185,7 +189,7 @@ public class AllEventsFragment extends Fragment {
                                 getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                                 eventAdapter.addAll(results);
-                                if (! TextUtils.isEmpty(currentPage)) {
+                                if (!TextUtils.isEmpty(currentPage)) {
                                     page = Integer.parseInt(currentPage);
                                 }
                                 if (page != TOTAL_PAGES)
@@ -214,26 +218,26 @@ public class AllEventsFragment extends Fragment {
         O_EventListResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     public void AllOrgEventsCreatedApi() {
-        isLastPage=false;
+        isLastPage = false;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Loading....");
         progressDialog.show();
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<O_EventListResponse> callEventOrgList = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                , Constants.CONTENT_TYPE, "",currentPage);
+                , Constants.CONTENT_TYPE, "", currentPage);
 
         callEventOrgList.enqueue(new Callback<O_EventListResponse>() {
             @Override
             public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
                 progressDialog.dismiss();
-
-                if (response.isSuccessful())
+                if (response.isSuccessful()) {
                     if (response.body().isStatus())
                         if (response.body() != null) {
                             orgEventList = response.body().getData().getData();
-                            if (orgEventList !=null && orgEventList.size() > 0) {
+                            if (orgEventList != null && orgEventList.size() > 0) {
                                 orgListAdapter = new AllEventsOrgListAdapter(context, orgEventList);
                                 binding.allEventListRecycler.setAdapter(orgListAdapter);
 
@@ -245,7 +249,7 @@ public class AllEventsFragment extends Fragment {
 
                                 TOTAL_PAGES = response.body().getData().getLast_page();
                                 getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                                if (! TextUtils.isEmpty(currentPage)) {
+                                if (!TextUtils.isEmpty(currentPage)) {
                                     page = Integer.parseInt(currentPage);
                                 }
                                 orgListAdapter.addAll(results);
@@ -257,11 +261,30 @@ public class AllEventsFragment extends Fragment {
                             } else {
                                 binding.allEventNoImage.setVisibility(View.VISIBLE);
                             }
-
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(context, "" + response.body().getError().getError_message(), Toast.LENGTH_LONG).show();
                         }
+
+                } else {
+                    progressDialog.dismiss();
+                    binding.allEventNoImage.setVisibility(View.VISIBLE);
+//                    Toast.makeText(context, "" + response.body().getError().getError_message(), Toast.LENGTH_LONG).show();
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                    } catch (Exception e) {
+
+                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+
+
+                }
             }
 
             @Override
@@ -272,6 +295,7 @@ public class AllEventsFragment extends Fragment {
             }
         });
     }
+
     public void AllOrgEventsCreatedNextPage() {
 
 //        progressDialog = new ProgressDialog(context);
@@ -280,7 +304,7 @@ public class AllEventsFragment extends Fragment {
 
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<O_EventListResponse> callEventOrgList = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context)
-                , Constants.CONTENT_TYPE, "",currentPage);
+                , Constants.CONTENT_TYPE, "", currentPage);
 
         callEventOrgList.enqueue(new Callback<O_EventListResponse>() {
             @Override
@@ -291,7 +315,7 @@ public class AllEventsFragment extends Fragment {
                     if (response.body().isStatus())
                         if (response.body() != null) {
                             orgEventList = response.body().getData().getData();
-                            if (orgEventList !=null && orgEventList.size() > 0) {
+                            if (orgEventList != null && orgEventList.size() > 0) {
 //                                orgListAdapter = new AllEventsOrgListAdapter(context, orgEventList);
 //                                binding.allEventListRecycler.setAdapter(orgListAdapter);
 
@@ -306,7 +330,7 @@ public class AllEventsFragment extends Fragment {
                                 getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
 
                                 orgListAdapter.addAll(results);
-                                if (! TextUtils.isEmpty(currentPage)) {
+                                if (!TextUtils.isEmpty(currentPage)) {
                                     page = Integer.parseInt(currentPage);
                                 }
                                 if (page != TOTAL_PAGES)
@@ -338,11 +362,11 @@ public class AllEventsFragment extends Fragment {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                if (! TextUtils.isEmpty(currentPage)) {
+                if (!TextUtils.isEmpty(currentPage)) {
                     page = Integer.parseInt(currentPage);
                 }
                 page += 1;
-                currentPage=page+"";
+                currentPage = page + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {

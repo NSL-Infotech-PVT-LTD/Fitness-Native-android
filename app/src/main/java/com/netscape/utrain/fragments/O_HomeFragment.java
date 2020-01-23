@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -232,7 +233,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "5", "price_low", "", "");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "20", "price_low", "", "");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -253,7 +254,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                             }
                         }
                     } else {
-                        Snackbar.make(binding.orgHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(context, ""+response.body().getError().getError_message().getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                        Snackbar.make(binding.orgHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                         binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
                         binding.orgViewAllSpaces.setVisibility(View.GONE);
 
@@ -264,13 +266,20 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(getContext(), getActivity());
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Snackbar.make(binding.orgHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
 
-
-                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -282,7 +291,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 binding.orgViewAllSpaces.setVisibility(View.GONE);
 
                 progressDialog.dismiss();
-                Snackbar.make(binding.orgHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+                Toast.makeText(context, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+//                Snackbar.make(binding.orgHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
             }
         });

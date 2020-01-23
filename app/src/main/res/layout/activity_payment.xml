@@ -279,6 +279,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/usePreCardText"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_30sdp"
@@ -298,6 +299,7 @@
                                 android:layout_marginLeft="@dimen/_20sdp"
                                 android:layout_marginRight="@dimen/_20sdp"
                                 android:layout_marginBottom="@dimen/_10sdp"
+                                app:layout_goneMarginTop="@dimen/_25sdp"
                                 android:backgroundTint="@color/gradientDarkColor"
                                 android:fontFamily="@font/poppins_regular"
                                 android:text="@string/confirm_booking_btn_booking_slot"

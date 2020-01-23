@@ -189,10 +189,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icNotificationIcon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:src="@drawable/ic_menu_calendar"
+            android:src="@drawable/ic_cal_nav"
             app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
             app:layout_constraintTop_toBottomOf="@id/view3" />
 

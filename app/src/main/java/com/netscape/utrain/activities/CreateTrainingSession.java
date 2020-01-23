@@ -12,6 +12,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -255,6 +256,13 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject jsonObject=jObjError.getJSONObject("error");
+                        String code=jsonObject.getString("code");
+                        if (!TextUtils.isEmpty(code)) {
+                            if (Integer.parseInt(code) == 401) {
+                                CommonMethods.invalidAuthToken(CreateTrainingSession.this, CreateTrainingSession.this);
+                            }
+                        }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
                         Snackbar.make(binding.createTrainingSessionLayout, errorMessage, BaseTransientBottomBar.LENGTH_SHORT).show();
                     } catch (Exception e) {

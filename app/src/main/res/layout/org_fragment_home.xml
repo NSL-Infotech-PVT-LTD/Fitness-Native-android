@@ -186,6 +186,18 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            android:src="@drawable/ic_add_black"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            app:layout_constraintLeft_toLeftOf="@+id/createEventImg"
+                            app:layout_constraintRight_toRightOf="@+id/createEventImg"
+                            app:layout_constraintTop_toTopOf="@+id/createEventImg"
+                            app:layout_constraintBottom_toBottomOf="@+id/createEventImg"></androidx.appcompat.widget.AppCompatImageView>
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/createSessionImg"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
@@ -195,6 +207,16 @@
                             app:layout_constraintLeft_toRightOf="@id/createEventImg"
                             app:layout_constraintRight_toLeftOf="@id/createSpaceImg"
                             app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            android:src="@drawable/ic_add_black"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            app:layout_constraintLeft_toLeftOf="@+id/createSessionImg"
+                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"
+                            app:layout_constraintTop_toTopOf="@+id/createSessionImg"
+                            app:layout_constraintBottom_toBottomOf="@+id/createSessionImg"></androidx.appcompat.widget.AppCompatImageView>
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/createSpaceImg"
@@ -206,6 +228,17 @@
                             app:layout_constraintLeft_toRightOf="@id/createSessionImg"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            android:src="@drawable/ic_add_black"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            app:layout_constraintLeft_toLeftOf="@+id/createSpaceImg"
+                            app:layout_constraintRight_toRightOf="@+id/createSpaceImg"
+                            app:layout_constraintTop_toTopOf="@+id/createSpaceImg"
+                            app:layout_constraintBottom_toBottomOf="@+id/createSpaceImg"></androidx.appcompat.widget.AppCompatImageView>
+
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/AthleteCardsessionTv"
@@ -274,7 +307,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/orgRequests"
