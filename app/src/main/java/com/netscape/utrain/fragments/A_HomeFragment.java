@@ -409,15 +409,11 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<CoachListResponse> call, Throwable t) {
-
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
 
@@ -591,7 +587,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);

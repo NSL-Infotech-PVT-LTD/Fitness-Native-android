@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+// Add the Fabric plugin.
+apply plugin: 'io.fabric'
 
 android {
     dataBinding {
@@ -77,5 +79,13 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'io.github.inflationx:viewpump:1.0.0'
 //    implementation project(":CalendarViewLib")
+
+    // (Recommended) Add the Google Analytics dependency.
+//    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+
+    // Add the Firebase Crashlytics dependency.
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+
 }
 apply plugin: 'com.google.gms.google-services'
