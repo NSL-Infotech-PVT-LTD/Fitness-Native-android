@@ -28,6 +28,7 @@ import com.netscape.utrain.response.ChangePasswordResponse;
 import com.netscape.utrain.response.CoachListResponse;
 import com.netscape.utrain.response.CoachOrgCalResponse;
 import com.netscape.utrain.response.CoachSignUpResponse;
+import com.netscape.utrain.response.EmailCheckResponse;
 import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.ForgetPasswordResponse;
 import com.netscape.utrain.response.HelpAndSupportResponse;
@@ -676,5 +677,10 @@ public interface Retrofitinterface {
                                              @Part MultipartBody.Part file);
 
 
+    @FormUrlEncoded
+    @POST(Constants.CHECK_EXISTING)
+    Call<EmailCheckResponse> checkForExisting(@Header("Content-Type") String Content_type,
+                                              @Field("type") String type,
+                                              @Field("data")String data);
 
 }

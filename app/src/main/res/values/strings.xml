@@ -141,7 +141,7 @@
     <string name="select_address">Select Address using location button</string>
     <string name="enter_your_email_to_reset">Enter your email to reset!</string>
     <string name="enter_six_diget_phone_number">Enter minimum six digit</string>
-    <string name="enter_ten_diget_phone_number">Enter minimum ten digit</string>
+    <string name="enter_ten_diget_phone_number">Invalid Mobile Number</string>
     <string name="add_profile_image">Add profile image</string>
     <string name="enter_your_bio">Enter your bio</string>
     <string name="select_business_start_hour">Select business start hour</string>
@@ -467,4 +467,7 @@
     <string name="reset">Reset</string>
     <string name="three_more_step">Three more steps</string>
     <string name="portfolio_images">Portfolio images</string>
+    <string name="invalid_mobile_number">Invalid Mobile  Number</string>
+    <string name="email_taken">The email has already been taken</string>
+    <string name="phone_taken">The phone has already been taken</string>
 </resources>

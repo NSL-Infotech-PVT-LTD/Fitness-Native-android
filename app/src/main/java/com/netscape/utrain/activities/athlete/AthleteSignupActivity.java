@@ -33,7 +33,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -61,7 +63,9 @@ import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
+import com.netscape.utrain.response.EmailCheckResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
 import com.netscape.utrain.utils.AppController;
@@ -70,6 +74,8 @@ import com.netscape.utrain.utils.Constants;
 import com.netscape.utrain.utils.FileUtil;
 import com.netscape.utrain.utils.ImageFilePath;
 import com.netscape.utrain.utils.PrefrenceConstant;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -88,6 +94,9 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AthleteSignupActivity extends AppCompatActivity implements View.OnClickListener, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
@@ -113,6 +122,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private String IMAGE_DIRECTORY = "/Utrain/";
     private File mediaStorageDir;
     private int count = 0;
+    private boolean emailCheck=false;
+    private String emailTaken="",phoneTaken="";
 
 
 
@@ -212,6 +223,55 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 Log.d("App", "failed to create directory");
             }
         }
+
+
+        binding.athleteEmailEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                Toast.makeText(OrganizationSignUpActivity.this, "before", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String email=charSequence.toString().trim();
+                if (!email.isEmpty()) {
+                    if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        emailCheck=true;
+                        checkAvailablity("email",email);
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+//                Toast.makeText(OrganizationSignUpActivity.this, "after", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        binding.athletePhoneEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String mobileNum=charSequence.toString().trim();
+                if (! mobileNum.isEmpty()){
+                    if (mobileNum.length()==10){
+                        emailCheck=false;
+                        checkAvailablity("phone",mobileNum);
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -369,7 +429,21 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
             }
         } else {
-            hitAthleteSignUpApi();
+            if (Update){
+                hitAthleteSignUpApi();
+            }else {
+                if (emailTaken.isEmpty()) {
+                    binding.athleteEmailEdt.requestFocus();
+                    binding.athleteEmailEdt.setError(getResources().getString(R.string.email_taken));
+                    Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.email_taken), Toast.LENGTH_SHORT).show();
+                } else if (phoneTaken.isEmpty()) {
+                    binding.athletePhoneEdt.requestFocus();
+                    binding.athleteEmailEdt.setError(getResources().getString(R.string.phone_taken));
+                    Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.phone_taken), Toast.LENGTH_SHORT).show();
+                } else {
+                    hitAthleteSignUpApi();
+                }
+            }
         }
     }
 
@@ -990,6 +1064,59 @@ private void getMyLocation() {
             super.onPostExecute(aVoid);
 //            if (bm != null) profileImage.setImageBitmap(bm);
         }
+    }
+    private void checkAvailablity(String type,String value) {
+        Call<EmailCheckResponse> signUpAthlete = retrofitInterface.checkForExisting(Constants.CONTENT_TYPE,type,value);
+        signUpAthlete.enqueue(new Callback<EmailCheckResponse>() {
+            @Override
+            public void onResponse(Call<EmailCheckResponse> call, Response<EmailCheckResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            if (emailCheck){
+                                emailTaken="available";
+                            }else {
+                                phoneTaken="available";
+                            }
+//                            Toast.makeText(OrganizationSignUpActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+//                            finish();
+                        } else {
+//                            Toast.makeText(HelpAndSupport.this, ""+response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                    }
+                } else {
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        if (emailCheck){
+                            binding.athleteEmailEdt.setError("The email has already been taken");
+                            emailTaken="";
+                        }else {
+                            binding.athletePhoneEdt.setError("The phone has already been taken");
+                            phoneTaken="";
+                        }
+//                        Toast.makeText(OrganizationSignUpActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(AthleteSignupActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EmailCheckResponse> call, Throwable t) {
+//                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show();
+                Toast.makeText(AthleteSignupActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+                progressDialog.dismiss();
+
+            }
+        });
     }
 
 }

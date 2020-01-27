@@ -135,6 +135,7 @@ public class Constants {
     public static final String AVAILABLE_SLOTS ="availability" ;
     public static final String BOOKING_DETAILS ="booking/details";
     public static final String JOB_TYPE ="jobDetailtype";
+    public static final String CHECK_EXISTING = "auth/check";
 
 
     public static String ROLE_PLAY = "";

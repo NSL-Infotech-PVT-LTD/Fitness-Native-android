@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -29,7 +30,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -58,8 +61,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
+import com.netscape.utrain.MainActivity;
+import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.HelpAndSupport;
 import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
 import com.netscape.utrain.activities.SelectedServiceList;
@@ -75,6 +81,8 @@ import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ViewCoachListDataModel;
 import com.netscape.utrain.response.CoachSignUpResponse;
+import com.netscape.utrain.response.EmailCheckResponse;
+import com.netscape.utrain.response.HelpAndSupportResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -142,6 +150,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private String longUpdate = "";
     private int count = 0;
     private boolean policeDoc = false;
+    private boolean emailCheck=false;
+    private String emailTaken="",phoneTaken="";
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -174,11 +184,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 Log.d("App", "failed to create directory");
             }
         }
-
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, OrganizationSignUpActivity.this).equals(Constants.Organizer)) {
             if (!update)
                 orgViewCoachStaffView();
-
         }
 
         // For update to CoachStaff receive intent below....
@@ -244,6 +252,53 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             Glide.with(getApplicationContext()).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, getApplication())).into(binding.orgProfileImg);
         }
+        binding.orgEmailEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                Toast.makeText(OrganizationSignUpActivity.this, "before", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String email=charSequence.toString().trim();
+                if (!email.isEmpty()) {
+                    if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        emailCheck=true;
+                      checkAvailablity("email",email);
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+//                Toast.makeText(OrganizationSignUpActivity.this, "after", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        binding.orgPhoneEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String mobileNum=charSequence.toString().trim();
+                if (! mobileNum.isEmpty()){
+                    if (mobileNum.length()==10){
+                        emailCheck=false;
+                        checkAvailablity("phone",mobileNum);
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -339,6 +394,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         binding.orgEndTimeTv.setOnClickListener(this);
         binding.orgNextBtn.setOnClickListener(this);
         binding.orgAddressEdt.setOnClickListener(this);
+        binding.orgPhoneEdt.setOnClickListener(this);
         if (getIntent().getExtras() != null) {
             activeUserType = getIntent().getStringExtra(Constants.ActiveUserType);
             if (activeUserType != null)
@@ -593,15 +649,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         } else if (orgPhone.isEmpty()) {
             binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_phone_number));
             binding.orgPhoneEdt.requestFocus();
-        } else if (orgPhone.length() < 6) {
-            binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_six_diget_phone_number));
+        } else if (orgPhone.length() < 10) {
+            binding.orgPhoneEdt.setError(getResources().getString(R.string.invalid_mobile_number));
             binding.orgPhoneEdt.requestFocus();
         } else if (orgPhone.length() > 10) {
-            binding.orgPhoneEdt.setError(getResources().getString(R.string.enter_ten_diget_phone_number));
+            binding.orgPhoneEdt.setError(getResources().getString(R.string.invalid_mobile_number));
             binding.orgPhoneEdt.requestFocus();
         } else if (orgAddress.isEmpty()) {
-            Toast.makeText(this, getResources().getString(R.string.select_address), Toast.LENGTH_SHORT).show();
-            binding.orgAddressEdt.requestFocus();
+            Toast.makeText(OrganizationSignUpActivity.this, "Enter address", Toast.LENGTH_SHORT).show();
         } else if (orgPasswod.isEmpty()) {
             binding.orgPasswordEdt.setError(getResources().getString(R.string.enter_password));
             binding.orgPasswordEdt.requestFocus();
@@ -612,6 +667,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                         binding.orgPasswordEdtLayout.setEnabled(false);
                 }
             });
+        } else if (orgPasswod.length() < 6 || orgPasswod.length() > 8) {
+            binding.orgPasswordEdt.setError(getResources().getString(R.string.password_length));
+            binding.orgPasswordEdt.requestFocus();
         } else if (orgBio.isEmpty()) {
             binding.orgBioEdt.setError(getResources().getString(R.string.enter_your_bio));
             binding.orgBioEdt.requestFocus();
@@ -657,7 +715,13 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             } else {
                 if (policeDoceFile == null) {
                     Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.upload_police_varrification_doc), Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (emailTaken.isEmpty()) {
+                    binding.orgEmailEdt.requestFocus();
+                    Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.email_taken), Toast.LENGTH_SHORT).show();
+                }else if (phoneTaken.isEmpty()) {
+                    binding.orgPhoneEdt.requestFocus();
+                    Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.phone_taken), Toast.LENGTH_SHORT).show();
+                }else {
 
                     orgDataModel.setProfile_img(photoFile);
                     orgDataModel.setLatitude(String.valueOf(latitude));
@@ -884,7 +948,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 if (photoFile != null) {
 //                    plus.setVisibility(View.GONE);
                     if (policeDoc) {
+                        String type=filePath.substring(filePath.lastIndexOf("."));
+                        String name=filePath.substring(filePath.lastIndexOf("/"));
+                        name=name.replace("/","");
+                        binding.policeDoceTv.setText(name);
                         policeDoceFile = photoFile;
+                        photoFile=null;
                         policeDoc = false;
                     } else {
                         Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
@@ -908,7 +977,18 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     realPath = ImageFilePath.getPath(this, data.getData());
 //                filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
                 if (realPath != null) {
-                    policeDoceFile = new File(realPath);
+                    String type=realPath.substring(realPath.lastIndexOf("."));
+                  if (type.equalsIgnoreCase(".jpeg") || type.equalsIgnoreCase(".jpg") || type.equalsIgnoreCase(".png" ) || type.equalsIgnoreCase(".doc")|| type.equalsIgnoreCase(".docx")|| type.equalsIgnoreCase(".pdf")){
+                      policeDoceFile = new File(realPath);
+                      String name=realPath.substring(realPath.lastIndexOf("/"));
+                      name=name.replace("/","");
+                      binding.policeDoceTv.setText(name);
+                  }else {
+                      Toast.makeText(OrganizationSignUpActivity.this, "File format must be jpeg,jpg,png,doc,docx or pdf", Toast.LENGTH_SHORT).show();
+                      binding.policeDoceTv.setText("Police doc");
+                      policeDoceFile = null;
+                  }
+
                 }
 //                realPath=CommonMethods.getRealPathFromURI(data.getData(),OrganizationSignUpActivity.this);
 //                filePath = file.toString();
@@ -1050,7 +1130,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
-
         Call<CoachSignUpResponse> signUpAthlete = retrofitinterface.updateCoachBasicInfo("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), requestBodyMap, userImg);
         signUpAthlete.enqueue(new Callback<CoachSignUpResponse>() {
             @Override
@@ -1112,6 +1191,59 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             public void onFailure(Call<CoachSignUpResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Snackbar.make(binding.orgSnackBar, "" + t, BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void checkAvailablity(String type,String value) {
+        Call<EmailCheckResponse> signUpAthlete = retrofitinterface.checkForExisting(Constants.CONTENT_TYPE,type,value);
+        signUpAthlete.enqueue(new Callback<EmailCheckResponse>() {
+            @Override
+            public void onResponse(Call<EmailCheckResponse> call, Response<EmailCheckResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            if (emailCheck){
+                                emailTaken="available";
+                            }else {
+                                phoneTaken="available";
+                            }
+//                            Toast.makeText(OrganizationSignUpActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+//                            finish();
+                        } else {
+//                            Toast.makeText(HelpAndSupport.this, ""+response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                    }
+                } else {
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        if (emailCheck){
+                            binding.orgEmailEdt.setError("The email has already been taken");
+                            emailTaken="";
+                        }else {
+                            binding.orgPhoneEdt.setError("The phone has already been taken");
+                            phoneTaken="";
+                        }
+//                        Toast.makeText(OrganizationSignUpActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(OrganizationSignUpActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EmailCheckResponse> call, Throwable t) {
+//                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show();
+                Toast.makeText(OrganizationSignUpActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+                progressDialog.dismiss();
+
             }
         });
     }
