@@ -454,7 +454,7 @@
                     android:drawablePadding="@dimen/_2sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/experience_text"
+                    android:text="@string/exp_details"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/view4" />
@@ -495,7 +495,7 @@
                     android:drawablePadding="@dimen/_2sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center_vertical"
-                    android:text="@string/achievement_Text"
+                    android:text="@string/training_detail"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintLeft_toLeftOf="@id/LeftGuideLine"
                     app:layout_constraintTop_toBottomOf="@id/view5" />

@@ -33,7 +33,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         binding.coachPhoneTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, ViewProfileActivity.this));
         binding.coachAddressTv.setText(CommonMethods.getPrefData(PrefrenceConstant.ADDRESS, ViewProfileActivity.this));
         binding.coachExperienceTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, ViewProfileActivity.this));
-        binding.coachAchiveMentsTv.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, ViewProfileActivity.this));
+        binding.coachAchiveMentsTv.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, ViewProfileActivity.this));
         Glide.with(ViewProfileActivity.this).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, ViewProfileActivity.this)).into(binding.coachProfileImg);
         binding.coachProfileBackImg.setOnClickListener(new View.OnClickListener() {
             @Override

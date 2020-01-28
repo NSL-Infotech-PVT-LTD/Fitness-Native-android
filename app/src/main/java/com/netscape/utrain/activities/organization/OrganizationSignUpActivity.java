@@ -150,8 +150,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private String longUpdate = "";
     private int count = 0;
     private boolean policeDoc = false;
-    private boolean emailCheck=false;
-    private String emailTaken="",phoneTaken="";
+    private boolean emailCheck = false;
+    private String emailTaken = "", phoneTaken = "";
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -222,7 +222,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 binding.signUpType.setText("Organization");
             } else {
                 binding.signUpType.setText("Coach");
-
             }
 
             binding.completeProfileTv.setText("Update Profile");
@@ -260,11 +259,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String email=charSequence.toString().trim();
+                String email = charSequence.toString().trim();
                 if (!email.isEmpty()) {
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        emailCheck=true;
-                      checkAvailablity("email",email);
+                        emailCheck = true;
+                        checkAvailablity("email", email);
                     }
                 }
 
@@ -284,11 +283,11 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String mobileNum=charSequence.toString().trim();
-                if (! mobileNum.isEmpty()){
-                    if (mobileNum.length()==10){
-                        emailCheck=false;
-                        checkAvailablity("phone",mobileNum);
+                String mobileNum = charSequence.toString().trim();
+                if (!mobileNum.isEmpty()) {
+                    if (mobileNum.length() == 10) {
+                        emailCheck = false;
+                        checkAvailablity("phone", mobileNum);
                     }
                 }
 
@@ -718,10 +717,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 } else if (emailTaken.isEmpty()) {
                     binding.orgEmailEdt.requestFocus();
                     Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.email_taken), Toast.LENGTH_SHORT).show();
-                }else if (phoneTaken.isEmpty()) {
+                } else if (phoneTaken.isEmpty()) {
                     binding.orgPhoneEdt.requestFocus();
                     Toast.makeText(OrganizationSignUpActivity.this, getResources().getString(R.string.phone_taken), Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
                     orgDataModel.setProfile_img(photoFile);
                     orgDataModel.setLatitude(String.valueOf(latitude));
@@ -923,12 +922,10 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
@@ -943,25 +940,26 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             if (resultCode == RESULT_OK) {
                 String filePath = SiliCompressor.with(getApplicationContext()).compress(currentPhotoFilePath, mediaStorageDir);
-                photoFile = new File(filePath);
+
 //                AppDelegate.Log("imageCaptured ", currentPhotoFilePath);
-                if (photoFile != null) {
+
 //                    plus.setVisibility(View.GONE);
-                    if (policeDoc) {
-                        String type=filePath.substring(filePath.lastIndexOf("."));
-                        String name=filePath.substring(filePath.lastIndexOf("/"));
-                        name=name.replace("/","");
+                if (policeDoc) {
+                    policeDoceFile = new File(filePath);
+                    if (policeDoceFile != null) {
+                        String type = filePath.substring(filePath.lastIndexOf("."));
+                        String name = filePath.substring(filePath.lastIndexOf("/"));
+                        name = name.replace("/", "");
                         binding.policeDoceTv.setText(name);
-                        policeDoceFile = photoFile;
-                        photoFile=null;
                         policeDoc = false;
-                    } else {
+                    }
+                } else {
+                    photoFile = new File(filePath);
+                    if (photoFile != null) {
                         Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
                     }
-
-//                    imagesSelected.add(position,photoFile);
-
                 }
+
 
             }
         } else if (requestCode == Constants.REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
@@ -977,17 +975,17 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     realPath = ImageFilePath.getPath(this, data.getData());
 //                filePath = SiliCompressor.with(getApplicationContext()).compress(realPath, mediaStorageDir);
                 if (realPath != null) {
-                    String type=realPath.substring(realPath.lastIndexOf("."));
-                  if (type.equalsIgnoreCase(".jpeg") || type.equalsIgnoreCase(".jpg") || type.equalsIgnoreCase(".png" ) || type.equalsIgnoreCase(".doc")|| type.equalsIgnoreCase(".docx")|| type.equalsIgnoreCase(".pdf")){
-                      policeDoceFile = new File(realPath);
-                      String name=realPath.substring(realPath.lastIndexOf("/"));
-                      name=name.replace("/","");
-                      binding.policeDoceTv.setText(name);
-                  }else {
-                      Toast.makeText(OrganizationSignUpActivity.this, "File format must be jpeg,jpg,png,doc,docx or pdf", Toast.LENGTH_SHORT).show();
-                      binding.policeDoceTv.setText("Police doc");
-                      policeDoceFile = null;
-                  }
+                    String type = realPath.substring(realPath.lastIndexOf("."));
+                    if (type.equalsIgnoreCase(".jpeg") || type.equalsIgnoreCase(".jpg") || type.equalsIgnoreCase(".png") || type.equalsIgnoreCase(".doc") || type.equalsIgnoreCase(".docx") || type.equalsIgnoreCase(".pdf")) {
+                        policeDoceFile = new File(realPath);
+                        String name = realPath.substring(realPath.lastIndexOf("/"));
+                        name = name.replace("/", "");
+                        binding.policeDoceTv.setText(name);
+                    } else {
+                        Toast.makeText(OrganizationSignUpActivity.this, "File format must be jpeg,jpg,png,doc,docx or pdf", Toast.LENGTH_SHORT).show();
+                        binding.policeDoceTv.setText("Police doc");
+                        policeDoceFile = null;
+                    }
 
                 }
 //                realPath=CommonMethods.getRealPathFromURI(data.getData(),OrganizationSignUpActivity.this);
@@ -1001,8 +999,6 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 }
                 if (photoFile != null)
                     Glide.with(this).load(photoFile.getPath()).into(binding.orgProfileImg);
-
-
             }
         }
     }
@@ -1194,18 +1190,19 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             }
         });
     }
-    private void checkAvailablity(String type,String value) {
-        Call<EmailCheckResponse> signUpAthlete = retrofitinterface.checkForExisting(Constants.CONTENT_TYPE,type,value);
+
+    private void checkAvailablity(String type, String value) {
+        Call<EmailCheckResponse> signUpAthlete = retrofitinterface.checkForExisting(Constants.CONTENT_TYPE, type, value);
         signUpAthlete.enqueue(new Callback<EmailCheckResponse>() {
             @Override
             public void onResponse(Call<EmailCheckResponse> call, Response<EmailCheckResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            if (emailCheck){
-                                emailTaken="available";
-                            }else {
-                                phoneTaken="available";
+                            if (emailCheck) {
+                                emailTaken = "available";
+                            } else {
+                                phoneTaken = "available";
                             }
 //                            Toast.makeText(OrganizationSignUpActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
 //                            finish();
@@ -1220,12 +1217,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        if (emailCheck){
+                        if (emailCheck) {
                             binding.orgEmailEdt.setError("The email has already been taken");
-                            emailTaken="";
-                        }else {
+                            emailTaken = "";
+                        } else {
                             binding.orgPhoneEdt.setError("The phone has already been taken");
-                            phoneTaken="";
+                            phoneTaken = "";
                         }
 //                        Toast.makeText(OrganizationSignUpActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
 

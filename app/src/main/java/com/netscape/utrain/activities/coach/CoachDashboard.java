@@ -121,7 +121,6 @@ public class CoachDashboard extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_running:
-
                     CoachNotification.setText("");
                     fragment = new O_HistoryFragment();
                     loadFragment(fragment);

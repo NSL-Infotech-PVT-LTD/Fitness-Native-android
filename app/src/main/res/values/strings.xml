@@ -470,4 +470,5 @@
     <string name="invalid_mobile_number">Invalid Mobile  Number</string>
     <string name="email_taken">The email has already been taken</string>
     <string name="phone_taken">The phone has already been taken</string>
+    <string name="exp_details">Experience details</string>
 </resources>

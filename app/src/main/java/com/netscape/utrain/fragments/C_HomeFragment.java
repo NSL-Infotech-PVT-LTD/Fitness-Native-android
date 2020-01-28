@@ -81,7 +81,6 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
     private ArrayList<ServiceListDataModel> sList = new ArrayList<>();
     private CoachListModel coachListModel;
 
-
     public C_HomeFragment() {
 
 
@@ -111,7 +110,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
         cExp = CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, context);
         if (cExp != null)
-            binding.cExpDetailTv.setText(cExp+" year");
+            binding.cExpDetailTv.setText(cExp + " year");
         else
             binding.cExpDetailTv.setVisibility(View.GONE);
         cAchievement = CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, context);
@@ -128,7 +127,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
         getSpaceList();
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
-        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome)+" " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
+        binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + " " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
         binding.createEventImg.setOnClickListener(this);
         binding.findPlace.setOnClickListener(this);
         binding.createSessionImg.setOnClickListener(this);
@@ -195,7 +194,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getSpaceList() {
         progressDialog.show();
-        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "20", "latest","", "");
+        Call<AthletePlaceResponse> signUpAthlete = retrofitinterface.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "20", "latest", "", "");
         signUpAthlete.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -220,19 +219,19 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONObject jsonObject=jObjError.getJSONObject("error");
-                        String code=jsonObject.getString("code");
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
                         if (!TextUtils.isEmpty(code)) {
                             if (Integer.parseInt(code) == 401) {
                                 CommonMethods.invalidAuthToken(getContext(), getActivity());
                             }
                         }
                         String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        Snackbar.make(binding.orgHomeLayout, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, errorMessage, BaseTransientBottomBar.LENGTH_LONG).show();
 
                     } catch (Exception e) {
 //                        binding.noDataFoundImg.setVisibility(View.VISIBLE);
-                        Snackbar.make(binding.orgHomeLayout, e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
 
@@ -260,15 +259,14 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 sportList = gson.fromJson(sportName, type);
 
                 StringBuilder builder = new StringBuilder();
-                int i=1;
+                int i = 1;
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
-                    if (i< sportList.size()){
+                    if (i < sportList.size()) {
                         builder.append(details.getName() + ",");
-                        i=i+1;
-                    }
-                    else if (i == sportList.size()){
+                        i = i + 1;
+                    } else if (i == sportList.size()) {
                         builder.append(details.getName());
-                        i=i+1;
+                        i = i + 1;
                     }
                 }
                 binding.cSportsNameTv.setText(builder.toString());

@@ -1,6 +1,9 @@
 package com.netscape.utrain.retrofit;
 
 import com.netscape.utrain.utils.Constants;
+
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,9 +15,14 @@ public class RetrofitInstance {
     public static Retrofit retrofit_obj=null;
 
     public static Retrofit getClient() {
-        OkHttpClient okHttpClient = new OkHttpClient();
+//        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient innerClient = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS) // connect timeout
+                .writeTimeout(60, TimeUnit.SECONDS) // write timeout
+                .readTimeout(60, TimeUnit.SECONDS) // read timeout
+                .build();
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).client(innerClient).addConverterFactory(GsonConverterFactory.create()).build();
         }
         return retrofit;
     }

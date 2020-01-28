@@ -122,9 +122,8 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private String IMAGE_DIRECTORY = "/Utrain/";
     private File mediaStorageDir;
     private int count = 0;
-    private boolean emailCheck=false;
-    private String emailTaken="",phoneTaken="";
-
+    private boolean emailCheck = false;
+    private String emailTaken = "", phoneTaken = "";
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -233,11 +232,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String email=charSequence.toString().trim();
+                String email = charSequence.toString().trim();
                 if (!email.isEmpty()) {
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        emailCheck=true;
-                        checkAvailablity("email",email);
+                        emailCheck = true;
+                        checkAvailablity("email", email);
                     }
                 }
 
@@ -257,11 +256,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String mobileNum=charSequence.toString().trim();
-                if (! mobileNum.isEmpty()){
-                    if (mobileNum.length()==10){
-                        emailCheck=false;
-                        checkAvailablity("phone",mobileNum);
+                String mobileNum = charSequence.toString().trim();
+                if (!mobileNum.isEmpty()) {
+                    if (mobileNum.length() == 10) {
+                        emailCheck = false;
+                        checkAvailablity("phone", mobileNum);
                     }
                 }
 
@@ -429,9 +428,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(AthleteSignupActivity.this, getResources().getString(R.string.add_profile_image), Toast.LENGTH_SHORT).show();
             }
         } else {
-            if (Update){
+            if (Update) {
                 hitAthleteSignUpApi();
-            }else {
+            } else {
                 if (emailTaken.isEmpty()) {
                     binding.athleteEmailEdt.requestFocus();
                     binding.athleteEmailEdt.setError(getResources().getString(R.string.email_taken));
@@ -848,7 +847,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-//    private void getMyLocation() {
+    //    private void getMyLocation() {
 //        if (googleApiClient != null) {
 //            if (googleApiClient.isConnected()) {
 //                int permissionLocation = ContextCompat.checkSelfPermission(activity,
@@ -911,69 +910,69 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
 //            }
 //        }
 //    }
-private void getMyLocation() {
-    if (googleApiClient != null) {
-        if (googleApiClient.isConnected()) {
-            int permissionLocation = ContextCompat.checkSelfPermission(activity,
-                    Manifest.permission.ACCESS_FINE_LOCATION);
-            if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-                mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                LocationRequest locationRequest = new LocationRequest();
-                locationRequest.setInterval(3000);
-                locationRequest.setFastestInterval(3000);
-                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                        .addLocationRequest(locationRequest);
-                builder.setAlwaysShow(true);
-                LocationServices.FusedLocationApi
-                        .requestLocationUpdates(googleApiClient, locationRequest, this);
-                PendingResult<LocationSettingsResult> result =
-                        LocationServices.SettingsApi
-                                .checkLocationSettings(googleApiClient, builder.build());
-                result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+    private void getMyLocation() {
+        if (googleApiClient != null) {
+            if (googleApiClient.isConnected()) {
+                int permissionLocation = ContextCompat.checkSelfPermission(activity,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                    mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(3000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                            .addLocationRequest(locationRequest);
+                    builder.setAlwaysShow(true);
+                    LocationServices.FusedLocationApi
+                            .requestLocationUpdates(googleApiClient, locationRequest, this);
+                    PendingResult<LocationSettingsResult> result =
+                            LocationServices.SettingsApi
+                                    .checkLocationSettings(googleApiClient, builder.build());
+                    result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
 
-                    @Override
-                    public void onResult(LocationSettingsResult result) {
-                        final Status status = result.getStatus();
-                        switch (status.getStatusCode()) {
-                            case LocationSettingsStatusCodes.SUCCESS:
-                                // All location settings are satisfied.
-                                // You can initialize location requests here.
-                                int permissionLocation = ContextCompat
-                                        .checkSelfPermission(activity,
-                                                Manifest.permission.ACCESS_FINE_LOCATION);
-                                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-                                    mylocation = LocationServices.FusedLocationApi
-                                            .getLastLocation(googleApiClient);
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                // Location settings are not satisfied.
-                                // But could be fixed by showing the user a dialog.
-                                try {
-                                    // Show the dialog by calling startResolutionForResult(),
-                                    // and check the result in onActivityResult().
-                                    // Ask to turn on GPS automatically
-                                    status.startResolutionForResult(activity,
-                                            REQUEST_CHECK_SETTINGS_GPS);
-                                } catch (IntentSender.SendIntentException e) {
-                                    // Ignore the error.
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                // Location settings are not satisfied.
-                                // However, we have no way
-                                // to fix the
-                                // settings so we won't show the dialog.
-                                // finish();
-                                break;
+                        @Override
+                        public void onResult(LocationSettingsResult result) {
+                            final Status status = result.getStatus();
+                            switch (status.getStatusCode()) {
+                                case LocationSettingsStatusCodes.SUCCESS:
+                                    // All location settings are satisfied.
+                                    // You can initialize location requests here.
+                                    int permissionLocation = ContextCompat
+                                            .checkSelfPermission(activity,
+                                                    Manifest.permission.ACCESS_FINE_LOCATION);
+                                    if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                                        mylocation = LocationServices.FusedLocationApi
+                                                .getLastLocation(googleApiClient);
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    // Location settings are not satisfied.
+                                    // But could be fixed by showing the user a dialog.
+                                    try {
+                                        // Show the dialog by calling startResolutionForResult(),
+                                        // and check the result in onActivityResult().
+                                        // Ask to turn on GPS automatically
+                                        status.startResolutionForResult(activity,
+                                                REQUEST_CHECK_SETTINGS_GPS);
+                                    } catch (IntentSender.SendIntentException e) {
+                                        // Ignore the error.
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    // Location settings are not satisfied.
+                                    // However, we have no way
+                                    // to fix the
+                                    // settings so we won't show the dialog.
+                                    // finish();
+                                    break;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
-}
 
     public File saveImage1(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -1002,6 +1001,60 @@ private void getMyLocation() {
     protected void onDestroy() {
         Update = false;
         super.onDestroy();
+    }
+
+    private void checkAvailablity(String type, String value) {
+        Call<EmailCheckResponse> signUpAthlete = retrofitInterface.checkForExisting(Constants.CONTENT_TYPE, type, value);
+        signUpAthlete.enqueue(new Callback<EmailCheckResponse>() {
+            @Override
+            public void onResponse(Call<EmailCheckResponse> call, Response<EmailCheckResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+                            if (emailCheck) {
+                                emailTaken = "available";
+                            } else {
+                                phoneTaken = "available";
+                            }
+//                            Toast.makeText(OrganizationSignUpActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+//                            finish();
+                        } else {
+//                            Toast.makeText(HelpAndSupport.this, ""+response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                    }
+                } else {
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                        if (emailCheck) {
+                            binding.athleteEmailEdt.setError("The email has already been taken");
+                            emailTaken = "";
+                        } else {
+                            binding.athletePhoneEdt.setError("The phone has already been taken");
+                            phoneTaken = "";
+                        }
+//                        Toast.makeText(OrganizationSignUpActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(AthleteSignupActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<EmailCheckResponse> call, Throwable t) {
+//                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show();
+                Toast.makeText(AthleteSignupActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+
+                progressDialog.dismiss();
+
+            }
+        });
     }
 
     public class MyAsync extends AsyncTask<String, Void, Void> {
@@ -1064,59 +1117,6 @@ private void getMyLocation() {
             super.onPostExecute(aVoid);
 //            if (bm != null) profileImage.setImageBitmap(bm);
         }
-    }
-    private void checkAvailablity(String type,String value) {
-        Call<EmailCheckResponse> signUpAthlete = retrofitInterface.checkForExisting(Constants.CONTENT_TYPE,type,value);
-        signUpAthlete.enqueue(new Callback<EmailCheckResponse>() {
-            @Override
-            public void onResponse(Call<EmailCheckResponse> call, Response<EmailCheckResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().isStatus()) {
-                        if (response.body().getData() != null) {
-                            if (emailCheck){
-                                emailTaken="available";
-                            }else {
-                                phoneTaken="available";
-                            }
-//                            Toast.makeText(OrganizationSignUpActivity.this, "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
-//                            finish();
-                        } else {
-//                            Toast.makeText(HelpAndSupport.this, ""+response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    } else {
-                    }
-                } else {
-
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        if (emailCheck){
-                            binding.athleteEmailEdt.setError("The email has already been taken");
-                            emailTaken="";
-                        }else {
-                            binding.athletePhoneEdt.setError("The phone has already been taken");
-                            phoneTaken="";
-                        }
-//                        Toast.makeText(OrganizationSignUpActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
-
-                    } catch (Exception e) {
-                        Toast.makeText(AthleteSignupActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<EmailCheckResponse> call, Throwable t) {
-//                Snackbar.make(binding.loginLayout, getResources().getString(R.string.something_went_wrong), Snackbar.LENGTH_LONG).show();
-                Toast.makeText(AthleteSignupActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-
-                progressDialog.dismiss();
-
-            }
-        });
     }
 
 }
