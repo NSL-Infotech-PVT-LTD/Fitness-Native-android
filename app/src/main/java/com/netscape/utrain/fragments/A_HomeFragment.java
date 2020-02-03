@@ -105,7 +105,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private Retrofitinterface api;
     private List<CoachListModel> coachList = new ArrayList<>();
     private Context context;
-    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg, aProfileImgDBoard, cViewAllDImage, oViewAllDImage,essDImg;
+    private AppCompatImageView sessionIconImg, eventIconImg, findSpacesIconImg, aProfileImgDBoard, cViewAllDImage, oViewAllDImage, essDImg;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -145,7 +145,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            Log.d("FragmentNoti",mParam1);
+            Log.d("FragmentNoti", mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
 
@@ -194,7 +194,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         logOut = view.findViewById(R.id.logOutTv);
         setupViewPager(viewPager);
         btnTopCoaches = view.findViewById(R.id.topCoachesViewAllBtn);
-        sessionIconImg = view.findViewById(R.id.sessionIconImg);
+//        sessionIconImg = view.findViewById(R.id.sessionIconImg);
         btnTopOrganization = view.findViewById(R.id.topOrgViewAllBtn);
         eventIconImg = view.findViewById(R.id.eventIconImg);
         findSpacesIconImg = view.findViewById(R.id.findSpacesIconImg);
@@ -223,7 +223,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         } else {
             aExpDetailTv.setVisibility(View.VISIBLE);
             aExperienceDBoard.setVisibility(View.VISIBLE);
-            aExpDetailTv.setText(sExperience );
+            aExpDetailTv.setText(sExperience);
 
 
         }
@@ -256,7 +256,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
         topOrgLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         btnTopCoaches.setOnClickListener(this);
         btnTopOrganization.setOnClickListener(this);
-        sessionIconImg.setOnClickListener(this);
+//        sessionIconImg.setOnClickListener(this);
         eventIconImg.setOnClickListener(this);
         findSpacesIconImg.setOnClickListener(this);
 
@@ -319,15 +319,14 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 sportList = gson.fromJson(sportName, type);
 
                 StringBuilder builder = new StringBuilder();
-                int i=1;
+                int i = 1;
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
-                    if (i< sportList.size()){
+                    if (i < sportList.size()) {
                         builder.append(details.getName() + ",");
-                        i=i+1;
-                    }
-                    else if (i == sportList.size()){
+                        i = i + 1;
+                    } else if (i == sportList.size()) {
                         builder.append(details.getName());
-                        i=i+1;
+                        i = i + 1;
                     }
                 }
                 aSportsNameTv.setText(builder.toString());
@@ -360,8 +359,8 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                     try {
 
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONObject jsonObject=jObjError.getJSONObject("error");
-                        String code=jsonObject.getString("code");
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
                         if (!TextUtils.isEmpty(code)) {
                             if (Integer.parseInt(code) == 401) {
                                 CommonMethods.invalidAuthToken(getContext(), getActivity());
@@ -409,6 +408,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<CoachListResponse> call, Throwable t) {
                 Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -420,7 +420,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Ath_EvntsFragment(), getResources().getString(R.string.events));
-        adapter.addFragment(new A_SessionsFragment(), getResources().getString(R.string.sessions));
+//        adapter.addFragment(new A_SessionsFragment(), getResources().getString(R.string.sessions));
         adapter.addFragment(new A_SpacesFragment(), getResources().getString(R.string.spaces));
 
         viewPager.setAdapter(adapter);
@@ -470,12 +470,12 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(topOrg);
                 break;
 
-            case R.id.sessionIconImg:
-                Intent intents = new Intent(getContext(), AllEventsMapAct.class);
-                intents.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intents.putExtra("from", "2");
-                getContext().startActivity(intents);
-                break;
+//            case R.id.sessionIconImg:
+//                Intent intents = new Intent(getContext(), AllEventsMapAct.class);
+//                intents.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intents.putExtra("from", "2");
+//                getContext().startActivity(intents);
+//                break;
             case R.id.eventIconImg:
                 Intent intentss = new Intent(getContext(), AllEventsMapAct.class);
                 intentss.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -587,6 +587,7 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);

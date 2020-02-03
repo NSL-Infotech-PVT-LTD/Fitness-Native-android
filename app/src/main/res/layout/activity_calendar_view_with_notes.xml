@@ -83,16 +83,16 @@
                 android:gravity="center"
                 android:text="Events"></androidx.appcompat.widget.AppCompatTextView>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_session"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center"
-                android:text="Sessions"
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:drawableLeft="@drawable/ic_session"-->
+<!--                android:fontFamily="@font/poppins_semibold"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Sessions"-->
 
 
-                ></androidx.appcompat.widget.AppCompatTextView>
+<!--                ></androidx.appcompat.widget.AppCompatTextView>-->
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView

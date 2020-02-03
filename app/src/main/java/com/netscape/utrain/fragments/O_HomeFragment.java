@@ -158,7 +158,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 //        Glide.with(context).load(Constants.ORG_IMAGE_BASE_URL + path).into(binding.orgProfileImage); // working code line to display image
 //        Glide.with(context).load(path).into(binding.orgProfileImage);
         binding.createEventImg.setOnClickListener(this);
-        binding.createSessionImg.setOnClickListener(this);
+//        binding.createSessionImg.setOnClickListener(this);
         binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
 //        binding.orglogOutTv.setOnClickListener(this);
@@ -213,11 +213,11 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
                 view.getContext().startActivity(createEvent);
                 break;
-            case R.id.createSessionImg:
-                PortfolioActivity.clearFromConstants();
-                Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
-                view.getContext().startActivity(createSession);
-                break;
+//            case R.id.createSessionImg:
+//                PortfolioActivity.clearFromConstants();
+//                Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
+//                view.getContext().startActivity(createSession);
+//                break;
             case R.id.createSpaceImg:
                 PortfolioActivity.clearFromConstants();
                 Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);

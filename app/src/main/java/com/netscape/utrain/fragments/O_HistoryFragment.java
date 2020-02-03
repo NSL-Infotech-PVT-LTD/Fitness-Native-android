@@ -99,7 +99,7 @@ public class O_HistoryFragment extends Fragment {
         View view = binding.getRoot();
         liearLayout = view.findViewById(R.id.bottomsheet_services);
         spaceSel = view.findViewById(R.id.spaceSel);
-        sessionSel = view.findViewById(R.id.sessionSel);
+//        sessionSel = view.findViewById(R.id.sessionSel);
         eventSel = view.findViewById(R.id.eventSel);
         doneSel = view.findViewById(R.id.doneSel);
         sheetBehavior = BottomSheetBehavior.from(liearLayout);
@@ -132,7 +132,7 @@ public class O_HistoryFragment extends Fragment {
     private void checkClick() {
 
         eventSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
-        sessionSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
+//        sessionSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
         spaceSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
 
     }
@@ -169,21 +169,21 @@ public class O_HistoryFragment extends Fragment {
 
             }
         });
-        sessionSel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sort_count = 2;
-                selectedTExt();
-                O_UpcEventFragment.count = sort_count;
-                O_CmpEventFragment.count = sort_count;
-
-                upcoming = "Upcoming";
-                completed = "Completed";
-                setupViewPager(binding.historyViewPager);
-                bottomSheetUpDown_address();
-
-            }
-        });
+//        sessionSel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                sort_count = 2;
+//                selectedTExt();
+//                O_UpcEventFragment.count = sort_count;
+//                O_CmpEventFragment.count = sort_count;
+//
+//                upcoming = "Upcoming";
+//                completed = "Completed";
+//                setupViewPager(binding.historyViewPager);
+//                bottomSheetUpDown_address();
+//
+//            }
+//        });
         spaceSel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,7 +246,7 @@ public class O_HistoryFragment extends Fragment {
             checkClick();
             binding.nameOfType.setText("Session");
 
-            sessionSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
+//            sessionSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
 
 
         } else if (sort_count == 3) {

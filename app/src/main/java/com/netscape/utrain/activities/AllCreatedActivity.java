@@ -54,7 +54,8 @@ public class AllCreatedActivity extends AppCompatActivity {
 
         } else {
             setupViewPager(binding.allCreatedViewPager);
-            wrapTabIndicatorToTitle(binding.allCreatedTab, 100, 50);
+//            wrapTabIndicatorToTitle(binding.allCreatedTab, 100, 50);
+            wrapTabIndicatorToTitle(binding.allCreatedTab, 200, 200);
 
         }
     }
@@ -76,7 +77,7 @@ public class AllCreatedActivity extends AppCompatActivity {
     private void setupViewPager(final ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllEventsFragment(), getResources().getString(R.string.events));
-        adapter.addFragment(new AllSessionsFragment(), getResources().getString(R.string.sessions));
+//        adapter.addFragment(new AllSessionsFragment(), getResources().getString(R.string.sessions));
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getApplicationContext()).equalsIgnoreCase(Constants.Organizer)) {
             adapter.addFragment(new AllSpacesFragment(), getResources().getString(R.string.spaces));
         }

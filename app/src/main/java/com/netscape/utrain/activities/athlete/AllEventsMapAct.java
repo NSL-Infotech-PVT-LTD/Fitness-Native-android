@@ -1036,7 +1036,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                     getAthleteSessionApi(orderBy, search, sCoach_Id);
                 else if (getIntent().getStringExtra("from").equalsIgnoreCase("3"))
                     getAthletePlaceApi(orderBy, search, sCoach_Id);
-
             }
         });
         sort_latest.setOnClickListener(new View.OnClickListener() {
@@ -1087,8 +1086,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
         sort_low.setTypeface(null, Typeface.NORMAL);
         sort_distance.setTypeface(null, Typeface.NORMAL);
         sort_latest.setTypeface(null, Typeface.NORMAL);
-
-
         //change color
         sort_high.setTextColor(getResources().getColor(R.color.colorBlack));
         sort_low.setTextColor(getResources().getColor(R.color.colorBlack));

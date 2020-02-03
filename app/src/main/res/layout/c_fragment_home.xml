@@ -276,22 +276,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/constraintChipGroup">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/_20sdp"
+                        android:paddingRight="@dimen/_20sdp"
                         android:background="@drawable/gradiant_design"
-                        android:padding="@dimen/_5sdp">
+                        >
 
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/createEventImg"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:layout_marginLeft="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_16sdp"
                             android:src="@drawable/ic_session_icon"
                             app:layout_constraintHorizontal_chainStyle="spread"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/createSessionImg"
+                            app:layout_constraintRight_toLeftOf="@+id/coachFindSpaceImg"
                             app:layout_constraintTop_toTopOf="parent" />
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_8sdp"
@@ -303,41 +304,67 @@
                             app:layout_constraintRight_toRightOf="@+id/createEventImg"
                             app:layout_constraintTop_toTopOf="@+id/createEventImg"
                             app:layout_constraintBottom_toBottomOf="@+id/createEventImg"></androidx.appcompat.widget.AppCompatImageView>
-
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/createSessionImg"
+                            android:id="@+id/coachFindSpaceImg"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:layout_marginLeft="@dimen/_30sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
                             android:layout_marginTop="@dimen/_16sdp"
-                            android:layout_marginRight="@dimen/_15sdp"
-                            android:src="@drawable/ic_event_icon"
-                            app:layout_constraintLeft_toRightOf="@id/createEventImg"
-                            app:layout_constraintRight_toLeftOf="@id/createSpaceImg"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/_8sdp"
-                            android:layout_height="@dimen/_8sdp"
-                            android:src="@drawable/ic_add_black"
-                            android:layout_marginLeft="@dimen/_16sdp"
-                            android:layout_marginBottom="@dimen/_16sdp"
-                            app:layout_constraintLeft_toLeftOf="@+id/createSessionImg"
-                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"
-                            app:layout_constraintTop_toTopOf="@+id/createSessionImg"
-                            app:layout_constraintBottom_toBottomOf="@+id/createSessionImg"></androidx.appcompat.widget.AppCompatImageView>
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/createSpaceImg"
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:layout_marginLeft="@dimen/_12sdp"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:src="@drawable/ic_find_spaces_icon"
-                            android:visibility="gone"
-                            app:layout_constraintLeft_toRightOf="@id/createSessionImg"
+                            app:layout_constraintLeft_toRightOf="@id/createEventImg"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="@dimen/_2sdp"
+                            android:text="@string/find_space"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@+id/coachFindSpaceImg"
+                            app:layout_constraintTop_toBottomOf="@+id/coachFindSpaceImg" />
+
+
+
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/createSessionImg"-->
+<!--                            android:layout_width="@dimen/_50sdp"-->
+<!--                            android:layout_height="@dimen/_50sdp"-->
+<!--                            android:layout_marginLeft="@dimen/_30sdp"-->
+<!--                            android:layout_marginTop="@dimen/_16sdp"-->
+<!--                            android:layout_marginRight="@dimen/_15sdp"-->
+<!--                            android:src="@drawable/ic_event_icon"-->
+<!--                            app:layout_constraintLeft_toRightOf="@id/createEventImg"-->
+<!--                            app:layout_constraintRight_toLeftOf="@id/createSpaceImg"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:layout_width="@dimen/_8sdp"-->
+<!--                            android:layout_height="@dimen/_8sdp"-->
+<!--                            android:src="@drawable/ic_add_black"-->
+<!--                            android:layout_marginLeft="@dimen/_16sdp"-->
+<!--                            android:layout_marginBottom="@dimen/_16sdp"-->
+<!--                            app:layout_constraintLeft_toLeftOf="@+id/createSessionImg"-->
+<!--                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/createSessionImg"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/createSessionImg"></androidx.appcompat.widget.AppCompatImageView>-->
+
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/createSpaceImg"-->
+<!--                            android:layout_width="@dimen/_50sdp"-->
+<!--                            android:layout_height="@dimen/_50sdp"-->
+<!--                            android:layout_marginLeft="@dimen/_12sdp"-->
+<!--                            android:layout_marginTop="@dimen/_16sdp"-->
+<!--                            android:src="@drawable/ic_find_spaces_icon"-->
+<!--                            android:visibility="gone"-->
+<!--                            app:layout_constraintLeft_toRightOf="@id/createSessionImg"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/AthleteCardsessionTv"
@@ -354,20 +381,20 @@
                             app:layout_constraintRight_toRightOf="@+id/createEventImg"
                             app:layout_constraintTop_toBottomOf="@id/createEventImg" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/AthleteCardeventTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="@string/create_session"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="@id/createSessionImg"
-                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"
-                            app:layout_constraintTop_toBottomOf="@id/createSessionImg" />
+<!--                        <com.google.android.material.textview.MaterialTextView-->
+<!--                            android:id="@+id/AthleteCardeventTv"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="@dimen/_10sdp"-->
+<!--                            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                            android:fontFamily="@font/poppins_regular"-->
+<!--                            android:text="@string/create_session"-->
+<!--                            android:textColor="@color/colorWhite"-->
+<!--                            android:textSize="@dimen/_10sdp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintLeft_toLeftOf="@id/createSessionImg"-->
+<!--                            app:layout_constraintRight_toRightOf="@+id/createSessionImg"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/createSessionImg" />-->
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/AthleteCardfindSpaceTv"
@@ -381,9 +408,9 @@
                             android:textSize="@dimen/_10sdp"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="@id/createSpaceImg"
+
                             app:layout_constraintRight_toRightOf="@+id/createSpaceImg"
-                            app:layout_constraintTop_toBottomOf="@id/createSpaceImg" />
+                            />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -428,35 +455,35 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/gradiant_design">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/coachFindSpaceImg"
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:layout_marginLeft="@dimen/_15sdp"
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:id="@+id/coachFindSpaceImg"-->
+<!--                            android:layout_width="@dimen/_50sdp"-->
+<!--                            android:layout_height="@dimen/_50sdp"-->
+<!--                            android:layout_marginLeft="@dimen/_15sdp"-->
 
-                            android:layout_marginTop="@dimen/_16sdp"
-                            android:layout_marginRight="@dimen/_15sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:padding="@dimen/_2sdp"
-                            android:src="@drawable/ic_find_spaces_icon"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                            android:layout_marginTop="@dimen/_16sdp"-->
+<!--                            android:layout_marginRight="@dimen/_15sdp"-->
+<!--                            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                            android:padding="@dimen/_2sdp"-->
+<!--                            android:src="@drawable/ic_find_spaces_icon"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:fontFamily="@font/poppins_regular"
-                            android:padding="@dimen/_2sdp"
-                            android:text="@string/find_space"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/_10sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coachFindSpaceImg" />
+<!--                        <com.google.android.material.textview.MaterialTextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="@dimen/_10sdp"-->
+<!--                            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                            android:fontFamily="@font/poppins_regular"-->
+<!--                            android:padding="@dimen/_2sdp"-->
+<!--                            android:text="@string/find_space"-->
+<!--                            android:textColor="@color/colorWhite"-->
+<!--                            android:textSize="@dimen/_10sdp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/coachFindSpaceImg" />-->
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

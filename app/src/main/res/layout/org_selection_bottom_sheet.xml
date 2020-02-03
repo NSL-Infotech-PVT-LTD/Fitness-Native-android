@@ -48,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/colorWhite"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingBottom="@dimen/_20sdp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/eventSel"
@@ -74,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/sessionSel"
+            android:id="@+id/spaceSel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -88,33 +89,34 @@
             android:paddingTop="@dimen/_5sdp"
             android:paddingRight="@dimen/_10sdp"
             android:paddingBottom="@dimen/_5sdp"
-            android:text="Session"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/spaceSel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/eventSel"
-            android:layout_margin="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/round_background_colord"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_5sdp"
             android:text="@string/space"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_10sdp"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            android:layout_marginBottom="@dimen/_30sdp"/>
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/sessionSel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/eventSel"-->
+<!--            android:layout_margin="@dimen/_10sdp"-->
+<!--            android:layout_marginLeft="@dimen/_10sdp"-->
+<!--            android:layout_marginTop="@dimen/_10sdp"-->
+<!--            android:background="@drawable/round_background_colord"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingLeft="@dimen/_10sdp"-->
+<!--            android:paddingTop="@dimen/_5sdp"-->
+<!--            android:paddingRight="@dimen/_10sdp"-->
+<!--            android:paddingBottom="@dimen/_5sdp"-->
+<!--            android:text="@string/space"-->
+<!--            android:textColor="@color/colorWhite"-->
+<!--            android:textSize="@dimen/_10sdp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            />-->
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/doneSel"

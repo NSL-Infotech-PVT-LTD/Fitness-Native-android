@@ -41,7 +41,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:padding="@dimen/_4sdp"
-                
+
                 android:text="@string/select_media"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp"

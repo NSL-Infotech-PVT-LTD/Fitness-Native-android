@@ -129,9 +129,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
         Glide.with(context).load(CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, context)).into(binding.cDashProImage);
         binding.orgWelcomeOrgName.setText(getResources().getString(R.string.welcome) + " " + CommonMethods.getPrefData(PrefrenceConstant.USER_NAME, context));
         binding.createEventImg.setOnClickListener(this);
-        binding.findPlace.setOnClickListener(this);
-        binding.createSessionImg.setOnClickListener(this);
-        binding.createSpaceImg.setOnClickListener(this);
+        binding.coachFindSpaceImg.setOnClickListener(this);
+//        binding.createSessionImg.setOnClickListener(this);
+//        binding.createSpaceImg.setOnClickListener(this);
         binding.orgViewAllSpaces.setOnClickListener(this);
 //        binding.orglogOutTv.setOnClickListener(this);
 
@@ -170,16 +170,16 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
                 view.getContext().startActivity(createEvent);
                 break;
-            case R.id.findPlace:
+            case R.id.coachFindSpaceImg:
                 Intent map = new Intent(getActivity(), AllEventsMapAct.class);
                 map.putExtra("from", "3");
                 view.getContext().startActivity(map);
                 break;
-            case R.id.createSessionImg:
-                PortfolioActivity.clearFromConstants();
-                Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
-                view.getContext().startActivity(createSession);
-                break;
+//            case R.id.createSessionImg:
+//                PortfolioActivity.clearFromConstants();
+//                Intent createSession = new Intent(getActivity(), CreateTrainingSession.class);
+//                view.getContext().startActivity(createSession);
+//                break;
             case R.id.createSpaceImg:
                 Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
                 view.getContext().startActivity(createSpace);
