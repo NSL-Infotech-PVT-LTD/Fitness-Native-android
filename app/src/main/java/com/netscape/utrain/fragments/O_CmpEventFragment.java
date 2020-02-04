@@ -42,6 +42,7 @@ import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.C_SessionListModel;
+import com.netscape.utrain.model.O_AllBookingDataListModel;
 import com.netscape.utrain.model.O_EventDataModel;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.O_SpaceDataModel;
@@ -49,6 +50,7 @@ import com.netscape.utrain.response.A_EventListResponse;
 import com.netscape.utrain.response.A_SpaceListResponse;
 import com.netscape.utrain.response.C_EventListResponse;
 import com.netscape.utrain.response.C_SessionListResponse;
+import com.netscape.utrain.response.O_AllBookingResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_EventListResponse;
 import com.netscape.utrain.response.O_SessionListResponse;
@@ -88,16 +90,15 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    private int TOTAL_PAGES;
-    int page=0;
-    private String currentPage="1";
-    private int getItemPerPage;
-    private boolean isLoading = false;
-    private boolean isLastPage = false;
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static int count = 1;
+    int page = 0;
+    private int TOTAL_PAGES;
+    private String currentPage = "1";
+    private int getItemPerPage;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private FragmentOSessionListBinding binding;
@@ -282,13 +283,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
     //Coach Methods
     public void getCoachUpcommingEvents() {
-        currentPage="1";
-        isLastPage=false;
+        currentPage = "1";
+        isLastPage = false;
         progressDialog.show();
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
-        call.enqueue(new Callback<C_EventListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "event", currentPage, completed);
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     c_eventData = new ArrayList<>();
                     progressDialog.dismiss();
@@ -301,13 +302,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(c_EventAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            c_EventAdapter = new C_EventListAdapter(getContext(),completed);
+                            c_EventAdapter = new C_EventListAdapter(getContext(), completed);
                             binding.sessionListRecycler.setAdapter(c_EventAdapter);
-                            List<C_EventDataListModel> results = fetchCoachEventResults(response);
+                            List<O_AllBookingDataListModel> results = fetchCoachEventResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             c_EventAdapter.addAll(results);
@@ -341,18 +342,19 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     public void getCoachUpcommingEventsNextPage() {
-        Call<C_EventListResponse> call = retrofitinterface.getCoachEventList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
-        call.enqueue(new Callback<C_EventListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, "event", completed);
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<C_EventListResponse> call, Response<C_EventListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     c_eventData = new ArrayList<>();
 //                    progressDialog.dismiss();
@@ -370,13 +372,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             c_EventAdapter.removeLoadingFooter();
                             isLoading = false;
 
-                            List<C_EventDataListModel> results = fetchCoachEventResults(response);
+                            List<O_AllBookingDataListModel> results = fetchCoachEventResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            getItemPerPage = response.body().getData().getPer_page();
 
                             c_EventAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -409,7 +411,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<C_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 //                progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -419,10 +421,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 
     public void getCoachUpcommingSession() {
-        isLastPage =false;
-        currentPage="1";
+        isLastPage = false;
+        currentPage = "1";
         progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, completed);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
@@ -440,13 +442,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            c_SessionAdapter = new C_SessionListAdapter(getContext(),completed);
+                            c_SessionAdapter = new C_SessionListAdapter(getContext(), completed);
                             binding.sessionListRecycler.setAdapter(c_SessionAdapter);
                             List<C_SessionListModel> results = fetchCoachSessionResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             c_SessionAdapter.addAll(results);
@@ -487,9 +489,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void getCoachUpcommingSessionNextPage() {
 //        progressDialog.show();
-        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
+        Call<C_SessionListResponse> call = retrofitinterface.getCoachSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, completed);
         call.enqueue(new Callback<C_SessionListResponse>() {
             @Override
             public void onResponse(Call<C_SessionListResponse> call, Response<C_SessionListResponse> response) {
@@ -517,7 +520,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             getItemPerPage = response.body().getData().getPer_page();
 
                             c_SessionAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -559,11 +562,11 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void a_getUpcommingSession() {
-        currentPage="1";
-        isLastPage=false;
+        currentPage = "1";
+        isLastPage = false;
 
         progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -580,14 +583,14 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(a_SessionAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            a_SessionAdapter = new A_SessionListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+                            a_SessionAdapter = new A_SessionListAdapter(getContext(), O_CmpEventFragment.this, 1, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_SessionAdapter);
                             List<AthleteSessionBookList.DataBeanX.DataBean> results = fetchAthSessionResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             a_SessionAdapter.addAll(results);
@@ -628,9 +631,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void a_GetNextCompletedSession() {
 //        progressDialog.show();
-        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","session");
+        Call<AthleteSessionBookList> call = retrofitinterface.getAthleteSessionBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "session");
         call.enqueue(new Callback<AthleteSessionBookList>() {
             @Override
             public void onResponse(Call<AthleteSessionBookList> call, Response<AthleteSessionBookList> response) {
@@ -657,7 +661,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             getItemPerPage = response.body().getData().getPer_page();
 
                             a_SessionAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -705,10 +709,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void a_getUpcommingEvents() {
-        currentPage="1";
-        isLastPage=false;
+        currentPage = "1";
+        isLastPage = false;
         progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -725,14 +729,14 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(a_EventAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            a_EventAdapter = new A_EventListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+                            a_EventAdapter = new A_EventListAdapter(getContext(), O_CmpEventFragment.this, 1, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_EventAdapter);
                             List<AthleteBookListModel.DataBeanX.DataBean> results = fetchResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             a_EventAdapter.addAll(results);
@@ -775,9 +779,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         });
 
     }
+
     public void a_GetNextCompletedEvents() {
 //        progressDialog.show();
-        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "","event");
+        Call<AthleteBookListModel> call = retrofitinterface.getAthleteBookingList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "event");
         call.enqueue(new Callback<AthleteBookListModel>() {
             @Override
             public void onResponse(Call<AthleteBookListModel> call, Response<AthleteBookListModel> response) {
@@ -804,14 +809,12 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             getItemPerPage = response.body().getData().getPer_page();
 
                             a_EventAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
                                 a_EventAdapter.addLoadingFooter();
                             else isLastPage = true;
-
-
 
 
                         } else {
@@ -853,32 +856,37 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         AthleteBookListModel topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
-    private List<C_EventDataListModel> fetchCoachEventResults(Response<C_EventListResponse> response) {
-        C_EventListResponse topRatedMovies = response.body();
+
+    private List<O_AllBookingDataListModel> fetchCoachEventResults(Response<O_AllBookingResponse> response) {
+        O_AllBookingResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private List<C_SessionListModel> fetchCoachSessionResults(Response<C_SessionListResponse> response) {
         C_SessionListResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
-    private List<O_EventDataModel> fetchOrgEventResults(Response<O_EventListResponse> response) {
-        O_EventListResponse topRatedMovies = response.body();
+
+    private List<O_AllBookingDataListModel> fetchOrgEventResults(Response<O_AllBookingResponse> response) {
+        O_AllBookingResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
-    private List<O_SpaceDataModel> fetchOrgSpaceResults(Response<O_SpaceListResponse> response) {
-        O_SpaceListResponse topRatedMovies = response.body();
+
+    private List<O_AllBookingDataListModel> fetchOrgSpaceResults(Response<O_AllBookingResponse> response) {
+        O_AllBookingResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private List<O_SessionDataModel> fetchOrgSessionResults(Response<O_SessionListResponse> response) {
         O_SessionListResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
 
     public void a_getUpcommingSpaces() {
-        currentPage="1";
-        isLastPage=false;
+        currentPage = "1";
+        isLastPage = false;
         progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"","space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -896,14 +904,14 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(),O_CmpEventFragment.this,1,O_CmpEventFragment.this);
+                            a_SpaceAdapter = new A_SpaceListAdapter(getContext(), O_CmpEventFragment.this, 1, O_CmpEventFragment.this);
                             binding.sessionListRecycler.setLayoutManager(layoutManager);
                             binding.sessionListRecycler.setAdapter(a_SpaceAdapter);
                             List<AthleteSpaceBookList.DataBeanX.DataBean> results = fetchSpaceResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             a_SpaceAdapter.addAll(results);
@@ -944,9 +952,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void a_GetNextCompletedSpaces() {
 //        progressDialog.show();
-        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed,"","space");
+        Call<AthleteSpaceBookList> call = retrofitinterface.getAthleteSpaceBookList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", completed, "", "space");
         call.enqueue(new Callback<AthleteSpaceBookList>() {
             @Override
             public void onResponse(Call<AthleteSpaceBookList> call, Response<AthleteSpaceBookList> response) {
@@ -974,7 +983,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             getItemPerPage = response.body().getData().getPer_page();
 
                             a_SpaceAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -1038,13 +1047,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void getCompletedEvents() {
-        isLastPage=false;
-        currentPage="1";
+        isLastPage = false;
+        currentPage = "1";
         progressDialog.show();
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
-        call.enqueue(new Callback<O_EventListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, "event", completed);
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     progressDialog.dismiss();
                     eventData = new ArrayList<>();
@@ -1058,20 +1067,19 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(currentEventAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            currentEventAdapter = new O_EventListAdapter(getContext(),completed);
+                            currentEventAdapter = new O_EventListAdapter(getContext(), completed);
                             binding.sessionListRecycler.setAdapter(currentEventAdapter);
-                            List<O_EventDataModel> results = fetchOrgEventResults(response);
+                            List<O_AllBookingDataListModel> results = fetchOrgEventResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            getItemPerPage = response.body().getData().getPer_page();
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             currentEventAdapter.addAll(results);
                             if (page < TOTAL_PAGES)
                                 currentEventAdapter.addLoadingFooter();
                             else isLastPage = true;
-
 
 
                         } else {
@@ -1099,7 +1107,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<O_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                 progressDialog.dismiss();
@@ -1107,11 +1115,12 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void getCompletedEventsNextPage() {
-        Call<O_EventListResponse> call = retrofitinterface.getOrgEentList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
-        call.enqueue(new Callback<O_EventListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, "event", completed);
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<O_EventListResponse> call, Response<O_EventListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     eventData = new ArrayList<>();
                     if (response.body().isStatus()) {
@@ -1127,13 +1136,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             isLoading = false;
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
 
-                            List<O_EventDataModel> results = fetchOrgEventResults(response);
+                            List<O_AllBookingDataListModel> results = fetchOrgEventResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
-                            getItemPerPage = Integer.parseInt(response.body().getData().getPer_page());
+                            getItemPerPage = response.body().getData().getPer_page();
 
                             currentEventAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -1165,7 +1174,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<O_EventListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
 //                progressDialog.dismiss();
@@ -1175,13 +1184,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void getCompletedSpaces() {
-        isLastPage=false;
-        currentPage="1";
+        isLastPage = false;
+        currentPage = "1";
         progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
-        call.enqueue(new Callback<O_SpaceListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getSpaceBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, "space");
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     spaceData = new ArrayList<>();
 
@@ -1196,13 +1205,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(),completed);
+                            currentSpaceAdapter = new O_SpaceListAdapter(getContext(), completed);
                             binding.sessionListRecycler.setAdapter(currentSpaceAdapter);
-                            List<O_SpaceDataModel> results = fetchOrgSpaceResults(response);
+                            List<O_AllBookingDataListModel> results = fetchOrgSpaceResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             currentSpaceAdapter.addAll(results);
@@ -1236,7 +1245,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<O_SpaceListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 
                 progressDialog.dismiss();
@@ -1244,14 +1253,15 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void getCompletedSpacesNextPage() {
 //        isLastPage=false;
 //        currentPage="1";
 //        progressDialog.show();
-        Call<O_SpaceListResponse> call = retrofitinterface.getOrgSpaceList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE,currentPage, completed);
-        call.enqueue(new Callback<O_SpaceListResponse>() {
+        Call<O_AllBookingResponse> call = retrofitinterface.getSpaceBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, "space");
+        call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
-            public void onResponse(Call<O_SpaceListResponse> call, Response<O_SpaceListResponse> response) {
+            public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {
                 if (response.body() != null) {
                     spaceData = new ArrayList<>();
 
@@ -1270,13 +1280,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                             isLoading = false;
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
 
-                            List<O_SpaceDataModel> results = fetchOrgSpaceResults(response);
+                            List<O_AllBookingDataListModel> results = fetchOrgSpaceResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
 
                             currentSpaceAdapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -1309,7 +1319,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
 
             @Override
-            public void onFailure(Call<O_SpaceListResponse> call, Throwable t) {
+            public void onFailure(Call<O_AllBookingResponse> call, Throwable t) {
                 binding.noDataImageCmp.setVisibility(View.VISIBLE);
 //                progressDialog.dismiss();
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -1318,10 +1328,10 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     public void getCompletedSession() {
-        isLastPage=false;
-        currentPage="1";
+        isLastPage = false;
+        currentPage = "1";
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, completed);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -1339,14 +1349,14 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(),completed);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(), completed);
                             binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
                             List<O_SessionDataModel> results = fetchOrgSessionResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             currentSessionAdapter.addAll(results);
@@ -1389,11 +1399,12 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
     }
+
     public void getCompletedSessionNextPage() {
-        isLastPage=false;
-        currentPage="1";
+        isLastPage = false;
+        currentPage = "1";
         progressDialog.show();
-        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,completed);
+        Call<O_SessionListResponse> call = retrofitinterface.getOrgSessionList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, completed);
         call.enqueue(new Callback<O_SessionListResponse>() {
             @Override
             public void onResponse(Call<O_SessionListResponse> call, Response<O_SessionListResponse> response) {
@@ -1411,12 +1422,12 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
 //                            binding.sessionListRecycler.setAdapter(currentSessionAdapter);
 
                             binding.sessionListRecycler.setVisibility(View.VISIBLE);
-                            currentSessionAdapter = new O_SessionListAdapter(getContext(),completed);
+                            currentSessionAdapter = new O_SessionListAdapter(getContext(), completed);
                             List<O_SessionDataModel> results = fetchOrgSessionResults(response);
 
                             TOTAL_PAGES = response.body().getData().getLast_page();
                             getItemPerPage = response.body().getData().getPer_page();
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             currentSessionAdapter.addAll(results);
@@ -1542,7 +1553,8 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         ti_TotalPrice.setText("$" + spaceData.getPrice() + ".00");
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + spaceData.getPrice() + ".00");
-        bottomSheetUpDown_address();   }
+        bottomSheetUpDown_address();
+    }
 
     @Override
     public void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean sessionData) {
@@ -1590,7 +1602,8 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         ti_TotalPrice.setText("$" + sessionData.getPrice() + ".00");
         ti_tax.setText("$0.00");
         totalAmount.setText("$" + sessionData.getPrice() + ".00");
-        bottomSheetUpDown_address(); }
+        bottomSheetUpDown_address();
+    }
 
     public String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";
@@ -1611,12 +1624,13 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     }
 
     @Override
-    public void ratingVallue(int id, float rating,String type) {
-        rateService(id,rating, type);
+    public void ratingVallue(int id, float rating, String type) {
+        rateService(id, rating, type);
     }
-    public void rateService(int id,float rating,String type) {
+
+    public void rateService(int id, float rating, String type) {
         progressDialog.show();
-        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE,"Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()),  id+"", rating+"");
+        Call<RatingResponse> call = retrofitinterface.setbookingRating(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), id + "", rating + "");
         call.enqueue(new Callback<RatingResponse>() {
             @Override
             public void onResponse(Call<RatingResponse> call, Response<RatingResponse> response) {
@@ -1624,20 +1638,20 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                     a_eventData = new ArrayList<>();
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
-                        if (type.equalsIgnoreCase("event")){
-                           getUserTypeForEvent();
+                        if (type.equalsIgnoreCase("event")) {
+                            getUserTypeForEvent();
                         }
-                        if (type.equalsIgnoreCase("session")){
+                        if (type.equalsIgnoreCase("session")) {
                             getUserTypeForSession();
                         }
-                        if (type.equalsIgnoreCase("space")){
+                        if (type.equalsIgnoreCase("space")) {
                             a_getUpcommingSpaces();
                         }
 
 
-                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getContext(), ""+response.body().getData().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "" + response.body().getData().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     binding.noDataImageCmp.setVisibility(View.VISIBLE);
@@ -1663,21 +1677,6 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             }
         });
 
-            }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     private void recyclerFunc(LinearLayoutManager layoutManager) {
@@ -1685,31 +1684,31 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
-                if (! TextUtils.isEmpty(currentPage)) {
+                if (!TextUtils.isEmpty(currentPage)) {
                     page = Integer.parseInt(currentPage);
                 }
                 page += 1;
-                currentPage=page+"";
+                currentPage = page + "";
 
                 // mocking network delay for API call
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (count==1)
+                        if (count == 1)
                             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                                 a_GetNextCompletedEvents();
-                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
-                        getCoachUpcommingEventsNextPage();
-                       else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                       getCompletedEventsNextPage();
-                        if (count==2)
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
+                                getCoachUpcommingEventsNextPage();
+                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
+                                getCompletedEventsNextPage();
+                        if (count == 2)
                             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                                 a_GetNextCompletedSession();
                             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach))
                                 getCoachUpcommingSessionNextPage();
                             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
                                 getCompletedSessionNextPage();
-                        if (count==3)
+                        if (count == 3)
                             if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Athlete))
                                 a_GetNextCompletedSpaces();
                             else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
@@ -1734,6 +1733,21 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
                 return isLoading;
             }
         });
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
 }

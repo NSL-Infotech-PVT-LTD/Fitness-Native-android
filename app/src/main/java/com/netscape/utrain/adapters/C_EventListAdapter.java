@@ -19,6 +19,8 @@ import com.netscape.utrain.activities.organization.EventAppliedList;
 import com.netscape.utrain.model.A_EventDataListModel;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.O_AllBookingDataListModel;
+import com.netscape.utrain.model.O_AllBookingTargetDataModel;
 import com.netscape.utrain.utils.Constants;
 
 import org.json.JSONArray;
@@ -33,7 +35,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
     private boolean isLoadingAdded = false;
     private Context context;
     private int previusPos = -1;
-    private List<C_EventDataListModel> a_eventList;
+    private List<O_AllBookingDataListModel> a_eventList;
     private String status;
 
 
@@ -79,7 +81,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull C_EventListAdapter.CustomTopCoachesHolder holder, int position) {
-        final C_EventDataListModel data = a_eventList.get(position);
+        final O_AllBookingTargetDataModel data = a_eventList.get(position).getTarget_data();
         switch (getItemViewType(position)) {
             case ITEM:
                 if(data!=null)
@@ -140,23 +142,23 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
     }
 
 
-    public void add(C_EventDataListModel r) {
+    public void add(O_AllBookingDataListModel r) {
         a_eventList.add(r);
         notifyItemInserted(a_eventList.size() - 1);
     }
 
-    public void addAll(List<C_EventDataListModel> moveResults) {
-        for (C_EventDataListModel result : moveResults) {
+    public void addAll(List<O_AllBookingDataListModel> moveResults) {
+        for (O_AllBookingDataListModel result : moveResults) {
             add(result);
         }
     }
 
-    public void setList(List<C_EventDataListModel> list) {
+    public void setList(List<O_AllBookingDataListModel> list) {
         this.a_eventList = list;
         notifyDataSetChanged();
     }
 
-    public void remove(C_EventDataListModel r) {
+    public void remove(O_AllBookingDataListModel r) {
         int position = a_eventList.indexOf(r);
         if (position > -1) {
             a_eventList.remove(position);
@@ -184,7 +186,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
         isLoadingAdded = false;
 
         int position = a_eventList.size() - 1;
-        C_EventDataListModel result = getItem(position);
+        O_AllBookingDataListModel result = getItem(position);
 
         if (result != null) {
             a_eventList.remove(position);
@@ -192,7 +194,7 @@ public class C_EventListAdapter extends RecyclerView.Adapter<C_EventListAdapter.
         }
     }
 
-    public C_EventDataListModel getItem(int position) {
+    public O_AllBookingDataListModel getItem(int position) {
         return a_eventList.get(position);
     }
 

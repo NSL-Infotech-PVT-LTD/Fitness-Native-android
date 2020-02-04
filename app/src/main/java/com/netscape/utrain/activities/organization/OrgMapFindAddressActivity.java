@@ -61,6 +61,8 @@ import java.util.Locale;
 
 public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
         View.OnClickListener, GoogleMap.OnMapClickListener {
+    SupportMapFragment mapFragment;
+    Toolbar toolbar;
     private GoogleMap mGoogleMap;
     private MapView mapView;
     private AskPermission askPermObj;
@@ -75,20 +77,33 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     private RelativeLayout confirmLocRel;
     private LinearLayout searchLin;
     private EditText searchEdt;
-    SupportMapFragment mapFragment;
     private ImageButton searchImgBtn;
-    Toolbar toolbar;
+
+    public static float getDptoPx(Context context, int dip) {
+        Resources r = context.getResources();
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                r.getDisplayMetrics()
+        );
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_map_find_address);
 
-        confirmLocRel=findViewById(R.id.confirmLocRel);
-        searchLin=findViewById(R.id.searchLin);
-        searchEdt=findViewById(R.id.searchEdt);
-        toolbar=findViewById(R.id.toolbarBack);
-        searchImgBtn=findViewById(R.id.searchImgBtn);
+        confirmLocRel = findViewById(R.id.confirmLocRel);
+        searchLin = findViewById(R.id.searchLin);
+        searchEdt = findViewById(R.id.searchEdt);
+        toolbar = findViewById(R.id.toolbarBack);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        searchImgBtn = findViewById(R.id.searchImgBtn);
 //        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
 //                findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
@@ -122,7 +137,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         inIt();
     }
 
-
     public void inIt() {
         askPermObj = new AskPermission(OrgMapFindAddressActivity.this, this);
 //        setupToolBar(OrgMapFindAddressActivity.this.getResources().getString(R.string.find_address));
@@ -133,7 +147,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         confirmLocRel.setOnClickListener(this);
         searchLin.setOnClickListener(this);
         searchImgBtn.setOnClickListener(this);
-        toolbar.setOnClickListener(this);
 
     }
 
@@ -150,7 +163,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         mGoogleMap.getUiSettings().setTiltGesturesEnabled(true);
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
-        mGoogleMap.setPadding(0,(int)getDptoPx(OrgMapFindAddressActivity.this,60),0,(int)getDptoPx(OrgMapFindAddressActivity.this,60));
+        mGoogleMap.setPadding(0, (int) getDptoPx(OrgMapFindAddressActivity.this, 60), 0, (int) getDptoPx(OrgMapFindAddressActivity.this, 60));
 
         mGoogleMap.setOnMapClickListener(this);
 
@@ -223,6 +236,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             }
         }
     }
+    /*==================================================*/
 
     /*=========code to get the addres using the latlong=========*/
     public String getAddress(Context ctx, double lat, double lng) {
@@ -233,7 +247,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 fullAdd = address.getAddressLine(0);
-                locationLatLng =lat+","+ lng;
+                locationLatLng = lat + "," + lng;
                 // if you want only city or pin code use following code //
            /* String Location = address.getLocality();
             String zip = address.getPostalCode();
@@ -244,10 +258,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-       searchEdt.setText(fullAdd);
+        searchEdt.setText(fullAdd);
         return fullAdd;
     }
-    /*==================================================*/
 
     /*=========code to get lat lng from address==========*/
     public LatLng getLocationFromAddress(Context context, String strAddress) {
@@ -263,7 +276,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             if (address == null) {
                 return null;
             }
-            if (address.size()==0) {
+            if (address.size() == 0) {
                 Toast.makeText(context, "Address not found", Toast.LENGTH_SHORT).show();
                 return null;
             }
@@ -278,6 +291,8 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         return p1;
     }
 
+    /*====================================================*/
+
     /*code to add the marker on the location using lat lng*/
     private void setMarkerOnMap(LatLng latLng) {
         mGoogleMap.clear();
@@ -289,8 +304,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mGoogleMap.animateCamera(zoom);
     }
-
-    /*====================================================*/
 
     @Override
     public void onClick(View view) {
@@ -315,7 +328,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                     return;
                 }
 
-                if (selectedLatLng !=null) {
+                if (selectedLatLng != null) {
                     Intent intent = new Intent();
                     intent.putExtra(Constants.ADDRESS, searchEdt.getText().toString());
 //                    locationLatLng = selectedLatLng.latitude +","+ selectedLatLng.longitude;
@@ -327,7 +340,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                     OrgMapFindAddressActivity.this.finish();
 
 //                    validateValues();
-                }else {
+                } else {
                     Toast.makeText(OrgMapFindAddressActivity.this, "Select a valid address", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -385,7 +398,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 //        startActivityForResult(intent, Constants.REQUEST_CODE_GOOGLE_PLACE_SEARCH);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -399,20 +411,18 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 String address = place.getAddress();
 
 
-
 //                Place place = (Place) PlaceAutocomplete.getPlace(this, data);
                 selectedLatLng = place.getLatLng();
 //                mAddress = place.getName().toString();
                 // placeName = place.getAddress().toString().replace(place.getName().toString(), "");
 
-                placeName = place.getName().toString();
+                placeName = place.getName();
 
-                mAddress =  place.getAddress().toString().replace(place.getName().
-                        toString(),"");
+                mAddress = place.getAddress().replace(place.getName(), "");
 
 //                AppDelegate.Log("OnPlaceSelectResult--->", mAddress + " " + place.getAddress().toString());
                 setMarkerOnMap(selectedLatLng);
-                searchEdt.setText(placeName+ " "+mAddress);
+                searchEdt.setText(placeName + " " + mAddress);
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
@@ -420,6 +430,7 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             }
         }
     }
+
     @Override
     public void onMapClick(LatLng latLng) {
 //        setMarkerOnMap(latLng);
@@ -429,13 +440,5 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             if (mGoogleMap != null)
                 setMarkerOnMap(latLng);
         }
-    }
-    public static float getDptoPx(Context context,int dip){
-        Resources r = context.getResources();
-        return  TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dip,
-                r.getDisplayMetrics()
-        );
     }
 }

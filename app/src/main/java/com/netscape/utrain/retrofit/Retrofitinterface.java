@@ -9,6 +9,7 @@ import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotifaicationStateResponse;
+import com.netscape.utrain.model.O_AllBookingDataListModel;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.OrgCoachStoreModel;
 import com.netscape.utrain.model.SportListModel;
@@ -415,13 +416,13 @@ public interface Retrofitinterface {
                                                 @Field("limit") String limit,
                                                 @Field("filter_by") String filter_by);
     @FormUrlEncoded
-    @POST(Constants.ALL_TRANSACTIONS_ORG)
+    @POST(Constants.RECEIVED_TRANSACTIONS)
     Call<O_AllBookingResponse> allTransactionListOrg(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String contentType,
                                                 @Field("page") String page,
                                                 @Field("limit") String limit);
     @FormUrlEncoded
-    @POST(Constants.ALL_TRANSACTIONS_COACH)
+    @POST(Constants.RECEIVED_TRANSACTIONS)
     Call<O_AllBookingResponse> allTransactionListCoach(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String contentType,
                                                      @Field("page") String page,
@@ -472,6 +473,19 @@ public interface Retrofitinterface {
                                                 @Header("Content-Type") String contentType,
                                                 @Query("page") String page,
                                                 @Query("order_by") String order_by);
+    @POST(Constants.RECEIVED_BOOKINGS)
+    Call<O_AllBookingResponse> getBookings(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("page") String page,
+                                                @Query("type") String type,
+                                                @Query("order_by") String order_by);
+    @POST(Constants.RECEIVED_BOOKINGS)
+    Call<O_AllBookingResponse> getSpaceBookings(@Header("Authorization") String Authorization,
+                                           @Header("Content-Type") String contentType,
+                                           @Query("page") String page,
+                                           @Query("type") String type);
+
+
 
     @POST(Constants.CO_EVENT_LIST)
     Call<O_EventListResponse> getCoachEvents(@Header("Authorization") String Authorization,

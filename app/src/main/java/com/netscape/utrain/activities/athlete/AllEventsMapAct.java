@@ -330,7 +330,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             resetFilter.setVisibility(View.VISIBLE);
                         }
                     }
-                }else {
+                } else {
                     recyclerViewFindPlace.setVisibility(View.GONE);
                     noDataImg.setVisibility(View.VISIBLE);
                     resetFilter.setVisibility(View.VISIBLE);
@@ -532,7 +532,7 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             resetFilter.setVisibility(View.VISIBLE);
                         }
                     }
-                }else {
+                } else {
                     recyclerViewFindPlace.setVisibility(View.GONE);
                     noDataImg.setVisibility(View.VISIBLE);
                     resetFilter.setVisibility(View.VISIBLE);
@@ -688,12 +688,9 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
                             for (int i = 0; i < value; i++) {
                                 if (response.body().getData().getData().get(i).getLatitude() != null && response.body().getData().getData().get(i).getLongitude() != null) {
                                     latng = new LatLng(Double.parseDouble(response.body().getData().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().getData().get(i).getLongitude()));
-
                                     Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latng).title(response.body().getData().getData().get(i).getName())
                                             .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
                                     marker.setTag(i);
-
-
                                     CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latng, 6f);
 //                            mGoogleMap.animateCamera(update);
 //                            adapter = new CoachesRecyclerAdapter(activity, listModels);

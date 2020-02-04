@@ -312,27 +312,33 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                 startDate = year + "/" + convertDate((monthOfYear + 1)) + "/" + convertDate(dayOfMonth);
                 selected = false;
                 selectedDate = formatDate(startDate);
-                if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
-                    for (int i = 0; i < SelectedServiceList.getInstance().getList().size(); i++) {
-                        oldDates = formatDate(SelectedServiceList.getInstance().getList().get(i).getName());
-                        if (selectedDate.compareTo(oldDates) == 0) {
-                            slotCreated = true;
+                if (selectedDate.getTime() > System.currentTimeMillis()) {
+                    if (SelectedServiceList.getInstance().getList() != null && SelectedServiceList.getInstance().getList().size() > 0) {
+                        for (int i = 0; i < SelectedServiceList.getInstance().getList().size(); i++) {
+                            oldDates = formatDate(SelectedServiceList.getInstance().getList().get(i).getName());
+                            if (selectedDate.compareTo(oldDates) == 0) {
+                                slotCreated = true;
+                            }
                         }
-                    }
-                    if (slotCreated) {
-                        startDate = "";
-                        slotCreated = false;
-                        Toast.makeText(SelectTimeSlot.this, "You have created slot for this date", Toast.LENGTH_SHORT).show();
+                        if (slotCreated) {
+                            startDate = "";
+                            slotCreated = false;
+                            Toast.makeText(SelectTimeSlot.this, "You have created slot for this date", Toast.LENGTH_SHORT).show();
+                        } else {
+                            selectedDate = formatDate(startDate);
+                            binding.selectDate.setText(startDate);
+                            hitSpaceDetailAPI(spaceId);
+                        }
                     } else {
-                        selectedDate = formatDate(startDate);
-                        binding.selectDate.setText(startDate);
                         hitSpaceDetailAPI(spaceId);
-                    }
-                } else {
-                    hitSpaceDetailAPI(spaceId);
-                    binding.selectDate.setText(startDate);
+                        binding.selectDate.setText(startDate);
 
+
+                    }
+                }else {
+                    Toast.makeText(SelectTimeSlot.this, "Can't book space for current date", Toast.LENGTH_SHORT).show();
                 }
+
 //                    binding.createEventEndDatetv.setText("");
 //                    binding.createEventEndDatetv.setHint("End date");
 //                } else {
@@ -340,7 +346,6 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
 //                    binding.createEventStartDateTv.setHint("Start date");
 //                    Toast.makeText(SelectTimeSlot.this, "Can't create event for current date", Toast.LENGTH_SHORT).show();
 //                }
-
             }
         }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);

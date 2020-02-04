@@ -454,8 +454,6 @@ public class A_HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.logOutTv:
-
-
                 break;
             case R.id.topCoachesViewAllBtn:
                 Intent topCoahces = new Intent(getContext(), DiscoverTopRated.class);

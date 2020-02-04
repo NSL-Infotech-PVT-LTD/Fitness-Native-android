@@ -45,19 +45,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentReceiveFragment extends Fragment {
+    int page = 0;
+    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
     private boolean isLoading = false;
     private boolean isLastPage = false;
-    int page = 0;
     private int TOTAL_PAGES;
     private String currentPage = "1";
     private int getItemPerPage;
-
     private ProgressDialog progressDialog;
     private Retrofitinterface retrofitinterface;
     private TransactionAdapter adapter;
     private LinearLayoutManager layoutManager;
-    List<O_AllBookingDataListModel> orgEventList = new ArrayList<>();
-
     private PaymentReceiveFragmentBinding binding;
 
 
@@ -66,13 +64,13 @@ public class PaymentReceiveFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 //        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.payment_receive_fragment,container,false);
-        binding = DataBindingUtil.inflate(inflater,R.layout.payment_receive_fragment,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.payment_receive_fragment, container, false);
         View view = binding.getRoot();
-        progressDialog=new ProgressDialog(getContext());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
-        retrofitinterface= RetrofitInstance.getClient().create(Retrofitinterface.class);
-        layoutManager=new LinearLayoutManager(getContext());
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
+        layoutManager = new LinearLayoutManager(getContext());
         binding.payReceiveRecyclerView.setLayoutManager(layoutManager);
         recyclerFunc(layoutManager);
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
@@ -81,10 +79,11 @@ public class PaymentReceiveFragment extends Fragment {
             getPaymentReceivedListCoach();
         return view;
     }
+
     private void getPaymentReceivedListOrg() {
-        isLastPage=false;
+        isLastPage = false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, getItemPerPage + "");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -93,7 +92,7 @@ public class PaymentReceiveFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         orgEventList = response.body().getData().getData();
-                        if (orgEventList !=null && orgEventList.size()>0){
+                        if (orgEventList != null && orgEventList.size() > 0) {
                             binding.receveNoPaymentHistory.setVisibility(View.GONE);
 //                            adapter=new TransactionAdapter(getContext(),orgEventList);
 //                            binding.payReceiveRecyclerView.setAdapter(adapter);
@@ -106,17 +105,17 @@ public class PaymentReceiveFragment extends Fragment {
                             getItemPerPage = response.body().getData().getPer_page();
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page < TOTAL_PAGES)
                                 adapter.addLoadingFooter();
                             else isLastPage = true;
 
-                        }else {
+                        } else {
                             binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
-                            }
-                        }else {
+                        }
+                    } else {
                         binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                     }
                 } else {
@@ -138,12 +137,11 @@ public class PaymentReceiveFragment extends Fragment {
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
     private void getNextPagePaymentReceivedListOrg() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListOrg("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, getItemPerPage + "");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -152,7 +150,7 @@ public class PaymentReceiveFragment extends Fragment {
 //                    progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         orgEventList = response.body().getData().getData();
-                        if (orgEventList !=null && orgEventList.size()>0){
+                        if (orgEventList != null && orgEventList.size() > 0) {
                             binding.receveNoPaymentHistory.setVisibility(View.GONE);
 //                            adapter=new TransactionAdapter(getContext(),orgEventList);
 //                            binding.payReceiveRecyclerView.setAdapter(adapter);
@@ -166,7 +164,7 @@ public class PaymentReceiveFragment extends Fragment {
                             getItemPerPage = response.body().getData().getPer_page();
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
@@ -174,10 +172,10 @@ public class PaymentReceiveFragment extends Fragment {
                             else isLastPage = true;
 
 
-                        }else {
+                        } else {
                             binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                         }
-                    }else {
+                    } else {
                         binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                     }
                 } else {
@@ -205,10 +203,11 @@ public class PaymentReceiveFragment extends Fragment {
         O_AllBookingResponse topRatedMovies = response.body();
         return topRatedMovies.getData().getData();
     }
+
     private void getPaymentReceivedListCoach() {
-        isLastPage=false;
+        isLastPage = false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, getItemPerPage + "");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -217,7 +216,7 @@ public class PaymentReceiveFragment extends Fragment {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         orgEventList = response.body().getData().getData();
-                        if (orgEventList !=null && orgEventList.size()>0){
+                        if (orgEventList != null && orgEventList.size() > 0) {
                             binding.receveNoPaymentHistory.setVisibility(View.GONE);
 //                            adapter=new TransactionAdapter(getContext(),orgEventList);
 //                            binding.payReceiveRecyclerView.setAdapter(adapter);
@@ -230,17 +229,17 @@ public class PaymentReceiveFragment extends Fragment {
                             getItemPerPage = response.body().getData().getPer_page();
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page < TOTAL_PAGES)
                                 adapter.addLoadingFooter();
                             else isLastPage = true;
 
-                        }else {
+                        } else {
                             binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                         }
-                    }else {
+                    } else {
                         binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                     }
                 } else {
@@ -262,12 +261,11 @@ public class PaymentReceiveFragment extends Fragment {
                 Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
     private void getNextPagePaymentReceivedListCoach() {
 //        progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,getItemPerPage+"");
+        Call<O_AllBookingResponse> call = retrofitinterface.allTransactionListCoach("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage, getItemPerPage + "");
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -276,7 +274,7 @@ public class PaymentReceiveFragment extends Fragment {
 //                    progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         orgEventList = response.body().getData().getData();
-                        if (orgEventList !=null && orgEventList.size()>0){
+                        if (orgEventList != null && orgEventList.size() > 0) {
                             binding.receveNoPaymentHistory.setVisibility(View.GONE);
 //                            adapter=new TransactionAdapter(getContext(),orgEventList);
 //                            binding.payReceiveRecyclerView.setAdapter(adapter);
@@ -291,17 +289,17 @@ public class PaymentReceiveFragment extends Fragment {
                             getItemPerPage = response.body().getData().getPer_page();
 
                             adapter.addAll(results);
-                            if (! TextUtils.isEmpty(currentPage)) {
+                            if (!TextUtils.isEmpty(currentPage)) {
                                 page = Integer.parseInt(currentPage);
                             }
                             if (page != TOTAL_PAGES)
                                 adapter.addLoadingFooter();
                             else isLastPage = true;
 
-                        }else {
+                        } else {
                             binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                         }
-                    }else {
+                    } else {
                         binding.receveNoPaymentHistory.setVisibility(View.VISIBLE);
                     }
                 } else {

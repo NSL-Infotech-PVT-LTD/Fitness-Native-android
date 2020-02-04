@@ -64,6 +64,8 @@ public class Constants {
     public static final String CALANDER_BOOKINGS_BOTHE = "both/bookings";
     public static final String ALL_BOOKING_ORG = "booking/organiser/list/all";
     public static final String ALL_TRANSACTIONS_ORG = "all/organiser/bookings";
+    public static final String RECEIVED_BOOKINGS = "received/bookings";
+    public static final String RECEIVED_TRANSACTIONS = "received/transactions";
     public static final String ALL_BOOKING_COACH = "booking/coach/list/all";
     public static final String ALL_BOOKING_COACH_ORG = "both/bookings";
     public static final String ALL_TRANSACTIONS_COACH = "all/coach/bookings";
