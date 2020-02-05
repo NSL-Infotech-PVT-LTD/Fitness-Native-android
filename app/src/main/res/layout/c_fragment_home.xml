@@ -100,7 +100,6 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_place_holder"
                             app:layout_constraintTop_toTopOf="parent" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -449,11 +448,11 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/organizationCard">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/findPlace"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/gradiant_design">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/findPlace"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/gradiant_design">-->
 
 <!--                        <androidx.appcompat.widget.AppCompatImageView-->
 <!--                            android:id="@+id/coachFindSpaceImg"-->
@@ -486,7 +485,7 @@
 <!--                            app:layout_constraintTop_toBottomOf="@+id/coachFindSpaceImg" />-->
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -520,7 +519,6 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="@dimen/_70sdp"

@@ -286,7 +286,7 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
         currentPage = "1";
         isLastPage = false;
         progressDialog.show();
-        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "event", currentPage, completed);
+        Call<O_AllBookingResponse> call = retrofitinterface.getBookings("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, currentPage,"event", completed);
         call.enqueue(new Callback<O_AllBookingResponse>() {
             @Override
             public void onResponse(Call<O_AllBookingResponse> call, Response<O_AllBookingResponse> response) {

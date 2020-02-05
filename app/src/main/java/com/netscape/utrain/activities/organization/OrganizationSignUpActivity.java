@@ -229,12 +229,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
             binding.orgEmailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EMAIL, OrganizationSignUpActivity.this));
             binding.orgPhoneEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_PHONE, OrganizationSignUpActivity.this));
             binding.orgAddressEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.ADDRESS, OrganizationSignUpActivity.this));
-            binding.orgPasswordEdt.setText("1234");
+            binding.orgPasswordEdt.setText("1234567");
             binding.orgBioEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.BIO, OrganizationSignUpActivity.this));
             binding.orgStartTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_START, OrganizationSignUpActivity.this));
             binding.orgEndTimeTv.setText(CommonMethods.getPrefData(PrefrenceConstant.BUSINESS_HOUR_ENDS, OrganizationSignUpActivity.this));
             binding.orgProfessionType.setText(CommonMethods.getPrefData(PrefrenceConstant.PROFESSION, OrganizationSignUpActivity.this));
-            binding.orgExperienceEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_EXPERIENCE, OrganizationSignUpActivity.this));
+            binding.orgExperienceEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERTISE_YEAR, OrganizationSignUpActivity.this));
             binding.orgExperienceDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.EXPERIENCE_DETAILS, OrganizationSignUpActivity.this));
             binding.orgTrainingDetailEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.USER_TRAINING_DETAIL, OrganizationSignUpActivity.this));
             binding.orgHourlyRateEdt.setText(CommonMethods.getPrefData(PrefrenceConstant.PRICE, OrganizationSignUpActivity.this));

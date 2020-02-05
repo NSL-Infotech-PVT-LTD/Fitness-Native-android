@@ -188,7 +188,6 @@ public class AllEventsMapAct extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-
         layoutBottomSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

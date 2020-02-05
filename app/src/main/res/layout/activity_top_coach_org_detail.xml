@@ -388,6 +388,7 @@
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
+                            android:visibility="gone"
                             app:cornerRadius="@dimen/_5sdp"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

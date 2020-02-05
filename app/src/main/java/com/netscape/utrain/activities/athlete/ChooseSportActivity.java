@@ -588,7 +588,7 @@ public class ChooseSportActivity extends AppCompatActivity implements SportsAdap
         requestBodyMap.put("device_token", RequestBody.create(MediaType.parse("multipart/form-data"), CommonMethods.getPrefData(PrefrenceConstant.DEVICE_TOKEN, getApplicationContext())));
         requestBodyMap.put("Content-Type", RequestBody.create(MediaType.parse("multipart/form-data"), Constants.CONTENT_TYPE));
 
-        Call<AthleteSignUpResponse> updateDetail = api.updateProfile("Bearer" + " " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), userImg, requestBodyMap);
+        Call<AthleteSignUpResponse> updateDetail = api.updateProfile("Bearer "+ CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), userImg, requestBodyMap);
         updateDetail.enqueue(new Callback<AthleteSignUpResponse>() {
             @Override
             public void onResponse(Call<AthleteSignUpResponse> call, Response<AthleteSignUpResponse> response) {
