@@ -33,7 +33,7 @@ import java.util.List;
 
 public class AllCreatedActivity extends AppCompatActivity {
 
-
+    public static boolean fromOrgProfile=false;
     private ActivityHistoryBinding binding;
     private AllCreatedActivity activity;
 
@@ -57,6 +57,9 @@ public class AllCreatedActivity extends AppCompatActivity {
 //            wrapTabIndicatorToTitle(binding.allCreatedTab, 100, 50);
             wrapTabIndicatorToTitle(binding.allCreatedTab, 200, 200);
 
+        }
+        if (fromOrgProfile) {
+            binding.allCreatedTab.getTabAt(1).select();
         }
     }
 
@@ -165,5 +168,11 @@ public class AllCreatedActivity extends AppCompatActivity {
 //        setupViewPager(binding.allCreatedViewPager);
 //        Toast.makeText(AllCreatedActivity.this, "data changed", Toast.LENGTH_SHORT).show();
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        fromOrgProfile=false;
+        super.onDestroy();
     }
 }

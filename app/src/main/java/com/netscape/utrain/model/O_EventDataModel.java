@@ -40,6 +40,16 @@ public class O_EventDataModel implements Serializable {
     private int sport_id;
     private int created_by;
     private int guest_allowed;
+
+    public int getGuest_allowed_left() {
+        return guest_allowed_left;
+    }
+
+    public void setGuest_allowed_left(int guest_allowed_left) {
+        this.guest_allowed_left = guest_allowed_left;
+    }
+
+    private int guest_allowed_left;
     private String equipment_required;
     private Object params;
     private String state;

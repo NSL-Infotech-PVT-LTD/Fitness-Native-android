@@ -23,6 +23,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.AllCreatedActivity;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
@@ -127,8 +128,9 @@ public class O_RegistrationProfile extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent viewSpaceIntent = new Intent(context, AllEventsMapAct.class);
+                Intent viewSpaceIntent = new Intent(context, AllCreatedActivity.class);
                 viewSpaceIntent.putExtra("from", "3");
+                AllCreatedActivity.fromOrgProfile=true;
                 startActivity(viewSpaceIntent);
             }
         });

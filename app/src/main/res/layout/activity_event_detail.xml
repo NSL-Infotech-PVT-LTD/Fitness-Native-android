@@ -80,8 +80,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPagerImage"
                     android:layout_width="match_parent"

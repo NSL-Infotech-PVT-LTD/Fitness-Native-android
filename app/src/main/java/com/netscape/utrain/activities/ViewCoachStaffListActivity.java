@@ -89,7 +89,7 @@ public class ViewCoachStaffListActivity extends AppCompatActivity {
     }
 
     private void hitViewCoachStaffListApi() {
-
+        progressDialog.show();
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<ViewCoachListResponse> coachStaffList = null;
 
@@ -118,6 +118,7 @@ public class ViewCoachStaffListActivity extends AppCompatActivity {
                             }
                         }
                     } else {
+
                         binding.noDataImageView.setVisibility(View.VISIBLE);
                         binding.topResetFilter.setVisibility(View.VISIBLE);
                     }

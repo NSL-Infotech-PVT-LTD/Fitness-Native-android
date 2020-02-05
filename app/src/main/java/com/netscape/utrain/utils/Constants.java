@@ -76,8 +76,6 @@ public class Constants {
     public static final String GET_NEW_NOTIFICATIONS= "dashboard";
     public static final String MARK_NOTIFICATIONS_READ= "notification/read";
 
-
-
     public static final String ORG_SPACE_LIST = "spaces/organiser/list";
     public static final String COACH_EVENT_LIST = "events/coach/list";
     public static final String COACH_SPACE_LIST = "spaces/coach/list";

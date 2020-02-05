@@ -471,4 +471,7 @@
     <string name="email_taken">The email has already been taken</string>
     <string name="phone_taken">The phone has already been taken</string>
     <string name="exp_details">Experience details</string>
+    <string name="staff_name"> Name</string>
+    <string name="coach_stalf">Coaching Stalf</string>
+    <string name="stalf_profile">Coaching Stalf Profile</string>
 </resources>

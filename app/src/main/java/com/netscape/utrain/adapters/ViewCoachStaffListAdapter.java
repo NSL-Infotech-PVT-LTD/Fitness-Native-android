@@ -19,6 +19,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.CoachingStalfProfile;
 import com.netscape.utrain.activities.ViewCoachStaffListActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.fragments.O_RegistrationProfile;
@@ -60,6 +61,14 @@ public class ViewCoachStaffListAdapter extends RecyclerView.Adapter<ViewCoachSta
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, CoachingStalfProfile.class);
+                intent.putExtra("stalfInfo",data);
+                context.startActivity(intent);
             }
         });
     }

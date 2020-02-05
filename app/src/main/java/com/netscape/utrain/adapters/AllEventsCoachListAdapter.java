@@ -2,6 +2,7 @@ package com.netscape.utrain.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.CreateEventActivity;
+import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.model.C_EventDataListModel;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.O_EventDataModel;
@@ -124,6 +126,33 @@ public class AllEventsCoachListAdapter extends RecyclerView.Adapter<AllEventsCoa
                         eventEdit.putExtra("eventEdit", data);
                         CreateEventActivity.editEvent = true;
                         context.startActivity(eventEdit);
+                    }
+                });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, EventDetail.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra("eventName", data.getName());
+                        intent.putExtra("eventVenue", data.getLocation());
+                        intent.putExtra("event_id", data.getId()+"");
+                        intent.putExtra("guest_allowed", data.getGuest_allowed() + "");
+                        intent.putExtra("guest_allowed_left", data.getGuest_allowed_left() + "");
+                        intent.putExtra("eventDate", data.getStart_date());
+                        intent.putExtra("eventEndDate", data.getEnd_date());
+                        intent.putExtra("eventTime", data.getStart_time());
+                        intent.putExtra("eventEndTime", data.getEnd_time());
+                        intent.putExtra("eventDescription", data.getDescription());
+                        intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
+                        intent.putExtra("from", "events");
+                        intent.putExtra("capacity", data.getGuest_allowed());
+                        intent.putExtra("gmapLat", data.getLatitude()+"");
+                        intent.putExtra("gmapLong", data.getLongitude()+"");
+                        Bundle b = new Bundle();
+                        b.putString("Array", data.getImages());
+                        intent.putExtras(b);
+                        context.startActivity(intent);
                     }
                 });
                 break;
