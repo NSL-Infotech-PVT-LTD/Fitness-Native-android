@@ -108,6 +108,7 @@ import java.util.List;
 import java.util.Locale;
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -152,6 +153,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private boolean policeDoc = false;
     private boolean emailCheck = false;
     private String emailTaken = "", phoneTaken = "";
+    private int ADDRESS_EVENT = 123;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -298,6 +300,16 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
             }
         });
+
+        binding.orgAddressEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent getAddress = new Intent(OrganizationSignUpActivity.this, OrgMapFindAddressActivity.class);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(getAddress, ADDRESS_EVENT);
+            }
+        });
+
 
     }
 
@@ -936,6 +948,17 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADDRESS_EVENT) {
+                if (data != null && data.hasExtra(Constants.ADDRESS)) {
+                    binding.orgAddressEdt.setText(data.getStringExtra(Constants.ADDRESS));
+                    binding.orgAddressEdt.setError(null);
+                    latitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LAT)));
+                    longitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LONG)));
+                }
+            }
+        }
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
 
             if (resultCode == RESULT_OK) {

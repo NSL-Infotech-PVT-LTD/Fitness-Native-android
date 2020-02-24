@@ -29,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.activities.athlete.EventDetail;
+import com.netscape.utrain.adapters.CalendarEventListAdapter;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
 import com.netscape.utrain.model.CoachListModel;
@@ -170,12 +171,11 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             }
         });
 
-        binding.viewSession.setOnClickListener(new View.OnClickListener() {
+        binding.bookingCoach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, AllEventsMapAct.class);
-                vSesssion.putExtra("from", "2");
-                vSesssion.putExtra("coach_id", coachListModel.getId() + "");
+                Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, HourlySlotsActivity.class);
+
                 startActivity(vSesssion);
             }
         });

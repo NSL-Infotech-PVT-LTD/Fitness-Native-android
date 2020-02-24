@@ -63,6 +63,8 @@ import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.CreateEventActivity;
+import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.activities.organization.OrganizationSignUpActivity;
 import com.netscape.utrain.databinding.ActivityAthleteSignupBinding;
 import com.netscape.utrain.response.EmailCheckResponse;
@@ -90,6 +92,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -124,6 +127,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     private int count = 0;
     private boolean emailCheck = false;
     private String emailTaken = "", phoneTaken = "";
+    private int ADDRESS_EVENT = 132;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -301,6 +305,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         binding.athleteSignInTv.setOnClickListener(this);
         binding.athleteprofileImageView.setOnClickListener(this);
         binding.athleteSignUpBtnTwo.setOnClickListener(this);
+        binding.athleteAddressEdt.setOnClickListener(this);
         askPermObj = new AskPermission(getApplicationContext(), this);
         retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
@@ -333,6 +338,11 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.athleteSignUpBtn:
                 getSignUpData();
+                break;
+            case R.id.athleteAddressEdt:
+                Intent getAddress = new Intent(AthleteSignupActivity.this, OrgMapFindAddressActivity.class);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(getAddress, ADDRESS_EVENT);
                 break;
             case R.id.athleteSignInTv:
                 Intent signInActivity = new Intent(AthleteSignupActivity.this, AthleteLoginActivity.class);
@@ -602,6 +612,17 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADDRESS_EVENT) {
+                if (data != null && data.hasExtra(Constants.ADDRESS)) {
+                    binding.athleteAddressEdt.setText(data.getStringExtra(Constants.ADDRESS));
+                    binding.athleteAddressEdt.setError(null);
+                    latitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LAT)));
+                    longitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LONG)));
+                }
+            }
+        }
         if (requestCode == Constants.REQUEST_CAMERA_CAPTURE) {
             if (resultCode == RESULT_OK) {
 //                AppDelegate.Log("imageCaptured ", "result ok");

@@ -27,9 +27,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,7 +63,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
-        View.OnClickListener, GoogleMap.OnMapClickListener {
+        View.OnClickListener, GoogleMap.OnMapClickListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener  {
     SupportMapFragment mapFragment;
     Toolbar toolbar;
     private GoogleMap mGoogleMap;
@@ -138,6 +142,12 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
     }
 
     public void inIt() {
+
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
         askPermObj = new AskPermission(OrgMapFindAddressActivity.this, this);
 //        setupToolBar(OrgMapFindAddressActivity.this.getResources().getString(R.string.find_address));
 
@@ -171,6 +181,15 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             mGoogleMap.setMyLocationEnabled(true);
 
         askPermission();
+
+
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.pin);
+        MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(gpsService.getLatitude(), gpsService.getLongitude())).icon(icon).title(getAddress(this, gpsService.getLatitude(), gpsService.getLongitude()));
+//        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gpsService.getLatitude(), gpsService.getLongitude()), 9.0f));
+        googleMap.addMarker(markerOptions);
+
+        selectedLatLng = new LatLng(gpsService.getLatitude(), gpsService.getLongitude());
 
 //        mGoogleMap.setOnMapLongClickListener(this);
     }
@@ -424,7 +443,9 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 setMarkerOnMap(selectedLatLng);
                 searchEdt.setText(placeName + " " + mAddress);
 
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            }
+
+            else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
 //                AppDelegate.LogE(status.getStatusMessage());
             }
@@ -440,5 +461,20 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
             if (mGoogleMap != null)
                 setMarkerOnMap(latLng);
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

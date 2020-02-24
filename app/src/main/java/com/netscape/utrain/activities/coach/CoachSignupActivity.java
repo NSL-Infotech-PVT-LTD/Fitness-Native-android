@@ -47,6 +47,8 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.netscape.utrain.BuildConfig;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
+import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
+import com.netscape.utrain.activities.organization.OrgMapFindAddressActivity;
 import com.netscape.utrain.databinding.ActivityCoachSignupBinding;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -57,6 +59,7 @@ import com.netscape.utrain.utils.ImageFilePath;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,7 +68,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     private ActivityCoachSignupBinding binding;
     private int mYear, mMonth, mDay, mHour, mMinute;
     Retrofitinterface retrofitinterface;
-//    CoachSignUpModel mModel;
+    //    CoachSignUpModel mModel;
     ProgressDialog progressDialog;
     public static final int REQUEST_CODE = 1;
     Uri imageUri;
@@ -80,6 +83,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     private GoogleApiClient googleApiClient;
     private Location mylocation;
     private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
+    private int ADDRESS_EVENT = 123;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -98,10 +102,18 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_coach_signup);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_coach_signup);
         retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(CoachSignupActivity.this);
 
+        binding.coachLocationEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent getAddress = new Intent(CoachSignupActivity.this, OrgMapFindAddressActivity.class);
+                getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(getAddress, ADDRESS_EVENT);
+            }
+        });
 
         binding.coachStartHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +127,9 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                         binding.coachStartHour.setText(hourOfDay + ":" + minute);
                     }
-                },mHour,mMinute,true);
-                timePickerDialog.show();            }
+                }, mHour, mMinute, true);
+                timePickerDialog.show();
+            }
         });
         binding.coachEndHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +144,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
 
                         binding.coachEndHour.setText(hourOfDay + ":" + minute);
                     }
-                }, mHour, mMinute,true);
+                }, mHour, mMinute, true);
                 timePickerDialog.show();
             }
         });
@@ -187,9 +200,10 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.coachImageView:
                 break;
             case R.id.coachStartHour:
@@ -260,8 +274,9 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == requestCode && resultCode == RESULT_OK)
-        {
+
+
+        if (requestCode == requestCode && resultCode == RESULT_OK) {
 //            imageUri = data.getData();
 //
 //            String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -302,6 +317,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
 
         }
     }
+
     private void askRequiredPermission() {
         /*asking for the required permission*/
         if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -320,6 +336,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
             getImageUsingCamera();
         }
     }
+
     public void handleImageSelection() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -354,6 +371,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     }
+
     private void handleGalleryImage() {
         if (!askPermObj.isPermissionGiven(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             askPermObj.askPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, Constants.WRITE_PERMISSION);
@@ -385,6 +403,7 @@ public class CoachSignupActivity extends AppCompatActivity implements View.OnCli
             }
         }
     }
+
     public void getImageFromStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)

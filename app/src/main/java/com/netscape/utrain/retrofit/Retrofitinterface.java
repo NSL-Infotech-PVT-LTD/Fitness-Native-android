@@ -663,6 +663,13 @@ public interface Retrofitinterface {
                                         @Field("date")String date);
 
     @FormUrlEncoded
+    @POST(Constants.COACH_AVAILABILITY)
+    Call<SlotListResponse> getCoachAvilability(@Header("Content-Type") String Content_type,
+                                        @Header("Authorization") String Authorization,
+                                        @Field("coach_id")String target_id,
+                                        @Field("date")String date);
+
+    @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)
     Call<SessionBookingDetails> getBookingSession(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String Content_type,

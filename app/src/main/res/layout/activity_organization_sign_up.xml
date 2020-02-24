@@ -212,6 +212,7 @@
                             android:padding="@dimen/_10sdp"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:focusable="false"
                             app:layout_constraintLeft_toLeftOf="@id/organization_left_Guideline"
                             app:layout_constraintRight_toRightOf="@id/organization_right_Guideline"
                             app:layout_constraintTop_toBottomOf="@id/organization_LocationTv" />
