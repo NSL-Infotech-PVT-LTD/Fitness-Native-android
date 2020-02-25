@@ -16,7 +16,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/coachDetaillayoutConstraint"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_50sdp"
                 android:background="@drawable/card_bottomboth_round_design"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -41,10 +41,10 @@
                     android:layout_height="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:src="@drawable/ic_leftwhite"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/topDetailsTitleTv"
                     app:layout_constraintBottom_toBottomOf="@+id/topDetailsTitleTv"
-                    app:layout_constraintRight_toLeftOf="@+id/topDetailsTitleTv"/>
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/topDetailsTitleTv"
+                    app:layout_constraintTop_toTopOf="@+id/topDetailsTitleTv" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/detailMapDirection"
@@ -54,6 +54,7 @@
                     android:layout_marginRight="@dimen/_30sdp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_details_map"
+                    android:visibility="gone"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +68,7 @@
                     android:text="@string/get_direction"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_7sdp"
+                    android:visibility="gone"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -228,6 +230,7 @@
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_8sdp"
+
                             app:cornerRadius="@dimen/_5sdp"
                             app:icon="@drawable/ic_rentspace"
                             app:layout_constraintRight_toRightOf="parent"
@@ -292,7 +295,7 @@
                         android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/services"
+                        android:text="@string/pleaseSelect"
                         android:textColor="@color/themeColor"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -311,6 +314,7 @@
                         android:text="@string/view_more"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_10sdp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/eventNumOfCandidateAttendingTv"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view1" />
@@ -319,25 +323,28 @@
                         android:id="@+id/chipHView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginRight="@dimen/_16sdp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         android:scrollbars="none"
-                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" >
-
-                    <RelativeLayout
-                        android:id="@+id/constraintChipGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/ChipTheme"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:chipIconEnabled="false"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
+                        app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv">
+                        >
+
+                        <RelativeLayout
+                            android:id="@+id/constraintChipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:theme="@style/ChipTheme"
+                            app:chipIconEnabled="false"
+
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/eventNumOfCandidateAttendingTv" />
                     </HorizontalScrollView>
+
                     <View
                         android:id="@+id/view2"
                         android:layout_width="match_parent"
@@ -368,10 +375,10 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/themeColor"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="@string/view_events"
-                            android:textAllCaps="false"
                             android:paddingLeft="@dimen/_20sdp"
                             android:paddingRight="@dimen/_20sdp"
+                            android:text="@string/view_events"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
                             app:cornerRadius="@dimen/_5sdp"
@@ -389,12 +396,11 @@
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:cornerRadius="@dimen/_5sdp"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                     <View
@@ -443,7 +449,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_regular"
                             android:gravity="center"
-                            android:text="@string/working_hours"
+                            android:text="@string/bookingHour"
                             android:textColor="@color/themeColor"
                             android:textSize="@dimen/_8sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -560,12 +566,136 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@color/colorLightGray"
+                        android:visibility="gone"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@id/linear" />
 
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/colorWhite"
+                        app:layout_constraintTop_toBottomOf="@id/viewPriceBottom">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/bsProductPriceText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="right"
+                            android:text="@string/servicePrice"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/bsProductPriceTv"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/bsProductPriceTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintLeft_toRightOf="@+id/bsProductPriceText"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/bsProductPriceText" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/bsGstTaxText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="right"
+                            android:text="@string/tax"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/bsGstTv"
+                            app:layout_constraintTop_toBottomOf="@+id/bsProductPriceText" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/bsGstTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintLeft_toRightOf="@+id/bsGstTaxText"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/bsGstTaxText" />
+
+                        <View
+                            android:id="@+id/bsView"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/grayColor"
+                            app:layout_constraintTop_toBottomOf="@+id/bsGstTaxText" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/totalPriceText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="right"
+                            android:text="@string/total_price"
+                            android:textSize="@dimen/_16sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/totalPriceTv"
+                            app:layout_constraintTop_toBottomOf="@+id/bsView" />
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/totalPriceTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:textColor="@color/colorGreen"
+                            android:textSize="@dimen/_16sdp"
+                            app:layout_constraintLeft_toRightOf="@+id/totalPriceText"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/totalPriceText" />
+
+                        <View
+                            android:id="@+id/view44"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@color/grayColor"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/totalPriceTv" />
+
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/proceedToPay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:backgroundTint="@color/colorGreen"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/proceedToPay"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@id/totalPriceTv" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/portfolioText"

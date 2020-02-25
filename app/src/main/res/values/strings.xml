@@ -2,7 +2,7 @@
 
     <string name="facebook_app_id">721512744988306</string>
     <string name="google_maps_api">AIzaSyBHgjC1e9D8ykM2V3RgPxFMv4AMk2RTOEQ</string>
-<!--    <string name="google_maps_api">AIzaSyAJhw_OEXurbipEqQjg0rskaw_xaE5wn4E</string>-->
+    <!--    <string name="google_maps_api">AIzaSyAJhw_OEXurbipEqQjg0rskaw_xaE5wn4E</string>-->
 
     <string name="fb_login_protocol_scheme">fb721512744988306</string>
     <string name="app_name">Utrain</string>
@@ -476,4 +476,10 @@
     <string name="coach_stalf">Coaching Stalf</string>
     <string name="stalf_profile">Coaching Stalf Profile</string>
     <string name="bookcoach">Book Coach</string>
+    <string name="bookingHour">Your Booking hr</string>
+    <string name="servicePrice">Service(s) Price</string>
+    <string name="tax">Tax</string>
+    <string name="total_price">Total Price</string>
+    <string name="proceedToPay">Proceed To pay</string>
+    <string name="pleaseSelect">Select Service(s) Below</string>
 </resources>

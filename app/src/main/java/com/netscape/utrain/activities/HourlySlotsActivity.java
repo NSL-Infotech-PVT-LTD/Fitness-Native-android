@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.netscape.utrain.R;
+import com.netscape.utrain.activities.coach.BookCoachAct;
+import com.netscape.utrain.adapters.HourlyCoachSlotAdapter;
 import com.netscape.utrain.adapters.HourlySlotAdapter;
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.HourSelectedModel;
@@ -36,12 +39,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HourlySlotsActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener {
+public class HourlySlotsActivity extends AppCompatActivity implements RobotoCalendarView.RobotoCalendarListener, HourlyCoachSlotAdapter.getCoachDetail {
     //    private ActivityHourlySlotsBinding binding;
     private Date strDate = null;
     private Date selectedDate = null;
@@ -54,6 +58,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
     private ArrayList<SlotListResponse.DataBean> slotList;
     private RecyclerView.LayoutManager layoutManager;
     private HourlySlotAdapter adapter;
+    private HourlyCoachSlotAdapter adapterCaoch;
     private String spaceId = "";
     private List<HourSelectedModel> hoursSelected;
     private RobotoCalendarView roboCalView;
@@ -141,10 +146,63 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                             getSlotsFromArray();
 
 
-                        } else{
+                        } else {
                             hourlyRecycler.setVisibility(View.VISIBLE);
                             adapter = new HourlySlotAdapter(getApplicationContext(), hoursSelected, slotsForDate, spaceId);
                             hourlyRecycler.setAdapter(adapter);
+                        }
+                    }
+                } else {
+                    progressDialog.dismiss();
+                    hourlyRecycler.setVisibility(View.GONE);
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+//                        Snackbar.make(binding.maineventBooking, errorMessage.toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                        Toast.makeText(HourlySlotsActivity.this, "" + errorMessage, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(HourlySlotsActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Snackbar.make(binding.athleteLoginLayout,e.getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SlotListResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                hourlyRecycler.setVisibility(View.GONE);
+                Toast.makeText(HourlySlotsActivity.this, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+//                Snackbar.make(binding.maineventBooking, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void hitCoachAvail(String date, String coachId) {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading..");
+        progressDialog.show();
+        Call<SlotListResponse> signUpAthlete = retrofitinterface.getCoachAvilability(Constants.CONTENT_TYPE, "Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, HourlySlotsActivity.this), coachId, date);
+        signUpAthlete.enqueue(new Callback<SlotListResponse>() {
+            @Override
+            public void onResponse(Call<SlotListResponse> call, Response<SlotListResponse> response) {
+                slotList = new ArrayList<>();
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null && response.body().getData().getAvailable_slot().size() > 0) {
+//                            binding.hourlyRecycler.removeAllViews();
+                            hourlyRecycler.setVisibility(View.VISIBLE);
+                            slotList.add(response.body().getData());
+                            getSlotsFromArrayCoach();
+
+
+                        } else {
+                            hourlyRecycler.setVisibility(View.VISIBLE);
+                            adapterCaoch = new HourlyCoachSlotAdapter(getApplicationContext(), hoursSelected, slotsForDate, spaceId, HourlySlotsActivity.this);
+                            hourlyRecycler.setAdapter(adapterCaoch);
                         }
                     }
                 } else {
@@ -203,12 +261,47 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
         }
     }
 
+    private void getSlotsFromArrayCoach() {
+//        slotListApi = new ArrayList<>();
+
+        if (slotList != null && slotList.size() > 0) {
+            for (int i = 0; i < slotList.get(0).getAvailable_slot().size(); i++) {
+                SlotModels models = new SlotModels();
+//                models.setSlotStartTime(slotList.get(0).getAvailable_slot().get(i).get(0));
+                String slotStartTime = commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(0), ":");
+                String slotEndTime = commonMethods.getSplitedValue(slotList.get(0).getAvailable_slot().get(i).get(1), ":");
+                if (Integer.parseInt(slotStartTime) <= Integer.parseInt(slotEndTime)) {
+                    for (int j = Integer.parseInt(slotStartTime); j <= Integer.parseInt(slotEndTime); j++) {
+                        HourSelectedModel model = new HourSelectedModel();
+                        model.setSelected(true);
+                        model.setHour(commonMethods.convertDate(j));
+                        hoursSelected.set((j - 1), model);
+//                        SlotModels hours = new SlotModels();
+//                        hours .setSlotStartTime(j+":00");
+//                        slotListApi.add(hours );
+                    }
+
+                }
+//                models.setSlotStartTime(slotList.get(0).getAvailable_slot().get(i).get(0));
+//                slotListApi.add(models);
+
+            }
+            adapterCaoch = new HourlyCoachSlotAdapter(getApplicationContext(), hoursSelected, slotsForDate, spaceId, HourlySlotsActivity.this);
+            hourlyRecycler.setAdapter(adapterCaoch);
+        }
+    }
+
     @Override
     public void onDayClick(Date date) {
         slotsForDate = commonMethods.getDateInStringFormat(date);
         if (date.getTime() > System.currentTimeMillis()) {
-            hitSpaceDetailAPI(slotsForDate);
-        }else {
+            String value = getIntent().getStringExtra("from");
+            if (value != null) {
+                if (value.equalsIgnoreCase("coach"))
+                    hitCoachAvail(slotsForDate, getIntent().getStringExtra("coachID"));
+                else hitSpaceDetailAPI(slotsForDate);
+            } else hitSpaceDetailAPI(slotsForDate);
+        } else {
             Toast.makeText(this, "Select valid date", Toast.LENGTH_SHORT).show();
         }
 
@@ -235,6 +328,16 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
         calendar.clear();
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void getID(String startTime, String endTime) {
+        Intent intent = new Intent(HourlySlotsActivity.this, BookCoachAct.class);
+        intent.putExtra("coachID", getIntent().getStringExtra("coachID"));
+        intent.putExtra("start", startTime);
+        intent.putExtra("end", endTime);
+        intent.putExtra("date", slotsForDate);
+        startActivity(intent);
     }
 
 //    @Override

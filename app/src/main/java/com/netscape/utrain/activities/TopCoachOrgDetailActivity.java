@@ -77,7 +77,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         binding.detailMapDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(coachListModel.getLatitude()) && ! TextUtils.isEmpty(coachListModel.getLongitude())) {
+                if (!TextUtils.isEmpty(coachListModel.getLatitude()) && !TextUtils.isEmpty(coachListModel.getLongitude())) {
                     float latitude = Float.parseFloat(coachListModel.getLatitude());
                     float longitude = Float.parseFloat(coachListModel.getLongitude());
 //                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 28.7040, 77.1025);
@@ -88,7 +88,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     intent.setPackage("com.google.android.apps.maps");
                     startActivity(intent);
-                }else {
+                } else {
                     Toast.makeText(TopCoachOrgDetailActivity.this, "No lat long found", Toast.LENGTH_SHORT).show();
                 }
 
@@ -123,13 +123,13 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
             binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
             binding.detailUserBioTv.setText(coachListModel.getBio());
-            binding.detailPriceTv.setText("$"+coachListModel.getHourly_rate() + "");
+            binding.detailPriceTv.setText("$" + coachListModel.getHourly_rate() + "");
             binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
             binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
             binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
             binding.detailUserName.setText(coachListModel.getName());
             binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
-            if (coachListModel.getRating()!=null) {
+            if (coachListModel.getRating() != null) {
                 if (coachListModel.getRating().equalsIgnoreCase("0")) {
                     binding.noRatingText.setVisibility(View.VISIBLE);
                     binding.discoverRating.setVisibility(View.GONE);
@@ -175,7 +175,8 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View view) {
                 Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, HourlySlotsActivity.class);
-
+                vSesssion.putExtra("coachID", coachListModel.getId() + "");
+                vSesssion.putExtra("from","coach");
                 startActivity(vSesssion);
             }
         });
@@ -196,8 +197,8 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
 
                 // Redirecting to ViewCoachListActivity....
                 Intent intent = new Intent(TopCoachOrgDetailActivity.this, ViewCoachStaffListActivity.class);
-                intent.putExtra("fromTopOrgAct","");
-                intent.putExtra("coachList",coachListModel.getId()+"");
+                intent.putExtra("fromTopOrgAct", "");
+                intent.putExtra("coachList", coachListModel.getId() + "");
                 startActivity(intent);
 
             }
@@ -270,9 +271,9 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                     chip.setEnabled(false);
                     ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(this, null, 0, R.style.Widget_MaterialComponents_Chip_Filter);
                     chip.setChipDrawable(chipDrawable);
-                    chip.setMaxWidth(200);
                     chip.setTextColor(getResources().getColor(R.color.colorWhite));
-                    chip.setText(coachListModel.getService_ids().get(i).getName()+"..");
+                    chip.setMaxWidth(200);
+                    chip.setText(coachListModel.getService_ids().get(i).getName() + "..");
                     chip.setTag(coachListModel.getService_ids().get(i).getId());
                     chipGroup.addView(chip);
                 }
@@ -293,7 +294,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
                 chip.setChipDrawable(chipDrawable);
                 chip.setTextColor(getResources().getColor(R.color.colorWhite));
                 chip.setMaxWidth(200);
-                chip.setText(coachListModel.getService_ids().get(i).getName()+"..");
+                chip.setText(coachListModel.getService_ids().get(i).getName() + "..");
                 chip.setTag(coachListModel.getService_ids().get(i).getId());
                 chipGroup.addView(chip);
             }

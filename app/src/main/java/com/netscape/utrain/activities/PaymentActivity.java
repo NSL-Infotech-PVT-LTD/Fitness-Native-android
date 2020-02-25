@@ -29,6 +29,7 @@ import com.netscape.utrain.activities.coach.CoachDashboard;
 import com.netscape.utrain.activities.organization.OrgHomeScreen;
 import com.netscape.utrain.databinding.ActivityPaymentBinding;
 import com.netscape.utrain.model.BookingConfirmModel;
+import com.netscape.utrain.model.CoachBookingModel;
 import com.netscape.utrain.response.SpaceBookingResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -235,6 +236,14 @@ public class PaymentActivity extends AppCompatActivity {
                                 if (type.equalsIgnoreCase("event")) {
                                     hitConfirmBookingAPI(getIntent().getIntExtra("tickets", 0) + "", getIntent().getIntExtra("totalPrice", 0) + "", getIntent().getStringExtra("type"), token.getId());
                                 }
+                                if (type.equalsIgnoreCase("coachBook")) {
+                                    coachBooking(getIntent().getStringExtra("price"),
+                                            getIntent().getStringExtra("coachID"),
+                                            getIntent().getStringExtra("services"),
+                                            getIntent().getStringExtra("slot"),
+                                            token.getId()
+                                    );
+                                }
                             }
 
 //                            bookingConfirm(getIntent().getIntExtra("appo_id", 0), getIntent().getStringExtra("dateTime"), token.getId());
@@ -402,7 +411,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id") , tickets, price, "pending", token);
+        Call<BookingConfirmModel> signUpAthlete = retrofitinterface.bookingConfrim("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, type, getIntent().getStringExtra("event_id"), tickets, price, "pending", token);
         signUpAthlete.enqueue(new Callback<BookingConfirmModel>() {
             @Override
             public void onResponse(Call<BookingConfirmModel> call, Response<BookingConfirmModel> response) {
@@ -457,7 +466,7 @@ public class PaymentActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.........");
         progressDialog.show();
-        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE,  getIntent().getStringExtra("event_id") , price,token, "pending",  type, getIntent().getStringExtra("totalSlots"));
+        Call<SpaceBookingResponse> signUpAthlete = retrofitinterface.spaceBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), Constants.CONTENT_TYPE, getIntent().getStringExtra("event_id"), price, token, "pending", type, getIntent().getStringExtra("totalSlots"));
         signUpAthlete.enqueue(new Callback<SpaceBookingResponse>() {
             @Override
             public void onResponse(Call<SpaceBookingResponse> call, Response<SpaceBookingResponse> response) {
@@ -475,8 +484,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 intent = new Intent(activity, OrgHomeScreen.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-                            }
-                            else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase(Constants.Coach)) {
+                            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, activity).equalsIgnoreCase(Constants.Coach)) {
                                 intent = new Intent(activity, CoachDashboard.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -491,7 +499,7 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
-                        String errorMsg=errorMessage.getJSONObject(0).getString("message");
+                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
                         Toast.makeText(activity, "" + errorMsg, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -504,6 +512,50 @@ public class PaymentActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SpaceBookingResponse> call, Throwable t) {
+                progressDialog.dismiss();
+
+            }
+        });
+    }
+
+    private void coachBooking(String price, String coachId, String serviceId, String bookingDate, String token) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Booking Coach.....");
+        progressDialog.show();
+        Call<CoachBookingModel> signUpAthlete = retrofitinterface.coachBooking("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, activity), coachId, serviceId, price, token, bookingDate);
+        signUpAthlete.enqueue(new Callback<CoachBookingModel>() {
+            @Override
+            public void onResponse(Call<CoachBookingModel> call, Response<CoachBookingModel> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    if (response.body().isStatus()) {
+                        if (response.body().getData() != null) {
+
+                            finish();
+                        }
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
+                        Toast.makeText(activity, "" + errorMsg, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CoachBookingModel> call, Throwable t) {
                 progressDialog.dismiss();
 
             }

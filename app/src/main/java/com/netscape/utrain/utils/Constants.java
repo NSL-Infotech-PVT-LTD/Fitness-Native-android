@@ -133,10 +133,12 @@ public class Constants {
     public static final String ORGANIZER_COACH_STORE = "organiser/coach/store";
     public static final String TypeOrgCoach = "OrgCoachActive";
     public static final String AVAILABLE_SLOTS ="availability" ;
+    public static final String COACH_DEATIL_ANY ="coach/detail/any" ;
     public static final String COACH_AVAILABILITY ="coach/availability" ;
     public static final String BOOKING_DETAILS ="booking/details";
     public static final String JOB_TYPE ="jobDetailtype";
     public static final String CHECK_EXISTING = "auth/check";
+    public static final String COACH_BOOKING = "coach/booking";
 
 
     public static String ROLE_PLAY = "";

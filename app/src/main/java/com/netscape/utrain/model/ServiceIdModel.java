@@ -15,6 +15,7 @@ public class ServiceIdModel implements Serializable {
     private boolean isSelected;
     private String name;
     private String price;
+    private boolean isChecked = false;
 
     public int getId() {
         return id;
@@ -50,5 +51,13 @@ public class ServiceIdModel implements Serializable {
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

@@ -6,6 +6,8 @@ import com.netscape.utrain.model.AthleteResponseEventData;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
 import com.netscape.utrain.model.BookingConfirmModel;
+import com.netscape.utrain.model.CoachBookingModel;
+import com.netscape.utrain.model.CoachDetailAny;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotifaicationStateResponse;
@@ -189,11 +191,12 @@ public interface Retrofitinterface {
     @POST(Constants.COACH_SIGNUP)
     Call<CoachSignUpResponse> registerCoach(@PartMap Map<String, RequestBody> fields,
                                             @Part List<MultipartBody.Part> files);
+
     @Multipart
     @POST(Constants.COACH_UPDATE)
     Call<CoachSignUpResponse> updateCoachBasicInfo(@Header("Authorization") String auth,
-                                               @PartMap Map<String, RequestBody> fields,
-                                               @Part MultipartBody.Part image);
+                                                   @PartMap Map<String, RequestBody> fields,
+                                                   @Part MultipartBody.Part image);
 
 //    @Multipart
 //    @POST(Constants.ORG_SIGNUP)
@@ -228,6 +231,7 @@ public interface Retrofitinterface {
                                                        @Query("page") String page,
                                                        @Query("radius") String radius,
                                                        @Query("coach_id") String coach_id);
+
     @FormUrlEncoded
     @POST(Constants.ATHLETE_SESSION_LIST)
     Call<AthleteSessionResponse> getAthleteSessionList(@Header("Authorization") String Authorization,
@@ -278,16 +282,17 @@ public interface Retrofitinterface {
     Call<OrgSignUpResponse> updateOrgBasicInfo(@Header("Authorization") String auth,
                                                @PartMap Map<String, RequestBody> fields,
                                                @Part MultipartBody.Part image);
+
     @Multipart
     @POST(Constants.ORG_UPDATE)
     Call<OrgSignUpResponse> updateSports(@Header("Authorization") String auth,
-                                               @PartMap Map<String, RequestBody> sportsField);
+                                         @PartMap Map<String, RequestBody> sportsField);
 
     @Multipart
     @POST(Constants.ORG_UPDATE)
     Call<OrgSignUpResponse> updatePortFolioImages(@Header("Authorization") String auth,
-                                               @PartMap Map<String, RequestBody> fields,
-                                               @Part List<MultipartBody.Part> files);
+                                                  @PartMap Map<String, RequestBody> fields,
+                                                  @Part List<MultipartBody.Part> files);
 
 
     @Multipart
@@ -385,29 +390,32 @@ public interface Retrofitinterface {
                                               @Header("Content-Type") String contentType,
                                               @Query("page") String page,
                                               @Query("order_by") String order_by);
+
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_ATHLETE)
     Call<O_AllBookingResponse> getAllBooking(@Header("Authorization") String Authorization,
                                              @Header("Content-Type") String contentType,
                                              @Field("limit") String limit,
                                              @Field("filter_by") String filter_by);
+
     @FormUrlEncoded
     @POST(Constants.CALANDER_BOOKINGS_BOTHE)
     Call<O_AllBookingResponse> getBotheCalBookings(@Header("Authorization") String Authorization,
-                                             @Header("Content-Type") String contentType,
-                                             @Field("limit") String limit,
-                                             @Field("filter_by") String filter_by);
+                                                   @Header("Content-Type") String contentType,
+                                                   @Field("limit") String limit,
+                                                   @Field("filter_by") String filter_by);
 
     @POST(Constants.SPACE_BOOKING_FOR_ATH_ORG)
     Call<AthleteSpaceBookList> getCoachSpaceBooking(@Header("Authorization") String Authorization,
                                                     @Header("Content-Type") String contentType,
                                                     @Query("page") String page,
                                                     @Query("limit") String limit);
+
     @POST(Constants.SPACE_BOOKING_FOR_ATH_ORG)
     Call<O_AllBookingResponse> getTransactionList(@Header("Authorization") String Authorization,
-                                                    @Header("Content-Type") String contentType,
-                                                    @Query("page") String page,
-                                                    @Query("limit") String limit);
+                                                  @Header("Content-Type") String contentType,
+                                                  @Query("page") String page,
+                                                  @Query("limit") String limit);
 
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_ORG)
@@ -415,24 +423,28 @@ public interface Retrofitinterface {
                                                 @Header("Content-Type") String contentType,
                                                 @Field("limit") String limit,
                                                 @Field("filter_by") String filter_by);
+
     @FormUrlEncoded
     @POST(Constants.RECEIVED_TRANSACTIONS)
     Call<O_AllBookingResponse> allTransactionListOrg(@Header("Authorization") String Authorization,
-                                                @Header("Content-Type") String contentType,
-                                                @Field("page") String page,
-                                                @Field("limit") String limit);
-    @FormUrlEncoded
-    @POST(Constants.RECEIVED_TRANSACTIONS)
-    Call<O_AllBookingResponse> allTransactionListCoach(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String contentType,
                                                      @Field("page") String page,
                                                      @Field("limit") String limit);
+
+    @FormUrlEncoded
+    @POST(Constants.RECEIVED_TRANSACTIONS)
+    Call<O_AllBookingResponse> allTransactionListCoach(@Header("Authorization") String Authorization,
+                                                       @Header("Content-Type") String contentType,
+                                                       @Field("page") String page,
+                                                       @Field("limit") String limit);
+
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_COACH)
     Call<O_AllBookingResponse> getAllBookingCoach(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String contentType,
                                                   @Field("limit") String page,
                                                   @Field("filter_by") String filter_by);
+
     @FormUrlEncoded
     @POST(Constants.ALL_BOOKING_COACH_ORG)
     Call<CoachOrgCalResponse> getCoachOrgCalBooking(@Header("Authorization") String Authorization,
@@ -473,25 +485,26 @@ public interface Retrofitinterface {
                                                 @Header("Content-Type") String contentType,
                                                 @Query("page") String page,
                                                 @Query("order_by") String order_by);
+
     @POST(Constants.RECEIVED_BOOKINGS)
     Call<O_AllBookingResponse> getBookings(@Header("Authorization") String Authorization,
-                                                @Header("Content-Type") String contentType,
-                                                @Query("page") String page,
-                                                @Query("type") String type,
-                                                @Query("order_by") String order_by);
-    @POST(Constants.RECEIVED_BOOKINGS)
-    Call<O_AllBookingResponse> getSpaceBookings(@Header("Authorization") String Authorization,
                                            @Header("Content-Type") String contentType,
                                            @Query("page") String page,
-                                           @Query("type") String type);
+                                           @Query("type") String type,
+                                           @Query("order_by") String order_by);
 
+    @POST(Constants.RECEIVED_BOOKINGS)
+    Call<O_AllBookingResponse> getSpaceBookings(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String contentType,
+                                                @Query("page") String page,
+                                                @Query("type") String type);
 
 
     @POST(Constants.CO_EVENT_LIST)
     Call<O_EventListResponse> getCoachEvents(@Header("Authorization") String Authorization,
-                                                @Header("Content-Type") String contentType,
-                                                @Query("page") String page,
-                                                @Query("order_by") String order_by);
+                                             @Header("Content-Type") String contentType,
+                                             @Query("page") String page,
+                                             @Query("order_by") String order_by);
 
     @POST(Constants.CO_SESSION_LIST)
     Call<C_SessionListResponse> getCoachSessionList(@Header("Authorization") String Authorization,
@@ -632,10 +645,11 @@ public interface Retrofitinterface {
 
     @GET(Constants.ABOUT_US)
     Call<AboutUsResponse> aboutUs(@Header("Content-Type") String Content_type,
-                                            @Header("Authorization") String Authorization);
+                                  @Header("Authorization") String Authorization);
+
     @GET(Constants.TERMS_CONDITIONS)
     Call<TermsAndConditionsResponse> termsConditions(@Header("Content-Type") String Content_type,
-                                                    @Header("Authorization") String Authorization);
+                                                     @Header("Authorization") String Authorization);
 
 
     @POST(Constants.TERMS_CONDITIONS)
@@ -645,6 +659,7 @@ public interface Retrofitinterface {
     @GET(Constants.LOGOUT)
     Call<LogoutResponse> LogoutApi(@Header("Content-Type") String Content_type,
                                    @Header("Authorization") String Authorization);
+
     @GET(Constants.NOTIFICATION)
     Call<NotifaicationStateResponse> ChangeNotificationSetting(@Header("Authorization") String Authorization);
 
@@ -655,35 +670,56 @@ public interface Retrofitinterface {
     @GET(Constants.MARK_NOTIFICATIONS_READ)
     Call<NotificationReadResponse> setNewNotificationRead(@Header("Content-Type") String Content_type,
                                                           @Header("Authorization") String Authorization);
+
     @FormUrlEncoded
     @POST(Constants.AVAILABLE_SLOTS)
     Call<SlotListResponse> getTimeSlots(@Header("Content-Type") String Content_type,
                                         @Header("Authorization") String Authorization,
-                                        @Field("target_id")String target_id,
-                                        @Field("date")String date);
+                                        @Field("target_id") String target_id,
+                                        @Field("date") String date);
 
     @FormUrlEncoded
     @POST(Constants.COACH_AVAILABILITY)
     Call<SlotListResponse> getCoachAvilability(@Header("Content-Type") String Content_type,
-                                        @Header("Authorization") String Authorization,
-                                        @Field("coach_id")String target_id,
-                                        @Field("date")String date);
+                                               @Header("Authorization") String Authorization,
+                                               @Field("coach_id") String target_id,
+                                               @Field("date") String date);
 
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)
     Call<SessionBookingDetails> getBookingSession(@Header("Authorization") String Authorization,
                                                   @Header("Content-Type") String Content_type,
-                                                  @Field("id")String target_id);
+                                                  @Field("id") String target_id);
+
+    @FormUrlEncoded
+    @POST(Constants.COACH_DEATIL_ANY)
+    Call<CoachDetailAny> getCoachDetail(
+            @Header("Content-Type") String Content_type,
+            @Field("id") String target_id);
+
+    @FormUrlEncoded
+    @POST(Constants.COACH_BOOKING)
+    Call<CoachBookingModel> coachBooking(
+            @Header("Authorization") String Authorization,
+            @Field("coach_id") String coach_id,
+            @Field("service_id") String service_id,
+            @Field("price") String price,
+            @Field("token") String token,
+            @Field("booking") String booking
+
+    );
+
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)
     Call<SpaceBookingDetailResponse> getBookingSpace(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String Content_type,
-                                                     @Field("id")String target_id);
+                                                     @Field("id") String target_id);
+
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)
     Call<EventDetailResponse> getBookingEvent(@Header("Authorization") String Authorization,
                                               @Header("Content-Type") String Content_type,
-                                              @Field("id")String target_id);
+                                              @Field("id") String target_id);
 
 //    @FormUrlEncoded
 //    @POST(Constants.LOGIN_METHOD)
@@ -694,14 +730,14 @@ public interface Retrofitinterface {
     @Multipart
     @POST(Constants.HELP_SUPPORT)
     Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String auth,
-                                             @Query("message")String message,
-                                             @Part MultipartBody.Part file);
+                                                @Query("message") String message,
+                                                @Part MultipartBody.Part file);
 
 
     @FormUrlEncoded
     @POST(Constants.CHECK_EXISTING)
     Call<EmailCheckResponse> checkForExisting(@Header("Content-Type") String Content_type,
                                               @Field("type") String type,
-                                              @Field("data")String data);
+                                              @Field("data") String data);
 
 }
