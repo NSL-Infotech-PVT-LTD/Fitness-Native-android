@@ -482,4 +482,5 @@
     <string name="total_price">Total Price</string>
     <string name="proceedToPay">Proceed To pay</string>
     <string name="pleaseSelect">Select Service(s) Below</string>
+    <string name="changeBooking">Change Booking Time</string>
 </resources>

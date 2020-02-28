@@ -30,10 +30,12 @@ public class HourlyCoachSlotAdapter extends RecyclerView.Adapter<HourlyCoachSlot
     private String slotsDate = "", spaceId = "";
     public getCoachDetail getCoachDetail;
     int toTime;
+    public GetEventDetail getEventDetail;
 
-    public HourlyCoachSlotAdapter(Context context, List<HourSelectedModel> list, String date, String Id, getCoachDetail getCoachDetail) {
+    public HourlyCoachSlotAdapter(Context context, List<HourSelectedModel> list, String date, String Id, getCoachDetail getCoachDetail, GetEventDetail getEventDetail) {
         this.context = context;
         this.getCoachDetail = getCoachDetail;
+        this.getEventDetail = getEventDetail;
         this.list = list;
         this.slotsDate = date;
         this.spaceId = Id;
@@ -55,6 +57,10 @@ public class HourlyCoachSlotAdapter extends RecyclerView.Adapter<HourlyCoachSlot
             holder.layoutSlotIndicator.setBackgroundColor(context.getResources().getColor(R.color.colorGreen));
             holder.slotBookedTv.setText("Available");
 
+        } else if (data.isEvent()) {
+            holder.layoutSlotIndicator.setBackgroundColor(context.getResources().getColor(R.color.yelloBackground));
+            holder.slotBookedTv.setText("Coach Event");
+
         } else {
             holder.layoutSlotIndicator.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
             holder.slotBookedTv.setText("Not Available");
@@ -62,19 +68,26 @@ public class HourlyCoachSlotAdapter extends RecyclerView.Adapter<HourlyCoachSlot
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (list.get(position).isSelected()) {
-                    toTime = Integer.parseInt(list.get(position).getHour()) + 1;
-                    Intent intent = new Intent(context.getApplicationContext(), EventDetail.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(Constants.SLOT_DATE, slotsDate);
-                    intent.putExtra("event_id", spaceId);
-                    intent.putExtra(Constants.SLOT_START_TIME, list.get(position).getHour() + ":00");
-                    intent.putExtra(Constants.SLOT_END_TIME, commonMethods.convertDate(toTime) + ":00");
-                    SpaceBookingActivity.intentFrom = true;
-                    context.startActivity(intent);
-                } else {
+                if (list.get(position).isEvent()) {
+
+
+                    getEventDetail.getID(list.get(position).getEventPosition());
+
+//                    toTime = Integer.parseInt(list.get(position).getHour()) + 1;
+//                    Intent intent = new Intent(context.getApplicationContext(), EventDetail.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra(Constants.SLOT_DATE, slotsDate);
+//                    intent.putExtra("event_id", spaceId);
+//                    intent.putExtra(Constants.SLOT_START_TIME, list.get(position).getHour() + ":00");
+//                    intent.putExtra(Constants.SLOT_END_TIME, commonMethods.convertDate(toTime) + ":00");
+//                    SpaceBookingActivity.intentFrom = true;
+//                    context.startActivity(intent);
+                } else if (list.get(position).isSelected()) {
                     toTime = Integer.parseInt(list.get(position).getHour()) + 1;
                     getCoachDetail.getID(list.get(position).getHour() + ":00", commonMethods.convertDate(toTime) + ":00");
+                } else {
+                    Toast.makeText(context, "Coach Not Avalable", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -83,6 +96,10 @@ public class HourlyCoachSlotAdapter extends RecyclerView.Adapter<HourlyCoachSlot
 
     public interface getCoachDetail {
         public void getID(String startTime, String endTime);
+    }
+
+    public interface GetEventDetail {
+        public void getID(int pos);
     }
 
     @Override

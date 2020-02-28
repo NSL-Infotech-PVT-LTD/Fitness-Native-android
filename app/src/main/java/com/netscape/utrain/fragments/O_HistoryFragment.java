@@ -54,7 +54,7 @@ public class O_HistoryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private LinearLayout liearLayout;
-    private TextView sessionSel, eventSel, doneSel, spaceSel;
+    private TextView coachSel, eventSel, doneSel, spaceSel;
     private int sort_count = 1;
     private ViewPagerAdapter adapter;
     private String completed = "Completed";
@@ -99,6 +99,7 @@ public class O_HistoryFragment extends Fragment {
         View view = binding.getRoot();
         liearLayout = view.findViewById(R.id.bottomsheet_services);
         spaceSel = view.findViewById(R.id.spaceSel);
+        coachSel = view.findViewById(R.id.coacch);
 //        sessionSel = view.findViewById(R.id.sessionSel);
         eventSel = view.findViewById(R.id.eventSel);
         doneSel = view.findViewById(R.id.doneSel);
@@ -131,8 +132,9 @@ public class O_HistoryFragment extends Fragment {
 
     private void checkClick() {
 
+
         eventSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
-//        sessionSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
+        coachSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
         spaceSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
 
     }
@@ -169,21 +171,21 @@ public class O_HistoryFragment extends Fragment {
 
             }
         });
-//        sessionSel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                sort_count = 2;
-//                selectedTExt();
-//                O_UpcEventFragment.count = sort_count;
-//                O_CmpEventFragment.count = sort_count;
-//
-//                upcoming = "Upcoming";
-//                completed = "Completed";
-//                setupViewPager(binding.historyViewPager);
-//                bottomSheetUpDown_address();
-//
-//            }
-//        });
+        coachSel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sort_count = 4;
+                selectedTExt();
+                O_UpcEventFragment.count = sort_count;
+                O_CmpEventFragment.count = sort_count;
+
+                upcoming = "Upcoming";
+                completed = "Completed";
+                setupCoachPAger(binding.historyViewPager);
+                bottomSheetUpDown_address();
+
+            }
+        });
         spaceSel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,13 +197,12 @@ public class O_HistoryFragment extends Fragment {
 
                 upcoming = "My Booking";
                 completed = "Space Bookings";
-                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer))
-                {
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer)) {
                     setupViewPager(binding.historyViewPager);
-                }else {
+                } else {
                     setupSpacePager(binding.historyViewPager);
                 }
-                    bottomSheetUpDown_address();
+                bottomSheetUpDown_address();
             }
         });
         doneSel.setVisibility(View.GONE);
@@ -242,11 +243,11 @@ public class O_HistoryFragment extends Fragment {
             eventSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
 
 
-        } else if (sort_count == 2) {
+        } else if (sort_count == 4) {
             checkClick();
-            binding.nameOfType.setText("Session");
+            binding.nameOfType.setText("Coach");
 
-//            sessionSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
+            coachSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
 
 
         } else if (sort_count == 3) {
@@ -325,12 +326,17 @@ public class O_HistoryFragment extends Fragment {
         adapter.addFragment(new O_CmpEventFragment(), completed);
         viewPager.setAdapter(adapter);
     }
+
     private void setupSpacePager(final ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new O_UpcEventFragment(), "Space Bookings");
         viewPager.setAdapter(adapter);
     }
-
+    private void setupCoachPAger(final ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new O_UpcEventFragment(), "Coach Bookings");
+        viewPager.setAdapter(adapter);
+    }
     public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
         View tabStrip = tabLayout.getChildAt(0);
         if (tabStrip instanceof ViewGroup) {

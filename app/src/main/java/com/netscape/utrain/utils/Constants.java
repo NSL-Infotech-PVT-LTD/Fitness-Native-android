@@ -45,6 +45,8 @@ public class Constants {
     public static final String BOOKING_NOTIFICATIONS = "notifications";
     public static final String BOOKING_RATING = "booking/rating";
     public static final String CHANGE_PASSWORD = "password/change";
+    public static final String BOOKING_COACH_LIST = "booking/coach/list";
+    public static final String GET_ATHELETECOACH_BOOKINGS = "getAtheleteCoachBookings";
     public static final String TERMS_CONDITIONS = "configuration/terms_and_conditions";
 
 

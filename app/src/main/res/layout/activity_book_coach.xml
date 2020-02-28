@@ -377,7 +377,7 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:paddingLeft="@dimen/_20sdp"
                             android:paddingRight="@dimen/_20sdp"
-                            android:text="@string/view_events"
+                            android:text="@string/changeBooking"
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_10sdp"

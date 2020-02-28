@@ -31,6 +31,9 @@ public class A_StardFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+
+
     public A_StardFragment() {
         // Required empty public constructor
     }

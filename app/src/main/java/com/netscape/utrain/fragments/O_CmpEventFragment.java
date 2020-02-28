@@ -112,6 +112,8 @@ public class O_CmpEventFragment extends Fragment implements A_EventListAdapter.o
     private A_SpaceListAdapter a_SpaceAdapter;
     private A_SessionListAdapter a_SessionAdapter;
 
+
+
     private List<O_EventDataModel> eventData;
     private List<O_SessionDataModel> sessionData;
     private List<O_SpaceDataModel> spaceData;

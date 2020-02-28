@@ -107,6 +107,13 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
                 finish();
             }
         });
+
+        gpsService = new GPSService(OrgMapFindAddressActivity.this);
+
+
+
+
+
         searchImgBtn = findViewById(R.id.searchImgBtn);
 //        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().
 //                findFragmentById(R.id.map);
@@ -219,7 +226,6 @@ public class OrgMapFindAddressActivity extends AppCompatActivity implements OnMa
 
     /*function getting the current location of user*/
     private void getUserCurrentLocation() {
-        gpsService = new GPSService(OrgMapFindAddressActivity.this);
         Location userLocation = gpsService.getLocation();
         if (userLocation != null) {
             LatLng placeOn = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());

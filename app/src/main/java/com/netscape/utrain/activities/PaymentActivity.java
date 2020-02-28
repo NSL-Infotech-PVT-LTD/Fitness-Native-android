@@ -534,7 +534,8 @@ public class PaymentActivity extends AppCompatActivity {
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
 
-                            finish();
+                            startActivity(new Intent(PaymentActivity.this, AthleteHomeScreen.class));
+                            finishAffinity();
                         }
                     }
                 } else {

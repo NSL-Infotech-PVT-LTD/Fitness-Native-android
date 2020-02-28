@@ -1,5 +1,6 @@
 package com.netscape.utrain.retrofit;
 
+import com.netscape.utrain.model.A_CoachBookingList;
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteResponseEventData;
@@ -9,11 +10,13 @@ import com.netscape.utrain.model.BookingConfirmModel;
 import com.netscape.utrain.model.CoachBookingModel;
 import com.netscape.utrain.model.CoachDetailAny;
 import com.netscape.utrain.model.CoachListModel;
+import com.netscape.utrain.model.Coach_AtheleteBookedLsit;
 import com.netscape.utrain.model.EventBookingModel;
 import com.netscape.utrain.model.NotifaicationStateResponse;
 import com.netscape.utrain.model.O_AllBookingDataListModel;
 import com.netscape.utrain.model.O_SessionDataModel;
 import com.netscape.utrain.model.OrgCoachStoreModel;
+import com.netscape.utrain.model.SlotListCoachResponse;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.A_BookedEventResponse;
 import com.netscape.utrain.response.A_EventListResponse;
@@ -680,10 +683,10 @@ public interface Retrofitinterface {
 
     @FormUrlEncoded
     @POST(Constants.COACH_AVAILABILITY)
-    Call<SlotListResponse> getCoachAvilability(@Header("Content-Type") String Content_type,
-                                               @Header("Authorization") String Authorization,
-                                               @Field("coach_id") String target_id,
-                                               @Field("date") String date);
+    Call<SlotListCoachResponse> getCoachAvilability(@Header("Content-Type") String Content_type,
+                                                    @Header("Authorization") String Authorization,
+                                                    @Field("coach_id") String target_id,
+                                                    @Field("date") String date);
 
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)
@@ -721,6 +724,13 @@ public interface Retrofitinterface {
                                               @Header("Content-Type") String Content_type,
                                               @Field("id") String target_id);
 
+    @POST(Constants.GET_ATHELETECOACH_BOOKINGS)
+    Call<A_CoachBookingList> getAtheleteCoachBooking(@Header("Authorization") String Authorization,
+                                                     @Header("Content-Type") String Content_type);
+
+    @POST(Constants.BOOKING_COACH_LIST)
+    Call<Coach_AtheleteBookedLsit> getBookCOachList(@Header("Authorization") String Authorization,
+                                                    @Header("Content-Type") String Content_type);
 //    @FormUrlEncoded
 //    @POST(Constants.LOGIN_METHOD)
 //    Call<HelpAndSupportResponse> helpAndSupport(@Header("Authorization") String Authorization,

@@ -1,19 +1,23 @@
 package com.netscape.utrain.activities.coach;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +52,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,6 +76,8 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
     private JsonArray jsonArray, bookingJson;
     private List<SlotModel> bookingSlotDateTime = new ArrayList<>();
 
+    private int totalHour, startingHour, endHour;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,19 +95,56 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
         binding.viewOrgBtnLayout.setVisibility(View.GONE);
 //                binding.view2.setVisibility(View.GONE);
         binding.btnView.setVisibility(View.GONE);
+        String slit[] = getIntent().getStringExtra("end").split(":");
+        String slit1[] = getIntent().getStringExtra("start").split(":");
+        endHour = Integer.parseInt(slit[0]);
+        startingHour = Integer.parseInt(slit1[0]);
+
+        totalHour = endHour - startingHour;
+        binding.toTimeTv.setText(endHour + ":00");
 
         binding.viewEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(act, AllEventsMapAct.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.putExtra("from", "1");
-                intent.putExtra("coach_id", getIntent().getStringExtra("coachID") + "");
-                startActivity(intent);
+
+
+                getEndTime();
+//                Intent intent = new Intent(act, AllEventsMapAct.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.putExtra("from", "1");
+//                intent.putExtra("coach_id", getIntent().getStringExtra("coachID") + "");
+//                startActivity(intent);
             }
         });
 
 
+    }
+
+    private void getEndTime() {
+        Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(act, new TimePickerDialog.OnTimeSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                endHour = hourOfDay;
+
+                if (startingHour < endHour) {
+                    totalHour = endHour - startingHour;
+                    binding.toTimeTv.setText(endHour + ":00");
+                    setDataToAdapter(getIntent());
+
+                    binding.bsProductPriceTv.setText("$" + (totalPrice*totalHour));
+                    binding.totalPriceTv.setText("$" + (totalPrice*totalHour));
+                    binding.bsGstTv.setText("$0" + "");
+                } else
+                    Toast.makeText(act, "Please Select Valid Time", Toast.LENGTH_SHORT).show();
+
+
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
     }
 
 
@@ -130,11 +174,11 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.proceedToPay:
                 Intent intent = new Intent(act, PaymentActivity.class);
-                intent.putExtra("price", totalPrice + "");
+                intent.putExtra("price", (totalPrice*totalHour) + "");
                 intent.putExtra("services", jsonArray.toString());
                 intent.putExtra("slot", bookingJson.toString());
                 intent.putExtra("coachID", coachId);
-                intent.putExtra("type","coachBook");
+                intent.putExtra("type", "coachBook");
                 startActivity(intent);
                 break;
 
@@ -164,7 +208,6 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                             binding.detailUserBioTv.setText(response.body().getData().getBio());
                             binding.detailPriceTv.setText("$" + response.body().getData().getHourly_rate() + "");
                             binding.eventTimeDetailTv.setText(getIntent().getStringExtra("start"));
-                            binding.toTimeTv.setText(getIntent().getStringExtra("end"));
                             binding.eventDateDetailTv.setText(response.body().getData().getExpertise_years() + " Year");
                             binding.detailUserName.setText(response.body().getData().getName());
                             binding.discoverRating.setRating(Float.parseFloat(response.body().getData().getRating()));
@@ -206,19 +249,19 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
 
 //
                                         if (response.body().getData().getService_ids().get(finalI).isChecked()) {
+
                                             chip.setChipBackgroundColor(getResources().getColorStateList(R.color.colorGreen));
-                                            totalPrice += Integer.parseInt(response.body().getData().getService_ids().get(finalI).getPrice());
+                                            totalPrice += (Integer.parseInt(response.body().getData().getService_ids().get(finalI).getPrice()));
                                             serviceList.add(response.body().getData().getService_ids().get(finalI).getId() + "");
                                         } else {
-                                            totalPrice -= Integer.parseInt(response.body().getData().getService_ids().get(finalI).getPrice());
+                                            totalPrice -= (Integer.parseInt(response.body().getData().getService_ids().get(finalI).getPrice()));
                                             chip.setChipBackgroundColor(getResources().getColorStateList(R.color.colorLightGray));
                                             serviceList.remove(response.body().getData().getService_ids().get(finalI).getId() + "");
                                         }
 
-                                        binding.bsProductPriceTv.setText("$" + totalPrice);
-                                        binding.totalPriceTv.setText("$" + totalPrice);
-                                        binding.bsGstTv.setText("$0" +
-                                                "");
+                                        binding.bsProductPriceTv.setText("$" + (totalPrice*totalHour));
+                                        binding.totalPriceTv.setText("$" + (totalPrice*totalHour));
+                                        binding.bsGstTv.setText("$0" + "");
 
                                         if (totalPrice == 0) {
                                             binding.proceedToPay.setVisibility(View.GONE);
@@ -265,7 +308,7 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
     public void setDataToAdapter(Intent data) {
         SlotModel slotModel = new SlotModel();
         slotModel.setFrom_time(data.getStringExtra("start"));
-        slotModel.setTo_time(data.getStringExtra("end"));
+        slotModel.setTo_time(endHour + ":00");
         String date = (data.getStringExtra("date")).replace("-", "/");
         slotModel.setBooking_date(date);
         bookingSlotDateTime.add(slotModel);

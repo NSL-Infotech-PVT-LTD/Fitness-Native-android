@@ -61,6 +61,10 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         this.onSessionClick = onSessionClick;
         this.type=typ;
         this.onclickRate=onclickRating;
+
+
+
+        
     }
 
 

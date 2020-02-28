@@ -170,39 +170,39 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
             binding.underLineView.setVisibility(View.GONE);
 
         }
-        binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
+//        binding.athleteAddressEdt.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//
+//                final int DRAWABLE_RIGHT = 2;
+//
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    if (event.getRawX() >= (binding.athleteAddressEdt.getRight() - binding.athleteAddressEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        if (checkPermissions())
+//                            binding.athleteAddressEdt.setText(address);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
-                final int DRAWABLE_RIGHT = 2;
-
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (binding.athleteAddressEdt.getRight() - binding.athleteAddressEdt.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (checkPermissions())
-                            binding.athleteAddressEdt.setText(address);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
-        binding.athleteAddressEdtTwo.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                final int DRAWABLE_RIGHT = 2;
-
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (motionEvent.getRawX() >= (binding.athleteAddressEdtTwo.getRight() - binding.athleteAddressEdtTwo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (checkPermissions())
-                            binding.athleteAddressEdtTwo.setText(address);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+//        binding.athleteAddressEdtTwo.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                final int DRAWABLE_RIGHT = 2;
+//
+//                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+//                    if (motionEvent.getRawX() >= (binding.athleteAddressEdtTwo.getRight() - binding.athleteAddressEdtTwo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+//                        if (checkPermissions())
+//                            binding.athleteAddressEdtTwo.setText(address);
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
         if (getIntent().hasExtra("name")) {
             binding.layoutOne.setVisibility(View.GONE);
@@ -306,6 +306,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         binding.athleteprofileImageView.setOnClickListener(this);
         binding.athleteSignUpBtnTwo.setOnClickListener(this);
         binding.athleteAddressEdt.setOnClickListener(this);
+        binding.athleteAddressEdtTwo.setOnClickListener(this);
         askPermObj = new AskPermission(getApplicationContext(), this);
         retrofitInterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         progressDialog = new ProgressDialog(this);
@@ -343,6 +344,12 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 Intent getAddress = new Intent(AthleteSignupActivity.this, OrgMapFindAddressActivity.class);
                 getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityForResult(getAddress, ADDRESS_EVENT);
+                break;
+
+                case R.id.athleteAddressEdtTwo:
+                Intent abc = new Intent(AthleteSignupActivity.this, OrgMapFindAddressActivity.class);
+                abc.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(abc, ADDRESS_EVENT);
                 break;
             case R.id.athleteSignInTv:
                 Intent signInActivity = new Intent(AthleteSignupActivity.this, AthleteLoginActivity.class);
@@ -618,6 +625,9 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
                 if (data != null && data.hasExtra(Constants.ADDRESS)) {
                     binding.athleteAddressEdt.setText(data.getStringExtra(Constants.ADDRESS));
                     binding.athleteAddressEdt.setError(null);
+
+                    binding.athleteAddressEdtTwo.setText(data.getStringExtra(Constants.ADDRESS));
+                    binding.athleteAddressEdtTwo.setError(null);
                     latitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LAT)));
                     longitude = Double.parseDouble(Objects.requireNonNull(data.getStringExtra(Constants.LOCATION_LONG)));
                 }
