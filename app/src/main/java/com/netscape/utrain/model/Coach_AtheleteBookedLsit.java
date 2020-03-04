@@ -1,8 +1,9 @@
 package com.netscape.utrain.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Coach_AtheleteBookedLsit {
+public class Coach_AtheleteBookedLsit implements Serializable {
 
 
     /**
@@ -39,7 +40,7 @@ public class Coach_AtheleteBookedLsit {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * id : 23
          * coach_id : 35
@@ -124,7 +125,7 @@ public class Coach_AtheleteBookedLsit {
             this.service_id = service_id;
         }
 
-        public static class AthleteDetailsBean {
+        public static class AthleteDetailsBean implements Serializable{
             /**
              * name : swati
              * email : swat@gmail.com
@@ -329,7 +330,7 @@ public class Coach_AtheleteBookedLsit {
                 this.roles = roles;
             }
 
-            public static class RolesBean {
+            public static class RolesBean implements Serializable {
                 /**
                  * id : 3
                  * name : athlete

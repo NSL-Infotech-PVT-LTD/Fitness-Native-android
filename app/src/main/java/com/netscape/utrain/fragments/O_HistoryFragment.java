@@ -1,5 +1,6 @@
 package com.netscape.utrain.fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -60,6 +61,13 @@ public class O_HistoryFragment extends Fragment {
     private String completed = "Completed";
     private String upcoming = "Upcoming";
 
+    private Context context;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public O_HistoryFragment() {
         // Required empty public constructor
@@ -100,6 +108,12 @@ public class O_HistoryFragment extends Fragment {
         liearLayout = view.findViewById(R.id.bottomsheet_services);
         spaceSel = view.findViewById(R.id.spaceSel);
         coachSel = view.findViewById(R.id.coacch);
+
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
+            coachSel.setText("Athlete");
+        } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
+            coachSel.setText("coach");
+        }
 //        sessionSel = view.findViewById(R.id.sessionSel);
         eventSel = view.findViewById(R.id.eventSel);
         doneSel = view.findViewById(R.id.doneSel);
@@ -131,8 +145,6 @@ public class O_HistoryFragment extends Fragment {
     }
 
     private void checkClick() {
-
-
         eventSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
         coachSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
         spaceSel.setBackground(getResources().getDrawable(R.drawable.gray_text_background));
@@ -148,7 +160,7 @@ public class O_HistoryFragment extends Fragment {
 
     private void bottomOnClickSort() {
 
-//        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Coach)) {
+//        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
 //            spaceSel.setVisibility(View.GONE);
 //        } else {
 //            spaceSel.setVisibility(View.VISIBLE);
@@ -181,7 +193,11 @@ public class O_HistoryFragment extends Fragment {
 
                 upcoming = "Upcoming";
                 completed = "Completed";
-                setupCoachPAger(binding.historyViewPager);
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
+                    setupCoachPAger(binding.historyViewPager, "Coach Bookings");
+                } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach))
+
+                    setupCoachPAger(binding.historyViewPager, "Athlete Bookings");
                 bottomSheetUpDown_address();
 
             }
@@ -196,8 +212,8 @@ public class O_HistoryFragment extends Fragment {
                 O_CmpEventFragment.count = sort_count;
 
                 upcoming = "My Booking";
-                completed = "Space Bookings";
-                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, getContext()).equalsIgnoreCase(Constants.Organizer)) {
+                completed = "Space  Bookings";
+                if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
                     setupViewPager(binding.historyViewPager);
                 } else {
                     setupSpacePager(binding.historyViewPager);
@@ -245,7 +261,12 @@ public class O_HistoryFragment extends Fragment {
 
         } else if (sort_count == 4) {
             checkClick();
-            binding.nameOfType.setText("Coach");
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
+                binding.nameOfType.setText("Coach");
+            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach)) {
+                binding.nameOfType.setText("Athlete");
+
+            }
 
             coachSel.setBackground(getResources().getDrawable(R.drawable.round_background_colord));
 
@@ -332,11 +353,13 @@ public class O_HistoryFragment extends Fragment {
         adapter.addFragment(new O_UpcEventFragment(), "Space Bookings");
         viewPager.setAdapter(adapter);
     }
-    private void setupCoachPAger(final ViewPager viewPager) {
+
+    private void setupCoachPAger(final ViewPager viewPager, String name) {
         adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new O_UpcEventFragment(), "Coach Bookings");
+        adapter.addFragment(new O_UpcEventFragment(), name);
         viewPager.setAdapter(adapter);
     }
+
     public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
         View tabStrip = tabLayout.getChildAt(0);
         if (tabStrip instanceof ViewGroup) {

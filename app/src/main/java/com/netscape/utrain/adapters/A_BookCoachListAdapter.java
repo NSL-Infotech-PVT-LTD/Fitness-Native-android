@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,60 +21,64 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.BookingDetails;
-import com.netscape.utrain.activities.athlete.EventDetail;
-import com.netscape.utrain.activities.athlete.TopCoachesDetailsActivity;
-import com.netscape.utrain.activities.organization.EventAppliedList;
-import com.netscape.utrain.model.A_SessionDataModel;
-import com.netscape.utrain.model.AthleteBookListModel;
-import com.netscape.utrain.model.AthleteSessionBookList;
-import com.netscape.utrain.model.O_SessionDataModel;
+import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
+import com.netscape.utrain.model.A_CoachBookingList;
+import com.netscape.utrain.model.AthleteSpaceBookList;
+import com.netscape.utrain.model.SelectSpaceDaysModel;
+import com.netscape.utrain.utils.CommonMethods;
 import com.netscape.utrain.utils.Constants;
+import com.netscape.utrain.utils.PrefrenceConstant;
 import com.netscape.utrain.utils.RatingInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdapter.CustomTopCoachesHolder> {
+public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachListAdapter.CustomTopCoachesHolder> {
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private boolean isLoadingAdded = false;
-    onSessionClick onSessionClick;
+    onSpaceClick onSpaceClick;
     private Context context;
-    private AlertDialog dialogMultiOrder;
+    private RatingInterface onRatingClick;
     private int previusPos = -1;
-    private RatingInterface onclickRate;
-    private List<AthleteSessionBookList.DataBeanX.DataBean> supplierData;
+    private List<A_CoachBookingList.DataBean> supplierData;
+    private JSONArray jsonArray;
     private int type;
-    public A_SessionListAdapter(Context context, List supplierData, onSessionClick onSessionClick, int typ, RatingInterface onclickRating) {
+    private AlertDialog dialogMultiOrder;
+    private Date endDate=null;
+    List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
+
+    public A_BookCoachListAdapter(Context context,  List<A_CoachBookingList.DataBean> supplierData, onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
         this.context = context;
+        this.onSpaceClick = onSpaceClick;
         this.supplierData = supplierData;
-        this.onSessionClick = onSessionClick;
         this.type=typ;
-        this.onclickRate=onclickRating;
+        this.onRatingClick=onRateClick;
+
     }
-    public A_SessionListAdapter(Context context, onSessionClick onSessionClick, int typ, RatingInterface onclickRating) {
+    public A_BookCoachListAdapter(Context context, onSpaceClick onSpaceClick,List<A_CoachBookingList.DataBean> list, RatingInterface onRateClick) {
         this.context = context;
-        supplierData = new ArrayList<>();
-        this.onSessionClick = onSessionClick;
-        this.type=typ;
-        this.onclickRate=onclickRating;
-
-
-
+        this.onSpaceClick = onSpaceClick;
+        this.supplierData= list;
+        this.onRatingClick=onRateClick;
 
     }
+
 
 
     @NonNull
     @Override
-    public A_SessionListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//
+    public A_BookCoachListAdapter.CustomTopCoachesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
 //        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_view, parent, false);
-//        return new A_SessionListAdapter.CustomTopCoachesHolder(view);
-        A_SessionListAdapter.CustomTopCoachesHolder viewHolder = null;
+//        return new A_SpaceListAdapter.CustomTopCoachesHolder(view);
+        A_BookCoachListAdapter.CustomTopCoachesHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         switch (viewType) {
@@ -88,78 +92,96 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
                 break;
         }
         return viewHolder;
-    }
 
+    }
     @NonNull
-    private A_SessionListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
-        A_SessionListAdapter.CustomTopCoachesHolder viewHolder;
+    private A_BookCoachListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
+        A_BookCoachListAdapter.CustomTopCoachesHolder viewHolder;
         View v1 = inflater.inflate(R.layout.booking_view, parent, false);
-        viewHolder = new A_SessionListAdapter.CustomTopCoachesHolder(v1);
+        viewHolder = new A_BookCoachListAdapter.CustomTopCoachesHolder(v1);
         return viewHolder;
     }
-
-
     @Override
-    public void onBindViewHolder(@NonNull A_SessionListAdapter.CustomTopCoachesHolder holder, int position) {
-         final AthleteSessionBookList.DataBeanX.DataBean data = supplierData.get(position);
+    public void onBindViewHolder(@NonNull A_BookCoachListAdapter.CustomTopCoachesHolder holder, int position) {
+                final A_CoachBookingList.DataBean data = supplierData.get(position);
 
         switch (getItemViewType(position)) {
             case ITEM:
                 if (data != null)
         try {
-            if (data.getSession().getImages() != null) {
-                JSONArray jsonArray = new JSONArray(data.getSession().getImages());
-                if (jsonArray !=null && jsonArray.length()>0){
-                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_SESSION + Constants.THUMBNAILS + jsonArray.get(0))).into(holder.eventImage);
-                }
-            }
 
-        } catch (JSONException e) {
+
+                        holder.eventName.setText(data.getCoach_details().getName());
+                        holder.eventVenue.setText(data.getCoach_details().getLocation());
+                        holder.bookingTicketTv.setVisibility(View.GONE);
+                        holder.ti_tickets.setVisibility(View.GONE);
+
+
+
+                    Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL
+
+                            +data.getCoach_details().getProfile_image()).into(holder.eventImage);
+
+            holder.eventDate.setText(data.getCoach_details().getHourly_rate()+"");
+
+
+        } catch (Exception e) {
 
             Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
 
-        holder.eventName.setText(data.getSession().getName());
-        holder.eventVenue.setText(data.getSession().getLocation());
-        holder.bookingTv.setText(data.getSession().getGuest_allowed() + " Attandees and Ticket(1 person per ticket)");
-        holder.eventDate.setText(data.getSession().getStart_date() + " " + data.getSession().getStart_time());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                onSessionClick.sessionAmount(data);
+
                 Intent topCoachesDetails = new Intent(context, BookingDetails.class);
-                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
-                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SESSION);
-//                topCoachesDetails.putExtra(Constants.STATUS, status);
+                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "coach");
+                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
+                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
                 context.startActivity(topCoachesDetails);
+//                onSpaceClick.getSpaceAmount(data);
+//                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+//                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
+//                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, Constants.SPACE);
+////                topCoachesDetails.putExtra(Constants.STATUS, status);
+//                context.startActivity(topCoachesDetails);
 
             }
         });
-            if (type==1) {
-                if (data.getStatus().equalsIgnoreCase("pending")){
-                    holder.completedRatingText.setVisibility(View.VISIBLE);
-                }else {
-                    holder.bookingRating.setVisibility(View.VISIBLE);
-                    holder.completedRatingText.setVisibility(View.GONE);
-                    holder.bookingRating.setRating(Float.parseFloat(data.getRating()));
-                }
-            }
-           holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   handleImageSelection(data);
-               }
-           });
 
+        if (type==1) {
+            if (!TextUtils.isEmpty(data.getCoach_details().getBusiness_hour_ends())){
+                CommonMethods commonMethods=new CommonMethods();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    endDate=sdf.parse(data.getCoach_details().getBusiness_hour_ends());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        }
+        holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleImageSelection(data);
+
+            }
+        });
                 break;
             case LOADING:
 //                Do nothing
                 break;
         }
-
     }
-    public void handleImageSelection(AthleteSessionBookList.DataBeanX.DataBean data) {
+    public void handleImageSelection(A_CoachBookingList.DataBean data) {
+
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View content = inflater.inflate(R.layout.rating_design, null);
@@ -171,40 +193,40 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         RatingBar ratingBar = (RatingBar) content.findViewById(R.id.ratingBooking);
         dialogMultiOrder = builder.create();
         dialogMultiOrder.setCancelable(false);
-        ratingNnameTv.setText(data.getSession().getName());
-//        dialogMultiOrder.setCanceledOnTouchOutside(false);
-        try {
-            if (data.getSession().getImages() != null) {
+        if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Coach) || CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Organizer)) {
+            ratingNnameTv.setText(data.getCoach_details().getName());
+            try {
+                if (data.getCoach_details().getPortfolio_image() != null) {
 
-                JSONArray jsonArray = new JSONArray(data.getSession().getImages());
-                if (jsonArray != null && jsonArray.length() > 0) {
-                    Glide.with(context).load(Constants.IMAGE_BASE_SESSION + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(ratingProfileImg);
+                    JSONArray jsonArray = new JSONArray(data.getCoach_details().getPortfolio_image());
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        Glide.with(context).load(Constants.IMAGE_BASE_PLACE + jsonArray.get(0)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(0))).into(ratingProfileImg);
+                    }
                 }
 
+            } catch (JSONException e) {
 
-//                for (int i = position; i < jsonArray.length(); i++) {
-////                    Glide.with(context).load(Constants.IMAGE_BASE_EVENT + jsonArray.get(i)).thumbnail(Glide.with(context).load(Constants.IMAGE_BASE_EVENT + Constants.THUMBNAILS + jsonArray.get(i))).into(holder.eventImage);
-//                    String image=Constants.IMAGE_BASE_EVENT+jsonArray.get(0);
-//                    Glide.with(context).load(image).into(holder.eventImage);
-//                        break;
-//                }
+                Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
-        } catch (JSONException e) {
-
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+
+
+
+
+
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 dialogMultiOrder.dismiss();
-                onclickRate.ratingVallue(data.getId(),v,data.getType());
+            //    onRatingClick.ratingVallue(data.getId(),v,data.getType());
 
 //               rateService(data.getId(),v,rateMaterialTv);
             }
         });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,10 +238,12 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         dialogMultiOrder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
+
     @Override
     public int getItemCount() {
         return supplierData == null ? 0 : supplierData.size();
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -229,23 +253,23 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
 
 
 
-    public void add(AthleteSessionBookList.DataBeanX.DataBean r) {
+    public void add(A_CoachBookingList.DataBean r) {
         supplierData.add(r);
         notifyItemInserted(supplierData.size() - 1);
     }
 
-    public void addAll(List<AthleteSessionBookList.DataBeanX.DataBean> moveResults) {
-        for (AthleteSessionBookList.DataBeanX.DataBean result : moveResults) {
+    public void addAll(List<A_CoachBookingList.DataBean> moveResults) {
+        for (A_CoachBookingList.DataBean result : moveResults) {
             add(result);
         }
     }
 
-    public void setList(List<AthleteSessionBookList.DataBeanX.DataBean> list) {
+    public void setList(List<A_CoachBookingList.DataBean> list) {
         this.supplierData = list;
         notifyDataSetChanged();
     }
 
-    public void remove(AthleteSessionBookList.DataBeanX.DataBean r) {
+    public void remove(A_CoachBookingList.DataBean r) {
         int position = supplierData.indexOf(r);
         if (position > -1) {
             supplierData.remove(position);
@@ -273,7 +297,7 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         isLoadingAdded = false;
 
         int position = supplierData.size() - 1;
-        AthleteSessionBookList.DataBeanX.DataBean result = getItem(position);
+        A_CoachBookingList.DataBean result = getItem(position);
 
         if (result != null) {
             supplierData.remove(position);
@@ -281,38 +305,39 @@ public class A_SessionListAdapter extends RecyclerView.Adapter<A_SessionListAdap
         }
     }
 
-    public AthleteSessionBookList.DataBeanX.DataBean getItem(int position) {
+    public A_CoachBookingList.DataBean getItem(int position) {
         return supplierData.get(position);
     }
 
-    public interface onSessionClick {
-        void sessionAmount(AthleteSessionBookList.DataBeanX.DataBean dataBean);
+
+
+    public interface onSpaceClick {
+        public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean dataBean);
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage;
+        AppCompatImageView eventImage,ti_tickets;
         RatingBar bookingRating;
-        MaterialTextView eventName, eventVenue, eventDate, bookingTv,completedRatingText;
+        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv,completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
-
+            ti_tickets = itemView.findViewById(R.id.ti_tickets);
             eventImage = itemView.findViewById(R.id.bookingEventImage);
             eventName = itemView.findViewById(R.id.bookingEventName);
             eventVenue = itemView.findViewById(R.id.bookingVenueTv);
             eventDate = itemView.findViewById(R.id.bookingEventDate);
-            bookingTv = itemView.findViewById(R.id.bookingTicketTv);
+            bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
             bookingRating = itemView.findViewById(R.id.bookingRating);
-
         }
     }
-
     protected class LoadingVH extends CustomTopCoachesHolder {
 
         public LoadingVH(View itemView) {
             super(itemView);
         }
     }
+
 }

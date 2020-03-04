@@ -95,19 +95,11 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
         binding.viewOrgBtnLayout.setVisibility(View.GONE);
 //                binding.view2.setVisibility(View.GONE);
         binding.btnView.setVisibility(View.GONE);
-        String slit[] = getIntent().getStringExtra("end").split(":");
-        String slit1[] = getIntent().getStringExtra("start").split(":");
-        endHour = Integer.parseInt(slit[0]);
-        startingHour = Integer.parseInt(slit1[0]);
 
-        totalHour = endHour - startingHour;
-        binding.toTimeTv.setText(endHour + ":00");
 
         binding.viewEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 getEndTime();
 //                Intent intent = new Intent(act, AllEventsMapAct.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -135,8 +127,8 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                     binding.toTimeTv.setText(endHour + ":00");
                     setDataToAdapter(getIntent());
 
-                    binding.bsProductPriceTv.setText("$" + (totalPrice*totalHour));
-                    binding.totalPriceTv.setText("$" + (totalPrice*totalHour));
+                    binding.bsProductPriceTv.setText("$" + (totalPrice * totalHour));
+                    binding.totalPriceTv.setText("$" + (totalPrice * totalHour));
                     binding.bsGstTv.setText("$0" + "");
                 } else
                     Toast.makeText(act, "Please Select Valid Time", Toast.LENGTH_SHORT).show();
@@ -152,7 +144,13 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
 
         title = findViewById(R.id.topDetailsTitleTv);
         backArrow = findViewById(R.id.detailBackArrow);
+        String slit[] = getIntent().getStringExtra("end").split(":");
+        String slit1[] = getIntent().getStringExtra("start").split(":");
+        endHour = Integer.parseInt(slit[0]);
+        startingHour = Integer.parseInt(slit1[0]);
 
+        totalHour = endHour - startingHour;
+        binding.toTimeTv.setText(endHour + ":00");
         setData();
         setDataToAdapter(getIntent());
         backArrow.setOnClickListener(this);
@@ -174,7 +172,7 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.proceedToPay:
                 Intent intent = new Intent(act, PaymentActivity.class);
-                intent.putExtra("price", (totalPrice*totalHour) + "");
+                intent.putExtra("price", (totalPrice * totalHour) + "");
                 intent.putExtra("services", jsonArray.toString());
                 intent.putExtra("slot", bookingJson.toString());
                 intent.putExtra("coachID", coachId);
@@ -259,8 +257,8 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                                             serviceList.remove(response.body().getData().getService_ids().get(finalI).getId() + "");
                                         }
 
-                                        binding.bsProductPriceTv.setText("$" + (totalPrice*totalHour));
-                                        binding.totalPriceTv.setText("$" + (totalPrice*totalHour));
+                                        binding.bsProductPriceTv.setText("$" + (totalPrice * totalHour));
+                                        binding.totalPriceTv.setText("$" + (totalPrice * totalHour));
                                         binding.bsGstTv.setText("$0" + "");
 
                                         if (totalPrice == 0) {
@@ -306,9 +304,11 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setDataToAdapter(Intent data) {
+        bookingSlotDateTime.clear();
+
         SlotModel slotModel = new SlotModel();
         slotModel.setFrom_time(data.getStringExtra("start"));
-        slotModel.setTo_time(endHour + ":00");
+        slotModel.setTo_time(endHour + "" + ":00");
         String date = (data.getStringExtra("date")).replace("-", "/");
         slotModel.setBooking_date(date);
         bookingSlotDateTime.add(slotModel);

@@ -1,7 +1,7 @@
 package com.netscape.utrain.utils;
 
 public class Constants {
-    public static final String BASE_URL = "https://dev.netscapelabs.com/utrain/public/api/";
+   public static final String BASE_URL = "https://dev.netscapelabs.com/utrain/public/api/";
     public static final String IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/athlete/profile_image/";
     public static final String IMAGE_BASE_SESSION = "https://dev.netscapelabs.com/utrain/public/uploads/session/";
     public static final String IMAGE_BASE_PLACE = "https://dev.netscapelabs.com/utrain/public/uploads/spaces/";
@@ -9,7 +9,7 @@ public class Constants {
     public static final String COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/coach/profile_image/";
     public static final String ORG_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/profile_image/";
     public static final String ORG_PORTFOLIO_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiser/portfolio_image/";
-    public static final String ORG_COACH_IMAGE_BASE_URL = "https://dev.netscapelabs.com/utrain/public/uploads/organiserCoach/profile_image/";
+    public static final String ORG_COACH_IMAGE_BASE_URL = "https://d ev.netscapelabs.com/utrain/public/uploads/organiserCoach/profile_image/";
 
     public static final String ATHLETE_SIGNUP = "athlete/register";
     public static final String ATHLETE_UPDATE = "athlete/update";

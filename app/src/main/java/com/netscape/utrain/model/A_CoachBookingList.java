@@ -1,8 +1,10 @@
 package com.netscape.utrain.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class A_CoachBookingList {
+public class A_CoachBookingList implements Serializable {
 
 
         /**
@@ -13,7 +15,7 @@ public class A_CoachBookingList {
 
     private boolean status;
     private int code;
-    private List<DataBean> data;
+    private ArrayList<DataBean> data;
 
     public boolean isStatus() {
         return status;
@@ -35,11 +37,11 @@ public class A_CoachBookingList {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(ArrayList<DataBean> data) {
         this.data = data;
     }
 
-    public static class DataBean {
+    public  class DataBean implements Serializable{
         /**
          * id : 23
          * coach_id : 35
@@ -124,7 +126,7 @@ public class A_CoachBookingList {
             this.service_id = service_id;
         }
 
-        public static class CoachDetailsBean {
+        public  class CoachDetailsBean implements Serializable {
             /**
              * name : Pardeep coach
              * email : coach@coach.coach
@@ -329,7 +331,7 @@ public class A_CoachBookingList {
                 this.roles = roles;
             }
 
-            public static class RolesBean {
+            public  class RolesBean implements Serializable{
                 /**
                  * id : 2
                  * name : coach

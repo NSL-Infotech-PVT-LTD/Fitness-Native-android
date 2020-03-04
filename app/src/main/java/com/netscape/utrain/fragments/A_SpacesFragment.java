@@ -61,17 +61,17 @@ public class A_SpacesFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.athlete_place_fragment_view, container, false);
         view = binding.getRoot();
 
-//        adapter=new CoachesRecyclerAdapter(getContext(),data);
+//        adapter=new CoachesRecyclerAdapter(context,data);
         layoutManager = new LinearLayoutManager(context);
         binding.athletePlaceRecycler.setLayoutManager(layoutManager);
         getAthleteSpaceApi();
         binding.placeViewAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AllEventsMapAct.class);
+                Intent intent = new Intent(context, AllEventsMapAct.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("from", "3");
-                getContext().startActivity(intent);
+                context.startActivity(intent);
 
             }
         });
@@ -84,7 +84,7 @@ public class A_SpacesFragment extends Fragment {
         progressDialog.setMessage("Loading....");
         progressDialog.show();
         api = RetrofitInstance.getClient().create(Retrofitinterface.class);
-        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getContext()), Constants.CONTENT_TYPE, "", "20", "latest","", "");
+        Call<AthletePlaceResponse> call = api.getAthletePlacesList("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, context), Constants.CONTENT_TYPE, "", "20", "latest","", "");
         call.enqueue(new Callback<AthletePlaceResponse>() {
             @Override
             public void onResponse(Call<AthletePlaceResponse> call, Response<AthletePlaceResponse> response) {
@@ -109,7 +109,7 @@ public class A_SpacesFragment extends Fragment {
             @Override
             public void onFailure(Call<AthletePlaceResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

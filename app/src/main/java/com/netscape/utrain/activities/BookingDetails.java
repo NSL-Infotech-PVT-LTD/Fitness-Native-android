@@ -21,9 +21,11 @@ import com.netscape.utrain.adapters.A_SessionListAdapter;
 import com.netscape.utrain.adapters.A_SpaceListAdapter;
 import com.netscape.utrain.databinding.ActivityNotificationBinding;
 import com.netscape.utrain.fragments.O_UpcEventFragment;
+import com.netscape.utrain.model.A_CoachBookingList;
 import com.netscape.utrain.model.AthleteBookListModel;
 import com.netscape.utrain.model.AthleteSessionBookList;
 import com.netscape.utrain.model.AthleteSpaceBookList;
+import com.netscape.utrain.model.Coach_AtheleteBookedLsit;
 import com.netscape.utrain.model.SelectSpaceDaysModel;
 import com.netscape.utrain.response.EventDetailResponse;
 import com.netscape.utrain.response.SessionBookingDetails;
@@ -57,6 +59,8 @@ public class BookingDetails extends AppCompatActivity {
     private SessionBookingDetails.DataBean sessionData;
     private SpaceBookingDetailResponse.DataBean spaceData;
     private String jobId = "", jobType = "", status;
+    private A_CoachBookingList.DataBean coachListModelForAthlete;
+    private Coach_AtheleteBookedLsit.DataBean athleteListModelForCoach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,85 @@ public class BookingDetails extends AppCompatActivity {
         }
         if (jobType.equalsIgnoreCase(Constants.SPACE)) {
             getSpaceDetails();
+        }
+
+        if (jobType.equalsIgnoreCase("coach")) {
+
+            if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, this).equalsIgnoreCase(Constants.Coach)) {
+                athleteListModelForCoach = (Coach_AtheleteBookedLsit.DataBean) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
+                if (athleteListModelForCoach != null) {
+                    binding.userName.setText(athleteListModelForCoach.getAthlete_details().getName() + "");
+
+
+                    binding.userName.setText(athleteListModelForCoach.getAthlete_details().getName());
+                    binding.bookingIdText.setText("Booking ID : " + athleteListModelForCoach.getAthlete_details().getId());
+                    binding.bookingPlaceName.setText(athleteListModelForCoach.getAthlete_details().getName());
+                    binding.eventText.setText(Constants.Athlete);
+                    String currentStringEnd = athleteListModelForCoach.getAthlete_details().getBusiness_hour_ends()+"";
+
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                    final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+                    Date dt = null, dtEnd;
+
+                    try {
+
+                        dt = sdf.parse(athleteListModelForCoach.getAthlete_details().getBusiness_hour_starts()+"");
+
+                        String value = null;
+                        if (dt != null) {
+                            value = CommonMethods.parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
+                        }
+                        binding.bookingDateText.setText(value);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    binding.tiLocationText.setText(athleteListModelForCoach.getAthlete_details().getLocation()+"");
+                    binding.tiBookingTicket.setText("1 Attendie");
+                    binding.tiTotalTicketPrice.setText(athleteListModelForCoach.getService_id().size() + " Services ");
+                    binding.tiTotalPrice.setText("$" + athleteListModelForCoach.getPrice() + ".00");
+                    binding.tiTax.setText("$0.00");
+                    binding.totalAmount.setText("$" + athleteListModelForCoach.getPrice() + ".00");
+                }
+            } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, this).equalsIgnoreCase(Constants.Athlete)) {
+                coachListModelForAthlete = (A_CoachBookingList.DataBean) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
+                if (coachListModelForAthlete != null) {
+                    binding.userName.setText(coachListModelForAthlete.getCoach_details().getName() + "");
+
+
+                    binding.userName.setText(coachListModelForAthlete.getCoach_details().getName());
+                    binding.bookingIdText.setText("Booking ID : " + coachListModelForAthlete.getCoach_details().getId());
+                    binding.bookingPlaceName.setText(coachListModelForAthlete.getCoach_details().getName());
+                    binding.eventText.setText("Coach");
+                    String currentStringEnd = coachListModelForAthlete.getCoach_details().getBusiness_hour_ends();
+
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                    final SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm aa");
+                    Date dt = null, dtEnd;
+
+                    try {
+
+                        dt = sdf.parse(coachListModelForAthlete.getCoach_details().getBusiness_hour_starts());
+
+                        String value = null;
+                        if (dt != null) {
+                            value = CommonMethods.parseDateToddMMyyyy(currentStringEnd) + " | " + sdfs.format(dt);
+                        }
+                        binding.bookingDateText.setText(value);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    binding.tiLocationText.setText(coachListModelForAthlete.getCoach_details().getLocation());
+                    binding.tiBookingTicket.setText("1 Attendie");
+                    binding.tiTotalTicketPrice.setText(coachListModelForAthlete.getService_id().size() + " Services ");
+                    binding.tiTotalPrice.setText("$" + coachListModelForAthlete.getPrice() + ".00");
+                    binding.tiTax.setText("$0.00");
+                    binding.totalAmount.setText("$" + coachListModelForAthlete.getPrice() + ".00");
+                }
+            }
+
+
         }
 
 

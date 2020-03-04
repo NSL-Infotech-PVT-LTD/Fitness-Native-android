@@ -32,6 +32,7 @@ import com.netscape.utrain.activities.athlete.EventDetail;
 import com.netscape.utrain.adapters.CalendarEventListAdapter;
 import com.netscape.utrain.adapters.ServicesBottomSheetAdapter;
 import com.netscape.utrain.databinding.ActivityTopCoachOrgDetailBinding;
+import com.netscape.utrain.model.A_CoachBookingList;
 import com.netscape.utrain.model.CoachListModel;
 import com.netscape.utrain.model.SportListModel;
 import com.netscape.utrain.response.ViewCoachListResponse;
@@ -119,27 +120,31 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         chipGroup.setSingleSelection(false);
 
         if (getIntent().getExtras() != null) {
-            coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
-            type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
-            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
-            binding.detailUserBioTv.setText(coachListModel.getBio());
-            binding.detailPriceTv.setText("$" + coachListModel.getHourly_rate() + "");
-            binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-            binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
-            binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
-            binding.detailUserName.setText(coachListModel.getName());
-            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
-            if (coachListModel.getRating() != null) {
-                if (coachListModel.getRating().equalsIgnoreCase("0")) {
-                    binding.noRatingText.setVisibility(View.VISIBLE);
-                    binding.discoverRating.setVisibility(View.GONE);
-                } else {
-                    binding.discoverRating.setVisibility(View.VISIBLE);
-                    binding.noRatingText.setVisibility(View.GONE);
-                    binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+
+
+                coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
+                type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
+                binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
+                binding.detailUserBioTv.setText(coachListModel.getBio());
+                binding.detailPriceTv.setText("$" + coachListModel.getHourly_rate() + "");
+                binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+                binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
+                binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
+                binding.detailUserName.setText(coachListModel.getName());
+                binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+                if (coachListModel.getRating() != null) {
+                    if (coachListModel.getRating().equalsIgnoreCase("0")) {
+                        binding.noRatingText.setVisibility(View.VISIBLE);
+                        binding.discoverRating.setVisibility(View.GONE);
+                    } else {
+                        binding.discoverRating.setVisibility(View.VISIBLE);
+                        binding.noRatingText.setVisibility(View.GONE);
+                        binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+                    }
                 }
-            }
-            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+                binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+
+
         }
         init();
         String saveIntent = getIntent().getStringExtra("intentFrom");
