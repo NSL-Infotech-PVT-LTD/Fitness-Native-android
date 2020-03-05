@@ -327,7 +327,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
                 else hitSpaceDetailAPI(slotsForDate);
             } else hitSpaceDetailAPI(slotsForDate);
         } else {
-            Toast.makeText(this, "Select valid date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.selectValidTime), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -378,6 +378,7 @@ public class HourlySlotsActivity extends AppCompatActivity implements RobotoCale
         intent.putExtra("eventDescription", coachList.get(0).getEvent_slot().get(pos).getDescription());
         intent.putExtra("image_url", Constants.IMAGE_BASE_EVENT);
         intent.putExtra("event_id", coachList.get(0).getEvent_slot().get(pos).getId() + "");
+        intent.putExtra("capacity", coachList.get(0).getEvent_slot().get(pos).getGuest_allowed());
         intent.putExtra("from", "events");
         intent.putExtra("gmapLat", coachList.get(0).getEvent_slot().get(pos).getLatitude() + "");
         intent.putExtra("gmapLong", coachList.get(0).getEvent_slot().get(pos).getLongitude() + "");

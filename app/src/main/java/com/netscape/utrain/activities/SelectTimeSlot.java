@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -441,7 +442,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeSlot.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeSlot.this, AlertDialog.THEME_HOLO_LIGHT,new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -455,7 +456,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                 } else {
                     binding.startHour.setText("");
                     binding.startHour.setHint("Start time");
-                    Toast.makeText(SelectTimeSlot.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelectTimeSlot.this, getString(R.string.selectValidTime), Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -469,7 +470,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeSlot.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeSlot.this,AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -484,7 +485,7 @@ public class SelectTimeSlot extends AppCompatActivity implements View.OnClickLis
                     } else {
                         binding.endHour.setText("");
                         binding.endHour.setHint("End time");
-                        Toast.makeText(SelectTimeSlot.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SelectTimeSlot.this, getString(R.string.selectValidTime), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(SelectTimeSlot.this, "Change start hour first", Toast.LENGTH_SHORT).show();

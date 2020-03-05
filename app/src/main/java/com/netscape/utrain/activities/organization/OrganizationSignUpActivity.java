@@ -10,6 +10,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -39,7 +41,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -56,6 +60,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -154,6 +159,9 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
     private boolean emailCheck = false;
     private String emailTaken = "", phoneTaken = "";
     private int ADDRESS_EVENT = 123;
+    private BottomSheetDialog mBottomSheetDialog;
+    private View sheetView;
+    private int index = 0;
 
 
     public static boolean isPermissionGranted(Activity activity, String permission, int requestCode) {
@@ -307,6 +315,42 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                 Intent getAddress = new Intent(OrganizationSignUpActivity.this, OrgMapFindAddressActivity.class);
                 getAddress.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityForResult(getAddress, ADDRESS_EVENT);
+            }
+        });
+        binding.orgExperienceEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog = new BottomSheetDialog(OrganizationSignUpActivity.this);
+                sheetView = OrganizationSignUpActivity.this.getLayoutInflater().inflate(R.layout.common_bottom_dialog, null);
+                ListView recyclerView = sheetView.findViewById(R.id.listView);
+
+
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < 11; i++) {
+
+                    if ((i == 0) || (i == 1)) {
+                        list.add(i + " year");
+                    } else if (i == 10) {
+                        list.add(i + "+ years");
+                    } else list.add(i + " years");
+
+
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrganizationSignUpActivity.this,
+                       R.layout.common_text_view,R.id.textCommon, list);
+                recyclerView.setAdapter(adapter);
+                mBottomSheetDialog.setContentView(sheetView);
+                mBottomSheetDialog.show();
+                recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        mBottomSheetDialog.dismiss();
+
+                        binding.orgExperienceEdt.setText(parent.getItemAtPosition(position) + "");
+                    }
+                });
+
+
             }
         });
 
@@ -796,12 +840,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(OrganizationSignUpActivity.this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        binding.orgStartTimeTv.setText(convertDate(hourOfDay) + ":" + convertDate(minute));
-                    }
-                }, mHour, mMinute, true);
+                android.app.AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                binding.orgStartTimeTv.setText(convertDate(hourOfDay) + ":" + convertDate(minute));
+            }
+        }, mHour, mMinute, true);
         timePickerDialog.show();
 
     }
@@ -819,7 +863,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(OrganizationSignUpActivity.this,
+        TimePickerDialog timePickerDialog = new TimePickerDialog(OrganizationSignUpActivity.this, android.app.AlertDialog.THEME_HOLO_LIGHT,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {

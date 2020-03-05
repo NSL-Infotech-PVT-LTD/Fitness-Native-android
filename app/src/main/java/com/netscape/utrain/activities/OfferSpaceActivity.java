@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -439,7 +440,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, AlertDialog.THEME_HOLO_LIGHT,new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -463,7 +464,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(OfferSpaceActivity.this,AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -474,7 +475,7 @@ public class OfferSpaceActivity extends AppCompatActivity implements View.OnClic
                 }else {
                     binding.createEventEndTime.setText("");
                     binding.createEventEndTime.setText("End time");
-                    Toast.makeText(OfferSpaceActivity.this, "Select valid time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OfferSpaceActivity.this, getString(R.string.selectValidTime), Toast.LENGTH_SHORT).show();
                 }
 
             }

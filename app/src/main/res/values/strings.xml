@@ -483,4 +483,6 @@
     <string name="proceedToPay">Proceed To pay</string>
     <string name="pleaseSelect">Select Service(s) Below</string>
     <string name="changeBooking">Change Booking Time</string>
+    <string name="selectValidTime">Invalid time</string>
+    <string name="selectValidDate">Cannot create event for current date</string>
 </resources>

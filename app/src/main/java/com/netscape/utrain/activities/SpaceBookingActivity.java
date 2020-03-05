@@ -113,6 +113,7 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
         binding.addTimeSlot.setOnClickListener(this);
         binding.eventBookingBackImg.setOnClickListener(this);
         binding.textContinueToPay.setOnClickListener(this);
+        binding.noSlotCalendar.setOnClickListener(this);
         binding.viewMore.setOnClickListener(this);
 //        binding.createEventEndDatetv.setOnClickListener(this);
 //        binding.createEventStartDateTv.setOnClickListener(this);
@@ -313,6 +314,12 @@ public class SpaceBookingActivity extends AppCompatActivity implements View.OnCl
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("bookSpaceId", getIntent().getStringExtra("event_id"));
                 startActivityForResult(intent, SLOT_REQUEST);
+                break;
+            case R.id.noSlotCalendar:
+                Intent intent1 = new Intent(SpaceBookingActivity.this, SelectTimeSlot.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent1.putExtra("bookSpaceId", getIntent().getStringExtra("event_id"));
+                startActivityForResult(intent1, SLOT_REQUEST);
                 break;
         }
 

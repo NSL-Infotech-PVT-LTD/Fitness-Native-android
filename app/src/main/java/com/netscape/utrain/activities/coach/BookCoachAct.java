@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -116,7 +117,7 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
         Calendar c = Calendar.getInstance();
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(act, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(act, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -131,7 +132,7 @@ public class BookCoachAct extends AppCompatActivity implements View.OnClickListe
                     binding.totalPriceTv.setText("$" + (totalPrice * totalHour));
                     binding.bsGstTv.setText("$0" + "");
                 } else
-                    Toast.makeText(act, "Please Select Valid Time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(act, getString(R.string.selectValidTime), Toast.LENGTH_SHORT).show();
 
 
             }

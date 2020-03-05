@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -256,8 +257,8 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONObject jsonObject=jObjError.getJSONObject("error");
-                        String code=jsonObject.getString("code");
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
                         if (!TextUtils.isEmpty(code)) {
                             if (Integer.parseInt(code) == 401) {
                                 CommonMethods.invalidAuthToken(CreateTrainingSession.this, CreateTrainingSession.this);
@@ -407,7 +408,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
                         binding.createEventEndTime.setHint("End time");
 
                     } else {
-                        Toast.makeText(CreateTrainingSession.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateTrainingSession.this, getString(R.string.selectValidDate), Toast.LENGTH_SHORT).show();
                         binding.EndDateTv.setText("");
                         binding.EndDateTv.setHint("Enter date");
                     }
@@ -424,7 +425,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -469,7 +470,7 @@ public class CreateTrainingSession extends AppCompatActivity implements View.OnC
         Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTrainingSession.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {

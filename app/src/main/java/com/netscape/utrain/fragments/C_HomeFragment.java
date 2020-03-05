@@ -262,7 +262,9 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 int i = 1;
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
                     if (i < sportList.size()) {
-                        builder.append(details.getName() + ",");
+
+                            builder.append(details.getName() + ",");
+
                         i = i + 1;
                     } else if (i == sportList.size()) {
                         builder.append(details.getName());

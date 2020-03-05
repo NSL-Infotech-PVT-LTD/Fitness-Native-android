@@ -122,27 +122,27 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (getIntent().getExtras() != null) {
 
 
-                coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
-                type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
-                binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
-                binding.detailUserBioTv.setText(coachListModel.getBio());
-                binding.detailPriceTv.setText("$" + coachListModel.getHourly_rate() + "");
-                binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
-                binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
-                binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
-                binding.detailUserName.setText(coachListModel.getName());
-                binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
-                if (coachListModel.getRating() != null) {
-                    if (coachListModel.getRating().equalsIgnoreCase("0")) {
-                        binding.noRatingText.setVisibility(View.VISIBLE);
-                        binding.discoverRating.setVisibility(View.GONE);
-                    } else {
-                        binding.discoverRating.setVisibility(View.VISIBLE);
-                        binding.noRatingText.setVisibility(View.GONE);
-                        binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
-                    }
+            coachListModel = (CoachListModel) getIntent().getSerializableExtra(Constants.TOP_DATA_INTENT);
+            type = Integer.parseInt(getIntent().getStringExtra(Constants.TOP_FROM_INTENT));
+            binding.cYearsOfExpTv.setText(coachListModel.getExpertise_years() + " Year ");
+            binding.detailUserBioTv.setText(coachListModel.getBio());
+            binding.detailPriceTv.setText("$" + coachListModel.getHourly_rate() + "");
+            binding.eventTimeDetailTv.setText(coachListModel.getBusiness_hour_starts());
+            binding.toTimeTv.setText(coachListModel.getBusiness_hour_ends());
+            binding.eventDateDetailTv.setText(coachListModel.getExpertise_years() + " Year");
+            binding.detailUserName.setText(coachListModel.getName());
+            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+            if (coachListModel.getRating() != null) {
+                if (coachListModel.getRating().equalsIgnoreCase("0")) {
+                    binding.noRatingText.setVisibility(View.VISIBLE);
+                    binding.discoverRating.setVisibility(View.GONE);
+                } else {
+                    binding.discoverRating.setVisibility(View.VISIBLE);
+                    binding.noRatingText.setVisibility(View.GONE);
+                    binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
                 }
-                binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
+            }
+            binding.discoverRating.setRating(Float.parseFloat(coachListModel.getRating()));
 
 
         }
@@ -151,13 +151,14 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
         if (!TextUtils.isEmpty(saveIntent)) {
 
             if (saveIntent.equalsIgnoreCase("coach")) {
-
+                binding.bookingCoach.setVisibility(View.VISIBLE);
                 binding.viewOrgBtnLayout.setVisibility(View.GONE);
 //                binding.view2.setVisibility(View.GONE);
                 binding.btnView.setVisibility(View.GONE);
                 Glide.with(TopCoachOrgDetailActivity.this).load(Constants.COACH_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.COACH_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.detailImage);
             }
             if (saveIntent.equalsIgnoreCase("org")) {
+                binding.bookingCoach.setVisibility(View.GONE);
 
                 binding.viewOrgBtnLayout.setVisibility(View.VISIBLE);
                 Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + coachListModel.getProfile_image()).thumbnail(Glide.with(this).load(Constants.ORG_IMAGE_BASE_URL + Constants.THUMBNAILS + coachListModel.getProfile_image())).into(binding.detailImage);
@@ -181,7 +182,7 @@ public class TopCoachOrgDetailActivity extends AppCompatActivity implements View
             public void onClick(View view) {
                 Intent vSesssion = new Intent(TopCoachOrgDetailActivity.this, HourlySlotsActivity.class);
                 vSesssion.putExtra("coachID", coachListModel.getId() + "");
-                vSesssion.putExtra("from","coach");
+                vSesssion.putExtra("from", "coach");
                 startActivity(vSesssion);
             }
         });

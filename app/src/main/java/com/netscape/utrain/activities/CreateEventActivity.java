@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -316,24 +317,25 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                startTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, AlertDialog.THEME_HOLO_LIGHT,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        startTime = convertDate(hourOfDay) + ":00";
 
-                timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
+                        timeNow = convertDate(mHour) + ":" + convertDate(mMinute);
 //                int currentTime = LocalTime.parse(startTime);
-                binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
+                        binding.createEvtnStartTimeTv.setPadding(20, 0, 70, 0);
 //                Date time = Calendar.getInstance().getTime();
 //                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
 //                String timeNow=timeFormat.format(time);
-                if (stDate != null && endDate != null) {
+                        if (stDate != null && endDate != null) {
 //                    if (endDate.compareTo(stDate) == 0) {
 //                        if (formatTime(startTime).after(formatTime(timeNow))) {
-                    binding.createEvtnStartTimeTv.setText(startTime);
-                    binding.createEventEndTime.setText("");
-                    binding.createEventEndTime.setHint("End time");
+                            binding.createEvtnStartTimeTv.setText(startTime);
+                            binding.createEventEndTime.setText("");
+                            binding.createEventEndTime.setHint("End time");
 //                        } else {
 //                            binding.createEvtnStartTimeTv.setText("");
 //                            binding.createEvtnStartTimeTv.setHint("Start time");
@@ -342,12 +344,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 //                    } else {
 //                        binding.createEvtnStartTimeTv.setText(startTime);
 //                    }
-                } else {
-                    Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
-                }
+                        } else {
+                            Toast.makeText(CreateEventActivity.this, "Selecte Date First", Toast.LENGTH_SHORT).show();
+                        }
 
-            }
-        }, mHour, mMinute, true);
+                    }
+                }, mHour, mMinute, true);
 
         timePickerDialog.show();
     }
@@ -356,11 +358,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, AlertDialog.THEME_HOLO_LIGHT,new TimePickerDialog.OnTimeSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                endTime = convertDate(hourOfDay) + ":" + convertDate(minute);
+                endTime = convertDate(hourOfDay) + ":00";
                 binding.createEventEndTime.setPadding(20, 0, 70, 0);
 //                SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
 //                try {
@@ -395,7 +397,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }, mHour, mMinute, true);
         timePickerDialog.show();
     }
-
 
 
     private Date formatTime(String time) {
@@ -438,7 +439,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
     private void getEndDate() {
         Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -460,7 +460,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                         binding.createEventEndTime.setHint("End time");
                         binding.createEvtnStartTimeTv.setHint("Start time");
                     } else {
-                        Toast.makeText(CreateEventActivity.this, "Select valid date", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateEventActivity.this, getString(R.string.selectValidDate), Toast.LENGTH_SHORT).show();
                         binding.createEventEndDatetv.setText("");
                         binding.createEventEndDatetv.setHint("End date");
                     }
@@ -614,8 +614,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONObject jsonObject=jObjError.getJSONObject("error");
-                        String code=jsonObject.getString("code");
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
                         if (!TextUtils.isEmpty(code)) {
                             if (Integer.parseInt(code) == 401) {
                                 CommonMethods.invalidAuthToken(CreateEventActivity.this, CreateEventActivity.this);
