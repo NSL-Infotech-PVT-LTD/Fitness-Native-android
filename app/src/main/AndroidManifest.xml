@@ -25,6 +25,7 @@
         <activity android:name=".activities.HelpAndSupport" />
         <activity android:name=".activities.HourlySlotsActivity" />
         <activity android:name=".activities.SelectTimeSlot" />
+        <activity android:name=".StripeConnect.StripeActivity" />
         <activity
             android:name=".activities.TermsAndConditions"
             android:launchMode="singleTop"

@@ -485,4 +485,13 @@
     <string name="changeBooking">Change Booking Time</string>
     <string name="selectValidTime">Invalid time</string>
     <string name="selectValidDate">Cannot create event for current date</string>
+
+    <string name="btnConnectText">Connect with Stripe</string>
+    <string name="btnDisconnectText">Disconnect from Stripe</string>
+
+    <string name="btnDialogYes">Yes</string>
+    <string name="btnDialogNo">No</string>
+
+    <string name="dialogDisconnectText">Disconnect from Stripe?</string>
+    <string name="getconnected">Get Connect with Stripe</string>
 </resources>

@@ -349,15 +349,13 @@
                             app:layout_constraintTop_toTopOf="@id/chooseServicesTv" />
 
 
-
-
                         <View
-                            android:visibility="gone"
                             android:id="@+id/orgPortFolioView"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_1sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@color/lightGrayFont"
+                            android:visibility="gone"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintLeft_toLeftOf="@id/chooseServicesTv"
                             app:layout_constraintRight_toRightOf="parent"
@@ -365,17 +363,16 @@
 
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:visibility="gone"
                             android:id="@+id/orgPortFolioIcon"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_marginTop="@dimen/_25sdp"
                             android:src="@drawable/ic_lock"
+                            android:visibility="gone"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/orgPortFolioView" />
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:visibility="gone"
                             android:id="@+id/orgPortFolioTv"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
@@ -385,33 +382,32 @@
                             android:text="@string/portfolio_images"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/_10sdp"
+                            android:visibility="gone"
                             app:fontFamily="@font/poppins_semibold"
                             app:layout_constraintLeft_toRightOf="@id/orgPortFolioIcon"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="@id/orgPortFolioView" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:visibility="gone"
                             android:id="@+id/orgPortFolioViewSelect"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:src="@drawable/ic_settingsarrow"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/orgPortFolioTv"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="@id/orgPortFolioTv" />
-
-
 
 
                         <View
                             android:id="@+id/viewConstraintEnd"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_1sdp"
+                            android:layout_marginLeft="@dimen/_28sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@color/lightGrayFont"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            android:layout_marginLeft="@dimen/_28sdp"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/orgPortFolioTv" />
 
@@ -490,8 +486,10 @@
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toTopOf="@id/termAndConditionsTv" />
 
+
+
                     <View
-                        android:id="@+id/view4"
+                        android:id="@+id/view6"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_marginTop="@dimen/_15sdp"
@@ -500,38 +498,83 @@
                         app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/termAndConditionsTv" />
 
-<!--                    <androidx.appcompat.widget.AppCompatImageView-->
-<!--                        android:id="@+id/helpAndSupportImg"-->
-<!--                        android:layout_width="@dimen/_20sdp"-->
-<!--                        android:layout_height="@dimen/_20sdp"-->
-<!--                        android:layout_marginTop="@dimen/_25sdp"-->
-<!--                        android:src="@drawable/help"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/connectStripe"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:src="@drawable/expicon"
+                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
+                        app:layout_constraintTop_toBottomOf="@id/view6" />
 
-<!--                    <com.google.android.material.textview.MaterialTextView-->
-<!--                        android:id="@+id/helpAndSupportTv"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/_40sdp"-->
-<!--                        android:layout_marginTop="@dimen/_15sdp"-->
-<!--                        android:layout_marginBottom="@dimen/_20sdp"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:text="@string/ccc"-->
-<!--                        android:textColor="@color/colorBlack"-->
-<!--                        android:textSize="@dimen/_10sdp"-->
-<!--                        app:fontFamily="@font/poppins_semibold"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintLeft_toLeftOf="@id/view4"-->
-<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/getConnectedWithStrip"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center_vertical"
+                        android:text="@string/getconnected"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:fontFamily="@font/poppins_semibold"
+                        app:layout_constraintLeft_toLeftOf="@id/view6"
+                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                        app:layout_constraintTop_toBottomOf="@id/view6" />
 
-<!--                    <androidx.appcompat.widget.AppCompatImageView-->
-<!--                        android:layout_width="@dimen/_20sdp"-->
-<!--                        android:layout_height="@dimen/_20sdp"-->
-<!--                        android:src="@drawable/ic_settingsarrow"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@id/helpAndSupportTv"-->
-<!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
-<!--                        app:layout_constraintTop_toTopOf="@id/helpAndSupportTv" />-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_settingsarrow"
+                        android:id="@+id/stripeArrow"
+                        app:layout_constraintBottom_toBottomOf="@id/getConnectedWithStrip"
+                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                        app:layout_constraintTop_toTopOf="@id/getConnectedWithStrip" />
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@color/lightGrayFont"
+                        app:layout_constraintLeft_toLeftOf="@id/getConnectedWithStrip"
+                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"
+                        app:layout_constraintTop_toBottomOf="@id/getConnectedWithStrip" />
+
+                    <include layout="@layout/stripe_connect_btn_layout"
+                        app:layout_constraintTop_toBottomOf="@id/view7"
+                        />
+                    <!--                    <androidx.appcompat.widget.AppCompatImageView-->
+                    <!--                        android:id="@+id/helpAndSupportImg"-->
+                    <!--                        android:layout_width="@dimen/_20sdp"-->
+                    <!--                        android:layout_height="@dimen/_20sdp"-->
+                    <!--                        android:layout_marginTop="@dimen/_25sdp"-->
+                    <!--                        android:src="@drawable/help"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
+
+                    <!--                    <com.google.android.material.textview.MaterialTextView-->
+                    <!--                        android:id="@+id/helpAndSupportTv"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="@dimen/_40sdp"-->
+                    <!--                        android:layout_marginTop="@dimen/_15sdp"-->
+                    <!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:text="@string/ccc"-->
+                    <!--                        android:textColor="@color/colorBlack"-->
+                    <!--                        android:textSize="@dimen/_10sdp"-->
+                    <!--                        app:fontFamily="@font/poppins_semibold"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintLeft_toLeftOf="@id/view4"-->
+                    <!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/view4" />-->
+
+                    <!--                    <androidx.appcompat.widget.AppCompatImageView-->
+                    <!--                        android:layout_width="@dimen/_20sdp"-->
+                    <!--                        android:layout_height="@dimen/_20sdp"-->
+                    <!--                        android:src="@drawable/ic_settingsarrow"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="@id/helpAndSupportTv"-->
+                    <!--                        app:layout_constraintRight_toRightOf="@id/innerRightGuideLine"-->
+                    <!--                        app:layout_constraintTop_toTopOf="@id/helpAndSupportTv" />-->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

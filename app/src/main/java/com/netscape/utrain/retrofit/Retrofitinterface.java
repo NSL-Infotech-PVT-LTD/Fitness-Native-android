@@ -1,5 +1,6 @@
 package com.netscape.utrain.retrofit;
 
+import com.netscape.utrain.StripeConnect.StripeConnectModel;
 import com.netscape.utrain.model.A_CoachBookingList;
 import com.netscape.utrain.model.AllBookingListModel;
 import com.netscape.utrain.model.AthleteBookListModel;
@@ -717,6 +718,12 @@ public interface Retrofitinterface {
     Call<SpaceBookingDetailResponse> getBookingSpace(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String Content_type,
                                                      @Field("id") String target_id);
+
+    @FormUrlEncoded
+    @POST("connectWithStripe")
+    Call<StripeConnectModel> getConnectedStripe(@Header("Authorization") String Authorization,
+                                                @Header("Content-Type") String Content_type,
+                                                @Field("code") String target_id);
 
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)

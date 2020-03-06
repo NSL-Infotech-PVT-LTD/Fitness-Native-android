@@ -54,7 +54,8 @@ import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    public static final String PUBLISHABLE_KEY = "pk_test_StB3j4S26BTUGHm7RfbMyzUn00q1Q55MWn";
+    public static final String PUBLISHABLE_KEY = "pk_test_85U2pLbw78xd2VHLeMGjeabF00gngV05wp";
+//    public static final String PUBLISHABLE_KEY = "pk_test_StB3j4S26BTUGHm7RfbMyzUn00q1Q55MWn";
     protected Card cardToSave;
     EditText cardNumberEditText, cardDate, cardCVV, cardHolder;
     TextView validateCard;
@@ -544,7 +545,7 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
-                        String errorMsg = errorMessage.getJSONObject(0).getString("message");
+                        String errorMsg = errorMessage.get(0).toString();
                         Toast.makeText(activity, "" + errorMsg, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(activity, "" + e.getMessage(), Toast.LENGTH_SHORT).show();

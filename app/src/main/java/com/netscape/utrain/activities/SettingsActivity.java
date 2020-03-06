@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -27,6 +28,11 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.netscape.utrain.R;
+import com.netscape.utrain.StripeConnect.ApplicationData;
+import com.netscape.utrain.StripeConnect.StripeActivity;
+import com.netscape.utrain.StripeConnect.StripeApp;
+import com.netscape.utrain.StripeConnect.StripeButton;
+import com.netscape.utrain.StripeConnect.StripeConnectModel;
 import com.netscape.utrain.activities.athlete.AthleteHomeScreen;
 import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.athlete.ChooseSportActivity;
@@ -70,6 +76,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private String isNotify = "";
     private String notify = "";
     private int count = 0;
+
+    private StripeButton stripButton;
 
 
     @Override
@@ -219,10 +227,18 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         binding.termAndConditionsTv.setOnClickListener(this);
         binding.helpSupportClickImg.setOnClickListener(this);
         binding.orgPortFolioViewSelect.setOnClickListener(this);
+        binding.getConnectedWithStrip.setOnClickListener(this);
 
+        if (getIntent().getStringExtra("stripCode") != null) {
+            getconnecteStripe(getIntent().getStringExtra("stripCode"));
+        }
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Athlete)) {
             binding.cAddedFieldLayout.setVisibility(View.GONE);
+            binding.getConnectedWithStrip.setVisibility(View.GONE);
+            binding.stripeArrow.setVisibility(View.GONE);
+            binding.connectStripe.setVisibility(View.GONE);
+            binding.view7.setVisibility(View.GONE);
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Organizer)) {
             binding.orgPortFolioTv.setVisibility(View.VISIBLE);
             binding.orgPortFolioViewSelect.setVisibility(View.VISIBLE);
@@ -270,11 +286,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 //                    getImages.putExtra("updateImgType", "portfolioImages");
 //                    startActivityForResult(getImages, IMAGE_GET);
 //                } else {
-                    Intent chooseSport = new Intent(SettingsActivity.this, ChooseSportActivity.class);
-                    CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
-                    ChooseSportActivity.athUpdate = true;
-                    chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(chooseSport);
+                Intent chooseSport = new Intent(SettingsActivity.this, ChooseSportActivity.class);
+                CommonMethods.setPrefData(PrefrenceConstant.SPORT_NAME, "", getApplicationContext());
+                ChooseSportActivity.athUpdate = true;
+                chooseSport.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(chooseSport);
 //                }
                 break;
             case R.id.orgPortFolioViewSelect:
@@ -307,9 +323,73 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(helpAndSupport);
                 break;
 
+            case R.id.getConnectedWithStrip:
+
+                performStripe();
+                break;
+
         }
 
 
+    }
+
+    private void getconnecteStripe(String code) {
+        ProgressDialog progressDialog = new ProgressDialog(SettingsActivity.this);
+        progressDialog.setMessage("Connecting with stripe....");
+        progressDialog.show();
+        Call<StripeConnectModel> call = retrofitinterface.getConnectedStripe("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, code);
+        call.enqueue(new Callback<StripeConnectModel>() {
+            @Override
+            public void onResponse(Call<StripeConnectModel> call, Response<StripeConnectModel> response) {
+                if (response.body() != null) {
+                    progressDialog.dismiss();
+                    if (response.body().isStatus()) {
+
+                        Toast.makeText(SettingsActivity.this, "" + response.body().getData(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<StripeConnectModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void onClickStripPerform() {
+        StripeApp mApp2;
+        StripeButton mStripeButton2;
+        mApp2 = new StripeApp(this, "StripeAccount", ApplicationData.CLIENT_ID,
+                ApplicationData.SECRET_KEY, ApplicationData.CALLBACK_URL);
+        mStripeButton2 = (StripeButton) findViewById(R.id.stripButton);
+        mStripeButton2.setStripeApp(mApp2);
+        mStripeButton2.setConnectMode(StripeApp.CONNECT_MODE.ACTIVITY);
+        mStripeButton2.performClick();
+
+        String apiKey = mApp2.getAccessToken();
+    }
+
+    private void performStripe() {
+        new AlertDialog.Builder(this)
+                .setTitle("Connect with Stripe")
+                .setMessage("You have to connect your with your payment gateway, in order to receive the payments")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        onClickStripPerform();
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void hitChangePasswordApi() {
