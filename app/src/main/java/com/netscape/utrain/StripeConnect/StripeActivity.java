@@ -163,8 +163,9 @@ public class StripeActivity extends Activity {
 
 
         Intent returnIntent = new Intent(StripeActivity.this, SettingsActivity.class);
-        returnIntent.putExtra("stripCode",code);
+        returnIntent.putExtra("stripCode", code);
         setResult(StripeApp.RESULT_CONNECTED, returnIntent);
+        startActivity(returnIntent);
         finish();
     }
 

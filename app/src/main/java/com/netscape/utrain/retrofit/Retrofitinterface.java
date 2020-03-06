@@ -719,11 +719,10 @@ public interface Retrofitinterface {
                                                      @Header("Content-Type") String Content_type,
                                                      @Field("id") String target_id);
 
-    @FormUrlEncoded
     @POST("connectWithStripe")
     Call<StripeConnectModel> getConnectedStripe(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String Content_type,
-                                                @Field("code") String target_id);
+                                                @Query("code") String target_id);
 
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)

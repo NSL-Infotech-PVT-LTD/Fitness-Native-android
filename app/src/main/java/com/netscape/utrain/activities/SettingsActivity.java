@@ -1,5 +1,6 @@
 package com.netscape.utrain.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -13,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -219,6 +221,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (getIntent().getStringExtra("stripCode") != null) {
+            getconnecteStripe(getIntent().getStringExtra("stripCode"));
+        }
+
+    }
+
     private void inIt() {
 
         binding.basicProfileClickImg.setOnClickListener(this);
@@ -228,10 +240,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         binding.helpSupportClickImg.setOnClickListener(this);
         binding.orgPortFolioViewSelect.setOnClickListener(this);
         binding.getConnectedWithStrip.setOnClickListener(this);
-
-        if (getIntent().getStringExtra("stripCode") != null) {
-            getconnecteStripe(getIntent().getStringExtra("stripCode"));
-        }
 
         if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, SettingsActivity.this).equalsIgnoreCase(Constants.Athlete)) {
             binding.cAddedFieldLayout.setVisibility(View.GONE);
@@ -257,7 +265,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-//    private void setProfileImage() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("bdjbsjdgjsgd", "onActivityResult: " + data);
+    }
+
+
+    //    private void setProfileImage() {
 //
 //        String img = CommonMethods.getPrefData(PrefrenceConstant.PROFILE_IMAGE, SettingsActivity.this);
 //        if (!TextUtils.isEmpty(img)) {
