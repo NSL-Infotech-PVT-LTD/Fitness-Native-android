@@ -1,10 +1,21 @@
 package com.netscape.utrain.model;
 
+import com.netscape.utrain.StripeConnect.StripeModel;
+
 public class LoginRoleModel {
 
     private String message;
     private String token;
     private LoginChildModel user;
+    private StripeModel stripeDetails;
+
+    public StripeModel getStripeDetails() {
+        return stripeDetails;
+    }
+
+    public void setStripeDetails(StripeModel stripeDetails) {
+        this.stripeDetails = stripeDetails;
+    }
 
     public String getMessage() {
         return message;

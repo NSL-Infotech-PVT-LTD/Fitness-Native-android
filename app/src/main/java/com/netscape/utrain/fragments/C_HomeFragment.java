@@ -1,7 +1,9 @@
 package com.netscape.utrain.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,6 +37,7 @@ import com.netscape.utrain.activities.CreateEventActivity;
 import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
+import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.TopCoachOrgDetailActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
@@ -166,9 +170,15 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 //                getActivity().finish();
 //                break;
             case R.id.createEventImg:
-                PortfolioActivity.clearFromConstants();
-                Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
-                view.getContext().startActivity(createEvent);
+
+                if ((CommonMethods.getPrefData(Constants.ACCOUNTID, context) == null) || (CommonMethods.getPrefData(Constants.ACCOUNTID, context).isEmpty()))
+                    performStripe();
+
+                else {
+                    PortfolioActivity.clearFromConstants();
+                    Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
+                    view.getContext().startActivity(createEvent);
+                }
                 break;
             case R.id.coachFindSpaceImg:
                 Intent map = new Intent(getActivity(), AllEventsMapAct.class);
@@ -181,15 +191,41 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
 //                view.getContext().startActivity(createSession);
 //                break;
             case R.id.createSpaceImg:
+//                if ((CommonMethods.getPrefData(Constants.ACCOUNTID, context) == null) || (CommonMethods.getPrefData(Constants.ACCOUNTID, context).isEmpty()))
+//                    performStripe();
+//
+//                else {
                 Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
                 view.getContext().startActivity(createSpace);
+//                }
                 break;
             case R.id.orgViewAllSpaces:
                 Intent viewAll = new Intent(getContext(), AllEventsMapAct.class);
                 viewAll.putExtra("from", "3");
-                getContext().startActivity(viewAll);
+                context.startActivity(viewAll);
                 break;
         }
+    }
+
+
+    private void performStripe() {
+        new AlertDialog.Builder(context)
+                .setTitle("Connect with Stripe")
+                .setMessage("You have to connect your with your payment gateway, in order to receive the payments\nGo to Profile section ")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton("Go to Profile", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent createEvent = new Intent(getActivity(), SettingsActivity.class);
+                        context.startActivity(createEvent);
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void getSpaceList() {
@@ -263,7 +299,7 @@ public class C_HomeFragment extends Fragment implements View.OnClickListener {
                 for (SportListModel.DataBeanX.DataBean details : sportList) {
                     if (i < sportList.size()) {
 
-                            builder.append(details.getName() + ",");
+                        builder.append(details.getName() + ",");
 
                         i = i + 1;
                     } else if (i == sportList.size()) {

@@ -10,7 +10,7 @@ public class NotifaicationStateResponse {
 
     private boolean status;
     private int code;
-    private DataBean data;
+    private String data;
     private ErrorModel error;
 
     public ErrorModel getError() {
@@ -37,27 +37,11 @@ public class NotifaicationStateResponse {
         this.code = code;
     }
 
-    public DataBean getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(String data) {
         this.data = data;
-    }
-
-    public static class DataBean {
-        /**
-         * scalar : Notify Status Updated Successfully
-         */
-
-        private String scalar;
-
-        public String getScalar() {
-            return scalar;
-        }
-
-        public void setScalar(String scalar) {
-            this.scalar = scalar;
-        }
     }
 }

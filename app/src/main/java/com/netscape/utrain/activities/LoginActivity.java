@@ -145,6 +145,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Intent homeScreen = null;
                             for (int i = 0; i < response.body().getData().getUser().getRoles().size(); i++) {
                                 String role = response.body().getData().getUser().getRoles().get(i).getName();
+
+                                if (response.body().getData().getStripeDetails() != null) {
+
+                                    CommonMethods.setPrefData(Constants.ACCOUNTID, response.body().getData().getStripeDetails().getAccount_id() + "", LoginActivity.this);
+                                }
                                 if (loginFor.equalsIgnoreCase(Constants.Organizer)) {
                                     if (loginFor.equalsIgnoreCase(role)) {
 

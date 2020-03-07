@@ -58,6 +58,7 @@ import com.netscape.utrain.utils.PrefrenceConstant;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import retrofit2.Call;
@@ -78,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private String isNotify = "";
     private String notify = "";
     private int count = 0;
+
 
     private StripeButton stripButton;
 
@@ -224,7 +226,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-
         if (getIntent().getStringExtra("stripCode") != null) {
             getconnecteStripe(getIntent().getStringExtra("stripCode"));
         }
@@ -340,7 +341,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.getConnectedWithStrip:
 
-                performStripe();
+                if ((CommonMethods.getPrefData(Constants.ACCOUNTID, SettingsActivity.this) == null) || (CommonMethods.getPrefData(Constants.ACCOUNTID, SettingsActivity.this).isEmpty()))
+                    performStripe();
+                else Toast.makeText(this, "Already Connected", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -352,15 +355,32 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         ProgressDialog progressDialog = new ProgressDialog(SettingsActivity.this);
         progressDialog.setMessage("Connecting with stripe....");
         progressDialog.show();
+        retrofitinterface = RetrofitInstance.getClient().create(Retrofitinterface.class);
         Call<StripeConnectModel> call = retrofitinterface.getConnectedStripe("Bearer " + CommonMethods.getPrefData(Constants.AUTH_TOKEN, getApplicationContext()), Constants.CONTENT_TYPE, code);
         call.enqueue(new Callback<StripeConnectModel>() {
             @Override
             public void onResponse(Call<StripeConnectModel> call, Response<StripeConnectModel> response) {
+                progressDialog.dismiss();
                 if (response.body() != null) {
-                    progressDialog.dismiss();
-                    if (response.body().isStatus()) {
 
-                        Toast.makeText(SettingsActivity.this, "" + response.body().getData(), Toast.LENGTH_SHORT).show();
+                    if (response.body().isStatus()) {
+                        finish();
+                        CommonMethods.setPrefData(Constants.ACCOUNTID, response.body().getData().getStripeDetails().getAccount_id() + "", SettingsActivity.this);
+                    }
+                } else {
+//                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = null;
+                        if (response.errorBody() != null) {
+                            jObjError = new JSONObject(response.errorBody().string());
+
+                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+                        String errorMsg = errorMessage.getString(0);
+                        Toast.makeText(SettingsActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
+                        }   } catch (Exception e) {
+                        Toast.makeText(SettingsActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
 
                     }
                 }
@@ -426,7 +446,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         if (response.body() != null) {
 
                             model = response.body().getData();
-                            Toast.makeText(SettingsActivity.this, "" + response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingsActivity.this, "" + response.body().getData()+"", Toast.LENGTH_SHORT).show();
                             dialogMultiOrder.dismiss();
                         }
                     } else {
@@ -467,7 +487,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData()+"", Toast.LENGTH_SHORT).show();
                             CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, notify, SettingsActivity.this);
 //                            LoginManager.getInstance().logOut();
 //                            CommonMethods.clearPrefData(SettingsActivity.this);

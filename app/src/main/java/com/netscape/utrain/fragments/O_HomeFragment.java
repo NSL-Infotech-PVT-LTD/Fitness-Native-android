@@ -2,6 +2,7 @@ package com.netscape.utrain.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -37,6 +39,7 @@ import com.netscape.utrain.activities.CreateTrainingSession;
 import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.OfferSpaceActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
+import com.netscape.utrain.activities.SettingsActivity;
 import com.netscape.utrain.activities.SignUpTypeActivity;
 import com.netscape.utrain.activities.athlete.AllEventsMapAct;
 import com.netscape.utrain.adapters.Ath_PlaceRecyclerAdapter;
@@ -209,9 +212,14 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 //                getActivity().finish();
 //                break;
             case R.id.createEventImg:
-                PortfolioActivity.clearFromConstants();
-                Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
-                view.getContext().startActivity(createEvent);
+                if ((CommonMethods.getPrefData(Constants.ACCOUNTID, context) == null) || (CommonMethods.getPrefData(Constants.ACCOUNTID, context).isEmpty()))
+                    performStripe();
+
+                else {
+                    PortfolioActivity.clearFromConstants();
+                    Intent createEvent = new Intent(getActivity(), CreateEventActivity.class);
+                    view.getContext().startActivity(createEvent);
+                }
                 break;
 //            case R.id.createSessionImg:
 //                PortfolioActivity.clearFromConstants();
@@ -219,16 +227,41 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 //                view.getContext().startActivity(createSession);
 //                break;
             case R.id.createSpaceImg:
-                PortfolioActivity.clearFromConstants();
-                Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
-                view.getContext().startActivity(createSpace);
+                if ((CommonMethods.getPrefData(Constants.ACCOUNTID, context) == null) || (CommonMethods.getPrefData(Constants.ACCOUNTID, context).isEmpty()))
+                    performStripe();
+
+                else {
+                    PortfolioActivity.clearFromConstants();
+                    Intent createSpace = new Intent(getActivity(), OfferSpaceActivity.class);
+                    view.getContext().startActivity(createSpace);
+                }
                 break;
             case R.id.orgViewAllSpaces:
                 Intent viewAll = new Intent(getContext(), AllEventsMapAct.class);
                 viewAll.putExtra("from", "3");
-                getContext().startActivity(viewAll);
+                context.startActivity(viewAll);
                 break;
         }
+    }
+
+    private void performStripe() {
+        new AlertDialog.Builder(context)
+                .setTitle("Connect with Stripe")
+                .setMessage("You have to connect your with your payment gateway, in order to receive the payments\nGo to Profile section ")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton("Go to Profile", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent createEvent = new Intent(getActivity(), SettingsActivity.class);
+                        view.getContext().startActivity(createEvent);
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void getSpaceList() {
@@ -254,7 +287,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                             }
                         }
                     } else {
-                        Toast.makeText(context, ""+response.body().getError().getError_message().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + response.body().getError().getError_message().getMessage().toString(), Toast.LENGTH_SHORT).show();
 //                        Snackbar.make(binding.orgHomeLayout, response.body().getError().getError_message().getMessage().toString(), BaseTransientBottomBar.LENGTH_LONG).show();
                         binding.noSpaceOrgImg.setVisibility(View.VISIBLE);
                         binding.orgViewAllSpaces.setVisibility(View.GONE);
@@ -266,8 +299,8 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                     progressDialog.dismiss();
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        JSONObject jsonObject=jObjError.getJSONObject("error");
-                        String code=jsonObject.getString("code");
+                        JSONObject jsonObject = jObjError.getJSONObject("error");
+                        String code = jsonObject.getString("code");
                         if (!TextUtils.isEmpty(code)) {
                             if (Integer.parseInt(code) == 401) {
                                 CommonMethods.invalidAuthToken(getContext(), getActivity());
@@ -278,7 +311,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
 
                     } catch (Exception e) {
 
-                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 //                        Snackbar.make(binding.orgHomeLayout, e.getMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
                     }
                 }
@@ -291,7 +324,7 @@ public class O_HomeFragment extends Fragment implements View.OnClickListener {
                 binding.orgViewAllSpaces.setVisibility(View.GONE);
 
                 progressDialog.dismiss();
-                Toast.makeText(context, ""+getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + getResources().getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 //                Snackbar.make(binding.orgHomeLayout, getResources().getString(R.string.something_went_wrong), BaseTransientBottomBar.LENGTH_LONG).show();
 
             }

@@ -718,11 +718,11 @@ public interface Retrofitinterface {
     Call<SpaceBookingDetailResponse> getBookingSpace(@Header("Authorization") String Authorization,
                                                      @Header("Content-Type") String Content_type,
                                                      @Field("id") String target_id);
-
+    @FormUrlEncoded
     @POST("connectWithStripe")
     Call<StripeConnectModel> getConnectedStripe(@Header("Authorization") String Authorization,
                                                 @Header("Content-Type") String Content_type,
-                                                @Query("code") String target_id);
+                                                @Field("code") String target_id);
 
     @FormUrlEncoded
     @POST(Constants.BOOKING_DETAILS)

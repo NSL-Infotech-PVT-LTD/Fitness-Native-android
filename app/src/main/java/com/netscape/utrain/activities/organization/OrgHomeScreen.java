@@ -377,7 +377,7 @@ public class OrgHomeScreen extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData()+"", Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(OrgHomeScreen.this);
                             Intent intent = new Intent(OrgHomeScreen.this, SignUpTypeActivity.class);

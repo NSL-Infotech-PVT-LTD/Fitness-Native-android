@@ -1,7 +1,8 @@
 <resources>
 
     <string name="facebook_app_id">721512744988306</string>
-    <string name="google_maps_api">AIzaSyBHgjC1e9D8ykM2V3RgPxFMv4AMk2RTOEQ</string>
+    <string name="google_maps_api">AIzaSyAeRjBp9uCEHLe-dIdsGVKegO9KzsmHmwA</string>
+    <!--    &lt;!&ndash;    <string name="google_maps_api">AIzaSyBHgjC1e9D8ykM2V3RgPxFMv4AMk2RTOEQ</string>&ndash;&gt;//last key for uutrain-->
     <!--    <string name="google_maps_api">AIzaSyAJhw_OEXurbipEqQjg0rskaw_xaE5wn4E</string>-->
 
     <string name="fb_login_protocol_scheme">fb721512744988306</string>

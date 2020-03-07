@@ -1,5 +1,6 @@
 package com.netscape.utrain.response;
 
+import com.google.gson.annotations.SerializedName;
 import com.netscape.utrain.model.ErrorModel;
 
 public class LogoutResponse {
@@ -9,10 +10,17 @@ public class LogoutResponse {
      * data : {"scalar":"Logout Successfully"}
      */
 
+
+
     private boolean status;
     private int code;
-    private DataBean data;
     private ErrorModel error;
+    /**
+     * data : Logout Successfully
+     */
+
+    @SerializedName("data")
+    private String data;
 
     public ErrorModel getError() {
         return error;
@@ -38,27 +46,11 @@ public class LogoutResponse {
         this.code = code;
     }
 
-    public DataBean getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(String data) {
         this.data = data;
-    }
-
-    public static class DataBean {
-        /**
-         * scalar : Logout Successfully
-         */
-
-        private String scalar;
-
-        public String getScalar() {
-            return scalar;
-        }
-
-        public void setScalar(String scalar) {
-            this.scalar = scalar;
-        }
     }
 }

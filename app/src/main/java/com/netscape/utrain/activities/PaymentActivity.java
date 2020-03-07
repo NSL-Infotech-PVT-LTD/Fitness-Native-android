@@ -54,8 +54,9 @@ import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    public static final String PUBLISHABLE_KEY = "pk_test_85U2pLbw78xd2VHLeMGjeabF00gngV05wp";
+//    public static final String PUBLISHABLE_KEY = "pk_test_85U2pLbw78xd2VHLeMGjeabF00gngV05wp";
 //    public static final String PUBLISHABLE_KEY = "pk_test_StB3j4S26BTUGHm7RfbMyzUn00q1Q55MWn";
+    public static final String PUBLISHABLE_KEY = "pk_test_yhC4921cmk36fUDmPGMmsyqf0042mPbkr7";
     protected Card cardToSave;
     EditText cardNumberEditText, cardDate, cardCVV, cardHolder;
     TextView validateCard;

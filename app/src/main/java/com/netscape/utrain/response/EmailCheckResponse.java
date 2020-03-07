@@ -12,7 +12,16 @@ public class EmailCheckResponse {
 
     private boolean status;
     private int code;
-    private DataBean data;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     private ErrorModel error;
 
     public ErrorModel getError() {
@@ -39,27 +48,6 @@ public class EmailCheckResponse {
         this.code = code;
     }
 
-    public DataBean getData() {
-        return data;
-    }
 
-    public void setData(DataBean data) {
-        this.data = data;
-    }
 
-    public static class DataBean {
-        /**
-         * scalar : It is not available in database
-         */
-
-        private String scalar;
-
-        public String getScalar() {
-            return scalar;
-        }
-
-        public void setScalar(String scalar) {
-            this.scalar = scalar;
-        }
-    }
 }

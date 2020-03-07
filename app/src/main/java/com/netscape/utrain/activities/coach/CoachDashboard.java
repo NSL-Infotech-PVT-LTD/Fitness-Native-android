@@ -380,7 +380,8 @@ public class CoachDashboard extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData().getScalar(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData()+"",
+                                    Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(activity);
                             Intent intent = new Intent(activity, SignUpTypeActivity.class);
