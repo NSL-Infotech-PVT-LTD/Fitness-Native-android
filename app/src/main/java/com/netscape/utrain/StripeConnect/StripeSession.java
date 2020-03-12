@@ -20,7 +20,7 @@ public class StripeSession {
 	private static final String API_REFRESH_TOKEN = "refresh_token";
 	private static final String API_TOKEN_TYPE = "token_type";
 	private static final String API_USER_ID = "user_id";
-		private static final String API_PUBLISHABLE_KEY = "pk_test_yhC4921cmk36fUDmPGMmsyqf0042mPbkr7";
+		private static final String API_PUBLISHABLE_KEY = "pk_test_85U2pLbw78xd2VHLeMGjeabF00gngV05wp";
 	private static final String API_LIVE_MODE = "live_mode";
 
 	public StripeSession(Context context, String accountName) {

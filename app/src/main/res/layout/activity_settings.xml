@@ -503,7 +503,8 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_25sdp"
-                        android:src="@drawable/expicon"
+                        android:src="@drawable/stripe_img"
+                        android:scaleType="centerCrop"
                         app:layout_constraintLeft_toLeftOf="@id/innerLeftGuideLine"
                         app:layout_constraintTop_toBottomOf="@id/view6" />
 

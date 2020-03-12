@@ -112,9 +112,10 @@ public class C_BookAthleteListAdapter extends RecyclerView.Adapter<C_BookAthlete
                 if (data != null)
                     try {
 
+                        holder.statusImage.setVisibility(View.GONE);
 
                         holder.eventName.setText(data.getAthlete_details().getName());
-                        holder.eventVenue.setText((Integer) data.getAthlete_details().getLocation()+"");
+                        holder.eventVenue.setText(data.getAthlete_details().getAddress() + "");
                         holder.bookingTicketTv.setVisibility(View.GONE);
                         holder.ti_tickets.setVisibility(View.GONE);
 
@@ -128,7 +129,7 @@ public class C_BookAthleteListAdapter extends RecyclerView.Adapter<C_BookAthlete
 
                     } catch (Exception e) {
 
-                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
@@ -158,7 +159,7 @@ public class C_BookAthleteListAdapter extends RecyclerView.Adapter<C_BookAthlete
                         CommonMethods commonMethods = new CommonMethods();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
-                            endDate = sdf.parse(data.getAthlete_details().getBusiness_hour_ends()+"");
+                            endDate = sdf.parse(data.getAthlete_details().getBusiness_hour_ends() + "");
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -312,7 +313,7 @@ public class C_BookAthleteListAdapter extends RecyclerView.Adapter<C_BookAthlete
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage, ti_tickets;
+        AppCompatImageView eventImage, statusImage, ti_tickets;
         RatingBar bookingRating;
         MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate, bookingTicketTv, completedRatingText;
 
@@ -326,6 +327,7 @@ public class C_BookAthleteListAdapter extends RecyclerView.Adapter<C_BookAthlete
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
             bookingRating = itemView.findViewById(R.id.bookingRating);
+            statusImage = itemView.findViewById(R.id.statusImage);
         }
     }
 

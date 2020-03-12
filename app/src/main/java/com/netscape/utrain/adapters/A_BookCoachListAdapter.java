@@ -51,25 +51,25 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
     private JSONArray jsonArray;
     private int type;
     private AlertDialog dialogMultiOrder;
-    private Date endDate=null;
+    private Date endDate = null;
     List<SelectSpaceDaysModel> startWeekList = new ArrayList<>();
 
-    public A_BookCoachListAdapter(Context context,  List<A_CoachBookingList.DataBean> supplierData, onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
+    public A_BookCoachListAdapter(Context context, List<A_CoachBookingList.DataBean> supplierData, onSpaceClick onSpaceClick, int typ, RatingInterface onRateClick) {
         this.context = context;
         this.onSpaceClick = onSpaceClick;
         this.supplierData = supplierData;
-        this.type=typ;
-        this.onRatingClick=onRateClick;
+        this.type = typ;
+        this.onRatingClick = onRateClick;
 
     }
-    public A_BookCoachListAdapter(Context context, onSpaceClick onSpaceClick,List<A_CoachBookingList.DataBean> list, RatingInterface onRateClick) {
+
+    public A_BookCoachListAdapter(Context context, onSpaceClick onSpaceClick, List<A_CoachBookingList.DataBean> list, RatingInterface onRateClick) {
         this.context = context;
         this.onSpaceClick = onSpaceClick;
-        this.supplierData= list;
-        this.onRatingClick=onRateClick;
+        this.supplierData = list;
+        this.onRatingClick = onRateClick;
 
     }
-
 
 
     @NonNull
@@ -94,6 +94,7 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
         return viewHolder;
 
     }
+
     @NonNull
     private A_BookCoachListAdapter.CustomTopCoachesHolder getViewHolder(ViewGroup parent, LayoutInflater inflater) {
         A_BookCoachListAdapter.CustomTopCoachesHolder viewHolder;
@@ -101,47 +102,48 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
         viewHolder = new A_BookCoachListAdapter.CustomTopCoachesHolder(v1);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull A_BookCoachListAdapter.CustomTopCoachesHolder holder, int position) {
-                final A_CoachBookingList.DataBean data = supplierData.get(position);
+        final A_CoachBookingList.DataBean data = supplierData.get(position);
 
         switch (getItemViewType(position)) {
             case ITEM:
                 if (data != null)
-        try {
+                    try {
 
 
                         holder.eventName.setText(data.getCoach_details().getName());
-                        holder.eventVenue.setText(data.getCoach_details().getLocation());
+                        holder.eventVenue.setText(data.getCoach_details().getLocation() + "");
                         holder.bookingTicketTv.setVisibility(View.GONE);
                         holder.ti_tickets.setVisibility(View.GONE);
+                        holder.statusImage.setVisibility(View.GONE);
 
 
+                        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL
 
-                    Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL
+                                + data.getCoach_details().getProfile_image()).into(holder.eventImage);
 
-                            +data.getCoach_details().getProfile_image()).into(holder.eventImage);
-
-            holder.eventDate.setText(data.getCoach_details().getHourly_rate()+"");
+                        holder.eventDate.setText(data.getCoach_details().getHourly_rate() + "");
 
 
-        } catch (Exception e) {
+                    } catch (Exception e) {
 
-            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
-        }
-        //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
+                    }
+                //        Glide.with(context).load(Constants.COACH_IMAGE_BASE_URL+data.getImages().into(holder.imageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
-                topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "coach");
-                topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
-                topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
-                context.startActivity(topCoachesDetails);
+                        Intent topCoachesDetails = new Intent(context, BookingDetails.class);
+                        topCoachesDetails.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        topCoachesDetails.putExtra(Constants.SELECTED_TYPE, "coach");
+                        topCoachesDetails.putExtra(Constants.TOP_DATA_INTENT, data);
+                        topCoachesDetails.putExtra(Constants.TOP_FROM_INTENT, "2");
+                        context.startActivity(topCoachesDetails);
 //                onSpaceClick.getSpaceAmount(data);
 //                Intent topCoachesDetails = new Intent(context, BookingDetails.class);
 //                topCoachesDetails.putExtra(Constants.SELECTED_ID, data.getId() + "");
@@ -149,36 +151,37 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
 ////                topCoachesDetails.putExtra(Constants.STATUS, status);
 //                context.startActivity(topCoachesDetails);
 
-            }
-        });
+                    }
+                });
 
-        if (type==1) {
-            if (!TextUtils.isEmpty(data.getCoach_details().getBusiness_hour_ends())){
-                CommonMethods commonMethods=new CommonMethods();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    endDate=sdf.parse(data.getCoach_details().getBusiness_hour_ends());
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (type == 1) {
+                    if (!TextUtils.isEmpty(data.getCoach_details().getBusiness_hour_ends())) {
+                        CommonMethods commonMethods = new CommonMethods();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            endDate = sdf.parse(data.getCoach_details().getBusiness_hour_ends());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
                 }
+                holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        handleImageSelection(data);
 
-            }
-
-
-        }
-        holder.completedRatingText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleImageSelection(data);
-
-            }
-        });
+                    }
+                });
                 break;
             case LOADING:
 //                Do nothing
                 break;
         }
     }
+
     public void handleImageSelection(A_CoachBookingList.DataBean data) {
 
 
@@ -213,15 +216,11 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
         }
 
 
-
-
-
-
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 dialogMultiOrder.dismiss();
-            //    onRatingClick.ratingVallue(data.getId(),v,data.getType());
+                //    onRatingClick.ratingVallue(data.getId(),v,data.getType());
 
 //               rateService(data.getId(),v,rateMaterialTv);
             }
@@ -249,8 +248,6 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
     public int getItemViewType(int position) {
         return (position == supplierData.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
     }
-
-
 
 
     public void add(A_CoachBookingList.DataBean r) {
@@ -310,16 +307,15 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
     }
 
 
-
     public interface onSpaceClick {
         public void getSpaceAmount(AthleteSpaceBookList.DataBeanX.DataBean dataBean);
     }
 
     public class CustomTopCoachesHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView eventImage,ti_tickets;
+        AppCompatImageView eventImage, statusImage, ti_tickets;
         RatingBar bookingRating;
-        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate,bookingTicketTv,completedRatingText;
+        MaterialTextView eventName, findPlaceDistanceTv, eventVenue, eventDate, bookingTicketTv, completedRatingText;
 
         public CustomTopCoachesHolder(@NonNull View itemView) {
             super(itemView);
@@ -331,8 +327,10 @@ public class A_BookCoachListAdapter extends RecyclerView.Adapter<A_BookCoachList
             bookingTicketTv = itemView.findViewById(R.id.bookingTicketTv);
             completedRatingText = itemView.findViewById(R.id.completedRatingText);
             bookingRating = itemView.findViewById(R.id.bookingRating);
+            statusImage = itemView.findViewById(R.id.statusImage);
         }
     }
+
     protected class LoadingVH extends CustomTopCoachesHolder {
 
         public LoadingVH(View itemView) {

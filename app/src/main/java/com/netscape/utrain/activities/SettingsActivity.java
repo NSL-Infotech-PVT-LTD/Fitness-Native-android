@@ -226,9 +226,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
-        if (getIntent().getStringExtra("stripCode") != null) {
-            getconnecteStripe(getIntent().getStringExtra("stripCode"));
-        }
+
 
     }
 
@@ -262,15 +260,28 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 //            });
 
         }
-
+        if ((!CommonMethods.getPrefData(Constants.ACCOUNTID, SettingsActivity.this).isEmpty())) {
+            binding.getConnectedWithStrip.setText("You are Connected");
+            binding.stripeArrow.setImageDrawable(getDrawable(R.drawable.ic_ti_confirm));
+        }
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("bdjbsjdgjsgd", "onActivityResult: " + data);
+        if (data != null) {
+            if (resultCode == StripeApp.RESULT_CONNECTED) {
+                if (data.getExtras() != null) {
+                    String value = (String) data.getExtras().getString("stripCode");
+
+                    getconnecteStripe(value);
+                }
+
+        }
     }
+
+}
 
 
     //    private void setProfileImage() {
@@ -364,7 +375,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 if (response.body() != null) {
 
                     if (response.body().isStatus()) {
-                        finish();
+                        binding.getConnectedWithStrip.setText("You are Connected");
+                        binding.stripeArrow.setImageDrawable(getDrawable(R.drawable.ic_ti_confirm));
                         CommonMethods.setPrefData(Constants.ACCOUNTID, response.body().getData().getStripeDetails().getAccount_id() + "", SettingsActivity.this);
                     }
                 } else {
@@ -375,10 +387,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         if (response.errorBody() != null) {
                             jObjError = new JSONObject(response.errorBody().string());
 
-                        JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
-                        String errorMsg = errorMessage.getString(0);
-                        Toast.makeText(SettingsActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
-                        }   } catch (Exception e) {
+                            JSONArray errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message");
+                            String errorMsg = errorMessage.getString(0);
+                            Toast.makeText(SettingsActivity.this, "" + errorMsg, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
                         Toast.makeText(SettingsActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
 
@@ -446,7 +459,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         if (response.body() != null) {
 
                             model = response.body().getData();
-                            Toast.makeText(SettingsActivity.this, "" + response.body().getData()+"", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingsActivity.this, "" + response.body().getData() + "", Toast.LENGTH_SHORT).show();
                             dialogMultiOrder.dismiss();
                         }
                     } else {
@@ -487,7 +500,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData()+"", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData() + "", Toast.LENGTH_SHORT).show();
                             CommonMethods.setPrefData(PrefrenceConstant.IS_NOTIFY, notify, SettingsActivity.this);
 //                            LoginManager.getInstance().logOut();
 //                            CommonMethods.clearPrefData(SettingsActivity.this);

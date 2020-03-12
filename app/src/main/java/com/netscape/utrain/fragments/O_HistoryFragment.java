@@ -113,6 +113,8 @@ public class O_HistoryFragment extends Fragment {
             coachSel.setText("Athlete");
         } else if (CommonMethods.getPrefData(PrefrenceConstant.ROLE_PLAY, context).equalsIgnoreCase(Constants.Athlete)) {
             coachSel.setText("coach");
+        } else {
+            coachSel.setVisibility(View.GONE);
         }
 //        sessionSel = view.findViewById(R.id.sessionSel);
         eventSel = view.findViewById(R.id.eventSel);

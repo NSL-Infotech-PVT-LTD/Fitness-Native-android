@@ -160,12 +160,9 @@ public class StripeActivity extends Activity {
     private void onComplete(Map<String, String> parameters) {
 
         String code = parameters.get("code");
-
-
-        Intent returnIntent = new Intent(StripeActivity.this, SettingsActivity.class);
+        Intent returnIntent = new Intent();
         returnIntent.putExtra("stripCode", code);
         setResult(StripeApp.RESULT_CONNECTED, returnIntent);
-        startActivity(returnIntent);
         finish();
     }
 
@@ -177,5 +174,6 @@ public class StripeActivity extends Activity {
         setResult(StripeApp.RESULT_ERROR, returnIntent);
         finish();
     }
+
 
 }
