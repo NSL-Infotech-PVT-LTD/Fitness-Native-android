@@ -363,6 +363,8 @@ public class AthleteHomeScreen extends AppCompatActivity {
 
                 openCloseDrawer();
 
+
+                
             }
         });
         dashboardTv.setOnClickListener(new View.OnClickListener() {
@@ -581,7 +583,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getData()+"", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), response.body().getData() + "", Toast.LENGTH_SHORT).show();
                             LoginManager.getInstance().logOut();
                             CommonMethods.clearPrefData(AthleteHomeScreen.this);
                             Intent intent = new Intent(AthleteHomeScreen.this, SignUpTypeActivity.class);
