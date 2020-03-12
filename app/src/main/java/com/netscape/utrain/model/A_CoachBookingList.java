@@ -167,6 +167,7 @@ public class A_CoachBookingList implements Serializable {
             private Object portfolio_image_4;
             private String latitude;
             private String longitude;
+            private String booking_date;
             private int id;
             private String portfolio_image;
             private List<RolesBean> roles;
@@ -330,6 +331,16 @@ public class A_CoachBookingList implements Serializable {
             public void setRoles(List<RolesBean> roles) {
                 this.roles = roles;
             }
+
+            public String getBooking_date() {
+                return booking_date;
+            }
+
+            public void setBooking_date(String booking_date) {
+                this.booking_date = booking_date;
+            }
+
+
 
             public  class RolesBean implements Serializable{
                 /**

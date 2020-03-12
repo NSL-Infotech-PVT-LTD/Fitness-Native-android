@@ -364,7 +364,7 @@ public class AthleteHomeScreen extends AppCompatActivity {
                 openCloseDrawer();
 
 
-                
+
             }
         });
         dashboardTv.setOnClickListener(new View.OnClickListener() {
