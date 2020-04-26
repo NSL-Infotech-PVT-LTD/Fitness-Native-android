@@ -16,6 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/u_train"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

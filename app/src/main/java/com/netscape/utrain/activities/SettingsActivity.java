@@ -160,6 +160,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     dialogMultiOrder.setCancelable(false);
 
 
+
+
                     changePasswordBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -455,28 +457,27 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<ChangePasswordResponse> call, Response<ChangePasswordResponse> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    if (response.body().isStatus()) {
-                        if (response.body() != null) {
-
-                            model = response.body().getData();
-                            Toast.makeText(SettingsActivity.this, "" + response.body().getData() + "", Toast.LENGTH_SHORT).show();
-                            dialogMultiOrder.dismiss();
+                        if (response.body().isStatus()) {
+                            if (response.body() != null)  {
+                                model = response.body().getData();
+                                Toast.makeText(SettingsActivity.this, "" + response.body().getData() + "", Toast.LENGTH_SHORT).show();
+                                dialogMultiOrder.dismiss();
+                            }
+                        } else {
+                            Toast.makeText(SettingsActivity.this, "" + response.body().getError().getError_message(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(SettingsActivity.this, "" + response.body().getError().getError_message(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
-                        oldPwd.setError("Please use valid old password");
-                        oldPwd.requestFocus();
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            String errorMessage = jObjError.getJSONObject("error").getJSONObject("error_message").getJSONArray("message").getString(0);
+                            oldPwd.setError("Please use valid old password");
+                            oldPwd.requestFocus();
 
-                        Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "" + errorMessage, Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
 
-                    }
+                        }
                 }
 
             }
