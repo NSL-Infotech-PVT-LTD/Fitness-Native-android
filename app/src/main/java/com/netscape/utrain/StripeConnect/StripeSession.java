@@ -31,37 +31,37 @@ public class StripeSession {
 	public void storeAccessToken(String accessToken) {
 		editor = sharedPref.edit();
 		editor.putString(API_ACCESS_TOKEN, accessToken);
-		editor.commit();
+		editor.apply();
 	}
 	
 	public void storeRefreshToken(String refreshToken) {
 		editor = sharedPref.edit();
 		editor.putString(API_REFRESH_TOKEN, refreshToken);
-		editor.commit();
+		editor.apply();
 	}
 	
 	public void storePublishableKey(String publishableKey) {
 		editor = sharedPref.edit();
 		editor.putString(API_PUBLISHABLE_KEY, publishableKey);
-		editor.commit();
+		editor.apply();
 	}
 	
 	public void storeUserid(String userId) {
 		editor = sharedPref.edit();
 		editor.putString(API_USER_ID, userId);
-		editor.commit();
+		editor.apply();
 	}	
 	
 	public void storeTokenType(String tokenType) {
 		editor = sharedPref.edit();
 		editor.putString(API_TOKEN_TYPE, tokenType);
-		editor.commit();
+		editor.apply();
 	}
 	
 	public void storeLiveMode(boolean liveMode) {
 		editor = sharedPref.edit();
 		editor.putBoolean(API_LIVE_MODE, liveMode);
-		editor.commit();
+		editor.apply();
 	}
 
 	public String getAccessToken() {
@@ -97,7 +97,7 @@ public class StripeSession {
 		editor.remove(API_TOKEN_TYPE);
 		editor.remove(API_LIVE_MODE);
 		editor.clear();
-		editor.commit();
+		editor.apply();
 	}
 
 }

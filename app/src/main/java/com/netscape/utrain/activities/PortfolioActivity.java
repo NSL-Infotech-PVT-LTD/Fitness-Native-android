@@ -510,6 +510,9 @@ public class PortfolioActivity extends AppCompatActivity implements View.OnClick
                         setImages = photoFile.getPath();
                     }
                     setPortfolioImages();
+
+
+
                 } /*else {
 //                    Toast.makeText(AthleteSignupActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }*/

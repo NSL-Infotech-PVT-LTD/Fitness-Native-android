@@ -102,7 +102,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private String endTime = "";
     private Date strDate = null;
     private Date stDate = null;
-    private Date endDate = null;
+    private Date
+            endDate = null;
     private O_EventDataModel data;
     private Date eventEndTime, eventSTime;
 
@@ -600,6 +601,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             public void onResponse(Call<OrgCreateEventResponse> call, Response<OrgCreateEventResponse> response) {
                 if (response.isSuccessful()) {
                     progressDialog.dismiss();
+
+
                     if (response.body().isStatus()) {
                         if (response.body().getData() != null) {
                             PortfolioActivity.clearFromConstants();

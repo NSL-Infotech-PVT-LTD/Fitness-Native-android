@@ -278,10 +278,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     getconnecteStripe(value);
                 }
 
+            }
         }
-    }
 
-}
+    }
 
 
     //    private void setProfileImage() {
@@ -453,6 +453,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         changePasswordCall.enqueue(new Callback<ChangePasswordResponse>() {
             @Override
             public void onResponse(Call<ChangePasswordResponse> call, Response<ChangePasswordResponse> response) {
+                dialogMultiOrder.dismiss();
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
                     if (response.body().isStatus()) {
@@ -484,6 +485,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onFailure(Call<ChangePasswordResponse> call, Throwable t) {
 
+                dialogMultiOrder.dismiss();
                 progressDialog.dismiss();
 
             }

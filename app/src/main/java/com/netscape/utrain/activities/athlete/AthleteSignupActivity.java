@@ -563,6 +563,7 @@ public class AthleteSignupActivity extends AppCompatActivity implements View.OnC
         }
         if (requestCode == Constants.WRITE_PERMISSION) {
             /*detects whether write permission is given*/
+
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 /*if permission than takes permission for camera to capture*/
                 askRequiredPermission();

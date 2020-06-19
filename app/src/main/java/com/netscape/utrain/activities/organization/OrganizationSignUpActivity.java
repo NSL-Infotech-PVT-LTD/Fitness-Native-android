@@ -337,7 +337,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
 
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrganizationSignUpActivity.this,
-                       R.layout.common_text_view,R.id.textCommon, list);
+                        R.layout.common_text_view, R.id.textCommon, list);
                 recyclerView.setAdapter(adapter);
                 mBottomSheetDialog.setContentView(sheetView);
                 mBottomSheetDialog.show();
@@ -682,7 +682,12 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgProfessionType = binding.orgProfessionType.getText().toString().trim();
         orgDataModel.setProfessionType(orgProfessionType);
         orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
+        String split[] = orgExpertise.split(" ");
+        if (split.length > 0) {
+            orgExpertise = split[0];
+        }
         orgDataModel.setExpertise_years(orgExpertise);
+
         orgExpDetail = binding.orgExperienceDetailEdt.getText().toString().trim();
         orgDataModel.setExperienceDetail(orgExpDetail);
         orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString().trim();

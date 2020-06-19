@@ -84,9 +84,12 @@ public class TabLayoutEx extends TabLayout {
             LinearLayout tabIndicator = (LinearLayout) tabStrip.get(this);
             int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthDp, Resources.getSystem().getDisplayMetrics());
             //avoid add preDrawListener multi times
-            tabIndicator.getViewTreeObserver().removeOnPreDrawListener(defPreDrawListener);
-            tabIndicator.getViewTreeObserver().addOnPreDrawListener(defPreDrawListener);
-            defPreDrawListener.setTabStrip(tabIndicator, width);
+            if (tabIndicator != null) {
+                tabIndicator.getViewTreeObserver().removeOnPreDrawListener(defPreDrawListener);
+                tabIndicator.getViewTreeObserver().addOnPreDrawListener(defPreDrawListener);
+                defPreDrawListener.setTabStrip(tabIndicator, width);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
