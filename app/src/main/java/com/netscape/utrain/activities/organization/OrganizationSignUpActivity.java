@@ -1,20 +1,6 @@
 package com.netscape.utrain.activities.organization;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -48,6 +34,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.databinding.DataBindingUtil;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,31 +58,18 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textview.MaterialTextView;
 import com.iceteck.silicompressorr.SiliCompressor;
 import com.netscape.utrain.BuildConfig;
-import com.netscape.utrain.MainActivity;
-import com.netscape.utrain.PortfolioImagesConstants;
 import com.netscape.utrain.R;
 import com.netscape.utrain.activities.AskPermission;
-import com.netscape.utrain.activities.HelpAndSupport;
-import com.netscape.utrain.activities.LoginActivity;
 import com.netscape.utrain.activities.PortfolioActivity;
-import com.netscape.utrain.activities.SelectedServiceList;
-import com.netscape.utrain.activities.ServicePriceActivity;
-import com.netscape.utrain.activities.ViewCoachStaffListActivity;
-import com.netscape.utrain.activities.athlete.AthleteSignupActivity;
 import com.netscape.utrain.activities.athlete.ChooseSportActivity;
 import com.netscape.utrain.activities.coach.CoachDashboard;
-import com.netscape.utrain.activities.coach.CoachSignupActivity;
-import com.netscape.utrain.adapters.SelectServiceSpinnerAdapter;
 import com.netscape.utrain.databinding.ActivityOrganizationSignUpBinding;
-import com.netscape.utrain.model.OrgSpinnerCheckBoxModel;
 import com.netscape.utrain.model.OrgUserDataModel;
 import com.netscape.utrain.model.ViewCoachListDataModel;
 import com.netscape.utrain.response.CoachSignUpResponse;
 import com.netscape.utrain.response.EmailCheckResponse;
-import com.netscape.utrain.response.HelpAndSupportResponse;
 import com.netscape.utrain.response.OrgSignUpResponse;
 import com.netscape.utrain.retrofit.RetrofitInstance;
 import com.netscape.utrain.retrofit.Retrofitinterface;
@@ -102,16 +84,11 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Objects;
 
@@ -346,6 +323,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         mBottomSheetDialog.dismiss();
 
+
                         binding.orgExperienceEdt.setText(parent.getItemAtPosition(position) + "");
                     }
                 });
@@ -387,7 +365,8 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgProfessionType = binding.orgProfessionType.getText().toString().trim();
         viewCoachListDataModel.setProfession(orgProfessionType);
         orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
-        viewCoachListDataModel.setExpertise_years(orgExpertise);
+        String[] separated = orgExpertise.split(" ");
+        viewCoachListDataModel.setExpertise_years(separated[0]);
         orgExpDetail = binding.orgExperienceDetailEdt.getText().toString().trim();
         viewCoachListDataModel.setExperience_detail(orgExpDetail);
         orgTrainingDetail = binding.orgTrainingDetailEdt.getText().toString().trim();
@@ -682,11 +661,15 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgProfessionType = binding.orgProfessionType.getText().toString().trim();
         orgDataModel.setProfessionType(orgProfessionType);
         orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
+
         String split[] = orgExpertise.split(" ");
         if (split.length > 0) {
             orgExpertise = split[0];
         }
         orgDataModel.setExpertise_years(orgExpertise);
+
+
+       // orgDataModel.setExpertise_years(orgExpertise);
 
         orgExpDetail = binding.orgExperienceDetailEdt.getText().toString().trim();
         orgDataModel.setExperienceDetail(orgExpDetail);
