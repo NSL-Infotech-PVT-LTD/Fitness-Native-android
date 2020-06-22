@@ -662,7 +662,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity implements Vie
         orgDataModel.setProfessionType(orgProfessionType);
         orgExpertise = binding.orgExperienceEdt.getText().toString().trim();
 
-        
+
         String split[] = orgExpertise.split(" ");
         if (split.length > 0) {
             orgExpertise = split[0];
